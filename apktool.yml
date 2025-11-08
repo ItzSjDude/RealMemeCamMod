@@ -1,0 +1,90 @@
+!!brut.androlib.meta.MetaInfo
+apkFileName: opxf1.apk
+compressionType: false
+doNotCompress:
+- resources.arsc
+- lib/arm64-v8a/libst_sticker.so
+- lib/arm64-v8a/lib3DPhotoMesh.so
+- lib/arm64-v8a/libJniMetaTransform.so
+- lib/arm64-v8a/libmpbase.so
+- lib/arm64-v8a/libYuvUtil.so
+- lib/arm64-v8a/libjni_burstpmk.so
+- lib/arm64-v8a/libjni_wideselfie.so
+- lib/arm64-v8a/libNvStreamingSdkCore.so
+- lib/arm64-v8a/libcommon.so
+- lib/arm64-v8a/libTiltShiftPre.so
+- lib/arm64-v8a/libsingle_camera_bokeh_native.so
+- lib/arm64-v8a/libGradienterNativeLib.so
+- lib/arm64-v8a/libarcsoft_wideselfie.so
+- lib/arm64-v8a/libc++_shared.so
+- lib/arm64-v8a/libIccProfileJni.so
+- lib/arm64-v8a/libffmpegJNI.so
+- lib/arm64-v8a/lib2DSlender.so
+- lib/arm64-v8a/libXDocProcess.so
+- lib/arm64-v8a/libFormatConverter.so
+- lib/arm64-v8a/libst_sticker_jni.so
+- lib/arm64-v8a/libtouchless_a3d.so
+- lib/arm64-v8a/libAvatarEngineRenderNative.so
+- lib/arm64-v8a/libgav1JNI.so
+- lib/arm64-v8a/libApsTiltShifPreviewJni.so
+- lib/arm64-v8a/libAvatarEngineRender.so
+- lib/arm64-v8a/libjpeg.so
+- lib/arm64-v8a/liblicense-checker-jni.so
+- lib/arm64-v8a/librtmp-jni.so
+- lib/arm64-v8a/libApsFaceBeautyPreviewJni.so
+- lib/arm64-v8a/libarcsoft_panorama_burstcapture.so
+- lib/arm64-v8a/libAncFilter_jni.so
+- lib/arm64-v8a/libarcsoft_gpuvideobokeh_advanced.so
+- lib/arm64-v8a/libYTCommon.so
+- lib/arm64-v8a/libffmpeg.so
+- lib/arm64-v8a/libtouchless_a3d_jni.so
+- lib/arm64-v8a/libpreview_show.so
+- png
+- ogg
+- mp4
+- gif
+- jpg
+- assets/meicam.lic
+- assets/9403-322-6dd69a7f2c6c8d1bbd304bd35a8a543b.lic
+- assets/M_SenseME_Action_5.2.12.model
+isFrameworkApk: false
+packageInfo:
+  forcedPackageId: '127'
+  renameManifestPackage: null
+sdkInfo:
+  minSdkVersion: '30'
+  targetSdkVersion: '30'
+sharedLibrary: false
+sparseResources: false
+unknownFiles:
+  DebugProbesKt.bin: '8'
+  LICENSE-junit.txt: '8'
+  junit/runner/logo.gif: '0'
+  junit/runner/smalllogo.gif: '0'
+  com/arcsoft/camera/burstpmk/YuvToRgb.rs: '8'
+  com/oplus/camera/watch/proto/WatchAgentProto.proto: '8'
+  com/oplus/gallery/bitmap/ICameraTransBitmap.aidl: '8'
+  com/oplus/gallery/predecode/IPreDecode.aidl: '8'
+  com/oplusos/sau/aidl/AppUpdateInfo.aidl: '8'
+  com/oplusos/sau/aidl/DataresUpdateInfo.aidl: '8'
+  google/protobuf/any.proto: '8'
+  google/protobuf/api.proto: '8'
+  google/protobuf/descriptor.proto: '8'
+  google/protobuf/duration.proto: '8'
+  google/protobuf/empty.proto: '8'
+  google/protobuf/field_mask.proto: '8'
+  google/protobuf/source_context.proto: '8'
+  google/protobuf/struct.proto: '8'
+  google/protobuf/timestamp.proto: '8'
+  google/protobuf/type.proto: '8'
+  google/protobuf/wrappers.proto: '8'
+  google/protobuf/compiler/plugin.proto: '8'
+  okhttp3/internal/publicsuffix/publicsuffixes.gz: '8'
+usesFramework:
+  ids:
+  - 1
+  tag: null
+version: 2.7.0-dirty
+versionInfo:
+  versionCode: '40028'
+  versionName: 3.411.26

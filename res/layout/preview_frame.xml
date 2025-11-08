@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.oplus.camera.ui.preview.PreviewFrameLayout android:id="@id/frame_layout" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@id/control_panel_layout" android:layout_below="@id/camera_setting_bar_placeholder" android:layoutDirection="ltr"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.oplus.camera.ui.preview.FaceView android:id="@id/face_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.oplus.camera.ui.preview.MultiFocusView android:id="@id/multi_focus_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</com.oplus.camera.ui.preview.PreviewFrameLayout>

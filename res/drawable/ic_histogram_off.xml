@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:name="vector" android:height="24.0dip" android:width="24.0dip" android:viewportWidth="24.0" android:viewportHeight="24.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:name="path_width" android:pathData="M 4 5 C 4 4.448 4.448 4 5 4 L 19 4 C 19.552 4 20 4.448 20 5 L 20 19 C 20 19.552 19.552 20 19 20 L 4 20 L 4 5 Z" android:strokeColor="@color/camera_white" android:strokeWidth="1.57" />
+    <path android:name="path_width_1" android:pathData="M 8 17 L 8 13" android:strokeColor="@color/camera_white" android:strokeWidth="2.0" />
+    <path android:name="path_width_2" android:pathData="M 12 17 L 12 7" android:strokeColor="@color/camera_white" android:strokeWidth="2.0" />
+    <path android:name="path_width_3" android:pathData="M 16 17 L 16 10" android:strokeColor="@color/camera_white" android:strokeWidth="2.0" />
+</vector>

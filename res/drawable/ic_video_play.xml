@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:name="player_pause" android:height="22.0dip" android:width="22.0dip" android:viewportWidth="22.0" android:viewportHeight="22.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ffffffff" android:pathData="M16.1139 10.2915C16.6292 10.6288 16.6292 11.3725 16.1139 11.7098L8.13282 16.9359C7.55614 17.3136 6.78369 16.9075 6.78369 16.2268L6.78369 5.77455C6.78369 5.09379 7.55614 4.68774 8.13282 5.06536L16.1139 10.2915Z" />
+</vector>

@@ -1,0 +1,114 @@
+.class Lcom/oplus/camera/ui/beauty3d/d$2;
+.super Lcom/oplus/camera/ui/beauty3d/d$d;
+.source "Beauty3DEditUI.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/oplus/camera/ui/beauty3d/d;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic a:Lcom/oplus/camera/ui/beauty3d/d;
+
+
+# direct methods
+.method constructor <init>(Lcom/oplus/camera/ui/beauty3d/d;)V
+    .locals 1
+
+    .line 208
+    iput-object p1, p0, Lcom/oplus/camera/ui/beauty3d/d$2;->a:Lcom/oplus/camera/ui/beauty3d/d;
+
+    const/4 v0, 0x0
+
+    invoke-direct {p0, p1, v0}, Lcom/oplus/camera/ui/beauty3d/d$d;-><init>(Lcom/oplus/camera/ui/beauty3d/d;Lcom/oplus/camera/ui/beauty3d/d$1;)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public a(Landroid/view/View;I)V
+    .locals 1
+
+    .line 211
+    new-instance p1, Ljava/lang/StringBuilder;
+
+    invoke-direct {p1}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v0, "onItemClick, position: "
+
+    invoke-virtual {p1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p1, p2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
+
+    invoke-virtual {p1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object p1
+
+    const-string v0, "Beauty3DEditUI"
+
+    invoke-static {v0, p1}, Lcom/oplus/camera/e;->a(Ljava/lang/String;Ljava/lang/String;)V
+
+    .line 213
+    iget-object p1, p0, Lcom/oplus/camera/ui/beauty3d/d$2;->a:Lcom/oplus/camera/ui/beauty3d/d;
+
+    invoke-static {p1}, Lcom/oplus/camera/ui/beauty3d/d;->d(Lcom/oplus/camera/ui/beauty3d/d;)V
+
+    if-eqz p2, :cond_3
+
+    const/4 p1, 0x1
+
+    if-eq p2, p1, :cond_2
+
+    const/4 p1, 0x2
+
+    if-eq p2, p1, :cond_1
+
+    const/4 p1, 0x3
+
+    if-eq p2, p1, :cond_0
+
+    goto :goto_0
+
+    .line 229
+    :cond_0
+    iget-object p0, p0, Lcom/oplus/camera/ui/beauty3d/d$2;->a:Lcom/oplus/camera/ui/beauty3d/d;
+
+    invoke-virtual {p0, p1}, Lcom/oplus/camera/ui/beauty3d/d;->b(I)V
+
+    goto :goto_0
+
+    .line 225
+    :cond_1
+    iget-object p0, p0, Lcom/oplus/camera/ui/beauty3d/d$2;->a:Lcom/oplus/camera/ui/beauty3d/d;
+
+    invoke-virtual {p0, p1}, Lcom/oplus/camera/ui/beauty3d/d;->b(I)V
+
+    goto :goto_0
+
+    .line 221
+    :cond_2
+    iget-object p0, p0, Lcom/oplus/camera/ui/beauty3d/d$2;->a:Lcom/oplus/camera/ui/beauty3d/d;
+
+    invoke-virtual {p0, p1}, Lcom/oplus/camera/ui/beauty3d/d;->b(I)V
+
+    goto :goto_0
+
+    .line 217
+    :cond_3
+    iget-object p0, p0, Lcom/oplus/camera/ui/beauty3d/d$2;->a:Lcom/oplus/camera/ui/beauty3d/d;
+
+    const/4 p1, 0x0
+
+    invoke-virtual {p0, p1}, Lcom/oplus/camera/ui/beauty3d/d;->b(I)V
+
+    :goto_0
+    return-void
+.end method

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center_horizontal" android:id="@id/fast_video_layout" android:layout_width="@dimen/common_bottom_guide_common_image_width" android:layout_height="@dimen/common_bottom_guide_common_image_height"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.oplus.camera.ui.widget.TextureVideoView android:id="@id/videoView" android:layout_width="@dimen/common_bottom_guide_common_image_width" android:layout_height="@dimen/common_bottom_guide_common_image_height" />
+    <androidx.appcompat.widget.AppCompatImageView android:id="@id/iv_video_thumb" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerCrop" />
+</FrameLayout>

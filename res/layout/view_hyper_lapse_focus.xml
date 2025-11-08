@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.oplus.camera.ui.preview.HyperLapseFocusView android:id="@id/hyper_lapse_focus_view" android:visibility="gone" android:layout_width="@dimen/video_hyper_lapse_focus_width" android:layout_height="@dimen/video_hyper_lapse_focus_height" android:src="@drawable/hyper_lapse_focus"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

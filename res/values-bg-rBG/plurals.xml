@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="camera_shooting_reference_delete_item">
+        <item quantity="other">Изтриване на %1$d елемента</item>
+        <item quantity="one">Изтриване на %1$d елемент</item>
+    </plurals>
+    <plurals name="camera_shooting_reference_select_item">
+        <item quantity="other">%1$d избрани</item>
+        <item quantity="one">%1$d избрани</item>
+    </plurals>
+    <plurals name="red_dot_with_number_description">
+        <item quantity="other">%d нови известия</item>
+        <item quantity="one">%d ново известие</item>
+    </plurals>
+    <plurals name="sticker_recycle_bin_title_has_selected">
+        <item quantity="other">%1$d избрани стикера</item>
+        <item quantity="one">Избран е %1$d стикер</item>
+    </plurals>
+    <plurals name="sticker_recycle_item_bin_title_has_selected">
+        <item quantity="other">%1$d избрани</item>
+        <item quantity="one">%1$d избран</item>
+    </plurals>
+</resources>

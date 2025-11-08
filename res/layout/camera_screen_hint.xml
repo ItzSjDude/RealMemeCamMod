@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.oplus.camera.ui.camerascreenhint.CameraScreenHintView android:id="@id/camera_screen_hint_panel" android:clipChildren="false" android:layout_width="wrap_content" android:layout_height="wrap_content" app:horizontal_margin_top="@dimen/camera_hint_margin" app:horizontal_margin_top_crosswise="@dimen/camera_hint_margin_crosswise" app:vertical_margin_left_right="10.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.oplus.camera.ui.RotateImageView android:id="@id/camera_screen_hint_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.oplus.camera.ui.menu.OplusTextView android:id="@id/camera_screen_aux_hint_text" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/ScreenHintStyle" />
+    <com.oplus.camera.ui.menu.OplusTextView android:id="@id/camera_screen_hint_text" android:layout_width="wrap_content" android:layout_height="wrap_content" style="@style/ScreenHintStyle" />
+</com.oplus.camera.ui.camerascreenhint.CameraScreenHintView>

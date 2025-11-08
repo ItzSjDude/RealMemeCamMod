@@ -1,0 +1,46 @@
+.class public final synthetic Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;
+.super Ljava/lang/Object;
+.source "lambda"
+
+# interfaces
+.implements Lcom/oplus/camera/screen/c$a;
+
+
+# instance fields
+.field private final synthetic f$0:Landroid/app/Activity;
+
+.field private final synthetic f$1:I
+
+.field private final synthetic f$2:I
+
+
+# direct methods
+.method public synthetic constructor <init>(Landroid/app/Activity;II)V
+    .locals 0
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    iput-object p1, p0, Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;->f$0:Landroid/app/Activity;
+
+    iput p2, p0, Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;->f$1:I
+
+    iput p3, p0, Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;->f$2:I
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final call(Landroid/view/View;)V
+    .locals 2
+
+    iget-object v0, p0, Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;->f$0:Landroid/app/Activity;
+
+    iget v1, p0, Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;->f$1:I
+
+    iget p0, p0, Lcom/oplus/camera/screen/b/-$$Lambda$b$psDyPbhOpNS9vM2hrLp5KWtNY5A;->f$2:I
+
+    invoke-static {v0, v1, p0, p1}, Lcom/oplus/camera/screen/b/b;->lambda$psDyPbhOpNS9vM2hrLp5KWtNY5A(Landroid/app/Activity;IILandroid/view/View;)V
+
+    return-void
+.end method

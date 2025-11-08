@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="24.0dip" android:width="24.0dip" android:autoMirrored="true" android:viewportWidth="24.0" android:viewportHeight="24.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="?couiTintControlNormal" android:pathData="M12,12m-9.665,0a9.665,9.665 0,1 1,19.33 0a9.665,9.665 0,1 1,-19.33 0" android:strokeColor="?couiBtnPartCheckInnerColorOnDisabled" android:strokeWidth="1.33" />
+    <path android:fillColor="?couiBtnPartCheckInnerColorOnDisabled" android:pathData="M10.5653,14.1969L16.515,8.2472L17.4431,9.1753L11.0293,15.589C10.773,15.8453 10.3575,15.8453 10.1012,15.589L6.89,12.3778L7.8181,11.4497L10.5653,14.1969Z" android:fillType="evenOdd" />
+</vector>

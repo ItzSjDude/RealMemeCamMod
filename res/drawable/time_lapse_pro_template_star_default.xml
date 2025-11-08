@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="4.0dip" android:bottom="4.0dip" android:start="4.0dip" android:end="4.0dip">
+        <layer-list>
+            <item android:drawable="@drawable/time_lapse_pro_template_star" />
+        </layer-list>
+    </item>
+    <item android:drawable="@drawable/time_lapse_pro_template_default" />
+</layer-list>
