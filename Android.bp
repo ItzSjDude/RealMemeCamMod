@@ -1,0 +1,930 @@
+// Auto-generated Android.bp for Realmeme Camera Mod
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_hdr_denoise_api",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_hdr_denoise_api.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_hdr_denoise_api.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libarcsoft_high_dynamic_range",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libarcsoft_smart_denoise",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_uw",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_uw.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libstfaceunlockocl",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libstfaceunlockocl.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libc",
+        "libdl",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libAlgoProcess",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libAlgoProcess.so"] },
+        lib32: { srcs: ["odm/lib/libAlgoProcess.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libdl",
+        "libion",
+        "libnativewindow",
+        "libutils",
+        "vendor.qti.hardware.camera.postproc@1.0",
+        "libc++",
+        "libc",
+        "libormshalclient",
+        "libGLESv3",
+        "libhidlbase",
+        "libcutils",
+        "vendor.oplus.hardware.orms@1.0",
+        "libmpbase",
+        "libapsexif",
+        "libapsjpeg",
+        "libEGL",
+        "libqdMetaData",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_hdr_couple_api",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_hdr_couple_api.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libarcsoft_high_dynamic_range_couple",
+        "libc",
+        "libdl",
+        "libarcsoft_smart_denoise",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_bokeh_frt_api",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_bokeh_frt_api.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_low_light_hdr",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_low_light_hdr.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_low_light_hdr.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_frc",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_frc.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libc",
+        "libdl",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_frt_image",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_frt_image.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_super_night_raw",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_super_night_raw.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libcdsprpc",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libAlgoInterface",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libAlgoInterface.so"] },
+        lib32: { srcs: ["odm/lib/libAlgoInterface.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libutils",
+        "libapsjpeg",
+        "libcutils",
+        "vendor.qti.hardware.camera.postproc@1.0",
+        "libc++",
+        "libAlgoProcess",
+        "libm",
+        "libion",
+        "libmpbase",
+        "libEGL",
+        "libc",
+        "libdl",
+        "libqdMetaData",
+        "libGLESv3",
+        "libhidlbase",
+        "libapsexif",
+        "libnativewindow",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_high_dynamic_range",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_high_dynamic_range.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_high_dynamic_range.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_right",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_right.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_hdrplus_hvx_stub",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_hdrplus_hvx_stub.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libcdsprpc",
+        "libc",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_scbokeh_video",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_scbokeh_video.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_scbokeh_video.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_smart_denoise",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_smart_denoise.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_smart_denoise.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libstdc++",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_portrait_super_night_raw",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_portrait_super_night_raw.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libcdsprpc",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libstface_fd_api",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libstface_fd_api.so"] },
+        lib32: { srcs: ["odm/lib/libstface_fd_api.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libdl",
+        "libc",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "liboplus_service",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/liboplus_service.so"] },
+        lib32: { srcs: ["odm/lib/liboplus_service.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libutils",
+        "libcutils",
+        "android.hardware.sensors@2.0-ScopedWakelock",
+        "libprotobuf-cpp-lite-3.9.1",
+        "libsensorslog",
+        "libc++",
+        "libm",
+        "libsnsapi",
+        "libssc",
+        "libsnsdiaglog",
+        "libc",
+        "libdl",
+        "libhidltransport",
+        "libhidlbase",
+        "libhardware",
+        "android.hardware.sensors@2.0",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_bokeh_api",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_bokeh_api.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_portraitSN_hvx_stub",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_portraitSN_hvx_stub.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libcdsprpc",
+        "libc",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libmegface",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libmegface.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libdl",
+        "liblog",
+        "libc",
+        "libm",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_frt_preview",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_frt_preview.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libcdsprpc",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_frt_uw",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_frt_uw.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_high_dynamic_range_couple",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_high_dynamic_range_couple.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_left",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_left.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_distortion_correction",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_distortion_correction.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_distortion_correction.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libOpenCL",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_lensstaindetection",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_lensstaindetection.so"] },
+        lib32: { srcs: ["odm/lib/libarcsoft_lensstaindetection.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_preview",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_dualcam_refocus_preview.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "libcdsprpc",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_scbokeh_image",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libarcsoft_scbokeh_image.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libmpbase",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_portraitSN_hvx_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["odm/lib/libarcsoft_portraitSN_hvx_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libfastcvadsp",
+        "libdspCV_skel",
+        "libgcc",
+        "libc",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["odm/lib/libarcsoft_dualcam_refocus_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libfastcvadsp",
+        "libdspCV_skel",
+        "libgcc",
+        "libc",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_portraitsn_hvx_5221_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["odm/lib/libarcsoft_portraitsn_hvx_5221_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libfastcvadsp",
+        "libdspCV_skel",
+        "libgcc",
+        "libc",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_hdrplus_hvx_5221_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["odm/lib/libarcsoft_hdrplus_hvx_5221_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libfastcvadsp",
+        "libdspCV_skel",
+        "libgcc",
+        "libc",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_dualcam_refocus_5221_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["odm/lib/libarcsoft_dualcam_refocus_5221_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libfastcvadsp",
+        "libdspCV_skel",
+        "libgcc",
+        "libc",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libarcsoft_hdrplus_hvx_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["odm/lib/libarcsoft_hdrplus_hvx_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libfastcvadsp",
+        "libdspCV_skel",
+        "libgcc",
+        "libc",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libcamera_nn_stub",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["vendor/lib64/libcamera_nn_stub.so"] },
+        lib32: { srcs: ["vendor/lib/libcamera_nn_stub.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    vendor: true,
+    shared_libs: [
+        "libqmi_cci",
+        "libqmi_common_so",
+        "libcutils",
+        "libc++",
+        "libm",
+        "libsnsapi",
+        "libc",
+        "libdl",
+        "libqdMetaData",
+        "libqmi_encdec",
+        "libprotobuf-cpp-full-3.9.1",
+        "libcdsprpc",
+        "libhardware",
+        "liblog",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libcamera_nn_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["vendor/lib/libcamera_nn_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    vendor: true,
+    shared_libs: [
+        "libgcc",
+        "libc",
+    ],
+}
+
+prebuilt_etc {
+    name: "projectname",
+    src: "odm/etc/camera/config/projectname",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "video_beauty_default_config",
+    src: "odm/etc/camera/config/video_beauty_default_config",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "imx682",
+    src: "odm/etc/camera/config/imx682",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "gc02k0",
+    src: "odm/etc/camera/config/gc02k0",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "oplus_camera_algo_switch_config",
+    src: "odm/etc/camera/config/oplus_camera_algo_switch_config",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "ov02b",
+    src: "odm/etc/camera/config/ov02b",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "ov32a1q",
+    src: "odm/etc/camera/config/ov32a1q",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "hi846",
+    src: "odm/etc/camera/config/hi846",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "oplus_camera_config",
+    src: "odm/etc/camera/config/oplus_camera_config",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "camera_unit_config",
+    src: "odm/etc/camera/config/camera_unit_config",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+prebuilt_etc {
+    name: "oplus_camera_aps_config",
+    src: "odm/etc/camera/config/oplus_camera_aps_config",
+    sub_dir: "camera/config",
+    filename_from_src: true,
+    device_specific: true,
+}
+
+
+// --- Executable Daemon: ORMS Hal Service ---
+cc_prebuilt_binary {
+    name: "vendor.oplus.hardware.orms.ormsHalService@1.0-service",
+    srcs: ["odm/bin/hw/vendor.oplus.hardware.orms.ormsHalService@1.0-service"],
+    init_rc: ["odm/etc/init/vendor.oplus.hardware.orms.ormsHalService@1.0-service.rc"],
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "liblog",
+        "libutils",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "vendor.oplus.hardware.orms@1.0",
+    ],
+}
+
