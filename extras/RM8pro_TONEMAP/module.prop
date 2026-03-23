@@ -1,6 +1,0 @@
-id=oplus_pf_vendor_set
-name=Oplus PF PerfectColorSet Vendor Mount
-version=1.0
-versionCode=1
-author=Codex
-description=Mounts PerfectColorSet on /vendor and ensures /odm symlink for Oplus camera PF init.
