@@ -185,4 +185,6 @@ PRODUCT_COPY_FILES += \
     vendor/realmeme_cam_mod/extras/RM8pro_TONEMAP/system/vendor/etc/camera/pf/PerfectColorSet/portrait/platformSet.ini:$(TARGET_COPY_OUT_ODM)/etc/camera/pf/PerfectColorSet/portrait/platformSet.ini \
     vendor/realmeme_cam_mod/extras/RM8pro_TONEMAP/system/vendor/etc/camera/pf/PerfectColorSet/portrait/curveLut16:$(TARGET_COPY_OUT_ODM)/etc/camera/pf/PerfectColorSet/portrait/curveLut16 \
 
+    vendor/realmeme_cam_mod/extras/RM8pro_TONEMAP/system/odm/lib64/libPerfectColor.so:$(TARGET_COPY_OUT_ODM)/lib64/libPerfectColor.so \
+
 endif
