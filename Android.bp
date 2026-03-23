@@ -63,39 +63,39 @@ cc_prebuilt_library_shared {
     ],
 }
 
-/*
-cc_prebuilt_library_shared {
-    name: "libAlgoProcess",
-    owner: "oplus",
-    strip: { none: true },
-    multilib: {
-        lib64: { srcs: ["odm/lib64/libAlgoProcess.so"] },
-        lib32: { srcs: ["odm/lib/libAlgoProcess.so"] },
-    },
-    compile_multilib: "both",
-    check_elf_files: false,
-    prefer: true,
-    device_specific: true,
-    shared_libs: [
-        "libm",
-        "libdl",
-        "libion",
-        "libnativewindow",
-        "libutils",
-        "vendor.qti.hardware.camera.postproc@1.0",
-        "libc++",
-        "libc",
-        "libGLESv3",
-        "libhidlbase",
-        "libcutils",
-        "vendor.oplus.hardware.orms@1.0",
-        "libmpbase",
-        "libEGL",
-        "libqdMetaData",
-        "liblog",
-    ],
-}
-*/
+
+//cc_prebuilt_library_shared {
+    //name: "libAlgoProcess",
+    //owner: "oplus",
+    //strip: { none: true },
+    //multilib: {
+        //lib64: { srcs: ["odm/lib64/libAlgoProcess.so"] },
+        //lib32: { srcs: ["odm/lib/libAlgoProcess.so"] },
+    //},
+    //compile_multilib: "both",
+    //check_elf_files: false,
+    //prefer: true,
+    //device_specific: true,
+    //shared_libs: [
+        //"libm",
+        //"libdl",
+        //"libion",
+        //"libnativewindow",
+        //"libutils",
+        //"vendor.qti.hardware.camera.postproc@1.0",
+        //"libc++",
+        //"libc",
+        //"libGLESv3",
+        //"libhidlbase",
+        //"libcutils",
+        //"vendor.oplus.hardware.orms@1.0",
+        //"libmpbase",
+        //"libEGL",
+        //"libqdMetaData",
+        //"liblog",
+    //],
+//}
+
 
 cc_prebuilt_library_shared {
     name: "libarcsoft_hdr_couple_api",
@@ -223,39 +223,39 @@ cc_prebuilt_library_shared {
     ],
 }
 
-/*
-cc_prebuilt_library_shared {
-    name: "libAlgoInterface",
-    owner: "oplus",
-    strip: { none: true },
-    multilib: {
-        lib64: { srcs: ["odm/lib64/libAlgoInterface.so"] },
-        lib32: { srcs: ["odm/lib/libAlgoInterface.so"] },
-    },
-    compile_multilib: "both",
-    check_elf_files: false,
-    prefer: true,
-    device_specific: true,
-    shared_libs: [
-        "libutils",
-        "libcutils",
-        "vendor.qti.hardware.camera.postproc@1.0",
-        "libc++",
-        "libAlgoProcess",
-        "libm",
-        "libion",
-        "libmpbase",
-        "libEGL",
-        "libc",
-        "libdl",
-        "libqdMetaData",
-        "libGLESv3",
-        "libhidlbase",
-        "libnativewindow",
-        "liblog",
-    ],
-}
-*/
+
+//cc_prebuilt_library_shared {
+    //name: "libAlgoInterface",
+    //owner: "oplus",
+    //strip: { none: true },
+    //multilib: {
+        //lib64: { srcs: ["odm/lib64/libAlgoInterface.so"] },
+        //lib32: { srcs: ["odm/lib/libAlgoInterface.so"] },
+    //},
+    //compile_multilib: "both",
+    //check_elf_files: false,
+    //prefer: true,
+    //device_specific: true,
+    //shared_libs: [
+        //"libutils",
+        //"libcutils",
+        //"vendor.qti.hardware.camera.postproc@1.0",
+        //"libc++",
+        //"libAlgoProcess",
+        //"libm",
+        //"libion",
+        //"libmpbase",
+        //"libEGL",
+        //"libc",
+        //"libdl",
+        //"libqdMetaData",
+        //"libGLESv3",
+        //"libhidlbase",
+        //"libnativewindow",
+        //"liblog",
+    //],
+//}
+
 
 cc_prebuilt_library_shared {
     name: "libarcsoft_high_dynamic_range",
