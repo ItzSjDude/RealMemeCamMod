@@ -1005,6 +1005,9 @@ java_library {
         "oplus_framework/src/**/*.aidl",
         "oplus_framework/src/**/*.java",
     ],
+    aidl: {
+        local_include_dirs: ["oplus_framework/src"],
+    },
     installable: true,
     compile_dex: true,
 }
