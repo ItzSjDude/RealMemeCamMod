@@ -975,7 +975,6 @@ cc_prebuilt_library_shared {
     prefer: true,
     device_specific: true,
 }
-\n
 // --- Stub Modules for Bootclasspath ---
 java_library {
     name: "oplus-framework",
