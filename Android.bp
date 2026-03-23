@@ -937,7 +937,6 @@ java_import {
     compile_dex: true,
     prefer: true,
 }
-\n
 // --- Missing Prebuilts ---
 cc_prebuilt_library_shared {
     name: "libmpbase",
@@ -980,7 +979,6 @@ cc_prebuilt_library_shared {
     prefer: true,
     device_specific: true,
 }
-\n
 // --- Hexagon ADSP Prebuilts ---
 cc_prebuilt_library_shared {
     name: "libdspCV_skel",
