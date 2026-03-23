@@ -993,3 +993,11 @@ java_library {
     srcs: ["Dummy.java"],
     installable: true,
 }
+\n
+// --- Restored CamSDK ---
+java_import {
+    name: "com.oplus.camera.unit.sdk",
+    jars: ["product/framework/com.oplus.camera.unit.sdk.jar"],
+    compile_dex: true,
+    prefer: true,
+}
