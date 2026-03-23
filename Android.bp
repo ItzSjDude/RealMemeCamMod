@@ -675,7 +675,6 @@ cc_prebuilt_library_shared {
     shared_libs: [
         "libfastcvadsp",
         "libdspCV_skel",
-        "libgcc",
         "libc",
     ],
 }
@@ -694,7 +693,6 @@ cc_prebuilt_library_shared {
     shared_libs: [
         "libfastcvadsp",
         "libdspCV_skel",
-        "libgcc",
         "libc",
     ],
 }
@@ -713,7 +711,6 @@ cc_prebuilt_library_shared {
     shared_libs: [
         "libfastcvadsp",
         "libdspCV_skel",
-        "libgcc",
         "libc",
     ],
 }
@@ -732,7 +729,6 @@ cc_prebuilt_library_shared {
     shared_libs: [
         "libfastcvadsp",
         "libdspCV_skel",
-        "libgcc",
         "libc",
     ],
 }
@@ -751,7 +747,6 @@ cc_prebuilt_library_shared {
     shared_libs: [
         "libfastcvadsp",
         "libdspCV_skel",
-        "libgcc",
         "libc",
     ],
 }
@@ -770,7 +765,6 @@ cc_prebuilt_library_shared {
     shared_libs: [
         "libfastcvadsp",
         "libdspCV_skel",
-        "libgcc",
         "libc",
     ],
 }
@@ -817,7 +811,6 @@ cc_prebuilt_library_shared {
     prefer: true,
     vendor: true,
     shared_libs: [
-        "libgcc",
         "libc",
     ],
 }
@@ -983,6 +976,33 @@ cc_prebuilt_library_shared {
         lib32: { srcs: ["vendor/lib/libOpenCL.so"] },
     },
     compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
+\n
+// --- Hexagon ADSP Prebuilts ---
+cc_prebuilt_library_shared {
+    name: "libdspCV_skel",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["vendor/lib/rfsa/adsp/libdspCV_skel.so"] },
+    },
+    compile_multilib: "32",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libfastcvadsp",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib32: { srcs: ["vendor/lib/rfsa/adsp/libfastcvadsp.so"] },
+    },
+    compile_multilib: "32",
     check_elf_files: false,
     prefer: true,
     device_specific: true,
