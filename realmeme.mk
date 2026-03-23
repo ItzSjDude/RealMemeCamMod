@@ -68,3 +68,19 @@ PRODUCT_PACKAGES += \
     vendor.oplus.hardware.orms.ormsHalService@1.0-service \
     
 -include vendor/realmeme_cam_mod/extras/RM8pro_TONEMAP/tonemap.mk
+-include vendor/realmeme_cam_mod/features/ai_color_portrait/ai_color_portrait.mk
+-include vendor/realmeme_cam_mod/features/StarryMode/starrymode.mk
+-include vendor/realmeme_cam_mod/features/SuperNightscape/supernightscape.mk
+-include vendor/realmeme_cam_mod/features/DynamicBokeh/dynamicbokeh.mk
+-include vendor/realmeme_cam_mod/features/NeonPortrait/neonportrait.mk
+-include vendor/realmeme_cam_mod/features/Darksight/darksight.mk
+-include vendor/realmeme_cam_mod/features/Tonemap/tonemap.mk
+-include vendor/realmeme_cam_mod/features/PerfectColor/perfectcolor.mk
+-include vendor/realmeme_cam_mod/features/FaceBeautification/facebeautification.mk
+-include vendor/realmeme_cam_mod/features/Stickers/stickers.mk
+-include vendor/realmeme_cam_mod/features/Configs/configs.mk
+-include vendor/realmeme_cam_mod/features/DoubleExposure/doubleexposure.mk
+-include vendor/realmeme_cam_mod/features/SuperText/supertext.mk
+-include vendor/realmeme_cam_mod/features/TrafficMode/trafficmode.mk
+-include vendor/realmeme_cam_mod/features/WaterMode/watermode.mk
+-include vendor/realmeme_cam_mod/features/XDoc/xdoc.mk
