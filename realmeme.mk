@@ -1,7 +1,7 @@
 # Realmeme Camera Mod - Product Config inclusion setup
 
 # Add Framework extension archives to Boot Jars to load on startup
-PRODUCT_BOOT_JARS += \\
+PRODUCT_BOOT_JARS += \
     oplus-framework
 
 
