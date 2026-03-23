@@ -979,13 +979,13 @@ cc_prebuilt_library_shared {
 java_library {
     name: "oplus-framework",
     srcs: ["Dummy.java"],
-    installable: false,
+    installable: true,
 }
 
 java_library {
     name: "oplus-support-wrapper",
     srcs: ["Dummy.java"],
-    installable: false,
+    installable: true,
 }
 java_library {
     name: "com.oplus.camera.unit.sdk",
