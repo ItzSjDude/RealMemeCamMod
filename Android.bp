@@ -356,7 +356,6 @@ cc_prebuilt_library_shared {
         "libmpbase",
         "libc",
         "libdl",
-        "libstdc++",
         "liblog",
     ],
 }
