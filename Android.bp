@@ -63,6 +63,7 @@ cc_prebuilt_library_shared {
     ],
 }
 
+/*
 cc_prebuilt_library_shared {
     name: "libAlgoProcess",
     owner: "oplus",
@@ -94,6 +95,7 @@ cc_prebuilt_library_shared {
         "liblog",
     ],
 }
+*/
 
 cc_prebuilt_library_shared {
     name: "libarcsoft_hdr_couple_api",
@@ -221,6 +223,7 @@ cc_prebuilt_library_shared {
     ],
 }
 
+/*
 cc_prebuilt_library_shared {
     name: "libAlgoInterface",
     owner: "oplus",
@@ -252,6 +255,7 @@ cc_prebuilt_library_shared {
         "liblog",
     ],
 }
+*/
 
 cc_prebuilt_library_shared {
     name: "libarcsoft_high_dynamic_range",

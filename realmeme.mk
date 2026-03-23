@@ -1,3 +1,7 @@
+-include vendor/realmeme_cam_mod/featureflags.mk
+
+
+
 # Realmeme Camera Mod - Product Config inclusion setup
 
 # Add Framework extension archives to Boot Jars to load on startup
@@ -19,14 +23,12 @@ PRODUCT_PACKAGES += \
     libarcsoft_hdr_denoise_api \
     libarcsoft_dualcam_refocus_uw \
     libstfaceunlockocl \
-    libAlgoProcess \
     libarcsoft_hdr_couple_api \
     libarcsoft_dualcam_bokeh_frt_api \
     libarcsoft_low_light_hdr \
     libarcsoft_frc \
     libarcsoft_dualcam_refocus_frt_image \
     libarcsoft_super_night_raw \
-    libAlgoInterface \
     libarcsoft_high_dynamic_range \
     libarcsoft_dualcam_refocus_right \
     libarcsoft_hdrplus_hvx_stub \
@@ -67,20 +69,4 @@ PRODUCT_PACKAGES += \
     oplus_camera_aps_config \
     vendor.oplus.hardware.orms.ormsHalService@1.0-service \
     
--include vendor/realmeme_cam_mod/extras/RM8pro_TONEMAP/tonemap.mk
--include vendor/realmeme_cam_mod/features/ai_color_portrait/ai_color_portrait.mk
--include vendor/realmeme_cam_mod/features/StarryMode/starrymode.mk
--include vendor/realmeme_cam_mod/features/SuperNightscape/supernightscape.mk
--include vendor/realmeme_cam_mod/features/DynamicBokeh/dynamicbokeh.mk
--include vendor/realmeme_cam_mod/features/NeonPortrait/neonportrait.mk
--include vendor/realmeme_cam_mod/features/Darksight/darksight.mk
--include vendor/realmeme_cam_mod/features/Tonemap/tonemap.mk
--include vendor/realmeme_cam_mod/features/PerfectColor/perfectcolor.mk
--include vendor/realmeme_cam_mod/features/FaceBeautification/facebeautification.mk
--include vendor/realmeme_cam_mod/features/Stickers/stickers.mk
--include vendor/realmeme_cam_mod/features/Configs/configs.mk
--include vendor/realmeme_cam_mod/features/DoubleExposure/doubleexposure.mk
--include vendor/realmeme_cam_mod/features/SuperText/supertext.mk
--include vendor/realmeme_cam_mod/features/TrafficMode/trafficmode.mk
--include vendor/realmeme_cam_mod/features/WaterMode/watermode.mk
--include vendor/realmeme_cam_mod/features/XDoc/xdoc.mk
+
