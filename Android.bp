@@ -1001,7 +1001,7 @@ android_app_import {
 // --- Created Oplus Framework Java Library ---
 java_library {
     name: "oplus-framework",
-    srcs: ["stub_src/**/*.java"],
+    srcs: ["oplus_framework/**/*.java"],
     installable: true,
     prefer: true,
     compile_dex: true,
