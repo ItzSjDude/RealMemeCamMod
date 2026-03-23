@@ -944,3 +944,46 @@ java_import {
     compile_dex: true,
     prefer: true,
 }
+\n
+// --- Missing Prebuilts ---
+cc_prebuilt_library_shared {
+    name: "libmpbase",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libmpbase.so"] },
+        lib32: { srcs: ["odm/lib/libmpbase.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcdsprpc",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["vendor/lib64/libcdsprpc.so"] },
+        lib32: { srcs: ["vendor/lib/libcdsprpc.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libOpenCL",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["vendor/lib64/libOpenCL.so"] },
+        lib32: { srcs: ["vendor/lib/libOpenCL.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
