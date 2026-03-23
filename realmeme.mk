@@ -15,16 +15,10 @@ PRODUCT_SOONG_NAMESPACES += \
     vendor/realmeme_cam_mod
 
 
-# Camera Unit SDK Selection
-CAM_SDK_PKGS := com.oplus.camera.unit.sdk
-ifeq ($(USE_8PRO_CORE),true)
-CAM_SDK_PKGS := com.oplus.camera.unit.sdk_8pro com.oplus.camera.unit.sdk.adapter_8pro
-endif
 
 # --- Auto-Generated PRODUCT_PACKAGES list ---
 PRODUCT_PACKAGES += \
     oplus-framework \
-    $(CAM_SDK_PKGS) \
     RomUpdateProviderShim \
     OplusCamera \
     libarcsoft_hdr_denoise_api \

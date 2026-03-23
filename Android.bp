@@ -983,12 +983,7 @@ cc_prebuilt_library_shared {
 // --- Stub Modules for Bootclasspath ---
 
 // --- Restored CamSDK ---
-java_import {
-    name: "com.oplus.camera.unit.sdk",
-    jars: ["product/framework/com.oplus.camera.unit.sdk.jar"],
-    compile_dex: true,
-    prefer: true,
-}
+
 
 // --- Prebuilt Camera App ---
 android_app_import {
@@ -1016,23 +1011,8 @@ java_library {
     compile_dex: true,
 }
 
-java_library {
-    name: "com.oplus.camera.unit.sdk",
-    srcs: ["product/framework/com.oplus.camera.unit.sdk/**/*.java"],
-    installable: true,
-    libs: ["framework", "oplus-framework"],
-}
 
-java_library {
-    name: "com.oplus.camera.unit.sdk_8pro",
-    srcs: ["product/framework/com.oplus.camera.unit.sdk_8pro/sources/**/*.java"],
-    installable: true,
-    libs: ["framework", "oplus-framework"],
-}
 
-java_library {
-    name: "com.oplus.camera.unit.sdk.adapter_8pro",
-    srcs: ["product/framework/com.oplus.camera.unit.sdk_adapter_8pro/sources/**/*.java"],
-    installable: true,
-    libs: ["framework", "oplus-framework", "com.oplus.camera.unit.sdk_8pro"],
-}
+
+
+

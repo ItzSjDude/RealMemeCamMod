@@ -1,0 +1,57 @@
+package com.oplus.ocs.camera.common.parameter.apsadapter;
+
+import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
+/* loaded from: classes.dex */
+public class ApsExifDataParameter extends ApsBaseParameter {
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_SENSOR_NAME = new ApsBaseParameter.Key<>("com.oplus.exif.sensor_name", String.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_ROTATE = new ApsBaseParameter.Key<>("com.oplus.exif.rotate", Integer.class);
+    public static final ApsBaseParameter.Key<Long> KEY_EXIF_ISO = new ApsBaseParameter.Key<>("com.oplus.exif.iso", Long.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_WHITE_BALANCE_MODE = new ApsBaseParameter.Key<>("com.oplus.exif.white_balance_mode", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_FLASH_VALUE = new ApsBaseParameter.Key<>("com.oplus.exif.flash_value", Integer.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_LATITUDE_REF = new ApsBaseParameter.Key<>("com.oplus.exif.latitude_ref", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_LONGITUDE_REF = new ApsBaseParameter.Key<>("com.oplus.exif.longitude_ref", String.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_ALTITUDE_REF = new ApsBaseParameter.Key<>("com.oplus.exif.altitude_ref", Integer.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_GPS_DATE_STAMP = new ApsBaseParameter.Key<>("com.oplus.exif.gps_date_stamp", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_DATE_TIME = new ApsBaseParameter.Key<>("com.oplus.exif.date_time", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_SUB_DATE_TIME = new ApsBaseParameter.Key<>("com.oplus.exif.sub_date_time", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_MODEL = new ApsBaseParameter.Key<>("com.oplus.exif.model", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_MANUFACTURE = new ApsBaseParameter.Key<>("com.oplus.exif.manufacture", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_COMMENTS = new ApsBaseParameter.Key<>("com.oplus.exif.comments", String.class);
+    public static final ApsBaseParameter.Key<Boolean> KEY_EXIF_MIRROR = new ApsBaseParameter.Key<>("com.oplus.exif.mirror", Boolean.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_NUMBER = new ApsBaseParameter.Key<>("com.oplus.exif.number", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_EXP_TIME = new ApsBaseParameter.Key<>("com.oplus.exif.exp_time", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_APERTURE = new ApsBaseParameter.Key<>("com.oplus.exif.aperture", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_EXPOSURE_BIAS = new ApsBaseParameter.Key<>("com.oplus.exif.exposure_bias", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_FOCAL_LENGTH = new ApsBaseParameter.Key<>("com.oplus.exif.focal_length", Object.class);
+    public static final ApsBaseParameter.Key<Object[]> KEY_EXIF_LATITUDE = new ApsBaseParameter.Key<>("com.oplus.exif.latitude", Object[].class);
+    public static final ApsBaseParameter.Key<Object[]> KEY_EXIF_LONGITUDE = new ApsBaseParameter.Key<>("com.oplus.exif.longitude", Object[].class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_ALTITUDE = new ApsBaseParameter.Key<>("com.oplus.exif.altitude", Object.class);
+    public static final ApsBaseParameter.Key<Object[]> KEY_EXIF_GPS_TIME_STAMP = new ApsBaseParameter.Key<>("com.oplus.exif.gps_time_stamp", Object[].class);
+    public static final ApsBaseParameter.Key<Boolean> KEY_EXIF_SUPPORT_DCIP3 = new ApsBaseParameter.Key<>("com.oplus.exif.support_dcip3", Boolean.class);
+    public static final ApsBaseParameter.Key<Boolean> KEY_EXIF_SUPPORT_LOCATION = new ApsBaseParameter.Key<>("com.oplus.exif.support_location", Boolean.class);
+    public static final ApsBaseParameter.Key<Boolean> KEY_EXIF_SUPPORT_LOCATION_TIME_STAMP = new ApsBaseParameter.Key<>("com.oplus.exif.support_location_time_stamp", Boolean.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_IMAGE_WIDTH = new ApsBaseParameter.Key<>("com.oplus.exif.image_width", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_IMAGE_HEIGHT = new ApsBaseParameter.Key<>("com.oplus.exif.image_height", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_TIFFYCRCB_POSITIONING = new ApsBaseParameter.Key<>("com.oplus.exif.tiffycrcb_positioning", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_TIFF_RESOLUTION_UNIT = new ApsBaseParameter.Key<>("com.oplus.exif.tiff_resolution_unit", Integer.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_TIFFX_RESOLUTIION = new ApsBaseParameter.Key<>("com.oplus.exif.tiffx_resolution", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_TIFFY_RESOLUTION = new ApsBaseParameter.Key<>("com.oplus.exif.tiffy_resolution", Object.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_EXPOSURE_PROGRAM = new ApsBaseParameter.Key<>("com.oplus.exif.exposure_program", Integer.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_VERSION = new ApsBaseParameter.Key<>("com.oplus.exif.version", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_COMPONENT_CONFIG = new ApsBaseParameter.Key<>("com.oplus.exif.component_config", String.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_SHUTTER_SPEED = new ApsBaseParameter.Key<>("com.oplus.exif.shutter_speed", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_BRIGHTNESS = new ApsBaseParameter.Key<>("com.oplus.exif.brightness", Object.class);
+    public static final ApsBaseParameter.Key<Object> KEY_EXIF_MAX_APERTURE = new ApsBaseParameter.Key<>("com.oplus.exif.max_aperture", Object.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_METERING_MODE = new ApsBaseParameter.Key<>("com.oplus.exif.metering_mode", Integer.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_MAKER_NOTE = new ApsBaseParameter.Key<>("com.oplus.exif.maker_note", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_FLASH_PIX_VERSION = new ApsBaseParameter.Key<>("com.oplus.exif.flash_pix_version", String.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_COLOR_SPACE = new ApsBaseParameter.Key<>("com.oplus.exif.color_space", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_SENSING_METHOD = new ApsBaseParameter.Key<>("com.oplus.exif.sensing_method", Integer.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_SCENE_TYPE = new ApsBaseParameter.Key<>("com.oplus.exif.scene_type", String.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_EXPOSURE_MODE = new ApsBaseParameter.Key<>("com.oplus.exif.exposure_mode", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_FOCAL_LENGTH_35MM = new ApsBaseParameter.Key<>("com.oplus.exif.focal_length_35mm", Integer.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_SCENE_CAPTURE_TYPE = new ApsBaseParameter.Key<>("com.oplus.exif.scene_capture_type", Integer.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_INTEROP_INDEX_STR = new ApsBaseParameter.Key<>("com.oplus.exif.interop_index_str", String.class);
+    public static final ApsBaseParameter.Key<String> KEY_EXIF_INTEROP_VERSION = new ApsBaseParameter.Key<>("com.oplus.exif.interop_version", String.class);
+    public static final ApsBaseParameter.Key<Integer> KEY_EXIF_HEIC_QUALITY = new ApsBaseParameter.Key<>("com.oplus.exif.heic_quality", Integer.class);
+}
