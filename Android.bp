@@ -978,12 +978,12 @@ cc_prebuilt_library_shared {
 // --- Stub Modules for Bootclasspath ---
 java_library {
     name: "oplus-framework",
-    srcs: [],
+    srcs: ["Dummy.java"],
     installable: false,
 }
 
 java_library {
     name: "oplus-support-wrapper",
-    srcs: [],
+    srcs: ["Dummy.java"],
     installable: false,
 }
