@@ -985,3 +985,15 @@ java_import {
     compile_dex: true,
     prefer: true,
 }
+
+// --- Prebuilt Camera App ---
+android_app_import {
+    name: "OplusCamera",
+    apk: "system_ext/priv-app/OplusCamera/OplusCamera.apk",
+    prefer: true,
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    system_ext_specific: true,
+}
