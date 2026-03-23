@@ -1,0 +1,11 @@
+package com.google.oplus.protobuf;
+/* loaded from: classes.dex */
+public interface MixinOrBuilder extends MessageOrBuilder {
+    String getName();
+
+    ByteString getNameBytes();
+
+    String getRoot();
+
+    ByteString getRootBytes();
+}
