@@ -987,13 +987,11 @@ java_library {
     srcs: ["Dummy.java"],
     installable: false,
 }
-\n
 java_library {
     name: "com.oplus.camera.unit.sdk",
     srcs: ["Dummy.java"],
     installable: true,
 }
-\n
 // --- Restored CamSDK ---
 java_import {
     name: "com.oplus.camera.unit.sdk",
