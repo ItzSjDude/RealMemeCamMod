@@ -1015,3 +1015,10 @@ java_library {
     installable: true,
     compile_dex: true,
 }
+
+java_library {
+    name: "com.oplus.camera.unit.sdk",
+    srcs: ["product/framework/com.oplus.camera.unit.sdk/**/*.java"],
+    installable: true,
+    libs: ["framework", "oplus-framework"],
+}

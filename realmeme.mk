@@ -18,6 +18,7 @@ PRODUCT_SOONG_NAMESPACES += \
 # --- Auto-Generated PRODUCT_PACKAGES list ---
 PRODUCT_PACKAGES += \
     oplus-framework \
+    com.oplus.camera.unit.sdk \
     RomUpdateProviderShim \
     OplusCamera \
     libarcsoft_hdr_denoise_api \
