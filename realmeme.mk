@@ -13,8 +13,8 @@ PRODUCT_SOONG_NAMESPACES += \
 
 # --- Auto-Generated PRODUCT_PACKAGES list ---
 PRODUCT_PACKAGES += \
-    RomUpdateProviderShim \\
-    OplusCamera \\
+    RomUpdateProviderShim \
+    OplusCamera \
     libarcsoft_hdr_denoise_api \
     libarcsoft_dualcam_refocus_uw \
     libstfaceunlockocl \
