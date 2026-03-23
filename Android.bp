@@ -907,20 +907,6 @@ cc_prebuilt_binary {
 
 
 
-// --- Core Boot Jars needed by ROM ---
-java_import {
-    name: "oplus-framework",
-    jars: ["system/system/framework/oplus-framework.jar"],
-    compile_dex: true,
-    prefer: true,
-}
-
-java_import {
-    name: "oplus-support-wrapper",
-    jars: ["system/system/framework/oplus-support-wrapper.jar"],
-    compile_dex: true,
-    prefer: true,
-}
 // --- Missing Prebuilts ---
 cc_prebuilt_library_shared {
     name: "libmpbase",
