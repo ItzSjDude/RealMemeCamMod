@@ -64,3 +64,4 @@ PRODUCT_PACKAGES += \
     oplus_camera_aps_config \
     vendor.oplus.hardware.orms.ormsHalService@1.0-service \
     
+-include vendor/realmeme_cam_mod/extras/RM8pro_TONEMAP/tonemap.mk
