@@ -895,6 +895,7 @@ cc_prebuilt_binary {
     init_rc: ["odm/etc/init/vendor.oplus.hardware.orms.ormsHalService@1.0-service.rc"],
     prefer: true,
     device_specific: true,
+    check_elf_files: false,
     shared_libs: [
         "liblog",
         "libutils",
