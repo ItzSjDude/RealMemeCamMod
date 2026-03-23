@@ -977,17 +977,7 @@ cc_prebuilt_library_shared {
     device_specific: true,
 }
 // --- Stub Modules for Bootclasspath ---
-java_library {
-    name: "oplus-framework",
-    srcs: ["Dummy1.java"],
-    installable: true,
-}
 
-java_library {
-    name: "oplus-support-wrapper",
-    srcs: ["Dummy2.java"],
-    installable: true,
-}
 java_library {
     name: "com.oplus.camera.unit.sdk",
     srcs: ["Dummy.java"],
