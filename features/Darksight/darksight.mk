@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_Darksight := true
 
 ifeq ($(ENABLE_Darksight),true)
 

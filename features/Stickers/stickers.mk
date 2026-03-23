@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_Stickers := true
 
 ifeq ($(ENABLE_Stickers),true)
 

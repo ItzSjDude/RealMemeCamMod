@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_Tonemap := true
 
 ifeq ($(ENABLE_Tonemap),true)
 

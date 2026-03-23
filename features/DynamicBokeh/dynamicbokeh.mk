@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_DynamicBokeh := true
 
 ifeq ($(ENABLE_DynamicBokeh),true)
 
@@ -20,6 +18,6 @@ PRODUCT_COPY_FILES += \
     vendor/realmeme_cam_mod/features/DynamicBokeh/system/odm/lib64/libarcsoft_scbokeh_video.so:$(TARGET_COPY_OUT_ODM)/lib64/libarcsoft_scbokeh_video.so \
     vendor/realmeme_cam_mod/features/DynamicBokeh/system/odm/lib64/libarcsoft_dualcam_bokeh_api.so:$(TARGET_COPY_OUT_ODM)/lib64/libarcsoft_dualcam_bokeh_api.so \
     vendor/realmeme_cam_mod/features/DynamicBokeh/system/odm/lib64/libarcsoft_scbokeh_image.so:$(TARGET_COPY_OUT_ODM)/lib64/libarcsoft_scbokeh_image.so \
-    vendor/realmeme_cam_mod/features/DynamicBokeh/system/my_product/lib64/libsingle_camera_bokeh_native.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libsingle_camera_bokeh_native.so \
+    vendor/realmeme_cam_mod/features/DynamicBokeh/system/my_product/lib64/libsingle_camera_bokeh_native.so:$(TARGET_COPY_OUT_PRODUCT)/lib64/libsingle_camera_bokeh_native.so
 
 endif

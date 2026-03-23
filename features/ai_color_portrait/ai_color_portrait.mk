@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_AI_COLOR_PORTRAIT := true
 
 ifeq ($(ENABLE_AI_COLOR_PORTRAIT),true)
 

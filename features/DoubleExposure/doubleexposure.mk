@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_DoubleExposure := true
 
 ifeq ($(ENABLE_DoubleExposure),true)
 

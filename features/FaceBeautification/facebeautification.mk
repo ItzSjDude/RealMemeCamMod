@@ -1,5 +1,3 @@
-# --- Feature Toggle ---
-ENABLE_FaceBeautification := true
 
 ifeq ($(ENABLE_FaceBeautification),true)
 
