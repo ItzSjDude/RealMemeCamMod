@@ -978,11 +978,6 @@ cc_prebuilt_library_shared {
 }
 // --- Stub Modules for Bootclasspath ---
 
-java_library {
-    name: "com.oplus.camera.unit.sdk",
-    srcs: ["Dummy.java"],
-    installable: true,
-}
 // --- Restored CamSDK ---
 java_import {
     name: "com.oplus.camera.unit.sdk",
