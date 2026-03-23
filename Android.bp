@@ -1003,6 +1003,5 @@ java_library {
     name: "oplus-framework",
     srcs: ["oplus_framework/**/*.java"],
     installable: true,
-    prefer: true,
     compile_dex: true,
 }
