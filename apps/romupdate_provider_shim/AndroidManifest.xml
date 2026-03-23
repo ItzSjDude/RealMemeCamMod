@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="false"
-        android:extractNativeLibs="false"
+        
         android:label="RomUpdate Shim"
         android:supportsRtl="true">
 
