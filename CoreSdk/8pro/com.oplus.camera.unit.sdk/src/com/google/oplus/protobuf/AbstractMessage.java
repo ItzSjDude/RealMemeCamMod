@@ -242,7 +242,7 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
     public static abstract class Builder<BuilderType extends Builder<BuilderType>> extends AbstractMessageLite.Builder implements Message.Builder {
         @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
-        public BuilderType mo0clone() {
+        public BuilderType clone() {
             throw new UnsupportedOperationException("clone() should be implemented in subclasses.");
         }
 

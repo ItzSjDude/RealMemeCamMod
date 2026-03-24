@@ -517,8 +517,8 @@ public final class Method extends GeneratedMessageV3 implements MethodOrBuilder 
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
-        public Builder mo0clone() {
-            return (Builder) super.mo0clone();
+        public Builder clone() {
+            return (Builder) super.clone();
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder

@@ -249,7 +249,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
 
         @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
-        public BuilderType mo0clone() {
+        public BuilderType clone() {
             BuilderType buildertype = (BuilderType) getDefaultInstanceForType().newBuilderForType();
             buildertype.mergeFrom(buildPartial());
             return buildertype;

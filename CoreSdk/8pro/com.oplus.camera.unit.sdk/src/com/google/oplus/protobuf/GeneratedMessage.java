@@ -328,7 +328,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
-        public BuilderType mo0clone() {
+        public BuilderType clone() {
             BuilderType buildertype = (BuilderType) getDefaultInstanceForType().newBuilderForType();
             buildertype.mergeFrom(buildPartial());
             return buildertype;
@@ -813,8 +813,8 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
-        public BuilderType mo0clone() {
-            return (BuilderType) super.mo0clone();
+        public BuilderType clone() {
+            return (BuilderType) super.clone();
         }
 
         private void ensureExtensionsIsMutable() {

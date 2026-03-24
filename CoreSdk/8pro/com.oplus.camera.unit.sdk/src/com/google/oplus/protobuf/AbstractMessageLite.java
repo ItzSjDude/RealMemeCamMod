@@ -108,7 +108,7 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
     public static abstract class Builder<MessageType extends AbstractMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>> implements MessageLite.Builder {
         @Override // 
         /* renamed from: clone */
-        public abstract BuilderType mo0clone();
+        public abstract BuilderType clone();
 
         protected abstract BuilderType internalMergeFrom(MessageType messagetype);
 

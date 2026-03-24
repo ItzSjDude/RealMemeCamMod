@@ -284,7 +284,7 @@ public class PhotoMode extends BaseMode {
                 if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_ENABLE_FRONT_CAMERA_SCALE))
                         && builder.containCustomKey(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)
                         && ((Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)).booleanValue()) {
-                    builder.set(PreviewParameter.KEY_ZOOM_SCALE, (Float) builder.get(PreviewParameter.KEY_ZOOM_RATIO));
+                    builder.<Float>set(PreviewParameter.KEY_ZOOM_SCALE, builder.get(PreviewParameter.KEY_ZOOM_RATIO));
                 }
                 updateCameraRequestTag(builder, cameraRequestTag);
                 return;
@@ -295,9 +295,9 @@ public class PhotoMode extends BaseMode {
                     Size smallSizeByFormat = CameraCharacteristicsHelper.getSmallSizeByFormat(str2,
                             size.getWidth() / size.getHeight(), 35);
                     CameraUnitLog.v(TAG, "updateStageParameterBuilder, enable mtk pip, size: " + smallSizeByFormat);
-                    builder.set(ConfigureParameter.KEY_MTK_NAVIGATION_NAVIGATIONMODE, new int[] { 1 });
+                    builder.<int[]>set(ConfigureParameter.KEY_MTK_NAVIGATION_NAVIGATIONMODE, new int[] { 1 });
                     if (smallSizeByFormat != null) {
-                        builder.set(ConfigureParameter.KEY_MTK_NAVIGATION_STREAMSIZE,
+                        builder.<int[]>set(ConfigureParameter.KEY_MTK_NAVIGATION_STREAMSIZE,
                                 new int[] { smallSizeByFormat.getWidth(), smallSizeByFormat.getHeight() });
                         return;
                     }
@@ -308,7 +308,7 @@ public class PhotoMode extends BaseMode {
                 if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_ENABLE_FRONT_CAMERA_SCALE))
                         && builder.containCustomKey(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)
                         && ((Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)).booleanValue()) {
-                    builder.set(PreviewParameter.KEY_ZOOM_SCALE, (Float) builder.get(PreviewParameter.KEY_ZOOM_RATIO));
+                    builder.<Float>set(PreviewParameter.KEY_ZOOM_SCALE, builder.get(PreviewParameter.KEY_ZOOM_RATIO));
                 }
                 if (cameraRequestTag != null) {
                     if (builder.containCustomKey(PreviewParameter.KEY_TILT_SHIFT_ENABLE)) {
@@ -335,7 +335,7 @@ public class PhotoMode extends BaseMode {
                             if (this.mPreviewResult != null) {
                                 cameraRequestTag.mSupportCaptureZoomFeature = ((Integer) this.mPreviewResult
                                         .get(ApsDecisionParameter.KEY_PREVIEW_SUPPORT_ZOOM_FEATURE)).intValue();
-                                builder.set(PreviewParameter.KEY_IZOOM_PREVIEW,
+                                builder.<int[]>set(PreviewParameter.KEY_IZOOM_PREVIEW,
                                         new int[] { 4 == cameraRequestTag.mSupportCaptureZoomFeature ? 1 : 0 });
                             }
                         }
@@ -346,14 +346,15 @@ public class PhotoMode extends BaseMode {
                                     .get(ApsDecisionParameter.KEY_PREVIEW_SENSOR_MODE)).intValue();
                             cameraRequestTag.mCaptureSensorMode = intValue;
                             if (-1 != intValue) {
-                                builder.set(PreviewParameter.KEY_SENSOR_MODE, new int[] { intValue });
+                                builder.<int[]>set(PreviewParameter.KEY_SENSOR_MODE, new int[] { intValue });
                             }
                         }
                     }
                     synchronized (this.mPreviewResultLock) {
                         if (this.mPreviewResult != null) {
-                            builder.set(PreviewParameter.KEY_MOVING_OBJECT, new int[] { ((Integer) this.mPreviewResult
-                                    .get(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT)).intValue() });
+                            builder.<int[]>set(PreviewParameter.KEY_MOVING_OBJECT,
+                                    new int[] { ((Integer) this.mPreviewResult
+                                            .get(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT)).intValue() });
                         }
                     }
                     if (builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE) != null

@@ -282,22 +282,22 @@ public class VideoMode extends BaseMode {
                             || ("front_main".equals(str2) && ((Boolean) CameraConfigHelper
                                     .getConfigValue(CameraConfigBase.KEY_FRONT_HVXSHDR_SUPPORT, false)).booleanValue()))
                             && (Util.isSystemCamera() || booleanValue)) {
-                        builder.set(ConfigureParameter.KEY_HVXSHDR_ENABLE, Byte.valueOf((byte) num.intValue()));
+                        builder.<Byte>set(ConfigureParameter.KEY_HVXSHDR_ENABLE, Byte.valueOf((byte) num.intValue()));
                     }
                     if (1 != num.intValue() || (!z && ("front_main".equals(str2) || "front_wide".equals(str2)))) {
-                        builder.set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
+                        builder.<Integer>set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
                     } else {
-                        builder.set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 1);
+                        builder.<Integer>set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 1);
                     }
                 } else {
-                    builder.set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
+                    builder.<Integer>set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
                 }
-                builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { 0 });
+                builder.<byte[]>set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { 0 });
                 if (PlatformUtil.isQualcommPlatform()) {
-                    builder.set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 0);
+                    builder.<Integer>set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 0);
                 } else if (!"front_main".equals(str2) || ((Boolean) CameraConfigHelper
                         .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_FRONT_EIS_RECORD, false)).booleanValue()) {
-                    builder.set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 1);
+                    builder.<Integer>set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 1);
                 }
                 StatisticsManager statisticsManager = StatisticsManager.getInstance();
                 Range<Integer> range = this.mConfigFpsRange;
@@ -329,7 +329,7 @@ public class VideoMode extends BaseMode {
                 if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_ENABLE_FRONT_CAMERA_SCALE))
                         && builder.containCustomKey(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)
                         && ((Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)).booleanValue()) {
-                    builder.set(PreviewParameter.KEY_ZOOM_SCALE, (Float) builder.get(PreviewParameter.KEY_ZOOM_RATIO));
+                    builder.<Float>set(PreviewParameter.KEY_ZOOM_SCALE, builder.get(PreviewParameter.KEY_ZOOM_RATIO));
                 }
                 CameraDeviceInfoInterface cameraDeviceInfo = getCameraDeviceInfo(str2);
                 if (!builder.containsKey(PreviewParameter.KEY_FOCUS_MODE)

@@ -150,20 +150,22 @@ public class PortraitMode extends BaseMode {
                     if (availableMultiCameraFeature.length == 1) {
                         int i = availableMultiCameraFeature[0];
                         if (i == 0 || i == 1) {
-                            builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, availableMultiCameraFeature);
+                            builder.<int[]>set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE,
+                                    availableMultiCameraFeature);
                         }
                     } else if (availableMultiCameraFeature.length == 2) {
-                        builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[] { 1 });
+                        builder.<int[]>set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[] { 1 });
                     }
                 }
                 if (!"front_main".equals(str2) && !isSupportRearAINRCapture()) {
-                    builder.set(ConfigureParameter.KEY_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE, new int[] { 0 });
+                    builder.<int[]>set(ConfigureParameter.KEY_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE,
+                            new int[] { 0 });
                 }
                 if ("rear_sat".equals(str2)) {
                     if (isFullBodyType(str2)) {
-                        builder.set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[] { 0 });
+                        builder.<int[]>set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[] { 0 });
                     } else if (isHalfBodyType(str2)) {
-                        builder.set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[] { 1 });
+                        builder.<int[]>set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[] { 1 });
                     }
                 }
             }
@@ -174,7 +176,7 @@ public class PortraitMode extends BaseMode {
             if (Util.isSystemCamera()) {
                 return;
             }
-            builder.set(ConfigureParameter.KEY_REQUEST_ZSL_MODE, new byte[] { 1 });
+            builder.<byte[]>set(ConfigureParameter.KEY_REQUEST_ZSL_MODE, new byte[] { 1 });
             builder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE, 1);
         } else if (Parameter.ParameterStage.START_PREVIEW.equals(str)) {
             if (!builder.containsKey(PreviewParameter.KEY_BLUR_LEVEL)) {

@@ -1198,8 +1198,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -2679,8 +2679,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -4939,8 +4939,8 @@ public final class DescriptorProtos {
                           // com.google.oplus.protobuf.AbstractMessage.Builder,
                           // com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -5611,8 +5611,8 @@ public final class DescriptorProtos {
                           // com.google.oplus.protobuf.AbstractMessage.Builder,
                           // com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -6604,8 +6604,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -8785,25 +8785,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_ExtensionRangeOptions_descriptor;
@@ -8895,7 +8883,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -10336,8 +10324,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -11426,8 +11414,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -12250,8 +12238,8 @@ public final class DescriptorProtos {
                           // com.google.oplus.protobuf.AbstractMessage.Builder,
                           // com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -12930,8 +12918,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -14187,8 +14175,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -15013,8 +15001,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -16139,8 +16127,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -17864,25 +17852,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<FileOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<FileOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<FileOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_FileOptions_descriptor;
@@ -18100,7 +18076,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -19735,25 +19711,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<MessageOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<MessageOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<MessageOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_MessageOptions_descriptor;
@@ -19870,7 +19834,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -20976,25 +20940,13 @@ public final class DescriptorProtos {
             private boolean weak_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<FieldOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<FieldOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<FieldOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_FieldOptions_descriptor;
@@ -21120,7 +21072,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -21161,34 +21113,19 @@ public final class DescriptorProtos {
 
             /* JADX WARN: Can't rename method to resolve collision */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(
-                    GeneratedMessage.GeneratedExtension<FieldOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension(
-                        (GeneratedMessage.GeneratedExtension<MessageType, GeneratedMessage.GeneratedExtension<FieldOptions, Type>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension<FieldOptions, Type>) type);
-            }
+            // Pruned bridge method
 
             /* JADX WARN: Can't rename method to resolve collision */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<FieldOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension<MessageType, List<int>>) generatedExtension, i, (int) type);
-            }
+            // Pruned bridge method
 
             /* JADX WARN: Can't rename method to resolve collision */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(
-                    GeneratedMessage.GeneratedExtension<FieldOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension(
-                        (GeneratedMessage.GeneratedExtension<MessageType, List<GeneratedMessage.GeneratedExtension<FieldOptions, List<Type>>>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension<FieldOptions, List<Type>>) type);
-            }
+            // Pruned bridge method
 
             /* JADX WARN: Can't rename method to resolve collision */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(
-                    GeneratedMessage.GeneratedExtension<FieldOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
+            // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.Message.Builder
@@ -21978,25 +21915,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<OneofOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<OneofOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<OneofOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_OneofOptions_descriptor;
@@ -22088,7 +22013,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -22808,25 +22733,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<EnumOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<EnumOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<EnumOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_EnumOptions_descriptor;
@@ -22933,7 +22846,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -23679,25 +23592,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<EnumValueOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<EnumValueOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<EnumValueOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_EnumValueOptions_descriptor;
@@ -23797,7 +23698,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -24515,25 +24416,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<ServiceOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<ServiceOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<ServiceOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_ServiceOptions_descriptor;
@@ -24633,7 +24522,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -25462,25 +25351,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder addExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension(
-                        (GeneratedMessage.GeneratedExtension<MethodOptions, List<GeneratedMessage.GeneratedExtension>>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<MethodOptions, List<int>>) generatedExtension, i, (int) obj);
-            }
+    // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ Builder setExtension(
-                    GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension(
-                        (GeneratedMessage.GeneratedExtension<MethodOptions, GeneratedMessage.GeneratedExtension>) generatedExtension,
-                        (GeneratedMessage.GeneratedExtension) obj);
-            }
+    // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_MethodOptions_descriptor;
@@ -25589,7 +25466,7 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
+            public Builder clone() {
                 return (Builder) super.clone();
             }
 
@@ -26546,8 +26423,8 @@ public final class DescriptorProtos {
                           // com.google.oplus.protobuf.AbstractMessage.Builder,
                           // com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -27284,8 +27161,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -28602,8 +28479,8 @@ public final class DescriptorProtos {
                           // com.google.oplus.protobuf.AbstractMessage.Builder,
                           // com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -29335,8 +29212,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -30291,8 +30168,8 @@ public final class DescriptorProtos {
                           // com.google.oplus.protobuf.AbstractMessage.Builder,
                           // com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
@@ -30886,8 +30763,8 @@ public final class DescriptorProtos {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,

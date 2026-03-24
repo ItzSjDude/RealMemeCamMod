@@ -360,26 +360,26 @@ public abstract class BaseMode implements ModeInterface {
             case 0:
                 updateCaptureRequestTag(builder, cameraRequestTag, str2);
                 if (builder.containCustomKey(PreviewParameter.KEY_CAPTURE_TIME)) {
-                    builder.set(PreviewParameter.KEY_EXIF_TAG_DATETIME,
-                            (Long) builder.get(PreviewParameter.KEY_CAPTURE_TIME));
+                    builder.<Long>set(PreviewParameter.KEY_EXIF_TAG_DATETIME,
+                            builder.get(PreviewParameter.KEY_CAPTURE_TIME));
                     return;
                 }
                 return;
             case 1:
                 if (!Util.isSystemCamera() && useOplusCameraCase(str2)) {
-                    builder.set(ConfigureParameter.IS_OPLUS_PACKAGE, new byte[] { 1 });
+                    builder.<byte[]>set(ConfigureParameter.IS_OPLUS_PACKAGE, new byte[] { 1 });
                 }
                 updateFpsRange(getConfigureParameter(str2), builder, str2);
                 if ("rear_sat".equals(str2) && PlatformUtil.isMtkPlatform()) {
-                    builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[] { 0 });
+                    builder.<int[]>set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[] { 0 });
                 }
                 Boolean bool = (Boolean) CameraConfigHelper
                         .getConfigValue(CameraConfigBase.KEY_TUNING_DATA_BUFFER_SUPPORT, false);
                 if (bool == null || !bool.booleanValue()) {
                     b = 1;
                 }
-                builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { b });
-                builder.set(ConfigureParameter.KEY_SESSION_REQUEST_FAST_LAUNCH, new int[] { 1 });
+                builder.<byte[]>set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { b });
+                builder.<int[]>set(ConfigureParameter.KEY_SESSION_REQUEST_FAST_LAUNCH, new int[] { 1 });
                 if (Util.isSystemCamera()) {
                     builder.set(ConfigureParameter.KEY_SESSION_REQUEST_MSNR, new int[] { 1 });
                 }

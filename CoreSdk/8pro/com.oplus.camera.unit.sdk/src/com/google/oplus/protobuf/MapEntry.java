@@ -350,7 +350,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
 
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
-        public Builder<K, V> mo0clone() {
+        public Builder<K, V> clone() {
             return new Builder<>(this.metadata, this.key, this.value, this.hasKey, this.hasValue);
         }
     }

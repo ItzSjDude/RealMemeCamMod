@@ -245,14 +245,14 @@ class HighDefinitionMode extends BaseMode {
         int[] iArr = (int[]) builder.get(PreviewParameter.KEY_COLOR_TEMPERATURE);
         if (iArr != null && iArr.length > 0 && -1 != iArr[0]) {
             if (PlatformUtil.isMtkPlatform()) {
-                builder.set(CaptureRequest.CONTROL_AWB_MODE, 10);
+                builder.<Integer>set(CaptureRequest.CONTROL_AWB_MODE, 10);
                 return;
             } else {
-                builder.set(CaptureRequest.CONTROL_AWB_MODE, 0);
+                builder.<Integer>set(CaptureRequest.CONTROL_AWB_MODE, 0);
                 return;
             }
         }
-        builder.set(CaptureRequest.CONTROL_AWB_MODE, 1);
+        builder.<Integer>set(CaptureRequest.CONTROL_AWB_MODE, 1);
     }
 
     private void checkHighPictureProfessionalAeMode(PreviewParameter.Builder builder) {
@@ -263,8 +263,8 @@ class HighDefinitionMode extends BaseMode {
                 false)).booleanValue() ? !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue()))
                         : !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue())) {
             builder.remove(PreviewParameter.KEY_FLASH_MODE);
-            builder.set(CaptureRequest.FLASH_MODE, 0);
-            builder.set(CaptureRequest.CONTROL_AE_MODE, 0);
+            builder.<Integer>set(CaptureRequest.FLASH_MODE, 0);
+            builder.<Integer>set(CaptureRequest.CONTROL_AE_MODE, 0);
             return;
         }
         if (builder.get(PreviewParameter.KEY_FLASH_MODE) == null) {

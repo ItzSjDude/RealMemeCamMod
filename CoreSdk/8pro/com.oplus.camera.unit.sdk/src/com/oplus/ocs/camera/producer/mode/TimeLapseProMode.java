@@ -203,21 +203,21 @@ public class TimeLapseProMode extends BaseMode {
         if (cameraRequestTag.mbInNightProcess
                 || CameraRequestTag.RequestMode.CAPTURE_REPROCESS == cameraRequestTag.getRequestMode()) {
             synchronized (this.mPreviewResultLock) {
-                parameter.set(PreviewParameter.KEY_NIGHT_MODE,
+                parameter.<int[]>set(PreviewParameter.KEY_NIGHT_MODE,
                         new int[] { Util.getNightStateDecision(this.mPreviewResult) });
                 Parameter.Key<int[]> key = PreviewParameter.KEY_BRACKET_MODE;
                 int[] iArr = new int[1];
                 iArr[0] = this.mPreviewResult != null
                         ? ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_BRACKET_MODE)).intValue()
                         : 0;
-                parameter.set(key, iArr);
+                parameter.<int[]>set(key, iArr);
             }
         }
         if (cameraRequestTag.mbInNightProcess) {
-            parameter.set(CaptureRequest.CONTROL_AF_MODE, 1);
-            parameter.set(CaptureRequest.CONTROL_AF_REGIONS, AEAFHelp.getDefaultWeightRegion());
-            parameter.set(CaptureRequest.CONTROL_MODE, 1);
-            parameter.set(CaptureRequest.CONTROL_AE_REGIONS, AEAFHelp.getDefaultWeightRegion());
+            parameter.<Integer>set(CaptureRequest.CONTROL_AF_MODE, 1);
+            parameter.<MeteringRectangle[]>set(CaptureRequest.CONTROL_AF_REGIONS, AEAFHelp.getDefaultWeightRegion());
+            parameter.<Integer>set(CaptureRequest.CONTROL_MODE, 1);
+            parameter.<MeteringRectangle[]>set(CaptureRequest.CONTROL_AE_REGIONS, AEAFHelp.getDefaultWeightRegion());
         }
     }
 
