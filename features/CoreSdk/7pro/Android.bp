@@ -4,7 +4,7 @@ soong_namespace {
 
 java_library {
     name: "com.oplus.camera.unit.sdk",
-    srcs: ["com.oplus.camera.unit.sdk/**/*.java"],
+    srcs: ["com.oplus.camera.unit.sdk/src/**/*.java"],
     installable: true,
     libs: ["framework", "oplus-framework"],
     product_specific: true,
