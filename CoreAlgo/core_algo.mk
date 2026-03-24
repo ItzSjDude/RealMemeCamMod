@@ -1,8 +1,8 @@
 
 ifeq ($(USE_8PRO_CORE),true)
-CORE_PATH := features/CoreAlgo/8pro/system
+CORE_PATH := CoreAlgo/8pro/system
 else
-CORE_PATH := features/CoreAlgo/7pro/system
+CORE_PATH := CoreAlgo/7pro/system
 endif
 
 PRODUCT_COPY_FILES += \
