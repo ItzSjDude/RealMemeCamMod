@@ -1,0 +1,42 @@
+package android.view.accessibility;
+
+import android.view.View;
+
+/* loaded from: classes2.dex */
+public final class AccessibilityNodeIdManager {
+    private static AccessibilityNodeIdManager sIdManager;
+    private WeakSparseArray<View> mIdsToViews = new WeakSparseArray<>();
+
+    public static synchronized AccessibilityNodeIdManager getInstance() {
+        if (sIdManager == null) {
+            sIdManager = new AccessibilityNodeIdManager();
+        }
+        return sIdManager;
+    }
+
+    private AccessibilityNodeIdManager() {
+    }
+
+    public void registerViewWithId(View view, int id) {
+        synchronized (this.mIdsToViews) {
+            this.mIdsToViews.append(id, view);
+        }
+    }
+
+    public void unregisterViewWithId(int id) {
+        synchronized (this.mIdsToViews) {
+            this.mIdsToViews.remove(id);
+        }
+    }
+
+    public View findView(int id) {
+        View view;
+        synchronized (this.mIdsToViews) {
+            view = this.mIdsToViews.get(id);
+        }
+        if (view == null || !view.includeForAccessibility()) {
+            return null;
+        }
+        return view;
+    }
+}

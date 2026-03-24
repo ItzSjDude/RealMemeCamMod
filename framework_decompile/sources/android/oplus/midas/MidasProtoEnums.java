@@ -1,0 +1,52 @@
+package android.oplus.midas;
+
+/* loaded from: classes2.dex */
+public final class MidasProtoEnums {
+    public static final int TRIGGER_TYPE_ALARM_TRIGGER = 15;
+    public static final int TRIGGER_TYPE_AOD_ENABLE_STATE = 40;
+    public static final int TRIGGER_TYPE_APPLICATION_INIT = 35;
+    public static final int TRIGGER_TYPE_AUDIO_AGENT_VERSION = 24;
+    public static final int TRIGGER_TYPE_AUDIO_CHANNEL_TYPE = 19;
+    public static final int TRIGGER_TYPE_AUDIO_PLAYER_STATE = 14;
+    public static final int TRIGGER_TYPE_BATTERY_LEVEL = 5;
+    public static final int TRIGGER_TYPE_BLUETOOTH_INFO = 27;
+    public static final int TRIGGER_TYPE_BLUETOOTH_STATE = 28;
+    public static final int TRIGGER_TYPE_CELL_STATE = 11;
+    public static final int TRIGGER_TYPE_CFL_DB_FILES = 22;
+    public static final int TRIGGER_TYPE_CHARGER_STATE = 4;
+    public static final int TRIGGER_TYPE_EXTERNAL_NOTIFICATION_EVENT = 42;
+    public static final int TRIGGER_TYPE_FLASHLIGHT_STATE = 29;
+    public static final int TRIGGER_TYPE_FOLDINGSCREEN = 45;
+    public static final int TRIGGER_TYPE_FOREGROUND = 1;
+    public static final int TRIGGER_TYPE_FOREGROUND_ACTIVITY = 43;
+    public static final int TRIGGER_TYPE_GNSS_STATE = 20;
+    public static final int TRIGGER_TYPE_HOURLY_TIMER = 9;
+    public static final int TRIGGER_TYPE_INTERVAL_TIMER = 30;
+    public static final int TRIGGER_TYPE_LAST_EXIT_INFO = 47;
+    public static final int TRIGGER_TYPE_LOW_POWER_MODE_CHANGED = 18;
+    public static final int TRIGGER_TYPE_MIDNIGHT_TIMER = 10;
+    public static final int TRIGGER_TYPE_MIN = 0;
+    public static final int TRIGGER_TYPE_NETWORK_BANDS_CHANGED = 39;
+    public static final int TRIGGER_TYPE_NETWORK_TYPE_CHANGED = 38;
+    public static final int TRIGGER_TYPE_NETWORK_USED_EVENT = 25;
+    public static final int TRIGGER_TYPE_ONE_MINUTE_TIMER = 21;
+    public static final int TRIGGER_TYPE_PHONE_STATE = 17;
+    public static final int TRIGGER_TYPE_RESOLUTION_CHANGED = 36;
+    public static final int TRIGGER_TYPE_RUS_COMMAND = 37;
+    public static final int TRIGGER_TYPE_SCREEN_BRIGHTNESS = 3;
+    public static final int TRIGGER_TYPE_SCREEN_STATE = 2;
+    public static final int TRIGGER_TYPE_SET_EXTRA_SCENE = 32;
+    public static final int TRIGGER_TYPE_SET_MODE = 31;
+    public static final int TRIGGER_TYPE_SET_TIME = 34;
+    public static final int TRIGGER_TYPE_SPEAKER_VOLUME_CHANGED = 41;
+    public static final int TRIGGER_TYPE_SPLITSCREEN = 44;
+    public static final int TRIGGER_TYPE_SUSPEND_AND_RESUME_EVENT = 23;
+    public static final int TRIGGER_TYPE_SYSTEM_SETTING_PROPERTY_RECORD = 46;
+    public static final int TRIGGER_TYPE_SYSTEM_STATE = 7;
+    public static final int TRIGGER_TYPE_TEN_MINUTE_TIMER = 8;
+    public static final int TRIGGER_TYPE_THERMAL_ZONE = 6;
+    public static final int TRIGGER_TYPE_WAKELOCK_EVENT = 16;
+    public static final int TRIGGER_TYPE_WIFI_INFO = 13;
+    public static final int TRIGGER_TYPE_WIFI_SCAN_RESULT = 33;
+    public static final int TRIGGER_TYPE_WIFI_STATE = 12;
+}
