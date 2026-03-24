@@ -1001,11 +1001,12 @@ android_app_import {
 java_library {
     name: "oplus-framework",
     srcs: [
-        "oplus_framework/src/**/*.aidl",
-        "oplus_framework/src/**/*.java",
+        "oplus-frameworks/opcore-fwk/src/**/*.aidl",
+        "oplus-frameworks/opcore-fwk/src/**/*.java",
+        "oplus-frameworks/op-support-wrapper/src/**/*.java",
     ],
     aidl: {
-        local_include_dirs: ["oplus_framework/src"],
+        local_include_dirs: ["oplus-frameworks/opcore-fwk/src"],
     },
     installable: true,
     compile_dex: true,
