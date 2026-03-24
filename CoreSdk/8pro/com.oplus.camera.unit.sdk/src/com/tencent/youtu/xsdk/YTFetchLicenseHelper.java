@@ -266,22 +266,14 @@ public class YTFetchLicenseHelper {
                             return;
                         }
                     } catch (MalformedURLException e17) {
-                        e = e17;
                     } catch (ProtocolException e18) {
-                        e = e18;
                     } catch (SocketTimeoutException e19) {
-                        e = e19;
                     } catch (IOException e20) {
-                        e = e20;
                     } catch (InvalidKeyException e21) {
-                        e = e21;
                     } catch (NoSuchAlgorithmException e22) {
-                        e = e22;
                     } catch (JSONException e23) {
-                        e = e23;
                     }
                 } catch (Throwable th2) {
-                    th = th2;
                 }
             } catch (MalformedURLException e24) {
                 httpsURLConnection = null;
