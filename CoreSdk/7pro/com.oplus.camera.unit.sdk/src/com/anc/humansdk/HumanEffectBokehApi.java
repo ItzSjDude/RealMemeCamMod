@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+
 /* loaded from: classes.dex */
 public class HumanEffectBokehApi {
     static final String TAG = "HumanEffectBokehApi";
@@ -36,7 +37,8 @@ public class HumanEffectBokehApi {
 
     private native int nativeDetectTextureIn(long j, int i, int i2, int i3, int i4, float f, float f2, boolean z);
 
-    private native int nativeDetectTextureInWithSeg(long j, int i, int i2, int i3, int i4, float f, float f2, boolean z, boolean z2);
+    private native int nativeDetectTextureInWithSeg(long j, int i, int i2, int i3, int i4, float f, float f2, boolean z,
+            boolean z2);
 
     private native long nativeInitConfigHandle(HumanEffectBokehConfig humanEffectBokehConfig);
 
@@ -64,10 +66,12 @@ public class HumanEffectBokehApi {
         if (humanEffectBokehConfig == null) {
             Log.e(TAG, "config invalid!");
             return 1;
-        } else if ((humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0) && (humanEffectBokehConfig.modelPath == null || humanEffectBokehConfig.modelPath.trim().isEmpty())) {
+        } else if ((humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0)
+                && (humanEffectBokehConfig.modelPath == null || humanEffectBokehConfig.modelPath.trim().isEmpty())) {
             Log.e(TAG, "config has no valid model info!");
             return 1;
-        } else if (humanEffectBokehConfig.runtime != NNRuntime.RUNTIME_UNKNOW.value() && humanEffectBokehConfig.runtime < NNRuntime.RUNTIME_RANGE.value()) {
+        } else if (humanEffectBokehConfig.runtime != NNRuntime.RUNTIME_UNKNOW.value()
+                && humanEffectBokehConfig.runtime < NNRuntime.RUNTIME_RANGE.value()) {
             if (this.handle.get() != 0) {
                 return 3;
             }
@@ -82,7 +86,8 @@ public class HumanEffectBokehApi {
                 humanEffectBokehConfig.nativeLibPath = "";
             }
             if (humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0) {
-                humanEffectBokehConfig.modelData = getFileContent(humanEffectBokehConfig.modelPath, humanEffectBokehConfig.assetsMgr);
+                humanEffectBokehConfig.modelData = getFileContent(humanEffectBokehConfig.modelPath,
+                        humanEffectBokehConfig.assetsMgr);
             }
             if (humanEffectBokehConfig.modelData != null && humanEffectBokehConfig.modelData.length != 0) {
                 long nativeInitConfigHandle = nativeInitConfigHandle(humanEffectBokehConfig);
@@ -109,11 +114,13 @@ public class HumanEffectBokehApi {
         return 0;
     }
 
-    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3, int i6, int i7) {
+    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3,
+            int i6, int i7) {
         return process(i, i2, i3, iArr, iArr2, f, i4, i5, f2, f3, i6, i7, false);
     }
 
-    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3, int i6, int i7, boolean z) {
+    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3,
+            int i6, int i7, boolean z) {
         int detectTextureIn = detectTextureIn(i, i6, i7, i4, f2, f3, z);
         return detectTextureIn == 0 ? process(i, i2, f, i5 != 1, z) : detectTextureIn;
     }
@@ -163,7 +170,8 @@ public class HumanEffectBokehApi {
         int[] iArr = new int[i3];
         for (int i4 = 0; i4 < i3; i4++) {
             int i5 = i4 * 3;
-            iArr[i4] = (-16777216) | (bArr[i5 + 0] & 255) | ((bArr[i5 + 1] << 8) & 65280) | ((bArr[i5 + 2] << 16) & 16711680);
+            iArr[i4] = (-16777216) | (bArr[i5 + 0] & 255) | ((bArr[i5 + 1] << 8) & 65280)
+                    | ((bArr[i5 + 2] << 16) & 16711680);
         }
         bitmap.setPixels(iArr, 0, i, 0, 0, i, i2);
     }
@@ -181,11 +189,13 @@ public class HumanEffectBokehApi {
         return !isSoLoaded.get() ? "" : nativeSdkVersion();
     }
 
-    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3, int i6, int i7, int i8) {
+    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3,
+            int i6, int i7, int i8) {
         return process(i, i2, i3, iArr, iArr2, f, i4, i5, f2, f3, i6, i7, i8, false);
     }
 
-    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3, int i6, int i7, int i8, boolean z) {
+    public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3,
+            int i6, int i7, int i8, boolean z) {
         int detectTextureInSeg = detectTextureInSeg(i, i6, i7, i4, f2, f3, i8 > 0, z);
         boolean z2 = i5 != 1;
         if (detectTextureInSeg != 0 || i8 <= 1) {
@@ -258,60 +268,52 @@ public class HumanEffectBokehApi {
     }
 
     /* JADX WARN: Removed duplicated region for block: B:13:0x0036 A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:21:0x002d A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:25:0x0037 A[EXC_TOP_SPLITTER, LOOP:0: B:25:0x0037->B:16:0x003e, LOOP_START, SYNTHETIC] */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    private static byte[] getFileContent(java.lang.String r6, android.content.res.AssetManager r7) {
-        /*
-            java.io.ByteArrayOutputStream r0 = new java.io.ByteArrayOutputStream
-            r0.<init>()
-            r1 = 8192(0x2000, float:1.148E-41)
-            byte[] r1 = new byte[r1]
-            r2 = 0
-            r3 = 0
-            if (r7 == 0) goto L29
-            java.io.InputStream r7 = r7.open(r6)     // Catch: java.io.IOException -> L13
-            r4 = 1
-            goto L2b
-        L13:
-            java.lang.String r7 = com.anc.humansdk.HumanEffectBokehApi.TAG
-            java.lang.StringBuilder r4 = new java.lang.StringBuilder
-            r4.<init>()
-            java.lang.String r5 = "fail to open "
-            r4.append(r5)
-            r4.append(r6)
-            java.lang.String r4 = r4.toString()
-            android.util.Log.e(r7, r4)
-        L29:
-            r4 = r2
-            r7 = r3
-        L2b:
-            if (r4 != 0) goto L34
-            java.io.FileInputStream r7 = new java.io.FileInputStream     // Catch: java.io.IOException -> L33
-            r7.<init>(r6)     // Catch: java.io.IOException -> L33
-            goto L34
-        L33:
-            return r3
-        L34:
-            if (r7 != 0) goto L37
-            return r3
-        L37:
-            int r6 = r7.read(r1)     // Catch: java.io.IOException -> L4d
-            r4 = -1
-            if (r6 == r4) goto L42
-            r0.write(r1, r2, r6)     // Catch: java.io.IOException -> L4d
-            goto L37
-        L42:
-            r7.close()     // Catch: java.io.IOException -> L4d
-            r0.close()     // Catch: java.io.IOException -> L4d
-            byte[] r6 = r0.toByteArray()
-            return r6
-        L4d:
-            return r3
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.anc.humansdk.HumanEffectBokehApi.getFileContent(java.lang.String, android.content.res.AssetManager):byte[]");
+     * JADX WARN: Removed duplicated region for block: B:21:0x002d
+     * A[EXC_TOP_SPLITTER, SYNTHETIC]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:25:0x0037
+     * A[EXC_TOP_SPLITTER, LOOP:0: B:25:0x0037->B:16:0x003e, LOOP_START, SYNTHETIC]
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    private static byte[] getFileContent(String str, android.content.res.AssetManager assetManager) {
+        java.io.ByteArrayOutputStream byteArrayOutputStream = new java.io.ByteArrayOutputStream();
+        byte[] bArr = new byte[8192];
+        java.io.InputStream inputStream = null;
+
+        try {
+            if (assetManager != null) {
+                try {
+                    inputStream = assetManager.open(str);
+                } catch (java.io.IOException unused) {
+                    android.util.Log.e(TAG, "fail to open " + str + " from assets");
+                }
+            }
+            if (inputStream == null) {
+                try {
+                    inputStream = new java.io.FileInputStream(str);
+                } catch (java.io.IOException unused2) {
+                    return null;
+                }
+            }
+
+            while (true) {
+                int read = inputStream.read(bArr);
+                if (read == -1) {
+                    break;
+                }
+                byteArrayOutputStream.write(bArr, 0, read);
+            }
+            inputStream.close();
+            byteArrayOutputStream.close();
+            return byteArrayOutputStream.toByteArray();
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
