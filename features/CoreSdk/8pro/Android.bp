@@ -1,0 +1,19 @@
+soong_namespace {
+    imports: ["vendor/realmeme_cam_mod"],
+}
+
+java_library {
+    name: "com.oplus.camera.unit.sdk",
+    srcs: ["com.oplus.camera.unit.sdk/sources/**/*.java"],
+    installable: true,
+    libs: ["framework", "oplus-framework"],
+    product_specific: true,
+}
+
+java_library {
+    name: "com.oplus.camera.unit.sdk.adapter",
+    srcs: ["com.oplus.camera.unit.sdk.adapter/sources/**/*.java"],
+    installable: true,
+    libs: ["framework", "oplus-framework", "com.oplus.camera.unit.sdk"],
+    product_specific: true,
+}
