@@ -88,7 +88,7 @@ public class CameraMetadataNativeWrapper {
                     objArr[0] = new String(key2.getName());
                     vendorKeyMap = vendorKeyMap2;
                 } catch (Exception e) {
-                    e = e;
+                    // empty catch
                 }
                 try {
                     objArr[1] = new Long(key2.getVendorId());
@@ -97,8 +97,7 @@ public class CameraMetadataNativeWrapper {
                     vendorKeyMap2 = vendorKeyMap;
                     i = 2;
                 } catch (Exception e2) {
-                    e = e2;
-                    Log.e(TAG, "getVendorTagId error", e);
+                    Log.e(TAG, "getVendorTagId error", e2);
                     return null;
                 }
             }
@@ -110,17 +109,16 @@ public class CameraMetadataNativeWrapper {
                         vendorKeyMap4.put(tempKey, temp.get(tempKey));
                         vendorKeyMap3 = vendorKeyMap4;
                     } catch (Exception e3) {
-                        e = e3;
-                        Log.e(TAG, "getVendorTagId error", e);
+                        Log.e(TAG, "getVendorTagId error", e3);
                         return null;
                     }
                 }
                 return vendorKeyMap3;
             } catch (Exception e4) {
-                e = e4;
+                // empty
             }
         } catch (Exception e5) {
-            e = e5;
+            // empty
         }
     }
 

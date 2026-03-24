@@ -9,15 +9,6 @@ public class AdaptiveIconDrawableWrapper {
     private static final String TAG = "AdaptiveIconDrawbaleWrapper";
 
     public static float getForegroundScalePercent(AdaptiveIconDrawable drawable) {
-        try {
-            IAdaptiveIconDrawableExt iAdaptiveIconDrawableExt = drawable.getWrapper().getAdaptiveIconDrawableExt();
-            if (iAdaptiveIconDrawableExt != null) {
-                return iAdaptiveIconDrawableExt.getForegroundScalePercent();
-            }
-            return 0.0f;
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-            return 0.0f;
-        }
+        return 0.0f;
     }
 }
