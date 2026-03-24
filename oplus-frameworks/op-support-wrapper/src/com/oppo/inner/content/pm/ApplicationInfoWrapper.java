@@ -35,17 +35,10 @@ public class ApplicationInfoWrapper {
     }
 
     public static int getOplusFreezeState(ApplicationInfo appInfo) {
-        IApplicationInfoExt applicationInfoExt;
-        if (appInfo != null && (applicationInfoExt = appInfo.mApplicationInfoExt) != null) {
-            return applicationInfoExt.getOplusFreezeState();
-        }
         return -1;
     }
 
     public static void setOplusFreezeState(ApplicationInfo appInfo, int state) {
-        IApplicationInfoExt applicationInfoExt;
-        if (appInfo != null && (applicationInfoExt = appInfo.mApplicationInfoExt) != null) {
-            applicationInfoExt.setOplusFreezeState(state);
-        }
+        // commented out
     }
 }
