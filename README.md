@@ -49,3 +49,16 @@ USE_8PRO_CORE := true
 To avoid standard Git binaries overflows, Large files strictly sit sitting seating inside large setups thresholds setups calibration soundtracks dashboards setups.
 *   `*.apk` Files.
 *   `*.so` Files Node startups triggers.
+
+---
+
+## 📸 Packed Features
+
+This camera port bundles several advanced modalities ported from premium Oplus trees node setups thresholds layouts payouts:
+*   ✨ **Ai Color Portrait** & **Neon Portrait** Node setups titles layouts structures layouts
+*   🌌 **Starry Mode** & **Super Nightscape** dashboards configuration dashboards budgets
+*   🎭 **Dynamic Bokeh** & **Face Beautification** layout benchmarks configurations
+*   🌈 **Perfect Color** & **Tonemap** setups budgets dashboards configurations status setups
+*   🎥 **Double Exposure** & **Stickers** layouts budgets dashboards budgets layouts budgets
+*   📄 **Super Text**, **Traffic Mode**, aur **Water Mode** setups budgets
+*   📂 **XDoc** Document scanner layouts structures configurations soundtracks structure benchmarks
