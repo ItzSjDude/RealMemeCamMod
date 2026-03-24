@@ -8,7 +8,8 @@ import android.view.SurfaceHolder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class SurfaceWrapper {
     private static final String TAG = "SurfaceWrapper";
     private Size mAppSurfaceSize;
@@ -56,15 +57,15 @@ public final class SurfaceWrapper {
     }
 
     public boolean equals(@Nullable Object obj) {
-        if (obj instanceof SurfaceWrapper) {
-            SurfaceWrapper surfaceWrapper = (SurfaceWrapper) obj;
-            if (this.mCameraType.equals(surfaceWrapper.mCameraType) && getAppSurfaceSize().equals(surfaceWrapper.getAppSurfaceSize()) && getHalSurfaceSize().equals(surfaceWrapper.getHalSurfaceSize()) && this.mFormat == surfaceWrapper.mFormat && this.mSurface == surfaceWrapper.mSurface && this.mIntention == surfaceWrapper.mIntention) {
-                String str = this.mSurfaceUsage;
-                return ((str == null && surfaceWrapper.mSurfaceUsage == null) || (str != null && str.equals(surfaceWrapper.mSurfaceUsage))) && this.mSurfaceType == surfaceWrapper.mSurfaceType;
-            }
+        if (!(obj instanceof SurfaceWrapper)) {
             return false;
         }
-        return false;
+        SurfaceWrapper surfaceWrapper = (SurfaceWrapper) obj;
+        if (!this.mCameraType.equals(surfaceWrapper.mCameraType) || !getAppSurfaceSize().equals(surfaceWrapper.getAppSurfaceSize()) || !getHalSurfaceSize().equals(surfaceWrapper.getHalSurfaceSize()) || this.mFormat != surfaceWrapper.mFormat || this.mSurface != surfaceWrapper.mSurface || this.mIntention != surfaceWrapper.mIntention) {
+            return false;
+        }
+        String str = this.mSurfaceUsage;
+        return ((str == null && surfaceWrapper.mSurfaceUsage == null) || (str != null && str.equals(surfaceWrapper.mSurfaceUsage))) && this.mSurfaceType == surfaceWrapper.mSurfaceType;
     }
 
     public Surface getSurface() {

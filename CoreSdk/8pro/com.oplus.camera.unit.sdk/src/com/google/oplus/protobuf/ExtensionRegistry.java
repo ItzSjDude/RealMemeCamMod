@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ExtensionRegistry extends ExtensionRegistryLite {
     static final ExtensionRegistry EMPTY_REGISTRY = new ExtensionRegistry(true);
     private final Map<String, ExtensionInfo> immutableExtensionsByName;
@@ -24,16 +25,17 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         return EMPTY_REGISTRY;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getUnmodifiable()Lcom/google/oplus/protobuf/ExtensionRegistryLite; */
     @Override // com.google.oplus.protobuf.ExtensionRegistryLite
     public ExtensionRegistry getUnmodifiable() {
         return new ExtensionRegistry(this);
     }
 
-    /* loaded from: classes.dex */
     public static final class ExtensionInfo {
         public final Message defaultInstance;
         public final Descriptors.FieldDescriptor descriptor;
 
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.Descriptors$FieldDescriptor), (r2v0 com.google.oplus.protobuf.Message) A[MD:(com.google.oplus.protobuf.Descriptors$FieldDescriptor, com.google.oplus.protobuf.Message):void (m)] (LINE:110) call: com.google.oplus.protobuf.ExtensionRegistry.ExtensionInfo.<init>(com.google.oplus.protobuf.Descriptors$FieldDescriptor, com.google.oplus.protobuf.Message):void type: THIS */
         /* synthetic */ ExtensionInfo(Descriptors.FieldDescriptor fieldDescriptor, Message message, AnonymousClass1 anonymousClass1) {
             this(fieldDescriptor, message);
         }
@@ -105,21 +107,29 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         add((Extension<?, ?>) generatedExtension);
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r2v1, resolved type: java.lang.Object[] */
+    /* JADX DEBUG: Multi-variable search result rejected for r2v2, resolved type: java.lang.Object[] */
+    /* JADX WARN: Multi-variable type inference failed */
     static ExtensionInfo newExtensionInfo(Extension<?, ?> extension) {
+        AnonymousClass1 anonymousClass1 = null;
+        Object[] objArr = 0;
+        Object[] objArr2 = 0;
         if (extension.getDescriptor().getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
             if (extension.getMessageDefaultInstance() == null) {
                 throw new IllegalStateException("Registered message-type extension had null default instance: " + extension.getDescriptor().getFullName());
             }
-            return new ExtensionInfo(extension.getDescriptor(), extension.getMessageDefaultInstance(), null);
+            return new ExtensionInfo(extension.getDescriptor(), extension.getMessageDefaultInstance(), anonymousClass1);
         }
-        return new ExtensionInfo(extension.getDescriptor(), null, null);
+        return new ExtensionInfo(extension.getDescriptor(), objArr2 == true ? 1 : 0, objArr == true ? 1 : 0);
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r1v2, resolved type: java.lang.Object[] */
+    /* JADX WARN: Multi-variable type inference failed */
     public void add(Descriptors.FieldDescriptor fieldDescriptor) {
         if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
             throw new IllegalArgumentException("ExtensionRegistry.add() must be provided a default instance when adding an embedded message extension.");
         }
-        ExtensionInfo extensionInfo = new ExtensionInfo(fieldDescriptor, null, null);
+        ExtensionInfo extensionInfo = new ExtensionInfo(fieldDescriptor, null, 0 == true ? 1 : 0);
         add(extensionInfo, Extension.ExtensionType.IMMUTABLE);
         add(extensionInfo, Extension.ExtensionType.MUTABLE);
     }
@@ -164,9 +174,10 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         if (i == 1) {
             map = this.immutableExtensionsByName;
             map2 = this.immutableExtensionsByNumber;
-        } else if (i != 2) {
-            return;
         } else {
+            if (i != 2) {
+                return;
+            }
             map = this.mutableExtensionsByName;
             map2 = this.mutableExtensionsByNumber;
         }
@@ -178,10 +189,8 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.ExtensionRegistry$1  reason: invalid class name */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.ExtensionRegistry$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Extension$ExtensionType;
 
         static {
@@ -198,9 +207,7 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class DescriptorIntPair {
+    private static final class DescriptorIntPair {
         private final Descriptors.Descriptor descriptor;
         private final int number;
 
@@ -214,11 +221,11 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         }
 
         public boolean equals(Object obj) {
-            if (obj instanceof DescriptorIntPair) {
-                DescriptorIntPair descriptorIntPair = (DescriptorIntPair) obj;
-                return this.descriptor == descriptorIntPair.descriptor && this.number == descriptorIntPair.number;
+            if (!(obj instanceof DescriptorIntPair)) {
+                return false;
             }
-            return false;
+            DescriptorIntPair descriptorIntPair = (DescriptorIntPair) obj;
+            return this.descriptor == descriptorIntPair.descriptor && this.number == descriptorIntPair.number;
         }
     }
 }

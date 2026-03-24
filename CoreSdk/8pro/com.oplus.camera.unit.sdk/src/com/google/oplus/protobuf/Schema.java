@@ -2,9 +2,9 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.ArrayDecoders;
 import java.io.IOException;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface Schema<T> {
+
+/* JADX INFO: loaded from: classes.dex */
+interface Schema<T> {
     boolean equals(T t, T t2);
 
     int getSerializedSize(T t);

@@ -8,7 +8,9 @@ import com.oplus.ocs.camera.appinterface.CameraStateCallbackAdapter;
 import com.oplus.ocs.camera.common.util.Util;
 import com.oplus.ocs.camera.producer.info.CameraIdType;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+import java.util.Iterator;
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraDeviceManager {
     private static final String TAG = "CameraDeviceManager";
     private HashMap<String, Camera2StateMachineInterface> mCameraStateMachines = new HashMap<>();
@@ -20,10 +22,10 @@ public class CameraDeviceManager {
     }
 
     public void openCamera(@NonNull CameraIdType cameraIdType, @NonNull CameraStateCallbackAdapter cameraStateCallbackAdapter, CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter, CameraPictureCallbackAdapter cameraPictureCallbackAdapter, CameraRecordingCallbackAdapter cameraRecordingCallbackAdapter) {
-        Camera2StateMachineInterface camera2StateMachineInterface = this.mCameraStateMachines.get(cameraIdType.getCameraType());
-        if (camera2StateMachineInterface == null) {
-            camera2StateMachineInterface = new Camera2StateMachineImpl(cameraIdType.getCameraType());
-            this.mCameraStateMachines.put(cameraIdType.getCameraType(), camera2StateMachineInterface);
+        Camera2StateMachineInterface camera2StateMachineImpl = this.mCameraStateMachines.get(cameraIdType.getCameraType());
+        if (camera2StateMachineImpl == null) {
+            camera2StateMachineImpl = new Camera2StateMachineImpl(cameraIdType.getCameraType());
+            this.mCameraStateMachines.put(cameraIdType.getCameraType(), camera2StateMachineImpl);
         }
         MsgPackage msgPackage = new MsgPackage();
         msgPackage.mCameraId = cameraIdType.getCameraId();
@@ -31,12 +33,13 @@ public class CameraDeviceManager {
         msgPackage.mPictureCallback = cameraPictureCallbackAdapter;
         msgPackage.mPreviewCallback = cameraPreviewCallbackAdapter;
         msgPackage.mRecordingCallback = cameraRecordingCallbackAdapter;
-        camera2StateMachineInterface.openCameraAuto(msgPackage);
+        camera2StateMachineImpl.openCameraAuto(msgPackage);
     }
 
     public void release() {
-        for (Camera2StateMachineInterface camera2StateMachineInterface : this.mCameraStateMachines.values()) {
-            camera2StateMachineInterface.release();
+        Iterator<Camera2StateMachineInterface> it = this.mCameraStateMachines.values().iterator();
+        while (it.hasNext()) {
+            it.next().release();
         }
         this.mCameraStateMachines.clear();
     }

@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class MapFieldSchemas {
     private static final MapFieldSchema FULL_SCHEMA = loadSchemaForFullRuntime();
     private static final MapFieldSchema LITE_SCHEMA = new MapFieldSchemaLite();
@@ -7,13 +8,11 @@ final class MapFieldSchemas {
     MapFieldSchemas() {
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static MapFieldSchema full() {
+    static MapFieldSchema full() {
         return FULL_SCHEMA;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static MapFieldSchema lite() {
+    static MapFieldSchema lite() {
         return LITE_SCHEMA;
     }
 

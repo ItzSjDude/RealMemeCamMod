@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.producer.mode;
 
 import com.oplus.ocs.camera.common.util.CameraConstant;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class TiltShiftFastVideoMode extends FastVideoMode {
     private static final String TAG = "TiltShiftFastVideoMode";
 

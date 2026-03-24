@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.parameter.apsadapter;
 
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsDecisionParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<Integer> KEY_PREVIEW_CAMERA_ID = new ApsBaseParameter.Key<>("com.oplus.preview.camera_id", Integer.class, -1);
     public static final ApsBaseParameter.Key<String> KEY_PREVIEW_CAPTURE_MODE = new ApsBaseParameter.Key<>("com.oplus.preview.capture_mode", String.class, null);

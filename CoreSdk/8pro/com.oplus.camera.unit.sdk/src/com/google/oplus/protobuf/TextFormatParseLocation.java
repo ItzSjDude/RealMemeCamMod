@@ -1,14 +1,14 @@
 package com.google.oplus.protobuf;
 
 import java.util.Arrays;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class TextFormatParseLocation {
     public static final TextFormatParseLocation EMPTY = new TextFormatParseLocation(-1, -1);
     private final int column;
     private final int line;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static TextFormatParseLocation create(int i, int i2) {
+    static TextFormatParseLocation create(int i, int i2) {
         if (i == -1 && i2 == -1) {
             return EMPTY;
         }
@@ -39,11 +39,11 @@ public final class TextFormatParseLocation {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof TextFormatParseLocation) {
-            TextFormatParseLocation textFormatParseLocation = (TextFormatParseLocation) obj;
-            return this.line == textFormatParseLocation.getLine() && this.column == textFormatParseLocation.getColumn();
+        if (!(obj instanceof TextFormatParseLocation)) {
+            return false;
         }
-        return false;
+        TextFormatParseLocation textFormatParseLocation = (TextFormatParseLocation) obj;
+        return this.line == textFormatParseLocation.getLine() && this.column == textFormatParseLocation.getColumn();
     }
 
     public int hashCode() {

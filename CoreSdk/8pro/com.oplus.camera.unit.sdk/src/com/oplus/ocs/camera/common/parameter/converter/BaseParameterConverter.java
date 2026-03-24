@@ -8,7 +8,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.DefaultUtill;
 import com.oplus.ocs.camera.producer.device.CaptureRequestProxy;
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 abstract class BaseParameterConverter implements ParameterConverterInterface {
     private static final String TAG = "BaseParameterConverter";
     Map<String, CaptureRequest.Key<?>> mCustomParameterMap;
@@ -52,49 +53,49 @@ abstract class BaseParameterConverter implements ParameterConverterInterface {
     public static final CaptureRequest.Key<Integer> KEY_REAR_SELF_MODE_REVERSE = new CaptureRequest.Key<>("com.oplus.rear.self.mode.reverse", Integer.class);
     private static final CaptureRequest.Key<int[]> KEY_HASSELBLAD_XPAN_CROP_INFO = new CaptureRequest.Key<>("com.oplus.opx.CropInfo", int[].class);
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public BaseParameterConverter() {
-        HashMap hashMap = new HashMap();
-        this.mCustomParameterMap = hashMap;
-        hashMap.clear();
-        this.mCustomParameterMap.put(ConfigureParameter.IS_OPLUS_PACKAGE.getName(), KEY_OPLUS_SDK_CAMERA_PACKAGE);
+    /* JADX WARN: Type inference incomplete: some casts might be missing */
+    BaseParameterConverter() {
+        HashMap map = new HashMap();
+        this.mCustomParameterMap = map;
+        map.clear();
+        this.mCustomParameterMap.put(ConfigureParameter.IS_OPLUS_PACKAGE.getName(), (CaptureRequest.Key<?>) KEY_OPLUS_SDK_CAMERA_PACKAGE);
         this.mCustomParameterMap.put(ConfigureParameter.AI_NIGHT_VIDEO_MODE.getName(), KEY_AI_NIGHT_MODE);
         this.mCustomParameterMap.put(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE.getName(), KEY_VIDEO_EIS_RECORD_STATE);
         this.mCustomParameterMap.put(ConfigureParameter.KEY_MAKEUP_STATE.getName(), KEY_MAKEUP_STATE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_CALLER_PACKAGE_NAME.getName(), KEY_CALLER_PACKAGE_NAME);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_CALLER_PACKAGE_NAME.getName(), (CaptureRequest.Key<?>) KEY_CALLER_PACKAGE_NAME);
         this.mCustomParameterMap.put(ConfigureParameter.KEY_DUAL_SCENE_MASTER.getName(), KEY_DUAL_SCENE_MASTER);
         this.mCustomParameterMap.put(ConfigureParameter.KEY_REAR_SELF_MODE_REVERSE.getName(), KEY_REAR_SELF_MODE_REVERSE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_BLUR_LEVEL.getName(), KEY_BLUR_LEVEL);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_AUTO_HDR_ENABLE.getName(), KEY_AUTO_HDR_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_NAME_ZOOM_TARGET.getName(), KEY_NAME_ZOOM_TARGET);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_NAME_ZOOM_ACTIVE.getName(), KEY_NAME_ZOOM_ACTIVE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_BLUR_LEVEL.getName(), (CaptureRequest.Key<?>) KEY_BLUR_LEVEL);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_AUTO_HDR_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_AUTO_HDR_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_NAME_ZOOM_TARGET.getName(), (CaptureRequest.Key<?>) KEY_NAME_ZOOM_TARGET);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_NAME_ZOOM_ACTIVE.getName(), (CaptureRequest.Key<?>) KEY_NAME_ZOOM_ACTIVE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_DEVICE_ORIENTATION.getName(), KEY_NAME_DEVICE_ORIENTATION);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_SENSOR_MODE.getName(), KEY_SENSOR_MODE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_WATERMARK_ENABLE.getName(), KEY_VIDEO_WATERMARK_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_WATERMARK_ORIENTATION.getName(), KEY_VIDEO_WATERMARK_ORIENTATION);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_WATERMARK_PATH.getName(), KEY_VIDEO_WATERMARK_PATH);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_PI_ENABLE.getName(), KEY_PI_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_PI_ENABLE_LIST.getName(), KEY_PI_ENABLE_LIST);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_AI_SCN_ENABLE.getName(), KEY_AI_SCN_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_CONTROL_GYRO_ENABLE.getName(), KEY_CONTROL_GYRO_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_NIGHT_MODE.getName(), KEY_NIGHT_MODE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_APERTURE_VALUE.getName(), KEY_APERTURE_VALUE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_MFSR_FRAME_NUM.getName(), KEY_MFSR_FRAME_NUM);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_SENSOR_MODE.getName(), (CaptureRequest.Key<?>) KEY_SENSOR_MODE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_WATERMARK_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_VIDEO_WATERMARK_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_WATERMARK_ORIENTATION.getName(), (CaptureRequest.Key<?>) KEY_VIDEO_WATERMARK_ORIENTATION);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_WATERMARK_PATH.getName(), (CaptureRequest.Key<?>) KEY_VIDEO_WATERMARK_PATH);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_PI_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_PI_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_PI_ENABLE_LIST.getName(), (CaptureRequest.Key<?>) KEY_PI_ENABLE_LIST);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_AI_SCN_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_AI_SCN_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_CONTROL_GYRO_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_CONTROL_GYRO_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_NIGHT_MODE.getName(), (CaptureRequest.Key<?>) KEY_NIGHT_MODE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_APERTURE_VALUE.getName(), (CaptureRequest.Key<?>) KEY_APERTURE_VALUE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_MFSR_FRAME_NUM.getName(), (CaptureRequest.Key<?>) KEY_MFSR_FRAME_NUM);
         this.mCustomParameterMap.put(PreviewParameter.KEY_CUSTOM_NOISE_REDUCTION.getName(), KEY_CUSTOM_NOISE_REDUCTION);
         this.mCustomParameterMap.put(PreviewParameter.KEY_EXIF_TAG_DATETIME.getName(), KEY_EXIF_TAG_DATETIME);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_HASSELBLAD_XPAN_CROP_REGION.getName(), KEY_HASSELBLAD_XPAN_CROP_INFO);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_HASSELBLAD_XPAN_CROP_REGION.getName(), (CaptureRequest.Key<?>) KEY_HASSELBLAD_XPAN_CROP_INFO);
         this.mCustomParameterMap.put(PreviewParameter.KEY_ZOOM_SCALE.getName(), KEY_NAME_ZOOM_SCALE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_APS_FEATURE_TYPE.getName(), KEY_APS_FEATURE_TYPE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_MOVING_OBJECT.getName(), KEY_MOVING_OBJECT);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_AE_REGION.getName(), KEY_AE_REGION);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_AF_REGION.getName(), KEY_AF_REGION);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_BRACKET_MODE.getName(), KEY_BRACKET_MODE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_APS_FEATURE_TYPE.getName(), (CaptureRequest.Key<?>) KEY_APS_FEATURE_TYPE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_MOVING_OBJECT.getName(), (CaptureRequest.Key<?>) KEY_MOVING_OBJECT);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_AE_REGION.getName(), (CaptureRequest.Key<?>) KEY_AE_REGION);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_AF_REGION.getName(), (CaptureRequest.Key<?>) KEY_AF_REGION);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_BRACKET_MODE.getName(), (CaptureRequest.Key<?>) KEY_BRACKET_MODE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_MULTI_FRAME_EXPOSURE_TIME.getName(), KEY_MULTI_FRAME_EXPOSURE_TIME);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_LONGSHOT_ENABLE.getName(), KEY_LONGSHOT_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_PRO_TORCH_MODE.getName(), KEY_PRO_TORCH_MODE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_LONGSHOT_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_LONGSHOT_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_PRO_TORCH_MODE.getName(), (CaptureRequest.Key<?>) KEY_PRO_TORCH_MODE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_MOVIE_HDR_ENABLE.getName(), KEY_MOVIE_HDR_ENABLE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_MOVIE_LOG_ENABLE.getName(), KEY_MOVIE_LOG_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_AIS_STATE.getName(), KEY_AIS_STATE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_AIS_STATE.getName(), (CaptureRequest.Key<?>) KEY_AIS_STATE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_NIGHT_OFFLINE_R2Y.getName(), KEY_NIGHT_OFFLINE_R2Y);
     }
 

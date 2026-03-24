@@ -1,14 +1,12 @@
 package com.oplus.ocs.camera.consumer;
 
-import com.oplus.ocs.camera.common.statistics.StatisticConstant;
 import com.oplus.ocs.camera.common.util.ApsConstant;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.Util;
 import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
-import com.oplus.ocs.camera.producer.info.CameraIdType;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class ApsDataConvert {
     public static final String CAPTURE_MODE_AI_HIGH_PIXEL = "aiHighPixel";
     public static final String CAPTURE_MODE_BASIC_CAPTURE = "basicCapture";
@@ -46,293 +44,153 @@ public class ApsDataConvert {
 
     public static String getApsModeName(String str, int i) {
         str.hashCode();
-        char c = 65535;
-        switch (str.hashCode()) {
-            case -2031212699:
-                if (str.equals("sticker_mode")) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case -1981580245:
-                if (str.equals("basic_preview_mode")) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case -1894629433:
-                if (str.equals("portrait_mode")) {
-                    c = 2;
-                    break;
-                }
-                break;
-            case -1829654190:
-                if (str.equals("movie_mode")) {
-                    c = 3;
-                    break;
-                }
-                break;
-            case -1807586695:
-                if (str.equals(CameraConstant.ModeName.TIME_LAPSE_PRO_MODE)) {
-                    c = 4;
-                    break;
-                }
-                break;
-            case -1618054425:
-                if (str.equals("video_mode")) {
-                    c = 5;
-                    break;
-                }
-                break;
-            case -1474757122:
-                if (str.equals(CameraConstant.ModeName.THREE_D_PHOTO_MODE)) {
-                    c = 6;
-                    break;
-                }
-                break;
-            case -1364863434:
-                if (str.equals("macro_mode")) {
-                    c = 7;
-                    break;
-                }
-                break;
-            case -1335606154:
-                if (str.equals("microscope_video_mode")) {
-                    c = '\b';
-                    break;
-                }
-                break;
-            case -1315672655:
-                if (str.equals("super_text_mode")) {
-                    c = '\t';
-                    break;
-                }
-                break;
-            case -1115288275:
-                if (str.equals("panorama_mode")) {
-                    c = '\n';
-                    break;
-                }
-                break;
-            case -1091099523:
-                if (str.equals(CameraConstant.ModeName.XPAN_MODE)) {
-                    c = 11;
-                    break;
-                }
-                break;
-            case -1024010790:
-                if (str.equals("ultraHD_mode")) {
-                    c = '\f';
-                    break;
-                }
-                break;
-            case -1012695095:
-                if (str.equals(CameraConstant.ModeName.STAR_CAPTURE_MODE)) {
-                    c = '\r';
-                    break;
-                }
-                break;
-            case -909099703:
-                if (str.equals(CameraConstant.ModeName.FISH_EYE_MODE)) {
-                    c = 14;
-                    break;
-                }
-                break;
-            case -738301443:
-                if (str.equals(CameraConstant.ModeName.SKIN_DETECT_MODE)) {
-                    c = 15;
-                    break;
-                }
-                break;
-            case -630094729:
-                if (str.equals("multi_camera_mode")) {
-                    c = 16;
-                    break;
-                }
-                break;
-            case -601793174:
-                if (str.equals("night_mode")) {
-                    c = 17;
-                    break;
-                }
-                break;
-            case -507788400:
-                if (str.equals("photo_mode")) {
-                    c = 18;
-                    break;
-                }
-                break;
-            case -431484584:
-                if (str.equals("long_exposure_mode")) {
-                    c = 19;
-                    break;
-                }
-                break;
-            case -369063869:
-                if (str.equals("fastvideo_mode")) {
-                    c = 20;
-                    break;
-                }
-                break;
-            case -138650316:
-                if (str.equals("id_photo_mode")) {
-                    c = 21;
-                    break;
-                }
-                break;
-            case 148182893:
-                if (str.equals("basic_capture_mode")) {
-                    c = 22;
-                    break;
-                }
-                break;
-            case 176493755:
-                if (str.equals("professional_mode")) {
-                    c = 23;
-                    break;
-                }
-                break;
-            case 326551666:
-                if (str.equals(CameraConstant.ModeName.HIGH_DEFINITION_MODE)) {
-                    c = 24;
-                    break;
-                }
-                break;
-            case 327727618:
-                if (str.equals(CameraConstant.ModeName.TILT_SHIFT_FAST_VIDEO_MODE)) {
-                    c = 25;
-                    break;
-                }
-                break;
-            case 726262274:
-                if (str.equals(CameraConstant.ModeName.TILT_SHIFT_MODE)) {
-                    c = 26;
-                    break;
-                }
-                break;
-            case 918842704:
-                if (str.equals(CameraConstant.ModeName.GROUP_PHOTO_MODE)) {
-                    c = 27;
-                    break;
-                }
-                break;
-            case 1082731615:
-                if (str.equals(CameraConstant.ModeName.STREET_MODE)) {
-                    c = 28;
-                    break;
-                }
-                break;
-            case 1103925160:
-                if (str.equals("slowvideo_mode")) {
-                    c = 29;
-                    break;
-                }
-                break;
-            case 1616736459:
-                if (str.equals("microscope_capture_mode")) {
-                    c = 30;
-                    break;
-                }
-                break;
-            case 1665006324:
-                if (str.equals(CameraConstant.ModeName.STAR_VIDEO_MODE)) {
-                    c = 31;
-                    break;
-                }
-                break;
-            case 2066399865:
-                if (str.equals(CameraConstant.ModeName.HIGH_PIXEL_MODE)) {
-                    c = ' ';
-                    break;
-                }
-                break;
-        }
-        switch (c) {
-            case 0:
+        switch (str) {
+            case "sticker_mode":
                 return "sticker";
-            case 1:
+            case "basic_preview_mode":
                 return REC_MODE_BASIC_PREVIEW;
-            case 2:
+            case "portrait_mode":
                 return "portrait";
-            case 3:
+            case "movie_mode":
                 return "movie";
-            case 4:
+            case "time_lapse_pro_mode":
                 return "timelapsePro";
-            case 5:
+            case "video_mode":
                 return "commonVideo";
-            case 6:
+            case "3d_photo_mode":
                 return ApsConstant.CAPTURE_MODE_3D_PHOTO;
-            case 7:
+            case "macro_mode":
                 return CAPTURE_MODE_MACRO;
-            case '\b':
+            case "microscope_video_mode":
                 return REC_MODE_MICROSCOPE;
-            case '\t':
+            case "super_text_mode":
                 return "superText";
-            case '\n':
+            case "panorama_mode":
                 return "panorama";
-            case 11:
+            case "xpan_mode":
                 return "xpan";
-            case '\f':
+            case "ultraHD_mode":
                 return ApsConstant.CAPTURE_MODE_ULTRA_HIGH_RESOLUTION;
-            case '\r':
+            case "star_capture_mode":
                 return ApsConstant.CAPTURE_MODE_STARRY;
-            case 14:
+            case "fisheye_mode":
                 return CAPTURE_MODE_FISH_EYE;
-            case 15:
+            case "skin_detect_mode":
                 return ApsConstant.CAPTURE_MODE_SKIN_DETECT;
-            case 16:
+            case "multi_camera_mode":
                 return ApsConstant.CAPTURE_MODE_MULTI_VIDEO;
-            case 17:
+            case "night_mode":
                 return "night";
-            case 18:
-            case 26:
+            case "photo_mode":
+            case "tilt_shift_mode":
                 return "common";
-            case 19:
+            case "long_exposure_mode":
                 return "longExposure";
-            case 20:
-            case StatisticConstant.FunctionalErrorValues.CF_SENSOR_MODE_SWITCH_TIMEOUT /* 25 */:
+            case "fastvideo_mode":
+            case "tilt_Shift_fastvideo_mode":
                 return "fastVideo";
-            case 21:
+            case "id_photo_mode":
                 return "idPhoto";
-            case 22:
+            case "basic_capture_mode":
                 return CAPTURE_MODE_BASIC_CAPTURE;
-            case 23:
-                return AlgoSwitchConfig.getSupportCameraFeature(CAPTURE_MODE_PROFESSIONAL_FULL, i)
-                        ? CAPTURE_MODE_PROFESSIONAL_FULL
-                        : "professional";
-            case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
+            case "professional_mode":
+                return AlgoSwitchConfig.getSupportCameraFeature(CAPTURE_MODE_PROFESSIONAL_FULL, i) ? CAPTURE_MODE_PROFESSIONAL_FULL : "professional";
+            case "high_definition_mode":
                 return ApsConstant.CAPTURE_MODE_HIGH_DEFINITION;
-            case 27:
+            case "group_photo_mode":
                 return ApsConstant.CAPTURE_MODE_GROUP_PHOTO;
-            case 28:
+            case "street_mode":
                 return ApsConstant.CAPTURE_MODE_STREET;
-            case ApsConstant.FEATURE_TYPE_AI_HDR /* 29 */:
+            case "slowvideo_mode":
                 return "slowVideo";
-            case 30:
+            case "microscope_capture_mode":
                 return "microscope";
-            case 31:
+            case "star_video_mode":
                 return ApsConstant.REC_MODE_STAR_VIDEO;
-            case ' ':
+            case "high_pixel_mode":
                 return CAPTURE_MODE_AI_HIGH_PIXEL;
             default:
                 return null;
         }
     }
 
-    /*
-     * JADX WARN: Code restructure failed: missing block: B:78:0x0101, code lost:
-     * if ("rear_sat".equals(r14) != false) goto L67;
-     */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public static java.lang.String getApsFeatureName(java.lang.String r12, java.lang.String r13, java.lang.String r14) {
-        /*
-         * Method dump skipped, instructions count: 548
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.consumer.ApsDataConvert.getApsFeatureName(java.lang.String, java.lang.String, java.lang.String):java.lang.String");
+    public static String getApsFeatureName(String str, String str2, String str3) {
+        str.hashCode();
+        switch (str) {
+            case "basic_preview_mode":
+            case "basic_capture_mode":
+                return FEATURE_MINIMAL_DUMMY;
+            case "portrait_mode":
+                return CameraConstant.MonoPortrait.MONO_PORTRAIT.equals(str2) ? ApsConstant.FEATURE_MONO_PORTRAIT : CameraConstant.StreamerPortrait.STREAMER_PORTRAIT.equals(str2) ? ApsConstant.FEATURE_STREAMER_PORTRAIT : null;
+            case "movie_mode":
+                return "video_stabilization".equals(str2) ? "movie" : ApsConstant.FEATURE_REC_MOVIE_NO_EIS;
+            case "video_mode":
+                if (CameraConstant.EXPLORER_VIDEO_BOKEH.equals(str2)) {
+                    return ApsConstant.FEATURE_EXPLORER_BOKEH_VIDEO;
+                }
+                if ("video_stabilization".equals(str2)) {
+                    return FEATURE_MINIMAL_DUMMY;
+                }
+                if ("super_stabilization".equals(str2)) {
+                    if ("rear_main".equals(str3)) {
+                        return "superEISVideo";
+                    }
+                    if ("rear_wide".equals(str3)) {
+                        return "superEISProVideo";
+                    }
+                    return null;
+                }
+                if ("rear_sat".equals(str3)) {
+                    return "commonVideoSatHal";
+                }
+                if (!Util.isSystemCamera() && !"rear_wide".equals(str3)) {
+                    return FEATURE_MINIMAL_DUMMY;
+                }
+                if (("rear_main".equals(str3) || "front_main".equals(str3)) && String.valueOf(1).equals(str2)) {
+                    return "aiEnhancement";
+                }
+                if (CameraConstant.NightVideo.ULTRA_NIGHT_VIDEO.equals(str2)) {
+                    return ApsConstant.FEATURE_REC_ULTRA_NIGHT;
+                }
+                if (CameraConstant.ARC_VIDEO_RETENTION.equals(str2)) {
+                    return ApsConstant.FEATURE_VIDEO_RETENTION;
+                }
+                if (CameraConstant.AI_FOLLOW.equals(str2)) {
+                    return ApsConstant.FEATURE_CENTER_STAGE_VIDEO;
+                }
+                return null;
+            case "microscope_video_mode":
+                return "microscope";
+            case "super_text_mode":
+                if (!"rear_sat".equals(str3) || AlgoSwitchConfig.getSupportCameraFeature("superText", CameraCharacteristicsHelper.isFrontCamera(CameraCharacteristicsHelper.getCameraIdType(str3).getCameraId()) ? 1 : 0)) {
+                    return "superText";
+                }
+                return "commonSatHal";
+            case "xpan_mode":
+                return "xpan";
+            case "photo_mode":
+                if (!"rear_sat".equals(str3)) {
+                    return "common";
+                }
+                return "commonSatHal";
+            case "fastvideo_mode":
+                if ("front_main".equals(str3)) {
+                    return null;
+                }
+                if ("hyper_lapse".equals(str2)) {
+                    return "rear_wide".equals(str3) ? ApsConstant.FEATURE_REC_HYPER_LAPSE_PRO : ApsConstant.FEATURE_REC_HYPER_LAPSE;
+                }
+                if ("rear_sat".equals(str3)) {
+                    return "commonVideoSatHal";
+                }
+            case "tilt_Shift_fastvideo_mode":
+                return "fastVideo";
+            case "tilt_shift_mode":
+                return "common";
+            case "high_pixel_mode":
+                return "on".equals(str2) ? CAPTURE_MODE_AI_HIGH_PIXEL : "common";
+            default:
+                return null;
+        }
     }
 }

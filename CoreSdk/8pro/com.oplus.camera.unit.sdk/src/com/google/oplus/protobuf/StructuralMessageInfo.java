@@ -3,7 +3,8 @@ package com.google.oplus.protobuf;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class StructuralMessageInfo implements MessageInfo {
     private final int[] checkInitialized;
     private final MessageLite defaultInstance;
@@ -50,7 +51,6 @@ final class StructuralMessageInfo implements MessageInfo {
         return new Builder(i);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder {
         private int[] checkInitialized;
         private Object defaultInstance;

@@ -8,7 +8,8 @@ import com.oplus.statistics.data.CommonBean;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ChattyEventTracker {
     private static final String CHATTY_EVENT_ID = "chatty_event";
     private static final String MAP_KEY_APP_ID = "app_id";
@@ -23,8 +24,8 @@ public class ChattyEventTracker {
     private int mCacheCount;
     private final Map<String, ChattyEvent> mChattyEventMap;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$onChattyEvent$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "context is empty." */
+    static /* synthetic */ String lambda$onChattyEvent$0() {
         return "context is empty.";
     }
 
@@ -49,15 +50,14 @@ public class ChattyEventTracker {
             WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda1
                 @Override // java.lang.Runnable
                 public final void run() {
-                    ChattyEventTracker.this.m8x8ff901b1(applicationContext, commonBean);
+                    this.f$0.m8x8ff901b1(applicationContext, commonBean);
                 }
             });
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: lambda$onChattyEvent$1$com-oplus-statistics-strategy-ChattyEventTracker  reason: not valid java name */
-    public /* synthetic */ void m8x8ff901b1(Context context, CommonBean commonBean) {
+    /* JADX INFO: renamed from: lambda$onChattyEvent$1$com-oplus-statistics-strategy-ChattyEventTracker, reason: not valid java name */
+    /* synthetic */ void m8x8ff901b1(Context context, CommonBean commonBean) {
         onChattyEvent(context, commonBean.getAppId(), commonBean.getLogTag(), commonBean.getEventID());
     }
 
@@ -75,18 +75,21 @@ public class ChattyEventTracker {
         this.mCacheCount = i;
         if (i >= MAX_VALUE_TO_COMMIT) {
             m9x81a2a7d0(context);
-        } else if (i != 1 || WorkThread.getInstance().hasMessages(1)) {
         } else {
+            if (i != 1 || WorkThread.getInstance().hasMessages(1)) {
+                return;
+            }
             WorkThread.getInstance().postDelay(1, new Runnable() { // from class: com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda2
                 @Override // java.lang.Runnable
                 public final void run() {
-                    ChattyEventTracker.this.m9x81a2a7d0(context);
+                    this.f$0.m9x81a2a7d0(context);
                 }
             }, MIN_TIME_TO_COMMIT);
         }
     }
 
-    /* renamed from: commit */
+    /* JADX DEBUG: Method merged with bridge method: lambda$onChattyEvent$2$com-oplus-statistics-strategy-ChattyEventTracker(Landroid/content/Context;)V */
+    /* JADX INFO: renamed from: commit, reason: merged with bridge method [inline-methods] */
     public void m9x81a2a7d0(Context context) {
         for (ChattyEvent chattyEvent : this.mChattyEventMap.values()) {
             CommonBean commonBean = new CommonBean(context, SELF_TRACK_APP_ID, SELF_TRACK_LOG_TAG, CHATTY_EVENT_ID);
@@ -103,18 +106,14 @@ public class ChattyEventTracker {
         WorkThread.getInstance().removeMessages(1);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class SingletonHolder {
+    private static class SingletonHolder {
         private static final ChattyEventTracker instance = new ChattyEventTracker();
 
         private SingletonHolder() {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class ChattyEvent {
+    static class ChattyEvent {
         private final String appId;
         private final String eventId;
         private final String logTag;

@@ -2,7 +2,8 @@ package com.oplus.statistics.data;
 
 import android.content.Context;
 import com.oplus.statistics.DataTypeConstants;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class UserActionBean extends TrackEvent {
     private static final String ACTION_AMOUNT = "actionAmount";
     private static final String ACTION_CODE = "actionCode";

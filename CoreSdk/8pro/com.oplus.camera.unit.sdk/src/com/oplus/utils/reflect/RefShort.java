@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefShort extends BaseField<Short> {
     private static final short DEFAULT_VALUE = ((Short) DEFAULT_TYPES.get(Short.class)).shortValue();
     private static final String TAG = "RefShort";

@@ -1,7 +1,8 @@
 package com.oplus.statistics.storage;
 
 import android.content.Context;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PreferenceHandler {
     public static final String ACTIVITY_END_TIME = "activity.end.time";
     public static final String ACTIVITY_START_TIME = "activity.start.time";
@@ -64,23 +65,19 @@ public class PreferenceHandler {
     }
 
     public static long getEventStart(Context context, String str, String str2) {
-        MemoryPreference memoryPreference = sMemoryPref;
-        return memoryPreference.getLong(EVENT_START + str + "_" + str2, 0L);
+        return sMemoryPref.getLong(EVENT_START + str + "_" + str2, 0L);
     }
 
     public static void setEventStart(Context context, String str, String str2, long j) {
-        MemoryPreference memoryPreference = sMemoryPref;
-        memoryPreference.setLong(EVENT_START + str + "_" + str2, j);
+        sMemoryPref.setLong(EVENT_START + str + "_" + str2, j);
     }
 
     public static String getKVEventStart(Context context, String str, String str2) {
-        MemoryPreference memoryPreference = sMemoryPref;
-        return memoryPreference.getString(KVEVENT_START + str + "_" + str2, "");
+        return sMemoryPref.getString(KVEVENT_START + str + "_" + str2, "");
     }
 
     public static void setKVEventStart(String str, String str2, String str3) {
-        MemoryPreference memoryPreference = sMemoryPref;
-        memoryPreference.setString(KVEVENT_START + str + "_" + str3, str2);
+        sMemoryPref.setString(KVEVENT_START + str + "_" + str3, str2);
     }
 
     public static int getPageVisitDuration(Context context) {

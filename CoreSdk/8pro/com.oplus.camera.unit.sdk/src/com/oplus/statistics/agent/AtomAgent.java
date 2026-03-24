@@ -10,7 +10,7 @@ import com.oplus.statistics.util.ApkInfoUtil;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class AtomAgent {
     private static final String APP_ID = "appId";
     private static final String APP_PACKAGE = "appPackage";
@@ -24,16 +24,19 @@ public class AtomAgent {
         addTaskForAtom(context, commonBean);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$addTaskForAtom$0(TrackEvent trackEvent, Context context) {
-        return "AtomAgent add Task error -- bean or context is null--" + trackEvent
-                + CameraConstant.JSON_CONNECTOR_COMMA + context;
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("AtomAgent add Task error -- bean or context is null--")
+      (r2v0 com.oplus.statistics.data.TrackEvent)
+      (wrap:java.lang.String:SGET  A[WRAPPED] com.oplus.ocs.camera.common.util.CameraConstant.JSON_CONNECTOR_COMMA java.lang.String)
+      (r3v0 android.content.Context)
+     A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$addTaskForAtom$0(TrackEvent trackEvent, Context context) {
+        return "AtomAgent add Task error -- bean or context is null--" + trackEvent + CameraConstant.JSON_CONNECTOR_COMMA + context;
     }
 
     private static void addTaskForAtom(final Context context, final TrackEvent trackEvent) {
         if (trackEvent == null || context == null) {
-            LogUtil.d(TAG, new Supplier() { // from class:
-                                            // com.oplus.statistics.agent.AtomAgent$$ExternalSyntheticLambda0
+            LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.agent.AtomAgent$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
                     return AtomAgent.lambda$addTaskForAtom$0(trackEvent, context);

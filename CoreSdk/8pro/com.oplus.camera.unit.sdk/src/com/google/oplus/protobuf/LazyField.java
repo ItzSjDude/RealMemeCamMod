@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import java.util.Iterator;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class LazyField extends LazyFieldLite {
     private final MessageLite defaultInstance;
 
@@ -34,9 +35,7 @@ public class LazyField extends LazyFieldLite {
         return getValue().toString();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class LazyEntry<K> implements Map.Entry<K, Object> {
+    static class LazyEntry<K> implements Map.Entry<K, Object> {
         private Map.Entry<K, LazyField> entry;
 
         private LazyEntry(Map.Entry<K, LazyField> entry) {
@@ -70,9 +69,7 @@ public class LazyField extends LazyFieldLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class LazyIterator<K> implements Iterator<Map.Entry<K, Object>> {
+    static class LazyIterator<K> implements Iterator<Map.Entry<K, Object>> {
         private Iterator<Map.Entry<K, Object>> iterator;
 
         public LazyIterator(Iterator<Map.Entry<K, Object>> it) {
@@ -84,6 +81,7 @@ public class LazyField extends LazyFieldLite {
             return this.iterator.hasNext();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: next()Ljava/lang/Object; */
         @Override // java.util.Iterator
         public Map.Entry<K, Object> next() {
             Map.Entry<K, Object> next = this.iterator.next();

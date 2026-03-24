@@ -4,7 +4,8 @@ import android.util.Range;
 import android.util.Size;
 import androidx.annotation.Nullable;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.DefaultUtill;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraConfigBase {
     public static final Key<Boolean> KEY_SAT_NEED_SET_ZOOMRATIO = new Key<>(DefaultUtill.KEY_SAT_NEED_SET_ZOOMRATIO, Boolean.class);
     public static final Key<Boolean> KEY_NEED_SET_ZOOMRATIO = new Key<>("com.oplus.need.set.zoomratio", Boolean.class);
@@ -139,7 +140,6 @@ public class CameraConfigBase {
     public static final Key<Boolean> KEY_SUPER_RESOLUTION_PORTRAIT_SUPPORT = new Key<>("com.oplus.super.resolution.portrait.support", Boolean.class);
     public static final Key<Boolean> KEY_REAR_DUALCAM_SOFT_DEPTH_SUPPORT = new Key<>("com.oplus.rear.dualcam.soft.depth.support", Boolean.class);
 
-    /* loaded from: classes.dex */
     public static final class Key<T> {
         private String mKeyName;
         private Class<T> mType;

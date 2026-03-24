@@ -23,10 +23,12 @@ import com.oplus.ocs.camera.producer.info.CameraIdType;
 import com.oplus.ocs.camera.producer.mode.ModeFactory;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraUnitImpl implements CameraUnitInterface {
     private static final String AWEME_PACKAGE_NAME = "com.ss.android.ugc.aweme";
     private static final String OPLUS_CAMERA_PACKAGE_NAME = "com.oplus.camera";
@@ -80,18 +82,19 @@ public class CameraUnitImpl implements CameraUnitInterface {
             CameraUnitLog.e(TAG, "openCamera, get CameraIdType failed, empty camera info for " + str);
             return;
         }
-        ProducerConsumerInterfaceContract.ProducerInterface producerInterface = this.mProducerMap.get(str);
-        if (producerInterface == null) {
-            producerInterface = new ProducerImpl(cameraIdType.isMultiType());
-            this.mProducerMap.put(str, producerInterface);
+        ProducerConsumerInterfaceContract.ProducerInterface producerImpl = this.mProducerMap.get(str);
+        if (producerImpl == null) {
+            producerImpl = new ProducerImpl(cameraIdType.isMultiType());
+            this.mProducerMap.put(str, producerImpl);
         }
-        CameraStateCallbackAdapter createCameraStateCallback = producerInterface.createCameraStateCallback(cameraStateCallbackAdapter, handler);
-        CameraUnitLog.v(TAG, "openCamera, producer: " + producerInterface + ", mConsumerInterface: " + this.mConsumerInterface + ", callbackAdapter: " + createCameraStateCallback);
-        if (createCameraStateCallback != null) {
-            producerInterface.setConsumer(this.mConsumerInterface);
-            this.mConsumerInterface.setProducer(producerInterface);
-            for (CameraIdType cameraIdType2 : cameraIdType.split()) {
-                this.mDeviceManager.openCamera(cameraIdType2, createCameraStateCallback, this.mConsumerInterface.createCameraPreviewCallback(), this.mConsumerInterface.createCameraPictureCallback(), this.mConsumerInterface.createCameraRecordingCallback());
+        CameraStateCallbackAdapter cameraStateCallbackAdapterCreateCameraStateCallback = producerImpl.createCameraStateCallback(cameraStateCallbackAdapter, handler);
+        CameraUnitLog.v(TAG, "openCamera, producer: " + producerImpl + ", mConsumerInterface: " + this.mConsumerInterface + ", callbackAdapter: " + cameraStateCallbackAdapterCreateCameraStateCallback);
+        if (cameraStateCallbackAdapterCreateCameraStateCallback != null) {
+            producerImpl.setConsumer(this.mConsumerInterface);
+            this.mConsumerInterface.setProducer(producerImpl);
+            Iterator<CameraIdType> it = cameraIdType.split().iterator();
+            while (it.hasNext()) {
+                this.mDeviceManager.openCamera(it.next(), cameraStateCallbackAdapterCreateCameraStateCallback, this.mConsumerInterface.createCameraPreviewCallback(), this.mConsumerInterface.createCameraPictureCallback(), this.mConsumerInterface.createCameraRecordingCallback());
             }
         } else {
             CameraUnitLog.e(TAG, "openCamera, not allow to open camera here, directly return error");

@@ -4,7 +4,8 @@ import android.text.TextUtils;
 import com.oplus.ocs.camera.common.util.Util;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PropProvider {
     private static final String ALGO_PROP_DISABLE = "0";
     private static final String ALGO_PROP_ENABLE = "1";

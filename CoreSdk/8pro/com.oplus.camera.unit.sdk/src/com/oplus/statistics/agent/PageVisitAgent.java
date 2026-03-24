@@ -11,26 +11,27 @@ import com.oplus.statistics.util.Supplier;
 import com.oplus.statistics.util.TimeInfoUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PageVisitAgent {
     private static final int PAGE_VISIT_MAX_COUNT = 10;
     private static final int PAUSE = 1;
     private static final int RESUME = 0;
     private static final String TAG = "PageVisitAgent";
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$onPause$1() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onPause() called without context." */
+    static /* synthetic */ String lambda$onPause$1() {
         return "onPause() called without context.";
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$onResume$3() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onPause() called without context." */
+    static /* synthetic */ String lambda$onResume$3() {
         return "onPause() called without context.";
     }
 
     public void onPause(Context context) {
         if (context != null) {
-            long currentTimeMillis = System.currentTimeMillis();
+            long jCurrentTimeMillis = System.currentTimeMillis();
             final String className = getClassName(context);
             LogUtil.i(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda2
                 @Override // com.oplus.statistics.util.Supplier
@@ -38,7 +39,7 @@ public class PageVisitAgent {
                     return PageVisitAgent.lambda$onPause$0(className);
                 }
             });
-            WorkThread.execute(new HandlePageVisitRunnable(context, className, currentTimeMillis, 1));
+            WorkThread.execute(new HandlePageVisitRunnable(context, className, jCurrentTimeMillis, 1));
             return;
         }
         LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda3
@@ -49,14 +50,14 @@ public class PageVisitAgent {
         });
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$onPause$0(String str) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onPause: "), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$onPause$0(String str) {
         return "onPause: " + str;
     }
 
     public void onResume(Context context) {
         if (context != null) {
-            long currentTimeMillis = System.currentTimeMillis();
+            long jCurrentTimeMillis = System.currentTimeMillis();
             final String className = getClassName(context);
             LogUtil.i(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda4
                 @Override // com.oplus.statistics.util.Supplier
@@ -64,7 +65,7 @@ public class PageVisitAgent {
                     return PageVisitAgent.lambda$onResume$2(className);
                 }
             });
-            WorkThread.execute(new HandlePageVisitRunnable(context, className, currentTimeMillis, 0));
+            WorkThread.execute(new HandlePageVisitRunnable(context, className, jCurrentTimeMillis, 0));
             return;
         }
         LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda5
@@ -75,8 +76,8 @@ public class PageVisitAgent {
         });
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$onResume$2(String str) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onResume: "), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$onResume$2(String str) {
         return "onResume: " + str;
     }
 
@@ -147,7 +148,7 @@ public class PageVisitAgent {
     public static void recordResume(Context context, String str, long j) {
         long activityEndTime = PreferenceHandler.getActivityEndTime(context);
         long activityStartTime = PreferenceHandler.getActivityStartTime(context);
-        long sessionTimeout = PreferenceHandler.getSessionTimeout(context) * 1000;
+        long sessionTimeout = ((long) PreferenceHandler.getSessionTimeout(context)) * 1000;
         if (j - activityStartTime >= sessionTimeout && (-1 == activityEndTime || activityEndTime >= j || j - activityEndTime >= sessionTimeout)) {
             AppStartAgent.recordAppStart(context);
             recordPageVisit(context);
@@ -156,9 +157,7 @@ public class PageVisitAgent {
         PreferenceHandler.setCurrentActivity(context, str);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class HandlePageVisitRunnable implements Runnable {
+    private static final class HandlePageVisitRunnable implements Runnable {
         private String mClassName;
         private Context mContext;
         private long mCurrentTimeMills;
@@ -176,8 +175,10 @@ public class PageVisitAgent {
             int i = this.mType;
             if (i == 0) {
                 PageVisitAgent.recordResume(this.mContext, this.mClassName, this.mCurrentTimeMills);
-            } else if (i != 1) {
             } else {
+                if (i != 1) {
+                    return;
+                }
                 PageVisitAgent.recordPause(this.mContext, this.mClassName, this.mCurrentTimeMills);
             }
         }

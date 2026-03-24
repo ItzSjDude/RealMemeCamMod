@@ -7,7 +7,8 @@ import com.anc.humansdk.NNRuntime;
 import com.common.Util;
 import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicBoolean;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class HumanEffectBokehApiProxy {
     private static final String TAG = "HumanEffectBokehApiProxy";
     private HumanEffectBokehApi mHumanEffectApi;
@@ -22,9 +23,9 @@ public class HumanEffectBokehApiProxy {
         humanEffectBokehConfig.setNativeLibPath(str3);
         humanEffectBokehConfig.setRuntime((z ? NNRuntime.RUNTIME_SNPE : NNRuntime.RUNTIME_AIA).value());
         preInit(z);
-        int initByConfig = this.mHumanEffectApi.initByConfig(humanEffectBokehConfig);
+        int iInitByConfig = this.mHumanEffectApi.initByConfig(humanEffectBokehConfig);
         this.mHumanEffectApi.setLogLevel(i);
-        Log.v(TAG, "initVideoBlur, X, initResult: " + initByConfig + ", sdk version: " + this.mHumanEffectApi.getVersion());
+        Log.v(TAG, "initVideoBlur, X, initResult: " + iInitByConfig + ", sdk version: " + this.mHumanEffectApi.getVersion());
     }
 
     private void preInit(boolean z) {

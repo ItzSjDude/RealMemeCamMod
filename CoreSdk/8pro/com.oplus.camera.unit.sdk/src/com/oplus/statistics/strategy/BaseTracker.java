@@ -2,7 +2,8 @@ package com.oplus.statistics.strategy;
 
 import android.util.ArrayMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class BaseTracker {
     public static final int FLAG_SEND_TO_ATOM = 2;
     public static final int FLAG_SEND_TO_DCS = 1;

@@ -16,12 +16,12 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsTotalResult;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraPreviewCallbackAdapter {
     private static final String TAG = "CameraPreviewCallbackAdapter";
     private PreviewMetadataCallback mCallback = null;
 
-    /* loaded from: classes.dex */
     public interface PreviewMetadataCallback {
         void notifyMetadataReceived(ApsTotalResult apsTotalResult);
 
@@ -77,7 +77,6 @@ public abstract class CameraPreviewCallbackAdapter {
     public void onVideoReceived(PreviewResult previewResult) {
     }
 
-    /* loaded from: classes.dex */
     public static final class PreviewResult {
         private PreviewResultHelper mPreviewResultHelper;
 
@@ -117,7 +116,6 @@ public abstract class CameraPreviewCallbackAdapter {
             this.mPreviewResultHelper.addRef();
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder {
             private ConcurrentHashMap<String, ApsBaseParameter.ValueWrapper<?>> mCustomParameterMap;
             private ApsResult mApsResult = null;

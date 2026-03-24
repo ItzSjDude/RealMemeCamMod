@@ -7,7 +7,8 @@ import com.oplus.ocs.camera.common.surface.SurfacePool;
 import com.oplus.ocs.camera.common.surface.SurfaceWrapper;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import java.util.Locale;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SurfaceDecision {
     private static final String TAG = "SurfaceDecision";
 
@@ -37,15 +38,15 @@ public class SurfaceDecision {
         SurfaceWrapper surfaceWrapper = new SurfaceWrapper(str2, str, size, size2, i2, 3);
         surfaceWrapper.setPhysicalCameraId(i);
         surfaceWrapper.setMaxImageNumber(i3);
-        long j = 3;
+        long jLongValue = 3;
         if (!"surface_key_picture".equals(str)) {
             if ("surface_key_preview".equals(str) || "surface_key_preview_in_preview".equals(str)) {
-                j = l2 != null ? l2.longValue() : 259L;
+                jLongValue = l2 != null ? l2.longValue() : 259L;
             } else if ("surface_key_recording".equals(str)) {
-                j = l != null ? l.longValue() : 128L;
+                jLongValue = l != null ? l.longValue() : 128L;
             }
         }
-        surfaceWrapper.setIntention(j);
+        surfaceWrapper.setIntention(jLongValue);
         surfaceWrapper.setSurface(SurfacePool.getInstance().createImageReader(surfaceWrapper).getSurface());
         return surfaceWrapper;
     }

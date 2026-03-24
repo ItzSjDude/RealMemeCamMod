@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CapturePropProvider {
     private static final String ALGO_PROP_NAME_AI_NIGHT = "ainight";
     private static final String ALGO_PROP_NAME_BLURLESS = "blurless";
@@ -29,8 +30,7 @@ public class CapturePropProvider {
     private Map<String, String> mPropMap = new HashMap();
     private Map<String, Set<String>> mAlgoTable = new HashMap();
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public CapturePropProvider() {
+    protected CapturePropProvider() {
         this.mPropMap.put(ParameterKeys.ALGO_NAME_PF, String.format("%s.%s", ALGO_PROP_PREFIX_CAPTURE, ALGO_PROP_NAME_PF));
         this.mPropMap.put(ParameterKeys.ALGO_NAME_BLURLESS, String.format("%s.%s", ALGO_PROP_PREFIX_CAPTURE, ALGO_PROP_NAME_BLURLESS));
         this.mPropMap.put(ParameterKeys.ALGO_NAME_SUPERPHOTO, String.format("%s.%s", ALGO_PROP_PREFIX_CAPTURE, ALGO_PROP_NAME_SUPERPHOTO));
@@ -57,8 +57,7 @@ public class CapturePropProvider {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void removeCaptureAlgo(ImageCategory.MetaItemInfo metaItemInfo) {
+    protected void removeCaptureAlgo(ImageCategory.MetaItemInfo metaItemInfo) {
         ArrayList arrayList = new ArrayList();
         for (Map.Entry<String, String> entry : this.mPropMap.entrySet()) {
             if (PropProvider.isPropDisable(entry.getValue())) {

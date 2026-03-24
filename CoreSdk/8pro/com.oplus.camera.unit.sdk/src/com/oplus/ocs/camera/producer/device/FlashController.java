@@ -6,7 +6,8 @@ import android.hardware.camera2.TotalCaptureResult;
 import com.oplus.ocs.camera.common.statistics.StatisticsManager;
 import java.util.HashSet;
 import java.util.Objects;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FlashController {
     private static final boolean DEBUG = false;
     public static final boolean NEED_TRIGGER_AE_AF_FOR_FLASH = true;
@@ -27,7 +28,6 @@ public class FlashController {
     private int mCurrentState = -1;
     private boolean mbFrontCamera = false;
 
-    /* loaded from: classes.dex */
     public interface TriggerStateListener {
         void onAeConverged(boolean z);
     }
@@ -41,7 +41,7 @@ public class FlashController {
         TriggerStateMachine triggerStateMachine = new TriggerStateMachine();
         this.mAeAfStateMachine = triggerStateMachine;
         Objects.requireNonNull(triggerStateMachine);
-        this.mAeAfState = new TriggerStateMachine.AeAfState();
+        this.mAeAfState = triggerStateMachine.new AeAfState();
     }
 
     public FlashControllerCallback getFlashControllerCallback() {
@@ -90,7 +90,6 @@ public class FlashController {
         return (this.mbSupportTorchFlash || this.mbSupportWaitAf) && !this.mbFrontCamera;
     }
 
-    /* loaded from: classes.dex */
     static class TriggerStateMachine {
         private static final HashSet<Integer> AE_TRIGGER_DONE_STATES = new HashSet<>();
         private static final HashSet<Integer> AF_TRIGGER_DONE_STATES = new HashSet<>();
@@ -100,9 +99,7 @@ public class FlashController {
         private State mCurrentState = State.WAITING_FOR_TRIGGER;
         private Long mLastTriggerFrameNumber = null;
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public enum State {
+        private enum State {
             WAITING_FOR_TRIGGER,
             TRIGGERED,
             AE_CONVERGED,
@@ -123,55 +120,57 @@ public class FlashController {
         boolean update(AeAfState aeAfState) {
             int i = AnonymousClass1.$SwitchMap$com$oplus$ocs$camera$producer$device$FlashController$TriggerStateMachine$State[this.mCurrentState.ordinal()];
             if (i == 1) {
-                if ((this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum > this.mLastTriggerFrameNumber.longValue()) && 1 == aeAfState.mTriggerState.intValue()) {
-                    this.mCurrentState = State.TRIGGERED;
+                if ((this.mLastTriggerFrameNumber != null && aeAfState.mFrameNum <= this.mLastTriggerFrameNumber.longValue()) || 1 != aeAfState.mTriggerState.intValue()) {
+                    return false;
+                }
+                this.mCurrentState = State.TRIGGERED;
+                this.mLastTriggerFrameNumber = Long.valueOf(aeAfState.mFrameNum);
+                return false;
+            }
+            if (i == 2) {
+                if (this.mLastTriggerFrameNumber != null && aeAfState.mFrameNum <= this.mLastTriggerFrameNumber.longValue()) {
+                    return false;
+                }
+                if (!AE_TRIGGER_DONE_STATES.contains(aeAfState.mAeState) && (1 != aeAfState.mAeState.intValue() || aeAfState.mFrameNum - aeAfState.mFirstFrameNumber <= MAX_AE_DONE_WAITING_FRAME_NUM)) {
+                    return false;
+                }
+                if (aeAfState.mbWaitAf) {
+                    this.mCurrentState = State.AE_CONVERGED;
                     this.mLastTriggerFrameNumber = Long.valueOf(aeAfState.mFrameNum);
                     return false;
                 }
-                return false;
-            } else if (i == 2) {
-                if (this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum > this.mLastTriggerFrameNumber.longValue()) {
-                    if (AE_TRIGGER_DONE_STATES.contains(aeAfState.mAeState) || (1 == aeAfState.mAeState.intValue() && aeAfState.mFrameNum - aeAfState.mFirstFrameNumber > MAX_AE_DONE_WAITING_FRAME_NUM)) {
-                        if (aeAfState.mbWaitAf) {
-                            this.mCurrentState = State.AE_CONVERGED;
-                            this.mLastTriggerFrameNumber = Long.valueOf(aeAfState.mFrameNum);
-                            return false;
-                        }
-                        this.mCurrentState = State.WAITING_FOR_TRIGGER;
-                        this.mLastTriggerFrameNumber = null;
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-            } else if (i != 3) {
+                this.mCurrentState = State.WAITING_FOR_TRIGGER;
+                this.mLastTriggerFrameNumber = null;
+                return true;
+            }
+            if (i != 3) {
                 if (i != 4) {
                     return false;
                 }
-                if (this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum > this.mLastTriggerFrameNumber.longValue()) {
-                    if (AF_TRIGGER_DONE_STATES.contains(aeAfState.mAfState) || (this.mLastTriggerFrameNumber != null && aeAfState.mFrameNum - this.mLastTriggerFrameNumber.longValue() > MAX_AF_DONE_WAITING_FRAME_NUM)) {
-                        this.mCurrentState = State.WAITING_FOR_TRIGGER;
-                        this.mLastTriggerFrameNumber = null;
-                        return true;
-                    }
+                if (this.mLastTriggerFrameNumber != null && aeAfState.mFrameNum <= this.mLastTriggerFrameNumber.longValue()) {
                     return false;
                 }
-                return false;
-            } else if (this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum > this.mLastTriggerFrameNumber.longValue()) {
-                if (1 == aeAfState.mAfState.intValue()) {
-                    this.mCurrentState = State.AF_SCAN;
-                    this.mLastTriggerFrameNumber = Long.valueOf(aeAfState.mFrameNum);
+                if (!AF_TRIGGER_DONE_STATES.contains(aeAfState.mAfState) && (this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum - this.mLastTriggerFrameNumber.longValue() <= MAX_AF_DONE_WAITING_FRAME_NUM)) {
                     return false;
-                } else if (this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum - this.mLastTriggerFrameNumber.longValue() <= MAX_AF_SCAN_WAITING_FRAME_NUM) {
-                    return false;
-                } else {
-                    this.mCurrentState = State.WAITING_FOR_TRIGGER;
-                    this.mLastTriggerFrameNumber = null;
-                    return true;
                 }
-            } else {
+                this.mCurrentState = State.WAITING_FOR_TRIGGER;
+                this.mLastTriggerFrameNumber = null;
+                return true;
+            }
+            if (this.mLastTriggerFrameNumber != null && aeAfState.mFrameNum <= this.mLastTriggerFrameNumber.longValue()) {
                 return false;
             }
+            if (1 == aeAfState.mAfState.intValue()) {
+                this.mCurrentState = State.AF_SCAN;
+                this.mLastTriggerFrameNumber = Long.valueOf(aeAfState.mFrameNum);
+                return false;
+            }
+            if (this.mLastTriggerFrameNumber == null || aeAfState.mFrameNum - this.mLastTriggerFrameNumber.longValue() <= MAX_AF_SCAN_WAITING_FRAME_NUM) {
+                return false;
+            }
+            this.mCurrentState = State.WAITING_FOR_TRIGGER;
+            this.mLastTriggerFrameNumber = null;
+            return true;
         }
 
         void reset() {
@@ -179,9 +178,7 @@ public class FlashController {
             this.mLastTriggerFrameNumber = null;
         }
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        /* loaded from: classes.dex */
-        public class AeAfState {
+        class AeAfState {
             long mFrameNum = 0;
             long mFirstFrameNumber = 0;
             Integer mTriggerState = null;
@@ -198,10 +195,8 @@ public class FlashController {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.oplus.ocs.camera.producer.device.FlashController$1  reason: invalid class name */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.oplus.ocs.camera.producer.device.FlashController$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$oplus$ocs$camera$producer$device$FlashController$TriggerStateMachine$State;
 
         static {
@@ -226,7 +221,6 @@ public class FlashController {
         }
     }
 
-    /* loaded from: classes.dex */
     class FlashControllerCallback {
         FlashControllerCallback() {
         }

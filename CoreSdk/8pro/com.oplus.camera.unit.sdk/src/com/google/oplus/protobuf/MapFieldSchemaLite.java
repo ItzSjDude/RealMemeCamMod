@@ -2,8 +2,12 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.MapEntryLite;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class MapFieldSchemaLite implements MapFieldSchema {
+    MapFieldSchemaLite() {
+    }
+
     @Override // com.google.oplus.protobuf.MapFieldSchema
     public Map<?, ?> forMutableMapData(Object obj) {
         return (MapFieldLite) obj;
@@ -41,15 +45,15 @@ class MapFieldSchemaLite implements MapFieldSchema {
     }
 
     private static <K, V> MapFieldLite<K, V> mergeFromLite(Object obj, Object obj2) {
-        MapFieldLite<K, V> mapFieldLite = (MapFieldLite) obj;
-        MapFieldLite<K, V> mapFieldLite2 = (MapFieldLite) obj2;
-        if (!mapFieldLite2.isEmpty()) {
-            if (!mapFieldLite.isMutable()) {
-                mapFieldLite = mapFieldLite.mutableCopy();
+        MapFieldLite<K, V> mapFieldLiteMutableCopy = (MapFieldLite) obj;
+        MapFieldLite<K, V> mapFieldLite = (MapFieldLite) obj2;
+        if (!mapFieldLite.isEmpty()) {
+            if (!mapFieldLiteMutableCopy.isMutable()) {
+                mapFieldLiteMutableCopy = mapFieldLiteMutableCopy.mutableCopy();
             }
-            mapFieldLite.mergeFrom(mapFieldLite2);
+            mapFieldLiteMutableCopy.mergeFrom(mapFieldLite);
         }
-        return mapFieldLite;
+        return mapFieldLiteMutableCopy;
     }
 
     @Override // com.google.oplus.protobuf.MapFieldSchema
@@ -60,13 +64,13 @@ class MapFieldSchemaLite implements MapFieldSchema {
     private static <K, V> int getSerializedSizeLite(int i, Object obj, Object obj2) {
         MapFieldLite mapFieldLite = (MapFieldLite) obj;
         MapEntryLite mapEntryLite = (MapEntryLite) obj2;
-        int i2 = 0;
+        int iComputeMessageSize = 0;
         if (mapFieldLite.isEmpty()) {
             return 0;
         }
         for (Map.Entry<K, V> entry : mapFieldLite.entrySet()) {
-            i2 += mapEntryLite.computeMessageSize(i, entry.getKey(), entry.getValue());
+            iComputeMessageSize += mapEntryLite.computeMessageSize(i, entry.getKey(), entry.getValue());
         }
-        return i2;
+        return iComputeMessageSize;
     }
 }

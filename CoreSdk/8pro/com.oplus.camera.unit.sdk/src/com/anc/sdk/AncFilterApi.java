@@ -1,10 +1,17 @@
 package com.anc.sdk;
 
+import android.content.res.AssetManager;
 import android.util.Log;
+import com.oplus.exif.OplusExifTag;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class AncFilterApi {
     static final String TAG = "AncFilterApi";
     private AtomicLong handle = new AtomicLong(0);
@@ -12,7 +19,6 @@ public class AncFilterApi {
     private static AncFilterApi sInstance = new AncFilterApi();
     private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
 
-    /* loaded from: classes.dex */
     public static class ErrorCode {
         public static final int ANC_FILTER_FAILURE = 3;
         public static final int ANC_FILTER_GL_COMPILING = 4;
@@ -21,7 +27,6 @@ public class AncFilterApi {
         public static final int ANC_FILTER_OK = 0;
     }
 
-    /* loaded from: classes.dex */
     public static class FilterInfo {
         public byte[] baseImageBuffer;
         public int baseImageHeight;
@@ -35,7 +40,6 @@ public class AncFilterApi {
         public float speed;
     }
 
-    /* loaded from: classes.dex */
     public static class FilterType {
         public static final int ANC_FILTERT_CELL_BLUEPINK = 7;
         public static final int ANC_FILTERT_CELL_GRADIENTCOLOR = 5;
@@ -47,13 +51,11 @@ public class AncFilterApi {
         public static final int ANC_FILTERT_SPIRAL = 2;
     }
 
-    /* loaded from: classes.dex */
     public static class ImageType {
         public static final int IMAGE_TYPE_NV12 = 6;
         public static final int IMAGE_TYPE_NV21 = 0;
     }
 
-    /* loaded from: classes.dex */
     public static class SDKLoadType {
         public static final int ANC_LOAD_TYPE_ANDROID_DLOPEN = 1;
         public static final int ANC_LOAD_TYPE_DLOEPN = 0;
@@ -88,12 +90,12 @@ public class AncFilterApi {
             System.loadLibrary("AncFilter_jni");
             isSoLoaded.set(true);
         }
-        long nativeInitHandle = nativeInitHandle(z, 2);
-        if (nativeInitHandle == 0) {
+        long jNativeInitHandle = nativeInitHandle(z, 2);
+        if (jNativeInitHandle == 0) {
             return 1;
         }
-        this.handle.set(nativeInitHandle);
-        Log.e(str, "init out hdl: " + nativeInitHandle);
+        this.handle.set(jNativeInitHandle);
+        Log.e(str, "init out hdl: " + jNativeInitHandle);
         return 0;
     }
 
@@ -125,70 +127,56 @@ public class AncFilterApi {
         if (this.handle.get() == 0) {
             return 2;
         }
-        int nativeRelease = nativeRelease(this.handle.get());
+        int iNativeRelease = nativeRelease(this.handle.get());
         this.handle.set(0L);
-        return nativeRelease;
+        return iNativeRelease;
     }
 
     public String getVersion() {
         return !isSoLoaded.get() ? "" : nativeSdkVersion();
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:13:0x0036 A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:21:0x002d A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:25:0x0037 A[EXC_TOP_SPLITTER, LOOP:0: B:25:0x0037->B:16:0x003e, LOOP_START, SYNTHETIC] */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    private static byte[] getFileContent(java.lang.String r6, android.content.res.AssetManager r7) {
-        /*
-            java.io.ByteArrayOutputStream r0 = new java.io.ByteArrayOutputStream
-            r0.<init>()
-            r1 = 8192(0x2000, float:1.148E-41)
-            byte[] r1 = new byte[r1]
-            r2 = 0
-            r3 = 0
-            if (r7 == 0) goto L29
-            java.io.InputStream r7 = r7.open(r6)     // Catch: java.io.IOException -> L13
-            r4 = 1
-            goto L2b
-        L13:
-            java.lang.String r7 = com.anc.sdk.AncFilterApi.TAG
-            java.lang.StringBuilder r4 = new java.lang.StringBuilder
-            r4.<init>()
-            java.lang.String r5 = "fail to open "
-            r4.append(r5)
-            r4.append(r6)
-            java.lang.String r4 = r4.toString()
-            android.util.Log.e(r7, r4)
-        L29:
-            r4 = r2
-            r7 = r3
-        L2b:
-            if (r4 != 0) goto L34
-            java.io.FileInputStream r7 = new java.io.FileInputStream     // Catch: java.io.IOException -> L33
-            r7.<init>(r6)     // Catch: java.io.IOException -> L33
-            goto L34
-        L33:
-            return r3
-        L34:
-            if (r7 != 0) goto L37
-            return r3
-        L37:
-            int r6 = r7.read(r1)     // Catch: java.io.IOException -> L4d
-            r4 = -1
-            if (r6 == r4) goto L42
-            r0.write(r1, r2, r6)     // Catch: java.io.IOException -> L4d
-            goto L37
-        L42:
-            r7.close()     // Catch: java.io.IOException -> L4d
-            r0.close()     // Catch: java.io.IOException -> L4d
-            byte[] r6 = r0.toByteArray()
-            return r6
-        L4d:
-            return r3
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.anc.sdk.AncFilterApi.getFileContent(java.lang.String, android.content.res.AssetManager):byte[]");
+    private static byte[] getFileContent(String str, AssetManager assetManager) {
+        InputStream inputStreamOpen;
+        boolean z;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] bArr = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
+        if (assetManager != null) {
+            try {
+                inputStreamOpen = assetManager.open(str);
+                z = true;
+            } catch (IOException unused) {
+                Log.e(TAG, "fail to open " + str);
+                z = false;
+                inputStreamOpen = null;
+            }
+        } else {
+            z = false;
+            inputStreamOpen = null;
+        }
+        if (!z) {
+            try {
+                inputStreamOpen = new FileInputStream(str);
+            } catch (IOException unused2) {
+                return null;
+            }
+        }
+        if (inputStreamOpen == null) {
+            return null;
+        }
+        while (true) {
+            try {
+                int i = inputStreamOpen.read(bArr);
+                if (i != -1) {
+                    byteArrayOutputStream.write(bArr, 0, i);
+                } else {
+                    inputStreamOpen.close();
+                    byteArrayOutputStream.close();
+                    return byteArrayOutputStream.toByteArray();
+                }
+            } catch (IOException unused3) {
+                return null;
+            }
+        }
     }
 }

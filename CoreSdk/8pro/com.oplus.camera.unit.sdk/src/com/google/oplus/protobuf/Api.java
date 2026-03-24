@@ -14,7 +14,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
     public static final int METHODS_FIELD_NUMBER = 2;
     public static final int MIXINS_FIELD_NUMBER = 6;
@@ -34,6 +35,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
     private volatile Object version_;
     private static final Api DEFAULT_INSTANCE = new Api();
     private static final Parser<Api> PARSER = new AbstractParser<Api>() { // from class: com.google.oplus.protobuf.Api.1
+        /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.Parser
         public Api parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return new Api(codedInputStream, extensionRegistryLite);
@@ -55,9 +57,8 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         this.syntax_ = 0;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
-    public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+    protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
         return new Api();
     }
 
@@ -66,35 +67,34 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         return this.unknownFields;
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
     private Api(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         this();
         extensionRegistryLite.getClass();
-        UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+        UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
         boolean z = false;
-        boolean z2 = false;
+        int i = 0;
         while (!z) {
             try {
                 try {
-                    int readTag = codedInputStream.readTag();
-                    if (readTag != 0) {
-                        if (readTag == 10) {
+                    int tag = codedInputStream.readTag();
+                    if (tag != 0) {
+                        if (tag == 10) {
                             this.name_ = codedInputStream.readStringRequireUtf8();
-                        } else if (readTag == 18) {
-                            if (!(z2 & true)) {
+                        } else if (tag == 18) {
+                            if ((i & 1) == 0) {
                                 this.methods_ = new ArrayList();
-                                z2 |= true;
+                                i |= 1;
                             }
-                            this.methods_.add(codedInputStream.readMessage(Method.parser(), extensionRegistryLite));
-                        } else if (readTag == 26) {
-                            if (!(z2 & true)) {
+                            this.methods_.add((Method) codedInputStream.readMessage(Method.parser(), extensionRegistryLite));
+                        } else if (tag == 26) {
+                            if ((i & 2) == 0) {
                                 this.options_ = new ArrayList();
-                                z2 |= true;
+                                i |= 2;
                             }
-                            this.options_.add(codedInputStream.readMessage(Option.parser(), extensionRegistryLite));
-                        } else if (readTag == 34) {
+                            this.options_.add((Option) codedInputStream.readMessage(Option.parser(), extensionRegistryLite));
+                        } else if (tag == 34) {
                             this.version_ = codedInputStream.readStringRequireUtf8();
-                        } else if (readTag == 42) {
+                        } else if (tag == 42) {
                             SourceContext sourceContext = this.sourceContext_;
                             SourceContext.Builder builder = sourceContext != null ? sourceContext.toBuilder() : null;
                             SourceContext sourceContext2 = (SourceContext) codedInputStream.readMessage(SourceContext.parser(), extensionRegistryLite);
@@ -103,15 +103,15 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
                                 builder.mergeFrom(sourceContext2);
                                 this.sourceContext_ = builder.buildPartial();
                             }
-                        } else if (readTag == 50) {
-                            if (!(z2 & true)) {
+                        } else if (tag == 50) {
+                            if ((i & 4) == 0) {
                                 this.mixins_ = new ArrayList();
-                                z2 |= true;
+                                i |= 4;
                             }
-                            this.mixins_.add(codedInputStream.readMessage(Mixin.parser(), extensionRegistryLite));
-                        } else if (readTag == 56) {
+                            this.mixins_.add((Mixin) codedInputStream.readMessage(Mixin.parser(), extensionRegistryLite));
+                        } else if (tag == 56) {
                             this.syntax_ = codedInputStream.readEnum();
-                        } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                        } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                         }
                     }
                     z = true;
@@ -121,16 +121,16 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
                     throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                 }
             } finally {
-                if (z2 & true) {
+                if ((i & 1) != 0) {
                     this.methods_ = Collections.unmodifiableList(this.methods_);
                 }
-                if (z2 & true) {
+                if ((i & 2) != 0) {
                     this.options_ = Collections.unmodifiableList(this.options_);
                 }
-                if (z2 & true) {
+                if ((i & 4) != 0) {
                     this.mixins_ = Collections.unmodifiableList(this.mixins_);
                 }
-                this.unknownFields = newBuilder.build();
+                this.unknownFields = builderNewBuilder.build();
                 makeExtensionsImmutable();
             }
         }
@@ -160,9 +160,9 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
     public ByteString getNameBytes() {
         Object obj = this.name_;
         if (obj instanceof String) {
-            ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-            this.name_ = copyFromUtf8;
-            return copyFromUtf8;
+            ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+            this.name_ = byteStringCopyFromUtf8;
+            return byteStringCopyFromUtf8;
         }
         return (ByteString) obj;
     }
@@ -232,9 +232,9 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
     public ByteString getVersionBytes() {
         Object obj = this.version_;
         if (obj instanceof String) {
-            ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-            this.version_ = copyFromUtf8;
-            return copyFromUtf8;
+            ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+            this.version_ = byteStringCopyFromUtf8;
+            return byteStringCopyFromUtf8;
         }
         return (ByteString) obj;
     }
@@ -287,8 +287,8 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
 
     @Override // com.google.oplus.protobuf.ApiOrBuilder
     public Syntax getSyntax() {
-        Syntax valueOf = Syntax.valueOf(this.syntax_);
-        return valueOf == null ? Syntax.UNRECOGNIZED : valueOf;
+        Syntax syntaxValueOf = Syntax.valueOf(this.syntax_);
+        return syntaxValueOf == null ? Syntax.UNRECOGNIZED : syntaxValueOf;
     }
 
     @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLiteOrBuilder
@@ -336,26 +336,26 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         if (i != -1) {
             return i;
         }
-        int computeStringSize = !GeneratedMessageV3.isStringEmpty(this.name_) ? GeneratedMessageV3.computeStringSize(1, this.name_) + 0 : 0;
+        int iComputeStringSize = !GeneratedMessageV3.isStringEmpty(this.name_) ? GeneratedMessageV3.computeStringSize(1, this.name_) + 0 : 0;
         for (int i2 = 0; i2 < this.methods_.size(); i2++) {
-            computeStringSize += CodedOutputStream.computeMessageSize(2, this.methods_.get(i2));
+            iComputeStringSize += CodedOutputStream.computeMessageSize(2, this.methods_.get(i2));
         }
         for (int i3 = 0; i3 < this.options_.size(); i3++) {
-            computeStringSize += CodedOutputStream.computeMessageSize(3, this.options_.get(i3));
+            iComputeStringSize += CodedOutputStream.computeMessageSize(3, this.options_.get(i3));
         }
         if (!GeneratedMessageV3.isStringEmpty(this.version_)) {
-            computeStringSize += GeneratedMessageV3.computeStringSize(4, this.version_);
+            iComputeStringSize += GeneratedMessageV3.computeStringSize(4, this.version_);
         }
         if (this.sourceContext_ != null) {
-            computeStringSize += CodedOutputStream.computeMessageSize(5, getSourceContext());
+            iComputeStringSize += CodedOutputStream.computeMessageSize(5, getSourceContext());
         }
         for (int i4 = 0; i4 < this.mixins_.size(); i4++) {
-            computeStringSize += CodedOutputStream.computeMessageSize(6, this.mixins_.get(i4));
+            iComputeStringSize += CodedOutputStream.computeMessageSize(6, this.mixins_.get(i4));
         }
         if (this.syntax_ != Syntax.SYNTAX_PROTO2.getNumber()) {
-            computeStringSize += CodedOutputStream.computeEnumSize(7, this.syntax_);
+            iComputeStringSize += CodedOutputStream.computeEnumSize(7, this.syntax_);
         }
-        int serializedSize = computeStringSize + this.unknownFields.getSerializedSize();
+        int serializedSize = iComputeStringSize + this.unknownFields.getSerializedSize();
         this.memoizedSize = serializedSize;
         return serializedSize;
     }
@@ -380,23 +380,23 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         if (this.memoizedHashCode != 0) {
             return this.memoizedHashCode;
         }
-        int hashCode = ((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getName().hashCode();
+        int iHashCode = ((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getName().hashCode();
         if (getMethodsCount() > 0) {
-            hashCode = (((hashCode * 37) + 2) * 53) + getMethodsList().hashCode();
+            iHashCode = (((iHashCode * 37) + 2) * 53) + getMethodsList().hashCode();
         }
         if (getOptionsCount() > 0) {
-            hashCode = (((hashCode * 37) + 3) * 53) + getOptionsList().hashCode();
+            iHashCode = (((iHashCode * 37) + 3) * 53) + getOptionsList().hashCode();
         }
-        int hashCode2 = (((hashCode * 37) + 4) * 53) + getVersion().hashCode();
+        int iHashCode2 = (((iHashCode * 37) + 4) * 53) + getVersion().hashCode();
         if (hasSourceContext()) {
-            hashCode2 = (((hashCode2 * 37) + 5) * 53) + getSourceContext().hashCode();
+            iHashCode2 = (((iHashCode2 * 37) + 5) * 53) + getSourceContext().hashCode();
         }
         if (getMixinsCount() > 0) {
-            hashCode2 = (((hashCode2 * 37) + 6) * 53) + getMixinsList().hashCode();
+            iHashCode2 = (((iHashCode2 * 37) + 6) * 53) + getMixinsList().hashCode();
         }
-        int hashCode3 = (((((hashCode2 * 37) + 7) * 53) + this.syntax_) * 29) + this.unknownFields.hashCode();
-        this.memoizedHashCode = hashCode3;
-        return hashCode3;
+        int iHashCode3 = (((((iHashCode2 * 37) + 7) * 53) + this.syntax_) * 29) + this.unknownFields.hashCode();
+        this.memoizedHashCode = iHashCode3;
+        return iHashCode3;
     }
 
     public static Api parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -447,6 +447,8 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         return (Api) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder newBuilderForType() {
         return newBuilder();
@@ -460,18 +462,20 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(api);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder toBuilder() {
         return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
     public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
         return new Builder(builderParent);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements ApiOrBuilder {
         private int bitField0_;
         private RepeatedFieldBuilderV3<Method, Method.Builder, MethodOrBuilder> methodsBuilder_;
@@ -529,6 +533,10 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             super.clear();
@@ -570,20 +578,26 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             return ApiProto.internal_static_google_protobuf_Api_descriptor;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public Api getDefaultInstanceForType() {
             return Api.getDefaultInstance();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Api build() {
-            Api buildPartial = buildPartial();
-            if (buildPartial.isInitialized()) {
-                return buildPartial;
+            Api apiBuildPartial = buildPartial();
+            if (apiBuildPartial.isInitialized()) {
+                return apiBuildPartial;
             }
-            throw newUninitializedMessageException((Message) buildPartial);
+            throw newUninitializedMessageException((Message) apiBuildPartial);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Api buildPartial() {
             Api api = new Api(this);
@@ -613,7 +627,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (singleFieldBuilderV3 == null) {
                 api.sourceContext_ = this.sourceContext_;
             } else {
-                api.sourceContext_ = singleFieldBuilderV3.build();
+                api.sourceContext_ = (SourceContext) singleFieldBuilderV3.build();
             }
             RepeatedFieldBuilderV3<Mixin, Mixin.Builder, MixinOrBuilder> repeatedFieldBuilderV33 = this.mixinsBuilder_;
             if (repeatedFieldBuilderV33 != null) {
@@ -630,37 +644,56 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             return api;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public Builder clone() {
-            return (Builder) super.clone();
+        /* JADX INFO: renamed from: clone */
+        public Builder mo0clone() {
+            return (Builder) super.mo0clone();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.setField(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             return (Builder) super.clearField(fieldDescriptor);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             return (Builder) super.clearOneof(oneofDescriptor);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.addRepeatedField(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(Message message) {
             if (message instanceof Api) {
@@ -759,42 +792,43 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public com.google.oplus.protobuf.Api.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-            /*
-                r2 = this;
-                r0 = 0
-                com.google.oplus.protobuf.Parser r1 = com.google.oplus.protobuf.Api.access$1000()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                com.google.oplus.protobuf.Api r3 = (com.google.oplus.protobuf.Api) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                if (r3 == 0) goto L10
-                r2.mergeFrom(r3)
-            L10:
-                return r2
-            L11:
-                r3 = move-exception
-                goto L21
-            L13:
-                r3 = move-exception
-                com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                com.google.oplus.protobuf.Api r4 = (com.google.oplus.protobuf.Api) r4     // Catch: java.lang.Throwable -> L11
-                java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                throw r3     // Catch: java.lang.Throwable -> L1f
-            L1f:
-                r3 = move-exception
-                r0 = r4
-            L21:
-                if (r0 == 0) goto L26
-                r2.mergeFrom(r0)
-            L26:
-                throw r3
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.Api.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.Api$Builder");
+        public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            Api api = null;
+            try {
+                try {
+                    Api api2 = (Api) Api.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                    if (api2 != null) {
+                        mergeFrom(api2);
+                    }
+                    return this;
+                } catch (InvalidProtocolBufferException e) {
+                    Api api3 = (Api) e.getUnfinishedMessage();
+                    try {
+                        throw e.unwrapIOException();
+                    } catch (Throwable th) {
+                        th = th;
+                        api = api3;
+                        if (api != null) {
+                        }
+                        throw th;
+                    }
+                }
+            } catch (Throwable th2) {
+                th = th2;
+                if (api != null) {
+                    mergeFrom(api);
+                }
+                throw th;
+            }
         }
 
         @Override // com.google.oplus.protobuf.ApiOrBuilder
@@ -812,9 +846,9 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         public ByteString getNameBytes() {
             Object obj = this.name_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.name_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.name_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -847,6 +881,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.Method> */
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public List<Method> getMethodsList() {
             RepeatedFieldBuilderV3<Method, Method.Builder, MethodOrBuilder> repeatedFieldBuilderV3 = this.methodsBuilder_;
@@ -871,7 +906,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.methods_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessage(i);
+            return (Method) repeatedFieldBuilderV3.getMessage(i);
         }
 
         public Builder setMethods(int i, Method method) {
@@ -986,7 +1021,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         }
 
         public Method.Builder getMethodsBuilder(int i) {
-            return getMethodsFieldBuilder().getBuilder(i);
+            return (Method.Builder) getMethodsFieldBuilder().getBuilder(i);
         }
 
         @Override // com.google.oplus.protobuf.ApiOrBuilder
@@ -995,9 +1030,10 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.methods_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+            return (MethodOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
         }
 
+        /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.MethodOrBuilder> */
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public List<? extends MethodOrBuilder> getMethodsOrBuilderList() {
             RepeatedFieldBuilderV3<Method, Method.Builder, MethodOrBuilder> repeatedFieldBuilderV3 = this.methodsBuilder_;
@@ -1008,13 +1044,14 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         }
 
         public Method.Builder addMethodsBuilder() {
-            return getMethodsFieldBuilder().addBuilder(Method.getDefaultInstance());
+            return (Method.Builder) getMethodsFieldBuilder().addBuilder(Method.getDefaultInstance());
         }
 
         public Method.Builder addMethodsBuilder(int i) {
-            return getMethodsFieldBuilder().addBuilder(i, Method.getDefaultInstance());
+            return (Method.Builder) getMethodsFieldBuilder().addBuilder(i, Method.getDefaultInstance());
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.Method$Builder> */
         public List<Method.Builder> getMethodsBuilderList() {
             return getMethodsFieldBuilder().getBuilderList();
         }
@@ -1034,6 +1071,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.Option> */
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public List<Option> getOptionsList() {
             RepeatedFieldBuilderV3<Option, Option.Builder, OptionOrBuilder> repeatedFieldBuilderV3 = this.optionsBuilder_;
@@ -1058,7 +1096,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.options_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessage(i);
+            return (Option) repeatedFieldBuilderV3.getMessage(i);
         }
 
         public Builder setOptions(int i, Option option) {
@@ -1173,7 +1211,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         }
 
         public Option.Builder getOptionsBuilder(int i) {
-            return getOptionsFieldBuilder().getBuilder(i);
+            return (Option.Builder) getOptionsFieldBuilder().getBuilder(i);
         }
 
         @Override // com.google.oplus.protobuf.ApiOrBuilder
@@ -1182,9 +1220,10 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.options_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+            return (OptionOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
         }
 
+        /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.OptionOrBuilder> */
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public List<? extends OptionOrBuilder> getOptionsOrBuilderList() {
             RepeatedFieldBuilderV3<Option, Option.Builder, OptionOrBuilder> repeatedFieldBuilderV3 = this.optionsBuilder_;
@@ -1195,13 +1234,14 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         }
 
         public Option.Builder addOptionsBuilder() {
-            return getOptionsFieldBuilder().addBuilder(Option.getDefaultInstance());
+            return (Option.Builder) getOptionsFieldBuilder().addBuilder(Option.getDefaultInstance());
         }
 
         public Option.Builder addOptionsBuilder(int i) {
-            return getOptionsFieldBuilder().addBuilder(i, Option.getDefaultInstance());
+            return (Option.Builder) getOptionsFieldBuilder().addBuilder(i, Option.getDefaultInstance());
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.Option$Builder> */
         public List<Option.Builder> getOptionsBuilderList() {
             return getOptionsFieldBuilder().getBuilderList();
         }
@@ -1229,9 +1269,9 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         public ByteString getVersionBytes() {
             Object obj = this.version_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.version_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.version_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -1269,7 +1309,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
                 SourceContext sourceContext = this.sourceContext_;
                 return sourceContext == null ? SourceContext.getDefaultInstance() : sourceContext;
             }
-            return singleFieldBuilderV3.getMessage();
+            return (SourceContext) singleFieldBuilderV3.getMessage();
         }
 
         public Builder setSourceContext(SourceContext sourceContext) {
@@ -1324,14 +1364,14 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
 
         public SourceContext.Builder getSourceContextBuilder() {
             onChanged();
-            return getSourceContextFieldBuilder().getBuilder();
+            return (SourceContext.Builder) getSourceContextFieldBuilder().getBuilder();
         }
 
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public SourceContextOrBuilder getSourceContextOrBuilder() {
             SingleFieldBuilderV3<SourceContext, SourceContext.Builder, SourceContextOrBuilder> singleFieldBuilderV3 = this.sourceContextBuilder_;
             if (singleFieldBuilderV3 != null) {
-                return singleFieldBuilderV3.getMessageOrBuilder();
+                return (SourceContextOrBuilder) singleFieldBuilderV3.getMessageOrBuilder();
             }
             SourceContext sourceContext = this.sourceContext_;
             return sourceContext == null ? SourceContext.getDefaultInstance() : sourceContext;
@@ -1352,6 +1392,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.Mixin> */
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public List<Mixin> getMixinsList() {
             RepeatedFieldBuilderV3<Mixin, Mixin.Builder, MixinOrBuilder> repeatedFieldBuilderV3 = this.mixinsBuilder_;
@@ -1376,7 +1417,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.mixins_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessage(i);
+            return (Mixin) repeatedFieldBuilderV3.getMessage(i);
         }
 
         public Builder setMixins(int i, Mixin mixin) {
@@ -1491,7 +1532,7 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         }
 
         public Mixin.Builder getMixinsBuilder(int i) {
-            return getMixinsFieldBuilder().getBuilder(i);
+            return (Mixin.Builder) getMixinsFieldBuilder().getBuilder(i);
         }
 
         @Override // com.google.oplus.protobuf.ApiOrBuilder
@@ -1500,9 +1541,10 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.mixins_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+            return (MixinOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
         }
 
+        /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.MixinOrBuilder> */
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public List<? extends MixinOrBuilder> getMixinsOrBuilderList() {
             RepeatedFieldBuilderV3<Mixin, Mixin.Builder, MixinOrBuilder> repeatedFieldBuilderV3 = this.mixinsBuilder_;
@@ -1513,13 +1555,14 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         }
 
         public Mixin.Builder addMixinsBuilder() {
-            return getMixinsFieldBuilder().addBuilder(Mixin.getDefaultInstance());
+            return (Mixin.Builder) getMixinsFieldBuilder().addBuilder(Mixin.getDefaultInstance());
         }
 
         public Mixin.Builder addMixinsBuilder(int i) {
-            return getMixinsFieldBuilder().addBuilder(i, Mixin.getDefaultInstance());
+            return (Mixin.Builder) getMixinsFieldBuilder().addBuilder(i, Mixin.getDefaultInstance());
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.Mixin$Builder> */
         public List<Mixin.Builder> getMixinsBuilderList() {
             return getMixinsFieldBuilder().getBuilderList();
         }
@@ -1545,8 +1588,8 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
 
         @Override // com.google.oplus.protobuf.ApiOrBuilder
         public Syntax getSyntax() {
-            Syntax valueOf = Syntax.valueOf(this.syntax_);
-            return valueOf == null ? Syntax.UNRECOGNIZED : valueOf;
+            Syntax syntaxValueOf = Syntax.valueOf(this.syntax_);
+            return syntaxValueOf == null ? Syntax.UNRECOGNIZED : syntaxValueOf;
         }
 
         public Builder setSyntax(Syntax syntax) {
@@ -1562,11 +1605,16 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.setUnknownFields(unknownFieldSet);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -1586,6 +1634,8 @@ public final class Api extends GeneratedMessageV3 implements ApiOrBuilder {
         return PARSER;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
     public Api getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;

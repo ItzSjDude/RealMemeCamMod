@@ -12,7 +12,8 @@ import com.oplus.ocs.camera.common.util.ApsRequestTag;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import java.util.Collections;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FastVideoMode extends VideoMode {
     private static final int HYPER_LAPSE_RATE = 3;
     private static final String TAG = "FastVideoMode";
@@ -27,9 +28,8 @@ public class FastVideoMode extends VideoMode {
         return true;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean needPreviewMeta(String str) {
+    boolean needPreviewMeta(String str) {
         return true;
     }
 
@@ -45,18 +45,16 @@ public class FastVideoMode extends VideoMode {
         return super.useOplusCameraCase(str);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, ApsRequestTag apsRequestTag) {
         super.onConfigure(cameraSessionEntity, sdkCameraDeviceConfig, str, apsRequestTag);
         if (isHyperLapseOpen(str)) {
             sdkCameraDeviceConfig.updateHalVideoSize(getCameraDeviceInfo(str).getVideoMappingSizesFromConfig(str, Collections.singletonMap(ConfigureParameter.HYPER_LAPSE.getName(), "hyper_lapse")));
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public String getFeatureName(String str) {
+    protected String getFeatureName(String str) {
         String str2 = (String) getConfigureParameter(str).get(ConfigureParameter.HYPER_LAPSE);
         return ("off".equals(str2) || "hyper_lapse".equals(str2)) ? str2 : super.getFeatureName(str);
     }
@@ -71,11 +69,11 @@ public class FastVideoMode extends VideoMode {
 
     @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
     public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
-        CameraRequestTag createRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
-        createRequestTag.mHyperLapseRate = getHyperLapseRate(str);
-        createRequestTag.mbVideoRecordingPaused = false;
-        createRequestTag.isHyperLapseOpen = isHyperLapseOpen(str);
-        return createRequestTag;
+        CameraRequestTag cameraRequestTagCreateRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
+        cameraRequestTagCreateRequestTag.mHyperLapseRate = getHyperLapseRate(str);
+        cameraRequestTagCreateRequestTag.mbVideoRecordingPaused = false;
+        cameraRequestTagCreateRequestTag.isHyperLapseOpen = isHyperLapseOpen(str);
+        return cameraRequestTagCreateRequestTag;
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode

@@ -11,24 +11,25 @@ import com.oplus.statistics.data.TrackEvent;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ContentProviderRecorder implements IRecorder {
     private static final String TAG = "ContentProviderRecorder";
     private static final String URI_STRING = "content://com.oplus.statistics.provider/track_event";
     private static final String URI_SUPPORT = "content://com.oplus.statistics.provider/support";
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$insert$1() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "get resolver failed." */
+    static /* synthetic */ String lambda$insert$1() {
         return "get resolver failed.";
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$insert$2() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "get provider client failed." */
+    static /* synthetic */ String lambda$insert$2() {
         return "get provider client failed.";
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$isSupport$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "not support content provider" */
+    static /* synthetic */ String lambda$isSupport$0() {
         return "not support content provider";
     }
 
@@ -58,8 +59,8 @@ public class ContentProviderRecorder implements IRecorder {
     public static boolean isSupport(Context context) {
         ContentValues contentValues = new ContentValues();
         contentValues.put("", "");
-        boolean insert = insert(context, URI_SUPPORT, contentValues);
-        if (!insert) {
+        boolean zInsert = insert(context, URI_SUPPORT, contentValues);
+        if (!zInsert) {
             LogUtil.w(TAG, new Supplier() { // from class: com.oplus.statistics.record.ContentProviderRecorder$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
@@ -67,11 +68,11 @@ public class ContentProviderRecorder implements IRecorder {
                 }
             });
         }
-        return insert;
+        return zInsert;
     }
 
     private static boolean insert(Context context, String str, ContentValues contentValues) {
-        Uri parse = Uri.parse(str);
+        Uri uri = Uri.parse(str);
         ContentResolver contentResolver = context.getContentResolver();
         if (contentResolver == null) {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.record.ContentProviderRecorder$$ExternalSyntheticLambda1
@@ -82,9 +83,9 @@ public class ContentProviderRecorder implements IRecorder {
             });
             return false;
         }
-        ContentProviderClient acquireUnstableContentProviderClient = contentResolver.acquireUnstableContentProviderClient(parse);
+        ContentProviderClient contentProviderClientAcquireUnstableContentProviderClient = contentResolver.acquireUnstableContentProviderClient(uri);
         try {
-            if (acquireUnstableContentProviderClient == null) {
+            if (contentProviderClientAcquireUnstableContentProviderClient == null) {
                 LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.record.ContentProviderRecorder$$ExternalSyntheticLambda2
                     @Override // com.oplus.statistics.util.Supplier
                     public final Object get() {
@@ -94,8 +95,8 @@ public class ContentProviderRecorder implements IRecorder {
                 return false;
             }
             try {
-                acquireUnstableContentProviderClient.insert(parse, contentValues);
-                acquireUnstableContentProviderClient.close();
+                contentProviderClientAcquireUnstableContentProviderClient.insert(uri, contentValues);
+                contentProviderClientAcquireUnstableContentProviderClient.close();
                 return true;
             } catch (RemoteException | IllegalArgumentException | IllegalStateException e) {
                 LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.record.ContentProviderRecorder$$ExternalSyntheticLambda3
@@ -104,17 +105,17 @@ public class ContentProviderRecorder implements IRecorder {
                         return ContentProviderRecorder.lambda$insert$3(e);
                     }
                 });
-                acquireUnstableContentProviderClient.close();
+                contentProviderClientAcquireUnstableContentProviderClient.close();
                 return false;
             }
         } catch (Throwable th) {
-            acquireUnstableContentProviderClient.close();
+            contentProviderClientAcquireUnstableContentProviderClient.close();
             throw th;
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$insert$3(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("insert exception:"), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$insert$3(Exception exc) {
         return "insert exception:" + exc;
     }
 }

@@ -8,7 +8,8 @@ import android.util.Base64;
 import androidx.annotation.NonNull;
 import com.oplus.statistics.record.ContentProviderRecorder;
 import java.nio.charset.StandardCharsets;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class VersionUtil {
     private static final String DCS_PKG_NAME = new String(Base64.decode(Constant.DCS_PKG, 0), StandardCharsets.UTF_8);
     private static final int SUPPORT_CONTENT_PROVIDER_VERSION = 5300000;
@@ -43,8 +44,11 @@ public class VersionUtil {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getDataCollectionAppVersion$0(PackageManager.NameNotFoundException nameNotFoundException) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("getDataCollectionAppVersion exception: ")
+      (wrap:java.lang.String:0x000a: INVOKE (r2v0 android.content.pm.PackageManager$NameNotFoundException) VIRTUAL call: android.content.pm.PackageManager.NameNotFoundException.toString():java.lang.String A[MD:():java.lang.String (s), WRAPPED])
+     A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getDataCollectionAppVersion$0(PackageManager.NameNotFoundException nameNotFoundException) {
         return "getDataCollectionAppVersion exception: " + nameNotFoundException.toString();
     }
 }

@@ -4,7 +4,8 @@ import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureResult;
 import android.util.ArrayMap;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsPreviewParam {
     private String mCaptureMode;
     private long mConsumerPtr;

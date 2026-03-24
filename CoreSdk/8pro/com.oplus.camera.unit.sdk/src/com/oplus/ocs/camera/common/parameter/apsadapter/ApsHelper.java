@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.common.parameter.apsadapter;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsHelper {
     private static final String CLAZZ_NAME = "android.hardware.camera2.OplusCameraManager";
     private static final String INSTANCE_FIELD = "mInstance";
@@ -13,37 +14,33 @@ public class ApsHelper {
     private static Method mProcessHeif;
 
     public static void postProcessHeifEvent(long j) {
-        String str = TAG;
-        ApsAdapterLog.d(str, "postProcessHeifEvent, ptr: " + j);
+        ApsAdapterLog.d(TAG, "postProcessHeifEvent, ptr: " + j);
         refectionMethod("sendToProcessHeif", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
     }
 
     public static int postBufQAllocEnableEvent(long j) {
-        String str = TAG;
-        ApsAdapterLog.d(str, "postBufQAllocEnableEvent, ptr: " + j);
-        Object refectionMethod = refectionMethod("sendToBufQAllocEnableEvent", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
-        if (refectionMethod != null) {
-            return ((Integer) refectionMethod).intValue();
+        ApsAdapterLog.d(TAG, "postBufQAllocEnableEvent, ptr: " + j);
+        Object objRefectionMethod = refectionMethod("sendToBufQAllocEnableEvent", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
+        if (objRefectionMethod != null) {
+            return ((Integer) objRefectionMethod).intValue();
         }
         return -1;
     }
 
     public static int postExchgHWBufBtwBufQEvent(long j) {
-        String str = TAG;
-        ApsAdapterLog.d(str, "postExchgHWBufBtwBufQEvent, ptr: " + j);
-        Object refectionMethod = refectionMethod("sendToExchgHWBufBtwBufQEvent", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
-        if (refectionMethod != null) {
-            return ((Integer) refectionMethod).intValue();
+        ApsAdapterLog.d(TAG, "postExchgHWBufBtwBufQEvent, ptr: " + j);
+        Object objRefectionMethod = refectionMethod("sendToExchgHWBufBtwBufQEvent", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
+        if (objRefectionMethod != null) {
+            return ((Integer) objRefectionMethod).intValue();
         }
         return -1;
     }
 
     public static int postAttachHWBufToBufQEvent(long j) {
-        String str = TAG;
-        ApsAdapterLog.d(str, "postAttachHWBufToBufQEvent, ptr: " + j);
-        Object refectionMethod = refectionMethod("sendToAttachHWBufToBufQEvent", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
-        if (refectionMethod != null) {
-            return ((Integer) refectionMethod).intValue();
+        ApsAdapterLog.d(TAG, "postAttachHWBufToBufQEvent, ptr: " + j);
+        Object objRefectionMethod = refectionMethod("sendToAttachHWBufToBufQEvent", new Class[]{Long.TYPE}, new Object[]{Long.valueOf(j)});
+        if (objRefectionMethod != null) {
+            return ((Integer) objRefectionMethod).intValue();
         }
         return -1;
     }
@@ -57,8 +54,7 @@ public class ApsHelper {
             declaredMethod.setAccessible(true);
             return declaredMethod.invoke(declaredField.get(null), objArr);
         } catch (Exception e) {
-            String str2 = TAG;
-            ApsAdapterLog.e(str2, "refectionMethod, methodName:  " + str + " ERROR: " + e.getMessage());
+            ApsAdapterLog.e(TAG, "refectionMethod, methodName:  " + str + " ERROR: " + e.getMessage());
             return null;
         }
     }

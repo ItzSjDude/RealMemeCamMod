@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ServiceException extends Exception {
     private static final long serialVersionUID = -1219262335729891920L;
 

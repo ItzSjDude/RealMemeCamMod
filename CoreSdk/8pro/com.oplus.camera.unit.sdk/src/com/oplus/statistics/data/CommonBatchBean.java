@@ -7,10 +7,12 @@ import com.oplus.statistics.DataTypeConstants;
 import com.oplus.statistics.util.CastUtil;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CommonBatchBean extends CommonBean {
     private static final String MAP_LIST = "mapList";
     private static final int SINGLE_DATA_MAX_LENGTH = 131072;
@@ -31,11 +33,12 @@ public class CommonBatchBean extends CommonBean {
 
     public void setLogMap(List<Map<String, String>> list) throws DataOverSizeException {
         JSONArray jSONArray = new JSONArray();
-        for (Map<String, String> map : list) {
-            jSONArray.put(CastUtil.map2JsonObject(map));
+        Iterator<Map<String, String>> it = list.iterator();
+        while (it.hasNext()) {
+            jSONArray.put(CastUtil.map2JsonObject(it.next()));
         }
-        String jSONArray2 = jSONArray.toString();
-        if (jSONArray2.length() >= SINGLE_DATA_MAX_LENGTH) {
+        String string = jSONArray.toString();
+        if (string.length() >= SINGLE_DATA_MAX_LENGTH) {
             final String str = "DataOverSizeException :" + getAppId() + ", " + getLogTag() + ", " + getEventID();
             str.getClass();
             LogUtil.w(TAG, new Supplier() { // from class: com.oplus.statistics.data.CommonBatchBean$$ExternalSyntheticLambda0
@@ -46,7 +49,7 @@ public class CommonBatchBean extends CommonBean {
             });
             throw new DataOverSizeException(str);
         }
-        this.mLogMap = jSONArray2;
+        this.mLogMap = string;
         addTrackInfo(MAP_LIST, this.mLogMap);
     }
 }

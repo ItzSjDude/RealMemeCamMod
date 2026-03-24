@@ -1,5 +1,6 @@
 package com.oplus.utils.reflect;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 interface IBaseRef {
     void bindStub(Object obj);
 

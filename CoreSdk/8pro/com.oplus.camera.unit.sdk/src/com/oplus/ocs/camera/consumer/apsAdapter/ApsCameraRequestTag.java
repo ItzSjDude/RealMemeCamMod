@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.consumer.apsAdapter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsCameraRequestTag {
     public boolean mbQcom = true;
     public boolean mbFrontCamera = false;

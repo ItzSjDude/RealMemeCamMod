@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.statistics.model;
 
 import com.oplus.ocs.camera.common.statistics.StatisticConstant;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CaptureDcsMsgData extends DcsMsgData {
     public int mHdrStatus;
     public int mHeight;

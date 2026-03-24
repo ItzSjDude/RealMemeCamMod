@@ -19,7 +19,7 @@ import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class PanoramaCapMode extends BaseMode {
     private static final String TAG = "PanoramaCapMode";
 
@@ -33,16 +33,13 @@ public class PanoramaCapMode extends BaseMode {
         return "panorama_case";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag,
-            ApsAdapterDecision.DecisionResult decisionResult) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    public boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag, ApsAdapterDecision.DecisionResult decisionResult) {
         return 1 != i;
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
-            String str3) {
+    protected Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
         Size size = this.mTagMap.get(str3).mPreviewSize;
         str.hashCode();
         if (str.equals("preview")) {
@@ -53,7 +50,8 @@ public class PanoramaCapMode extends BaseMode {
             }
             CameraUnitLog.e(TAG, "getSurfaceSize, don't config preview size, may be wrong!");
             return new Pair<>(size, size);
-        } else if (str.equals("preview_frame")) {
+        }
+        if (str.equals("preview_frame")) {
             for (SurfaceWrapper surfaceWrapper2 : sdkCameraDeviceConfig.getPreviewSurfaces()) {
                 if (6 == surfaceWrapper2.getSurfaceType()) {
                     return new Pair<>(surfaceWrapper2.getAppSurfaceSize(), surfaceWrapper2.getHalSurfaceSize());
@@ -61,24 +59,20 @@ public class PanoramaCapMode extends BaseMode {
             }
             CameraUnitLog.e(TAG, "getSurfaceSize, don't config preview_frame size, may be wrong!");
             return new Pair<>(size, size);
-        } else {
-            return new Pair<>(size, size);
         }
+        return new Pair<>(size, size);
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public CameraDeviceInfoInterface createCameraDeviceInfo(String str) {
+    protected CameraDeviceInfoInterface createCameraDeviceInfo(String str) {
         CameraDeviceInfoImpl cameraDeviceInfoImpl = (CameraDeviceInfoImpl) super.createCameraDeviceInfo(str);
         cameraDeviceInfoImpl.setDefaultPreviewConfigSizes(null);
-        cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_ZOOM_RATIO.getName(),
-                new ZoomHelper(str).getZoomRatioList(false, "rear_sat".equals(str), false));
+        cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_ZOOM_RATIO.getName(), new ZoomHelper(str).getZoomRatioList(false, "rear_sat".equals(str), false));
         return cameraDeviceInfoImpl;
     }
 
@@ -87,14 +81,12 @@ public class PanoramaCapMode extends BaseMode {
         return ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_PANORAMA, 0)).intValue();
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
-            @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         str.hashCode();
         if (str.equals(Parameter.ParameterStage.CONFIGURE)) {
-            builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { 0 });
+            builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[]{0});
         }
     }
 }

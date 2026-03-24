@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Internal;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class FieldInfo implements Comparable<FieldInfo> {
     private final java.lang.reflect.Field cachedSizeField;
     private final boolean enforceUtf8;
@@ -148,6 +149,7 @@ final class FieldInfo implements Comparable<FieldInfo> {
         return this.enumVerifier;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I */
     @Override // java.lang.Comparable
     public int compareTo(FieldInfo fieldInfo) {
         return this.fieldNumber - fieldInfo.fieldNumber;
@@ -181,8 +183,7 @@ final class FieldInfo implements Comparable<FieldInfo> {
         return this.cachedSizeField;
     }
 
-    /* renamed from: com.google.oplus.protobuf.FieldInfo$1  reason: invalid class name */
-    /* loaded from: classes.dex */
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.FieldInfo$1, reason: invalid class name */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$FieldType;
 
@@ -213,18 +214,17 @@ final class FieldInfo implements Comparable<FieldInfo> {
         if (i == 1 || i == 2) {
             java.lang.reflect.Field field = this.field;
             return field != null ? field.getType() : this.oneofStoredType;
-        } else if (i == 3 || i == 4) {
-            return this.messageClass;
-        } else {
-            return null;
         }
+        if (i == 3 || i == 4) {
+            return this.messageClass;
+        }
+        return null;
     }
 
     public static Builder newBuilder() {
         return new Builder(null);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder {
         private java.lang.reflect.Field cachedSizeField;
         private boolean enforceUtf8;
@@ -239,6 +239,7 @@ final class FieldInfo implements Comparable<FieldInfo> {
         private boolean required;
         private FieldType type;
 
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR  A[MD:():void (m)] (LINE:450) call: com.google.oplus.protobuf.FieldInfo.Builder.<init>():void type: THIS */
         /* synthetic */ Builder(AnonymousClass1 anonymousClass1) {
             this();
         }

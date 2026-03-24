@@ -3,16 +3,15 @@ package com.oplus.ocs.camera.appinterface.adapter;
 import android.util.ArrayMap;
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsAlgoSwitchConfigParameter;
 import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraAlgoSwitchConfigUtil {
 
-    /* loaded from: classes.dex */
     public static class PreviewConfig {
         private ApsAlgoSwitchConfigParameter mParameter = new ApsAlgoSwitchConfigParameter();
         private ArrayMap<String, Component> mComponentMap = new ArrayMap<>();
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        public PreviewConfig(AlgoSwitchConfig.PreviewConfig previewConfig) {
+        PreviewConfig(AlgoSwitchConfig.PreviewConfig previewConfig) {
             this.mParameter.set(ApsAlgoSwitchConfigParameter.KEY_PREVIEW_CONFIG_CAMERA_MODE, previewConfig.mCameraMode);
             this.mParameter.set(ApsAlgoSwitchConfigParameter.KEY_PREVIEW_CONFIG_CAMERA_ID, Integer.valueOf(previewConfig.mCameraId));
             this.mParameter.set(ApsAlgoSwitchConfigParameter.KEY_PREVIEW_CONFIG_CAMERA_NUM, Integer.valueOf(previewConfig.mCameraNum));
@@ -31,12 +30,10 @@ public class CameraAlgoSwitchConfigUtil {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class CaptureConfig {
         private ApsAlgoSwitchConfigParameter mParameter;
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        public CaptureConfig(AlgoSwitchConfig.CaptureConfig captureConfig) {
+        CaptureConfig(AlgoSwitchConfig.CaptureConfig captureConfig) {
             ApsAlgoSwitchConfigParameter apsAlgoSwitchConfigParameter = new ApsAlgoSwitchConfigParameter();
             this.mParameter = apsAlgoSwitchConfigParameter;
             apsAlgoSwitchConfigParameter.set(ApsAlgoSwitchConfigParameter.KEY_CAPTURE_CONFIG_CAMERA_MODE, captureConfig.mCameraMode);
@@ -50,7 +47,6 @@ public class CameraAlgoSwitchConfigUtil {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class Component {
         private ApsAlgoSwitchConfigParameter mParameter;
 

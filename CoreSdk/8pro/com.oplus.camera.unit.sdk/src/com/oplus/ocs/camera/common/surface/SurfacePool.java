@@ -8,7 +8,8 @@ import androidx.annotation.NonNull;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.common.util.ContextHolder;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SurfacePool {
     private static final String TAG = "SurfacePool";
     private static SurfacePool sInstance;
@@ -18,14 +19,10 @@ public class SurfacePool {
     private Surface mVideoSurface = null;
 
     public static synchronized SurfacePool getInstance() {
-        SurfacePool surfacePool;
-        synchronized (SurfacePool.class) {
-            if (sInstance == null) {
-                sInstance = new SurfacePool();
-            }
-            surfacePool = sInstance;
+        if (sInstance == null) {
+            sInstance = new SurfacePool();
         }
-        return surfacePool;
+        return sInstance;
     }
 
     private SurfacePool() {
@@ -69,28 +66,28 @@ public class SurfacePool {
     }
 
     public synchronized Surface createVideoSurface() {
-        Surface createPersistentInputSurface;
+        Surface surfaceCreatePersistentInputSurface;
         synchronized (this.mSurfacePoolLock) {
-            createPersistentInputSurface = MediaCodec.createPersistentInputSurface();
-            this.mVideoSurface = createPersistentInputSurface;
+            surfaceCreatePersistentInputSurface = MediaCodec.createPersistentInputSurface();
+            this.mVideoSurface = surfaceCreatePersistentInputSurface;
             this.mbInnerVideoSurface = true;
         }
-        return createPersistentInputSurface;
+        return surfaceCreatePersistentInputSurface;
     }
 
     public void closeImageReader(@NonNull SurfaceKey surfaceKey) {
         synchronized (this.mSurfacePoolLock) {
-            String surfaceKey2 = surfaceKey.toString();
-            ImageReader imageReader = this.mImageReaderMap.get(surfaceKey2);
+            String string = surfaceKey.toString();
+            ImageReader imageReader = this.mImageReaderMap.get(string);
             if (imageReader != null) {
                 synchronized (ContextHolder.getContext()) {
-                    CameraUnitLog.i(TAG, "closeImageReader, key: " + surfaceKey2);
+                    CameraUnitLog.i(TAG, "closeImageReader, key: " + string);
                     try {
                         imageReader.close();
                     } catch (IllegalArgumentException e) {
                         CameraUnitLog.w(TAG, "closeImageReader", e);
                     }
-                    this.mImageReaderMap.remove(surfaceKey2);
+                    this.mImageReaderMap.remove(string);
                 }
             }
         }
@@ -105,21 +102,21 @@ public class SurfacePool {
     }
 
     public ImageReader createImageReader(SurfaceWrapper surfaceWrapper) {
-        ImageReader imageReader;
+        ImageReader imageReaderNewInstance;
         synchronized (this.mSurfacePoolLock) {
-            String formatKey = SurfaceKey.formatKey(surfaceWrapper.getCameraType(), surfaceWrapper.getSurfaceUsage(), surfaceWrapper.getFormat());
-            imageReader = this.mImageReaderMap.get(formatKey);
+            String key = SurfaceKey.formatKey(surfaceWrapper.getCameraType(), surfaceWrapper.getSurfaceUsage(), surfaceWrapper.getFormat());
+            imageReaderNewInstance = this.mImageReaderMap.get(key);
             Size halSurfaceSize = surfaceWrapper.getHalSurfaceSize();
-            if (imageReader == null || imageReader.getWidth() != halSurfaceSize.getWidth() || imageReader.getHeight() != halSurfaceSize.getHeight()) {
-                if (imageReader != null) {
-                    CameraUnitLog.i(TAG, "createImageReader, size does not match, reader close, key: " + formatKey);
-                    imageReader.close();
+            if (imageReaderNewInstance == null || imageReaderNewInstance.getWidth() != halSurfaceSize.getWidth() || imageReaderNewInstance.getHeight() != halSurfaceSize.getHeight()) {
+                if (imageReaderNewInstance != null) {
+                    CameraUnitLog.i(TAG, "createImageReader, size does not match, reader close, key: " + key);
+                    imageReaderNewInstance.close();
                 }
-                CameraUnitLog.i(TAG, "createImageReader, key: " + formatKey + ", size: " + halSurfaceSize + ", maxImage: " + surfaceWrapper.getMaxImageNumber());
-                imageReader = ImageReader.newInstance(halSurfaceSize.getWidth(), halSurfaceSize.getHeight(), surfaceWrapper.getFormat(), surfaceWrapper.getMaxImageNumber(), surfaceWrapper.getIntention());
-                this.mImageReaderMap.put(formatKey, imageReader);
+                CameraUnitLog.i(TAG, "createImageReader, key: " + key + ", size: " + halSurfaceSize + ", maxImage: " + surfaceWrapper.getMaxImageNumber());
+                imageReaderNewInstance = ImageReader.newInstance(halSurfaceSize.getWidth(), halSurfaceSize.getHeight(), surfaceWrapper.getFormat(), surfaceWrapper.getMaxImageNumber(), surfaceWrapper.getIntention());
+                this.mImageReaderMap.put(key, imageReaderNewInstance);
             }
         }
-        return imageReader;
+        return imageReaderNewInstance;
     }
 }

@@ -1,5 +1,6 @@
 package com.oplus.statistics;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DataTypeConstants {
     public static final int APP_LOG = 1002;
     public static final int APP_START = 1000;
@@ -11,6 +12,7 @@ public class DataTypeConstants {
     public static final int PAGE_VISIT = 1003;
     public static final int PERIOD_DATA = 1019;
     public static final int SETTING_KEY = 1020;
+
     @Deprecated
     public static final int SPECIAL_APP_START = 1005;
     public static final int STATIC_EVENT_TYPE = 1008;

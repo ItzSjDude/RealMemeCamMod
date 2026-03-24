@@ -2,41 +2,35 @@ package com.oplus.exif;
 
 import java.util.HashMap;
 import java.util.Map;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class OplusIfdData {
+
+/* JADX INFO: loaded from: classes.dex */
+class OplusIfdData {
     private static final int[] sIfds = {0, 1, 2, 3, 4};
     private final int mIfdId;
     private final Map<Short, OplusExifTag> mExifTags = new HashMap();
     private int mOffsetToNextIfd = 0;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public OplusIfdData(int i) {
+    OplusIfdData(int i) {
         this.mIfdId = i;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static int[] getIfds() {
+    protected static int[] getIfds() {
         return sIfds;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusExifTag[] getAllTags() {
+    protected OplusExifTag[] getAllTags() {
         return (OplusExifTag[]) this.mExifTags.values().toArray(new OplusExifTag[this.mExifTags.size()]);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public int getId() {
+    protected int getId() {
         return this.mIfdId;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusExifTag getTag(short s) {
+    protected OplusExifTag getTag(short s) {
         return this.mExifTags.get(Short.valueOf(s));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusExifTag setTag(OplusExifTag oplusExifTag) {
+    protected OplusExifTag setTag(OplusExifTag oplusExifTag) {
         oplusExifTag.setIfd(this.mIfdId);
         return this.mExifTags.put(Short.valueOf(oplusExifTag.getTagId()), oplusExifTag);
     }
@@ -45,28 +39,23 @@ public class OplusIfdData {
         return this.mExifTags.get(Short.valueOf(s)) != null;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void removeTag(short s) {
+    protected void removeTag(short s) {
         this.mExifTags.remove(Short.valueOf(s));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public int getTagCount() {
+    protected int getTagCount() {
         return this.mExifTags.size();
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setOffsetToNextIfd(int i) {
+    protected void setOffsetToNextIfd(int i) {
         this.mOffsetToNextIfd = i;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public int getOffsetToNextIfd() {
+    protected int getOffsetToNextIfd() {
         return this.mOffsetToNextIfd;
     }
 
     public boolean equals(Object obj) {
-        OplusExifTag[] allTags;
         if (this == obj) {
             return true;
         }

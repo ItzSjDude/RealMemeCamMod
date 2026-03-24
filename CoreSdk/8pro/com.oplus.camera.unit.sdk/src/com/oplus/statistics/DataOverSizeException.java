@@ -1,5 +1,6 @@
 package com.oplus.statistics;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DataOverSizeException extends RuntimeException {
     public DataOverSizeException() {
     }

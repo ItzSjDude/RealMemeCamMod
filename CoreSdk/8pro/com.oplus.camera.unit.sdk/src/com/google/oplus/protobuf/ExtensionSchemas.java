@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class ExtensionSchemas {
     private static final ExtensionSchema<?> LITE_SCHEMA = new ExtensionSchemaLite();
     private static final ExtensionSchema<?> FULL_SCHEMA = loadSchemaForFullRuntime();
@@ -15,13 +16,11 @@ final class ExtensionSchemas {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static ExtensionSchema<?> lite() {
+    static ExtensionSchema<?> lite() {
         return LITE_SCHEMA;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static ExtensionSchema<?> full() {
+    static ExtensionSchema<?> full() {
         ExtensionSchema<?> extensionSchema = FULL_SCHEMA;
         if (extensionSchema != null) {
             return extensionSchema;

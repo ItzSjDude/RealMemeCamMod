@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
     private static final MapFieldLite EMPTY_MAP_FIELD;
     private boolean isMutable;
@@ -88,46 +89,19 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
         return obj.equals(obj2);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* JADX WARN: Removed duplicated region for block: B:11:0x001e  */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public static <K, V> boolean equals(java.util.Map<K, V> r4, java.util.Map<K, V> r5) {
-        /*
-            r0 = 1
-            if (r4 != r5) goto L4
-            return r0
-        L4:
-            int r1 = r4.size()
-            int r2 = r5.size()
-            r3 = 0
-            if (r1 == r2) goto L10
-            return r3
-        L10:
-            java.util.Set r4 = r4.entrySet()
-            java.util.Iterator r4 = r4.iterator()
-        L18:
-            boolean r1 = r4.hasNext()
-            if (r1 == 0) goto L42
-            java.lang.Object r1 = r4.next()
-            java.util.Map$Entry r1 = (java.util.Map.Entry) r1
-            java.lang.Object r2 = r1.getKey()
-            boolean r2 = r5.containsKey(r2)
-            if (r2 != 0) goto L2f
-            return r3
-        L2f:
-            java.lang.Object r2 = r1.getValue()
-            java.lang.Object r1 = r1.getKey()
-            java.lang.Object r1 = r5.get(r1)
-            boolean r1 = equals(r2, r1)
-            if (r1 != 0) goto L18
-            return r3
-        L42:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.MapFieldLite.equals(java.util.Map, java.util.Map):boolean");
+    static <K, V> boolean equals(Map<K, V> map, Map<K, V> map2) {
+        if (map == map2) {
+            return true;
+        }
+        if (map.size() != map2.size()) {
+            return false;
+        }
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (!map2.containsKey(entry.getKey()) || !equals(entry.getValue(), map2.get(entry.getKey()))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override // java.util.AbstractMap, java.util.Map
@@ -145,13 +119,12 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
         return obj.hashCode();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <K, V> int calculateHashCodeForMap(Map<K, V> map) {
-        int i = 0;
+    static <K, V> int calculateHashCodeForMap(Map<K, V> map) {
+        int iCalculateHashCodeForObject = 0;
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            i += calculateHashCodeForObject(entry.getValue()) ^ calculateHashCodeForObject(entry.getKey());
+            iCalculateHashCodeForObject += calculateHashCodeForObject(entry.getValue()) ^ calculateHashCodeForObject(entry.getKey());
         }
-        return i;
+        return iCalculateHashCodeForObject;
     }
 
     @Override // java.util.AbstractMap, java.util.Map
@@ -160,16 +133,16 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
     }
 
     private static Object copy(Object obj) {
-        if (obj instanceof byte[]) {
-            byte[] bArr = (byte[]) obj;
-            return Arrays.copyOf(bArr, bArr.length);
+        if (!(obj instanceof byte[])) {
+            return obj;
         }
-        return obj;
+        byte[] bArr = (byte[]) obj;
+        return Arrays.copyOf(bArr, bArr.length);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
+    /* JADX DEBUG: Multi-variable search result rejected for r0v0, resolved type: java.security.AuthProvider */
     /* JADX WARN: Multi-variable type inference failed */
-    public static <K, V> Map<K, V> copy(Map<K, V> map) {
+    static <K, V> Map<K, V> copy(Map<K, V> map) {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
         for (Map.Entry<K, V> entry : map.entrySet()) {
             linkedHashMap.put(entry.getKey(), copy(entry.getValue()));

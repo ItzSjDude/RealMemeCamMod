@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Descriptors;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface Service {
     void callMethod(Descriptors.MethodDescriptor methodDescriptor, RpcController rpcController, Message message, RpcCallback<Message> rpcCallback);
 

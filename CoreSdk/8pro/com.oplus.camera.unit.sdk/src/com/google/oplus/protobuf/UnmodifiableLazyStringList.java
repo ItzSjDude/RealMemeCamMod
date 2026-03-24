@@ -7,7 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.RandomAccess;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class UnmodifiableLazyStringList extends AbstractList<String> implements LazyStringList, RandomAccess {
     private final LazyStringList list;
 
@@ -20,6 +21,7 @@ public class UnmodifiableLazyStringList extends AbstractList<String> implements 
         this.list = lazyStringList;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
     @Override // java.util.AbstractList, java.util.List
     public String get(int i) {
         return (String) this.list.get(i);
@@ -91,6 +93,7 @@ public class UnmodifiableLazyStringList extends AbstractList<String> implements 
                 return this.iter.hasNext();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: next()Ljava/lang/Object; */
             @Override // java.util.ListIterator, java.util.Iterator
             public String next() {
                 return this.iter.next();
@@ -101,6 +104,7 @@ public class UnmodifiableLazyStringList extends AbstractList<String> implements 
                 return this.iter.hasPrevious();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: previous()Ljava/lang/Object; */
             @Override // java.util.ListIterator
             public String previous() {
                 return this.iter.previous();
@@ -121,11 +125,13 @@ public class UnmodifiableLazyStringList extends AbstractList<String> implements 
                 throw new UnsupportedOperationException();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: set(Ljava/lang/Object;)V */
             @Override // java.util.ListIterator
             public void set(String str) {
                 throw new UnsupportedOperationException();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: add(Ljava/lang/Object;)V */
             @Override // java.util.ListIterator
             public void add(String str) {
                 throw new UnsupportedOperationException();
@@ -147,6 +153,7 @@ public class UnmodifiableLazyStringList extends AbstractList<String> implements 
                 return this.iter.hasNext();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: next()Ljava/lang/Object; */
             @Override // java.util.Iterator
             public String next() {
                 return this.iter.next();

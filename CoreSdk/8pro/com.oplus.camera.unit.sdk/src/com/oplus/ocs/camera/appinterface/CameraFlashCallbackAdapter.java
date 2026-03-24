@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.appinterface;
 
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraFlashCallbackAdapter {
     public abstract void onFlashModeChanged(String str);
 

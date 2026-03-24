@@ -12,10 +12,10 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
 import com.oplus.ocs.camera.consumer.apsAdapter.service.ApsAdapterListener;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ApsAdapterInterface {
 
-    /* loaded from: classes.dex */
     public interface ImageProcessListener {
         void afterAddFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo);
 

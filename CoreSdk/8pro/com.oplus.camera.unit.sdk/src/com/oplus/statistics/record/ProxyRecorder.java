@@ -4,11 +4,11 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import com.oplus.statistics.data.TrackEvent;
 import com.oplus.statistics.util.VersionUtil;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ProxyRecorder implements IRecorder {
     private IRecorder mRealRecorder;
 
-    /* loaded from: classes.dex */
     private static class SingletonHolder {
         private static ProxyRecorder instance = new ProxyRecorder();
 

@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CaptureRequestProxy {
     private static final boolean DEBUG = false;
     private static final String TAG = "CaptureRequestProxy";
 
-    /* loaded from: classes.dex */
     public static final class Builder {
         private CaptureRequest.Builder mBuilder;
 
@@ -37,9 +37,7 @@ public class CaptureRequestProxy {
             return (T) Optional.ofNullable(this.mBuilder).map(new Function() { // from class: com.oplus.ocs.camera.producer.device.CaptureRequestProxy$Builder$$ExternalSyntheticLambda2
                 @Override // java.util.function.Function
                 public final Object apply(Object obj) {
-                    Object obj2;
-                    obj2 = ((CaptureRequest.Builder) obj).get(key);
-                    return obj2;
+                    return ((CaptureRequest.Builder) obj).get(key);
                 }
             }).orElse(null);
         }
@@ -75,9 +73,7 @@ public class CaptureRequestProxy {
             return (CaptureRequest) Optional.ofNullable(this.mBuilder).map(new Function() { // from class: com.oplus.ocs.camera.producer.device.CaptureRequestProxy$Builder$$ExternalSyntheticLambda4
                 @Override // java.util.function.Function
                 public final Object apply(Object obj) {
-                    CaptureRequest build;
-                    build = ((CaptureRequest.Builder) obj).build();
-                    return build;
+                    return ((CaptureRequest.Builder) obj).build();
                 }
             }).orElse(null);
         }

@@ -2,7 +2,8 @@ package com.heytap.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefLong {
     private static final String TAG = "RefLong";
     private Field mField;

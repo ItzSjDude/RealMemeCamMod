@@ -1,5 +1,6 @@
 package com.youtu.ocr.docprocess;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class Helper {
     public static final Helper sharedInstance = new Helper();
 

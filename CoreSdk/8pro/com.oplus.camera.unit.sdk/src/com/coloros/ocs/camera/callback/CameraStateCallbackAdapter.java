@@ -6,7 +6,8 @@ import com.coloros.ocs.camera.CameraDeviceInterface;
 import com.coloros.ocs.camera.util.ErrorResult;
 import com.oplus.ocs.camera.common.util.ConfigInfoPkg;
 import com.oplus.ocs.camera.producer.device.Camera2DeviceInterface;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraStateCallbackAdapter {
     public void onActive() {
     }

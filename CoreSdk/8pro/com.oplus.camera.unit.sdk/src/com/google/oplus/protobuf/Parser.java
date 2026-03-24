@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface Parser<MessageType> {
     MessageType parseDelimitedFrom(InputStream inputStream) throws InvalidProtocolBufferException;
 

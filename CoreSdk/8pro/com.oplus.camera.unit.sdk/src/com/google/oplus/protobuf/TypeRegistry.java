@@ -5,15 +5,16 @@ import com.oplus.ocs.camera.producer.feature.FeatureImpl;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class TypeRegistry {
     private static final Logger logger = Logger.getLogger(TypeRegistry.class.getName());
     private final Map<String, Descriptors.Descriptor> types;
 
-    /* loaded from: classes.dex */
     private static class EmptyTypeRegistryHolder {
         private static final TypeRegistry EMPTY = new TypeRegistry(Collections.emptyMap());
 
@@ -42,14 +43,13 @@ public class TypeRegistry {
     }
 
     private static String getTypeName(String str) throws InvalidProtocolBufferException {
-        String[] split = str.split(FeatureImpl.DELIMITER);
-        if (split.length == 1) {
+        String[] strArrSplit = str.split(FeatureImpl.DELIMITER);
+        if (strArrSplit.length == 1) {
             throw new InvalidProtocolBufferException("Invalid type url found: " + str);
         }
-        return split[split.length - 1];
+        return strArrSplit[strArrSplit.length - 1];
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder {
         private final Set<String> files;
         private Map<String, Descriptors.Descriptor> types;
@@ -71,8 +71,9 @@ public class TypeRegistry {
             if (this.types == null) {
                 throw new IllegalStateException("A TypeRegistry.Builder can only be used once.");
             }
-            for (Descriptors.Descriptor descriptor : iterable) {
-                addFile(descriptor.getFile());
+            Iterator<Descriptors.Descriptor> it = iterable.iterator();
+            while (it.hasNext()) {
+                addFile(it.next().getFile());
             }
             return this;
         }
@@ -85,22 +86,24 @@ public class TypeRegistry {
 
         private void addFile(Descriptors.FileDescriptor fileDescriptor) {
             if (this.files.add(fileDescriptor.getFullName())) {
-                for (Descriptors.FileDescriptor fileDescriptor2 : fileDescriptor.getDependencies()) {
-                    addFile(fileDescriptor2);
+                Iterator<Descriptors.FileDescriptor> it = fileDescriptor.getDependencies().iterator();
+                while (it.hasNext()) {
+                    addFile(it.next());
                 }
-                for (Descriptors.Descriptor descriptor : fileDescriptor.getMessageTypes()) {
-                    addMessage(descriptor);
+                Iterator<Descriptors.Descriptor> it2 = fileDescriptor.getMessageTypes().iterator();
+                while (it2.hasNext()) {
+                    addMessage(it2.next());
                 }
             }
         }
 
         private void addMessage(Descriptors.Descriptor descriptor) {
-            for (Descriptors.Descriptor descriptor2 : descriptor.getNestedTypes()) {
-                addMessage(descriptor2);
+            Iterator<Descriptors.Descriptor> it = descriptor.getNestedTypes().iterator();
+            while (it.hasNext()) {
+                addMessage(it.next());
             }
             if (this.types.containsKey(descriptor.getFullName())) {
-                Logger logger = TypeRegistry.logger;
-                logger.warning("Type " + descriptor.getFullName() + " is added multiple times.");
+                TypeRegistry.logger.warning("Type " + descriptor.getFullName() + " is added multiple times.");
                 return;
             }
             this.types.put(descriptor.getFullName(), descriptor);

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.Map;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class MapEntryLite<K, V> {
     private static final int KEY_FIELD_NUMBER = 1;
     private static final int VALUE_FIELD_NUMBER = 2;
@@ -14,9 +14,7 @@ public class MapEntryLite<K, V> {
     private final Metadata<K, V> metadata;
     private final V value;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class Metadata<K, V> {
+    static class Metadata<K, V> {
         public final K defaultKey;
         public final V defaultValue;
         public final WireFormat.FieldType keyType;
@@ -50,31 +48,21 @@ public class MapEntryLite<K, V> {
         return this.value;
     }
 
-    public static <K, V> MapEntryLite<K, V> newDefaultInstance(WireFormat.FieldType fieldType, K k,
-            WireFormat.FieldType fieldType2, V v) {
+    public static <K, V> MapEntryLite<K, V> newDefaultInstance(WireFormat.FieldType fieldType, K k, WireFormat.FieldType fieldType2, V v) {
         return new MapEntryLite<>(fieldType, k, fieldType2, v);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <K, V> void writeTo(CodedOutputStream codedOutputStream, Metadata<K, V> metadata, K k, V v)
-            throws IOException {
+    static <K, V> void writeTo(CodedOutputStream codedOutputStream, Metadata<K, V> metadata, K k, V v) throws IOException {
         FieldSet.writeElement(codedOutputStream, metadata.keyType, 1, k);
         FieldSet.writeElement(codedOutputStream, metadata.valueType, 2, v);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <K, V> int computeSerializedSize(Metadata<K, V> metadata, K k, V v) {
-        return FieldSet.computeElementSize(metadata.keyType, 1, k)
-                + FieldSet.computeElementSize(metadata.valueType, 2, v);
+    static <K, V> int computeSerializedSize(Metadata<K, V> metadata, K k, V v) {
+        return FieldSet.computeElementSize(metadata.keyType, 1, k) + FieldSet.computeElementSize(metadata.valueType, 2, v);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /*
-     * renamed from: com.google.oplus.protobuf.MapEntryLite$1 reason: invalid class
-     * name
-     */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.MapEntryLite$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
         static {
@@ -95,21 +83,20 @@ public class MapEntryLite<K, V> {
         }
     }
 
-    static <T> T parseField(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
-            WireFormat.FieldType fieldType, T t) throws IOException {
+    static <T> T parseField(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, WireFormat.FieldType fieldType, T t) throws IOException {
         int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()];
         if (i == 1) {
             MessageLite.Builder builder = ((MessageLite) t).toBuilder();
             codedInputStream.readMessage(builder, extensionRegistryLite);
             return (T) builder.buildPartial();
-        } else if (i != 2) {
-            if (i == 3) {
-                throw new RuntimeException("Groups are not allowed in maps.");
-            }
-            return (T) FieldSet.readPrimitiveField(codedInputStream, fieldType, true);
-        } else {
+        }
+        if (i == 2) {
             return (T) Integer.valueOf(codedInputStream.readEnum());
         }
+        if (i == 3) {
+            throw new RuntimeException("Groups are not allowed in maps.");
+        }
+        return (T) FieldSet.readPrimitiveField(codedInputStream, fieldType, true);
     }
 
     public void serializeTo(CodedOutputStream codedOutputStream, int i, K k, V v) throws IOException {
@@ -119,60 +106,57 @@ public class MapEntryLite<K, V> {
     }
 
     public int computeMessageSize(int i, K k, V v) {
-        return CodedOutputStream.computeTagSize(i)
-                + CodedOutputStream.computeLengthDelimitedFieldSize(computeSerializedSize(this.metadata, k, v));
+        return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSerializedSize(this.metadata, k, v));
     }
 
-    public Map.Entry<K, V> parseEntry(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
-            throws IOException {
+    public Map.Entry<K, V> parseEntry(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         return parseEntry(byteString.newCodedInput(), this.metadata, extensionRegistryLite);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <K, V> Map.Entry<K, V> parseEntry(CodedInputStream codedInputStream, Metadata<K, V> metadata,
-            ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        Object obj = metadata.defaultKey;
-        Object obj2 = metadata.defaultValue;
+    static <K, V> Map.Entry<K, V> parseEntry(CodedInputStream codedInputStream, Metadata<K, V> metadata, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        Object field = metadata.defaultKey;
+        Object field2 = metadata.defaultValue;
         while (true) {
-            int readTag = codedInputStream.readTag();
-            if (readTag == 0) {
+            int tag = codedInputStream.readTag();
+            if (tag == 0) {
                 break;
-            } else if (readTag == WireFormat.makeTag(1, metadata.keyType.getWireType())) {
-                obj = parseField(codedInputStream, extensionRegistryLite, metadata.keyType, obj);
-            } else if (readTag == WireFormat.makeTag(2, metadata.valueType.getWireType())) {
-                obj2 = parseField(codedInputStream, extensionRegistryLite, metadata.valueType, obj2);
-            } else if (!codedInputStream.skipField(readTag)) {
+            }
+            if (tag == WireFormat.makeTag(1, metadata.keyType.getWireType())) {
+                field = parseField(codedInputStream, extensionRegistryLite, metadata.keyType, field);
+            } else if (tag == WireFormat.makeTag(2, metadata.valueType.getWireType())) {
+                field2 = parseField(codedInputStream, extensionRegistryLite, metadata.valueType, field2);
+            } else if (!codedInputStream.skipField(tag)) {
                 break;
             }
         }
-        return new AbstractMap.SimpleImmutableEntry<>((K) obj, (V) obj2);
+        return new AbstractMap.SimpleImmutableEntry(field, field2);
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r7v0, resolved type: com.google.oplus.protobuf.MapFieldLite<K, V> */
     /* JADX WARN: Multi-variable type inference failed */
-    public void parseInto(MapFieldLite<K, V> mapFieldLite, CodedInputStream codedInputStream,
-            ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        int pushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
-        Object obj = this.metadata.defaultKey;
-        Object obj2 = this.metadata.defaultValue;
+    public void parseInto(MapFieldLite<K, V> mapFieldLite, CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        int iPushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
+        Object field = this.metadata.defaultKey;
+        Object field2 = this.metadata.defaultValue;
         while (true) {
-            int readTag = codedInputStream.readTag();
-            if (readTag == 0) {
+            int tag = codedInputStream.readTag();
+            if (tag == 0) {
                 break;
-            } else if (readTag == WireFormat.makeTag(1, this.metadata.keyType.getWireType())) {
-                obj = parseField(codedInputStream, extensionRegistryLite, this.metadata.keyType, obj);
-            } else if (readTag == WireFormat.makeTag(2, this.metadata.valueType.getWireType())) {
-                obj2 = parseField(codedInputStream, extensionRegistryLite, this.metadata.valueType, obj2);
-            } else if (!codedInputStream.skipField(readTag)) {
+            }
+            if (tag == WireFormat.makeTag(1, this.metadata.keyType.getWireType())) {
+                field = parseField(codedInputStream, extensionRegistryLite, this.metadata.keyType, field);
+            } else if (tag == WireFormat.makeTag(2, this.metadata.valueType.getWireType())) {
+                field2 = parseField(codedInputStream, extensionRegistryLite, this.metadata.valueType, field2);
+            } else if (!codedInputStream.skipField(tag)) {
                 break;
             }
         }
         codedInputStream.checkLastTagWas(0);
-        codedInputStream.popLimit(pushLimit);
-        mapFieldLite.put((K) obj, (V) obj2);
+        codedInputStream.popLimit(iPushLimit);
+        mapFieldLite.put(field, field2);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public Metadata<K, V> getMetadata() {
+    Metadata<K, V> getMetadata() {
         return this.metadata;
     }
 }

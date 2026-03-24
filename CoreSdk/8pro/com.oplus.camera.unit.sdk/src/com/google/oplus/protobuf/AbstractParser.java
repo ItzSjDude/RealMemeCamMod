@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public abstract class AbstractParser<MessageType extends MessageLite> implements Parser<MessageType> {
     private static final ExtensionRegistryLite EMPTY_REGISTRY = ExtensionRegistryLite.getEmptyRegistry();
 
@@ -21,195 +21,204 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
         if (messagetype == null || messagetype.isInitialized()) {
             return messagetype;
         }
-        throw newUninitializedMessageException(messagetype).asInvalidProtocolBufferException()
-                .setUnfinishedMessage(messagetype);
+        throw newUninitializedMessageException(messagetype).asInvalidProtocolBufferException().setUnfinishedMessage(messagetype);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialFrom(CodedInputStream codedInputStream) throws InvalidProtocolBufferException {
         return parsePartialFrom(codedInputStream, EMPTY_REGISTRY);
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return checkMessageInitialized(parsePartialFrom(codedInputStream, extensionRegistryLite));
+    public MessageType parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) checkMessageInitialized(parsePartialFrom(codedInputStream, extensionRegistryLite));
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseFrom(CodedInputStream codedInputStream) throws InvalidProtocolBufferException {
-        return parseFrom(codedInputStream, EMPTY_REGISTRY);
+        return (MessageType) parseFrom(codedInputStream, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
+    public MessageType parsePartialFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         try {
-            CodedInputStream newCodedInput = byteString.newCodedInput();
-            MessageType messagetype = parsePartialFrom(newCodedInput, extensionRegistryLite);
+            CodedInputStream codedInputStreamNewCodedInput = byteString.newCodedInput();
+            MessageType partialFrom = parsePartialFrom(codedInputStreamNewCodedInput, extensionRegistryLite);
             try {
-                newCodedInput.checkLastTagWas(0);
-                return messagetype;
+                codedInputStreamNewCodedInput.checkLastTagWas(0);
+                return partialFrom;
             } catch (InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(messagetype);
+                throw e.setUnfinishedMessage(partialFrom);
             }
         } catch (InvalidProtocolBufferException e2) {
             throw e2;
         }
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/ByteString;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialFrom(ByteString byteString) throws InvalidProtocolBufferException {
-        return parsePartialFrom(byteString, EMPTY_REGISTRY);
+        return (MessageType) parsePartialFrom(byteString, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return parsePartialFrom(byteString, extensionRegistryLite);
+    public MessageType parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) checkMessageInitialized(parsePartialFrom(byteString, extensionRegistryLite));
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Lcom/google/oplus/protobuf/ByteString;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseFrom(ByteString byteString) throws InvalidProtocolBufferException {
-        return parseFrom(byteString, EMPTY_REGISTRY);
+        return (MessageType) parseFrom(byteString, EMPTY_REGISTRY);
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Ljava/nio/ByteBuffer;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
+    public MessageType parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         try {
-            CodedInputStream newInstance = CodedInputStream.newInstance(byteBuffer);
-            MessageType messageLite = parsePartialFrom(newInstance, extensionRegistryLite);
+            CodedInputStream codedInputStreamNewInstance = CodedInputStream.newInstance(byteBuffer);
+            MessageType partialFrom = parsePartialFrom(codedInputStreamNewInstance, extensionRegistryLite);
             try {
-                newInstance.checkLastTagWas(0);
-                return checkMessageInitialized(messageLite);
+                codedInputStreamNewInstance.checkLastTagWas(0);
+                return (MessageType) checkMessageInitialized(partialFrom);
             } catch (InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(messageLite);
+                throw e.setUnfinishedMessage(partialFrom);
             }
         } catch (InvalidProtocolBufferException e2) {
             throw e2;
         }
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Ljava/nio/ByteBuffer;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
-        return parseFrom(byteBuffer, EMPTY_REGISTRY);
+        return (MessageType) parseFrom(byteBuffer, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
+    public MessageType parsePartialFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         try {
-            CodedInputStream newInstance = CodedInputStream.newInstance(bArr, i, i2);
-            MessageType messagetype = parsePartialFrom(newInstance, extensionRegistryLite);
+            CodedInputStream codedInputStreamNewInstance = CodedInputStream.newInstance(bArr, i, i2);
+            MessageType partialFrom = parsePartialFrom(codedInputStreamNewInstance, extensionRegistryLite);
             try {
-                newInstance.checkLastTagWas(0);
-                return messagetype;
+                codedInputStreamNewInstance.checkLastTagWas(0);
+                return partialFrom;
             } catch (InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(messagetype);
+                throw e.setUnfinishedMessage(partialFrom);
             }
         } catch (InvalidProtocolBufferException e2) {
             throw e2;
         }
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom([BII)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialFrom(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
-        return parsePartialFrom(bArr, i, i2, EMPTY_REGISTRY);
+        return (MessageType) parsePartialFrom(bArr, i, i2, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return parsePartialFrom(bArr, 0, bArr.length, extensionRegistryLite);
+    public MessageType parsePartialFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) parsePartialFrom(bArr, 0, bArr.length, extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom([B)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialFrom(byte[] bArr) throws InvalidProtocolBufferException {
-        return parsePartialFrom(bArr, 0, bArr.length, EMPTY_REGISTRY);
+        return (MessageType) parsePartialFrom(bArr, 0, bArr.length, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return checkMessageInitialized(parsePartialFrom(bArr, i, i2, extensionRegistryLite));
+    public MessageType parseFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) checkMessageInitialized(parsePartialFrom(bArr, i, i2, extensionRegistryLite));
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom([BII)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseFrom(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
-        return parseFrom(bArr, i, i2, EMPTY_REGISTRY);
+        return (MessageType) parseFrom(bArr, i, i2, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return parseFrom(bArr, 0, bArr.length, extensionRegistryLite);
+    public MessageType parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) parseFrom(bArr, 0, bArr.length, extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom([B)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseFrom(byte[] bArr) throws InvalidProtocolBufferException {
-        return parseFrom(bArr, EMPTY_REGISTRY);
+        return (MessageType) parseFrom(bArr, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        CodedInputStream newInstance = CodedInputStream.newInstance(inputStream);
-        MessageType messagetype = parsePartialFrom(newInstance, extensionRegistryLite);
+    public MessageType parsePartialFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        CodedInputStream codedInputStreamNewInstance = CodedInputStream.newInstance(inputStream);
+        MessageType partialFrom = parsePartialFrom(codedInputStreamNewInstance, extensionRegistryLite);
         try {
-            newInstance.checkLastTagWas(0);
-            return messagetype;
+            codedInputStreamNewInstance.checkLastTagWas(0);
+            return partialFrom;
         } catch (InvalidProtocolBufferException e) {
-            throw e.setUnfinishedMessage(messagetype);
+            throw e.setUnfinishedMessage(partialFrom);
         }
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Ljava/io/InputStream;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialFrom(InputStream inputStream) throws InvalidProtocolBufferException {
-        return parsePartialFrom(inputStream, EMPTY_REGISTRY);
+        return (MessageType) parsePartialFrom(inputStream, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return checkMessageInitialized(parsePartialFrom(inputStream, extensionRegistryLite));
+    public MessageType parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) checkMessageInitialized(parsePartialFrom(inputStream, extensionRegistryLite));
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseFrom(Ljava/io/InputStream;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseFrom(InputStream inputStream) throws InvalidProtocolBufferException {
-        return parseFrom(inputStream, EMPTY_REGISTRY);
+        return (MessageType) parseFrom(inputStream, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialDelimitedFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
+    public MessageType parsePartialDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         try {
-            int read = inputStream.read();
-            if (read == -1) {
+            int i = inputStream.read();
+            if (i == -1) {
                 return null;
             }
-            return parsePartialFrom((InputStream) new AbstractMessageLite.Builder.LimitedInputStream(inputStream,
-                    CodedInputStream.readRawVarint32(read, inputStream)), extensionRegistryLite);
+            return (MessageType) parsePartialFrom((InputStream) new AbstractMessageLite.Builder.LimitedInputStream(inputStream, CodedInputStream.readRawVarint32(i, inputStream)), extensionRegistryLite);
         } catch (IOException e) {
             throw new InvalidProtocolBufferException(e);
         }
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parsePartialDelimitedFrom(Ljava/io/InputStream;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialDelimitedFrom(InputStream inputStream) throws InvalidProtocolBufferException {
-        return parsePartialDelimitedFrom(inputStream, EMPTY_REGISTRY);
+        return (MessageType) parsePartialDelimitedFrom(inputStream, EMPTY_REGISTRY);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseDelimitedFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
-            throws InvalidProtocolBufferException {
-        return checkMessageInitialized(parsePartialDelimitedFrom(inputStream, extensionRegistryLite));
+    public MessageType parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        return (MessageType) checkMessageInitialized(parsePartialDelimitedFrom(inputStream, extensionRegistryLite));
     }
 
+    /* JADX DEBUG: Method merged with bridge method: parseDelimitedFrom(Ljava/io/InputStream;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parseDelimitedFrom(InputStream inputStream) throws InvalidProtocolBufferException {
-        return parseDelimitedFrom(inputStream, EMPTY_REGISTRY);
+        return (MessageType) parseDelimitedFrom(inputStream, EMPTY_REGISTRY);
     }
 }

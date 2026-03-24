@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.parameter.apsadapter;
 
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsExtendDataParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<byte[]> KEY_LINEAR_MASK = new ApsBaseParameter.Key<>("com.oplus.linear.mask", byte[].class);
     public static final ApsBaseParameter.Key<byte[]> KEY_LOCAL_HDR_DATA = new ApsBaseParameter.Key<>("com.oplus.local.hdr", byte[].class);

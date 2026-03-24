@@ -1,5 +1,6 @@
 package com.oplus.exif;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface OplusIfdId {
     public static final int TYPE_IFD_0 = 0;
     public static final int TYPE_IFD_1 = 1;

@@ -8,7 +8,8 @@ import android.view.Surface;
 import androidx.annotation.NonNull;
 import com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraPreviewCallbackAdapter {
     public void onCaptureCompleted(CaptureRequest captureRequest, PreviewResult previewResult) {
     }
@@ -45,7 +46,6 @@ public abstract class CameraPreviewCallbackAdapter {
         onCaptureCompleted(captureRequest, new PreviewResult(totalCaptureResult, concurrentHashMap));
     }
 
-    /* loaded from: classes.dex */
     public static final class PreviewResult {
         private ConcurrentHashMap<String, Integer> mApsTotalResult;
         private CaptureResult mCaptureResult;

@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefInt extends BaseField<Integer> {
     private static final int DEFAULT_VALUE = ((Integer) DEFAULT_TYPES.get(Integer.class)).intValue();
     private static final String TAG = "RefInt";

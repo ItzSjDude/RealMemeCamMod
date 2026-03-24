@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class DynamicMessage extends AbstractMessage {
     private final FieldSet<Descriptors.FieldDescriptor> fields;
     private int memoizedSize = -1;
@@ -73,11 +75,14 @@ public final class DynamicMessage extends AbstractMessage {
         return this.type;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
     public DynamicMessage getDefaultInstanceForType() {
         return getDefaultInstance(this.type);
     }
 
+    /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.Map<T extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>, java.lang.Object>, java.util.Map<com.google.oplus.protobuf.Descriptors$FieldDescriptor, java.lang.Object> */
     @Override // com.google.oplus.protobuf.MessageOrBuilder
     public Map<Descriptors.FieldDescriptor, Object> getAllFields() {
         return this.fields.getAllFields();
@@ -105,16 +110,16 @@ public final class DynamicMessage extends AbstractMessage {
     public Object getField(Descriptors.FieldDescriptor fieldDescriptor) {
         verifyContainingType(fieldDescriptor);
         Object field = this.fields.getField(fieldDescriptor);
-        if (field == null) {
-            if (fieldDescriptor.isRepeated()) {
-                return Collections.emptyList();
-            }
-            if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                return getDefaultInstance(fieldDescriptor.getMessageType());
-            }
-            return fieldDescriptor.getDefaultValue();
+        if (field != null) {
+            return field;
         }
-        return field;
+        if (fieldDescriptor.isRepeated()) {
+            return Collections.emptyList();
+        }
+        if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+            return getDefaultInstance(fieldDescriptor.getMessageType());
+        }
+        return fieldDescriptor.getDefaultValue();
     }
 
     @Override // com.google.oplus.protobuf.MessageOrBuilder
@@ -153,10 +158,10 @@ public final class DynamicMessage extends AbstractMessage {
         if (this.type.getOptions().getMessageSetWireFormat()) {
             this.fields.writeMessageSetTo(codedOutputStream);
             this.unknownFields.writeAsMessageSetTo(codedOutputStream);
-            return;
+        } else {
+            this.fields.writeTo(codedOutputStream);
+            this.unknownFields.writeTo(codedOutputStream);
         }
-        this.fields.writeTo(codedOutputStream);
-        this.unknownFields.writeTo(codedOutputStream);
     }
 
     @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
@@ -179,11 +184,15 @@ public final class DynamicMessage extends AbstractMessage {
         return i2;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder newBuilderForType() {
         return new Builder(this.type);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder toBuilder() {
         return newBuilderForType().mergeFrom((Message) this);
@@ -192,16 +201,17 @@ public final class DynamicMessage extends AbstractMessage {
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Parser<DynamicMessage> getParserForType() {
         return new AbstractParser<DynamicMessage>() { // from class: com.google.oplus.protobuf.DynamicMessage.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public DynamicMessage parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
-                Builder newBuilder = DynamicMessage.newBuilder(DynamicMessage.this.type);
+                Builder builderNewBuilder = DynamicMessage.newBuilder(DynamicMessage.this.type);
                 try {
-                    newBuilder.mergeFrom(codedInputStream, extensionRegistryLite);
-                    return newBuilder.buildPartial();
+                    builderNewBuilder.mergeFrom(codedInputStream, extensionRegistryLite);
+                    return builderNewBuilder.buildPartial();
                 } catch (InvalidProtocolBufferException e) {
-                    throw e.setUnfinishedMessage(newBuilder.buildPartial());
+                    throw e.setUnfinishedMessage(builderNewBuilder.buildPartial());
                 } catch (IOException e2) {
-                    throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(newBuilder.buildPartial());
+                    throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(builderNewBuilder.buildPartial());
                 }
             }
         };
@@ -219,7 +229,6 @@ public final class DynamicMessage extends AbstractMessage {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder extends AbstractMessage.Builder<Builder> {
         private FieldSet<Descriptors.FieldDescriptor> fields;
         private final Descriptors.FieldDescriptor[] oneofCases;
@@ -233,6 +242,9 @@ public final class DynamicMessage extends AbstractMessage {
             this.oneofCases = new Descriptors.FieldDescriptor[descriptor.toProto().getOneofDeclCount()];
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             if (this.fields.isImmutable()) {
@@ -244,6 +256,8 @@ public final class DynamicMessage extends AbstractMessage {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(Message message) {
             if (message instanceof DynamicMessage) {
@@ -273,6 +287,8 @@ public final class DynamicMessage extends AbstractMessage {
             }
         }
 
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public DynamicMessage build() {
             if (!isInitialized()) {
@@ -295,6 +311,8 @@ public final class DynamicMessage extends AbstractMessage {
             return buildPartial();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public DynamicMessage buildPartial() {
             if (this.type.getOptions().getMapEntry()) {
@@ -315,9 +333,14 @@ public final class DynamicMessage extends AbstractMessage {
             return new DynamicMessage(descriptor, fieldSet, (Descriptors.FieldDescriptor[]) Arrays.copyOf(fieldDescriptorArr, fieldDescriptorArr.length), this.unknownFields);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public Builder clone() {
+        /* JADX INFO: renamed from: clone */
+        public Builder mo0clone() {
             Builder builder = new Builder(this.type);
             builder.fields.mergeFrom(this.fields);
             builder.mergeUnknownFields(this.unknownFields);
@@ -336,16 +359,20 @@ public final class DynamicMessage extends AbstractMessage {
             return this.type;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public DynamicMessage getDefaultInstanceForType() {
             return DynamicMessage.getDefaultInstance(this.type);
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.Map<T extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>, java.lang.Object>, java.util.Map<com.google.oplus.protobuf.Descriptors$FieldDescriptor, java.lang.Object> */
         @Override // com.google.oplus.protobuf.MessageOrBuilder
         public Map<Descriptors.FieldDescriptor, Object> getAllFields() {
             return this.fields.getAllFields();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder newBuilderForField(Descriptors.FieldDescriptor fieldDescriptor) {
             verifyContainingType(fieldDescriptor);
@@ -367,6 +394,8 @@ public final class DynamicMessage extends AbstractMessage {
             return this.oneofCases[oneofDescriptor.getIndex()];
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             verifyOneofContainingType(oneofDescriptor);
@@ -387,18 +416,19 @@ public final class DynamicMessage extends AbstractMessage {
         public Object getField(Descriptors.FieldDescriptor fieldDescriptor) {
             verifyContainingType(fieldDescriptor);
             Object field = this.fields.getField(fieldDescriptor);
-            if (field == null) {
-                if (fieldDescriptor.isRepeated()) {
-                    return Collections.emptyList();
-                }
-                if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                    return DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType());
-                }
-                return fieldDescriptor.getDefaultValue();
+            if (field != null) {
+                return field;
             }
-            return field;
+            if (fieldDescriptor.isRepeated()) {
+                return Collections.emptyList();
+            }
+            if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+                return DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType());
+            }
+            return fieldDescriptor.getDefaultValue();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             verifyContainingType(fieldDescriptor);
@@ -422,6 +452,7 @@ public final class DynamicMessage extends AbstractMessage {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             verifyContainingType(fieldDescriptor);
@@ -450,6 +481,7 @@ public final class DynamicMessage extends AbstractMessage {
             return this.fields.getRepeatedField(fieldDescriptor, i);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             verifyContainingType(fieldDescriptor);
@@ -458,6 +490,7 @@ public final class DynamicMessage extends AbstractMessage {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             verifyContainingType(fieldDescriptor);
@@ -471,12 +504,15 @@ public final class DynamicMessage extends AbstractMessage {
             return this.unknownFields;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
             this.unknownFields = unknownFieldSet;
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             this.unknownFields = UnknownFieldSet.newBuilder(this.unknownFields).mergeFrom(unknownFieldSet).build();
@@ -504,14 +540,16 @@ public final class DynamicMessage extends AbstractMessage {
 
         private void ensureEnumValueDescriptor(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             if (fieldDescriptor.isRepeated()) {
-                for (Object obj2 : (List) obj) {
-                    ensureSingularEnumValueDescriptor(fieldDescriptor, obj2);
+                Iterator it = ((List) obj).iterator();
+                while (it.hasNext()) {
+                    ensureSingularEnumValueDescriptor(fieldDescriptor, it.next());
                 }
                 return;
             }
             ensureSingularEnumValueDescriptor(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Type inference failed for r0v3. Raw type applied. Possible types: com.google.oplus.protobuf.FieldSet<T extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>>, com.google.oplus.protobuf.FieldSet<com.google.oplus.protobuf.Descriptors$FieldDescriptor> */
         private void ensureIsMutable() {
             if (this.fields.isImmutable()) {
                 this.fields = this.fields.m1clone();

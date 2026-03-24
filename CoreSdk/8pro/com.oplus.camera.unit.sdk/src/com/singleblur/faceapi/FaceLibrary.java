@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import com.common.Util;
 import com.singleblur.faceapi.model.FaceAttrInfo;
 import com.singleblur.faceapi.model.FaceInfo;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FaceLibrary {
     public static native void convertColorSpace(byte[] bArr, int i, int i2, byte[] bArr2, int i3);
 

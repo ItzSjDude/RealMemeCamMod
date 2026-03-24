@@ -6,7 +6,8 @@ import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.statistics.DataTypeConstants;
 import com.oplus.statistics.util.CastUtil;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CommonBean extends TrackEvent {
     protected static final String APP_ID = "appId";
     protected static final String EVENT_ID = "eventID";
@@ -74,9 +75,9 @@ public class CommonBean extends TrackEvent {
     }
 
     public void setLogMap(Map<String, String> map) {
-        String jSONObject = CastUtil.map2JsonObject(map).toString();
-        this.mLogMap = jSONObject;
-        addTrackInfo(LOG_MAP, jSONObject);
+        String string = CastUtil.map2JsonObject(map).toString();
+        this.mLogMap = string;
+        addTrackInfo(LOG_MAP, string);
     }
 
     public void setLogMap(String str) {

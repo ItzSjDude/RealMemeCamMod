@@ -22,22 +22,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public abstract class GeneratedMessage extends AbstractMessage implements Serializable {
     protected static boolean alwaysUseFieldBuilders = false;
     private static final long serialVersionUID = 1;
     protected UnknownFieldSet unknownFields;
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    /* loaded from: classes.dex */
-    public interface BuilderParent extends AbstractMessage.BuilderParent {
+    protected interface BuilderParent extends AbstractMessage.BuilderParent {
     }
 
-    /* loaded from: classes.dex */
     public interface ExtendableMessageOrBuilder<MessageType extends ExtendableMessage> extends MessageOrBuilder {
-        @Override // com.google.oplus.protobuf.MessageOrBuilder,
-                  // com.google.oplus.protobuf.MessageLiteOrBuilder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
+        @Override // com.google.oplus.protobuf.MessageOrBuilder, com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         Message getDefaultInstanceForType();
 
         <Type> Type getExtension(Extension<MessageType, Type> extension);
@@ -65,9 +61,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         <Type> boolean hasExtension(GeneratedExtension<MessageType, Type> generatedExtension);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public interface ExtensionDescriptorRetriever {
+    interface ExtensionDescriptorRetriever {
         Descriptors.FieldDescriptor getDescriptor();
     }
 
@@ -76,8 +70,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
     protected void makeExtensionsImmutable() {
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public abstract Message.Builder newBuilderForType(BuilderParent builderParent);
+    protected abstract Message.Builder newBuilderForType(BuilderParent builderParent);
 
     protected GeneratedMessage() {
         this.unknownFields = UnknownFieldSet.getDefaultInstance();
@@ -102,47 +95,43 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
     }
 
     /* JADX INFO: Access modifiers changed from: private */
+    /* JADX WARN: Removed duplicated region for block: B:23:0x0066  */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+    */
     public Map<Descriptors.FieldDescriptor, Object> getAllFieldsMutable(boolean z) {
         TreeMap treeMap = new TreeMap();
         List<Descriptors.FieldDescriptor> fields = internalGetFieldAccessorTable().descriptor.getFields();
-        int i = 0;
-        while (i < fields.size()) {
-            Descriptors.FieldDescriptor fieldDescriptor = fields.get(i);
-            Descriptors.OneofDescriptor containingOneof = fieldDescriptor.getContainingOneof();
+        int fieldCount = 0;
+        while (fieldCount < fields.size()) {
+            Descriptors.FieldDescriptor oneofFieldDescriptor = fields.get(fieldCount);
+            Descriptors.OneofDescriptor containingOneof = oneofFieldDescriptor.getContainingOneof();
             if (containingOneof != null) {
-                i += containingOneof.getFieldCount() - 1;
+                fieldCount += containingOneof.getFieldCount() - 1;
                 if (hasOneof(containingOneof)) {
-                    fieldDescriptor = getOneofFieldDescriptor(containingOneof);
-                    if (!z && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.STRING) {
-                        treeMap.put(fieldDescriptor, getFieldRaw(fieldDescriptor));
+                    oneofFieldDescriptor = getOneofFieldDescriptor(containingOneof);
+                    if (!z && oneofFieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.STRING) {
+                        treeMap.put(oneofFieldDescriptor, getFieldRaw(oneofFieldDescriptor));
                     } else {
-                        treeMap.put(fieldDescriptor, getField(fieldDescriptor));
+                        treeMap.put(oneofFieldDescriptor, getField(oneofFieldDescriptor));
                     }
-                    i++;
-                } else {
-                    i++;
                 }
-            } else {
-                if (fieldDescriptor.isRepeated()) {
-                    List list = (List) getField(fieldDescriptor);
-                    if (!list.isEmpty()) {
-                        treeMap.put(fieldDescriptor, list);
-                    }
-                } else {
-                    if (!hasField(fieldDescriptor)) {
-                    }
-                    if (!z) {
-                    }
-                    treeMap.put(fieldDescriptor, getField(fieldDescriptor));
+            } else if (oneofFieldDescriptor.isRepeated()) {
+                List list = (List) getField(oneofFieldDescriptor);
+                if (!list.isEmpty()) {
+                    treeMap.put(oneofFieldDescriptor, list);
                 }
-                i++;
+            } else if (hasField(oneofFieldDescriptor)) {
+                if (!z) {
+                    treeMap.put(oneofFieldDescriptor, getField(oneofFieldDescriptor));
+                }
             }
+            fieldCount++;
         }
         return treeMap;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractMessage,
-              // com.google.oplus.protobuf.MessageLiteOrBuilder
+    @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLiteOrBuilder
     public boolean isInitialized() {
         for (Descriptors.FieldDescriptor fieldDescriptor : getDescriptorForType().getFields()) {
             if (fieldDescriptor.isRequired() && !hasField(fieldDescriptor)) {
@@ -150,12 +139,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
             if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                 if (fieldDescriptor.isRepeated()) {
-                    for (Message message : (List<Message>) getField(fieldDescriptor)) {
-                        if (!message.isInitialized()) {
+                    Iterator it = ((List) getField(fieldDescriptor)).iterator();
+                    while (it.hasNext()) {
+                        if (!((Message) it.next()).isInitialized()) {
                             return false;
                         }
                     }
-                    continue;
                 } else if (hasField(fieldDescriptor) && !((Message) getField(fieldDescriptor)).isInitialized()) {
                     return false;
                 }
@@ -173,14 +162,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         return Collections.unmodifiableMap(getAllFieldsMutable(true));
     }
 
-    @Override // com.google.oplus.protobuf.AbstractMessage,
-              // com.google.oplus.protobuf.MessageOrBuilder
+    @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageOrBuilder
     public boolean hasOneof(Descriptors.OneofDescriptor oneofDescriptor) {
         return internalGetFieldAccessorTable().getOneof(oneofDescriptor).has(this);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractMessage,
-              // com.google.oplus.protobuf.MessageOrBuilder
+    @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageOrBuilder
     public Descriptors.FieldDescriptor getOneofFieldDescriptor(Descriptors.OneofDescriptor oneofDescriptor) {
         return internalGetFieldAccessorTable().getOneof(oneofDescriptor).get(this);
     }
@@ -214,13 +201,11 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         throw new UnsupportedOperationException("This is supposed to be overridden by subclasses.");
     }
 
-    protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder,
-            ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
+    protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
         return builder.mergeFieldFrom(i, codedInputStream);
     }
 
-    protected static <M extends Message> M parseWithIOException(Parser<M> parser, InputStream inputStream)
-            throws IOException {
+    protected static <M extends Message> M parseWithIOException(Parser<M> parser, InputStream inputStream) throws IOException {
         try {
             return parser.parseFrom(inputStream);
         } catch (InvalidProtocolBufferException e) {
@@ -228,8 +213,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    protected static <M extends Message> M parseWithIOException(Parser<M> parser, InputStream inputStream,
-            ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    protected static <M extends Message> M parseWithIOException(Parser<M> parser, InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         try {
             return parser.parseFrom(inputStream, extensionRegistryLite);
         } catch (InvalidProtocolBufferException e) {
@@ -237,8 +221,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    protected static <M extends Message> M parseWithIOException(Parser<M> parser, CodedInputStream codedInputStream)
-            throws IOException {
+    protected static <M extends Message> M parseWithIOException(Parser<M> parser, CodedInputStream codedInputStream) throws IOException {
         try {
             return parser.parseFrom(codedInputStream);
         } catch (InvalidProtocolBufferException e) {
@@ -246,8 +229,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    protected static <M extends Message> M parseWithIOException(Parser<M> parser, CodedInputStream codedInputStream,
-            ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    protected static <M extends Message> M parseWithIOException(Parser<M> parser, CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         try {
             return parser.parseFrom(codedInputStream, extensionRegistryLite);
         } catch (InvalidProtocolBufferException e) {
@@ -255,8 +237,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    protected static <M extends Message> M parseDelimitedWithIOException(Parser<M> parser, InputStream inputStream)
-            throws IOException {
+    protected static <M extends Message> M parseDelimitedWithIOException(Parser<M> parser, InputStream inputStream) throws IOException {
         try {
             return parser.parseDelimitedFrom(inputStream);
         } catch (InvalidProtocolBufferException e) {
@@ -264,8 +245,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    protected static <M extends Message> M parseDelimitedWithIOException(Parser<M> parser, InputStream inputStream,
-            ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    protected static <M extends Message> M parseDelimitedWithIOException(Parser<M> parser, InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         try {
             return parser.parseDelimitedFrom(inputStream, extensionRegistryLite);
         } catch (InvalidProtocolBufferException e) {
@@ -273,14 +253,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    @Override // com.google.oplus.protobuf.AbstractMessage,
-              // com.google.oplus.protobuf.MessageLite
+    @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
     public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
         MessageReflection.writeMessageTo(this, getAllFieldsRaw(), codedOutputStream, false);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractMessage,
-              // com.google.oplus.protobuf.MessageLite
+    @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
     public int getSerializedSize() {
         int i = this.memoizedSize;
         if (i != -1) {
@@ -290,9 +268,8 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         return this.memoizedSize;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.AbstractMessage
-    public Message.Builder newBuilderForType(final AbstractMessage.BuilderParent builderParent) {
+    protected Message.Builder newBuilderForType(final AbstractMessage.BuilderParent builderParent) {
         return newBuilderForType(new BuilderParent() { // from class: com.google.oplus.protobuf.GeneratedMessage.1
             @Override // com.google.oplus.protobuf.AbstractMessage.BuilderParent
             public void markDirty() {
@@ -301,9 +278,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         });
     }
 
-    /* loaded from: classes.dex */
-    public static abstract class Builder<BuilderType extends Builder<BuilderType>>
-            extends AbstractMessage.Builder<BuilderType> {
+    public static abstract class Builder<BuilderType extends Builder<BuilderType>> extends AbstractMessage.Builder<BuilderType> {
         private BuilderParent builderParent;
         private boolean isClean;
         private Builder<BuilderType>.BuilderParentImpl meAsParent;
@@ -320,9 +295,8 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             this.builderParent = builderParent;
         }
 
-        /* JADX INFO: Access modifiers changed from: package-private */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder
-        public void dispose() {
+        void dispose() {
             this.builderParent = null;
         }
 
@@ -332,9 +306,8 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder
-        public void markClean() {
+        protected void markClean() {
             this.isClean = true;
         }
 
@@ -342,26 +315,30 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return this.isClean;
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public BuilderType clone() {
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
+        /* JADX INFO: renamed from: clone */
+        public BuilderType mo0clone() {
             BuilderType buildertype = (BuilderType) getDefaultInstanceForType().newBuilderForType();
             buildertype.mergeFrom(buildPartial());
             return buildertype;
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType clear() {
             this.unknownFields = UnknownFieldSet.getDefaultInstance();
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
-        @Override // com.google.oplus.protobuf.Message.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.Message.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public Descriptors.Descriptor getDescriptorForType() {
             return internalGetFieldAccessorTable().descriptor;
         }
@@ -375,32 +352,25 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         public Map<Descriptors.FieldDescriptor, Object> getAllFieldsMutable() {
             TreeMap treeMap = new TreeMap();
             List<Descriptors.FieldDescriptor> fields = internalGetFieldAccessorTable().descriptor.getFields();
-            int i = 0;
-            while (i < fields.size()) {
-                Descriptors.FieldDescriptor fieldDescriptor = fields.get(i);
-                Descriptors.OneofDescriptor containingOneof = fieldDescriptor.getContainingOneof();
+            int fieldCount = 0;
+            while (fieldCount < fields.size()) {
+                Descriptors.FieldDescriptor oneofFieldDescriptor = fields.get(fieldCount);
+                Descriptors.OneofDescriptor containingOneof = oneofFieldDescriptor.getContainingOneof();
                 if (containingOneof != null) {
-                    i += containingOneof.getFieldCount() - 1;
+                    fieldCount += containingOneof.getFieldCount() - 1;
                     if (hasOneof(containingOneof)) {
-                        fieldDescriptor = getOneofFieldDescriptor(containingOneof);
-                        treeMap.put(fieldDescriptor, getField(fieldDescriptor));
-                        i++;
-                    } else {
-                        i++;
+                        oneofFieldDescriptor = getOneofFieldDescriptor(containingOneof);
+                        treeMap.put(oneofFieldDescriptor, getField(oneofFieldDescriptor));
                     }
-                } else {
-                    if (fieldDescriptor.isRepeated()) {
-                        List list = (List) getField(fieldDescriptor);
-                        if (!list.isEmpty()) {
-                            treeMap.put(fieldDescriptor, list);
-                        }
-                    } else {
-                        if (!hasField(fieldDescriptor)) {
-                        }
-                        treeMap.put(fieldDescriptor, getField(fieldDescriptor));
+                } else if (oneofFieldDescriptor.isRepeated()) {
+                    List list = (List) getField(oneofFieldDescriptor);
+                    if (!list.isEmpty()) {
+                        treeMap.put(oneofFieldDescriptor, list);
                     }
-                    i++;
+                } else if (hasField(oneofFieldDescriptor)) {
+                    treeMap.put(oneofFieldDescriptor, getField(oneofFieldDescriptor));
                 }
+                fieldCount++;
             }
             return treeMap;
         }
@@ -410,26 +380,22 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return internalGetFieldAccessorTable().getField(fieldDescriptor).newBuilder();
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Message.Builder getFieldBuilder(Descriptors.FieldDescriptor fieldDescriptor) {
             return internalGetFieldAccessorTable().getField(fieldDescriptor).getBuilder(this);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Message.Builder getRepeatedFieldBuilder(Descriptors.FieldDescriptor fieldDescriptor, int i) {
             return internalGetFieldAccessorTable().getField(fieldDescriptor).getRepeatedBuilder(this, i);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public boolean hasOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             return internalGetFieldAccessorTable().getOneof(oneofDescriptor).has(this);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public Descriptors.FieldDescriptor getOneofFieldDescriptor(Descriptors.OneofDescriptor oneofDescriptor) {
             return internalGetFieldAccessorTable().getOneof(oneofDescriptor).get(this);
         }
@@ -445,23 +411,26 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return fieldDescriptor.isRepeated() ? Collections.unmodifiableList((List) obj) : obj;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             internalGetFieldAccessorTable().getField(fieldDescriptor).set(this, obj);
-            return (BuilderType) this;
+            return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             internalGetFieldAccessorTable().getField(fieldDescriptor).clear(this);
-            return (BuilderType) this;
+            return this;
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             internalGetFieldAccessorTable().getOneof(oneofDescriptor).clear(this);
-            return (BuilderType) this;
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.MessageOrBuilder
@@ -474,31 +443,35 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return internalGetFieldAccessorTable().getField(fieldDescriptor).getRepeated(this, i);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             internalGetFieldAccessorTable().getField(fieldDescriptor).setRepeated(this, i, obj);
-            return (BuilderType) this;
+            return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             internalGetFieldAccessorTable().getField(fieldDescriptor).addRepeated(this, obj);
-            return (BuilderType) this;
+            return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType setUnknownFields(UnknownFieldSet unknownFieldSet) {
             this.unknownFields = unknownFieldSet;
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             this.unknownFields = UnknownFieldSet.newBuilder(this.unknownFields).mergeFrom(unknownFieldSet).build();
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder
@@ -509,12 +482,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
                 }
                 if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                     if (fieldDescriptor.isRepeated()) {
-                        for (Message message : (List<Message>) getField(fieldDescriptor)) {
-                            if (!message.isInitialized()) {
+                        Iterator it = ((List) getField(fieldDescriptor)).iterator();
+                        while (it.hasNext()) {
+                            if (!((Message) it.next()).isInitialized()) {
                                 return false;
                             }
                         }
-                        continue;
                     } else if (hasField(fieldDescriptor) && !((Message) getField(fieldDescriptor)).isInitialized()) {
                         return false;
                     }
@@ -528,12 +501,10 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return this.unknownFields;
         }
 
-        protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder,
-                ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
+        protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
             return builder.mergeFieldFrom(i, codedInputStream);
         }
 
-        /* loaded from: classes.dex */
         private class BuilderParentImpl implements BuilderParent {
             private BuilderParentImpl() {
             }
@@ -569,9 +540,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    /* loaded from: classes.dex */
-    public static abstract class ExtendableMessage<MessageType extends ExtendableMessage> extends GeneratedMessage
-            implements ExtendableMessageOrBuilder<MessageType> {
+    public static abstract class ExtendableMessage<MessageType extends ExtendableMessage> extends GeneratedMessage implements ExtendableMessageOrBuilder<MessageType> {
         private static final long serialVersionUID = 1;
         private final FieldSet<Descriptors.FieldDescriptor> extensions;
 
@@ -588,49 +557,46 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             if (extension.getDescriptor().getContainingType() == getDescriptorForType()) {
                 return;
             }
-            throw new IllegalArgumentException(
-                    "Extension is for type \"" + extension.getDescriptor().getContainingType().getFullName()
-                            + "\" which does not match message type \"" + getDescriptorForType().getFullName() + "\".");
+            throw new IllegalArgumentException("Extension is for type \"" + extension.getDescriptor().getContainingType().getFullName() + "\" which does not match message type \"" + getDescriptorForType().getFullName() + "\".");
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> boolean hasExtension(ExtensionLite<MessageType, Type> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            return this.extensions.hasField(checkNotLite.getDescriptor());
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            return this.extensions.hasField(extensionCheckNotLite.getDescriptor());
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> int getExtensionCount(ExtensionLite<MessageType, List<Type>> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            return this.extensions.getRepeatedFieldCount(checkNotLite.getDescriptor());
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            return this.extensions.getRepeatedFieldCount(extensionCheckNotLite.getDescriptor());
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(ExtensionLite<MessageType, Type> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            Descriptors.FieldDescriptor descriptor = checkNotLite.getDescriptor();
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            Descriptors.FieldDescriptor descriptor = extensionCheckNotLite.getDescriptor();
             Object field = this.extensions.getField(descriptor);
             if (field == null) {
                 if (descriptor.isRepeated()) {
                     return (Type) Collections.emptyList();
                 }
                 if (descriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                    return (Type) checkNotLite.getMessageDefaultInstance();
+                    return (Type) extensionCheckNotLite.getMessageDefaultInstance();
                 }
-                return (Type) checkNotLite.fromReflectionType(descriptor.getDefaultValue());
+                return (Type) extensionCheckNotLite.fromReflectionType(descriptor.getDefaultValue());
             }
-            return (Type) checkNotLite.fromReflectionType(field);
+            return (Type) extensionCheckNotLite.fromReflectionType(field);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(ExtensionLite<MessageType, List<Type>> extensionLite, int i) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            return (Type) checkNotLite
-                    .singularFromReflectionType(this.extensions.getRepeatedField(checkNotLite.getDescriptor(), i));
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            return (Type) extensionCheckNotLite.singularFromReflectionType(this.extensions.getRepeatedField(extensionCheckNotLite.getDescriptor(), i));
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
@@ -655,40 +621,36 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(Extension<MessageType, Type> extension) {
-            return (Type) getExtension((ExtensionLite<MessageType, Object>) extension);
+            return (Type) getExtension((ExtensionLite) extension);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(GeneratedExtension<MessageType, Type> generatedExtension) {
-            return (Type) getExtension((ExtensionLite<MessageType, Object>) generatedExtension);
+            return (Type) getExtension((ExtensionLite) generatedExtension);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(Extension<MessageType, List<Type>> extension, int i) {
-            return (Type) getExtension((ExtensionLite<MessageType, List<Object>>) extension, i);
+            return (Type) getExtension((ExtensionLite) extension, i);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, int i) {
-            return (Type) getExtension((ExtensionLite<MessageType, List<Object>>) generatedExtension, i);
+            return (Type) getExtension((ExtensionLite) generatedExtension, i);
         }
 
         protected boolean extensionsAreInitialized() {
             return this.extensions.isInitialized();
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage,
-                  // com.google.oplus.protobuf.AbstractMessage,
-                  // com.google.oplus.protobuf.MessageLiteOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLiteOrBuilder
         public boolean isInitialized() {
             return super.isInitialized() && extensionsAreInitialized();
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage
-        protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder,
-                ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
-            return MessageReflection.mergeFieldFrom(codedInputStream, builder, extensionRegistryLite,
-                    getDescriptorForType(), new MessageReflection.ExtensionAdapter(this.extensions), i);
+        protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
+            return MessageReflection.mergeFieldFrom(codedInputStream, builder, extensionRegistryLite, getDescriptorForType(), new MessageReflection.ExtensionAdapter(this.extensions), i);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage
@@ -696,15 +658,13 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             this.extensions.makeImmutable();
         }
 
-        /* loaded from: classes.dex */
         protected class ExtensionWriter {
             private final Iterator<Map.Entry<Descriptors.FieldDescriptor, Object>> iter;
             private final boolean messageSetWireFormat;
             private Map.Entry<Descriptors.FieldDescriptor, Object> next;
 
             private ExtensionWriter(boolean z) {
-                Iterator<Map.Entry<Descriptors.FieldDescriptor, Object>> it = ExtendableMessage.this.extensions
-                        .iterator();
+                Iterator<Map.Entry<Descriptors.FieldDescriptor, Object>> it = ExtendableMessage.this.extensions.iterator();
                 this.iter = it;
                 if (it.hasNext()) {
                     this.next = it.next();
@@ -719,11 +679,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
                         return;
                     }
                     Descriptors.FieldDescriptor key = this.next.getKey();
-                    if (this.messageSetWireFormat && key.getLiteJavaType() == WireFormat.JavaType.MESSAGE
-                            && !key.isRepeated()) {
+                    if (this.messageSetWireFormat && key.getLiteJavaType() == WireFormat.JavaType.MESSAGE && !key.isRepeated()) {
                         if (this.next instanceof LazyField.LazyEntry) {
-                            codedOutputStream.writeRawMessageSetExtension(key.getNumber(),
-                                    ((LazyField.LazyEntry) this.next).getField().toByteString());
+                            codedOutputStream.writeRawMessageSetExtension(key.getNumber(), ((LazyField.LazyEntry) this.next).getField().toByteString());
                         } else {
                             codedOutputStream.writeMessageSetExtension(key.getNumber(), (Message) this.next.getValue());
                         }
@@ -755,12 +713,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return this.extensions.getMessageSetSerializedSize();
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.Map<T extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>, java.lang.Object>, java.util.Map<com.google.oplus.protobuf.Descriptors$FieldDescriptor, java.lang.Object> */
         protected Map<Descriptors.FieldDescriptor, Object> getExtensionFields() {
             return this.extensions.getAllFields();
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage, com.google.oplus.protobuf.MessageOrBuilder
         public Map<Descriptors.FieldDescriptor, Object> getAllFields() {
             Map allFieldsMutable = getAllFieldsMutable(false);
             allFieldsMutable.putAll(getExtensionFields());
@@ -774,8 +732,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return Collections.unmodifiableMap(allFieldsMutable);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage, com.google.oplus.protobuf.MessageOrBuilder
         public boolean hasField(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -784,28 +741,26 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return super.hasField(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage, com.google.oplus.protobuf.MessageOrBuilder
         public Object getField(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
                 Object field = this.extensions.getField(fieldDescriptor);
-                if (field == null) {
-                    if (fieldDescriptor.isRepeated()) {
-                        return Collections.emptyList();
-                    }
-                    if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                        return DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType());
-                    }
-                    return fieldDescriptor.getDefaultValue();
+                if (field != null) {
+                    return field;
                 }
-                return field;
+                if (fieldDescriptor.isRepeated()) {
+                    return Collections.emptyList();
+                }
+                if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+                    return DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType());
+                }
+                return fieldDescriptor.getDefaultValue();
             }
             return super.getField(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage, com.google.oplus.protobuf.MessageOrBuilder
         public int getRepeatedFieldCount(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -814,8 +769,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return super.getRepeatedFieldCount(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage, com.google.oplus.protobuf.MessageOrBuilder
         public Object getRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -831,9 +785,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    /* loaded from: classes.dex */
-    public static abstract class ExtendableBuilder<MessageType extends ExtendableMessage, BuilderType extends ExtendableBuilder<MessageType, BuilderType>>
-            extends Builder<BuilderType> implements ExtendableMessageOrBuilder<MessageType> {
+    public static abstract class ExtendableBuilder<MessageType extends ExtendableMessage, BuilderType extends ExtendableBuilder<MessageType, BuilderType>> extends Builder<BuilderType> implements ExtendableMessageOrBuilder<MessageType> {
         private FieldSet<Descriptors.FieldDescriptor> extensions;
 
         protected ExtendableBuilder() {
@@ -849,23 +801,29 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             this.extensions = fieldSet;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType clear() {
             this.extensions = FieldSet.emptySet();
             return (BuilderType) super.clear();
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.AbstractMessage.Builder,
-                  // com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public BuilderType clone() {
-            return (BuilderType) super.clone();
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
+        /* JADX INFO: renamed from: clone */
+        public BuilderType mo0clone() {
+            return (BuilderType) super.mo0clone();
         }
 
+        /* JADX DEBUG: Type inference failed for r0v3. Raw type applied. Possible types: com.google.oplus.protobuf.FieldSet<T extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>>, com.google.oplus.protobuf.FieldSet<com.google.oplus.protobuf.Descriptors$FieldDescriptor> */
         private void ensureExtensionsIsMutable() {
             if (this.extensions.isImmutable()) {
                 this.extensions = this.extensions.m1clone();
@@ -876,87 +834,82 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             if (extension.getDescriptor().getContainingType() == getDescriptorForType()) {
                 return;
             }
-            throw new IllegalArgumentException(
-                    "Extension is for type \"" + extension.getDescriptor().getContainingType().getFullName()
-                            + "\" which does not match message type \"" + getDescriptorForType().getFullName() + "\".");
+            throw new IllegalArgumentException("Extension is for type \"" + extension.getDescriptor().getContainingType().getFullName() + "\" which does not match message type \"" + getDescriptorForType().getFullName() + "\".");
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> boolean hasExtension(ExtensionLite<MessageType, Type> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            return this.extensions.hasField(checkNotLite.getDescriptor());
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            return this.extensions.hasField(extensionCheckNotLite.getDescriptor());
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> int getExtensionCount(ExtensionLite<MessageType, List<Type>> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            return this.extensions.getRepeatedFieldCount(checkNotLite.getDescriptor());
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            return this.extensions.getRepeatedFieldCount(extensionCheckNotLite.getDescriptor());
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(ExtensionLite<MessageType, Type> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            Descriptors.FieldDescriptor descriptor = checkNotLite.getDescriptor();
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            Descriptors.FieldDescriptor descriptor = extensionCheckNotLite.getDescriptor();
             Object field = this.extensions.getField(descriptor);
             if (field == null) {
                 if (descriptor.isRepeated()) {
                     return (Type) Collections.emptyList();
                 }
                 if (descriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                    return (Type) checkNotLite.getMessageDefaultInstance();
+                    return (Type) extensionCheckNotLite.getMessageDefaultInstance();
                 }
-                return (Type) checkNotLite.fromReflectionType(descriptor.getDefaultValue());
+                return (Type) extensionCheckNotLite.fromReflectionType(descriptor.getDefaultValue());
             }
-            return (Type) checkNotLite.fromReflectionType(field);
+            return (Type) extensionCheckNotLite.fromReflectionType(field);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(ExtensionLite<MessageType, List<Type>> extensionLite, int i) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
-            return (Type) checkNotLite
-                    .singularFromReflectionType(this.extensions.getRepeatedField(checkNotLite.getDescriptor(), i));
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
+            return (Type) extensionCheckNotLite.singularFromReflectionType(this.extensions.getRepeatedField(extensionCheckNotLite.getDescriptor(), i));
         }
 
         public final <Type> BuilderType setExtension(ExtensionLite<MessageType, Type> extensionLite, Type type) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
             ensureExtensionsIsMutable();
-            this.extensions.setField(checkNotLite.getDescriptor(), checkNotLite.toReflectionType(type));
+            this.extensions.setField(extensionCheckNotLite.getDescriptor(), extensionCheckNotLite.toReflectionType(type));
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
-        public final <Type> BuilderType setExtension(ExtensionLite<MessageType, List<Type>> extensionLite, int i,
-                Type type) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
+        public final <Type> BuilderType setExtension(ExtensionLite<MessageType, List<Type>> extensionLite, int i, Type type) {
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
             ensureExtensionsIsMutable();
-            this.extensions.setRepeatedField(checkNotLite.getDescriptor(), i,
-                    checkNotLite.singularToReflectionType(type));
+            this.extensions.setRepeatedField(extensionCheckNotLite.getDescriptor(), i, extensionCheckNotLite.singularToReflectionType(type));
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
         public final <Type> BuilderType addExtension(ExtensionLite<MessageType, List<Type>> extensionLite, Type type) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
             ensureExtensionsIsMutable();
-            this.extensions.addRepeatedField(checkNotLite.getDescriptor(), checkNotLite.singularToReflectionType(type));
+            this.extensions.addRepeatedField(extensionCheckNotLite.getDescriptor(), extensionCheckNotLite.singularToReflectionType(type));
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
         public final <Type> BuilderType clearExtension(ExtensionLite<MessageType, ?> extensionLite) {
-            Extension<MessageType, ?> checkNotLite = GeneratedMessage.checkNotLite(extensionLite);
-            verifyExtensionContainingType(checkNotLite);
+            Extension<MessageType, ?> extensionCheckNotLite = GeneratedMessage.checkNotLite(extensionLite);
+            verifyExtensionContainingType(extensionCheckNotLite);
             ensureExtensionsIsMutable();
-            this.extensions.clearField(checkNotLite.getDescriptor());
+            this.extensions.clearField(extensionCheckNotLite.getDescriptor());
             onChanged();
-            return (BuilderType) this;
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
@@ -981,12 +934,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(Extension<MessageType, Type> extension) {
-            return (Type) getExtension((ExtensionLite<MessageType, Object>) extension);
+            return (Type) getExtension((ExtensionLite) extension);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(GeneratedExtension<MessageType, Type> generatedExtension) {
-            return (Type) getExtension((ExtensionLite<MessageType, Object>) generatedExtension);
+            return (Type) getExtension((ExtensionLite) generatedExtension);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
@@ -1000,37 +953,35 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
 
         public final <Type> BuilderType setExtension(Extension<MessageType, Type> extension, Type type) {
-            return setExtension((ExtensionLite<MessageType, Type>) extension, type);
+            return (BuilderType) setExtension((ExtensionLite) extension, (Object) type);
         }
 
         public <Type> BuilderType setExtension(GeneratedExtension<MessageType, Type> generatedExtension, Type type) {
-            return setExtension((ExtensionLite<MessageType, Type>) generatedExtension, type);
+            return (BuilderType) setExtension((ExtensionLite) generatedExtension, (Object) type);
         }
 
         public final <Type> BuilderType setExtension(Extension<MessageType, List<Type>> extension, int i, Type type) {
-            return setExtension((ExtensionLite<MessageType, List<Type>>) extension, i, type);
+            return (BuilderType) setExtension((ExtensionLite) extension, i, (Object) type);
         }
 
-        public <Type> BuilderType setExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, int i,
-                Type type) {
-            return setExtension((ExtensionLite<MessageType, List<Type>>) generatedExtension, i, type);
+        public <Type> BuilderType setExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, int i, Type type) {
+            return (BuilderType) setExtension((ExtensionLite) generatedExtension, i, (Object) type);
         }
 
         public final <Type> BuilderType addExtension(Extension<MessageType, List<Type>> extension, Type type) {
-            return addExtension((ExtensionLite<MessageType, List<Type>>) extension, type);
+            return (BuilderType) addExtension((ExtensionLite) extension, (Object) type);
         }
 
-        public <Type> BuilderType addExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension,
-                Type type) {
-            return addExtension((ExtensionLite<MessageType, List<Type>>) generatedExtension, type);
+        public <Type> BuilderType addExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, Type type) {
+            return (BuilderType) addExtension((ExtensionLite) generatedExtension, (Object) type);
         }
 
         public final <Type> BuilderType clearExtension(Extension<MessageType, ?> extension) {
-            return clearExtension((ExtensionLite<MessageType, ?>) extension);
+            return (BuilderType) clearExtension((ExtensionLite) extension);
         }
 
         public <Type> BuilderType clearExtension(GeneratedExtension<MessageType, ?> generatedExtension) {
-            return clearExtension((ExtensionLite<MessageType, ?>) generatedExtension);
+            return (BuilderType) clearExtension((ExtensionLite) generatedExtension);
         }
 
         protected boolean extensionsAreInitialized() {
@@ -1043,46 +994,40 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return this.extensions;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.MessageLiteOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.MessageLiteOrBuilder
         public boolean isInitialized() {
             return super.isInitialized() && extensionsAreInitialized();
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.Builder
-        protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder,
-                ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
-            return MessageReflection.mergeFieldFrom(codedInputStream, builder, extensionRegistryLite,
-                    getDescriptorForType(), new MessageReflection.BuilderAdapter(this), i);
+        protected boolean parseUnknownField(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, int i) throws IOException {
+            return MessageReflection.mergeFieldFrom(codedInputStream, builder, extensionRegistryLite, getDescriptorForType(), new MessageReflection.BuilderAdapter(this), i);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public Map<Descriptors.FieldDescriptor, Object> getAllFields() {
             Map allFieldsMutable = getAllFieldsMutable();
             allFieldsMutable.putAll(this.extensions.getAllFields());
             return Collections.unmodifiableMap(allFieldsMutable);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public Object getField(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
                 Object field = this.extensions.getField(fieldDescriptor);
-                if (field == null) {
-                    if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                        return DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType());
-                    }
-                    return fieldDescriptor.getDefaultValue();
+                if (field != null) {
+                    return field;
                 }
-                return field;
+                if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+                    return DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType());
+                }
+                return fieldDescriptor.getDefaultValue();
             }
             return super.getField(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public int getRepeatedFieldCount(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1091,8 +1036,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return super.getRepeatedFieldCount(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public Object getRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1101,8 +1045,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return super.getRepeatedField(fieldDescriptor, i);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.MessageOrBuilder
         public boolean hasField(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1111,8 +1054,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return super.hasField(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1124,8 +1068,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return (BuilderType) super.setField(fieldDescriptor, obj);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1137,8 +1082,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return (BuilderType) super.clearField(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1150,8 +1096,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return (BuilderType) super.setRepeatedField(fieldDescriptor, i, obj);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
+        @Override // com.google.oplus.protobuf.GeneratedMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             if (fieldDescriptor.isExtension()) {
                 verifyContainingType(fieldDescriptor);
@@ -1176,9 +1123,13 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newMessageScopedGeneratedExtension(
-            final Message message, final int i, Class cls, Message message2) {
-        return new GeneratedExtension<>(new CachedDescriptorRetriever() {
+    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newMessageScopedGeneratedExtension(final Message message, final int i, Class cls, Message message2) {
+        return new GeneratedExtension<>(new CachedDescriptorRetriever() { // from class: com.google.oplus.protobuf.GeneratedMessage.2
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+            {
+                super();
+            }
+
             @Override // com.google.oplus.protobuf.GeneratedMessage.CachedDescriptorRetriever
             public Descriptors.FieldDescriptor loadDescriptor() {
                 return message.getDescriptorForType().getExtensions().get(i);
@@ -1186,12 +1137,10 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }, cls, message2, Extension.ExtensionType.IMMUTABLE);
     }
 
-    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newFileScopedGeneratedExtension(
-            Class cls, Message message) {
+    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newFileScopedGeneratedExtension(Class cls, Message message) {
         return new GeneratedExtension<>(null, cls, message, Extension.ExtensionType.IMMUTABLE);
     }
 
-    /* loaded from: classes.dex */
     private static abstract class CachedDescriptorRetriever implements ExtensionDescriptorRetriever {
         private volatile Descriptors.FieldDescriptor descriptor;
 
@@ -1213,9 +1162,13 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newMessageScopedGeneratedExtension(
-            final Message message, final String str, Class cls, Message message2) {
-        return new GeneratedExtension<>(new CachedDescriptorRetriever() {
+    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newMessageScopedGeneratedExtension(final Message message, final String str, Class cls, Message message2) {
+        return new GeneratedExtension<>(new CachedDescriptorRetriever() { // from class: com.google.oplus.protobuf.GeneratedMessage.3
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
+            {
+                super();
+            }
+
             @Override // com.google.oplus.protobuf.GeneratedMessage.CachedDescriptorRetriever
             protected Descriptors.FieldDescriptor loadDescriptor() {
                 return message.getDescriptorForType().findFieldByName(str);
@@ -1223,14 +1176,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }, cls, message2, Extension.ExtensionType.MUTABLE);
     }
 
-    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newFileScopedGeneratedExtension(
-            final Class cls, Message message, final String str, final String str2) {
-        return new GeneratedExtension<>(new CachedDescriptorRetriever() { // from class:
-                                                                          // com.google.oplus.protobuf.GeneratedMessage.4
-            /*
-             * JADX WARN: 'super' call moved to the top of the method (can break code
-             * semantics)
-             */
+    public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newFileScopedGeneratedExtension(final Class cls, Message message, final String str, final String str2) {
+        return new GeneratedExtension<>(new CachedDescriptorRetriever() { // from class: com.google.oplus.protobuf.GeneratedMessage.4
+            /* JADX WARN: 'super' call moved to the top of the method (can break code semantics) */
             {
                 super();
             }
@@ -1238,19 +1186,15 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             @Override // com.google.oplus.protobuf.GeneratedMessage.CachedDescriptorRetriever
             protected Descriptors.FieldDescriptor loadDescriptor() {
                 try {
-                    return ((Descriptors.FileDescriptor) cls.getClassLoader().loadClass(str).getField("descriptor")
-                            .get(null)).findExtensionByName(str2);
+                    return ((Descriptors.FileDescriptor) cls.getClassLoader().loadClass(str).getField("descriptor").get(null)).findExtensionByName(str2);
                 } catch (Exception e) {
-                    throw new RuntimeException(
-                            "Cannot load descriptors: " + str + " is not a valid descriptor class name", e);
+                    throw new RuntimeException("Cannot load descriptors: " + str + " is not a valid descriptor class name", e);
                 }
             }
         }, cls, message, Extension.ExtensionType.MUTABLE);
     }
 
-    /* loaded from: classes.dex */
-    public static class GeneratedExtension<ContainingType extends Message, Type>
-            extends Extension<ContainingType, Type> {
+    public static class GeneratedExtension<ContainingType extends Message, Type> extends Extension<ContainingType, Type> {
         private ExtensionDescriptorRetriever descriptorRetriever;
         private final java.lang.reflect.Method enumGetValueDescriptor;
         private final java.lang.reflect.Method enumValueOf;
@@ -1258,8 +1202,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         private final Message messageDefaultInstance;
         private final Class singularType;
 
-        GeneratedExtension(ExtensionDescriptorRetriever extensionDescriptorRetriever, Class cls, Message message,
-                Extension.ExtensionType extensionType) {
+        GeneratedExtension(ExtensionDescriptorRetriever extensionDescriptorRetriever, Class cls, Message message, Extension.ExtensionType extensionType) {
             if (Message.class.isAssignableFrom(cls) && !cls.isInstance(message)) {
                 throw new IllegalArgumentException("Bad messageDefaultInstance for " + cls.getName());
             }
@@ -1267,8 +1210,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             this.singularType = cls;
             this.messageDefaultInstance = message;
             if (ProtocolMessageEnum.class.isAssignableFrom(cls)) {
-                this.enumValueOf = GeneratedMessage.getMethodOrDie(cls, "valueOf",
-                        Descriptors.EnumValueDescriptor.class);
+                this.enumValueOf = GeneratedMessage.getMethodOrDie(cls, "valueOf", Descriptors.EnumValueDescriptor.class);
                 this.enumGetValueDescriptor = GeneratedMessage.getMethodOrDie(cls, "getValueDescriptor", new Class[0]);
             } else {
                 this.enumValueOf = null;
@@ -1281,8 +1223,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             if (this.descriptorRetriever != null) {
                 throw new IllegalStateException("Already initialized.");
             }
-            this.descriptorRetriever = new ExtensionDescriptorRetriever() { // from class:
-                                                                            // com.google.oplus.protobuf.GeneratedMessage.GeneratedExtension.1
+            this.descriptorRetriever = new ExtensionDescriptorRetriever() { // from class: com.google.oplus.protobuf.GeneratedMessage.GeneratedExtension.1
                 @Override // com.google.oplus.protobuf.GeneratedMessage.ExtensionDescriptorRetriever
                 public Descriptors.FieldDescriptor getDescriptor() {
                     return fieldDescriptor;
@@ -1299,71 +1240,60 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return extensionDescriptorRetriever.getDescriptor();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getMessageDefaultInstance()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.Extension, com.google.oplus.protobuf.ExtensionLite
         public Message getMessageDefaultInstance() {
             return this.messageDefaultInstance;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.Extension
-        public Extension.ExtensionType getExtensionType() {
+        protected Extension.ExtensionType getExtensionType() {
             return this.extensionType;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.Extension
-        public Object fromReflectionType(Object obj) {
+        protected Object fromReflectionType(Object obj) {
             Descriptors.FieldDescriptor descriptor = getDescriptor();
             if (descriptor.isRepeated()) {
-                if (descriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE
-                        || descriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
-                    ArrayList arrayList = new ArrayList();
-                    for (Object obj2 : (List) obj) {
-                        arrayList.add(singularFromReflectionType(obj2));
-                    }
-                    return arrayList;
+                if (descriptor.getJavaType() != Descriptors.FieldDescriptor.JavaType.MESSAGE && descriptor.getJavaType() != Descriptors.FieldDescriptor.JavaType.ENUM) {
+                    return obj;
                 }
-                return obj;
+                ArrayList arrayList = new ArrayList();
+                Iterator it = ((List) obj).iterator();
+                while (it.hasNext()) {
+                    arrayList.add(singularFromReflectionType(it.next()));
+                }
+                return arrayList;
             }
             return singularFromReflectionType(obj);
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.Extension
-        public Object singularFromReflectionType(Object obj) {
-            int i = AnonymousClass5.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[getDescriptor()
-                    .getJavaType().ordinal()];
-            return i != 1
-                    ? i != 2 ? obj
-                            : GeneratedMessage.invokeOrDie(this.enumValueOf, null,
-                                    (Descriptors.EnumValueDescriptor) obj)
-                    : this.singularType.isInstance(obj) ? obj
-                            : this.messageDefaultInstance.newBuilderForType().mergeFrom((Message) obj).build();
+        protected Object singularFromReflectionType(Object obj) {
+            int i = AnonymousClass5.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[getDescriptor().getJavaType().ordinal()];
+            return i != 1 ? i != 2 ? obj : GeneratedMessage.invokeOrDie(this.enumValueOf, null, (Descriptors.EnumValueDescriptor) obj) : this.singularType.isInstance(obj) ? obj : this.messageDefaultInstance.newBuilderForType().mergeFrom((Message) obj).build();
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.Extension
-        public Object toReflectionType(Object obj) {
+        protected Object toReflectionType(Object obj) {
             Descriptors.FieldDescriptor descriptor = getDescriptor();
             if (descriptor.isRepeated()) {
-                if (descriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
-                    ArrayList arrayList = new ArrayList();
-                    for (Object obj2 : (List) obj) {
-                        arrayList.add(singularToReflectionType(obj2));
-                    }
-                    return arrayList;
+                if (descriptor.getJavaType() != Descriptors.FieldDescriptor.JavaType.ENUM) {
+                    return obj;
                 }
-                return obj;
+                ArrayList arrayList = new ArrayList();
+                Iterator it = ((List) obj).iterator();
+                while (it.hasNext()) {
+                    arrayList.add(singularToReflectionType(it.next()));
+                }
+                return arrayList;
             }
             return singularToReflectionType(obj);
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.Extension
-        public Object singularToReflectionType(Object obj) {
-            return AnonymousClass5.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[getDescriptor()
-                    .getJavaType().ordinal()] != 2 ? obj
-                            : GeneratedMessage.invokeOrDie(this.enumGetValueDescriptor, obj, new Object[0]);
+        protected Object singularToReflectionType(Object obj) {
+            return AnonymousClass5.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[getDescriptor().getJavaType().ordinal()] != 2 ? obj : GeneratedMessage.invokeOrDie(this.enumGetValueDescriptor, obj, new Object[0]);
         }
 
         @Override // com.google.oplus.protobuf.ExtensionLite
@@ -1393,13 +1323,8 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /*
-     * renamed from: com.google.oplus.protobuf.GeneratedMessage$5 reason: invalid
-     * class name
-     */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass5 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.GeneratedMessage$5, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass5 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType;
 
         static {
@@ -1410,8 +1335,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.ENUM
-                        .ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.ENUM.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
         }
@@ -1422,8 +1346,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         try {
             return cls.getMethod(str, clsArr);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(
-                    "Generated message class \"" + cls.getName() + "\" missing method \"" + str + "\".", e);
+            throw new RuntimeException("Generated message class \"" + cls.getName() + "\" missing method \"" + str + "\".", e);
         }
     }
 
@@ -1449,7 +1372,6 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         throw new RuntimeException("No map fields found in " + getClass().getName());
     }
 
-    /* loaded from: classes.dex */
     public static final class FieldAccessorTable {
         private String[] camelCaseNames;
         private final Descriptors.Descriptor descriptor;
@@ -1457,9 +1379,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
         private volatile boolean initialized;
         private final OneofAccessor[] oneofs;
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public interface FieldAccessor {
+        private interface FieldAccessor {
             void addRepeated(Builder builder, Object obj);
 
             void clear(Builder builder);
@@ -1503,8 +1423,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return true;
         }
 
-        public FieldAccessorTable(Descriptors.Descriptor descriptor, String[] strArr,
-                Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
+        public FieldAccessorTable(Descriptors.Descriptor descriptor, String[] strArr, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
             this(descriptor, strArr);
             ensureFieldAccessorsInitialized(cls, cls2);
         }
@@ -1517,8 +1436,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             this.initialized = false;
         }
 
-        public FieldAccessorTable ensureFieldAccessorsInitialized(Class<? extends GeneratedMessage> cls,
-                Class<? extends Builder> cls2) {
+        public FieldAccessorTable ensureFieldAccessorsInitialized(Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
             if (this.initialized) {
                 return this;
             }
@@ -1533,37 +1451,27 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
                         break;
                     }
                     Descriptors.FieldDescriptor fieldDescriptor = this.descriptor.getFields().get(i);
-                    String str = fieldDescriptor.getContainingOneof() != null
-                            ? this.camelCaseNames[fieldDescriptor.getContainingOneof().getIndex() + length]
-                            : null;
+                    String str = fieldDescriptor.getContainingOneof() != null ? this.camelCaseNames[fieldDescriptor.getContainingOneof().getIndex() + length] : null;
                     if (fieldDescriptor.isRepeated()) {
                         if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                             if (fieldDescriptor.isMapField() && isMapFieldEnabled(fieldDescriptor)) {
-                                this.fields[i] = new MapFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls,
-                                        cls2);
+                                this.fields[i] = new MapFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2);
                             } else {
-                                this.fields[i] = new RepeatedMessageFieldAccessor(fieldDescriptor,
-                                        this.camelCaseNames[i], cls, cls2);
+                                this.fields[i] = new RepeatedMessageFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2);
                             }
                         } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
-                            this.fields[i] = new RepeatedEnumFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls,
-                                    cls2);
+                            this.fields[i] = new RepeatedEnumFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2);
                         } else {
-                            this.fields[i] = new RepeatedFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls,
-                                    cls2);
+                            this.fields[i] = new RepeatedFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2);
                         }
                     } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                        this.fields[i] = new SingularMessageFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls,
-                                cls2, str);
+                        this.fields[i] = new SingularMessageFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2, str);
                     } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
-                        this.fields[i] = new SingularEnumFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls,
-                                cls2, str);
+                        this.fields[i] = new SingularEnumFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2, str);
                     } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.STRING) {
-                        this.fields[i] = new SingularStringFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls,
-                                cls2, str);
+                        this.fields[i] = new SingularStringFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2, str);
                     } else {
-                        this.fields[i] = new SingularFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2,
-                                str);
+                        this.fields[i] = new SingularFieldAccessor(fieldDescriptor, this.camelCaseNames[i], cls, cls2, str);
                     }
                     i++;
                 }
@@ -1596,16 +1504,13 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return this.oneofs[oneofDescriptor.getIndex()];
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class OneofAccessor {
+        private static class OneofAccessor {
             private final java.lang.reflect.Method caseMethod;
             private final java.lang.reflect.Method caseMethodBuilder;
             private final java.lang.reflect.Method clearMethod;
             private final Descriptors.Descriptor descriptor;
 
-            OneofAccessor(Descriptors.Descriptor descriptor, String str, Class<? extends GeneratedMessage> cls,
-                    Class<? extends Builder> cls2) {
+            OneofAccessor(Descriptors.Descriptor descriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
                 this.descriptor = descriptor;
                 this.caseMethod = GeneratedMessage.getMethodOrDie(cls, "get" + str + "Case", new Class[0]);
                 this.caseMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Case", new Class[0]);
@@ -1616,18 +1521,15 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
 
             public boolean has(GeneratedMessage generatedMessage) {
-                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethod, generatedMessage,
-                        new Object[0])).getNumber() != 0;
+                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethod, generatedMessage, new Object[0])).getNumber() != 0;
             }
 
             public boolean has(Builder builder) {
-                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethodBuilder, builder,
-                        new Object[0])).getNumber() != 0;
+                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethodBuilder, builder, new Object[0])).getNumber() != 0;
             }
 
             public Descriptors.FieldDescriptor get(GeneratedMessage generatedMessage) {
-                int number = ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethod, generatedMessage,
-                        new Object[0])).getNumber();
+                int number = ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethod, generatedMessage, new Object[0])).getNumber();
                 if (number > 0) {
                     return this.descriptor.findFieldByNumber(number);
                 }
@@ -1635,8 +1537,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
 
             public Descriptors.FieldDescriptor get(Builder builder) {
-                int number = ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethodBuilder, builder,
-                        new Object[0])).getNumber();
+                int number = ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethodBuilder, builder, new Object[0])).getNumber();
                 if (number > 0) {
                     return this.descriptor.findFieldByNumber(number);
                 }
@@ -1653,9 +1554,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             return fileDescriptor.getSyntax() == Descriptors.FileDescriptor.Syntax.PROTO2;
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class SingularFieldAccessor implements FieldAccessor {
+        private static class SingularFieldAccessor implements FieldAccessor {
             protected final java.lang.reflect.Method caseMethod;
             protected final java.lang.reflect.Method caseMethodBuilder;
             protected final java.lang.reflect.Method clearMethod;
@@ -1669,57 +1568,53 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             protected final java.lang.reflect.Method setMethod;
             protected final Class<?> type;
 
-            SingularFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
-                java.lang.reflect.Method method;
-                java.lang.reflect.Method method2;
-                java.lang.reflect.Method method3;
+            SingularFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
+                java.lang.reflect.Method methodOrDie;
+                java.lang.reflect.Method methodOrDie2;
+                java.lang.reflect.Method methodOrDie3;
                 this.field = fieldDescriptor;
                 boolean z = fieldDescriptor.getContainingOneof() != null;
                 this.isOneofField = z;
-                boolean z2 = FieldAccessorTable.supportFieldPresence(fieldDescriptor.getFile())
-                        || (!z && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE);
+                boolean z2 = FieldAccessorTable.supportFieldPresence(fieldDescriptor.getFile()) || (!z && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE);
                 this.hasHasMethod = z2;
-                java.lang.reflect.Method methodOrDie = GeneratedMessage.getMethodOrDie(cls, "get" + str, new Class[0]);
-                this.getMethod = methodOrDie;
+                java.lang.reflect.Method methodOrDie4 = GeneratedMessage.getMethodOrDie(cls, "get" + str, new Class[0]);
+                this.getMethod = methodOrDie4;
                 this.getMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str, new Class[0]);
-                Class<?> returnType = methodOrDie.getReturnType();
+                Class<?> returnType = methodOrDie4.getReturnType();
                 this.type = returnType;
                 this.setMethod = GeneratedMessage.getMethodOrDie(cls2, "set" + str, returnType);
-                java.lang.reflect.Method method4 = null;
+                java.lang.reflect.Method methodOrDie5 = null;
                 if (z2) {
-                    method = GeneratedMessage.getMethodOrDie(cls, "has" + str, new Class[0]);
+                    methodOrDie = GeneratedMessage.getMethodOrDie(cls, "has" + str, new Class[0]);
                 } else {
-                    method = null;
+                    methodOrDie = null;
                 }
-                this.hasMethod = method;
+                this.hasMethod = methodOrDie;
                 if (z2) {
-                    method2 = GeneratedMessage.getMethodOrDie(cls2, "has" + str, new Class[0]);
+                    methodOrDie2 = GeneratedMessage.getMethodOrDie(cls2, "has" + str, new Class[0]);
                 } else {
-                    method2 = null;
+                    methodOrDie2 = null;
                 }
-                this.hasMethodBuilder = method2;
+                this.hasMethodBuilder = methodOrDie2;
                 this.clearMethod = GeneratedMessage.getMethodOrDie(cls2, "clear" + str, new Class[0]);
                 if (z) {
-                    method3 = GeneratedMessage.getMethodOrDie(cls, "get" + str2 + "Case", new Class[0]);
+                    methodOrDie3 = GeneratedMessage.getMethodOrDie(cls, "get" + str2 + "Case", new Class[0]);
                 } else {
-                    method3 = null;
+                    methodOrDie3 = null;
                 }
-                this.caseMethod = method3;
+                this.caseMethod = methodOrDie3;
                 if (z) {
-                    method4 = GeneratedMessage.getMethodOrDie(cls2, "get" + str2 + "Case", new Class[0]);
+                    methodOrDie5 = GeneratedMessage.getMethodOrDie(cls2, "get" + str2 + "Case", new Class[0]);
                 }
-                this.caseMethodBuilder = method4;
+                this.caseMethodBuilder = methodOrDie5;
             }
 
             private int getOneofFieldNumber(GeneratedMessage generatedMessage) {
-                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethod, generatedMessage,
-                        new Object[0])).getNumber();
+                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethod, generatedMessage, new Object[0])).getNumber();
             }
 
             private int getOneofFieldNumber(Builder builder) {
-                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethodBuilder, builder,
-                        new Object[0])).getNumber();
+                return ((Internal.EnumLite) GeneratedMessage.invokeOrDie(this.caseMethodBuilder, builder, new Object[0])).getNumber();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
@@ -1780,8 +1675,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public boolean has(GeneratedMessage generatedMessage) {
                 if (this.hasHasMethod) {
-                    return ((Boolean) GeneratedMessage.invokeOrDie(this.hasMethod, generatedMessage, new Object[0]))
-                            .booleanValue();
+                    return ((Boolean) GeneratedMessage.invokeOrDie(this.hasMethod, generatedMessage, new Object[0])).booleanValue();
                 }
                 if (this.isOneofField) {
                     return getOneofFieldNumber(generatedMessage) == this.field.getNumber();
@@ -1792,8 +1686,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public boolean has(Builder builder) {
                 if (this.hasHasMethod) {
-                    return ((Boolean) GeneratedMessage.invokeOrDie(this.hasMethodBuilder, builder, new Object[0]))
-                            .booleanValue();
+                    return ((Boolean) GeneratedMessage.invokeOrDie(this.hasMethodBuilder, builder, new Object[0])).booleanValue();
                 }
                 if (this.isOneofField) {
                     return getOneofFieldNumber(builder) == this.field.getNumber();
@@ -1832,9 +1725,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class RepeatedFieldAccessor implements FieldAccessor {
+        private static class RepeatedFieldAccessor implements FieldAccessor {
             protected final java.lang.reflect.Method addRepeatedMethod;
             protected final java.lang.reflect.Method clearMethod;
             protected final java.lang.reflect.Method getCountMethod;
@@ -1846,15 +1737,13 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             protected final java.lang.reflect.Method setRepeatedMethod;
             protected final Class type;
 
-            RepeatedFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
+            RepeatedFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
                 this.getMethod = GeneratedMessage.getMethodOrDie(cls, "get" + str + "List", new Class[0]);
                 this.getMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "List", new Class[0]);
                 StringBuilder sb = new StringBuilder();
                 sb.append("get");
                 sb.append(str);
-                java.lang.reflect.Method methodOrDie = GeneratedMessage.getMethodOrDie(cls, sb.toString(),
-                        Integer.TYPE);
+                java.lang.reflect.Method methodOrDie = GeneratedMessage.getMethodOrDie(cls, sb.toString(), Integer.TYPE);
                 this.getRepeatedMethod = methodOrDie;
                 this.getRepeatedMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str, Integer.TYPE);
                 Class<?> returnType = methodOrDie.getReturnType();
@@ -1892,8 +1781,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void set(Builder builder, Object obj) {
                 clear(builder);
-                for (Object obj2 : (List) obj) {
-                    addRepeated(builder, obj2);
+                Iterator it = ((List) obj).iterator();
+                while (it.hasNext()) {
+                    addRepeated(builder, it.next());
                 }
             }
 
@@ -1939,14 +1829,12 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public int getRepeatedCount(GeneratedMessage generatedMessage) {
-                return ((Integer) GeneratedMessage.invokeOrDie(this.getCountMethod, generatedMessage, new Object[0]))
-                        .intValue();
+                return ((Integer) GeneratedMessage.invokeOrDie(this.getCountMethod, generatedMessage, new Object[0])).intValue();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public int getRepeatedCount(Builder builder) {
-                return ((Integer) GeneratedMessage.invokeOrDie(this.getCountMethodBuilder, builder, new Object[0]))
-                        .intValue();
+                return ((Integer) GeneratedMessage.invokeOrDie(this.getCountMethodBuilder, builder, new Object[0])).intValue();
             }
 
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
@@ -1970,18 +1858,13 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class MapFieldAccessor implements FieldAccessor {
+        private static class MapFieldAccessor implements FieldAccessor {
             private final Descriptors.FieldDescriptor field;
             private final Message mapEntryMessageDefaultInstance;
 
-            MapFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
+            MapFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
                 this.field = fieldDescriptor;
-                this.mapEntryMessageDefaultInstance = getMapField((GeneratedMessage) GeneratedMessage.invokeOrDie(
-                        GeneratedMessage.getMethodOrDie(cls, "getDefaultInstance", new Class[0]), null, new Object[0]))
-                        .getMapEntryMessageDefaultInstance();
+                this.mapEntryMessageDefaultInstance = getMapField((GeneratedMessage) GeneratedMessage.invokeOrDie(GeneratedMessage.getMethodOrDie(cls, "getDefaultInstance", new Class[0]), null, new Object[0])).getMapEntryMessageDefaultInstance();
             }
 
             private MapField<?, ?> getMapField(GeneratedMessage generatedMessage) {
@@ -2027,8 +1910,9 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void set(Builder builder, Object obj) {
                 clear(builder);
-                for (Object obj2 : (List) obj) {
-                    addRepeated(builder, obj2);
+                Iterator it = ((List) obj).iterator();
+                while (it.hasNext()) {
+                    addRepeated(builder, it.next());
                 }
             }
 
@@ -2103,9 +1987,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class SingularEnumFieldAccessor extends SingularFieldAccessor {
+        private static final class SingularEnumFieldAccessor extends SingularFieldAccessor {
             private Descriptors.EnumDescriptor enumDescriptor;
             private java.lang.reflect.Method getValueDescriptorMethod;
             private java.lang.reflect.Method getValueMethod;
@@ -2114,61 +1996,47 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             private boolean supportUnknownEnumValue;
             private java.lang.reflect.Method valueOfMethod;
 
-            SingularEnumFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
+            SingularEnumFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
                 super(fieldDescriptor, str, cls, cls2, str2);
                 this.enumDescriptor = fieldDescriptor.getEnumType();
-                this.valueOfMethod = GeneratedMessage.getMethodOrDie(this.type, "valueOf",
-                        Descriptors.EnumValueDescriptor.class);
-                this.getValueDescriptorMethod = GeneratedMessage.getMethodOrDie(this.type, "getValueDescriptor",
-                        new Class[0]);
-                boolean supportsUnknownEnumValue = fieldDescriptor.getFile().supportsUnknownEnumValue();
-                this.supportUnknownEnumValue = supportsUnknownEnumValue;
-                if (supportsUnknownEnumValue) {
+                this.valueOfMethod = GeneratedMessage.getMethodOrDie(this.type, "valueOf", Descriptors.EnumValueDescriptor.class);
+                this.getValueDescriptorMethod = GeneratedMessage.getMethodOrDie(this.type, "getValueDescriptor", new Class[0]);
+                boolean zSupportsUnknownEnumValue = fieldDescriptor.getFile().supportsUnknownEnumValue();
+                this.supportUnknownEnumValue = zSupportsUnknownEnumValue;
+                if (zSupportsUnknownEnumValue) {
                     this.getValueMethod = GeneratedMessage.getMethodOrDie(cls, "get" + str + "Value", new Class[0]);
-                    this.getValueMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Value",
-                            new Class[0]);
+                    this.getValueMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Value", new Class[0]);
                     this.setValueMethod = GeneratedMessage.getMethodOrDie(cls2, "set" + str + "Value", Integer.TYPE);
                 }
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object get(GeneratedMessage generatedMessage) {
                 if (this.supportUnknownEnumValue) {
-                    return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage
-                            .invokeOrDie(this.getValueMethod, generatedMessage, new Object[0])).intValue());
+                    return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage.invokeOrDie(this.getValueMethod, generatedMessage, new Object[0])).intValue());
                 }
-                return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod, super.get(generatedMessage),
-                        new Object[0]);
+                return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod, super.get(generatedMessage), new Object[0]);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object get(Builder builder) {
                 if (this.supportUnknownEnumValue) {
-                    return this.enumDescriptor.findValueByNumberCreatingIfUnknown(
-                            ((Integer) GeneratedMessage.invokeOrDie(this.getValueMethodBuilder, builder, new Object[0]))
-                                    .intValue());
+                    return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage.invokeOrDie(this.getValueMethodBuilder, builder, new Object[0])).intValue());
                 }
                 return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod, super.get(builder), new Object[0]);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void set(Builder builder, Object obj) {
                 if (this.supportUnknownEnumValue) {
-                    GeneratedMessage.invokeOrDie(this.setValueMethod, builder,
-                            Integer.valueOf(((Descriptors.EnumValueDescriptor) obj).getNumber()));
+                    GeneratedMessage.invokeOrDie(this.setValueMethod, builder, Integer.valueOf(((Descriptors.EnumValueDescriptor) obj).getNumber()));
                 } else {
                     super.set(builder, GeneratedMessage.invokeOrDie(this.valueOfMethod, null, obj));
                 }
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class RepeatedEnumFieldAccessor extends RepeatedFieldAccessor {
+        private static final class RepeatedEnumFieldAccessor extends RepeatedFieldAccessor {
             private java.lang.reflect.Method addRepeatedValueMethod;
             private Descriptors.EnumDescriptor enumDescriptor;
             private java.lang.reflect.Method getRepeatedValueMethod;
@@ -2178,30 +2046,22 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             private boolean supportUnknownEnumValue;
             private final java.lang.reflect.Method valueOfMethod;
 
-            RepeatedEnumFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
+            RepeatedEnumFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
                 super(fieldDescriptor, str, cls, cls2);
                 this.enumDescriptor = fieldDescriptor.getEnumType();
-                this.valueOfMethod = GeneratedMessage.getMethodOrDie(this.type, "valueOf",
-                        Descriptors.EnumValueDescriptor.class);
-                this.getValueDescriptorMethod = GeneratedMessage.getMethodOrDie(this.type, "getValueDescriptor",
-                        new Class[0]);
-                boolean supportsUnknownEnumValue = fieldDescriptor.getFile().supportsUnknownEnumValue();
-                this.supportUnknownEnumValue = supportsUnknownEnumValue;
-                if (supportsUnknownEnumValue) {
-                    this.getRepeatedValueMethod = GeneratedMessage.getMethodOrDie(cls, "get" + str + "Value",
-                            Integer.TYPE);
-                    this.getRepeatedValueMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Value",
-                            Integer.TYPE);
-                    this.setRepeatedValueMethod = GeneratedMessage.getMethodOrDie(cls2, "set" + str + "Value",
-                            Integer.TYPE, Integer.TYPE);
-                    this.addRepeatedValueMethod = GeneratedMessage.getMethodOrDie(cls2, "add" + str + "Value",
-                            Integer.TYPE);
+                this.valueOfMethod = GeneratedMessage.getMethodOrDie(this.type, "valueOf", Descriptors.EnumValueDescriptor.class);
+                this.getValueDescriptorMethod = GeneratedMessage.getMethodOrDie(this.type, "getValueDescriptor", new Class[0]);
+                boolean zSupportsUnknownEnumValue = fieldDescriptor.getFile().supportsUnknownEnumValue();
+                this.supportUnknownEnumValue = zSupportsUnknownEnumValue;
+                if (zSupportsUnknownEnumValue) {
+                    this.getRepeatedValueMethod = GeneratedMessage.getMethodOrDie(cls, "get" + str + "Value", Integer.TYPE);
+                    this.getRepeatedValueMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Value", Integer.TYPE);
+                    this.setRepeatedValueMethod = GeneratedMessage.getMethodOrDie(cls2, "set" + str + "Value", Integer.TYPE, Integer.TYPE);
+                    this.addRepeatedValueMethod = GeneratedMessage.getMethodOrDie(cls2, "add" + str + "Value", Integer.TYPE);
                 }
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object get(GeneratedMessage generatedMessage) {
                 ArrayList arrayList = new ArrayList();
                 int repeatedCount = getRepeatedCount(generatedMessage);
@@ -2211,8 +2071,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
                 return Collections.unmodifiableList(arrayList);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object get(Builder builder) {
                 ArrayList arrayList = new ArrayList();
                 int repeatedCount = getRepeatedCount(builder);
@@ -2222,81 +2081,64 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
                 return Collections.unmodifiableList(arrayList);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object getRepeated(GeneratedMessage generatedMessage, int i) {
                 if (!this.supportUnknownEnumValue) {
-                    return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod,
-                            super.getRepeated(generatedMessage, i), new Object[0]);
+                    return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod, super.getRepeated(generatedMessage, i), new Object[0]);
                 }
-                return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage
-                        .invokeOrDie(this.getRepeatedValueMethod, generatedMessage, Integer.valueOf(i))).intValue());
+                return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage.invokeOrDie(this.getRepeatedValueMethod, generatedMessage, Integer.valueOf(i))).intValue());
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object getRepeated(Builder builder, int i) {
                 if (!this.supportUnknownEnumValue) {
-                    return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod, super.getRepeated(builder, i),
-                            new Object[0]);
+                    return GeneratedMessage.invokeOrDie(this.getValueDescriptorMethod, super.getRepeated(builder, i), new Object[0]);
                 }
-                return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage
-                        .invokeOrDie(this.getRepeatedValueMethodBuilder, builder, Integer.valueOf(i))).intValue());
+                return this.enumDescriptor.findValueByNumberCreatingIfUnknown(((Integer) GeneratedMessage.invokeOrDie(this.getRepeatedValueMethodBuilder, builder, Integer.valueOf(i))).intValue());
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void setRepeated(Builder builder, int i, Object obj) {
                 if (this.supportUnknownEnumValue) {
-                    GeneratedMessage.invokeOrDie(this.setRepeatedValueMethod, builder, Integer.valueOf(i),
-                            Integer.valueOf(((Descriptors.EnumValueDescriptor) obj).getNumber()));
+                    GeneratedMessage.invokeOrDie(this.setRepeatedValueMethod, builder, Integer.valueOf(i), Integer.valueOf(((Descriptors.EnumValueDescriptor) obj).getNumber()));
                 } else {
                     super.setRepeated(builder, i, GeneratedMessage.invokeOrDie(this.valueOfMethod, null, obj));
                 }
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void addRepeated(Builder builder, Object obj) {
                 if (this.supportUnknownEnumValue) {
-                    GeneratedMessage.invokeOrDie(this.addRepeatedValueMethod, builder,
-                            Integer.valueOf(((Descriptors.EnumValueDescriptor) obj).getNumber()));
+                    GeneratedMessage.invokeOrDie(this.addRepeatedValueMethod, builder, Integer.valueOf(((Descriptors.EnumValueDescriptor) obj).getNumber()));
                 } else {
                     super.addRepeated(builder, GeneratedMessage.invokeOrDie(this.valueOfMethod, null, obj));
                 }
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class SingularStringFieldAccessor extends SingularFieldAccessor {
+        private static final class SingularStringFieldAccessor extends SingularFieldAccessor {
             private final java.lang.reflect.Method getBytesMethod;
             private final java.lang.reflect.Method getBytesMethodBuilder;
             private final java.lang.reflect.Method setBytesMethodBuilder;
 
-            SingularStringFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
+            SingularStringFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
                 super(fieldDescriptor, str, cls, cls2, str2);
                 this.getBytesMethod = GeneratedMessage.getMethodOrDie(cls, "get" + str + "Bytes", new Class[0]);
                 this.getBytesMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Bytes", new Class[0]);
-                this.setBytesMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "set" + str + "Bytes",
-                        ByteString.class);
+                this.setBytesMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "set" + str + "Bytes", ByteString.class);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object getRaw(GeneratedMessage generatedMessage) {
                 return GeneratedMessage.invokeOrDie(this.getBytesMethod, generatedMessage, new Object[0]);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Object getRaw(Builder builder) {
                 return GeneratedMessage.invokeOrDie(this.getBytesMethodBuilder, builder, new Object[0]);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void set(Builder builder, Object obj) {
                 if (obj instanceof ByteString) {
                     GeneratedMessage.invokeOrDie(this.setBytesMethodBuilder, builder, obj);
@@ -2306,89 +2148,68 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class SingularMessageFieldAccessor extends SingularFieldAccessor {
+        private static final class SingularMessageFieldAccessor extends SingularFieldAccessor {
             private final java.lang.reflect.Method getBuilderMethodBuilder;
             private final java.lang.reflect.Method newBuilderMethod;
 
-            SingularMessageFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
+            SingularMessageFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2, String str2) {
                 super(fieldDescriptor, str, cls, cls2, str2);
                 this.newBuilderMethod = GeneratedMessage.getMethodOrDie(this.type, "newBuilder", new Class[0]);
-                this.getBuilderMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Builder",
-                        new Class[0]);
+                this.getBuilderMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Builder", new Class[0]);
             }
 
             private Object coerceType(Object obj) {
-                return this.type.isInstance(obj) ? obj
-                        : ((Message.Builder) GeneratedMessage.invokeOrDie(this.newBuilderMethod, null, new Object[0]))
-                                .mergeFrom((Message) obj).buildPartial();
+                return this.type.isInstance(obj) ? obj : ((Message.Builder) GeneratedMessage.invokeOrDie(this.newBuilderMethod, null, new Object[0])).mergeFrom((Message) obj).buildPartial();
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void set(Builder builder, Object obj) {
                 super.set(builder, coerceType(obj));
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Message.Builder newBuilder() {
                 return (Message.Builder) GeneratedMessage.invokeOrDie(this.newBuilderMethod, null, new Object[0]);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.SingularFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Message.Builder getBuilder(Builder builder) {
-                return (Message.Builder) GeneratedMessage.invokeOrDie(this.getBuilderMethodBuilder, builder,
-                        new Object[0]);
+                return (Message.Builder) GeneratedMessage.invokeOrDie(this.getBuilderMethodBuilder, builder, new Object[0]);
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class RepeatedMessageFieldAccessor extends RepeatedFieldAccessor {
+        private static final class RepeatedMessageFieldAccessor extends RepeatedFieldAccessor {
             private final java.lang.reflect.Method getBuilderMethodBuilder;
             private final java.lang.reflect.Method newBuilderMethod;
 
-            RepeatedMessageFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str,
-                    Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
+            RepeatedMessageFieldAccessor(Descriptors.FieldDescriptor fieldDescriptor, String str, Class<? extends GeneratedMessage> cls, Class<? extends Builder> cls2) {
                 super(fieldDescriptor, str, cls, cls2);
                 this.newBuilderMethod = GeneratedMessage.getMethodOrDie(this.type, "newBuilder", new Class[0]);
-                this.getBuilderMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Builder",
-                        Integer.TYPE);
+                this.getBuilderMethodBuilder = GeneratedMessage.getMethodOrDie(cls2, "get" + str + "Builder", Integer.TYPE);
             }
 
             private Object coerceType(Object obj) {
-                return this.type.isInstance(obj) ? obj
-                        : ((Message.Builder) GeneratedMessage.invokeOrDie(this.newBuilderMethod, null, new Object[0]))
-                                .mergeFrom((Message) obj).build();
+                return this.type.isInstance(obj) ? obj : ((Message.Builder) GeneratedMessage.invokeOrDie(this.newBuilderMethod, null, new Object[0])).mergeFrom((Message) obj).build();
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void setRepeated(Builder builder, int i, Object obj) {
                 super.setRepeated(builder, i, coerceType(obj));
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public void addRepeated(Builder builder, Object obj) {
                 super.addRepeated(builder, coerceType(obj));
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Message.Builder newBuilder() {
                 return (Message.Builder) GeneratedMessage.invokeOrDie(this.newBuilderMethod, null, new Object[0]);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor,
-                      // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
+            @Override // com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.RepeatedFieldAccessor, com.google.oplus.protobuf.GeneratedMessage.FieldAccessorTable.FieldAccessor
             public Message.Builder getRepeatedBuilder(Builder builder, int i) {
-                return (Message.Builder) GeneratedMessage.invokeOrDie(this.getBuilderMethodBuilder, builder,
-                        Integer.valueOf(i));
+                return (Message.Builder) GeneratedMessage.invokeOrDie(this.getBuilderMethodBuilder, builder, Integer.valueOf(i));
             }
         }
     }
@@ -2398,8 +2219,7 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
     }
 
     /* JADX INFO: Access modifiers changed from: private */
-    public static <MessageType extends ExtendableMessage<MessageType>, T> Extension<MessageType, T> checkNotLite(
-            ExtensionLite<MessageType, T> extensionLite) {
+    public static <MessageType extends ExtendableMessage<MessageType>, T> Extension<MessageType, T> checkNotLite(ExtensionLite<MessageType, T> extensionLite) {
         if (extensionLite.isLite()) {
             throw new IllegalArgumentException("Expected non-lite extension.");
         }

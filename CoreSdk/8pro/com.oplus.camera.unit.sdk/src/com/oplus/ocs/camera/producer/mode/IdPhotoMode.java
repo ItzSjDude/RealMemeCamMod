@@ -8,7 +8,8 @@ import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class IdPhotoMode extends PhotoMode {
     private static final String TAG = "IdPhotoMode";
 
@@ -27,16 +28,14 @@ public class IdPhotoMode extends PhotoMode {
         return false;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         apsRequestTag.mModeName = "id_photo_mode";
         cameraSessionEntity.setTemplate(1);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
+    protected boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
         synchronized (this.mPreviewResultLock) {
             return ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT)).intValue() > 0;
         }

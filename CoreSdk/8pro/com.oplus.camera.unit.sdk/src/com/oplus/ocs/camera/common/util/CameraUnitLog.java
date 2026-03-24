@@ -8,7 +8,8 @@ import android.util.Log;
 import android.util.LogPrinter;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraUnitLog {
     private static int SEGMENT_SIZE = 3072;
     private static final String TAG_FORMAT = "CameraUnit, %s";
@@ -22,33 +23,32 @@ public final class CameraUnitLog {
     private static boolean sbTraceOn = true;
 
     public static void initLog(Context context) {
-        boolean z;
-        boolean z2;
-        boolean z3 = false;
+        boolean zIsDebugLogOn;
+        boolean zIsLaoOn;
+        boolean z = false;
         try {
-            z = isDebugLogOn();
+            zIsDebugLogOn = isDebugLogOn();
         } catch (Exception e) {
             e = e;
-            z = true;
+            zIsDebugLogOn = true;
         }
         try {
-            z2 = isLaoOn();
+            zIsLaoOn = isLaoOn();
         } catch (Exception e2) {
             e = e2;
-            z2 = false;
+            zIsLaoOn = false;
             e.printStackTrace();
-            initLog(z, z3, z2);
+            initLog(zIsDebugLogOn, z, zIsLaoOn);
         }
         try {
             if (Util.isSystemCamera()) {
-                z3 = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(TRACE_DEBUG, false);
+                z = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(TRACE_DEBUG, false);
             }
         } catch (Exception e3) {
             e = e3;
             e.printStackTrace();
-            initLog(z, z3, z2);
         }
-        initLog(z, z3, z2);
+        initLog(zIsDebugLogOn, z, zIsLaoOn);
     }
 
     public static void initLog(boolean z) {
@@ -235,9 +235,9 @@ public final class CameraUnitLog {
             int length = str3.length();
             int i = SEGMENT_SIZE;
             if (length > i) {
-                String substring = str3.substring(0, i);
-                str3 = str3.replace(substring, "");
-                Log.d(str, str2 + substring);
+                String strSubstring = str3.substring(0, i);
+                str3 = str3.replace(strSubstring, "");
+                Log.d(str, str2 + strSubstring);
             } else {
                 Log.d(str, str2 + str3);
                 return;

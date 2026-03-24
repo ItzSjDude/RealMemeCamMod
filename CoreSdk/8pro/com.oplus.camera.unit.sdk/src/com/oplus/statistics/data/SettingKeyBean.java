@@ -1,5 +1,6 @@
 package com.oplus.statistics.data;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SettingKeyBean {
     public static final String DEFAULE_VALUE = "default_value";
     public static final String HTTP_POST_KEY = "http_post_key";

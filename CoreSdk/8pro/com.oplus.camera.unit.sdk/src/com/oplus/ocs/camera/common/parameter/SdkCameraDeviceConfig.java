@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class SdkCameraDeviceConfig {
     private static final String TAG = "SdkCameraDeviceConfig";
     private Parameter mConfigureParameter;
@@ -42,11 +44,11 @@ public final class SdkCameraDeviceConfig {
     }
 
     public Map<String, SdkCameraDeviceConfig> split() {
-        HashMap hashMap = new HashMap();
+        HashMap map = new HashMap();
         for (SurfaceWrapper surfaceWrapper : this.mPreviewSurfaceList) {
-            hashMap.put(surfaceWrapper.getCameraType(), new SdkCameraDeviceConfig(this.mModeName, Collections.singletonList(surfaceWrapper), null, null, this.mConfigureParameter));
+            map.put(surfaceWrapper.getCameraType(), new SdkCameraDeviceConfig(this.mModeName, Collections.singletonList(surfaceWrapper), null, null, this.mConfigureParameter));
         }
-        return hashMap;
+        return map;
     }
 
     public String getModeName() {
@@ -72,8 +74,9 @@ public final class SdkCameraDeviceConfig {
     }
 
     public boolean isSetPreviewFrameSurface() {
-        for (SurfaceWrapper surfaceWrapper : this.mPreviewSurfaceList) {
-            if (6 == surfaceWrapper.getSurfaceType()) {
+        Iterator<SurfaceWrapper> it = this.mPreviewSurfaceList.iterator();
+        while (it.hasNext()) {
+            if (6 == it.next().getSurfaceType()) {
                 return true;
             }
         }
@@ -82,8 +85,9 @@ public final class SdkCameraDeviceConfig {
 
     public ArrayList<Integer> getPreviewSurfaceTypes() {
         ArrayList<Integer> arrayList = new ArrayList<>();
-        for (SurfaceWrapper surfaceWrapper : this.mPreviewSurfaceList) {
-            arrayList.add(Integer.valueOf(surfaceWrapper.getSurfaceType()));
+        Iterator<SurfaceWrapper> it = this.mPreviewSurfaceList.iterator();
+        while (it.hasNext()) {
+            arrayList.add(Integer.valueOf(it.next().getSurfaceType()));
         }
         return arrayList;
     }
@@ -104,31 +108,31 @@ public final class SdkCameraDeviceConfig {
     }
 
     public boolean equals(@Nullable Object obj) {
-        if (obj instanceof SdkCameraDeviceConfig) {
-            SdkCameraDeviceConfig sdkCameraDeviceConfig = (SdkCameraDeviceConfig) obj;
-            if (this.mModeName.equals(sdkCameraDeviceConfig.mModeName)) {
-                SurfaceWrapper surfaceWrapper = this.mVideoSurface;
-                if ((surfaceWrapper == null || surfaceWrapper.equals(sdkCameraDeviceConfig.mVideoSurface)) && ((this.mVideoSurface != null || sdkCameraDeviceConfig.mVideoSurface == null) && this.mPreviewSurfaceList.size() == sdkCameraDeviceConfig.mPreviewSurfaceList.size())) {
-                    for (int i = 0; i < this.mPreviewSurfaceList.size(); i++) {
-                        if (!this.mPreviewSurfaceList.get(i).equals(sdkCameraDeviceConfig.mPreviewSurfaceList.get(i))) {
-                            return false;
-                        }
-                    }
-                    if (this.mPictureSurfaceList.size() != sdkCameraDeviceConfig.mPictureSurfaceList.size()) {
-                        return false;
-                    }
-                    for (int i2 = 0; i2 < this.mPictureSurfaceList.size(); i2++) {
-                        if (!this.mPictureSurfaceList.get(i2).equals(sdkCameraDeviceConfig.mPictureSurfaceList.get(i2))) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-                return false;
-            }
+        if (!(obj instanceof SdkCameraDeviceConfig)) {
             return false;
         }
-        return false;
+        SdkCameraDeviceConfig sdkCameraDeviceConfig = (SdkCameraDeviceConfig) obj;
+        if (!this.mModeName.equals(sdkCameraDeviceConfig.mModeName)) {
+            return false;
+        }
+        SurfaceWrapper surfaceWrapper = this.mVideoSurface;
+        if ((surfaceWrapper != null && !surfaceWrapper.equals(sdkCameraDeviceConfig.mVideoSurface)) || ((this.mVideoSurface == null && sdkCameraDeviceConfig.mVideoSurface != null) || this.mPreviewSurfaceList.size() != sdkCameraDeviceConfig.mPreviewSurfaceList.size())) {
+            return false;
+        }
+        for (int i = 0; i < this.mPreviewSurfaceList.size(); i++) {
+            if (!this.mPreviewSurfaceList.get(i).equals(sdkCameraDeviceConfig.mPreviewSurfaceList.get(i))) {
+                return false;
+            }
+        }
+        if (this.mPictureSurfaceList.size() != sdkCameraDeviceConfig.mPictureSurfaceList.size()) {
+            return false;
+        }
+        for (int i2 = 0; i2 < this.mPictureSurfaceList.size(); i2++) {
+            if (!this.mPictureSurfaceList.get(i2).equals(sdkCameraDeviceConfig.mPictureSurfaceList.get(i2))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @NonNull
@@ -165,7 +169,6 @@ public final class SdkCameraDeviceConfig {
         return this.mConfigureParameter;
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder {
         private ConfigureParameter.Builder mConfigureParameterBuilder;
         private String mModeName = null;
@@ -213,16 +216,16 @@ public final class SdkCameraDeviceConfig {
                     CameraUnitLog.w(SdkCameraDeviceConfig.TAG, "SdkCameraDeviceConfig, build, mVideoSurface and mAppVideoSize not set, use preview configure.");
                 }
                 SurfaceWrapper surfaceWrapper = this.mPreviewSurfaces.get(0);
-                Size size = this.mAppVideoSize;
-                if (size == null) {
-                    size = surfaceWrapper.getAppSurfaceSize();
+                Size appSurfaceSize = this.mAppVideoSize;
+                if (appSurfaceSize == null) {
+                    appSurfaceSize = surfaceWrapper.getAppSurfaceSize();
                 }
-                Size size2 = size;
-                Size size3 = this.mAppVideoSize;
-                if (size3 == null) {
-                    size3 = surfaceWrapper.getHalSurfaceSize();
+                Size size = appSurfaceSize;
+                Size halSurfaceSize = this.mAppVideoSize;
+                if (halSurfaceSize == null) {
+                    halSurfaceSize = surfaceWrapper.getHalSurfaceSize();
                 }
-                this.mVideoSurfaceWrapper = new SurfaceWrapper(surfaceWrapper.getCameraType(), "surface_key_recording", size2, size3, 0, 4);
+                this.mVideoSurfaceWrapper = new SurfaceWrapper(surfaceWrapper.getCameraType(), "surface_key_recording", size, halSurfaceSize, 0, 4);
             }
             return new SdkCameraDeviceConfig(this.mModeName, this.mPreviewSurfaces, this.mPictureSurfaces, this.mVideoSurfaceWrapper, this.mConfigureParameterBuilder.build());
         }

@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.producer.device;
 import android.graphics.Rect;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class CameraMetadataKey {
     public static final CaptureRequest.Key<int[]> KEY_MTK_MFNR_FEATURE_ISP_TUNING_MODE = new CaptureRequest.Key<>("com.mediatek.control.capture.hintForIspTuning", int[].class);
     public static final CaptureRequest.Key<Integer> KEY_MTK_MFNR_FEATURE_ISP_FRAME_COUNT = new CaptureRequest.Key<>("com.mediatek.control.capture.hintForIspFrameCount", Integer.class);

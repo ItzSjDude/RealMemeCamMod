@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.sdk;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class BuildConfig {
     public static final String APPLICATION_ID = "com.oplus.ocs.camera.sdk";
     public static final String BUILD_TYPE = "release";

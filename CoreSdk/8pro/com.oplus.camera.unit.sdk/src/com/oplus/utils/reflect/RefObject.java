@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefObject<T> extends BaseField<T> {
     private static final String TAG = "RefObject";
 

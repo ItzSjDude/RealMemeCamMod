@@ -17,7 +17,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import org.json.JSONException;
 import org.json.JSONObject;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class JsonToCsvConverter {
     private static final char CSV_COL_DELIMITER = ',';
     private static final String FEATURE_RANGE_FORMAT = "[%s~%s]";
@@ -68,16 +69,17 @@ public class JsonToCsvConverter {
                                     }
                                 }
                             }
-                            continue;
                         }
                     }
-                    continue;
                 }
             }
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
-            bufferedWriter.write(sb.toString());
-            bufferedWriter.close();
-            CameraUnitLog.i(TAG, "New csv file create finished, output directory: " + OUTPUT_DIR);
+            try {
+                bufferedWriter.write(sb.toString());
+                bufferedWriter.close();
+                CameraUnitLog.i(TAG, "New csv file create finished, output directory: " + OUTPUT_DIR);
+            } finally {
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -141,9 +143,9 @@ public class JsonToCsvConverter {
                     jSONObject.put(key, jSONObject2);
                 }
             }
-            String replace = jSONObject.toString(2).replace("\\/", FeatureImpl.DELIMITER).replace("\"", "\"\"");
+            String strReplace = jSONObject.toString(2).replace("\\/", FeatureImpl.DELIMITER).replace("\"", "\"\"");
             sb.append(QUOTE);
-            sb.append(replace);
+            sb.append(strReplace);
             sb.append(QUOTE);
             sb.append(CSV_COL_DELIMITER);
         } catch (JSONException e) {

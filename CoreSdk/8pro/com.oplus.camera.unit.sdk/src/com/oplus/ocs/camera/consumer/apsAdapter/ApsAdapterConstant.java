@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.consumer.apsAdapter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsAdapterConstant {
     public static final int ACCELEROMETER_USE = 1;
     public static final int AI_SCN_UNKNOWN = 0;

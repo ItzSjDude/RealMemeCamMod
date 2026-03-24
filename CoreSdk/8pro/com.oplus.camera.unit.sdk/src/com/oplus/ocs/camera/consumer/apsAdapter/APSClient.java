@@ -33,9 +33,11 @@ import com.oplus.ocs.camera.consumer.apsAdapter.jniVersion.JniVersionFactory;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class APSClient {
     private static final String APS_PIPELINE_NAME_ASD = "pipeline_asd";
     private static final String APS_PIPELINE_NAME_CAPTURE = "pipeline_capture";
@@ -244,7 +246,6 @@ public class APSClient {
     private ConditionVariable mProcessImageConditionVariable = new ConditionVariable(true);
     private int mAlgoSwitchVersion = -1;
 
-    /* loaded from: classes.dex */
     public static class APSRuntimeInfo {
         public int mInputMemSize = 0;
         public int mSingleAlgoMaxRunMem = 0;
@@ -252,7 +253,6 @@ public class APSClient {
         public int mProcessCntPending = 0;
     }
 
-    /* loaded from: classes.dex */
     public interface BufferCallback {
         void onCaptureCallback(ApsResult apsResult);
 
@@ -261,7 +261,6 @@ public class APSClient {
         void onServiceDied();
     }
 
-    /* loaded from: classes.dex */
     public interface HeifCodecCallback {
         void initHeifCodec(long j);
 
@@ -328,16 +327,12 @@ public class APSClient {
 
     private native int unint(String[] strArr, Object[] objArr, String[] strArr2);
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public native int createClient(Object obj);
+    protected native int createClient(Object obj);
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public native int destroyClient();
+    protected native int destroyClient();
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public native int transact(int i, Map<String, Object> map, Map<String, Object> map2);
+    protected native int transact(int i, Map<String, Object> map, Map<String, Object> map2);
 
-    /* loaded from: classes.dex */
     public static class MetaImageRefCounter {
         private static final int MAX_REF_CNT_WITH_VIDEO_IMAGE = 35;
         private static final int MAX_REF_LEN = 6;
@@ -484,118 +479,58 @@ public class APSClient {
         /* JADX WARN: Removed duplicated region for block: B:28:0x0079  */
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public void decMetaRefZeroToRemove(long r11, int r13, int r14) {
-            /*
-                r10 = this;
-                java.lang.String r0 = "MetaImageRefCounter, decMetaRefZeroToRemove metaObj: "
-                java.lang.String r1 = "APSClient"
-                java.util.LinkedHashMap<android.media.Image, int[]> r2 = r10.metaBufferMap
-                if (r2 != 0) goto L9
-                return
-            L9:
-                java.util.Set r2 = r2.entrySet()
-                java.util.Iterator r2 = r2.iterator()
-                r3 = 0
-                r4 = r3
-            L13:
-                boolean r5 = r2.hasNext()
-                if (r5 == 0) goto Ld8
-                java.lang.Object r5 = r2.next()
-                java.util.Map$Entry r5 = (java.util.Map.Entry) r5
-                java.lang.Object r6 = r5.getKey()
-                android.media.Image r6 = (android.media.Image) r6
-                java.lang.Object r5 = r5.getValue()
-                int[] r5 = (int[]) r5
-                long r7 = r6.getTimestamp()     // Catch: java.lang.Throwable -> Lb8
-                int r7 = (r7 > r11 ? 1 : (r7 == r11 ? 0 : -1))
-                if (r7 < 0) goto L39
-                r7 = 0
-                int r7 = (r7 > r11 ? 1 : (r7 == r11 ? 0 : -1))
-                if (r7 != 0) goto L13
-            L39:
-                java.util.LinkedHashMap<android.media.Image, int[]> r7 = r10.metaBufferMap
-                java.lang.Object r7 = r7.get(r6)
-                int[] r7 = (int[]) r7
-                r7 = r7[r13]
-                r8 = 1
-                if (r7 != r8) goto L56
-                r7 = r3
-            L47:
-                int r9 = r5.length
-                if (r7 >= r9) goto L54
-                if (r7 == r13) goto L51
-                r9 = r5[r7]
-                if (r9 <= 0) goto L51
-                goto L56
-            L51:
-                int r7 = r7 + 1
-                goto L47
-            L54:
-                r5 = r8
-                goto L57
-            L56:
-                r5 = r3
-            L57:
-                if (r5 == 0) goto L79
-                java.lang.StringBuilder r5 = new java.lang.StringBuilder
-                r5.<init>()
-                r5.append(r0)
-                r5.append(r6)
-                java.lang.String r7 = ", close meta image"
-                r5.append(r7)
-                java.lang.String r5 = r5.toString()
-                com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog.v(r1, r5)
-                r6.close()
-                r2.remove()
-                int r4 = r4 + 1
-                goto Lb3
-            L79:
-                java.util.LinkedHashMap<android.media.Image, int[]> r5 = r10.metaBufferMap
-                java.lang.Object r5 = r5.get(r6)
-                int[] r5 = (int[]) r5
-                r5 = r5[r13]
-                if (r5 <= 0) goto Lb3
-                java.util.LinkedHashMap<android.media.Image, int[]> r5 = r10.metaBufferMap
-                java.lang.Object r5 = r5.get(r6)
-                int[] r5 = (int[]) r5
-                r7 = r5[r13]
-                int r7 = r7 - r8
-                r5[r13] = r7
-                int r4 = r4 + 1
-                java.lang.StringBuilder r5 = new java.lang.StringBuilder
-                r5.<init>()
-                r5.append(r0)
-                r5.append(r6)
-                java.lang.String r6 = " pipelineName: "
-                r5.append(r6)
-                r5.append(r13)
-                java.lang.String r6 = " - 1"
-                r5.append(r6)
-                java.lang.String r5 = r5.toString()
-                com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog.v(r1, r5)
-            Lb3:
-                if (r14 <= 0) goto L13
-                if (r4 < r14) goto L13
-                goto Ld8
-            Lb8:
-                r5 = move-exception
-                r5.printStackTrace()
-                r2.remove()
-                java.lang.StringBuilder r5 = new java.lang.StringBuilder
-                r5.<init>()
-                r5.append(r0)
-                r5.append(r6)
-                java.lang.String r6 = " already closed,  continue"
-                r5.append(r6)
-                java.lang.String r5 = r5.toString()
-                com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog.e(r1, r5)
-                goto L13
-            Ld8:
-                return
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.consumer.apsAdapter.APSClient.MetaImageRefCounter.decMetaRefZeroToRemove(long, int, int):void");
+        public void decMetaRefZeroToRemove(long j, int i, int i2) {
+            boolean z;
+            LinkedHashMap<Image, int[]> linkedHashMap = this.metaBufferMap;
+            if (linkedHashMap == null) {
+                return;
+            }
+            Iterator<Map.Entry<Image, int[]>> it = linkedHashMap.entrySet().iterator();
+            int i3 = 0;
+            while (it.hasNext()) {
+                Map.Entry<Image, int[]> next = it.next();
+                Image key = next.getKey();
+                int[] value = next.getValue();
+                try {
+                } catch (Throwable th) {
+                    th.printStackTrace();
+                    it.remove();
+                    ApsAdapterLog.e(APSClient.TAG, "MetaImageRefCounter, decMetaRefZeroToRemove metaObj: " + key + " already closed,  continue");
+                }
+                if (key.getTimestamp() < j || 0 == j) {
+                    if (this.metaBufferMap.get(key)[i] == 1) {
+                        for (int i4 = 0; i4 < value.length; i4++) {
+                            if (i4 != i && value[i4] > 0) {
+                                z = false;
+                                break;
+                            }
+                        }
+                        z = true;
+                        if (!z) {
+                            ApsAdapterLog.v(APSClient.TAG, "MetaImageRefCounter, decMetaRefZeroToRemove metaObj: " + key + ", close meta image");
+                            key.close();
+                            it.remove();
+                            i3++;
+                        } else if (this.metaBufferMap.get(key)[i] > 0) {
+                            int[] iArr = this.metaBufferMap.get(key);
+                            iArr[i] = iArr[i] - 1;
+                            i3++;
+                            ApsAdapterLog.v(APSClient.TAG, "MetaImageRefCounter, decMetaRefZeroToRemove metaObj: " + key + " pipelineName: " + i + " - 1");
+                        }
+                        if (i2 > 0 && i3 >= i2) {
+                            return;
+                        }
+                    } else {
+                        z = false;
+                        if (!z) {
+                        }
+                        if (i2 > 0) {
+                            continue;
+                        }
+                    }
+                }
+            }
         }
 
         public void removeVideoImageRefBefore(ApsPreviewParam apsPreviewParam, boolean z) {
@@ -695,9 +630,9 @@ public class APSClient {
         this.mBufferCallback = null;
         this.mHeifCodecCallback = null;
         this.mMetaImageRefCounter = new MetaImageRefCounter();
-        JniVersionBase createJniVersion = JniVersionFactory.createJniVersion(str);
-        this.mJniVersion = createJniVersion;
-        if ((createJniVersion instanceof CmdJniVersion) && ApsUtils.loadLibrary(createJniVersion.getJniLibraryName())) {
+        JniVersionBase jniVersionBaseCreateJniVersion = JniVersionFactory.createJniVersion(str);
+        this.mJniVersion = jniVersionBaseCreateJniVersion;
+        if ((jniVersionBaseCreateJniVersion instanceof CmdJniVersion) && ApsUtils.loadLibrary(jniVersionBaseCreateJniVersion.getJniLibraryName())) {
             this.mAPSClientWrapper = APSClientWrapper.Stub.asInterface(this);
         } else {
             if (!(this.mJniVersion instanceof DefaultJniVersion)) {
@@ -725,34 +660,32 @@ public class APSClient {
     }
 
     public int connect(int i) {
-        int create;
+        int iCreate;
         this.mAlgoSwitchVersion = i;
         boolean z = this.mbAPSClientJNICmdVersion;
-        String str = COMPATIABLE_VERSION;
+        String aPSVersion = COMPATIABLE_VERSION;
         if (z) {
             this.mbNewJniVersion = true;
-            create = this.mAPSClientWrapper.create(new WeakReference(this));
+            iCreate = this.mAPSClientWrapper.create(new WeakReference(this));
         } else {
-            create = create(new WeakReference(this));
+            iCreate = create(new WeakReference(this));
             try {
-                str = getAPSVersion();
+                aPSVersion = getAPSVersion();
             } catch (Throwable th) {
                 th.printStackTrace();
                 ApsAdapterLog.e(TAG, "connect, error: getAPSVersion is not implemented");
             }
-            this.mbNewJniVersion = str.compareToIgnoreCase("V001.000.000") >= 0;
+            this.mbNewJniVersion = aPSVersion.compareToIgnoreCase("V001.000.000") >= 0;
         }
-        ApsAdapterLog.i(TAG, "connect, APS JNI version: " + str + ", mbNewJniVersion: " + this.mbNewJniVersion + ", mbAPSClientJNICmdVersion: " + this.mbAPSClientJNICmdVersion + ", mAlgoSwitchVersion: " + this.mAlgoSwitchVersion);
-        return create;
+        ApsAdapterLog.i(TAG, "connect, APS JNI version: " + aPSVersion + ", mbNewJniVersion: " + this.mbNewJniVersion + ", mbAPSClientJNICmdVersion: " + this.mbAPSClientJNICmdVersion + ", mAlgoSwitchVersion: " + this.mAlgoSwitchVersion);
+        return iCreate;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public int getAlgoSwitchVersion() {
+    protected int getAlgoSwitchVersion() {
         return this.mAlgoSwitchVersion;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static void postEventFromNative(Object obj, Object obj2) {
+    protected static void postEventFromNative(Object obj, Object obj2) {
         APSClient aPSClient = (APSClient) ((WeakReference) obj).get();
         ApsResult apsResult = obj2 != null ? (ApsResult) obj2 : null;
         if (aPSClient == null || apsResult == null) {
@@ -763,57 +696,57 @@ public class APSClient {
             ApsAdapterLog.v(TAG, "postEventFromNative, resultString: " + Arrays.toString(apsResult.mResultString));
             String[] strArr = apsResult.mResultString;
             if (apsResult.mResultString != null) {
-                HashMap hashMap = new HashMap(strArr.length / 2);
+                HashMap map = new HashMap(strArr.length / 2);
                 for (int i = 0; i < strArr.length - 1; i += 2) {
-                    hashMap.put(strArr[i], strArr[i + 1]);
+                    map.put(strArr[i], strArr[i + 1]);
                 }
-                apsResult.mRotation = Integer.parseInt((String) hashMap.get(KEY_RESULT_ROTATION));
-                apsResult.mIdentity = Long.parseLong((String) hashMap.get(KEY_RESULT_IDENTITY));
-                apsResult.mAppAlgoFlag = Long.parseLong((String) hashMap.get(KEY_RESULT_APP_ALGOFLAG));
-                apsResult.mWidth = Integer.parseInt((String) hashMap.get(KEY_RESULT_WIDTH));
-                apsResult.mHeight = Integer.parseInt((String) hashMap.get(KEY_RESULT_HEIGHT));
-                apsResult.mStride = Integer.parseInt((String) hashMap.get(KEY_RESULT_STRIDE));
-                apsResult.mScanline = Integer.parseInt((String) hashMap.get(KEY_RESULT_SCANLINE));
-                apsResult.mSTWidth = Integer.parseInt((String) hashMap.get(KEY_RESULT_ST_WIDTH));
-                apsResult.mSTHeight = Integer.parseInt((String) hashMap.get(KEY_RESULT_ST_HEIGHT));
-                apsResult.mbHasSTResult = Boolean.parseBoolean((String) hashMap.get(KEY_RESULT_HAS_STRESULT));
-                apsResult.mBufferType = Integer.parseInt((String) hashMap.get(KEY_RESULT_BUFFER_TYPE));
-                apsResult.mCropLeft = Integer.parseInt((String) hashMap.get(KEY_RESULT_CROP_LEFT));
-                apsResult.mCropTop = Integer.parseInt((String) hashMap.get(KEY_RESULT_CROP_TOP));
-                apsResult.mCropRight = Integer.parseInt((String) hashMap.get(KEY_RESULT_CROP_RIGHT));
-                apsResult.mCropBottom = Integer.parseInt((String) hashMap.get(KEY_RESULT_CROP_BOTTOM));
-                apsResult.mMessageType = Integer.parseInt((String) hashMap.get(KEY_RESULT_MESSAGE_TYPE));
-                apsResult.mPipelineName = (String) hashMap.get(KEY_RESULT_PIPELINE_NAME);
-                apsResult.mIsLastVideoFrame = Integer.parseInt((String) hashMap.get(KEY_RESULT_IS_LASTVIDEOFRAME));
-                apsResult.mIsStartInterpolationFrame = Integer.parseInt((String) hashMap.get(KEY_RESULT_IS_START_INTERPOLATION_FRAME));
-                apsResult.mIsMotionDetected = Integer.parseInt((String) hashMap.get(KEY_RESULT_IS_MOTION_DETECTED));
-                apsResult.mbNeedDetach = Boolean.parseBoolean((String) hashMap.get(KEY_RESULT_IS_NEED_DETACH));
-                apsResult.mbHeifProcessInAps = Boolean.parseBoolean((String) hashMap.get(KEY_RESULT_HEIF_PROCESS_APS));
-                apsResult.mApsInitFinish = (String) hashMap.get(KEY_RESULT_APS_INIT_FINISH);
-                apsResult.mFrameId = Integer.parseInt((String) hashMap.get(KEY_RESULT_FRAME_ID));
-                if (hashMap.containsKey(KEY_RESULT_NOISE_REDUCTION_STRENGTH)) {
-                    apsResult.mNoiseReductionStrength = Integer.parseInt((String) hashMap.get(KEY_RESULT_NOISE_REDUCTION_STRENGTH));
+                apsResult.mRotation = Integer.parseInt((String) map.get(KEY_RESULT_ROTATION));
+                apsResult.mIdentity = Long.parseLong((String) map.get(KEY_RESULT_IDENTITY));
+                apsResult.mAppAlgoFlag = Long.parseLong((String) map.get(KEY_RESULT_APP_ALGOFLAG));
+                apsResult.mWidth = Integer.parseInt((String) map.get(KEY_RESULT_WIDTH));
+                apsResult.mHeight = Integer.parseInt((String) map.get(KEY_RESULT_HEIGHT));
+                apsResult.mStride = Integer.parseInt((String) map.get(KEY_RESULT_STRIDE));
+                apsResult.mScanline = Integer.parseInt((String) map.get(KEY_RESULT_SCANLINE));
+                apsResult.mSTWidth = Integer.parseInt((String) map.get(KEY_RESULT_ST_WIDTH));
+                apsResult.mSTHeight = Integer.parseInt((String) map.get(KEY_RESULT_ST_HEIGHT));
+                apsResult.mbHasSTResult = Boolean.parseBoolean((String) map.get(KEY_RESULT_HAS_STRESULT));
+                apsResult.mBufferType = Integer.parseInt((String) map.get(KEY_RESULT_BUFFER_TYPE));
+                apsResult.mCropLeft = Integer.parseInt((String) map.get(KEY_RESULT_CROP_LEFT));
+                apsResult.mCropTop = Integer.parseInt((String) map.get(KEY_RESULT_CROP_TOP));
+                apsResult.mCropRight = Integer.parseInt((String) map.get(KEY_RESULT_CROP_RIGHT));
+                apsResult.mCropBottom = Integer.parseInt((String) map.get(KEY_RESULT_CROP_BOTTOM));
+                apsResult.mMessageType = Integer.parseInt((String) map.get(KEY_RESULT_MESSAGE_TYPE));
+                apsResult.mPipelineName = (String) map.get(KEY_RESULT_PIPELINE_NAME);
+                apsResult.mIsLastVideoFrame = Integer.parseInt((String) map.get(KEY_RESULT_IS_LASTVIDEOFRAME));
+                apsResult.mIsStartInterpolationFrame = Integer.parseInt((String) map.get(KEY_RESULT_IS_START_INTERPOLATION_FRAME));
+                apsResult.mIsMotionDetected = Integer.parseInt((String) map.get(KEY_RESULT_IS_MOTION_DETECTED));
+                apsResult.mbNeedDetach = Boolean.parseBoolean((String) map.get(KEY_RESULT_IS_NEED_DETACH));
+                apsResult.mbHeifProcessInAps = Boolean.parseBoolean((String) map.get(KEY_RESULT_HEIF_PROCESS_APS));
+                apsResult.mApsInitFinish = (String) map.get(KEY_RESULT_APS_INIT_FINISH);
+                apsResult.mFrameId = Integer.parseInt((String) map.get(KEY_RESULT_FRAME_ID));
+                if (map.containsKey(KEY_RESULT_NOISE_REDUCTION_STRENGTH)) {
+                    apsResult.mNoiseReductionStrength = Integer.parseInt((String) map.get(KEY_RESULT_NOISE_REDUCTION_STRENGTH));
                 }
-                if (hashMap.containsKey(KEY_RESULT_REF_TIMESTAMP)) {
-                    apsResult.mRefTimestamp = Long.parseLong((String) hashMap.get(KEY_RESULT_REF_TIMESTAMP));
+                if (map.containsKey(KEY_RESULT_REF_TIMESTAMP)) {
+                    apsResult.mRefTimestamp = Long.parseLong((String) map.get(KEY_RESULT_REF_TIMESTAMP));
                 }
-                if (hashMap.containsKey(KEY_PREVIEW_ERROR_CODE)) {
-                    apsResult.mPreviewErrorCode = (String) hashMap.get(KEY_PREVIEW_ERROR_CODE);
+                if (map.containsKey(KEY_PREVIEW_ERROR_CODE)) {
+                    apsResult.mPreviewErrorCode = (String) map.get(KEY_PREVIEW_ERROR_CODE);
                 }
-                if (hashMap.containsKey(KEY_CAPTURE_ERROR_CODE)) {
-                    apsResult.mCaptureErrorCode = (String) hashMap.get(KEY_CAPTURE_ERROR_CODE);
+                if (map.containsKey(KEY_CAPTURE_ERROR_CODE)) {
+                    apsResult.mCaptureErrorCode = (String) map.get(KEY_CAPTURE_ERROR_CODE);
                 }
-                if (hashMap.containsKey(KEY_RESULT_MESH_PTR)) {
-                    apsResult.mMeshPtr = Long.parseLong((String) hashMap.get(KEY_RESULT_MESH_PTR));
+                if (map.containsKey(KEY_RESULT_MESH_PTR)) {
+                    apsResult.mMeshPtr = Long.parseLong((String) map.get(KEY_RESULT_MESH_PTR));
                 }
-                if (hashMap.containsKey(KEY_APS_PROC_TIMES)) {
-                    String[] split = ((String) hashMap.get(KEY_APS_PROC_TIMES)).split(CameraConstant.JSON_CONNECTOR_COMMA);
-                    apsResult.mProcTimes = new HashMap<>(split.length);
-                    for (String str : split) {
-                        String[] split2 = str.split(":");
-                        if (split2.length == 2) {
+                if (map.containsKey(KEY_APS_PROC_TIMES)) {
+                    String[] strArrSplit = ((String) map.get(KEY_APS_PROC_TIMES)).split(CameraConstant.JSON_CONNECTOR_COMMA);
+                    apsResult.mProcTimes = new HashMap<>(strArrSplit.length);
+                    for (String str : strArrSplit) {
+                        String[] strArrSplit2 = str.split(":");
+                        if (strArrSplit2.length == 2) {
                             try {
-                                apsResult.mProcTimes.put(split2[0], Long.valueOf(Long.parseLong(split2[1])));
+                                apsResult.mProcTimes.put(strArrSplit2[0], Long.valueOf(Long.parseLong(strArrSplit2[1])));
                             } catch (NumberFormatException e) {
                                 e.printStackTrace();
                             }
@@ -823,286 +756,286 @@ public class APSClient {
                 if (2 == apsResult.mMessageType && (("pipeline_default".equals(apsResult.mPipelineName) || "pipeline_preview".equals(apsResult.mPipelineName)) && (-1 == apsResult.mRefTimestamp || 0 == apsResult.mRefTimestamp))) {
                     try {
                         ApsAdapterDecision.DecisionResult decisionResult = new ApsAdapterDecision.DecisionResult();
-                        String str2 = (String) hashMap.get(KEY_DECISION_CAMERAID);
+                        String str2 = (String) map.get(KEY_DECISION_CAMERAID);
                         if (str2 != null) {
                             decisionResult.mCameraId = Integer.parseInt(str2);
                         }
-                        String str3 = (String) hashMap.get(KEY_DECISION_CAPTURE_MODE);
+                        String str3 = (String) map.get(KEY_DECISION_CAPTURE_MODE);
                         if (str3 != null) {
                             decisionResult.mCaptureMode = str3;
                         }
-                        String str4 = (String) hashMap.get(KEY_DECISION_REQUEST_FORMAT);
+                        String str4 = (String) map.get(KEY_DECISION_REQUEST_FORMAT);
                         if (str4 != null) {
                             decisionResult.mRequestFormat = Integer.parseInt(str4);
                         }
-                        String str5 = (String) hashMap.get(KEY_DECISION_MULTI_FRAME_CNT);
+                        String str5 = (String) map.get(KEY_DECISION_MULTI_FRAME_CNT);
                         if (str5 != null) {
                             decisionResult.mMultiFrameCount = Integer.parseInt(str5);
                         }
-                        String str6 = (String) hashMap.get(KEY_DECISION_THUMBNAIL_INDEX);
+                        String str6 = (String) map.get(KEY_DECISION_THUMBNAIL_INDEX);
                         if (str6 != null) {
                             decisionResult.mThumbnailIndex = Integer.parseInt(str6);
                         }
-                        String str7 = (String) hashMap.get(KEY_DECISION_META_INDEX);
+                        String str7 = (String) map.get(KEY_DECISION_META_INDEX);
                         if (str7 != null) {
                             decisionResult.mMetaIndex = Integer.parseInt(str7);
                         }
-                        String str8 = (String) hashMap.get(KEY_DECISION_SUPERNIGHT_SCENE);
+                        String str8 = (String) map.get(KEY_DECISION_SUPERNIGHT_SCENE);
                         if (str8 != null) {
                             decisionResult.mSuperNightScene = Integer.parseInt(str8);
                         }
-                        String str9 = (String) hashMap.get(KEY_DECISION_TURBORAW_SCENE);
+                        String str9 = (String) map.get(KEY_DECISION_TURBORAW_SCENE);
                         if (str9 != null) {
                             decisionResult.mTurboRawScene = Integer.parseInt(str9);
                         }
-                        String str10 = (String) hashMap.get(KEY_DECISION_NIGHT_TOTAL_EXP);
+                        String str10 = (String) map.get(KEY_DECISION_NIGHT_TOTAL_EXP);
                         if (str10 != null) {
                             decisionResult.mNightTotalExpTime = Integer.parseInt(str10);
                         }
-                        String str11 = (String) hashMap.get(KEY_DECISION_OFFLINE_NIGHT_EXP_TIME);
+                        String str11 = (String) map.get(KEY_DECISION_OFFLINE_NIGHT_EXP_TIME);
                         if (str11 != null) {
                             decisionResult.mOfflineNightExpTime = Integer.parseInt(str11);
                         }
-                        String str12 = (String) hashMap.get(KEY_DECISION_OFFLINE_NIGHT_SHUTTER_WAIT_TIME);
+                        String str12 = (String) map.get(KEY_DECISION_OFFLINE_NIGHT_SHUTTER_WAIT_TIME);
                         if (str12 != null) {
                             decisionResult.mOfflineNightShutterWaitTime = Integer.parseInt(str12);
                         }
-                        String str13 = (String) hashMap.get(KEY_DECISION_THERMAL_ALGO_MASK);
+                        String str13 = (String) map.get(KEY_DECISION_THERMAL_ALGO_MASK);
                         if (str13 != null) {
                             decisionResult.mThermalAlgoMask = Integer.parseInt(str13);
                         }
-                        String str14 = (String) hashMap.get(KEY_DECISION_SCENE_MODE);
+                        String str14 = (String) map.get(KEY_DECISION_SCENE_MODE);
                         if (str14 != null) {
                             decisionResult.mApsDecisionSceneMode = Integer.parseInt(str14);
                         }
-                        String str15 = (String) hashMap.get(KEY_DECISION_SHOW_HDR_ICON);
+                        String str15 = (String) map.get(KEY_DECISION_SHOW_HDR_ICON);
                         if (str15 != null) {
                             decisionResult.mApsDecisionShowHdrIcon = Integer.parseInt(str15);
                         }
-                        String str16 = (String) hashMap.get(KEY_DECISION_CAPTURE_INTERVAL);
+                        String str16 = (String) map.get(KEY_DECISION_CAPTURE_INTERVAL);
                         if (str16 != null) {
                             decisionResult.mApsDecisionCaptureInterval = Integer.parseInt(str16);
                         }
-                        String str17 = (String) hashMap.get(KEY_DECISION_FEATURE_TYPE);
+                        String str17 = (String) map.get(KEY_DECISION_FEATURE_TYPE);
                         if (str17 != null) {
                             decisionResult.mApsDecisionFeatureType = Integer.parseInt(str17);
                         }
-                        String str18 = (String) hashMap.get(KEY_DECISION_ASD_MOVING_OBJECT);
+                        String str18 = (String) map.get(KEY_DECISION_ASD_MOVING_OBJECT);
                         if (str18 != null) {
                             decisionResult.mAsdMovingObject = Integer.parseInt(str18);
                         }
-                        String str19 = (String) hashMap.get(KEY_DECISION_ALGO_LIST);
+                        String str19 = (String) map.get(KEY_DECISION_ALGO_LIST);
                         if (str19 != null) {
                             decisionResult.mApsAlgoFlag = str19.split(CameraConstant.JSON_CONNECTOR_COMMA);
                         }
-                        String str20 = (String) hashMap.get(KEY_DECISION_EV_LIST);
+                        String str20 = (String) map.get(KEY_DECISION_EV_LIST);
                         if (str20 != null) {
                             decisionResult.mCaptureEVList = StringToInt(str20.split(CameraConstant.JSON_CONNECTOR_COMMA));
                         }
-                        String str21 = (String) hashMap.get(KEY_DECISION_ET_LIST);
+                        String str21 = (String) map.get(KEY_DECISION_ET_LIST);
                         if (str21 != null) {
                             decisionResult.mCaptureETList = StringToLong(str21.split(CameraConstant.JSON_CONNECTOR_COMMA));
                         }
-                        String str22 = (String) hashMap.get(KEY_DECISION_SENSORMASK);
+                        String str22 = (String) map.get(KEY_DECISION_SENSORMASK);
                         if (str22 != null) {
                             decisionResult.mSensorMask = StringToInt(str22.split(CameraConstant.JSON_CONNECTOR_COMMA));
                         }
-                        String str23 = (String) hashMap.get(KEY_DECISION_MASTER_PIPELINE);
+                        String str23 = (String) map.get(KEY_DECISION_MASTER_PIPELINE);
                         if (str23 != null) {
                             decisionResult.mMasterPipeline = Integer.parseInt(str23);
                         }
-                        String str24 = (String) hashMap.get(KEY_DECISION_SENSOR_MODE);
+                        String str24 = (String) map.get(KEY_DECISION_SENSOR_MODE);
                         if (str24 != null) {
                             decisionResult.mPreviewSensorMode = Integer.parseInt(str24);
                         }
-                        String str25 = (String) hashMap.get(KEY_DECISION_BRACKET_MODE);
+                        String str25 = (String) map.get(KEY_DECISION_BRACKET_MODE);
                         if (str25 != null) {
                             decisionResult.mApsBracketMode = Integer.parseInt(str25);
                         }
-                        String str26 = (String) hashMap.get(KEY_DECISION_MFSR_FRAME_CNT);
+                        String str26 = (String) map.get(KEY_DECISION_MFSR_FRAME_CNT);
                         if (str26 != null) {
                             decisionResult.mMFSRFrameCount = Integer.parseInt(str26);
                         }
-                        String str27 = (String) hashMap.get(KEY_DECISION_SEQUENCE_ID);
+                        String str27 = (String) map.get(KEY_DECISION_SEQUENCE_ID);
                         if (str27 != null) {
                             decisionResult.mSequenceId = Integer.parseInt(str27);
                         }
-                        String str28 = (String) hashMap.get(KEY_DECISION_SPECIFIC_PROCESS_ALGO);
+                        String str28 = (String) map.get(KEY_DECISION_SPECIFIC_PROCESS_ALGO);
                         if (str28 != null) {
                             decisionResult.mSpecificProcessAlgo = Integer.parseInt(str28);
                         }
-                        String str29 = (String) hashMap.get(KEY_DRAWTEXT_BRACKET_MODE);
+                        String str29 = (String) map.get(KEY_DRAWTEXT_BRACKET_MODE);
                         if (str29 != null) {
                             decisionResult.mDrawTextBracketMode = str29;
                         }
-                        String str30 = (String) hashMap.get(KEY_DRAWTEXT_SCENE_MODE);
+                        String str30 = (String) map.get(KEY_DRAWTEXT_SCENE_MODE);
                         if (str30 != null) {
                             decisionResult.mDrawTextSceneMode = str30;
                         }
-                        String str31 = (String) hashMap.get(KEY_DRAWTEXT_FEATURE_TYPE);
+                        String str31 = (String) map.get(KEY_DRAWTEXT_FEATURE_TYPE);
                         if (str31 != null) {
                             decisionResult.mDrawTextFeatureType = str31;
                         }
-                        String str32 = (String) hashMap.get(KEY_DRAWTEXT_HDR_TYPE);
+                        String str32 = (String) map.get(KEY_DRAWTEXT_HDR_TYPE);
                         if (str32 != null) {
                             decisionResult.mDrawTextHdrType = str32;
                         }
-                        String str33 = (String) hashMap.get("preview_asd");
+                        String str33 = (String) map.get("preview_asd");
                         if (str33 != null) {
                             decisionResult.mPreviewASD = str33;
                         }
-                        String str34 = (String) hashMap.get(KEY_PREVIEW_ANTIBANDING);
+                        String str34 = (String) map.get(KEY_PREVIEW_ANTIBANDING);
                         if (str34 != null) {
                             decisionResult.mPreViewAntiBanding = str34;
                         }
-                        String str35 = (String) hashMap.get("preview_rectify");
+                        String str35 = (String) map.get("preview_rectify");
                         if (str35 != null) {
                             decisionResult.mPreviewRectify = str35;
                         }
-                        String str36 = (String) hashMap.get("preview_pf");
+                        String str36 = (String) map.get("preview_pf");
                         if (str36 != null) {
                             decisionResult.mPreviewPF = str36;
                         }
-                        String str37 = (String) hashMap.get(KEY_PREVIEW_LSD);
+                        String str37 = (String) map.get(KEY_PREVIEW_LSD);
                         if (str37 != null) {
                             decisionResult.mPreviewLSD = str37;
                         }
-                        String str38 = (String) hashMap.get("preview_rtb");
+                        String str38 = (String) map.get("preview_rtb");
                         if (str38 != null) {
                             decisionResult.mPreviewRTB = str38;
                         }
-                        String str39 = (String) hashMap.get(KEY_PREVIEW_AICOLOR);
+                        String str39 = (String) map.get(KEY_PREVIEW_AICOLOR);
                         if (str39 != null) {
                             decisionResult.mPreviewAiColor = str39;
                         }
-                        String str40 = (String) hashMap.get(KEY_PREVIEW_VIDEO_HYPERLAPSE);
+                        String str40 = (String) map.get(KEY_PREVIEW_VIDEO_HYPERLAPSE);
                         if (str40 != null) {
                             decisionResult.mPreviewVideoHyperLapse = str40;
                         }
-                        String str41 = (String) hashMap.get(KEY_ALGO_VISUALIZATION_KEY);
+                        String str41 = (String) map.get(KEY_ALGO_VISUALIZATION_KEY);
                         if (str41 != null) {
                             decisionResult.mAlgoVisualizationKey = str41;
                         }
-                        String str42 = (String) hashMap.get(KEY_ALGO_VISUALIZATION_VALUE);
+                        String str42 = (String) map.get(KEY_ALGO_VISUALIZATION_VALUE);
                         if (str42 != null) {
                             decisionResult.mAlgoVisualizationValue = str42;
                         }
-                        String str43 = (String) hashMap.get(KEY_DECISION_MFSR_FRAME_CNT);
+                        String str43 = (String) map.get(KEY_DECISION_MFSR_FRAME_CNT);
                         if (str43 != null) {
                             decisionResult.mMFSRFrameCount = Integer.parseInt(str43);
                         }
-                        String str44 = (String) hashMap.get(KEY_DECISION_PRECOLLECT_FRAME_CNT);
+                        String str44 = (String) map.get(KEY_DECISION_PRECOLLECT_FRAME_CNT);
                         if (str44 != null) {
                             decisionResult.mPreCollectFrameCount = Integer.parseInt(str44);
                         }
-                        String str45 = (String) hashMap.get(KEY_DECISION_ZOOM_FEATURE);
+                        String str45 = (String) map.get(KEY_DECISION_ZOOM_FEATURE);
                         if (str45 != null) {
                             decisionResult.mSupportCaptureZoomFeature = Integer.parseInt(str45);
                         }
-                        String str46 = (String) hashMap.get(KEY_DECISION_AISHUTTER_ENABLE);
+                        String str46 = (String) map.get(KEY_DECISION_AISHUTTER_ENABLE);
                         if (str46 != null) {
                             decisionResult.mbAIShutter = Boolean.parseBoolean(str46);
                         }
-                        String str47 = (String) hashMap.get(KEY_DECISION_REQUEST_MIXED_FORMAT);
+                        String str47 = (String) map.get(KEY_DECISION_REQUEST_MIXED_FORMAT);
                         if (str47 != null) {
                             decisionResult.mbRequestMixedFormat = Boolean.parseBoolean(str47);
                         }
-                        String str48 = (String) hashMap.get(KEY_DECISION_HDR_BRIGHTEN_INDEX);
+                        String str48 = (String) map.get(KEY_DECISION_HDR_BRIGHTEN_INDEX);
                         if (str48 != null) {
                             decisionResult.mHdrBrightenIndex = Integer.parseInt(str48);
                         }
-                        String str49 = (String) hashMap.get(KEY_DECISION_CAPTURE_NO_NEED_MATCH_META);
+                        String str49 = (String) map.get(KEY_DECISION_CAPTURE_NO_NEED_MATCH_META);
                         if (str49 != null) {
                             decisionResult.mCaptureNoNeedMatchMeta = Integer.parseInt(str49);
                         }
-                        String str50 = (String) hashMap.get(KEY_DECISION_AIS_STATE);
+                        String str50 = (String) map.get(KEY_DECISION_AIS_STATE);
                         if (str50 != null) {
                             decisionResult.mAISState = Integer.parseInt(str50);
                         }
-                        String str51 = (String) hashMap.get(KEY_DECISION_CAPTURE_INTENT);
+                        String str51 = (String) map.get(KEY_DECISION_CAPTURE_INTENT);
                         if (str51 != null) {
                             decisionResult.mCaptureIntent = Integer.parseInt(str51);
                         }
-                        String str52 = (String) hashMap.get(KEY_DECISION_CAPTURE_SURFACE);
+                        String str52 = (String) map.get(KEY_DECISION_CAPTURE_SURFACE);
                         if (str52 != null) {
                             decisionResult.mCaptureSurface = Integer.parseInt(str52);
                         }
-                        String str53 = (String) hashMap.get(KEY_DECISION_QUICK_JPEG);
+                        String str53 = (String) map.get(KEY_DECISION_QUICK_JPEG);
                         if (str53 != null) {
                             decisionResult.mSupportQuickJpeg = Integer.parseInt(str53);
                         }
-                        String str54 = (String) hashMap.get(KEY_DECISION_PORTRAIT_HDR_TYPE);
+                        String str54 = (String) map.get(KEY_DECISION_PORTRAIT_HDR_TYPE);
                         if (str54 != null) {
                             decisionResult.mPortraitHdrType = str54;
                         }
-                        String str55 = (String) hashMap.get(KEY_DECISION_PORTRAIT_HDR_TYPE);
+                        String str55 = (String) map.get(KEY_DECISION_PORTRAIT_HDR_TYPE);
                         if (str55 != null) {
                             decisionResult.mPortraitHdrType = str55;
                         }
-                        String str56 = (String) hashMap.get(KEY_DECISION_BURST_CAPTURE_ALGO_LIST);
+                        String str56 = (String) map.get(KEY_DECISION_BURST_CAPTURE_ALGO_LIST);
                         if (str56 != null) {
                             decisionResult.mApsBurstCaptureAlgoList = str56.split(CameraConstant.JSON_CONNECTOR_COMMA);
                         }
-                        String str57 = (String) hashMap.get(KEY_PREVIEW_DECISION_FORMAT_LIST);
+                        String str57 = (String) map.get(KEY_PREVIEW_DECISION_FORMAT_LIST);
                         if (str57 != null) {
-                            String[] split3 = str57.split(CameraConstant.JSON_CONNECTOR_COMMA);
-                            decisionResult.mRequestFormatList = new int[split3.length];
-                            for (int i2 = 0; i2 < split3.length; i2++) {
-                                decisionResult.mRequestFormatList[i2] = Integer.parseInt(split3[i2]);
+                            String[] strArrSplit3 = str57.split(CameraConstant.JSON_CONNECTOR_COMMA);
+                            decisionResult.mRequestFormatList = new int[strArrSplit3.length];
+                            for (int i2 = 0; i2 < strArrSplit3.length; i2++) {
+                                decisionResult.mRequestFormatList[i2] = Integer.parseInt(strArrSplit3[i2]);
                             }
                         }
-                        String str58 = (String) hashMap.get(KEY_DECISION_HDR_STATE);
+                        String str58 = (String) map.get(KEY_DECISION_HDR_STATE);
                         if (str58 != null) {
                             decisionResult.mHDRState = str58;
                         }
-                        String str59 = (String) hashMap.get(KEY_DECISION_TRIGGER_NIGHT_SE);
+                        String str59 = (String) map.get(KEY_DECISION_TRIGGER_NIGHT_SE);
                         if (str59 != null) {
                             decisionResult.mTriggerNightSe = Integer.parseInt(str59);
                         }
-                        String str60 = (String) hashMap.get(KEY_AUTO_TRANSMIT_BY_UNIT);
+                        String str60 = (String) map.get(KEY_AUTO_TRANSMIT_BY_UNIT);
                         if (str60 != null) {
                             decisionResult.mAutoTransmitStr = str60;
                         }
-                        String str61 = (String) hashMap.get(KEY_DECISION_IS_SWITCH_ALGO);
+                        String str61 = (String) map.get(KEY_DECISION_IS_SWITCH_ALGO);
                         if (str61 != null) {
                             decisionResult.mSwitchAlgoFlag = Integer.parseInt(str61);
                         }
-                        String str62 = (String) hashMap.get(KEY_DECISION_SWITCH_BEFORE_ALGO);
+                        String str62 = (String) map.get(KEY_DECISION_SWITCH_BEFORE_ALGO);
                         if (str62 != null) {
                             decisionResult.mBeforeAlgoFeatureType = Integer.parseInt(str62);
                         }
-                        String str63 = (String) hashMap.get(KEY_DECISION_SWITCH_CURRENT_ALGO);
+                        String str63 = (String) map.get(KEY_DECISION_SWITCH_CURRENT_ALGO);
                         if (str63 != null) {
                             decisionResult.mCurrentAlgoFeatureType = Integer.parseInt(str63);
                         }
-                        String str64 = (String) hashMap.get(KEY_DECISION_CAPTURE_TURBORAW_CNT);
+                        String str64 = (String) map.get(KEY_DECISION_CAPTURE_TURBORAW_CNT);
                         if (str64 != null) {
                             decisionResult.mCaptureTurborawCnt = Integer.parseInt(str64);
                         }
-                        String str65 = (String) hashMap.get(KEY_DECISION_CAPTURE_MFNR_CNT);
+                        String str65 = (String) map.get(KEY_DECISION_CAPTURE_MFNR_CNT);
                         if (str65 != null) {
                             decisionResult.mCaptureMFNRCnt = Integer.parseInt(str65);
                         }
-                        String str66 = (String) hashMap.get(KEY_DECISION_IS_COUNTER_RESET);
+                        String str66 = (String) map.get(KEY_DECISION_IS_COUNTER_RESET);
                         if (str66 != null) {
                             decisionResult.mIsCounterRest = Integer.parseInt(str66);
                         }
-                        String str67 = (String) hashMap.get(KEY_DECISION_SWITCH_CAUSE);
+                        String str67 = (String) map.get(KEY_DECISION_SWITCH_CAUSE);
                         if (str67 != null) {
                             decisionResult.mSwitchCause = Integer.parseInt(str67);
                         }
-                        String str68 = (String) hashMap.get(KEY_DECISION_IS_HDR_FUSION);
+                        String str68 = (String) map.get(KEY_DECISION_IS_HDR_FUSION);
                         if (str68 != null) {
                             decisionResult.mIsHdrFusion = Integer.parseInt(str68);
                         }
-                        String str69 = (String) hashMap.get(KEY_DECISION_IS_MOTION_SCENE);
+                        String str69 = (String) map.get(KEY_DECISION_IS_MOTION_SCENE);
                         if (str69 != null) {
                             decisionResult.mIsMotionScene = Integer.parseInt(str69);
                         }
                         apsResult.mDecisionResult = decisionResult;
                         apsResult.mMetaImageRefCounter = aPSClient.mMetaImageRefCounter;
                     } catch (Exception e2) {
-                        ApsAdapterLog.e(TAG, hashMap.toString());
+                        ApsAdapterLog.e(TAG, map.toString());
                         ApsAdapterLog.e(TAG, Arrays.toString(apsResult.mResultString));
                         e2.printStackTrace();
                         throw new RuntimeException(e2);
@@ -1121,9 +1054,9 @@ public class APSClient {
             }
         }
         if (2 == apsResult.mMessageType) {
-            long currentTimeMillis = System.currentTimeMillis();
-            if (currentTimeMillis - sLogInterval > StatisticsManager.DELAY_TIME_3S) {
-                sLogInterval = currentTimeMillis;
+            long jCurrentTimeMillis = System.currentTimeMillis();
+            if (jCurrentTimeMillis - sLogInterval > StatisticsManager.DELAY_TIME_3S) {
+                sLogInterval = jCurrentTimeMillis;
                 dumpApsCallbackInfos(apsResult);
             }
         } else {
@@ -1134,7 +1067,9 @@ public class APSClient {
             ApsAdapterLog.traceBegin("postEventFromNative, timestamp: " + j, "54pv_postEventFromNative", j);
             aPSClient.mBufferCallback.onPreviewCallback(apsResult);
             ApsAdapterLog.traceEnd("postEventFromNative, timestamp: " + j, "54pv_postEventFromNative");
-        } else if (aPSClient.mEventHandler != null) {
+            return;
+        }
+        if (aPSClient.mEventHandler != null) {
             aPSClient.mEventHandler.sendMessage(aPSClient.mEventHandler.obtainMessage(apsResult.mMessageType, apsResult));
         }
     }
@@ -1143,7 +1078,6 @@ public class APSClient {
         ApsAdapterLog.d(TAG, "dumpApsCallbackInfos, result: " + apsResult.toString());
     }
 
-    /* loaded from: classes.dex */
     private class EventHandler extends Handler {
         public EventHandler(Looper looper) {
             super(looper);
@@ -1154,22 +1088,24 @@ public class APSClient {
             ApsAdapterLog.d(APSClient.TAG, "handleMessage, type: " + message.what + ", mBufferCallback: " + APSClient.this.mBufferCallback);
             if (APSClient.this.mBufferCallback == null) {
                 ApsAdapterLog.e(APSClient.TAG, "handleMessage, mBufferCallback is null");
-            } else if (message.obj == null) {
-                ApsAdapterLog.e(APSClient.TAG, "handleMessage, msg object is null, return");
-            } else {
-                ApsResult apsResult = (ApsResult) message.obj;
-                int i = message.what;
-                if (i != 1) {
-                    if (i == 255) {
-                        APSClient.this.mBufferCallback.onServiceDied();
-                        return;
-                    } else if (i != 3 && i != 4) {
-                        ApsAdapterLog.e(APSClient.TAG, "handleMessage, the message type is error, please check, return");
-                        return;
-                    }
-                }
-                APSClient.this.mBufferCallback.onCaptureCallback(apsResult);
+                return;
             }
+            if (message.obj == null) {
+                ApsAdapterLog.e(APSClient.TAG, "handleMessage, msg object is null, return");
+                return;
+            }
+            ApsResult apsResult = (ApsResult) message.obj;
+            int i = message.what;
+            if (i != 1) {
+                if (i == 255) {
+                    APSClient.this.mBufferCallback.onServiceDied();
+                    return;
+                } else if (i != 3 && i != 4) {
+                    ApsAdapterLog.e(APSClient.TAG, "handleMessage, the message type is error, please check, return");
+                    return;
+                }
+            }
+            APSClient.this.mBufferCallback.onCaptureCallback(apsResult);
         }
     }
 
@@ -1196,7 +1132,6 @@ public class APSClient {
         this.mHeifCodecCallback.setHeicProcessInApp(z);
     }
 
-    /* loaded from: classes.dex */
     public static class ApsObjectsInfo {
         private Object[] mObjects = null;
         private String[] mObjInfo = null;
@@ -1280,24 +1215,24 @@ public class APSClient {
                 apsParameters.set(KEY_PREVIEWCFG_IS_SEPARATE_VIDEO, Integer.toString(previewConfig.mIsSeparateStreamForPrevAndVideo));
                 apsParameters.set(KEY_PREVIEWCFG_NUM_COMPONENT, Integer.toString(previewConfig.mComponentMap.size()));
                 for (int i = 0; i < previewConfig.mComponentMap.size(); i++) {
-                    AlgoSwitchConfig.PreviewConfig.Component valueAt = previewConfig.mComponentMap.valueAt(i);
+                    AlgoSwitchConfig.PreviewConfig.Component componentValueAt = previewConfig.mComponentMap.valueAt(i);
                     apsParameters.set(KEY_PREVIEWCFG_COMP_NAME + i, previewConfig.mComponentMap.keyAt(i));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_ENABLE + i, Boolean.toString(valueAt.mbEnable));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_MASTETWIDTH + i, Integer.toString(valueAt.mMasterInputWidth));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_MASTETHEIGHT + i, Integer.toString(valueAt.mMasterInputHeight));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_SLAVEWIDTH + i, Integer.toString(valueAt.mSlaveInputWidth));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_SLAVEHEIGHT + i, Integer.toString(valueAt.mSlaveInputHeight));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_THIRDWIDTH + i, Integer.toString(valueAt.mThirdInputWidth));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_THIRDHEIGHT + i, Integer.toString(valueAt.mThirdInputHeight));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_OUTPUTWIDTH + i, Integer.toString(valueAt.mOutputWidth));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_OUTPUTHEIGHT + i, Integer.toString(valueAt.mOutputHeight));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_SKIP_CNT + i, Integer.toString(valueAt.mFrameSkipCnt));
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_PIPELINE_COPYFROM + i, valueAt.mPipelineCopyFrom);
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_ALGONODE_COPYFROM + i, valueAt.mAlgoNodeCopyFrom);
-                    apsParameters.set(KEY_PREVIEWCFG_COMP_ALGOLIST + i, Arrays.toString(valueAt.mAlgoList).replace('[', ' ').replace(']', ' '));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_ENABLE + i, Boolean.toString(componentValueAt.mbEnable));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_MASTETWIDTH + i, Integer.toString(componentValueAt.mMasterInputWidth));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_MASTETHEIGHT + i, Integer.toString(componentValueAt.mMasterInputHeight));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_SLAVEWIDTH + i, Integer.toString(componentValueAt.mSlaveInputWidth));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_SLAVEHEIGHT + i, Integer.toString(componentValueAt.mSlaveInputHeight));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_THIRDWIDTH + i, Integer.toString(componentValueAt.mThirdInputWidth));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_THIRDHEIGHT + i, Integer.toString(componentValueAt.mThirdInputHeight));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_OUTPUTWIDTH + i, Integer.toString(componentValueAt.mOutputWidth));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_OUTPUTHEIGHT + i, Integer.toString(componentValueAt.mOutputHeight));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_SKIP_CNT + i, Integer.toString(componentValueAt.mFrameSkipCnt));
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_PIPELINE_COPYFROM + i, componentValueAt.mPipelineCopyFrom);
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_ALGONODE_COPYFROM + i, componentValueAt.mAlgoNodeCopyFrom);
+                    apsParameters.set(KEY_PREVIEWCFG_COMP_ALGOLIST + i, Arrays.toString(componentValueAt.mAlgoList).replace('[', ' ').replace(']', ' '));
                 }
             }
-            String[] mergeArrays = mergeArrays(strArr, apsParameters.getParameters());
+            String[] strArrMergeArrays = mergeArrays(strArr, apsParameters.getParameters());
             if (apsInitParameter.mApsModule == 2) {
                 this.mCaptureApsParameters = apsParameters;
                 this.mCaptureInitParams = strArr;
@@ -1305,32 +1240,32 @@ public class APSClient {
             String[] objInfo = apsObjectsInfo.getObjInfo();
             Object[] objects = apsObjectsInfo.getObjects();
             if (this.mbAPSClientJNICmdVersion) {
-                return this.mAPSClientWrapper.algoInit(objInfo, objects, mergeArrays, apsInitParameter.mVendorTags);
+                return this.mAPSClientWrapper.algoInit(objInfo, objects, strArrMergeArrays, apsInitParameter.mVendorTags);
             }
-            return algoInit(objInfo, objects, mergeArrays, apsInitParameter.mVendorTags);
+            return algoInit(objInfo, objects, strArrMergeArrays, apsInitParameter.mVendorTags);
         }
         return algoInit(apsInitParameter, null);
     }
 
     public int startCapture(ApsParameters apsParameters) {
-        String[] strArr;
+        String[] parameters;
         ApsParameters apsParameters2 = this.mCaptureApsParameters;
         if (apsParameters2 != null) {
             apsParameters2.remove(KEY_CAPTURE_ALGO_LIST);
-            strArr = this.mCaptureApsParameters.getParameters();
+            parameters = this.mCaptureApsParameters.getParameters();
         } else {
             ApsAdapterLog.e(TAG, "mCaptureApsParameters is null");
-            strArr = null;
+            parameters = null;
         }
         if (!this.mbAPSClientJNICmdVersion) {
             apsParameters.set(KEY_PROCESS_TYPE, Integer.toString(14));
         }
-        String[] mergeArrays = mergeArrays(mergeArrays(this.mCaptureInitParams, strArr), apsParameters.getParameters());
-        ApsAdapterLog.i(TAG, "startCapture, mergeParams: " + Arrays.toString(mergeArrays));
+        String[] strArrMergeArrays = mergeArrays(mergeArrays(this.mCaptureInitParams, parameters), apsParameters.getParameters());
+        ApsAdapterLog.i(TAG, "startCapture, mergeParams: " + Arrays.toString(strArrMergeArrays));
         if (this.mbAPSClientJNICmdVersion) {
-            return this.mAPSClientWrapper.startCapture(mergeArrays);
+            return this.mAPSClientWrapper.startCapture(strArrMergeArrays);
         }
-        return setParameters(null, null, mergeArrays);
+        return setParameters(null, null, strArrMergeArrays);
     }
 
     public int beforeCapture(ApsParameters apsParameters) {
@@ -1342,7 +1277,7 @@ public class APSClient {
     }
 
     public int addFrameBuff(ApsCaptureParam apsCaptureParam, String[] strArr, String[] strArr2, ApsWatermarkParam apsWatermarkParam) {
-        int addFrameBuff;
+        int iAddFrameBuff;
         String[] cropSize;
         if (this.mbNewJniVersion) {
             ApsParameters apsParameters = new ApsParameters();
@@ -1407,27 +1342,27 @@ public class APSClient {
             }
             String[] objInfo = apsObjectsInfo.getObjInfo();
             Object[] objects = apsObjectsInfo.getObjects();
-            String[] mergeArrays = mergeArrays(strArr, apsParameters.getParameters());
-            ApsAdapterLog.e(TAG, "addFrameBuff, objInfo: " + Arrays.toString(objInfo) + ", objects: " + Arrays.toString(objects) + ", newParameters: " + Arrays.toString(mergeArrays));
+            String[] strArrMergeArrays = mergeArrays(strArr, apsParameters.getParameters());
+            ApsAdapterLog.e(TAG, "addFrameBuff, objInfo: " + Arrays.toString(objInfo) + ", objects: " + Arrays.toString(objects) + ", newParameters: " + Arrays.toString(strArrMergeArrays));
             if (this.mbAPSClientJNICmdVersion) {
-                addFrameBuff = this.mAPSClientWrapper.addFrameBuff(objInfo, objects, mergeArrays);
+                iAddFrameBuff = this.mAPSClientWrapper.addFrameBuff(objInfo, objects, strArrMergeArrays);
             } else {
-                addFrameBuff = addFrameBuff(objInfo, objects, mergeArrays);
+                iAddFrameBuff = addFrameBuff(objInfo, objects, strArrMergeArrays);
             }
-            if (apsCaptureParam.getMetaBuffer() != null) {
-                apsCaptureParam.getMetaBuffer().getHardwareBuffer().close();
-                this.mMetaImageRefCounter.setMetaImageRef(apsCaptureParam.getMetaBuffer().getImage(), null, false);
-                return addFrameBuff;
+            if (apsCaptureParam.getMetaBuffer() == null) {
+                return iAddFrameBuff;
             }
-            return addFrameBuff;
+            apsCaptureParam.getMetaBuffer().getHardwareBuffer().close();
+            this.mMetaImageRefCounter.setMetaImageRef(apsCaptureParam.getMetaBuffer().getImage(), null, false);
+            return iAddFrameBuff;
         }
         return addFrameBuff(apsCaptureParam, null);
     }
 
     public int processImages(String[] strArr, String[] strArr2, ApsWatermarkParam apsWatermarkParam) {
         Bitmap bitmap;
-        int processImages;
-        byte[] bArr = null;
+        int iProcessImages;
+        byte[] watermarkBuffer = null;
         if (this.mbNewJniVersion) {
             ApsParameters apsParameters = new ApsParameters();
             ApsAdapterLog.e(TAG, "CameraUnitTest, processImages");
@@ -1436,7 +1371,7 @@ public class APSClient {
                 apsParameters.set(KEY_WATERMARK_REF_WIDTH, String.valueOf(apsWatermarkParam.getRefWidth()));
                 apsParameters.set(KEY_WATERMARK_WIDTH, String.valueOf(apsWatermarkParam.getWatermarkWidth()));
                 apsParameters.set(KEY_WATERMARK_HEIGHT, String.valueOf(apsWatermarkParam.getWatermarkHeight()));
-                bArr = apsWatermarkParam.getWatermarkBuffer();
+                watermarkBuffer = apsWatermarkParam.getWatermarkBuffer();
                 bitmap = apsWatermarkParam.getBitmap();
                 ApsAdapterLog.v(TAG, "processImages, watermark: " + apsWatermarkParam.toString());
             } else {
@@ -1447,24 +1382,24 @@ public class APSClient {
                 apsParameters.set(KEY_CAPTURE_ALGO_LIST, Arrays.toString(strArr2).replace('[', ' ').replace(']', ' '));
             }
             ApsObjectsInfo apsObjectsInfo = new ApsObjectsInfo();
-            if (bArr != null) {
-                apsObjectsInfo.addObjInfo(KEY_WATERMARK_OBJ, bArr);
+            if (watermarkBuffer != null) {
+                apsObjectsInfo.addObjInfo(KEY_WATERMARK_OBJ, watermarkBuffer);
             }
             if (bitmap != null) {
                 apsObjectsInfo.addObjInfo(KEY_WATERMARK_BITMAP_OBJ, bitmap);
             }
             String[] objInfo = apsObjectsInfo.getObjInfo();
             Object[] objects = apsObjectsInfo.getObjects();
-            String[] mergeArrays = mergeArrays(apsParameters.getParameters(), strArr);
-            ApsAdapterLog.v(TAG, "processImages, objInfo: " + Arrays.toString(objInfo) + ", objects: " + Arrays.toString(objects) + ", processParameters: " + Arrays.toString(mergeArrays));
+            String[] strArrMergeArrays = mergeArrays(apsParameters.getParameters(), strArr);
+            ApsAdapterLog.v(TAG, "processImages, objInfo: " + Arrays.toString(objInfo) + ", objects: " + Arrays.toString(objects) + ", processParameters: " + Arrays.toString(strArrMergeArrays));
             this.mProcessImageConditionVariable.close();
             if (this.mbAPSClientJNICmdVersion) {
-                processImages = this.mAPSClientWrapper.processImages(objInfo, objects, mergeArrays, bArr);
+                iProcessImages = this.mAPSClientWrapper.processImages(objInfo, objects, strArrMergeArrays, watermarkBuffer);
             } else {
-                processImages = processImages(objInfo, objects, mergeArrays, bArr);
+                iProcessImages = processImages(objInfo, objects, strArrMergeArrays, watermarkBuffer);
             }
             this.mProcessImageConditionVariable.open();
-            return processImages;
+            return iProcessImages;
         }
         return processImages(strArr, strArr2, apsWatermarkParam, (Object) null);
     }
@@ -1480,7 +1415,7 @@ public class APSClient {
     }
 
     public ApsAdapterDecision.DecisionResult previewDecision(ApsPreviewDecisionParam apsPreviewDecisionParam) {
-        String[] previewDecision;
+        String[] strArrPreviewDecision;
         if (this.mbNewJniVersion) {
             ApsParameters apsParameters = new ApsParameters();
             apsParameters.set(KEY_MULTI_CAMERA_MODE, String.valueOf(apsPreviewDecisionParam.getMultiCameraMode()));
@@ -1506,100 +1441,100 @@ public class APSClient {
             String[] parameters = apsParameters.getParameters();
             ApsAdapterLog.v(TAG, "previewdecision, processParameters: " + Arrays.toString(parameters));
             if (this.mbAPSClientJNICmdVersion) {
-                previewDecision = this.mAPSClientWrapper.previewDecision(parameters, apsPreviewDecisionParam.getMetadata());
+                strArrPreviewDecision = this.mAPSClientWrapper.previewDecision(parameters, apsPreviewDecisionParam.getMetadata());
             } else {
-                previewDecision = previewDecision(apsPreviewDecisionParam, parameters, apsPreviewDecisionParam.getMetadata());
+                strArrPreviewDecision = previewDecision(apsPreviewDecisionParam, parameters, apsPreviewDecisionParam.getMetadata());
             }
-            ApsAdapterLog.v(TAG, "previewdecision, result: " + Arrays.toString(previewDecision));
-            if (previewDecision != null) {
-                HashMap hashMap = new HashMap(previewDecision.length / 2);
-                for (int i = 0; i < previewDecision.length - 1; i += 2) {
-                    hashMap.put(previewDecision[i], previewDecision[i + 1]);
-                }
-                ApsAdapterDecision.DecisionResult decisionResult = new ApsAdapterDecision.DecisionResult();
-                decisionResult.mCameraId = Integer.parseInt((String) hashMap.get(KEY_DECISION_CAMERAID));
-                decisionResult.mCaptureMode = (String) hashMap.get(KEY_DECISION_CAPTURE_MODE);
-                decisionResult.mRequestFormat = Integer.parseInt((String) hashMap.get(KEY_DECISION_REQUEST_FORMAT));
-                decisionResult.mMultiFrameCount = Integer.parseInt((String) hashMap.get(KEY_DECISION_MULTI_FRAME_CNT));
-                decisionResult.mThumbnailIndex = Integer.parseInt((String) hashMap.get(KEY_DECISION_THUMBNAIL_INDEX));
-                decisionResult.mMetaIndex = Integer.parseInt((String) hashMap.get(KEY_DECISION_META_INDEX));
-                decisionResult.mSuperNightScene = Integer.parseInt((String) hashMap.get(KEY_DECISION_SUPERNIGHT_SCENE));
-                decisionResult.mTurboRawScene = Integer.parseInt((String) hashMap.get(KEY_DECISION_TURBORAW_SCENE));
-                decisionResult.mNightTotalExpTime = Integer.parseInt((String) hashMap.get(KEY_DECISION_NIGHT_TOTAL_EXP));
-                decisionResult.mOfflineNightExpTime = Integer.parseInt((String) hashMap.get(KEY_DECISION_OFFLINE_NIGHT_EXP_TIME));
-                decisionResult.mOfflineNightShutterWaitTime = Integer.parseInt((String) hashMap.get(KEY_DECISION_OFFLINE_NIGHT_SHUTTER_WAIT_TIME));
-                decisionResult.mApsDecisionSceneMode = Integer.parseInt((String) hashMap.get(KEY_DECISION_SCENE_MODE));
-                decisionResult.mApsDecisionFeatureType = Integer.parseInt((String) hashMap.get(KEY_DECISION_FEATURE_TYPE));
-                decisionResult.mApsAlgoFlag = ((String) hashMap.get(KEY_DECISION_ALGO_LIST)).split(CameraConstant.JSON_CONNECTOR_COMMA);
-                decisionResult.mCaptureEVList = StringToInt(((String) hashMap.get(KEY_DECISION_EV_LIST)).split(CameraConstant.JSON_CONNECTOR_COMMA));
-                decisionResult.mCaptureETList = StringToLong(((String) hashMap.get(KEY_DECISION_ET_LIST)).split(CameraConstant.JSON_CONNECTOR_COMMA));
-                decisionResult.mSensorMask = StringToInt(((String) hashMap.get(KEY_DECISION_SENSORMASK)).split(CameraConstant.JSON_CONNECTOR_COMMA));
-                decisionResult.mMasterPipeline = Integer.parseInt((String) hashMap.get(KEY_DECISION_MASTER_PIPELINE));
-                decisionResult.mFrameId = Integer.parseInt((String) hashMap.get(KEY_RESULT_FRAME_ID));
-                decisionResult.mApsBracketMode = Integer.parseInt((String) hashMap.get(KEY_DECISION_BRACKET_MODE));
-                decisionResult.mMFSRFrameCount = Integer.parseInt((String) hashMap.get(KEY_DECISION_MFSR_FRAME_CNT));
-                decisionResult.mSequenceId = Integer.parseInt((String) hashMap.get(KEY_DECISION_SEQUENCE_ID));
-                decisionResult.mPreCollectFrameCount = Integer.parseInt((String) hashMap.get(KEY_DECISION_PRECOLLECT_FRAME_CNT));
-                decisionResult.mSpecificProcessAlgo = Integer.parseInt((String) hashMap.get(KEY_DECISION_SPECIFIC_PROCESS_ALGO));
-                decisionResult.mSupportCaptureZoomFeature = Integer.parseInt((String) hashMap.get(KEY_DECISION_ZOOM_FEATURE));
-                decisionResult.mDrawTextBracketMode = (String) hashMap.get(KEY_DRAWTEXT_BRACKET_MODE);
-                decisionResult.mDrawTextSceneMode = (String) hashMap.get(KEY_DRAWTEXT_SCENE_MODE);
-                decisionResult.mDrawTextFeatureType = (String) hashMap.get(KEY_DRAWTEXT_FEATURE_TYPE);
-                decisionResult.mDrawTextHdrType = (String) hashMap.get(KEY_DRAWTEXT_HDR_TYPE);
-                decisionResult.mPreviewASD = (String) hashMap.get("preview_asd");
-                decisionResult.mPreViewAntiBanding = (String) hashMap.get(KEY_PREVIEW_ANTIBANDING);
-                decisionResult.mPreviewRectify = (String) hashMap.get("preview_rectify");
-                decisionResult.mPreviewPF = (String) hashMap.get("preview_pf");
-                decisionResult.mPreviewLSD = (String) hashMap.get(KEY_PREVIEW_LSD);
-                decisionResult.mPreviewRTB = (String) hashMap.get("preview_rtb");
-                decisionResult.mPreviewAiColor = (String) hashMap.get(KEY_PREVIEW_AICOLOR);
-                decisionResult.mPreviewVideoHyperLapse = (String) hashMap.get(KEY_PREVIEW_VIDEO_HYPERLAPSE);
-                decisionResult.mAlgoVisualizationKey = (String) hashMap.get(KEY_ALGO_VISUALIZATION_KEY);
-                decisionResult.mAlgoVisualizationValue = (String) hashMap.get(KEY_ALGO_VISUALIZATION_VALUE);
-                String str = (String) hashMap.get(KEY_DECISION_BURST_CAPTURE_ALGO_LIST);
-                if (str != null) {
-                    decisionResult.mApsBurstCaptureAlgoList = str.split(CameraConstant.JSON_CONNECTOR_COMMA);
-                }
-                if (hashMap.get(KEY_DECISION_ASD_MOVING_OBJECT) != null) {
-                    decisionResult.mAsdMovingObject = Integer.parseInt((String) hashMap.get(KEY_DECISION_ASD_MOVING_OBJECT));
-                }
-                if (hashMap.get(KEY_DECISION_CAPTURE_INTENT) != null) {
-                    decisionResult.mCaptureIntent = Integer.parseInt((String) hashMap.get(KEY_DECISION_CAPTURE_INTENT));
-                }
-                if (hashMap.get(KEY_DECISION_SHOW_HDR_ICON) != null) {
-                    decisionResult.mApsDecisionShowHdrIcon = Integer.parseInt((String) hashMap.get(KEY_DECISION_SHOW_HDR_ICON));
-                }
-                if (hashMap.get(KEY_DECISION_CAPTURE_INTERVAL) != null) {
-                    decisionResult.mApsDecisionCaptureInterval = Integer.parseInt((String) hashMap.get(KEY_DECISION_CAPTURE_INTERVAL));
-                }
-                if (hashMap.get(KEY_DECISION_CAPTURE_SURFACE) != null) {
-                    decisionResult.mCaptureSurface = Integer.parseInt((String) hashMap.get(KEY_DECISION_CAPTURE_SURFACE));
-                }
-                if (hashMap.get(KEY_DECISION_QUICK_JPEG) != null) {
-                    decisionResult.mSupportQuickJpeg = Integer.parseInt((String) hashMap.get(KEY_DECISION_QUICK_JPEG));
-                }
-                if (hashMap.get(KEY_DECISION_PORTRAIT_HDR_TYPE) != null) {
-                    decisionResult.mPortraitHdrType = (String) hashMap.get(KEY_DECISION_PORTRAIT_HDR_TYPE);
-                }
-                if (hashMap.get(KEY_DECISION_ASD_MSG_SCENE_VALUE) != null) {
-                    decisionResult.mAsdSceneValue = Integer.parseInt((String) hashMap.get(KEY_DECISION_ASD_MSG_SCENE_VALUE));
-                }
-                if (hashMap.get(KEY_DECISION_AISHUTTER_ENABLE) != null) {
-                    decisionResult.mbAIShutter = Boolean.parseBoolean((String) hashMap.get(KEY_DECISION_AISHUTTER_ENABLE));
-                }
-                if (hashMap.get(KEY_DECISION_REQUEST_MIXED_FORMAT) != null) {
-                    decisionResult.mbRequestMixedFormat = Boolean.parseBoolean((String) hashMap.get(KEY_DECISION_REQUEST_MIXED_FORMAT));
-                }
-                if (hashMap.get(KEY_DECISION_HDR_BRIGHTEN_INDEX) != null) {
-                    decisionResult.mHdrBrightenIndex = Integer.parseInt((String) hashMap.get(KEY_DECISION_HDR_BRIGHTEN_INDEX));
-                }
-                if (hashMap.get(KEY_DECISION_CAPTURE_NO_NEED_MATCH_META) != null) {
-                    decisionResult.mCaptureNoNeedMatchMeta = Integer.parseInt((String) hashMap.get(KEY_DECISION_CAPTURE_NO_NEED_MATCH_META));
-                }
-                ApsAdapterLog.v(TAG, "previewdecision, cameraID: " + decisionResult.mCameraId + ", mMultiFrameCount: " + decisionResult.mMultiFrameCount + ", algoList: " + Arrays.toString(decisionResult.mApsAlgoFlag) + ", et list: " + Arrays.toString(decisionResult.mCaptureETList) + ", capture intent: " + decisionResult.mCaptureIntent);
-                return decisionResult;
+            ApsAdapterLog.v(TAG, "previewdecision, result: " + Arrays.toString(strArrPreviewDecision));
+            if (strArrPreviewDecision == null) {
+                return null;
             }
-            return null;
+            HashMap map = new HashMap(strArrPreviewDecision.length / 2);
+            for (int i = 0; i < strArrPreviewDecision.length - 1; i += 2) {
+                map.put(strArrPreviewDecision[i], strArrPreviewDecision[i + 1]);
+            }
+            ApsAdapterDecision.DecisionResult decisionResult = new ApsAdapterDecision.DecisionResult();
+            decisionResult.mCameraId = Integer.parseInt((String) map.get(KEY_DECISION_CAMERAID));
+            decisionResult.mCaptureMode = (String) map.get(KEY_DECISION_CAPTURE_MODE);
+            decisionResult.mRequestFormat = Integer.parseInt((String) map.get(KEY_DECISION_REQUEST_FORMAT));
+            decisionResult.mMultiFrameCount = Integer.parseInt((String) map.get(KEY_DECISION_MULTI_FRAME_CNT));
+            decisionResult.mThumbnailIndex = Integer.parseInt((String) map.get(KEY_DECISION_THUMBNAIL_INDEX));
+            decisionResult.mMetaIndex = Integer.parseInt((String) map.get(KEY_DECISION_META_INDEX));
+            decisionResult.mSuperNightScene = Integer.parseInt((String) map.get(KEY_DECISION_SUPERNIGHT_SCENE));
+            decisionResult.mTurboRawScene = Integer.parseInt((String) map.get(KEY_DECISION_TURBORAW_SCENE));
+            decisionResult.mNightTotalExpTime = Integer.parseInt((String) map.get(KEY_DECISION_NIGHT_TOTAL_EXP));
+            decisionResult.mOfflineNightExpTime = Integer.parseInt((String) map.get(KEY_DECISION_OFFLINE_NIGHT_EXP_TIME));
+            decisionResult.mOfflineNightShutterWaitTime = Integer.parseInt((String) map.get(KEY_DECISION_OFFLINE_NIGHT_SHUTTER_WAIT_TIME));
+            decisionResult.mApsDecisionSceneMode = Integer.parseInt((String) map.get(KEY_DECISION_SCENE_MODE));
+            decisionResult.mApsDecisionFeatureType = Integer.parseInt((String) map.get(KEY_DECISION_FEATURE_TYPE));
+            decisionResult.mApsAlgoFlag = ((String) map.get(KEY_DECISION_ALGO_LIST)).split(CameraConstant.JSON_CONNECTOR_COMMA);
+            decisionResult.mCaptureEVList = StringToInt(((String) map.get(KEY_DECISION_EV_LIST)).split(CameraConstant.JSON_CONNECTOR_COMMA));
+            decisionResult.mCaptureETList = StringToLong(((String) map.get(KEY_DECISION_ET_LIST)).split(CameraConstant.JSON_CONNECTOR_COMMA));
+            decisionResult.mSensorMask = StringToInt(((String) map.get(KEY_DECISION_SENSORMASK)).split(CameraConstant.JSON_CONNECTOR_COMMA));
+            decisionResult.mMasterPipeline = Integer.parseInt((String) map.get(KEY_DECISION_MASTER_PIPELINE));
+            decisionResult.mFrameId = Integer.parseInt((String) map.get(KEY_RESULT_FRAME_ID));
+            decisionResult.mApsBracketMode = Integer.parseInt((String) map.get(KEY_DECISION_BRACKET_MODE));
+            decisionResult.mMFSRFrameCount = Integer.parseInt((String) map.get(KEY_DECISION_MFSR_FRAME_CNT));
+            decisionResult.mSequenceId = Integer.parseInt((String) map.get(KEY_DECISION_SEQUENCE_ID));
+            decisionResult.mPreCollectFrameCount = Integer.parseInt((String) map.get(KEY_DECISION_PRECOLLECT_FRAME_CNT));
+            decisionResult.mSpecificProcessAlgo = Integer.parseInt((String) map.get(KEY_DECISION_SPECIFIC_PROCESS_ALGO));
+            decisionResult.mSupportCaptureZoomFeature = Integer.parseInt((String) map.get(KEY_DECISION_ZOOM_FEATURE));
+            decisionResult.mDrawTextBracketMode = (String) map.get(KEY_DRAWTEXT_BRACKET_MODE);
+            decisionResult.mDrawTextSceneMode = (String) map.get(KEY_DRAWTEXT_SCENE_MODE);
+            decisionResult.mDrawTextFeatureType = (String) map.get(KEY_DRAWTEXT_FEATURE_TYPE);
+            decisionResult.mDrawTextHdrType = (String) map.get(KEY_DRAWTEXT_HDR_TYPE);
+            decisionResult.mPreviewASD = (String) map.get("preview_asd");
+            decisionResult.mPreViewAntiBanding = (String) map.get(KEY_PREVIEW_ANTIBANDING);
+            decisionResult.mPreviewRectify = (String) map.get("preview_rectify");
+            decisionResult.mPreviewPF = (String) map.get("preview_pf");
+            decisionResult.mPreviewLSD = (String) map.get(KEY_PREVIEW_LSD);
+            decisionResult.mPreviewRTB = (String) map.get("preview_rtb");
+            decisionResult.mPreviewAiColor = (String) map.get(KEY_PREVIEW_AICOLOR);
+            decisionResult.mPreviewVideoHyperLapse = (String) map.get(KEY_PREVIEW_VIDEO_HYPERLAPSE);
+            decisionResult.mAlgoVisualizationKey = (String) map.get(KEY_ALGO_VISUALIZATION_KEY);
+            decisionResult.mAlgoVisualizationValue = (String) map.get(KEY_ALGO_VISUALIZATION_VALUE);
+            String str = (String) map.get(KEY_DECISION_BURST_CAPTURE_ALGO_LIST);
+            if (str != null) {
+                decisionResult.mApsBurstCaptureAlgoList = str.split(CameraConstant.JSON_CONNECTOR_COMMA);
+            }
+            if (map.get(KEY_DECISION_ASD_MOVING_OBJECT) != null) {
+                decisionResult.mAsdMovingObject = Integer.parseInt((String) map.get(KEY_DECISION_ASD_MOVING_OBJECT));
+            }
+            if (map.get(KEY_DECISION_CAPTURE_INTENT) != null) {
+                decisionResult.mCaptureIntent = Integer.parseInt((String) map.get(KEY_DECISION_CAPTURE_INTENT));
+            }
+            if (map.get(KEY_DECISION_SHOW_HDR_ICON) != null) {
+                decisionResult.mApsDecisionShowHdrIcon = Integer.parseInt((String) map.get(KEY_DECISION_SHOW_HDR_ICON));
+            }
+            if (map.get(KEY_DECISION_CAPTURE_INTERVAL) != null) {
+                decisionResult.mApsDecisionCaptureInterval = Integer.parseInt((String) map.get(KEY_DECISION_CAPTURE_INTERVAL));
+            }
+            if (map.get(KEY_DECISION_CAPTURE_SURFACE) != null) {
+                decisionResult.mCaptureSurface = Integer.parseInt((String) map.get(KEY_DECISION_CAPTURE_SURFACE));
+            }
+            if (map.get(KEY_DECISION_QUICK_JPEG) != null) {
+                decisionResult.mSupportQuickJpeg = Integer.parseInt((String) map.get(KEY_DECISION_QUICK_JPEG));
+            }
+            if (map.get(KEY_DECISION_PORTRAIT_HDR_TYPE) != null) {
+                decisionResult.mPortraitHdrType = (String) map.get(KEY_DECISION_PORTRAIT_HDR_TYPE);
+            }
+            if (map.get(KEY_DECISION_ASD_MSG_SCENE_VALUE) != null) {
+                decisionResult.mAsdSceneValue = Integer.parseInt((String) map.get(KEY_DECISION_ASD_MSG_SCENE_VALUE));
+            }
+            if (map.get(KEY_DECISION_AISHUTTER_ENABLE) != null) {
+                decisionResult.mbAIShutter = Boolean.parseBoolean((String) map.get(KEY_DECISION_AISHUTTER_ENABLE));
+            }
+            if (map.get(KEY_DECISION_REQUEST_MIXED_FORMAT) != null) {
+                decisionResult.mbRequestMixedFormat = Boolean.parseBoolean((String) map.get(KEY_DECISION_REQUEST_MIXED_FORMAT));
+            }
+            if (map.get(KEY_DECISION_HDR_BRIGHTEN_INDEX) != null) {
+                decisionResult.mHdrBrightenIndex = Integer.parseInt((String) map.get(KEY_DECISION_HDR_BRIGHTEN_INDEX));
+            }
+            if (map.get(KEY_DECISION_CAPTURE_NO_NEED_MATCH_META) != null) {
+                decisionResult.mCaptureNoNeedMatchMeta = Integer.parseInt((String) map.get(KEY_DECISION_CAPTURE_NO_NEED_MATCH_META));
+            }
+            ApsAdapterLog.v(TAG, "previewdecision, cameraID: " + decisionResult.mCameraId + ", mMultiFrameCount: " + decisionResult.mMultiFrameCount + ", algoList: " + Arrays.toString(decisionResult.mApsAlgoFlag) + ", et list: " + Arrays.toString(decisionResult.mCaptureETList) + ", capture intent: " + decisionResult.mCaptureIntent);
+            return decisionResult;
         }
         return previewDecision(apsPreviewDecisionParam, null);
     }
@@ -1687,15 +1622,15 @@ public class APSClient {
             String[] parameters2 = getParameters(null, null, parameters);
             ApsAdapterLog.v(TAG, "getRuntimeInfo, result: " + Arrays.toString(parameters2));
             if (parameters2 != null) {
-                HashMap hashMap = new HashMap(parameters2.length / 2);
+                HashMap map = new HashMap(parameters2.length / 2);
                 for (int i = 0; i < parameters2.length - 1; i += 2) {
-                    hashMap.put(parameters2[i], parameters2[i + 1]);
+                    map.put(parameters2[i], parameters2[i + 1]);
                 }
                 aPSRuntimeInfo = new APSRuntimeInfo();
-                aPSRuntimeInfo.mInputMemSize = Integer.parseInt((String) hashMap.get(KEY_RUNTIME_MEMSIZE));
-                aPSRuntimeInfo.mSingleAlgoMaxRunMem = Integer.parseInt((String) hashMap.get(KEY_RUNTIME_SINGLEALGO_MAXMEM));
-                aPSRuntimeInfo.mTotalTimeEstimate = Integer.parseInt((String) hashMap.get(KEY_RUNTIME_TOTAL_TIME));
-                aPSRuntimeInfo.mProcessCntPending = Integer.parseInt((String) hashMap.get(KEY_RUNTIME_CNT_PENDING));
+                aPSRuntimeInfo.mInputMemSize = Integer.parseInt((String) map.get(KEY_RUNTIME_MEMSIZE));
+                aPSRuntimeInfo.mSingleAlgoMaxRunMem = Integer.parseInt((String) map.get(KEY_RUNTIME_SINGLEALGO_MAXMEM));
+                aPSRuntimeInfo.mTotalTimeEstimate = Integer.parseInt((String) map.get(KEY_RUNTIME_TOTAL_TIME));
+                aPSRuntimeInfo.mProcessCntPending = Integer.parseInt((String) map.get(KEY_RUNTIME_CNT_PENDING));
                 ApsAdapterLog.v(TAG, "getRuntimeInfo, result mInputMemSize: " + aPSRuntimeInfo.mInputMemSize + ", mSingleAlgoMaxRunMem: " + aPSRuntimeInfo.mSingleAlgoMaxRunMem + ", mTotalTimeEstimate: " + aPSRuntimeInfo.mTotalTimeEstimate + ", mProcessCntPending: " + aPSRuntimeInfo.mProcessCntPending);
             }
             return aPSRuntimeInfo;
@@ -1740,17 +1675,17 @@ public class APSClient {
     }
 
     public int addPreviewFrameBuffToAPS(ApsPreviewParam apsPreviewParam, ApsWatermarkParam apsWatermarkParam) {
-        int addPreviewFrameBuff;
-        boolean initMetaMap = this.mMetaImageRefCounter.initMetaMap(apsPreviewParam);
+        int iAddPreviewFrameBuff;
+        boolean zInitMetaMap = this.mMetaImageRefCounter.initMetaMap(apsPreviewParam);
         if (this.mbAPSClientJNICmdVersion) {
-            addPreviewFrameBuff = this.mAPSClientWrapper.addPreviewFrameBuff(apsPreviewParam, apsWatermarkParam);
+            iAddPreviewFrameBuff = this.mAPSClientWrapper.addPreviewFrameBuff(apsPreviewParam, apsWatermarkParam);
         } else {
-            addPreviewFrameBuff = addPreviewFrameBuff(apsPreviewParam, apsWatermarkParam);
+            iAddPreviewFrameBuff = addPreviewFrameBuff(apsPreviewParam, apsWatermarkParam);
         }
-        if (addPreviewFrameBuff != 0 && apsPreviewParam.getMetaBuffer() != null) {
-            this.mMetaImageRefCounter.onAddImageToApsFail(apsPreviewParam, initMetaMap);
+        if (iAddPreviewFrameBuff != 0 && apsPreviewParam.getMetaBuffer() != null) {
+            this.mMetaImageRefCounter.onAddImageToApsFail(apsPreviewParam, zInitMetaMap);
         }
-        return addPreviewFrameBuff;
+        return iAddPreviewFrameBuff;
     }
 
     public int destroy(int i) {
@@ -1791,14 +1726,13 @@ public class APSClient {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setMetaImageRefCounter(Object obj, String str, boolean z) {
+    protected void setMetaImageRefCounter(Object obj, String str, boolean z) {
         if (obj != null) {
             this.mMetaImageRefCounter.setMetaImageRef(obj, str, z);
         }
     }
 
-    private static int onTransact(Object obj, int i, HashMap<String, Object> hashMap, HashMap<String, Object> hashMap2) {
-        return APSClientCallback.onTransact(obj, i, hashMap, hashMap2);
+    private static int onTransact(Object obj, int i, HashMap<String, Object> map, HashMap<String, Object> map2) {
+        return APSClientCallback.onTransact(obj, i, map, map2);
     }
 }

@@ -1,7 +1,8 @@
 package com.oplus.file.extender;
 
 import com.common.Util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OplusFileExtender {
     private long mNativePtr;
 

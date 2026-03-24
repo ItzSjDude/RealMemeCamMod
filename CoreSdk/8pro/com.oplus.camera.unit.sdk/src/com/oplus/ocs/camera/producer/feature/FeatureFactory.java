@@ -2,7 +2,8 @@ package com.oplus.ocs.camera.producer.feature;
 
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FeatureFactory {
     private static final String TAG = "FeatureFactory";
     private static Map<String, Map<String, Map<String, FeatureInterface>>> sAllModeFeatures;
@@ -14,15 +15,15 @@ public class FeatureFactory {
         if (map == null) {
             return null;
         }
-        HashMap hashMap = new HashMap();
+        HashMap map2 = new HashMap();
         for (Map.Entry<String, Map<String, FeatureInterface>> entry : map.entrySet()) {
-            HashMap hashMap2 = new HashMap();
+            HashMap map3 = new HashMap();
             if (entry.getValue() != null) {
-                hashMap2.putAll(entry.getValue());
-                hashMap.put(entry.getKey(), hashMap2);
+                map3.putAll(entry.getValue());
+                map2.put(entry.getKey(), map3);
             }
         }
-        return hashMap;
+        return map2;
     }
 
     public static Map<String, FeatureInterface> getFeatures(String str, String str2) {
@@ -41,13 +42,11 @@ public class FeatureFactory {
         sbHasInit = true;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static Map<String, String> getSubFeatureToFeature() {
+    static Map<String, String> getSubFeatureToFeature() {
         return sSubFeatureToFeature;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static void addSubFeatureToFeatureMap(String str, String str2) {
+    static void addSubFeatureToFeatureMap(String str, String str2) {
         sSubFeatureToFeature.put(str, str2);
     }
 

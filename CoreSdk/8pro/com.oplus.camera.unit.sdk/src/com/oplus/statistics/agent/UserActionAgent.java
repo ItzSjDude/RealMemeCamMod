@@ -4,7 +4,8 @@ import android.content.Context;
 import com.oplus.statistics.data.UserActionBean;
 import com.oplus.statistics.record.ProxyRecorder;
 import com.oplus.statistics.util.TimeInfoUtil;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class UserActionAgent {
     public static void recordUserAction(Context context, int i, int i2) {
         ProxyRecorder.getInstance().addTrackEvent(context, new UserActionBean(context, i, TimeInfoUtil.getFormatHour(), i2));

@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.configure;
 
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ProtobufFeatureInfoInterface<P> {
     List<ConflictFeature<?>> getConflictFeatureList(Object obj, RuntimeFeatureCallback runtimeFeatureCallback);
 

@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.parameter.apsadapter;
 
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsImageCategoryParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<Integer> KEY_IMAGE_CATEGORY_HEIGHT = new ApsBaseParameter.Key<>("com.oplus.image.category.height", Integer.class, 0);
     public static final ApsBaseParameter.Key<Integer> KEY_IMAGE_CATEGORY_WIDTH = new ApsBaseParameter.Key<>("com.oplus.image.category.width", Integer.class, 0);

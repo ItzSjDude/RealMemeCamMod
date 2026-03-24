@@ -14,14 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class Parameter {
     private static final String TAG = "Parameter";
     private ConcurrentHashMap<CaptureRequest.Key<?>, ValueWrapper<?>> mAndroidParameterMap;
     private ConcurrentHashMap<Key<?>, ValueWrapper<?>> mCustomParameterMap;
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface ParameterCategory {
         public static final int CONFIGURE = 3;
         public static final int PREVIEW = 1;
@@ -31,7 +30,6 @@ public class Parameter {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface ParameterStage {
         public static final String BEFORE_TAKE_PICTURE = "before_take_picture";
         public static final String CONFIGURE = "configure";
@@ -41,9 +39,7 @@ public class Parameter {
         public static final String STOP_RECORDING = "stop_recording";
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public Parameter(@NonNull ConcurrentHashMap<Key<?>, ValueWrapper<?>> concurrentHashMap,
-            @NonNull ConcurrentHashMap<CaptureRequest.Key<?>, ValueWrapper<?>> concurrentHashMap2) {
+    protected Parameter(@NonNull ConcurrentHashMap<Key<?>, ValueWrapper<?>> concurrentHashMap, @NonNull ConcurrentHashMap<CaptureRequest.Key<?>, ValueWrapper<?>> concurrentHashMap2) {
         this.mCustomParameterMap = concurrentHashMap;
         this.mAndroidParameterMap = concurrentHashMap2;
     }
@@ -110,24 +106,17 @@ public class Parameter {
 
     private void updateAndroidParameter(CaptureRequestProxy.Builder builder) {
         for (Map.Entry<CaptureRequest.Key<?>, ValueWrapper<?>> entry : this.mAndroidParameterMap.entrySet()) {
-            updateAndroidParameterHelper(builder, entry.getKey(), entry.getValue().getValue().get());
+            builder.setParameter(entry.getKey(), entry.getValue().getValue().get());
         }
     }
 
-    private <T> void updateAndroidParameterHelper(CaptureRequestProxy.Builder builder, CaptureRequest.Key<T> key,
-            Object obj) {
-        builder.setParameter(key, (T) obj);
-    }
-
-    /* loaded from: classes.dex */
     public static abstract class BaseBuilder {
         private ConcurrentHashMap<CaptureRequest.Key<?>, ValueWrapper<?>> mAndroidParameterMap;
         private ConcurrentHashMap<Key<?>, ValueWrapper<?>> mCustomParameterMap;
 
         public abstract BaseBuilder set(@NonNull String str, Object obj);
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        public BaseBuilder() {
+        BaseBuilder() {
             this.mCustomParameterMap = null;
             this.mAndroidParameterMap = null;
             this.mCustomParameterMap = new ConcurrentHashMap<>();
@@ -187,12 +176,10 @@ public class Parameter {
         }
 
         public Parameter build() {
-            return new Parameter(new ConcurrentHashMap(this.mCustomParameterMap),
-                    new ConcurrentHashMap(this.mAndroidParameterMap));
+            return new Parameter(new ConcurrentHashMap(this.mCustomParameterMap), new ConcurrentHashMap(this.mAndroidParameterMap));
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class Key<T> {
         private int mCategory;
         private String mKeyName;
@@ -232,7 +219,6 @@ public class Parameter {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ValueWrapper<T> {
         private Supplier<T> mValue;
 
@@ -245,7 +231,6 @@ public class Parameter {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class Supplier<T> {
         private T mValue;
 

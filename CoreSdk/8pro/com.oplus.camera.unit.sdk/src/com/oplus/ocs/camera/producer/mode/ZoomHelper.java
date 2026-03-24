@@ -8,7 +8,8 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper;
 import java.util.ArrayList;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class ZoomHelper {
     private static final int DECIMAL = 10;
     private static final String TAG = "ZoomHelper";
@@ -40,36 +41,36 @@ public final class ZoomHelper {
                 }
                 this.mCustomZoomList = new ArrayList();
                 while (Float.compare(f, maxZoomValue) <= 0) {
-                    float round = Math.round(f * 10.0f) / 10.0f;
-                    this.mCustomZoomList.add(Float.valueOf(round));
-                    f = round + ZOOM_RATIO_STEP;
+                    float fRound = Math.round(f * 10.0f) / 10.0f;
+                    this.mCustomZoomList.add(Float.valueOf(fRound));
+                    f = fRound + ZOOM_RATIO_STEP;
                 }
             }
             return this.mCustomZoomList;
-        } else if (z3) {
+        }
+        if (z3) {
             if (this.mExpertZoomList == null) {
                 float expertMinZoomValue = getExpertMinZoomValue();
                 float expertMaxZoomValue = getExpertMaxZoomValue();
                 this.mExpertZoomList = new ArrayList();
                 while (Float.compare(expertMinZoomValue, expertMaxZoomValue) <= 0) {
-                    float round2 = Math.round(expertMinZoomValue * 10.0f) / 10.0f;
-                    this.mExpertZoomList.add(Float.valueOf(round2));
-                    expertMinZoomValue = round2 + ZOOM_RATIO_STEP;
+                    float fRound2 = Math.round(expertMinZoomValue * 10.0f) / 10.0f;
+                    this.mExpertZoomList.add(Float.valueOf(fRound2));
+                    expertMinZoomValue = fRound2 + ZOOM_RATIO_STEP;
                 }
             }
             return this.mExpertZoomList;
-        } else {
-            if (this.mZoomList == null) {
-                float availableMaxDigitalZoom = getAvailableMaxDigitalZoom();
-                this.mZoomList = new ArrayList();
-                while (Float.compare(f, availableMaxDigitalZoom) <= 0) {
-                    float round3 = Math.round(f * 10.0f) / 10.0f;
-                    this.mZoomList.add(Float.valueOf(round3));
-                    f = round3 + ZOOM_RATIO_STEP;
-                }
-            }
-            return this.mZoomList;
         }
+        if (this.mZoomList == null) {
+            float availableMaxDigitalZoom = getAvailableMaxDigitalZoom();
+            this.mZoomList = new ArrayList();
+            while (Float.compare(f, availableMaxDigitalZoom) <= 0) {
+                float fRound3 = Math.round(f * 10.0f) / 10.0f;
+                this.mZoomList.add(Float.valueOf(fRound3));
+                f = fRound3 + ZOOM_RATIO_STEP;
+            }
+        }
+        return this.mZoomList;
     }
 
     public List<Float> getZoomRatioList(boolean z, boolean z2, boolean z3, boolean z4, CameraDeviceInfoInterface cameraDeviceInfoInterface) {
@@ -80,15 +81,15 @@ public final class ZoomHelper {
             if (configFeatureZoomRange == null) {
                 return this.mZoomList;
             }
-            List<Float> list = null;
+            List<Float> listSubList = null;
             try {
-                List<Float> list2 = this.mZoomList;
-                list = list2.subList(list2.indexOf(configFeatureZoomRange.get(0)), this.mZoomList.indexOf(configFeatureZoomRange.get(1)));
-                list.add(configFeatureZoomRange.get(1));
-                return list;
+                List<Float> list = this.mZoomList;
+                listSubList = list.subList(list.indexOf(configFeatureZoomRange.get(0)), this.mZoomList.indexOf(configFeatureZoomRange.get(1)));
+                listSubList.add(configFeatureZoomRange.get(1));
+                return listSubList;
             } catch (IndexOutOfBoundsException e) {
                 CameraUnitLog.e(TAG, "There is a problem with zoom_range in the configuration file , please check it!", e);
-                return list;
+                return listSubList;
             }
         }
         return this.mZoomList;

@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.common.statistics;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StatisticConstant {
     public static final String ALGO_PROCESS_ERROR = "algo_process_error";
     public static final int HDR_OFF = 0;
@@ -39,12 +40,10 @@ public class StatisticConstant {
     public static final String VALUE_OFF = "off";
     public static final String VALUE_ON = "on";
 
-    /* loaded from: classes.dex */
     public @interface AbnormalDisplayKeys {
         public static final String KEY_ABNORMAL_PREVIEW = "abnormal_preview";
     }
 
-    /* loaded from: classes.dex */
     public @interface AbnormalDisplayValues {
         public static final int KEY_PREVIEW_CONFIG_FAILED = 2;
         public static final int KEY_PREVIEW_DROP_FRAME = 4;
@@ -54,7 +53,6 @@ public class StatisticConstant {
         public static final int KEY_PREVIEW_OPEN_CAMERA_ERROR = 1;
     }
 
-    /* loaded from: classes.dex */
     public @interface FunctionalErrorKeys {
         public static final String KEY_CAPTURE_FAILED = "capture_failed";
         public static final String KEY_MODE_SWITCH_PROBLEM = "mode_switch_problem";
@@ -63,7 +61,6 @@ public class StatisticConstant {
         public static final String KEY_VIDEO_RECORD_PROBLEM = "video_record_problem";
     }
 
-    /* loaded from: classes.dex */
     public @interface FunctionalErrorValues {
         public static final int CF_AE_STATE_CHECK = 23;
         public static final int CF_AF_STATE_CHECK = 1;
@@ -92,7 +89,6 @@ public class StatisticConstant {
         public static final int VCP_RECORD_FILE_IS_INVALID = 19;
     }
 
-    /* loaded from: classes.dex */
     public static class EventType {
         public String mAppId;
         public String mCategory;

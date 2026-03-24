@@ -5,7 +5,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SensorManagerClient {
     public static final int ACCELEROMETER_SENSOR = 4;
     public static final int GYRO_SENSOR = 1;
@@ -20,7 +21,6 @@ public class SensorManagerClient {
     private SensorManagerClientListener mSensorManagerClientListener = null;
     private float[] mAccelerometers = new float[3];
 
-    /* loaded from: classes.dex */
     public interface SensorManagerClientListener {
         void onHandSetMiddleMotion();
 
@@ -121,9 +121,7 @@ public class SensorManagerClient {
         this.mAccelerometerSensor = null;
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public class AccelerometerSensorListener implements SensorEventListener {
+    private class AccelerometerSensorListener implements SensorEventListener {
         @Override // android.hardware.SensorEventListener
         public void onAccuracyChanged(Sensor sensor, int i) {
         }
@@ -141,9 +139,7 @@ public class SensorManagerClient {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public class GproSensorListener implements SensorEventListener {
+    private class GproSensorListener implements SensorEventListener {
         private static final int FRAME_NUMBER_TO_ADD_STRENGTH = 5;
         private static final float MIDDLE_MOTION_STRENGTH_THRESHOLD = 0.8f;
         private static final float STRONG_MOTION_STRENGTH_THRESHOLD = 1.6f;
@@ -162,13 +158,13 @@ public class SensorManagerClient {
 
         @Override // android.hardware.SensorEventListener
         public void onSensorChanged(SensorEvent sensorEvent) {
-            float abs = Math.abs(sensorEvent.values[0]) + Math.abs(sensorEvent.values[1]) + Math.abs(sensorEvent.values[2]);
+            float fAbs = Math.abs(sensorEvent.values[0]) + Math.abs(sensorEvent.values[1]) + Math.abs(sensorEvent.values[2]);
             int i = this.mCount;
             if (i % 5 == 0) {
-                this.mMotionStrength = abs;
+                this.mMotionStrength = fAbs;
                 this.mCount = 1;
             } else {
-                this.mMotionStrength += abs;
+                this.mMotionStrength += fAbs;
                 this.mCount = i + 1;
             }
             float f = this.mMotionStrength;

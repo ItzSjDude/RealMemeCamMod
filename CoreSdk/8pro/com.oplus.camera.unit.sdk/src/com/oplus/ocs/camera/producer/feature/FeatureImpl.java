@@ -6,11 +6,13 @@ import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FeatureImpl implements FeatureInterface {
     private static final int CONFLICT = 1;
     public static final String DELIMITER = "/";
@@ -53,14 +55,14 @@ public class FeatureImpl implements FeatureInterface {
 
     private void parseSupportValueRange(String str) {
         if (str.contains(VALUE_RANGE_START)) {
-            String charSequence = str.subSequence(1, str.length() - 1).toString();
+            String string = str.subSequence(1, str.length() - 1).toString();
             String str2 = VALUE_RANGE;
-            if (charSequence.contains(VALUE_RANGE)) {
+            if (string.contains(VALUE_RANGE)) {
                 setsupportRange(true);
             } else {
                 str2 = ",";
             }
-            for (String str3 : charSequence.split(str2)) {
+            for (String str3 : string.split(str2)) {
                 addSupportValue(str3);
             }
             return;
@@ -94,15 +96,17 @@ public class FeatureImpl implements FeatureInterface {
 
     public void configFeature(String str, Set<String> set, List<String> list) {
         if (str.contains(DELIMITER)) {
-            String[] split = str.split(DELIMITER, 2);
-            String str2 = split[0];
-            String str3 = split[1];
+            String[] strArrSplit = str.split(DELIMITER, 2);
+            String str2 = strArrSplit[0];
+            String str3 = strArrSplit[1];
             String parameterNameByFeatureName = CameraConfigHelper.getParameterNameByFeatureName(str2);
             addSupportValue(parameterNameByFeatureName);
             configSubFeature(parameterNameByFeatureName, str3);
             addFeatureTable(parameterNameByFeatureName, set, list);
             FeatureFactory.addSubFeatureToFeatureMap(parameterNameByFeatureName, this.mFeatureName);
-        } else if (str.contains(VALUE_RANGE_START)) {
+            return;
+        }
+        if (str.contains(VALUE_RANGE_START)) {
             parseSupportValueRange(str);
             addFeatureTable(this.mFeatureName, set, list);
         } else {
@@ -112,32 +116,33 @@ public class FeatureImpl implements FeatureInterface {
     }
 
     private void addFeatureTable(String str, Set<String> set, List<String> list) {
-        Map<String, List<String>> hashMap = new HashMap<>();
+        Map<String, List<String>> map = new HashMap<>();
+        Iterator<String> it = set.iterator();
         int i = 0;
-        for (String str2 : set) {
-            String[] split = str2.split(DELIMITER);
-            String parameterNameByFeatureName = CameraConfigHelper.getParameterNameByFeatureName(split[0]);
-            String str3 = split[1];
+        while (it.hasNext()) {
+            String[] strArrSplit = it.next().split(DELIMITER);
+            String parameterNameByFeatureName = CameraConfigHelper.getParameterNameByFeatureName(strArrSplit[0]);
+            String str2 = strArrSplit[1];
             if (parameterNameByFeatureName == null) {
-                parameterNameByFeatureName = split[0];
+                parameterNameByFeatureName = strArrSplit[0];
             }
             int i2 = i + 1;
             if (Integer.toString(1).equals(list.get(i)) && !parameterNameByFeatureName.equals(this.mFeatureName)) {
                 ArrayList arrayList = new ArrayList();
-                if (hashMap.get(parameterNameByFeatureName) != null) {
-                    arrayList.addAll(hashMap.get(parameterNameByFeatureName));
+                if (map.get(parameterNameByFeatureName) != null) {
+                    arrayList.addAll(map.get(parameterNameByFeatureName));
                 }
-                if (!str3.contains(VALUE_RANGE_START)) {
-                    arrayList.add(str3);
+                if (!str2.contains(VALUE_RANGE_START)) {
+                    arrayList.add(str2);
                 }
-                hashMap.put(parameterNameByFeatureName, arrayList);
+                map.put(parameterNameByFeatureName, arrayList);
             }
             i = i2;
         }
-        if (hashMap.isEmpty()) {
+        if (map.isEmpty()) {
             return;
         }
-        this.mConflictFeatureValues.put(str, hashMap);
+        this.mConflictFeatureValues.put(str, map);
     }
 
     @Override // com.oplus.ocs.camera.producer.feature.FeatureInterface
@@ -160,39 +165,39 @@ public class FeatureImpl implements FeatureInterface {
 
     @Override // com.oplus.ocs.camera.producer.feature.FeatureInterface
     public <T> boolean isFeatureConflictLegal(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, T t) {
-        if (!isMultiFeature() || getSubFeature(str) == null) {
-            if (sdkCameraDeviceConfig == null) {
-                CameraUnitLog.e(TAG, "isFeatureConflictLegal, config is null, need check the reason, so return false");
-                return true;
-            } else if (this.mConflictFeatureValues == null) {
-                CameraUnitLog.e(TAG, "isFeatureConflictLegal, cameraTypeConflictValues is null");
-                return true;
-            } else {
-                List<Parameter.Key<?>> customKeys = sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys();
-                if (customKeys.isEmpty()) {
-                    return true;
-                }
-                String valueOf = String.valueOf(t);
-                Map<String, List<String>> map = this.mConflictFeatureValues.get(valueOf) != null ? this.mConflictFeatureValues.get(valueOf) : this.mConflictFeatureValues.get(this.mFeatureName);
-                if (map == null) {
-                    CameraUnitLog.d(TAG, "isFeatureConflictLegal, currentFeature don`t has conflict, featureName: " + this.mFeatureName);
-                    return true;
-                }
-                int size = customKeys.size();
-                for (int i = 0; i < size; i++) {
-                    String name = customKeys.get(i).getName();
-                    String valueOf2 = String.valueOf(sdkCameraDeviceConfig.getConfigureParameter().get(customKeys.get(i)));
-                    if (!isMultiFeature() && this.mFeatureName.equals(name) && !valueOf.equals(valueOf2)) {
-                        CameraUnitLog.e(TAG, String.format(Locale.ENGLISH, "isFeatureConflictLegal, can't set two different values for a same main feature, customParameterName: %s, has already set value: %s, another value: %s", name, valueOf, valueOf2));
-                    } else if (isFeatureValueConflict(map, name, valueOf2)) {
-                        CameraUnitLog.e(TAG, String.format(Locale.ENGLISH, "isFeatureConflictLegal, isArrayConflict, found the value is conflict, customParameterName: %s, configFeatureValue: %s, valueConflict: %s", name, valueOf2, map));
-                    }
-                    return false;
-                }
-                return true;
-            }
+        if (isMultiFeature() && getSubFeature(str) != null) {
+            return isFeatureConflictLegal(sdkCameraDeviceConfig, this.mFeatureName, str);
         }
-        return isFeatureConflictLegal(sdkCameraDeviceConfig, this.mFeatureName, str);
+        if (sdkCameraDeviceConfig == null) {
+            CameraUnitLog.e(TAG, "isFeatureConflictLegal, config is null, need check the reason, so return false");
+            return true;
+        }
+        if (this.mConflictFeatureValues == null) {
+            CameraUnitLog.e(TAG, "isFeatureConflictLegal, cameraTypeConflictValues is null");
+            return true;
+        }
+        List<Parameter.Key<?>> customKeys = sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys();
+        if (customKeys.isEmpty()) {
+            return true;
+        }
+        String strValueOf = String.valueOf(t);
+        Map<String, List<String>> map = this.mConflictFeatureValues.get(strValueOf) != null ? this.mConflictFeatureValues.get(strValueOf) : this.mConflictFeatureValues.get(this.mFeatureName);
+        if (map == null) {
+            CameraUnitLog.d(TAG, "isFeatureConflictLegal, currentFeature don`t has conflict, featureName: " + this.mFeatureName);
+            return true;
+        }
+        int size = customKeys.size();
+        for (int i = 0; i < size; i++) {
+            String name = customKeys.get(i).getName();
+            String strValueOf2 = String.valueOf(sdkCameraDeviceConfig.getConfigureParameter().get(customKeys.get(i)));
+            if (!isMultiFeature() && this.mFeatureName.equals(name) && !strValueOf.equals(strValueOf2)) {
+                CameraUnitLog.e(TAG, String.format(Locale.ENGLISH, "isFeatureConflictLegal, can't set two different values for a same main feature, customParameterName: %s, has already set value: %s, another value: %s", name, strValueOf, strValueOf2));
+            } else if (isFeatureValueConflict(map, name, strValueOf2)) {
+                CameraUnitLog.e(TAG, String.format(Locale.ENGLISH, "isFeatureConflictLegal, isArrayConflict, found the value is conflict, customParameterName: %s, configFeatureValue: %s, valueConflict: %s", name, strValueOf2, map));
+            }
+            return false;
+        }
+        return true;
     }
 
     private boolean isFeatureValueConflict(Map<String, List<String>> map, String str, String str2) {
@@ -209,32 +214,34 @@ public class FeatureImpl implements FeatureInterface {
 
     @Override // com.oplus.ocs.camera.producer.feature.FeatureInterface
     public <T> boolean isFeatureValueLegal(String str, T t) {
-        boolean isFeatureValueLegal;
+        boolean zIsFeatureValueLegal;
         if (str.equals(this.mFeatureName) && !this.mSupportValues.isEmpty()) {
-            isFeatureValueLegal = isValueLegal(t);
+            zIsFeatureValueLegal = isValueLegal(t);
         } else {
-            isFeatureValueLegal = (!isMultiFeature() || getSubFeature(str) == null) ? false : getSubFeature(str).isFeatureValueLegal(str, t);
+            zIsFeatureValueLegal = (!isMultiFeature() || getSubFeature(str) == null) ? false : getSubFeature(str).isFeatureValueLegal(str, t);
         }
-        CameraUnitLog.d(TAG, "isFeatureValueLegal, featureName: " + str + ", checkValue: " + t + ", isLegal: " + isFeatureValueLegal);
-        return isFeatureValueLegal;
+        CameraUnitLog.d(TAG, "isFeatureValueLegal, featureName: " + str + ", checkValue: " + t + ", isLegal: " + zIsFeatureValueLegal);
+        return zIsFeatureValueLegal;
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type: T */
+    /* JADX WARN: Multi-variable type inference failed */
     private <T> boolean isValueLegal(T t) {
         if (this.mbSupportRange) {
             if (t instanceof Integer) {
-                int parseInt = Integer.parseInt(getSupportValues().get(0));
-                int parseInt2 = Integer.parseInt(getSupportValues().get(1));
-                int intValue = ((Integer) t).intValue();
-                return intValue >= parseInt && intValue <= parseInt2;
-            } else if (t instanceof Float) {
-                float parseFloat = Float.parseFloat(getSupportValues().get(0));
-                float parseFloat2 = Float.parseFloat(getSupportValues().get(1));
-                float floatValue = ((Float) t).floatValue();
-                return Float.compare(floatValue, parseFloat) >= 0 && Float.compare(floatValue, parseFloat2) <= 0;
-            } else {
-                CameraUnitLog.e(TAG, "isValueLegal, value's type is not support now, you can add support if need it");
-                return false;
+                int i = Integer.parseInt(getSupportValues().get(0));
+                int i2 = Integer.parseInt(getSupportValues().get(1));
+                int iIntValue = ((Integer) t).intValue();
+                return iIntValue >= i && iIntValue <= i2;
             }
+            if (t instanceof Float) {
+                float f = Float.parseFloat(getSupportValues().get(0));
+                float f2 = Float.parseFloat(getSupportValues().get(1));
+                float fFloatValue = ((Float) t).floatValue();
+                return Float.compare(fFloatValue, f) >= 0 && Float.compare(fFloatValue, f2) <= 0;
+            }
+            CameraUnitLog.e(TAG, "isValueLegal, value's type is not support now, you can add support if need it");
+            return false;
         }
         return getSupportValues().contains(String.valueOf(t));
     }
@@ -261,8 +268,9 @@ public class FeatureImpl implements FeatureInterface {
         sb.append("feature name: " + this.mFeatureName);
         sb.append("  support values: " + this.mSupportValues);
         sb.append("\n");
-        for (String str : this.mSubFeatures.keySet()) {
-            sb.append(this.mSubFeatures.get(str).dumpSupportFeatures());
+        Iterator<String> it = this.mSubFeatures.keySet().iterator();
+        while (it.hasNext()) {
+            sb.append(this.mSubFeatures.get(it.next()).dumpSupportFeatures());
         }
         return sb.toString();
     }
@@ -271,8 +279,9 @@ public class FeatureImpl implements FeatureInterface {
         StringBuilder sb = new StringBuilder();
         sb.append("feature name: " + this.mFeatureName);
         sb.append("  features' support values with other feature conflict: " + this.mConflictFeatureValues);
-        for (String str : this.mSubFeatures.keySet()) {
-            sb.append(this.mSubFeatures.get(str).dumpConflictFeatureValues());
+        Iterator<String> it = this.mSubFeatures.keySet().iterator();
+        while (it.hasNext()) {
+            sb.append(this.mSubFeatures.get(it.next()).dumpConflictFeatureValues());
         }
         return sb.toString();
     }

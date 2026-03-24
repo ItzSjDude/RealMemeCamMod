@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.statistics.model;
 
 import com.oplus.ocs.camera.common.statistics.StatisticConstant;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class VideoDcsMsgData extends DcsMsgData {
     public boolean mAiEnhance;
     public int mAiEnhanceChange;

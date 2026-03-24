@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.appinterface.adapter;
 import android.util.Size;
 import com.oplus.ocs.camera.appinterface.adapter.CameraAlgoSwitchConfigUtil;
 import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraAlgoSwitchConfig {
     public static boolean getSupportCaptureAlgo(String str, int i, String str2) {
         return AlgoSwitchConfig.getSupportCaptureAlgo(str, i, str2);

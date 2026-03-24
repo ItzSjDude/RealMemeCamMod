@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefByte extends BaseField<Byte> {
     private static final byte DEFAULT_VALUE = ((Byte) DEFAULT_TYPES.get(Byte.class)).byteValue();
     private static final String TAG = "RefByte";

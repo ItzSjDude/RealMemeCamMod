@@ -8,9 +8,12 @@ import android.graphics.YuvImage;
 import android.hardware.HardwareBuffer;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.CaptureResult;
+import android.hardware.camera2.DngCreator;
 import android.hardware.camera2.params.InputConfiguration;
 import android.hardware.camera2.params.OutputConfiguration;
 import android.hardware.camera2.params.SessionConfiguration;
+import android.location.Location;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Environment;
@@ -47,7 +50,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class Util {
     private static final int ALIGN_64_BIT = 64;
     private static final int BIT_NUM_OF_BYTE = 8;
@@ -87,11 +91,14 @@ public class Util {
     public static byte[] convertNV21DataToJpeg(byte[] bArr, int i, int i2) {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
-            yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 95, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            byteArrayOutputStream.close();
-            return byteArray;
+            try {
+                YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
+                yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 95, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                byteArrayOutputStream.close();
+                return byteArray;
+            } finally {
+            }
         } catch (Exception e) {
             CameraUnitLog.e(TAG, "convertNV21DataToJpeg", e);
             return null;
@@ -107,9 +114,9 @@ public class Util {
         int height = image.getHeight();
         int format = image.getFormat();
         Rect cropRect = image.getCropRect();
-        int width2 = ((cropRect.width() * cropRect.height()) * ImageFormat.getBitsPerPixel(format)) / 8;
-        if (bArr == null || bArr.length < width2) {
-            bArr = new byte[width2];
+        int iWidth = ((cropRect.width() * cropRect.height()) * ImageFormat.getBitsPerPixel(format)) / 8;
+        if (bArr == null || bArr.length < iWidth) {
+            bArr = new byte[iWidth];
         }
         Image.Plane[] planes = image.getPlanes();
         int i2 = 0;
@@ -177,6 +184,7 @@ public class Util {
         return bArr;
     }
 
+    /* JADX DEBUG: Another duplicated slice has different insns count: {[]}, finally: {[INVOKE, MOVE_EXCEPTION, INVOKE, MOVE_EXCEPTION] complete} */
     public static String saveBytesToFile(byte[] bArr, String str) {
         if (bArr == null || bArr.length == 0) {
             Log.e(TAG, "saveBytesToJpeg, bytes is empty");
@@ -190,8 +198,11 @@ public class Util {
         String absolutePath = new File(str2, str).getAbsolutePath();
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(absolutePath);
-            fileOutputStream.write(bArr);
-            fileOutputStream.close();
+            try {
+                fileOutputStream.write(bArr);
+                fileOutputStream.close();
+            } finally {
+            }
         } catch (IOException e) {
             CameraUnitLog.e(TAG, "saveBytesToFile", e);
         }
@@ -206,32 +217,123 @@ public class Util {
         return new CameraImage(convertNV21DataToJpeg(getYuvDataWithoutPadding(image, 17, null), image.getWidth(), image.getHeight()), 256, image.getWidth(), image.getHeight(), image.getWidth(), image.getHeight(), 90, image.getTimestamp(), false, str, 4);
     }
 
+    /* JADX DEBUG: Failed to insert an additional move for type inference into block B:34:0x00b6 */
+    /* JADX DEBUG: Multi-variable search result rejected for r3v2, resolved type: java.io.ByteArrayOutputStream */
+    /* JADX DEBUG: Multi-variable search result rejected for r3v3, resolved type: java.io.ByteArrayOutputStream */
+    /* JADX DEBUG: Multi-variable search result rejected for r3v4, resolved type: java.io.ByteArrayOutputStream */
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Removed duplicated region for block: B:51:0x00d7  */
     /* JADX WARN: Removed duplicated region for block: B:63:0x00df A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:74:? A[SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static com.oplus.ocs.camera.common.util.CameraImage buildRawImage(com.oplus.ocs.camera.common.util.CameraRequestTag r19, android.media.Image r20, android.hardware.camera2.CaptureResult r21, long r22) {
-        /*
-            Method dump skipped, instructions count: 256
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.common.util.Util.buildRawImage(com.oplus.ocs.camera.common.util.CameraRequestTag, android.media.Image, android.hardware.camera2.CaptureResult, long):com.oplus.ocs.camera.common.util.CameraImage");
+    public static CameraImage buildRawImage(CameraRequestTag cameraRequestTag, Image image, CaptureResult captureResult, long j) throws Throwable {
+        ByteArrayOutputStream byteArrayOutputStream;
+        CameraUnitLog.v(TAG, "buildRawImage, rawImg: " + image + ", captureResult: " + captureResult + ", cameraType: " + cameraRequestTag.mCameraType);
+        ByteArrayOutputStream byteArrayOutputStream2 = 0;
+        if (image != null) {
+            try {
+                if (32 == image.getFormat()) {
+                    DngCreator dngCreator = new DngCreator(CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(cameraRequestTag.mCameraType).get(), captureResult);
+                    int i = cameraRequestTag.mOrientation;
+                    if (i == 90) {
+                        dngCreator.setOrientation(6);
+                    } else if (i == 180) {
+                        dngCreator.setOrientation(3);
+                    } else if (i == 270) {
+                        dngCreator.setOrientation(8);
+                    }
+                    Location location = cameraRequestTag.mLocation;
+                    if (location != null) {
+                        dngCreator.setLocation(location);
+                    }
+                    String dngDescription = CameraConfigHelper.getDngDescription(cameraRequestTag.mCameraType);
+                    dngCreator.setDescription(dngDescription);
+                    try {
+                        try {
+                            byteArrayOutputStream = new ByteArrayOutputStream();
+                            try {
+                                dngCreator.writeImage(byteArrayOutputStream, image);
+                                CameraImage cameraImage = new CameraImage(byteArrayOutputStream.toByteArray(), 32, 0, 0, image.getWidth(), image.getHeight(), cameraRequestTag.mOrientation, j, false, cameraRequestTag.mCameraType, 3);
+                                if (image != null) {
+                                    image.close();
+                                }
+                                dngCreator.close();
+                                try {
+                                    byteArrayOutputStream.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                return cameraImage;
+                            } catch (IOException e2) {
+                                e = e2;
+                                e.printStackTrace();
+                                if (image != null) {
+                                    image.close();
+                                }
+                                dngCreator.close();
+                                if (byteArrayOutputStream != null) {
+                                    try {
+                                        byteArrayOutputStream.close();
+                                    } catch (IOException e3) {
+                                        e3.printStackTrace();
+                                    }
+                                }
+                                return null;
+                            }
+                        } catch (Throwable th) {
+                            th = th;
+                            byteArrayOutputStream2 = dngDescription;
+                            Throwable th2 = th;
+                            if (image != null) {
+                                image.close();
+                            }
+                            dngCreator.close();
+                            if (byteArrayOutputStream2 == 0) {
+                                try {
+                                    byteArrayOutputStream2.close();
+                                    throw th2;
+                                } catch (IOException e4) {
+                                    e4.printStackTrace();
+                                    throw th2;
+                                }
+                            }
+                            throw th2;
+                        }
+                    } catch (IOException e5) {
+                        e = e5;
+                        byteArrayOutputStream = null;
+                    } catch (Throwable th3) {
+                        th = th3;
+                        Throwable th22 = th;
+                        if (image != null) {
+                        }
+                        dngCreator.close();
+                        if (byteArrayOutputStream2 == 0) {
+                        }
+                    }
+                }
+            } catch (IllegalStateException e6) {
+                CameraUnitLog.v(TAG, "buildRawImage, " + e6);
+            }
+        }
+        return null;
     }
 
     public static Rect getCropRegionForZoom(Float f, String str) {
         Rect rect = (Rect) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE);
         Rect rect2 = new Rect();
-        int width = rect.width() / 2;
-        int height = rect.height() / 2;
-        int width2 = (int) (rect.width() / (f.floatValue() * 2.0f));
-        int height2 = (int) (rect.height() / (f.floatValue() * 2.0f));
-        rect2.set(width - width2, height - height2, width + width2, height + height2);
+        int iWidth = rect.width() / 2;
+        int iHeight = rect.height() / 2;
+        int iWidth2 = (int) (rect.width() / (f.floatValue() * 2.0f));
+        int iHeight2 = (int) (rect.height() / (f.floatValue() * 2.0f));
+        rect2.set(iWidth - iWidth2, iHeight - iHeight2, iWidth + iWidth2, iHeight + iHeight2);
         return rect2;
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r1v21, resolved type: byte[] */
+    /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: java.lang.String */
     /* JADX WARN: Multi-variable type inference failed */
     public static <T> T getValue(String str, String str2) {
         if (FORMAT_BYTE.equals(str)) {
@@ -347,7 +449,7 @@ public class Util {
         }
         CameraUnitLog.d(TAG, "getMaxSizeByRatio, sizes: " + Arrays.toString(sizeArr) + ", targetRatio: " + d);
         for (Size size2 : sizeArr) {
-            if (Math.abs((size2.getWidth() / size2.getHeight()) - d) <= 0.01d && (size == null || size.getHeight() < size2.getHeight())) {
+            if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d && (size == null || size.getHeight() < size2.getHeight())) {
                 size = size2;
             }
         }
@@ -364,24 +466,22 @@ public class Util {
         if (sizeArr == null) {
             return null;
         }
-        int i = Reader.READ_DONE;
-        int i2 = Integer.MAX_VALUE;
+        int iAbs = Reader.READ_DONE;
+        int iAbs2 = Integer.MAX_VALUE;
         for (Size size2 : sizeArr) {
-            if (Math.abs((size2.getWidth() / size2.getHeight()) - d) <= 0.01d) {
-                int abs = Math.abs(size2.getHeight() - sScreenWidth);
-                if (abs < i2) {
-                    i2 = Math.abs(size2.getHeight() - sScreenWidth);
-                } else if (abs == i2) {
-                    if (size2.getHeight() <= sScreenWidth) {
-                    }
+            if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d) {
+                int iAbs3 = Math.abs(size2.getHeight() - sScreenWidth);
+                if (iAbs3 < iAbs2) {
+                    iAbs2 = Math.abs(size2.getHeight() - sScreenWidth);
+                } else if (iAbs3 != iAbs2 || size2.getHeight() <= sScreenWidth) {
                 }
                 size = size2;
             }
         }
         if (size == null) {
             for (Size size3 : sizeArr) {
-                if (Math.abs(size3.getHeight() - sScreenWidth) < i) {
-                    i = Math.abs(size3.getHeight() - sScreenWidth);
+                if (Math.abs(size3.getHeight() - sScreenWidth) < iAbs) {
+                    iAbs = Math.abs(size3.getHeight() - sScreenWidth);
                     size = size3;
                 }
             }
@@ -402,7 +502,7 @@ public class Util {
         Size size = null;
         if (sizeArr != null && sizeArr.length != 0) {
             for (Size size2 : sizeArr) {
-                if (Math.abs((size2.getWidth() / size2.getHeight()) - d) <= PICTURE_SIZE_IMPRECISE_ASPECT_TOLERANCE && ((-1 == i || size2.getHeight() <= i) && (size == null || size.getHeight() < size2.getHeight()))) {
+                if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= PICTURE_SIZE_IMPRECISE_ASPECT_TOLERANCE && ((-1 == i || size2.getHeight() <= i) && (size == null || size.getHeight() < size2.getHeight()))) {
                     size = size2;
                 }
             }
@@ -419,7 +519,7 @@ public class Util {
         Size size = null;
         if (sizeArr != null && sizeArr.length != 0) {
             for (Size size2 : sizeArr) {
-                if (Math.abs((size2.getWidth() / size2.getHeight()) - d) <= 0.01d && (size == null || size2.getHeight() < size.getHeight())) {
+                if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d && (size == null || size2.getHeight() < size.getHeight())) {
                     size = size2;
                 }
             }
@@ -457,11 +557,11 @@ public class Util {
     }
 
     public static int getNightStateDecision(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        int intValue = previewResult != null ? ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue() : 0;
-        if (48 == intValue || 49 == intValue || 50 == intValue) {
+        int iIntValue = previewResult != null ? ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue() : 0;
+        if (48 == iIntValue || 49 == iIntValue || 50 == iIntValue) {
             return ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_TURBO_RAW_SCENE)).intValue();
         }
-        if (9 == intValue || 10 == intValue || 11 == intValue || 13 == intValue || 29 == intValue || 14 == intValue || 21 == intValue || 31 == intValue || 35 == intValue || 40 == intValue || 32 == intValue || 41 == intValue) {
+        if (9 == iIntValue || 10 == iIntValue || 11 == iIntValue || 13 == iIntValue || 29 == iIntValue || 14 == iIntValue || 21 == iIntValue || 31 == iIntValue || 35 == iIntValue || 40 == iIntValue || 32 == iIntValue || 41 == iIntValue) {
             return ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SUPER_NIGHT_SCENE)).intValue();
         }
         return 0;
@@ -470,14 +570,14 @@ public class Util {
     public static String[] joinAppAndHalAlgoFlag(String[] strArr, String[] strArr2) {
         if (strArr == null || strArr.length <= 0) {
             return (strArr2 == null || strArr2.length == 0) ? new String[]{ApsParameters.ALGO_NAME_NONE} : strArr2;
-        } else if (strArr2 == null || strArr2.length == 0) {
-            return strArr;
-        } else {
-            String[] strArr3 = new String[strArr2.length + strArr.length];
-            System.arraycopy(strArr2, 0, strArr3, 0, strArr2.length);
-            System.arraycopy(strArr, 0, strArr3, strArr2.length, strArr.length);
-            return strArr3;
         }
+        if (strArr2 == null || strArr2.length == 0) {
+            return strArr;
+        }
+        String[] strArr3 = new String[strArr2.length + strArr.length];
+        System.arraycopy(strArr2, 0, strArr3, 0, strArr2.length);
+        System.arraycopy(strArr, 0, strArr3, strArr2.length, strArr.length);
+        return strArr3;
     }
 
     public static boolean isAIOrPoitraitNight(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
@@ -501,13 +601,12 @@ public class Util {
     }
 
     public static boolean isHdrOn(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        boolean z = false;
         if (previewResult == null) {
             return false;
         }
-        int intValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue();
-        int intValue2 = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue();
-        z = (4 == intValue || 8 == intValue || 16 == intValue || 24 == intValue || 26 == intValue || 30 == intValue || 34 == intValue || 27 == intValue || 28 == intValue || 32 == intValue || 36 == intValue || 37 == intValue || 42 == intValue || 43 == intValue || 27 == intValue2 || 28 == intValue2 || 45 == intValue || 47 == intValue) ? true : true;
+        int iIntValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue();
+        int iIntValue2 = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue();
+        boolean z = 4 == iIntValue || 8 == iIntValue || 16 == iIntValue || 24 == iIntValue || 26 == iIntValue || 30 == iIntValue || 34 == iIntValue || 27 == iIntValue || 28 == iIntValue || 32 == iIntValue || 36 == iIntValue || 37 == iIntValue || 42 == iIntValue || 43 == iIntValue || 27 == iIntValue2 || 28 == iIntValue2 || 45 == iIntValue || 47 == iIntValue;
         CameraUnitLog.d(TAG, "isHdrOn, isHdrOn: " + z);
         return z;
     }
@@ -516,17 +615,17 @@ public class Util {
         if (previewResult == null) {
             return false;
         }
-        int intValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue();
-        return 12 == intValue || 13 == intValue || 30 == intValue;
+        int iIntValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue();
+        return 12 == iIntValue || 13 == iIntValue || 30 == iIntValue;
     }
 
     public static Size[] parserSizeLists(String str) {
-        String[] split = str.toUpperCase().split("X");
-        int length = split.length / 2;
+        String[] strArrSplit = str.toUpperCase().split("X");
+        int length = strArrSplit.length / 2;
         Size[] sizeArr = new Size[length];
         for (int i = 0; i < length; i++) {
             int i2 = i * 2;
-            sizeArr[i] = new Size(Integer.parseInt(split[i2]), Integer.parseInt(split[i2 + 1]));
+            sizeArr[i] = new Size(Integer.parseInt(strArrSplit[i2]), Integer.parseInt(strArrSplit[i2 + 1]));
         }
         return sizeArr;
     }
@@ -559,12 +658,13 @@ public class Util {
             }
             CameraUnitLog.d(TAG, "dumpSessionConfig: outputConfigurations: " + outputConfigurations);
             if (outputConfigurations != null) {
-                for (OutputConfiguration outputConfiguration : outputConfigurations) {
-                    List<Surface> surfaces = outputConfiguration.getSurfaces();
+                Iterator<OutputConfiguration> it2 = outputConfigurations.iterator();
+                while (it2.hasNext()) {
+                    List<Surface> surfaces = it2.next().getSurfaces();
                     CameraUnitLog.d(TAG, "dumpSessionConfig: surfaceList: " + surfaces);
-                    Iterator<Surface> it2 = surfaces.iterator();
-                    while (it2.hasNext()) {
-                        CameraUnitLog.d(TAG, "dumpSessionConfig: surface: " + it2.next().toString());
+                    Iterator<Surface> it3 = surfaces.iterator();
+                    while (it3.hasNext()) {
+                        CameraUnitLog.d(TAG, "dumpSessionConfig: surface: " + it3.next().toString());
                     }
                 }
             }
@@ -639,8 +739,8 @@ public class Util {
         }).orElse(null);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ int lambda$getMaxSize$0(Size size, Size size2) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0012: ARITH (wrap:int:0x0008: ARITH (wrap:int:0x0000: INVOKE (r1v0 android.util.Size) VIRTUAL call: android.util.Size.getWidth():int A[MD:():int (c), WRAPPED] (LINE:947)) * (wrap:int:0x0004: INVOKE (r1v0 android.util.Size) VIRTUAL call: android.util.Size.getHeight():int A[MD:():int (c), WRAPPED]) A[WRAPPED] (LINE:947)) - (wrap:int:0x0011: ARITH (wrap:int:0x0009: INVOKE (r2v0 android.util.Size) VIRTUAL call: android.util.Size.getWidth():int A[MD:():int (c), WRAPPED]) * (wrap:int:0x000d: INVOKE (r2v0 android.util.Size) VIRTUAL call: android.util.Size.getHeight():int A[MD:():int (c), WRAPPED]) A[WRAPPED]) (LINE:947) */
+    static /* synthetic */ int lambda$getMaxSize$0(Size size, Size size2) {
         return (size.getWidth() * size.getHeight()) - (size2.getWidth() * size2.getHeight());
     }
 
@@ -652,7 +752,7 @@ public class Util {
         try {
             Field declaredField = imageReader.getClass().getDeclaredField(KEY_IMAGEREADER_ACQUIRED_IMAGES);
             declaredField.setAccessible(true);
-            CopyOnWriteArrayList copyOnWriteArrayList = (CopyOnWriteArrayList) declaredField.get(imageReader);
+            CopyOnWriteArrayList<Image> copyOnWriteArrayList = (CopyOnWriteArrayList) declaredField.get(imageReader);
             if (copyOnWriteArrayList == null) {
                 CameraUnitLog.w(TAG, "dealWithImageOverflow, list is null");
                 return;
@@ -660,9 +760,7 @@ public class Util {
             int size = copyOnWriteArrayList.size();
             if (size >= i) {
                 CameraUnitLog.w(TAG, "dealWithImageOverflow, originSize: " + size + ", maxImage: " + i);
-                Iterator it = copyOnWriteArrayList.iterator();
-                while (it.hasNext()) {
-                    Image image = (Image) it.next();
+                for (Image image : copyOnWriteArrayList) {
                     if (copyOnWriteArrayList.size() <= size / 2) {
                         return;
                     }

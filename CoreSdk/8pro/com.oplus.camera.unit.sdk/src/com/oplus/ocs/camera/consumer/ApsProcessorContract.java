@@ -20,10 +20,10 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsTotalResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
 import com.oplus.ocs.camera.consumer.apsAdapter.service.ApsAdapterListener;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ApsProcessorContract {
 
-    /* loaded from: classes.dex */
     public interface IConsumer {
         void afterProcessImage(int i, ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo);
 
@@ -64,7 +64,6 @@ public interface ApsProcessorContract {
         void onVideoReceived(ApsResult apsResult);
     }
 
-    /* loaded from: classes.dex */
     public interface IProcessor {
         int abortCaptures();
 

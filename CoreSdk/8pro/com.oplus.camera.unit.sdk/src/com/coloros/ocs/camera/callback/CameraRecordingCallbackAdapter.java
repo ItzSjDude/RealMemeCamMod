@@ -1,12 +1,12 @@
 package com.coloros.ocs.camera.callback;
 
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraRecordingCallbackAdapter {
     public void onRecordingResult(RecordingResult recordingResult) {
     }
 
-    /* loaded from: classes.dex */
     public static final class RecordingResult {
         private CameraRequestTag mCameraRequestTag;
         private int mRecordingState;

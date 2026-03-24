@@ -13,7 +13,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraRequestTag implements Cloneable {
     private static final String TAG = "CameraRequestTag";
     public Object mCallback;
@@ -266,7 +267,6 @@ public final class CameraRequestTag implements Cloneable {
     public boolean mbWatermarkEnable = false;
     private RequestMode mRequestMode = RequestMode.PREVIEW;
 
-    /* loaded from: classes.dex */
     public enum RequestMode {
         PREVIEW,
         CAPTURE,

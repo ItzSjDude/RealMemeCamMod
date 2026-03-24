@@ -1,9 +1,9 @@
 package com.google.oplus.protobuf;
 
 import java.nio.ByteBuffer;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public abstract class BufferAllocator {
+
+/* JADX INFO: loaded from: classes.dex */
+abstract class BufferAllocator {
     private static final BufferAllocator UNPOOLED = new BufferAllocator() { // from class: com.google.oplus.protobuf.BufferAllocator.1
         @Override // com.google.oplus.protobuf.BufferAllocator
         public AllocatedBuffer allocateHeapBuffer(int i) {

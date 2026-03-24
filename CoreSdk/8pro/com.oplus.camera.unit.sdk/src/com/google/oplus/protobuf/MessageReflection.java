@@ -8,18 +8,16 @@ import com.google.oplus.protobuf.UnknownFieldSet;
 import com.google.oplus.protobuf.WireFormat;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class MessageReflection {
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public interface MergeTarget {
+/* JADX INFO: loaded from: classes.dex */
+class MessageReflection {
 
-        /* loaded from: classes.dex */
+    interface MergeTarget {
+
         public enum ContainerType {
             MESSAGE,
             EXTENSION_SET
@@ -69,8 +67,7 @@ public class MessageReflection {
     MessageReflection() {
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static void writeMessageTo(Message message, Map<Descriptors.FieldDescriptor, Object> map, CodedOutputStream codedOutputStream, boolean z) throws IOException {
+    static void writeMessageTo(Message message, Map<Descriptors.FieldDescriptor, Object> map, CodedOutputStream codedOutputStream, boolean z) throws IOException {
         boolean messageSetWireFormat = message.getDescriptorForType().getOptions().getMessageSetWireFormat();
         if (z) {
             TreeMap treeMap = new TreeMap(map);
@@ -98,21 +95,20 @@ public class MessageReflection {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int getSerializedSize(Message message, Map<Descriptors.FieldDescriptor, Object> map) {
+    static int getSerializedSize(Message message, Map<Descriptors.FieldDescriptor, Object> map) {
         int serializedSize;
-        int computeFieldSize;
+        int iComputeFieldSize;
         boolean messageSetWireFormat = message.getDescriptorForType().getOptions().getMessageSetWireFormat();
         int i = 0;
         for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : map.entrySet()) {
             Descriptors.FieldDescriptor key = entry.getKey();
             Object value = entry.getValue();
             if (messageSetWireFormat && key.isExtension() && key.getType() == Descriptors.FieldDescriptor.Type.MESSAGE && !key.isRepeated()) {
-                computeFieldSize = CodedOutputStream.computeMessageSetExtensionSize(key.getNumber(), (Message) value);
+                iComputeFieldSize = CodedOutputStream.computeMessageSetExtensionSize(key.getNumber(), (Message) value);
             } else {
-                computeFieldSize = FieldSet.computeFieldSize(key, value);
+                iComputeFieldSize = FieldSet.computeFieldSize(key, value);
             }
-            i += computeFieldSize;
+            i += iComputeFieldSize;
         }
         UnknownFieldSet unknownFields = message.getUnknownFields();
         if (messageSetWireFormat) {
@@ -123,8 +119,7 @@ public class MessageReflection {
         return i + serializedSize;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static String delimitWithCommas(List<String> list) {
+    static String delimitWithCommas(List<String> list) {
         StringBuilder sb = new StringBuilder();
         for (String str : list) {
             if (sb.length() > 0) {
@@ -135,8 +130,7 @@ public class MessageReflection {
         return sb.toString();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static boolean isInitialized(MessageOrBuilder messageOrBuilder) {
+    static boolean isInitialized(MessageOrBuilder messageOrBuilder) {
         for (Descriptors.FieldDescriptor fieldDescriptor : messageOrBuilder.getDescriptorForType().getFields()) {
             if (fieldDescriptor.isRequired() && !messageOrBuilder.hasField(fieldDescriptor)) {
                 return false;
@@ -146,12 +140,12 @@ public class MessageReflection {
             Descriptors.FieldDescriptor key = entry.getKey();
             if (key.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                 if (key.isRepeated()) {
-                    for (Message message : (List) entry.getValue()) {
-                        if (!message.isInitialized()) {
+                    Iterator it = ((List) entry.getValue()).iterator();
+                    while (it.hasNext()) {
+                        if (!((Message) it.next()).isInitialized()) {
                             return false;
                         }
                     }
-                    continue;
                 } else if (!((Message) entry.getValue()).isInitialized()) {
                     return false;
                 }
@@ -190,8 +184,9 @@ public class MessageReflection {
             if (key.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                 if (key.isRepeated()) {
                     int i = 0;
-                    for (MessageOrBuilder messageOrBuilder2 : (List) value) {
-                        findMissingFields(messageOrBuilder2, subMessagePrefix(str, key, i), list);
+                    Iterator it = ((List) value).iterator();
+                    while (it.hasNext()) {
+                        findMissingFields((MessageOrBuilder) it.next(), subMessagePrefix(str, key, i), list);
                         i++;
                     }
                 } else if (messageOrBuilder.hasField(key)) {
@@ -201,16 +196,13 @@ public class MessageReflection {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static List<String> findMissingFields(MessageOrBuilder messageOrBuilder) {
+    static List<String> findMissingFields(MessageOrBuilder messageOrBuilder) {
         ArrayList arrayList = new ArrayList();
         findMissingFields(messageOrBuilder, "", arrayList);
         return arrayList;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class BuilderAdapter implements MergeTarget {
+    static class BuilderAdapter implements MergeTarget {
         private final Message.Builder builder;
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
@@ -289,76 +281,76 @@ public class MessageReflection {
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
-            Message.Builder newBuilderForField;
+            Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
-                newBuilderForField = message.newBuilderForType();
+                builderNewBuilderForField = message.newBuilderForType();
             } else {
-                newBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
+                builderNewBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
             }
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForField.mergeFrom(message2);
+                builderNewBuilderForField.mergeFrom(message2);
             }
-            codedInputStream.readGroup(fieldDescriptor.getNumber(), newBuilderForField, extensionRegistryLite);
-            return newBuilderForField.buildPartial();
+            codedInputStream.readGroup(fieldDescriptor.getNumber(), builderNewBuilderForField, extensionRegistryLite);
+            return builderNewBuilderForField.buildPartial();
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
-            Message.Builder newBuilderForField;
+            Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
-                newBuilderForField = message.newBuilderForType();
+                builderNewBuilderForField = message.newBuilderForType();
             } else {
-                newBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
+                builderNewBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
             }
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForField.mergeFrom(message2);
+                builderNewBuilderForField.mergeFrom(message2);
             }
-            codedInputStream.readMessage(newBuilderForField, extensionRegistryLite);
-            return newBuilderForField.buildPartial();
+            codedInputStream.readMessage(builderNewBuilderForField, extensionRegistryLite);
+            return builderNewBuilderForField.buildPartial();
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
-            Message.Builder newBuilderForField;
+            Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
-                newBuilderForField = message.newBuilderForType();
+                builderNewBuilderForField = message.newBuilderForType();
             } else {
-                newBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
+                builderNewBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
             }
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForField.mergeFrom(message2);
+                builderNewBuilderForField.mergeFrom(message2);
             }
-            newBuilderForField.mergeFrom(byteString, extensionRegistryLite);
-            return newBuilderForField.buildPartial();
+            builderNewBuilderForField.mergeFrom(byteString, extensionRegistryLite);
+            return builderNewBuilderForField.buildPartial();
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public MergeTarget newMergeTargetForField(Descriptors.FieldDescriptor fieldDescriptor, Message message) {
-            Message.Builder newBuilderForField;
+            Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
-                newBuilderForField = message.newBuilderForType();
+                builderNewBuilderForField = message.newBuilderForType();
             } else {
-                newBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
+                builderNewBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
             }
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForField.mergeFrom(message2);
+                builderNewBuilderForField.mergeFrom(message2);
             }
-            return new BuilderAdapter(newBuilderForField);
+            return new BuilderAdapter(builderNewBuilderForField);
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public MergeTarget newEmptyTargetForField(Descriptors.FieldDescriptor fieldDescriptor, Message message) {
-            Message.Builder newBuilderForField;
+            Message.Builder builderNewBuilderForField;
             if (message != null) {
-                newBuilderForField = message.newBuilderForType();
+                builderNewBuilderForField = message.newBuilderForType();
             } else {
-                newBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
+                builderNewBuilderForField = this.builder.newBuilderForField(fieldDescriptor);
             }
-            return new BuilderAdapter(newBuilderForField);
+            return new BuilderAdapter(builderNewBuilderForField);
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
@@ -378,9 +370,7 @@ public class MessageReflection {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class ExtensionAdapter implements MergeTarget {
+    static class ExtensionAdapter implements MergeTarget {
         private final FieldSet<Descriptors.FieldDescriptor> extensions;
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
@@ -398,8 +388,7 @@ public class MessageReflection {
             return false;
         }
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        public ExtensionAdapter(FieldSet<Descriptors.FieldDescriptor> fieldSet) {
+        ExtensionAdapter(FieldSet<Descriptors.FieldDescriptor> fieldSet) {
             this.extensions = fieldSet;
         }
 
@@ -460,34 +449,34 @@ public class MessageReflection {
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message message2;
-            Message.Builder newBuilderForType = message.newBuilderForType();
+            Message.Builder builderNewBuilderForType = message.newBuilderForType();
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForType.mergeFrom(message2);
+                builderNewBuilderForType.mergeFrom(message2);
             }
-            codedInputStream.readGroup(fieldDescriptor.getNumber(), newBuilderForType, extensionRegistryLite);
-            return newBuilderForType.buildPartial();
+            codedInputStream.readGroup(fieldDescriptor.getNumber(), builderNewBuilderForType, extensionRegistryLite);
+            return builderNewBuilderForType.buildPartial();
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message message2;
-            Message.Builder newBuilderForType = message.newBuilderForType();
+            Message.Builder builderNewBuilderForType = message.newBuilderForType();
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForType.mergeFrom(message2);
+                builderNewBuilderForType.mergeFrom(message2);
             }
-            codedInputStream.readMessage(newBuilderForType, extensionRegistryLite);
-            return newBuilderForType.buildPartial();
+            codedInputStream.readMessage(builderNewBuilderForType, extensionRegistryLite);
+            return builderNewBuilderForType.buildPartial();
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
         public Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message message2;
-            Message.Builder newBuilderForType = message.newBuilderForType();
+            Message.Builder builderNewBuilderForType = message.newBuilderForType();
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
-                newBuilderForType.mergeFrom(message2);
+                builderNewBuilderForType.mergeFrom(message2);
             }
-            newBuilderForType.mergeFrom(byteString, extensionRegistryLite);
-            return newBuilderForType.buildPartial();
+            builderNewBuilderForType.mergeFrom(byteString, extensionRegistryLite);
+            return builderNewBuilderForType.buildPartial();
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
@@ -514,25 +503,112 @@ public class MessageReflection {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* JADX WARN: Removed duplicated region for block: B:39:0x0093  */
-    /* JADX WARN: Removed duplicated region for block: B:44:0x009f  */
+    /* JADX WARN: Removed duplicated region for block: B:26:0x006d  */
+    /* JADX WARN: Removed duplicated region for block: B:29:0x0071  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static boolean mergeFieldFrom(com.google.oplus.protobuf.CodedInputStream r7, com.google.oplus.protobuf.UnknownFieldSet.Builder r8, com.google.oplus.protobuf.ExtensionRegistryLite r9, com.google.oplus.protobuf.Descriptors.Descriptor r10, com.google.oplus.protobuf.MessageReflection.MergeTarget r11, int r12) throws java.io.IOException {
-        /*
-            Method dump skipped, instructions count: 352
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.MessageReflection.mergeFieldFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.UnknownFieldSet$Builder, com.google.oplus.protobuf.ExtensionRegistryLite, com.google.oplus.protobuf.Descriptors$Descriptor, com.google.oplus.protobuf.MessageReflection$MergeTarget, int):boolean");
+    static boolean mergeFieldFrom(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, Descriptors.Descriptor descriptor, MergeTarget mergeTarget, int i) throws IOException {
+        Message message;
+        boolean z;
+        Object group;
+        ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByNumber;
+        if (descriptor.getOptions().getMessageSetWireFormat() && i == WireFormat.MESSAGE_SET_ITEM_TAG) {
+            mergeMessageSetExtensionFromCodedStream(codedInputStream, builder, extensionRegistryLite, descriptor, mergeTarget);
+            return true;
+        }
+        int tagWireType = WireFormat.getTagWireType(i);
+        int tagFieldNumber = WireFormat.getTagFieldNumber(i);
+        Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = null;
+        if (descriptor.isExtensionNumber(tagFieldNumber)) {
+            if (!(extensionRegistryLite instanceof ExtensionRegistry) || (extensionInfoFindExtensionByNumber = mergeTarget.findExtensionByNumber((ExtensionRegistry) extensionRegistryLite, descriptor, tagFieldNumber)) == null) {
+                message = null;
+            } else {
+                Descriptors.FieldDescriptor fieldDescriptor = extensionInfoFindExtensionByNumber.descriptor;
+                Message message2 = extensionInfoFindExtensionByNumber.defaultInstance;
+                if (message2 == null && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+                    throw new IllegalStateException("Message-typed extension lacked default instance: " + fieldDescriptor.getFullName());
+                }
+                message = message2;
+                fieldDescriptorFindFieldByNumber = fieldDescriptor;
+            }
+        } else if (mergeTarget.getContainerType() == MergeTarget.ContainerType.MESSAGE) {
+            fieldDescriptorFindFieldByNumber = descriptor.findFieldByNumber(tagFieldNumber);
+            message = null;
+        }
+        boolean z2 = false;
+        if (fieldDescriptorFindFieldByNumber != null) {
+            if (tagWireType == FieldSet.getWireFormatForFieldType(fieldDescriptorFindFieldByNumber.getLiteType(), false)) {
+                z = false;
+            } else if (fieldDescriptorFindFieldByNumber.isPackable() && tagWireType == FieldSet.getWireFormatForFieldType(fieldDescriptorFindFieldByNumber.getLiteType(), true)) {
+                z = true;
+            } else {
+                z = false;
+                z2 = true;
+            }
+        }
+        if (z2) {
+            if (builder != null) {
+                return builder.mergeFieldFrom(i, codedInputStream);
+            }
+            return codedInputStream.skipField(i);
+        }
+        if (z) {
+            int iPushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
+            if (fieldDescriptorFindFieldByNumber.getLiteType() == WireFormat.FieldType.ENUM) {
+                while (codedInputStream.getBytesUntilLimit() > 0) {
+                    int i2 = codedInputStream.readEnum();
+                    if (fieldDescriptorFindFieldByNumber.getFile().supportsUnknownEnumValue()) {
+                        mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumberCreatingIfUnknown(i2));
+                    } else {
+                        Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber = fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumber(i2);
+                        if (enumValueDescriptorFindValueByNumber != null) {
+                            mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, enumValueDescriptorFindValueByNumber);
+                        } else if (builder != null) {
+                            builder.mergeVarintField(tagFieldNumber, i2);
+                        }
+                    }
+                }
+            } else {
+                while (codedInputStream.getBytesUntilLimit() > 0) {
+                    mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, WireFormat.readPrimitiveField(codedInputStream, fieldDescriptorFindFieldByNumber.getLiteType(), mergeTarget.getUtf8Validation(fieldDescriptorFindFieldByNumber)));
+                }
+            }
+            codedInputStream.popLimit(iPushLimit);
+        } else {
+            int i3 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptorFindFieldByNumber.getType().ordinal()];
+            if (i3 == 1) {
+                group = mergeTarget.parseGroup(codedInputStream, extensionRegistryLite, fieldDescriptorFindFieldByNumber, message);
+            } else if (i3 == 2) {
+                group = mergeTarget.parseMessage(codedInputStream, extensionRegistryLite, fieldDescriptorFindFieldByNumber, message);
+            } else if (i3 == 3) {
+                int i4 = codedInputStream.readEnum();
+                if (fieldDescriptorFindFieldByNumber.getFile().supportsUnknownEnumValue()) {
+                    group = fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumberCreatingIfUnknown(i4);
+                } else {
+                    Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber2 = fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumber(i4);
+                    if (enumValueDescriptorFindValueByNumber2 == null) {
+                        if (builder != null) {
+                            builder.mergeVarintField(tagFieldNumber, i4);
+                        }
+                        return true;
+                    }
+                    group = enumValueDescriptorFindValueByNumber2;
+                }
+            } else {
+                group = WireFormat.readPrimitiveField(codedInputStream, fieldDescriptorFindFieldByNumber.getLiteType(), mergeTarget.getUtf8Validation(fieldDescriptorFindFieldByNumber));
+            }
+            if (fieldDescriptorFindFieldByNumber.isRepeated()) {
+                mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, group);
+            } else {
+                mergeTarget.setField(fieldDescriptorFindFieldByNumber, group);
+            }
+        }
+        return true;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.MessageReflection$1  reason: invalid class name */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.MessageReflection$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
 
         static {
@@ -554,38 +630,41 @@ public class MessageReflection {
     }
 
     private static void mergeMessageSetExtensionFromCodedStream(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, Descriptors.Descriptor descriptor, MergeTarget mergeTarget) throws IOException {
-        int i = 0;
-        ByteString byteString = null;
-        ExtensionRegistry.ExtensionInfo extensionInfo = null;
+        int uInt32 = 0;
+        ByteString bytes = null;
+        ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByNumber = null;
         while (true) {
-            int readTag = codedInputStream.readTag();
-            if (readTag == 0) {
+            int tag = codedInputStream.readTag();
+            if (tag == 0) {
                 break;
-            } else if (readTag == WireFormat.MESSAGE_SET_TYPE_ID_TAG) {
-                i = codedInputStream.readUInt32();
-                if (i != 0 && (extensionRegistryLite instanceof ExtensionRegistry)) {
-                    extensionInfo = mergeTarget.findExtensionByNumber((ExtensionRegistry) extensionRegistryLite, descriptor, i);
+            }
+            if (tag == WireFormat.MESSAGE_SET_TYPE_ID_TAG) {
+                uInt32 = codedInputStream.readUInt32();
+                if (uInt32 != 0 && (extensionRegistryLite instanceof ExtensionRegistry)) {
+                    extensionInfoFindExtensionByNumber = mergeTarget.findExtensionByNumber((ExtensionRegistry) extensionRegistryLite, descriptor, uInt32);
                 }
-            } else if (readTag == WireFormat.MESSAGE_SET_MESSAGE_TAG) {
-                if (i != 0 && extensionInfo != null && ExtensionRegistryLite.isEagerlyParseMessageSets()) {
-                    eagerlyMergeMessageSetExtension(codedInputStream, extensionInfo, extensionRegistryLite, mergeTarget);
-                    byteString = null;
+            } else if (tag == WireFormat.MESSAGE_SET_MESSAGE_TAG) {
+                if (uInt32 != 0 && extensionInfoFindExtensionByNumber != null && ExtensionRegistryLite.isEagerlyParseMessageSets()) {
+                    eagerlyMergeMessageSetExtension(codedInputStream, extensionInfoFindExtensionByNumber, extensionRegistryLite, mergeTarget);
+                    bytes = null;
                 } else {
-                    byteString = codedInputStream.readBytes();
+                    bytes = codedInputStream.readBytes();
                 }
-            } else if (!codedInputStream.skipField(readTag)) {
+            } else if (!codedInputStream.skipField(tag)) {
                 break;
             }
         }
         codedInputStream.checkLastTagWas(WireFormat.MESSAGE_SET_ITEM_END_TAG);
-        if (byteString == null || i == 0) {
+        if (bytes == null || uInt32 == 0) {
             return;
         }
-        if (extensionInfo != null) {
-            mergeMessageSetExtensionFromBytes(byteString, extensionInfo, extensionRegistryLite, mergeTarget);
-        } else if (byteString == null || builder == null) {
+        if (extensionInfoFindExtensionByNumber != null) {
+            mergeMessageSetExtensionFromBytes(bytes, extensionInfoFindExtensionByNumber, extensionRegistryLite, mergeTarget);
         } else {
-            builder.mergeField(i, UnknownFieldSet.Field.newBuilder().addLengthDelimited(byteString).build());
+            if (bytes == null || builder == null) {
+                return;
+            }
+            builder.mergeField(uInt32, UnknownFieldSet.Field.newBuilder().addLengthDelimited(bytes).build());
         }
     }
 

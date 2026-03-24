@@ -4,9 +4,9 @@ import com.google.oplus.protobuf.Internal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.RandomAccess;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class BooleanArrayList extends AbstractProtobufList<Boolean> implements Internal.BooleanList, RandomAccess, PrimitiveNonBoxingCollection {
+
+/* JADX INFO: loaded from: classes.dex */
+final class BooleanArrayList extends AbstractProtobufList<Boolean> implements Internal.BooleanList, RandomAccess, PrimitiveNonBoxingCollection {
     private static final BooleanArrayList EMPTY_LIST;
     private boolean[] array;
     private int size;
@@ -21,8 +21,7 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
         return EMPTY_LIST;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public BooleanArrayList() {
+    BooleanArrayList() {
         this(new boolean[10], 0);
     }
 
@@ -66,22 +65,25 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
 
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
     public int hashCode() {
-        int i = 1;
-        for (int i2 = 0; i2 < this.size; i2++) {
-            i = (i * 31) + Internal.hashBoolean(this.array[i2]);
+        int iHashBoolean = 1;
+        for (int i = 0; i < this.size; i++) {
+            iHashBoolean = (iHashBoolean * 31) + Internal.hashBoolean(this.array[i]);
         }
-        return i;
+        return iHashBoolean;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+    /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$BooleanList' to match base method */
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
-    /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Boolean> mutableCopyWithCapacity(int i) {
+    /* JADX INFO: renamed from: mutableCopyWithCapacity */
+    public Internal.ProtobufList<Boolean> mutableCopyWithCapacity2(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }
         return new BooleanArrayList(Arrays.copyOf(this.array, i), this.size);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
     @Override // java.util.AbstractList, java.util.List
     public Boolean get(int i) {
         return Boolean.valueOf(getBoolean(i));
@@ -95,15 +97,15 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
 
     @Override // java.util.AbstractList, java.util.List
     public int indexOf(Object obj) {
-        if (obj instanceof Boolean) {
-            boolean booleanValue = ((Boolean) obj).booleanValue();
-            int size = size();
-            for (int i = 0; i < size; i++) {
-                if (this.array[i] == booleanValue) {
-                    return i;
-                }
-            }
+        if (!(obj instanceof Boolean)) {
             return -1;
+        }
+        boolean zBooleanValue = ((Boolean) obj).booleanValue();
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            if (this.array[i] == zBooleanValue) {
+                return i;
+            }
         }
         return -1;
     }
@@ -118,6 +120,7 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
         return this.size;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Boolean set(int i, Boolean bool) {
         return Boolean.valueOf(setBoolean(i, bool.booleanValue()));
@@ -133,12 +136,14 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
         return z2;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(Ljava/lang/Object;)Z */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean add(Boolean bool) {
         addBoolean(bool.booleanValue());
         return true;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public void add(int i, Boolean bool) {
         addBoolean(i, bool.booleanValue());
@@ -207,15 +212,15 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
         return true;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Boolean remove(int i) {
-        int i2;
         ensureIsMutable();
         ensureIndexInRange(i);
         boolean[] zArr = this.array;
         boolean z = zArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(zArr, i + 1, zArr, i, (i2 - i) - 1);
+            System.arraycopy(zArr, i + 1, zArr, i, (r2 - i) - 1);
         }
         this.size--;
         this.modCount++;

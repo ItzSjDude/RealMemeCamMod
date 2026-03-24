@@ -9,14 +9,15 @@ import com.oplus.statistics.util.Supplier;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.Thread;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandler {
     private static final String TAG = "StatisticsExceptionHand";
     private Context mContext;
     private Thread.UncaughtExceptionHandler mHandler = Thread.getDefaultUncaughtExceptionHandler();
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$uncaughtException$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "StatisticsExceptionHandler: get the uncaughtException." */
+    static /* synthetic */ String lambda$uncaughtException$0() {
         return "StatisticsExceptionHandler: get the uncaughtException.";
     }
 
@@ -40,11 +41,11 @@ public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandl
             }
         });
         String stackTrace = getStackTrace(th);
-        long currentTimeMillis = System.currentTimeMillis();
+        long jCurrentTimeMillis = System.currentTimeMillis();
         if (!TextUtils.isEmpty(stackTrace)) {
             ExceptionBean exceptionBean = new ExceptionBean(this.mContext);
             exceptionBean.setCount(1);
-            exceptionBean.setEventTime(currentTimeMillis);
+            exceptionBean.setEventTime(jCurrentTimeMillis);
             exceptionBean.setException(stackTrace);
             ExceptionAgent.recordException(this.mContext, exceptionBean);
         }
@@ -55,12 +56,13 @@ public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandl
     }
 
     private String getStackTrace(Throwable th) {
+        String string;
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         try {
             try {
                 th.printStackTrace(printWriter);
-                return stringWriter.toString();
+                string = stringWriter.toString();
             } catch (Exception e) {
                 LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.StatisticsExceptionHandler$$ExternalSyntheticLambda1
                     @Override // com.oplus.statistics.util.Supplier
@@ -69,8 +71,9 @@ public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandl
                     }
                 });
                 printWriter.close();
-                return null;
+                string = null;
             }
+            return string;
         } finally {
             printWriter.close();
         }

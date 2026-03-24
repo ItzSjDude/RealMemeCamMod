@@ -8,15 +8,15 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class OplusCountedDataInputStream extends FilterInputStream {
     static final /* synthetic */ boolean $assertionsDisabled = false;
     private final byte[] mByteArray;
     private final ByteBuffer mByteBuffer;
     private int mCount;
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusCountedDataInputStream(InputStream inputStream) {
+    protected OplusCountedDataInputStream(InputStream inputStream) {
         super(inputStream);
         this.mCount = 0;
         byte[] bArr = new byte[8];
@@ -30,30 +30,30 @@ class OplusCountedDataInputStream extends FilterInputStream {
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int read(byte[] bArr) throws IOException {
-        int read = this.in.read(bArr);
-        this.mCount += read >= 0 ? read : 0;
-        return read;
+        int i = this.in.read(bArr);
+        this.mCount += i >= 0 ? i : 0;
+        return i;
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int read(byte[] bArr, int i, int i2) throws IOException {
-        int read = this.in.read(bArr, i, i2);
-        this.mCount += read >= 0 ? read : 0;
-        return read;
+        int i3 = this.in.read(bArr, i, i2);
+        this.mCount += i3 >= 0 ? i3 : 0;
+        return i3;
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public int read() throws IOException {
-        int read = this.in.read();
-        this.mCount += read >= 0 ? 1 : 0;
-        return read;
+        int i = this.in.read();
+        this.mCount += i >= 0 ? 1 : 0;
+        return i;
     }
 
     @Override // java.io.FilterInputStream, java.io.InputStream
     public long skip(long j) throws IOException {
-        long skip = this.in.skip(j);
-        this.mCount = (int) (this.mCount + skip);
-        return skip;
+        long jSkip = this.in.skip(j);
+        this.mCount = (int) (((long) this.mCount) + jSkip);
+        return jSkip;
     }
 
     public void skipOrThrow(long j) throws IOException {
@@ -63,7 +63,7 @@ class OplusCountedDataInputStream extends FilterInputStream {
     }
 
     public void skipTo(long j) throws IOException {
-        skipOrThrow(j - this.mCount);
+        skipOrThrow(j - ((long) this.mCount));
     }
 
     public void readOrThrow(byte[] bArr, int i, int i2) throws IOException {
@@ -101,7 +101,7 @@ class OplusCountedDataInputStream extends FilterInputStream {
     }
 
     public long readUnsignedInt() throws IOException {
-        return readInt() & 4294967295L;
+        return ((long) readInt()) & 4294967295L;
     }
 
     public long readLong() throws IOException {

@@ -12,7 +12,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class PreviewParameter extends Parameter {
     public static final Parameter.Key<Integer> KEY_FOCUS_MODE = new Parameter.Key<>(CameraFeatureName.P_FOCUS, Integer.class, 1);
     public static final Parameter.Key<RectF> KEY_AF_REGIONS = new Parameter.Key<>(CameraFeatureName.P_AF, RectF.class, 1);
@@ -183,7 +184,6 @@ public final class PreviewParameter extends Parameter {
         super(concurrentHashMap, concurrentHashMap2);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder extends Parameter.BaseBuilder {
         private static final String TAG = "PreviewParameter.Build";
 
@@ -196,11 +196,11 @@ public final class PreviewParameter extends Parameter {
                     return this;
                 }
                 if (str.equals(PreviewParameter.KEY_TRIPOD_MODE.getName()) || str.equals(PreviewParameter.KEY_CAPTURE_FLIP_MODE.getName()) || str.equals(PreviewParameter.KEY_NAME_ZOOM_ACTIVE.getName())) {
-                    set((Parameter.Key<Parameter.Key>) key, (Parameter.Key) new int[]{((Boolean) obj).booleanValue() ? 1 : 0});
+                    set((Parameter.Key<int[]>) key, new int[]{((Boolean) obj).booleanValue() ? 1 : 0});
                 } else if (str.equals(PreviewParameter.KEY_NAME_ZOOM_TARGET.getName()) && (obj instanceof Float)) {
-                    set((Parameter.Key<Parameter.Key>) key, (Parameter.Key) new float[]{((Float) obj).floatValue()});
+                    set((Parameter.Key<float[]>) key, new float[]{((Float) obj).floatValue()});
                 } else {
-                    set((Parameter.Key<Parameter.Key>) key, (Parameter.Key) obj);
+                    set((Parameter.Key<Object>) key, obj);
                 }
                 return this;
             }

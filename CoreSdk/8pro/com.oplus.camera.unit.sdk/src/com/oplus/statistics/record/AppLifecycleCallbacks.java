@@ -3,7 +3,8 @@ package com.oplus.statistics.record;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class AppLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
     private boolean hasInit;
     private int mActivityCount;
@@ -24,7 +25,6 @@ public class AppLifecycleCallbacks implements Application.ActivityLifecycleCallb
     public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
     }
 
-    /* loaded from: classes.dex */
     private static class Holder {
         private static final AppLifecycleCallbacks INSTANCE = new AppLifecycleCallbacks();
 

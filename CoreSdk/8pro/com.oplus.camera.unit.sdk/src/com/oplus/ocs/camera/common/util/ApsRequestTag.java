@@ -4,7 +4,8 @@ import android.graphics.RectF;
 import android.util.Size;
 import android.view.Surface;
 import androidx.annotation.NonNull;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsRequestTag {
     public int mOperationMode = 0;
     public int mJpegOrientation = 0;

@@ -6,13 +6,13 @@ import android.media.Image;
 import com.oplus.ocs.camera.common.parameter.Parameter;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class Camera2DeviceImpl implements Camera2DeviceInterface {
     private static final String TAG = "Camera2DeviceImpl";
     private Camera2StateMachineInterface mCameraStateMachineInterface;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public Camera2DeviceImpl(Camera2StateMachineInterface camera2StateMachineInterface) {
+    Camera2DeviceImpl(Camera2StateMachineInterface camera2StateMachineInterface) {
         this.mCameraStateMachineInterface = camera2StateMachineInterface;
     }
 

@@ -18,13 +18,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
+import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class BitmapUtils {
     public static final int Config_1080P = 3;
     public static final int Config_2K = 4;
@@ -32,16 +33,16 @@ public class BitmapUtils {
     public static final int Config_720P = 2;
 
     private static int getSize(int i) {
-        if (i != 1) {
-            if (i != 2) {
-                if (i != 3) {
-                    return i != 4 ? 0 : 1440;
-                }
-                return 1080;
-            }
+        if (i == 1) {
+            return 480;
+        }
+        if (i == 2) {
             return 720;
         }
-        return 480;
+        if (i != 3) {
+            return i != 4 ? 0 : 1440;
+        }
+        return 1080;
     }
 
     private BitmapUtils() {
@@ -51,9 +52,9 @@ public class BitmapUtils {
         int size = getSize(i);
         int width = bitmap.getWidth();
         float f = width > size ? size / width : 1.0f;
-        Bitmap createBitmap = Bitmap.createBitmap((int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f), Bitmap.Config.ARGB_8888);
-        new Canvas(createBitmap).drawBitmap(bitmap, (Rect) null, new Rect(0, 0, (int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f)), (Paint) null);
-        return createBitmap;
+        Bitmap bitmapCreateBitmap = Bitmap.createBitmap((int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f), Bitmap.Config.ARGB_8888);
+        new Canvas(bitmapCreateBitmap).drawBitmap(bitmap, (Rect) null, new Rect(0, 0, (int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f)), (Paint) null);
+        return bitmapCreateBitmap;
     }
 
     public static Bitmap getRightSzieBitmap(String str, int i) {
@@ -75,14 +76,14 @@ public class BitmapUtils {
     }
 
     public static Bitmap toGrayscale(Bitmap bitmap) {
-        Bitmap createBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(createBitmap);
+        Bitmap bitmapCreateBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmapCreateBitmap);
         Paint paint = new Paint();
         ColorMatrix colorMatrix = new ColorMatrix();
         colorMatrix.setSaturation(0.0f);
         paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
         canvas.drawBitmap(bitmap, 0.0f, 0.0f, paint);
-        return createBitmap;
+        return bitmapCreateBitmap;
     }
 
     public static Bitmap toGrayscale(Bitmap bitmap, int i) {
@@ -90,8 +91,8 @@ public class BitmapUtils {
     }
 
     public static Bitmap toRoundCorner(Bitmap bitmap, int i) {
-        Bitmap createBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(createBitmap);
+        Bitmap bitmapCreateBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmapCreateBitmap);
         Paint paint = new Paint();
         Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         RectF rectF = new RectF(rect);
@@ -102,7 +103,7 @@ public class BitmapUtils {
         canvas.drawRoundRect(rectF, f, f, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-        return createBitmap;
+        return bitmapCreateBitmap;
     }
 
     public static BitmapDrawable toRoundCorner(BitmapDrawable bitmapDrawable, int i) {
@@ -116,90 +117,56 @@ public class BitmapUtils {
         options.inJustDecodeBounds = false;
         int i = options.outHeight;
         options.inSampleSize = 2;
-        Bitmap decodeFile = BitmapFactory.decodeFile(str, options);
-        int width = decodeFile.getWidth();
-        int height = decodeFile.getHeight();
-        PrintStream printStream = System.out;
-        printStream.println(width + "   " + height);
-        saveJPGE_After(decodeFile, str, 90);
-        return decodeFile;
+        Bitmap bitmapDecodeFile = BitmapFactory.decodeFile(str, options);
+        int width = bitmapDecodeFile.getWidth();
+        int height = bitmapDecodeFile.getHeight();
+        System.out.println(width + "   " + height);
+        saveJPGE_After(bitmapDecodeFile, str, 90);
+        return bitmapDecodeFile;
     }
 
     public static Bitmap createBitmapBySize(Bitmap bitmap, int i, int i2) {
         return Bitmap.createScaledBitmap(bitmap, i, i2, true);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:13:0x004c  */
-    /* JADX WARN: Removed duplicated region for block: B:14:0x004d  */
-    /* JADX WARN: Removed duplicated region for block: B:17:0x005a A[Catch: Exception -> 0x0062, TRY_LEAVE, TryCatch #0 {Exception -> 0x0062, blocks: (B:3:0x0001, B:7:0x003f, B:15:0x004e, B:17:0x005a, B:10:0x0046), top: B:23:0x0001 }] */
-    /* JADX WARN: Removed duplicated region for block: B:20:0x0061  */
-    /* JADX WARN: Removed duplicated region for block: B:25:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:11:0x0049  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static android.graphics.Bitmap getImageFromPath(java.lang.String r8, float r9, float r10) {
-        /*
-            r0 = 0
-            android.graphics.BitmapFactory$Options r1 = new android.graphics.BitmapFactory$Options     // Catch: java.lang.Exception -> L62
-            r1.<init>()     // Catch: java.lang.Exception -> L62
-            r2 = 1
-            r1.inJustDecodeBounds = r2     // Catch: java.lang.Exception -> L62
-            android.graphics.BitmapFactory.decodeFile(r8, r1)     // Catch: java.lang.Exception -> L62
-            r3 = 0
-            r1.inJustDecodeBounds = r3     // Catch: java.lang.Exception -> L62
-            int r3 = r1.outWidth     // Catch: java.lang.Exception -> L62
-            int r4 = r1.outHeight     // Catch: java.lang.Exception -> L62
-            java.lang.String r5 = "getImageFromPath"
-            java.lang.StringBuilder r6 = new java.lang.StringBuilder     // Catch: java.lang.Exception -> L62
-            r6.<init>()     // Catch: java.lang.Exception -> L62
-            java.lang.String r7 = "bSize:newOpts.out.w="
-            r6.append(r7)     // Catch: java.lang.Exception -> L62
-            r6.append(r3)     // Catch: java.lang.Exception -> L62
-            java.lang.String r7 = " h="
-            r6.append(r7)     // Catch: java.lang.Exception -> L62
-            r6.append(r4)     // Catch: java.lang.Exception -> L62
-            java.lang.String r6 = r6.toString()     // Catch: java.lang.Exception -> L62
-            android.util.Log.d(r5, r6)     // Catch: java.lang.Exception -> L62
-            float r5 = r10 / r9
-            float r4 = (float) r4     // Catch: java.lang.Exception -> L62
-            float r3 = (float) r3     // Catch: java.lang.Exception -> L62
-            float r6 = r4 / r3
-            int r5 = (r5 > r6 ? 1 : (r5 == r6 ? 0 : -1))
-            if (r5 <= 0) goto L42
-            int r10 = (r3 > r9 ? 1 : (r3 == r9 ? 0 : -1))
-            if (r10 <= 0) goto L49
-            float r3 = r3 / r9
-            int r9 = (int) r3     // Catch: java.lang.Exception -> L62
-            goto L4a
-        L42:
-            int r9 = (r4 > r10 ? 1 : (r4 == r10 ? 0 : -1))
-            if (r9 <= 0) goto L49
-            float r4 = r4 / r10
-            int r9 = (int) r4     // Catch: java.lang.Exception -> L62
-            goto L4a
-        L49:
-            r9 = r2
-        L4a:
-            if (r9 > r2) goto L4d
-            goto L4e
-        L4d:
-            r2 = r9
-        L4e:
-            r1.inSampleSize = r2     // Catch: java.lang.Exception -> L62
-            android.graphics.Bitmap r9 = android.graphics.BitmapFactory.decodeFile(r8, r1)     // Catch: java.lang.Exception -> L62
-            int r8 = readPictureDegree(r8)     // Catch: java.lang.Exception -> L62
-            if (r8 == 0) goto L5e
-            android.graphics.Bitmap r9 = rotaingImageView(r8, r9)     // Catch: java.lang.Exception -> L62
-        L5e:
-            if (r9 != 0) goto L61
-            goto L62
-        L61:
-            r0 = r9
-        L62:
-            return r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.youtu.ocr.docprocess.BitmapUtils.getImageFromPath(java.lang.String, float, float):android.graphics.Bitmap");
+    public static Bitmap getImageFromPath(String str, float f, float f2) {
+        int i;
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            int i2 = 1;
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(str, options);
+            options.inJustDecodeBounds = false;
+            int i3 = options.outWidth;
+            int i4 = options.outHeight;
+            Log.d("getImageFromPath", "bSize:newOpts.out.w=" + i3 + " h=" + i4);
+            float f3 = (float) i4;
+            float f4 = (float) i3;
+            if (f2 / f > f3 / f4) {
+                i = f4 > f ? (int) (f4 / f) : 1;
+            } else if (f3 > f2) {
+                i = (int) (f3 / f2);
+            }
+            if (i > 1) {
+                i2 = i;
+            }
+            options.inSampleSize = i2;
+            Bitmap bitmapDecodeFile = BitmapFactory.decodeFile(str, options);
+            int pictureDegree = readPictureDegree(str);
+            if (pictureDegree != 0) {
+                bitmapDecodeFile = rotaingImageView(pictureDegree, bitmapDecodeFile);
+            }
+            if (bitmapDecodeFile == null) {
+                return null;
+            }
+            return bitmapDecodeFile;
+        } catch (Exception unused) {
+            return null;
+        }
     }
 
     public static Bitmap decodeBitmapFromResource(Resources resources, int i, int i2, int i3) {
@@ -210,30 +177,30 @@ public class BitmapUtils {
     }
 
     public static BitmapFactory.Options calculateInSampleSize(BitmapFactory.Options options, int i, int i2) {
-        int round;
+        int iRound;
         int i3 = options.outHeight;
         int i4 = options.outWidth;
         if (i3 > i2 || i4 > i) {
-            int round2 = Math.round(i3 / i2);
-            round = Math.round(i4 / i);
-            if (round2 < round) {
-                round = round2;
+            int iRound2 = Math.round(i3 / i2);
+            iRound = Math.round(i4 / i);
+            if (iRound2 < iRound) {
+                iRound = iRound2;
             }
         } else {
-            round = 1;
+            iRound = 1;
         }
-        options.inSampleSize = round;
+        options.inSampleSize = iRound;
         options.inJustDecodeBounds = false;
         return options;
     }
 
     public static Bitmap getAlphaBitmap(Bitmap bitmap, int i) {
-        Bitmap createBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(createBitmap);
+        Bitmap bitmapCreateBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmapCreateBitmap);
         Paint paint = new Paint();
         paint.setColor(i);
         canvas.drawBitmap(bitmap.extractAlpha(), 0.0f, 0.0f, paint);
-        return createBitmap;
+        return bitmapCreateBitmap;
     }
 
     public static int readPictureDegree(String str) {
@@ -244,9 +211,10 @@ public class BitmapUtils {
                 i = 180;
             } else if (attributeInt == 6) {
                 i = 90;
-            } else if (attributeInt != 8) {
-                return 0;
             } else {
+                if (attributeInt != 8) {
+                    return 0;
+                }
                 i = 270;
             }
             return i;
@@ -260,14 +228,14 @@ public class BitmapUtils {
         YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         yuvImage.compressToJpeg(new Rect(0, 0, i, i2), 100, byteArrayOutputStream);
-        Bitmap decodeByteArray = BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size());
+        Bitmap bitmapDecodeByteArray = BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size());
         try {
             byteArrayOutputStream.flush();
             byteArrayOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return decodeByteArray;
+        return bitmapDecodeByteArray;
     }
 
     public static void savePNG_After(Bitmap bitmap, String str) {
@@ -289,11 +257,11 @@ public class BitmapUtils {
         makeDir(file);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
-            if (bitmap.compress(Bitmap.CompressFormat.JPEG, i, fileOutputStream)) {
-                fileOutputStream.flush();
-                fileOutputStream.close();
+            if (!bitmap.compress(Bitmap.CompressFormat.JPEG, i, fileOutputStream)) {
                 return true;
             }
+            fileOutputStream.flush();
+            fileOutputStream.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

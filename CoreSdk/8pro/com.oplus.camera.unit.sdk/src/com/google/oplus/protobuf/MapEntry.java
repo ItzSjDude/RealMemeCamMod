@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class MapEntry<K, V> extends AbstractMessage {
     private volatile int cachedSerializedSize;
     private final K key;
@@ -17,8 +18,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
     private final V value;
 
     /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class Metadata<K, V> extends MapEntryLite.Metadata<K, V> {
+    static final class Metadata<K, V> extends MapEntryLite.Metadata<K, V> {
         public final Descriptors.Descriptor descriptor;
         public final Parser<MapEntry<K, V>> parser;
 
@@ -26,6 +26,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
             super(fieldType, ((MapEntry) mapEntry).key, fieldType2, ((MapEntry) mapEntry).value);
             this.descriptor = descriptor;
             this.parser = new AbstractParser<MapEntry<K, V>>() { // from class: com.google.oplus.protobuf.MapEntry.Metadata.1
+                /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.Parser
                 public MapEntry<K, V> parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                     return new MapEntry<>(Metadata.this, codedInputStream, extensionRegistryLite);
@@ -52,9 +53,9 @@ public final class MapEntry<K, V> extends AbstractMessage {
         this.cachedSerializedSize = -1;
         try {
             this.metadata = metadata;
-            Map.Entry parseEntry = MapEntryLite.parseEntry(codedInputStream, metadata, extensionRegistryLite);
-            this.key = (K) parseEntry.getKey();
-            this.value = (V) parseEntry.getValue();
+            Map.Entry entry = MapEntryLite.parseEntry(codedInputStream, metadata, extensionRegistryLite);
+            this.key = (K) entry.getKey();
+            this.value = (V) entry.getValue();
         } catch (InvalidProtocolBufferException e) {
             throw e.setUnfinishedMessage(this);
         } catch (IOException e2) {
@@ -79,9 +80,9 @@ public final class MapEntry<K, V> extends AbstractMessage {
         if (this.cachedSerializedSize != -1) {
             return this.cachedSerializedSize;
         }
-        int computeSerializedSize = MapEntryLite.computeSerializedSize(this.metadata, this.key, this.value);
-        this.cachedSerializedSize = computeSerializedSize;
-        return computeSerializedSize;
+        int iComputeSerializedSize = MapEntryLite.computeSerializedSize(this.metadata, this.key, this.value);
+        this.cachedSerializedSize = iComputeSerializedSize;
+        return iComputeSerializedSize;
     }
 
     @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
@@ -99,16 +100,22 @@ public final class MapEntry<K, V> extends AbstractMessage {
         return this.metadata.parser;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder<K, V> newBuilderForType() {
         return new Builder<>(this.metadata);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder<K, V> toBuilder() {
         return new Builder<>(this.metadata, this.key, this.value, true, true);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
     public MapEntry<K, V> getDefaultInstanceForType() {
         Metadata<K, V> metadata = this.metadata;
@@ -120,6 +127,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
         return this.metadata.descriptor;
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r0v0, resolved type: java.util.TreeMap */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.MessageOrBuilder
     public Map<Descriptors.FieldDescriptor, Object> getAllFields() {
@@ -167,7 +175,6 @@ public final class MapEntry<K, V> extends AbstractMessage {
         return UnknownFieldSet.getDefaultInstance();
     }
 
-    /* loaded from: classes.dex */
     public static class Builder<K, V> extends AbstractMessage.Builder<Builder<K, V>> {
         private boolean hasKey;
         private boolean hasValue;
@@ -175,6 +182,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
         private final Metadata<K, V> metadata;
         private V value;
 
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder<K, V> setUnknownFields(UnknownFieldSet unknownFieldSet) {
             return this;
@@ -224,15 +232,19 @@ public final class MapEntry<K, V> extends AbstractMessage {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public MapEntry<K, V> build() {
-            MapEntry<K, V> buildPartial = buildPartial();
-            if (buildPartial.isInitialized()) {
-                return buildPartial;
+            MapEntry<K, V> mapEntryBuildPartial = buildPartial();
+            if (mapEntryBuildPartial.isInitialized()) {
+                return mapEntryBuildPartial;
             }
-            throw newUninitializedMessageException((Message) buildPartial);
+            throw newUninitializedMessageException((Message) mapEntryBuildPartial);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public MapEntry<K, V> buildPartial() {
             return new MapEntry<>(this.metadata, this.key, this.value);
@@ -259,6 +271,8 @@ public final class MapEntry<K, V> extends AbstractMessage {
             return ((Message) this.value).newBuilderForType();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: com.google.oplus.protobuf.MapEntry$Builder<K, V> */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder<K, V> setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
@@ -276,6 +290,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder<K, V> clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             checkFieldDescriptor(fieldDescriptor);
@@ -287,16 +302,20 @@ public final class MapEntry<K, V> extends AbstractMessage {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder<K, V> setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             throw new RuntimeException("There is no repeated field in a map entry message.");
         }
 
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public Builder<K, V> addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             throw new RuntimeException("There is no repeated field in a map entry message.");
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public MapEntry<K, V> getDefaultInstanceForType() {
             Metadata<K, V> metadata = this.metadata;
@@ -308,6 +327,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
             return MapEntry.isInitialized(this.metadata, this.value);
         }
 
+        /* JADX DEBUG: Multi-variable search result rejected for r0v0, resolved type: java.util.TreeMap */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.MessageOrBuilder
         public Map<Descriptors.FieldDescriptor, Object> getAllFields() {
@@ -348,9 +368,14 @@ public final class MapEntry<K, V> extends AbstractMessage {
             return UnknownFieldSet.getDefaultInstance();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public Builder<K, V> clone() {
+        /* JADX INFO: renamed from: clone */
+        public Builder<K, V> mo0clone() {
             return new Builder<>(this.metadata, this.key, this.value, this.hasKey, this.hasValue);
         }
     }
@@ -363,8 +388,7 @@ public final class MapEntry<K, V> extends AbstractMessage {
         return true;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public final Metadata<K, V> getMetadata() {
+    final Metadata<K, V> getMetadata() {
         return this.metadata;
     }
 }

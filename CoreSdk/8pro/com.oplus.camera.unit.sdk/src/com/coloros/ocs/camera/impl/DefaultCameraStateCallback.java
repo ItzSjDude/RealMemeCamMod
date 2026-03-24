@@ -7,12 +7,12 @@ import com.oplus.ocs.camera.appinterface.CameraStateCallbackAdapter;
 import com.oplus.ocs.camera.common.util.ConfigInfoPkg;
 import com.oplus.ocs.camera.common.util.ErrorResult;
 import com.oplus.ocs.camera.producer.device.Camera2DeviceInterface;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class DefaultCameraStateCallback extends CameraStateCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraStateCallbackAdapter mCameraStateCallbackAdapter;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public DefaultCameraStateCallback(com.coloros.ocs.camera.callback.CameraStateCallbackAdapter cameraStateCallbackAdapter) {
+    DefaultCameraStateCallback(com.coloros.ocs.camera.callback.CameraStateCallbackAdapter cameraStateCallbackAdapter) {
         this.mCameraStateCallbackAdapter = cameraStateCallbackAdapter;
     }
 

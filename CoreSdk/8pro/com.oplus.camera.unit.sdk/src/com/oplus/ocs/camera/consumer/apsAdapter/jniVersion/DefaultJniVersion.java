@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.consumer.apsAdapter.jniVersion;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DefaultJniVersion implements JniVersionBase {
     private static final String JNI_LIBRARY_NAME = "APSClient-jni";
 

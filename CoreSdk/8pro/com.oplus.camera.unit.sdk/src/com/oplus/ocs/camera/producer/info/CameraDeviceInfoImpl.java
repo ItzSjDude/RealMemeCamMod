@@ -22,7 +22,8 @@ import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraDeviceInfoImpl implements CameraDeviceInfoInterface {
     private static final String TAG = "CameraDeviceInfoImpl";
     private String mCameraType;
@@ -249,9 +250,9 @@ public final class CameraDeviceInfoImpl implements CameraDeviceInfoInterface {
             CameraUnitLog.e(TAG, "getVideoMappingSizesFromConfig, configureAllMaxSize error: " + maxVideoSizeByFeature);
             return null;
         }
-        String[] split = maxVideoSizeByFeature.get(0).split("X");
-        String[] split2 = maxVideoSizeByFeature.get(1).split("X");
-        return new Pair<>(new Size(Integer.parseInt(split2[0]), Integer.parseInt(split2[1])), new Size(Integer.parseInt(split[0]), Integer.parseInt(split[1])));
+        String[] strArrSplit = maxVideoSizeByFeature.get(0).split("X");
+        String[] strArrSplit2 = maxVideoSizeByFeature.get(1).split("X");
+        return new Pair<>(new Size(Integer.parseInt(strArrSplit2[0]), Integer.parseInt(strArrSplit2[1])), new Size(Integer.parseInt(strArrSplit[0]), Integer.parseInt(strArrSplit[1])));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInfoInterface
@@ -269,9 +270,9 @@ public final class CameraDeviceInfoImpl implements CameraDeviceInfoInterface {
         if (map != null) {
             for (String str2 : map.keySet()) {
                 if (CameraConfigHelper.getVendorTagMap().containsKey(str2)) {
-                    List<Size> asList = Arrays.asList(Util.parserSizeLists(CameraConfigHelper.getVendorTagMap().get(str2)));
-                    this.mLegalVideoValues = asList;
-                    return asList;
+                    List<Size> listAsList = Arrays.asList(Util.parserSizeLists(CameraConfigHelper.getVendorTagMap().get(str2)));
+                    this.mLegalVideoValues = listAsList;
+                    return listAsList;
                 }
             }
         }
@@ -281,17 +282,17 @@ public final class CameraDeviceInfoImpl implements CameraDeviceInfoInterface {
             return null;
         }
         for (int i = 0; i < maxVideoSizeByFeature.size(); i++) {
-            int indexOf = maxVideoSizeByFeature.get(i).indexOf("X");
-            int parseInt = Integer.parseInt(maxVideoSizeByFeature.get(i).substring(0, indexOf));
-            int parseInt2 = Integer.parseInt(maxVideoSizeByFeature.get(i).substring(indexOf + 1));
+            int iIndexOf = maxVideoSizeByFeature.get(i).indexOf("X");
+            int i2 = Integer.parseInt(maxVideoSizeByFeature.get(i).substring(0, iIndexOf));
+            int i3 = Integer.parseInt(maxVideoSizeByFeature.get(i).substring(iIndexOf + 1));
             if (i != 0) {
                 if ("slowvideo_mode".equals(this.mModeName)) {
-                    this.mLegalVideoValues.add(new Size(parseInt, parseInt2));
+                    this.mLegalVideoValues.add(new Size(i2, i3));
                 } else {
                     List<Size> supportDefaultVideoSizes = CameraConfigHelper.getSupportDefaultVideoSizes();
-                    for (int i2 = 0; i2 < supportDefaultVideoSizes.size(); i2++) {
-                        Size size = supportDefaultVideoSizes.get(i2);
-                        if (size.getWidth() <= parseInt && size.getHeight() <= parseInt2) {
+                    for (int i4 = 0; i4 < supportDefaultVideoSizes.size(); i4++) {
+                        Size size = supportDefaultVideoSizes.get(i4);
+                        if (size.getWidth() <= i2 && size.getHeight() <= i3) {
                             this.mLegalVideoValues.add(size);
                         }
                     }

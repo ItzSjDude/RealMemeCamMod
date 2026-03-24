@@ -1,5 +1,6 @@
 package com.anc.humansdk.retain;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public enum SdkPowerMode {
     ANC_HUM_POWER_DEFAULT,
     ANC_HUM_POWER_LOW,

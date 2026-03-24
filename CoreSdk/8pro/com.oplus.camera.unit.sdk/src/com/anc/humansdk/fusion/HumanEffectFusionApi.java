@@ -10,24 +10,23 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class HumanEffectFusionApi {
     static final String JNI_SONAME = "AncHumanSegFigureFusion-jni";
     static final String TAG = "HumanEffectFusionApi";
-    static final boolean DEBUG = Log.isLoggable(TAG, 3);
+    static final boolean DEBUG = Log.isLoggable("HumanEffectFusionApi", 3);
     private static HumanEffectFusionApi sPreviewInstance = new HumanEffectFusionApi();
     private static HumanEffectFusionApi sPostInstance = new HumanEffectFusionApi();
     private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
     private AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
     protected AtomicLong handle = new AtomicLong(0);
 
-    /* loaded from: classes.dex */
     public enum CameraType {
         CAMERA_TYPE_REAR,
         CAMERA_TYPE_FRONT
     }
 
-    /* loaded from: classes.dex */
     public enum ImageType {
         ANC_HUM_IMG_NV21,
         ANC_HUM_IMG_BGR,
@@ -74,7 +73,8 @@ public class HumanEffectFusionApi {
         if (this.handle.get() != 0) {
             Log.e(TAG, "sdk re-init");
             return 3;
-        } else if (humanEffectFusionConfig != null && humanEffectFusionConfig.model_data != null) {
+        }
+        if (humanEffectFusionConfig != null && humanEffectFusionConfig.model_data != null) {
             if (!isSoLoaded.get()) {
                 try {
                     System.loadLibrary(JNI_SONAME);
@@ -94,24 +94,22 @@ public class HumanEffectFusionApi {
             if (humanEffectFusionConfig.native_lib_path == null) {
                 humanEffectFusionConfig.native_lib_path = "";
             }
-            int intValue = this.mPendingLogLevel.intValue();
-            if (intValue >= 0) {
-                Log.d(TAG, "api set log level " + intValue);
-                humanEffectFusionConfig.log_level = intValue;
+            int iIntValue = this.mPendingLogLevel.intValue();
+            if (iIntValue >= 0) {
+                Log.d(TAG, "api set log level " + iIntValue);
+                humanEffectFusionConfig.log_level = iIntValue;
                 this.mPendingLogLevel.set(-1);
             }
             this.handle.set(nativeInitHandle(humanEffectFusionConfig));
             return this.handle.get() != 0 ? 0 : 3;
-        } else {
-            Log.e(TAG, "config invalid!");
-            return 1;
         }
+        Log.e(TAG, "config invalid!");
+        return 1;
     }
 
     public int setLogLevel(int i) {
         if (!isSoLoaded.get()) {
-            String str = TAG;
-            Log.d(str, "set log level " + i);
+            Log.d(TAG, "set log level " + i);
             this.mPendingLogLevel.set(i);
             return 0;
         }
@@ -123,36 +121,36 @@ public class HumanEffectFusionApi {
         if (humanVideoFusionParams == null) {
             Log.e(TAG, "setParams: params is invalid!");
             return 1;
-        } else if (this.handle.get() == 0) {
+        }
+        if (this.handle.get() == 0) {
             Log.e(TAG, "setParams: handle is invalid!");
             return 2;
-        } else {
-            return nativeSetParams(this.handle.get(), humanVideoFusionParams);
         }
+        return nativeSetParams(this.handle.get(), humanVideoFusionParams);
     }
 
     public int setParamsArray(float[] fArr) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "setParamsArray: handle is invalid!");
             return 2;
-        } else if (fArr != null && fArr.length > 0) {
-            return nativeSetParamsArray(this.handle.get(), fArr);
-        } else {
-            Log.e(TAG, "setParamsArray error, paramsArray is null!");
-            return 1;
         }
+        if (fArr != null && fArr.length > 0) {
+            return nativeSetParamsArray(this.handle.get(), fArr);
+        }
+        Log.e(TAG, "setParamsArray error, paramsArray is null!");
+        return 1;
     }
 
     public int setFeatureType(FeatureType featureType) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "setRuntimeFeature: handle is invalid!");
             return 2;
-        } else if (featureType != null && featureType.getValue() != 0) {
-            return nativeSetFeatureType(this.handle.get(), featureType.getValue());
-        } else {
-            Log.e(TAG, "setRuntimeFeature: FeatureType is invalid!");
-            return 2;
         }
+        if (featureType != null && featureType.getValue() != 0) {
+            return nativeSetFeatureType(this.handle.get(), featureType.getValue());
+        }
+        Log.e(TAG, "setRuntimeFeature: FeatureType is invalid!");
+        return 2;
     }
 
     public int process(HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessTexureResult humanProcessTexureResult) {
@@ -192,9 +190,9 @@ public class HumanEffectFusionApi {
             Log.e(TAG, "release: handle is invalid!");
             return 2;
         }
-        int nativeRelease = nativeRelease(this.handle.get());
+        int iNativeRelease = nativeRelease(this.handle.get());
         this.handle.set(0L);
-        return nativeRelease;
+        return iNativeRelease;
     }
 
     public static HumanEffectFusionApi getPreviewInstance() {
@@ -215,9 +213,9 @@ public class HumanEffectFusionApi {
         try {
             FileInputStream fileInputStream = new FileInputStream(str);
             while (true) {
-                int read = fileInputStream.read(bArr);
-                if (read != -1) {
-                    byteArrayOutputStream.write(bArr, 0, read);
+                int i = fileInputStream.read(bArr);
+                if (i != -1) {
+                    byteArrayOutputStream.write(bArr, 0, i);
                 } else {
                     fileInputStream.close();
                     byteArrayOutputStream.close();
@@ -237,7 +235,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanEffectFusionConfig {
         public String cache_path;
         public boolean isBackCamera;
@@ -314,7 +311,6 @@ public class HumanEffectFusionApi {
             return String.format("model size %d, cache path %s, lib path %s, realtime %b, power %d, sdkLoadType:%d", objArr);
         }
 
-        /* loaded from: classes.dex */
         public static class HumanEffectFusionConfigBuilder {
             private String cache_path;
             private boolean isBackCamera;
@@ -371,7 +367,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameResult {
         public HumanVideoFrame humanVideoFrame;
 
@@ -389,7 +384,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTexureResult {
         public HumanVideoTexture humanVideoTexture;
 
@@ -407,7 +401,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameRequest {
         public CameraType cameraType;
         public HumanVideoFrame humanVideoFrame;
@@ -427,7 +420,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameRequestBuilder {
         static final /* synthetic */ boolean $assertionsDisabled = false;
         public CameraType cameraType;
@@ -479,7 +471,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTextureRequest {
         public CameraType cameraType;
         public HumanVideoTexture humanVideoTexture;
@@ -499,7 +490,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTextureRequestBuilder {
         static final /* synthetic */ boolean $assertionsDisabled = false;
         public CameraType cameraType;
@@ -554,7 +544,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoFrame {
         public byte[] data;
         public int height;
@@ -575,7 +564,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoTexture {
         public int height;
         public boolean isOES;
@@ -596,7 +584,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoFusionParams {
         public float bg_light_factor;
         public float blue;
@@ -778,14 +765,13 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public enum AdjustColorType {
         ADJUST_COLOR_NONE(0),
         ADJUST_COLOR_RED(1),
         ADJUST_COLOR_YELLOW(2),
         ADJUST_COLOR_GREEN(3),
         ADJUST_COLOR_BLUE(4);
-        
+
         private int type;
 
         AdjustColorType(int i) {
@@ -797,7 +783,6 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public enum SdkLoadType {
         ANC_LOAD_TYPE_DLOEPN,
         ANC_LOAD_TYPE_ANDROID_DLOPEN,
@@ -816,12 +801,11 @@ public class HumanEffectFusionApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public enum FeatureType {
         ANC_HUM_FEATURE_NONE(0),
         ANC_HUM_FEATURE_BOKEH(1),
         ANC_HUM_FEATURE_NEON(5);
-        
+
         private final int value;
 
         FeatureType(int i) {

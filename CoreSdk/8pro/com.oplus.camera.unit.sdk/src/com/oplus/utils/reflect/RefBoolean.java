@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefBoolean extends BaseField<Boolean> {
     private static final boolean DEFAULT_VALUE = ((Boolean) DEFAULT_TYPES.get(Boolean.class)).booleanValue();
     private static final String TAG = "RefBoolean";

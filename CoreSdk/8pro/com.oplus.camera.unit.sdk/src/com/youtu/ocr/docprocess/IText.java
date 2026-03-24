@@ -2,7 +2,8 @@ package com.youtu.ocr.docprocess;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface IText {
     int FindAutoType();
 
@@ -22,7 +23,6 @@ public interface IText {
 
     Bitmap rectifyByBitmap(Bitmap bitmap, int[] iArr);
 
-    /* loaded from: classes.dex */
     public static class DetectResult {
         public boolean hasResult;
         public Point[] pointArr;

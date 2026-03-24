@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.common.util;
 import android.os.HandlerThread;
 import android.os.Process;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraHandlerThread extends HandlerThread {
     private static final String TAG = "CameraHandlerThread";
     private String mUXLevel;

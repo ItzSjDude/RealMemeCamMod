@@ -3,16 +3,15 @@ package com.oplus.ocs.camera.consumer.apsAdapter.adapter;
 import android.hardware.camera2.CaptureResult;
 import java.util.Arrays;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsAdapterDecision {
     private static final float FLOAT_ONE = 1.0f;
 
-    /* loaded from: classes.dex */
     public interface DecisionCallback {
         void onDecisionResult(DecisionResult decisionResult);
     }
 
-    /* loaded from: classes.dex */
     public static class DecisionControlData {
         public int mCameraId = 0;
         public String mCaptureMode = null;
@@ -37,7 +36,6 @@ public class ApsAdapterDecision {
         public HashMap<String, String> mAlgoHashMap = null;
     }
 
-    /* loaded from: classes.dex */
     public static class DecisionResult {
         public int mCameraId = -1;
         public String mCaptureMode = null;

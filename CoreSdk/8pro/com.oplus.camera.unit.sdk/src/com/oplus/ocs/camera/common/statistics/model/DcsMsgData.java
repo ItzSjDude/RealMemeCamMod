@@ -5,7 +5,8 @@ import com.oplus.ocs.camera.common.statistics.StatisticConstant;
 import com.oplus.ocs.camera.common.statistics.StatisticsManager;
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class DcsMsgData {
     public int mCameraId;
     public StatisticConstant.EventType mEventType = null;

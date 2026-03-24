@@ -1,6 +1,7 @@
 package com.oplus.statistics.util;
+
+/* JADX INFO: loaded from: classes.dex */
 @FunctionalInterface
-/* loaded from: classes.dex */
 public interface Supplier<T> {
     T get();
 }

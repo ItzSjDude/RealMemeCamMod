@@ -5,12 +5,12 @@ import com.google.oplus.protobuf.WireFormat;
 import com.google.oplus.protobuf.Writer;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class CodedOutputStreamWriter implements Writer {
+/* JADX INFO: loaded from: classes.dex */
+final class CodedOutputStreamWriter implements Writer {
     private final CodedOutputStream output;
 
     public static CodedOutputStreamWriter forCodedOutput(CodedOutputStream codedOutputStream) {
@@ -159,11 +159,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeInt32SizeNoTag(list.get(i4).intValue());
+            int iComputeInt32SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeInt32SizeNoTag += CodedOutputStream.computeInt32SizeNoTag(list.get(i3).intValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeInt32SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeInt32NoTag(list.get(i2).intValue());
                 i2++;
@@ -181,11 +181,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeFixed32SizeNoTag(list.get(i4).intValue());
+            int iComputeFixed32SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeFixed32SizeNoTag += CodedOutputStream.computeFixed32SizeNoTag(list.get(i3).intValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeFixed32SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeFixed32NoTag(list.get(i2).intValue());
                 i2++;
@@ -203,11 +203,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeInt64SizeNoTag(list.get(i4).longValue());
+            int iComputeInt64SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeInt64SizeNoTag += CodedOutputStream.computeInt64SizeNoTag(list.get(i3).longValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeInt64SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeInt64NoTag(list.get(i2).longValue());
                 i2++;
@@ -225,11 +225,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeUInt64SizeNoTag(list.get(i4).longValue());
+            int iComputeUInt64SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeUInt64SizeNoTag += CodedOutputStream.computeUInt64SizeNoTag(list.get(i3).longValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeUInt64SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeUInt64NoTag(list.get(i2).longValue());
                 i2++;
@@ -247,11 +247,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeFixed64SizeNoTag(list.get(i4).longValue());
+            int iComputeFixed64SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeFixed64SizeNoTag += CodedOutputStream.computeFixed64SizeNoTag(list.get(i3).longValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeFixed64SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeFixed64NoTag(list.get(i2).longValue());
                 i2++;
@@ -269,11 +269,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeFloatSizeNoTag(list.get(i4).floatValue());
+            int iComputeFloatSizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeFloatSizeNoTag += CodedOutputStream.computeFloatSizeNoTag(list.get(i3).floatValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeFloatSizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeFloatNoTag(list.get(i2).floatValue());
                 i2++;
@@ -291,11 +291,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeDoubleSizeNoTag(list.get(i4).doubleValue());
+            int iComputeDoubleSizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeDoubleSizeNoTag += CodedOutputStream.computeDoubleSizeNoTag(list.get(i3).doubleValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeDoubleSizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeDoubleNoTag(list.get(i2).doubleValue());
                 i2++;
@@ -313,11 +313,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeEnumSizeNoTag(list.get(i4).intValue());
+            int iComputeEnumSizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeEnumSizeNoTag += CodedOutputStream.computeEnumSizeNoTag(list.get(i3).intValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeEnumSizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeEnumNoTag(list.get(i2).intValue());
                 i2++;
@@ -335,11 +335,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeBoolSizeNoTag(list.get(i4).booleanValue());
+            int iComputeBoolSizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeBoolSizeNoTag += CodedOutputStream.computeBoolSizeNoTag(list.get(i3).booleanValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeBoolSizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeBoolNoTag(list.get(i2).booleanValue());
                 i2++;
@@ -389,11 +389,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeUInt32SizeNoTag(list.get(i4).intValue());
+            int iComputeUInt32SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeUInt32SizeNoTag += CodedOutputStream.computeUInt32SizeNoTag(list.get(i3).intValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeUInt32SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeUInt32NoTag(list.get(i2).intValue());
                 i2++;
@@ -411,11 +411,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeSFixed32SizeNoTag(list.get(i4).intValue());
+            int iComputeSFixed32SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeSFixed32SizeNoTag += CodedOutputStream.computeSFixed32SizeNoTag(list.get(i3).intValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeSFixed32SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeSFixed32NoTag(list.get(i2).intValue());
                 i2++;
@@ -433,11 +433,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeSFixed64SizeNoTag(list.get(i4).longValue());
+            int iComputeSFixed64SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeSFixed64SizeNoTag += CodedOutputStream.computeSFixed64SizeNoTag(list.get(i3).longValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeSFixed64SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeSFixed64NoTag(list.get(i2).longValue());
                 i2++;
@@ -455,11 +455,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeSInt32SizeNoTag(list.get(i4).intValue());
+            int iComputeSInt32SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeSInt32SizeNoTag += CodedOutputStream.computeSInt32SizeNoTag(list.get(i3).intValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeSInt32SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeSInt32NoTag(list.get(i2).intValue());
                 i2++;
@@ -477,11 +477,11 @@ public final class CodedOutputStreamWriter implements Writer {
         int i2 = 0;
         if (z) {
             this.output.writeTag(i, 2);
-            int i3 = 0;
-            for (int i4 = 0; i4 < list.size(); i4++) {
-                i3 += CodedOutputStream.computeSInt64SizeNoTag(list.get(i4).longValue());
+            int iComputeSInt64SizeNoTag = 0;
+            for (int i3 = 0; i3 < list.size(); i3++) {
+                iComputeSInt64SizeNoTag += CodedOutputStream.computeSInt64SizeNoTag(list.get(i3).longValue());
             }
-            this.output.writeUInt32NoTag(i3);
+            this.output.writeUInt32NoTag(iComputeSInt64SizeNoTag);
             while (i2 < list.size()) {
                 this.output.writeSInt64NoTag(list.get(i2).longValue());
                 i2++;
@@ -530,19 +530,13 @@ public final class CodedOutputStreamWriter implements Writer {
         }
         for (Map.Entry<K, V> entry : map.entrySet()) {
             this.output.writeTag(i, 2);
-            this.output
-                    .writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, entry.getKey(), entry.getValue()));
+            this.output.writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, entry.getKey(), entry.getValue()));
             MapEntryLite.writeTo(this.output, metadata, entry.getKey(), entry.getValue());
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /*
-     * renamed from: com.google.oplus.protobuf.CodedOutputStreamWriter$1 reason:
-     * invalid class name
-     */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.CodedOutputStreamWriter$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
         static {
@@ -599,19 +593,16 @@ public final class CodedOutputStreamWriter implements Writer {
         }
     }
 
-    private <K, V> void writeDeterministicMap(int i, MapEntryLite.Metadata<K, V> metadata, Map<K, V> map)
-            throws IOException {
+    private <K, V> void writeDeterministicMap(int i, MapEntryLite.Metadata<K, V> metadata, Map<K, V> map) throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[metadata.keyType.ordinal()]) {
             case 1:
                 V v = map.get(Boolean.FALSE);
                 if (v != null) {
-                    writeDeterministicBooleanMapEntry(i, false, v,
-                            (MapEntryLite.Metadata<Boolean, V>) (Object) metadata);
+                    writeDeterministicBooleanMapEntry(i, false, v, metadata);
                 }
                 V v2 = map.get(Boolean.TRUE);
                 if (v2 != null) {
-                    writeDeterministicBooleanMapEntry(i, true, v2,
-                            (MapEntryLite.Metadata<Boolean, V>) (Object) metadata);
+                    writeDeterministicBooleanMapEntry(i, true, v2, metadata);
                     return;
                 }
                 return;
@@ -620,40 +611,36 @@ public final class CodedOutputStreamWriter implements Writer {
             case 4:
             case 5:
             case 6:
-                writeDeterministicIntegerMap(i, (MapEntryLite.Metadata<Integer, V>) (Object) metadata,
-                        (Map<Integer, V>) (Object) map);
+                writeDeterministicIntegerMap(i, metadata, map);
                 return;
             case 7:
             case 8:
             case 9:
             case 10:
             case 11:
-                writeDeterministicLongMap(i, (MapEntryLite.Metadata<Long, V>) (Object) metadata,
-                        (Map<Long, V>) (Object) map);
+                writeDeterministicLongMap(i, metadata, map);
                 return;
             case 12:
-                writeDeterministicStringMap(i, (MapEntryLite.Metadata<String, V>) (Object) metadata,
-                        (Map<String, V>) (Object) map);
+                writeDeterministicStringMap(i, metadata, map);
                 return;
             default:
                 throw new IllegalArgumentException("does not support key type: " + metadata.keyType);
         }
     }
 
-    private <V> void writeDeterministicBooleanMapEntry(int i, boolean z, V v,
-            MapEntryLite.Metadata<Boolean, V> metadata) throws IOException {
+    private <V> void writeDeterministicBooleanMapEntry(int i, boolean z, V v, MapEntryLite.Metadata<Boolean, V> metadata) throws IOException {
         this.output.writeTag(i, 2);
         this.output.writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, Boolean.valueOf(z), v));
         MapEntryLite.writeTo(this.output, metadata, Boolean.valueOf(z), v);
     }
 
-    private <V> void writeDeterministicIntegerMap(int i, MapEntryLite.Metadata<Integer, V> metadata,
-            Map<Integer, V> map) throws IOException {
+    private <V> void writeDeterministicIntegerMap(int i, MapEntryLite.Metadata<Integer, V> metadata, Map<Integer, V> map) throws IOException {
         int size = map.size();
         int[] iArr = new int[size];
+        Iterator<Integer> it = map.keySet().iterator();
         int i2 = 0;
-        for (Integer num : map.keySet()) {
-            iArr[i2] = num.intValue();
+        while (it.hasNext()) {
+            iArr[i2] = it.next().intValue();
             i2++;
         }
         Arrays.sort(iArr);
@@ -666,13 +653,13 @@ public final class CodedOutputStreamWriter implements Writer {
         }
     }
 
-    private <V> void writeDeterministicLongMap(int i, MapEntryLite.Metadata<Long, V> metadata, Map<Long, V> map)
-            throws IOException {
+    private <V> void writeDeterministicLongMap(int i, MapEntryLite.Metadata<Long, V> metadata, Map<Long, V> map) throws IOException {
         int size = map.size();
         long[] jArr = new long[size];
+        Iterator<Long> it = map.keySet().iterator();
         int i2 = 0;
-        for (Long l : map.keySet()) {
-            jArr[i2] = l.longValue();
+        while (it.hasNext()) {
+            jArr[i2] = it.next().longValue();
             i2++;
         }
         Arrays.sort(jArr);
@@ -685,22 +672,22 @@ public final class CodedOutputStreamWriter implements Writer {
         }
     }
 
-    private <V> void writeDeterministicStringMap(int i, MapEntryLite.Metadata<String, V> metadata, Map<String, V> map)
-            throws IOException {
+    private <V> void writeDeterministicStringMap(int i, MapEntryLite.Metadata<String, V> metadata, Map<String, V> map) throws IOException {
         int size = map.size();
         String[] strArr = new String[size];
+        Iterator<String> it = map.keySet().iterator();
         int i2 = 0;
-        for (String str : map.keySet()) {
-            strArr[i2] = str;
+        while (it.hasNext()) {
+            strArr[i2] = it.next();
             i2++;
         }
         Arrays.sort(strArr);
         for (int i3 = 0; i3 < size; i3++) {
-            String str2 = strArr[i3];
-            V v = map.get(str2);
+            String str = strArr[i3];
+            V v = map.get(str);
             this.output.writeTag(i, 2);
-            this.output.writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, str2, v));
-            MapEntryLite.writeTo(this.output, metadata, str2, v);
+            this.output.writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, str, v));
+            MapEntryLite.writeTo(this.output, metadata, str, v);
         }
     }
 }

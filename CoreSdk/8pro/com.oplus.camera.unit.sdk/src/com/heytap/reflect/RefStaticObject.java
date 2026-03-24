@@ -2,7 +2,8 @@ package com.heytap.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefStaticObject<T> {
     private static final String TAG = "RefStaticObject";
     private Field mField;

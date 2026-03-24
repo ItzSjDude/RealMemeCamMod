@@ -7,11 +7,11 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-/* loaded from: classes.dex */
-public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder>
-        implements AbstractMessage.BuilderParent {
+/* JADX INFO: loaded from: classes.dex */
+public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder> implements AbstractMessage.BuilderParent {
     private List<SingleFieldBuilderV3<MType, BType, IType>> builders;
     private BuilderExternalList<MType, BType, IType> externalBuilderList;
     private MessageExternalList<MType, BType, IType> externalMessageList;
@@ -21,8 +21,7 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
     private List<MType> messages;
     private AbstractMessage.BuilderParent parent;
 
-    public RepeatedFieldBuilderV3(List<MType> list, boolean z, AbstractMessage.BuilderParent builderParent,
-            boolean z2) {
+    public RepeatedFieldBuilderV3(List<MType> list, boolean z, AbstractMessage.BuilderParent builderParent, boolean z2) {
         this.messages = list;
         this.isMessagesListMutable = z;
         this.parent = builderParent;
@@ -59,7 +58,7 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
     }
 
     public MType getMessage(int i) {
-        return getMessage(i, false);
+        return (MType) getMessage(i, false);
     }
 
     private MType getMessage(int i, boolean z) {
@@ -71,41 +70,30 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
         if (singleFieldBuilderV3 == null) {
             return this.messages.get(i);
         }
-        return z ? singleFieldBuilderV3.build() : singleFieldBuilderV3.getMessage();
+        return z ? (MType) singleFieldBuilderV3.build() : (MType) singleFieldBuilderV3.getMessage();
     }
 
     public BType getBuilder(int i) {
         ensureBuilders();
         SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3 = this.builders.get(i);
         if (singleFieldBuilderV3 == null) {
-            SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV32 = new SingleFieldBuilderV3<>(
-                    this.messages.get(i), this, this.isClean);
+            SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV32 = new SingleFieldBuilderV3<>(this.messages.get(i), this, this.isClean);
             this.builders.set(i, singleFieldBuilderV32);
             singleFieldBuilderV3 = singleFieldBuilderV32;
         }
-        return singleFieldBuilderV3.getBuilder();
+        return (BType) singleFieldBuilderV3.getBuilder();
     }
 
-    /*
-     * JADX WARN: Type inference failed for: r1v4, types:
-     * [com.google.oplus.protobuf.MessageOrBuilder, IType extends
-     * com.google.oplus.protobuf.MessageOrBuilder]
-     */
-    /*
-     * JADX WARN: Type inference failed for: r1v7, types:
-     * [com.google.oplus.protobuf.MessageOrBuilder, IType extends
-     * com.google.oplus.protobuf.MessageOrBuilder]
-     */
     public IType getMessageOrBuilder(int i) {
         List<SingleFieldBuilderV3<MType, BType, IType>> list = this.builders;
         if (list == null) {
-            return (IType) this.messages.get(i);
+            return this.messages.get(i);
         }
         SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3 = list.get(i);
         if (singleFieldBuilderV3 == null) {
-            return (IType) this.messages.get(i);
+            return this.messages.get(i);
         }
-        return singleFieldBuilderV3.getMessageOrBuilder();
+        return (IType) singleFieldBuilderV3.getMessageOrBuilder();
     }
 
     public RepeatedFieldBuilderV3<MType, BType, IType> setMessage(int i, MType mtype) {
@@ -149,26 +137,28 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
     }
 
     public RepeatedFieldBuilderV3<MType, BType, IType> addAllMessages(Iterable<? extends MType> iterable) {
-        for (MType mtype : iterable) {
-            Internal.checkNotNull(mtype);
+        Iterator<? extends MType> it = iterable.iterator();
+        while (it.hasNext()) {
+            Internal.checkNotNull(it.next());
         }
-        int i = -1;
+        int size = -1;
         if (iterable instanceof Collection) {
             Collection collection = (Collection) iterable;
             if (collection.isEmpty()) {
                 return this;
             }
-            i = collection.size();
+            size = collection.size();
         }
         ensureMutableMessageList();
-        if (i >= 0) {
+        if (size >= 0) {
             List<MType> list = this.messages;
             if (list instanceof ArrayList) {
-                ((ArrayList) list).ensureCapacity(list.size() + i);
+                ((ArrayList) list).ensureCapacity(list.size() + size);
             }
         }
-        for (MType mtype2 : iterable) {
-            addMessage(mtype2);
+        Iterator<? extends MType> it2 = iterable.iterator();
+        while (it2.hasNext()) {
+            addMessage(it2.next());
         }
         onChanged();
         incrementModCounts();
@@ -178,34 +168,32 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
     public BType addBuilder(MType mtype) {
         ensureMutableMessageList();
         ensureBuilders();
-        SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3 = new SingleFieldBuilderV3<>(mtype, this,
-                this.isClean);
+        SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3 = new SingleFieldBuilderV3<>(mtype, this, this.isClean);
         this.messages.add(null);
         this.builders.add(singleFieldBuilderV3);
         onChanged();
         incrementModCounts();
-        return singleFieldBuilderV3.getBuilder();
+        return (BType) singleFieldBuilderV3.getBuilder();
     }
 
     public BType addBuilder(int i, MType mtype) {
         ensureMutableMessageList();
         ensureBuilders();
-        SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3 = new SingleFieldBuilderV3<>(mtype, this,
-                this.isClean);
+        SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3 = new SingleFieldBuilderV3<>(mtype, this, this.isClean);
         this.messages.add(i, null);
         this.builders.add(i, singleFieldBuilderV3);
         onChanged();
         incrementModCounts();
-        return singleFieldBuilderV3.getBuilder();
+        return (BType) singleFieldBuilderV3.getBuilder();
     }
 
     public void remove(int i) {
-        SingleFieldBuilderV3<MType, BType, IType> remove;
+        SingleFieldBuilderV3<MType, BType, IType> singleFieldBuilderV3Remove;
         ensureMutableMessageList();
         this.messages.remove(i);
         List<SingleFieldBuilderV3<MType, BType, IType>> list = this.builders;
-        if (list != null && (remove = list.remove(i)) != null) {
-            remove.dispose();
+        if (list != null && (singleFieldBuilderV3Remove = list.remove(i)) != null) {
+            singleFieldBuilderV3Remove.dispose();
         }
         onChanged();
         incrementModCounts();
@@ -255,12 +243,12 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
         }
         ensureMutableMessageList();
         for (int i2 = 0; i2 < this.messages.size(); i2++) {
-            this.messages.set(i2, getMessage(i2, true));
+            this.messages.set(i2, (MType) getMessage(i2, true));
         }
-        List<MType> unmodifiableList = Collections.unmodifiableList(this.messages);
-        this.messages = unmodifiableList;
+        List<MType> listUnmodifiableList = Collections.unmodifiableList(this.messages);
+        this.messages = listUnmodifiableList;
         this.isMessagesListMutable = false;
-        return unmodifiableList;
+        return listUnmodifiableList;
     }
 
     public List<MType> getMessageList() {
@@ -313,10 +301,7 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class MessageExternalList<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder>
-            extends AbstractList<MType> implements List<MType> {
+    private static class MessageExternalList<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<MType> implements List<MType> {
         RepeatedFieldBuilderV3<MType, BType, IType> builder;
 
         MessageExternalList(RepeatedFieldBuilderV3<MType, BType, IType> repeatedFieldBuilderV3) {
@@ -328,9 +313,10 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
             return this.builder.getCount();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public MType get(int i) {
-            return this.builder.getMessage(i);
+            return (MType) this.builder.getMessage(i);
         }
 
         void incrementModCount() {
@@ -338,10 +324,7 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class BuilderExternalList<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder>
-            extends AbstractList<BType> implements List<BType> {
+    private static class BuilderExternalList<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<BType> implements List<BType> {
         RepeatedFieldBuilderV3<MType, BType, IType> builder;
 
         BuilderExternalList(RepeatedFieldBuilderV3<MType, BType, IType> repeatedFieldBuilderV3) {
@@ -353,9 +336,10 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
             return this.builder.getCount();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public BType get(int i) {
-            return this.builder.getBuilder(i);
+            return (BType) this.builder.getBuilder(i);
         }
 
         void incrementModCount() {
@@ -363,10 +347,7 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class MessageOrBuilderExternalList<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder>
-            extends AbstractList<IType> implements List<IType> {
+    private static class MessageOrBuilderExternalList<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<IType> implements List<IType> {
         RepeatedFieldBuilderV3<MType, BType, IType> builder;
 
         MessageOrBuilderExternalList(RepeatedFieldBuilderV3<MType, BType, IType> repeatedFieldBuilderV3) {
@@ -378,9 +359,10 @@ public class RepeatedFieldBuilderV3<MType extends AbstractMessage, BType extends
             return this.builder.getCount();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public IType get(int i) {
-            return this.builder.getMessageOrBuilder(i);
+            return (IType) this.builder.getMessageOrBuilder(i);
         }
 
         void incrementModCount() {

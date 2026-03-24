@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import java.io.IOException;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class LazyFieldLite {
     private static final ExtensionRegistryLite EMPTY_REGISTRY = ExtensionRegistryLite.getEmptyRegistry();
     private ByteString delayedBytes;
@@ -32,22 +33,22 @@ public class LazyFieldLite {
         if (this == obj) {
             return true;
         }
-        if (obj instanceof LazyFieldLite) {
-            LazyFieldLite lazyFieldLite = (LazyFieldLite) obj;
-            MessageLite messageLite = this.value;
-            MessageLite messageLite2 = lazyFieldLite.value;
-            if (messageLite == null && messageLite2 == null) {
-                return toByteString().equals(lazyFieldLite.toByteString());
-            }
-            if (messageLite == null || messageLite2 == null) {
-                if (messageLite != null) {
-                    return messageLite.equals(lazyFieldLite.getValue(messageLite.getDefaultInstanceForType()));
-                }
-                return getValue(messageLite2.getDefaultInstanceForType()).equals(messageLite2);
-            }
+        if (!(obj instanceof LazyFieldLite)) {
+            return false;
+        }
+        LazyFieldLite lazyFieldLite = (LazyFieldLite) obj;
+        MessageLite messageLite = this.value;
+        MessageLite messageLite2 = lazyFieldLite.value;
+        if (messageLite == null && messageLite2 == null) {
+            return toByteString().equals(lazyFieldLite.toByteString());
+        }
+        if (messageLite != null && messageLite2 != null) {
             return messageLite.equals(messageLite2);
         }
-        return false;
+        if (messageLite != null) {
+            return messageLite.equals(lazyFieldLite.getValue(messageLite.getDefaultInstanceForType()));
+        }
+        return getValue(messageLite2.getDefaultInstanceForType()).equals(messageLite2);
     }
 
     public boolean containsDefaultInstance() {
@@ -99,7 +100,9 @@ public class LazyFieldLite {
         ByteString byteString2 = this.delayedBytes;
         if (byteString2 != null && (byteString = lazyFieldLite.delayedBytes) != null) {
             this.delayedBytes = byteString2.concat(byteString);
-        } else if (this.value == null && lazyFieldLite.value != null) {
+            return;
+        }
+        if (this.value == null && lazyFieldLite.value != null) {
             setValue(mergeValueAndBytes(lazyFieldLite.value, this.delayedBytes, this.extensionRegistry));
         } else if (this.value != null && lazyFieldLite.value == null) {
             setValue(mergeValueAndBytes(this.value, lazyFieldLite.delayedBytes, lazyFieldLite.extensionRegistry));
@@ -119,11 +122,11 @@ public class LazyFieldLite {
         ByteString byteString = this.delayedBytes;
         if (byteString != null) {
             setByteString(byteString.concat(codedInputStream.readBytes()), this.extensionRegistry);
-            return;
-        }
-        try {
-            setValue(this.value.toBuilder().mergeFrom(codedInputStream, extensionRegistryLite).build());
-        } catch (InvalidProtocolBufferException unused) {
+        } else {
+            try {
+                setValue(this.value.toBuilder().mergeFrom(codedInputStream, extensionRegistryLite).build());
+            } catch (InvalidProtocolBufferException unused) {
+            }
         }
     }
 
@@ -178,8 +181,7 @@ public class LazyFieldLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public void writeTo(Writer writer, int i) throws IOException {
+    void writeTo(Writer writer, int i) throws IOException {
         if (this.memoizedBytes != null) {
             writer.writeBytes(i, this.memoizedBytes);
             return;

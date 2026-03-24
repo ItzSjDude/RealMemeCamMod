@@ -10,7 +10,8 @@ import com.oplus.statistics.util.Supplier;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StaticPeriodDataRecord extends BaseAgent {
     private static final String TAG = "StaticPeriodDataRecord";
 

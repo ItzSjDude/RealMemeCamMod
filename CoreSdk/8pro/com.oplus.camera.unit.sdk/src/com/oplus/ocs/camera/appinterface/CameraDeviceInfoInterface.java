@@ -9,7 +9,8 @@ import com.oplus.ocs.camera.common.parameter.Parameter;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface CameraDeviceInfoInterface {
     <T> T get(CameraCharacteristics.Key<T> key);
 

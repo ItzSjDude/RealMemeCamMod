@@ -3,13 +3,14 @@ package com.google.oplus.protobuf;
 import com.google.oplus.protobuf.Descriptors;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface MessageOrBuilder extends MessageLiteOrBuilder {
     List<String> findInitializationErrors();
 
     Map<Descriptors.FieldDescriptor, Object> getAllFields();
 
-    @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     Message getDefaultInstanceForType();
 
     Descriptors.Descriptor getDescriptorForType();

@@ -4,9 +4,8 @@ import com.google.oplus.protobuf.AbstractMessage;
 import com.google.oplus.protobuf.AbstractMessage.Builder;
 import com.google.oplus.protobuf.MessageOrBuilder;
 
-/* loaded from: classes.dex */
-public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder>
-        implements AbstractMessage.BuilderParent {
+/* JADX INFO: loaded from: classes.dex */
+public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder> implements AbstractMessage.BuilderParent {
     private BType builder;
     private boolean isClean;
     private MType message;
@@ -31,7 +30,7 @@ public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends A
 
     public MType build() {
         this.isClean = true;
-        return getMessage();
+        return (MType) getMessage();
     }
 
     public BType getBuilder() {
@@ -44,19 +43,9 @@ public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends A
         return this.builder;
     }
 
-    /*
-     * JADX WARN: Type inference failed for: r0v0, types: [BType extends
-     * com.google.oplus.protobuf.AbstractMessage$Builder, IType extends
-     * com.google.oplus.protobuf.MessageOrBuilder]
-     */
-    /*
-     * JADX WARN: Type inference failed for: r1v1, types: [MType extends
-     * com.google.oplus.protobuf.AbstractMessage, IType extends
-     * com.google.oplus.protobuf.MessageOrBuilder]
-     */
     public IType getMessageOrBuilder() {
         BType btype = this.builder;
-        return btype != null ? (IType) btype : (IType) this.message;
+        return btype != null ? btype : this.message;
     }
 
     public SingleFieldBuilderV3<MType, BType, IType> setMessage(MType mtype) {
@@ -70,16 +59,19 @@ public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends A
         return this;
     }
 
+    /* JADX WARN: Removed duplicated region for block: B:7:0x000f  */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+    */
     public SingleFieldBuilderV3<MType, BType, IType> mergeFrom(MType mtype) {
         if (this.builder == null) {
             Message message = this.message;
             if (message == message.getDefaultInstanceForType()) {
                 this.message = mtype;
-                onChanged();
-                return this;
+            } else {
+                getBuilder().mergeFrom((Message) mtype);
             }
         }
-        getBuilder().mergeFrom(mtype);
         onChanged();
         return this;
     }

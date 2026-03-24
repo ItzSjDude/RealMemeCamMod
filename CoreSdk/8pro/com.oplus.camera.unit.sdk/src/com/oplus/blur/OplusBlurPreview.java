@@ -1,7 +1,8 @@
 package com.oplus.blur;
 
 import com.common.Util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OplusBlurPreview {
     public static final long INVALID_HANDLE = 0;
     public static final int RESULT_ERROR = -1;
@@ -127,12 +128,12 @@ public class OplusBlurPreview {
 
     public int bokehPreviewDestory() {
         long j = this.mPreviewBokehHandle;
-        if (0 != j) {
-            int nativeBokehPreviewDestroy = nativeBokehPreviewDestroy(j);
-            this.mPreviewBokehHandle = 0L;
-            return nativeBokehPreviewDestroy;
+        if (0 == j) {
+            return -1;
         }
-        return -1;
+        int iNativeBokehPreviewDestroy = nativeBokehPreviewDestroy(j);
+        this.mPreviewBokehHandle = 0L;
+        return iNativeBokehPreviewDestroy;
     }
 
     public String segGetVersion() {

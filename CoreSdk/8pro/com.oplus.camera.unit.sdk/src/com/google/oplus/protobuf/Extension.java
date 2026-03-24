@@ -2,48 +2,41 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Descriptors;
 import com.google.oplus.protobuf.MessageLite;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class Extension<ContainingType extends MessageLite, Type> extends ExtensionLite<ContainingType, Type> {
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    /* loaded from: classes.dex */
-    public enum ExtensionType {
+    protected enum ExtensionType {
         IMMUTABLE,
         MUTABLE,
         PROTO1
     }
 
-    /* loaded from: classes.dex */
     public enum MessageType {
         PROTO1,
         PROTO2
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public abstract Object fromReflectionType(Object obj);
+    protected abstract Object fromReflectionType(Object obj);
 
     public abstract Descriptors.FieldDescriptor getDescriptor();
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public abstract ExtensionType getExtensionType();
+    protected abstract ExtensionType getExtensionType();
 
+    /* JADX DEBUG: Method merged with bridge method: getMessageDefaultInstance()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.ExtensionLite
     public abstract Message getMessageDefaultInstance();
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     @Override // com.google.oplus.protobuf.ExtensionLite
-    public final boolean isLite() {
+    final boolean isLite() {
         return false;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public abstract Object singularFromReflectionType(Object obj);
+    protected abstract Object singularFromReflectionType(Object obj);
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public abstract Object singularToReflectionType(Object obj);
+    protected abstract Object singularToReflectionType(Object obj);
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public abstract Object toReflectionType(Object obj);
+    protected abstract Object toReflectionType(Object obj);
 
     public MessageType getMessageType() {
         return MessageType.PROTO2;

@@ -9,16 +9,16 @@ import com.oplus.ocs.camera.common.util.ApsRequestTag;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ThreeDPhotoMode extends PhotoMode {
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return CameraConstant.ModeName.THREE_D_PHOTO_MODE;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str, String str2) {
+    protected void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str, String str2) {
         super.updatePreviewRequestTag(builder, cameraRequestTag, str, str2);
         cameraRequestTag.mb3dPhotoEnable = true;
     }
@@ -34,9 +34,8 @@ public class ThreeDPhotoMode extends PhotoMode {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
     }
 }

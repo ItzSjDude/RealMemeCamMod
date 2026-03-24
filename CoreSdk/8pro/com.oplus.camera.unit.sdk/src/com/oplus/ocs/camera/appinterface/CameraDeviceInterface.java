@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface CameraDeviceInterface {
     void abortCaptures();
 

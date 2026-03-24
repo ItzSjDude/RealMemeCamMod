@@ -1,7 +1,8 @@
 package com.oplus.exif;
 
 import com.oplus.ocs.camera.producer.feature.FeatureImpl;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OplusRational {
     private final long mDenominator;
     private final long mNumerator;
@@ -35,11 +36,11 @@ public class OplusRational {
         if (this == obj) {
             return true;
         }
-        if (obj instanceof OplusRational) {
-            OplusRational oplusRational = (OplusRational) obj;
-            return this.mNumerator == oplusRational.mNumerator && this.mDenominator == oplusRational.mDenominator;
+        if (!(obj instanceof OplusRational)) {
+            return false;
         }
-        return false;
+        OplusRational oplusRational = (OplusRational) obj;
+        return this.mNumerator == oplusRational.mNumerator && this.mDenominator == oplusRational.mDenominator;
     }
 
     public int hashCode() {

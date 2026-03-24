@@ -1,11 +1,14 @@
 package com.google.oplus.protobuf;
 
+import com.google.oplus.protobuf.InvalidProtocolBufferException;
+import com.google.oplus.protobuf.MapEntryLite;
 import com.google.oplus.protobuf.WireFormat;
 import java.io.IOException;
 import java.util.List;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class CodedInputStreamReader implements Reader {
+import java.util.Map;
+
+/* JADX INFO: loaded from: classes.dex */
+final class CodedInputStreamReader implements Reader {
     private static final int FIXED32_MULTIPLE_MASK = 3;
     private static final int FIXED64_MULTIPLE_MASK = 7;
     private static final int NEXT_TAG_UNSET = 0;
@@ -150,31 +153,31 @@ public final class CodedInputStreamReader implements Reader {
     }
 
     private <T> T readMessage(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        int readUInt32 = this.input.readUInt32();
+        int uInt32 = this.input.readUInt32();
         if (this.input.recursionDepth >= this.input.recursionLimit) {
             throw InvalidProtocolBufferException.recursionLimitExceeded();
         }
-        int pushLimit = this.input.pushLimit(readUInt32);
-        T newInstance = schema.newInstance();
+        int iPushLimit = this.input.pushLimit(uInt32);
+        T tNewInstance = schema.newInstance();
         this.input.recursionDepth++;
-        schema.mergeFrom(newInstance, this, extensionRegistryLite);
-        schema.makeImmutable(newInstance);
+        schema.mergeFrom(tNewInstance, this, extensionRegistryLite);
+        schema.makeImmutable(tNewInstance);
         this.input.checkLastTagWas(0);
         CodedInputStream codedInputStream = this.input;
         codedInputStream.recursionDepth--;
-        this.input.popLimit(pushLimit);
-        return newInstance;
+        this.input.popLimit(iPushLimit);
+        return tNewInstance;
     }
 
     private <T> T readGroup(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         int i = this.endGroupTag;
         this.endGroupTag = WireFormat.makeTag(WireFormat.getTagFieldNumber(this.tag), 4);
         try {
-            T newInstance = schema.newInstance();
-            schema.mergeFrom(newInstance, this, extensionRegistryLite);
-            schema.makeImmutable(newInstance);
+            T tNewInstance = schema.newInstance();
+            schema.mergeFrom(tNewInstance, this, extensionRegistryLite);
+            schema.makeImmutable(tNewInstance);
             if (this.tag == this.endGroupTag) {
-                return newInstance;
+                return tNewInstance;
             }
             throw InvalidProtocolBufferException.parseFailure();
         } finally {
@@ -226,8 +229,8 @@ public final class CodedInputStreamReader implements Reader {
 
     @Override // com.google.oplus.protobuf.Reader
     public void readDoubleList(List<Double> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof DoubleArrayList) {
             DoubleArrayList doubleArrayList = (DoubleArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -236,22 +239,23 @@ public final class CodedInputStreamReader implements Reader {
                     doubleArrayList.addDouble(this.input.readDouble());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
-                int readUInt32 = this.input.readUInt32();
-                verifyPackedFixed64Length(readUInt32);
-                int totalBytesRead = this.input.getTotalBytesRead() + readUInt32;
+            }
+            if (tagWireType == 2) {
+                int uInt32 = this.input.readUInt32();
+                verifyPackedFixed64Length(uInt32);
+                int totalBytesRead = this.input.getTotalBytesRead() + uInt32;
                 do {
                     doubleArrayList.addDouble(this.input.readDouble());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 1) {
@@ -259,77 +263,84 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Double.valueOf(this.input.readDouble()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
-            int readUInt322 = this.input.readUInt32();
-            verifyPackedFixed64Length(readUInt322);
-            int totalBytesRead2 = this.input.getTotalBytesRead() + readUInt322;
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
+            int uInt322 = this.input.readUInt32();
+            verifyPackedFixed64Length(uInt322);
+            int totalBytesRead2 = this.input.getTotalBytesRead() + uInt322;
             do {
                 list.add(Double.valueOf(this.input.readDouble()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readFloatList(List<Float> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof FloatArrayList) {
             FloatArrayList floatArrayList = (FloatArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
             if (tagWireType == 2) {
-                int readUInt32 = this.input.readUInt32();
-                verifyPackedFixed32Length(readUInt32);
-                int totalBytesRead = this.input.getTotalBytesRead() + readUInt32;
+                int uInt32 = this.input.readUInt32();
+                verifyPackedFixed32Length(uInt32);
+                int totalBytesRead = this.input.getTotalBytesRead() + uInt32;
                 do {
                     floatArrayList.addFloat(this.input.readFloat());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 return;
-            } else if (tagWireType == 5) {
+            }
+            if (tagWireType == 5) {
                 do {
                     floatArrayList.addFloat(this.input.readFloat());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 2) {
-            int readUInt322 = this.input.readUInt32();
-            verifyPackedFixed32Length(readUInt322);
-            int totalBytesRead2 = this.input.getTotalBytesRead() + readUInt322;
+            int uInt322 = this.input.readUInt32();
+            verifyPackedFixed32Length(uInt322);
+            int totalBytesRead2 = this.input.getTotalBytesRead() + uInt322;
             do {
                 list.add(Float.valueOf(this.input.readFloat()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
-        } else if (tagWireType2 == 5) {
+            return;
+        }
+        if (tagWireType2 == 5) {
             do {
                 list.add(Float.valueOf(this.input.readFloat()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readUInt64List(List<Long> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -338,21 +349,22 @@ public final class CodedInputStreamReader implements Reader {
                     longArrayList.addLong(this.input.readUInt64());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     longArrayList.addLong(this.input.readUInt64());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -360,25 +372,28 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Long.valueOf(this.input.readUInt64()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Long.valueOf(this.input.readUInt64()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readInt64List(List<Long> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -387,21 +402,22 @@ public final class CodedInputStreamReader implements Reader {
                     longArrayList.addLong(this.input.readInt64());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     longArrayList.addLong(this.input.readInt64());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -409,25 +425,28 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Long.valueOf(this.input.readInt64()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Long.valueOf(this.input.readInt64()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readInt32List(List<Integer> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -436,21 +455,22 @@ public final class CodedInputStreamReader implements Reader {
                     intArrayList.addInt(this.input.readInt32());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     intArrayList.addInt(this.input.readInt32());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -458,25 +478,28 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Integer.valueOf(this.input.readInt32()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Integer.valueOf(this.input.readInt32()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readFixed64List(List<Long> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -485,22 +508,23 @@ public final class CodedInputStreamReader implements Reader {
                     longArrayList.addLong(this.input.readFixed64());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
-                int readUInt32 = this.input.readUInt32();
-                verifyPackedFixed64Length(readUInt32);
-                int totalBytesRead = this.input.getTotalBytesRead() + readUInt32;
+            }
+            if (tagWireType == 2) {
+                int uInt32 = this.input.readUInt32();
+                verifyPackedFixed64Length(uInt32);
+                int totalBytesRead = this.input.getTotalBytesRead() + uInt32;
                 do {
                     longArrayList.addLong(this.input.readFixed64());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 1) {
@@ -508,77 +532,84 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Long.valueOf(this.input.readFixed64()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
-            int readUInt322 = this.input.readUInt32();
-            verifyPackedFixed64Length(readUInt322);
-            int totalBytesRead2 = this.input.getTotalBytesRead() + readUInt322;
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
+            int uInt322 = this.input.readUInt32();
+            verifyPackedFixed64Length(uInt322);
+            int totalBytesRead2 = this.input.getTotalBytesRead() + uInt322;
             do {
                 list.add(Long.valueOf(this.input.readFixed64()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readFixed32List(List<Integer> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
             if (tagWireType == 2) {
-                int readUInt32 = this.input.readUInt32();
-                verifyPackedFixed32Length(readUInt32);
-                int totalBytesRead = this.input.getTotalBytesRead() + readUInt32;
+                int uInt32 = this.input.readUInt32();
+                verifyPackedFixed32Length(uInt32);
+                int totalBytesRead = this.input.getTotalBytesRead() + uInt32;
                 do {
                     intArrayList.addInt(this.input.readFixed32());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 return;
-            } else if (tagWireType == 5) {
+            }
+            if (tagWireType == 5) {
                 do {
                     intArrayList.addInt(this.input.readFixed32());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 2) {
-            int readUInt322 = this.input.readUInt32();
-            verifyPackedFixed32Length(readUInt322);
-            int totalBytesRead2 = this.input.getTotalBytesRead() + readUInt322;
+            int uInt322 = this.input.readUInt32();
+            verifyPackedFixed32Length(uInt322);
+            int totalBytesRead2 = this.input.getTotalBytesRead() + uInt322;
             do {
                 list.add(Integer.valueOf(this.input.readFixed32()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
-        } else if (tagWireType2 == 5) {
+            return;
+        }
+        if (tagWireType2 == 5) {
             do {
                 list.add(Integer.valueOf(this.input.readFixed32()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readBoolList(List<Boolean> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof BooleanArrayList) {
             BooleanArrayList booleanArrayList = (BooleanArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -587,21 +618,22 @@ public final class CodedInputStreamReader implements Reader {
                     booleanArrayList.addBoolean(this.input.readBool());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     booleanArrayList.addBoolean(this.input.readBool());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -609,19 +641,22 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Boolean.valueOf(this.input.readBool()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Boolean.valueOf(this.input.readBool()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
@@ -635,8 +670,8 @@ public final class CodedInputStreamReader implements Reader {
     }
 
     public void readStringListInternal(List<String> list, boolean z) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (WireFormat.getTagWireType(this.tag) != 2) {
             throw InvalidProtocolBufferException.invalidWireType();
         }
@@ -646,20 +681,22 @@ public final class CodedInputStreamReader implements Reader {
                 lazyStringList.add(readBytes());
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag2 = this.input.readTag();
                 }
-                readTag2 = this.input.readTag();
-            } while (readTag2 == this.tag);
-            this.nextTag = readTag2;
+            } while (tag2 == this.tag);
+            this.nextTag = tag2;
             return;
         }
         do {
             list.add(z ? readStringRequireUtf8() : readString());
             if (this.input.isAtEnd()) {
                 return;
+            } else {
+                tag = this.input.readTag();
             }
-            readTag = this.input.readTag();
-        } while (readTag == this.tag);
-        this.nextTag = readTag;
+        } while (tag == this.tag);
+        this.nextTag = tag;
     }
 
     @Override // com.google.oplus.protobuf.Reader
@@ -667,10 +704,11 @@ public final class CodedInputStreamReader implements Reader {
         readMessageList(list, Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r3v0, resolved type: java.util.List<T> */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Reader
     public <T> void readMessageList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        int readTag;
+        int tag;
         if (WireFormat.getTagWireType(this.tag) != 2) {
             throw InvalidProtocolBufferException.invalidWireType();
         }
@@ -679,10 +717,11 @@ public final class CodedInputStreamReader implements Reader {
             list.add(readMessage(schema, extensionRegistryLite));
             if (this.input.isAtEnd() || this.nextTag != 0) {
                 return;
+            } else {
+                tag = this.input.readTag();
             }
-            readTag = this.input.readTag();
-        } while (readTag == i);
-        this.nextTag = readTag;
+        } while (tag == i);
+        this.nextTag = tag;
     }
 
     @Override // com.google.oplus.protobuf.Reader
@@ -690,10 +729,11 @@ public final class CodedInputStreamReader implements Reader {
         readGroupList(list, Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r3v0, resolved type: java.util.List<T> */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Reader
     public <T> void readGroupList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        int readTag;
+        int tag;
         if (WireFormat.getTagWireType(this.tag) != 3) {
             throw InvalidProtocolBufferException.invalidWireType();
         }
@@ -702,15 +742,16 @@ public final class CodedInputStreamReader implements Reader {
             list.add(readGroup(schema, extensionRegistryLite));
             if (this.input.isAtEnd() || this.nextTag != 0) {
                 return;
+            } else {
+                tag = this.input.readTag();
             }
-            readTag = this.input.readTag();
-        } while (readTag == i);
-        this.nextTag = readTag;
+        } while (tag == i);
+        this.nextTag = tag;
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readBytesList(List<ByteString> list) throws IOException {
-        int readTag;
+        int tag;
         if (WireFormat.getTagWireType(this.tag) != 2) {
             throw InvalidProtocolBufferException.invalidWireType();
         }
@@ -718,16 +759,17 @@ public final class CodedInputStreamReader implements Reader {
             list.add(readBytes());
             if (this.input.isAtEnd()) {
                 return;
+            } else {
+                tag = this.input.readTag();
             }
-            readTag = this.input.readTag();
-        } while (readTag == this.tag);
-        this.nextTag = readTag;
+        } while (tag == this.tag);
+        this.nextTag = tag;
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readUInt32List(List<Integer> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -736,21 +778,22 @@ public final class CodedInputStreamReader implements Reader {
                     intArrayList.addInt(this.input.readUInt32());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     intArrayList.addInt(this.input.readUInt32());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -758,25 +801,28 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Integer.valueOf(this.input.readUInt32()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Integer.valueOf(this.input.readUInt32()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readEnumList(List<Integer> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -785,21 +831,22 @@ public final class CodedInputStreamReader implements Reader {
                     intArrayList.addInt(this.input.readEnum());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     intArrayList.addInt(this.input.readEnum());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -807,76 +854,83 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Integer.valueOf(this.input.readEnum()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Integer.valueOf(this.input.readEnum()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readSFixed32List(List<Integer> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
             if (tagWireType == 2) {
-                int readUInt32 = this.input.readUInt32();
-                verifyPackedFixed32Length(readUInt32);
-                int totalBytesRead = this.input.getTotalBytesRead() + readUInt32;
+                int uInt32 = this.input.readUInt32();
+                verifyPackedFixed32Length(uInt32);
+                int totalBytesRead = this.input.getTotalBytesRead() + uInt32;
                 do {
                     intArrayList.addInt(this.input.readSFixed32());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 return;
-            } else if (tagWireType == 5) {
+            }
+            if (tagWireType == 5) {
                 do {
                     intArrayList.addInt(this.input.readSFixed32());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 2) {
-            int readUInt322 = this.input.readUInt32();
-            verifyPackedFixed32Length(readUInt322);
-            int totalBytesRead2 = this.input.getTotalBytesRead() + readUInt322;
+            int uInt322 = this.input.readUInt32();
+            verifyPackedFixed32Length(uInt322);
+            int totalBytesRead2 = this.input.getTotalBytesRead() + uInt322;
             do {
                 list.add(Integer.valueOf(this.input.readSFixed32()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
-        } else if (tagWireType2 == 5) {
+            return;
+        }
+        if (tagWireType2 == 5) {
             do {
                 list.add(Integer.valueOf(this.input.readSFixed32()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readSFixed64List(List<Long> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -885,22 +939,23 @@ public final class CodedInputStreamReader implements Reader {
                     longArrayList.addLong(this.input.readSFixed64());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
-                int readUInt32 = this.input.readUInt32();
-                verifyPackedFixed64Length(readUInt32);
-                int totalBytesRead = this.input.getTotalBytesRead() + readUInt32;
+            }
+            if (tagWireType == 2) {
+                int uInt32 = this.input.readUInt32();
+                verifyPackedFixed64Length(uInt32);
+                int totalBytesRead = this.input.getTotalBytesRead() + uInt32;
                 do {
                     longArrayList.addLong(this.input.readSFixed64());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 1) {
@@ -908,26 +963,29 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Long.valueOf(this.input.readSFixed64()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
-            int readUInt322 = this.input.readUInt32();
-            verifyPackedFixed64Length(readUInt322);
-            int totalBytesRead2 = this.input.getTotalBytesRead() + readUInt322;
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
+            int uInt322 = this.input.readUInt32();
+            verifyPackedFixed64Length(uInt322);
+            int totalBytesRead2 = this.input.getTotalBytesRead() + uInt322;
             do {
                 list.add(Long.valueOf(this.input.readSFixed64()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readSInt32List(List<Integer> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -936,21 +994,22 @@ public final class CodedInputStreamReader implements Reader {
                     intArrayList.addInt(this.input.readSInt32());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     intArrayList.addInt(this.input.readSInt32());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -958,25 +1017,28 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Integer.valueOf(this.input.readSInt32()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Integer.valueOf(this.input.readSInt32()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     @Override // com.google.oplus.protobuf.Reader
     public void readSInt64List(List<Long> list) throws IOException {
-        int readTag;
-        int readTag2;
+        int tag;
+        int tag2;
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
             int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -985,21 +1047,22 @@ public final class CodedInputStreamReader implements Reader {
                     longArrayList.addLong(this.input.readSInt64());
                     if (this.input.isAtEnd()) {
                         return;
+                    } else {
+                        tag2 = this.input.readTag();
                     }
-                    readTag2 = this.input.readTag();
-                } while (readTag2 == this.tag);
-                this.nextTag = readTag2;
+                } while (tag2 == this.tag);
+                this.nextTag = tag2;
                 return;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 int totalBytesRead = this.input.getTotalBytesRead() + this.input.readUInt32();
                 do {
                     longArrayList.addLong(this.input.readSInt64());
                 } while (this.input.getTotalBytesRead() < totalBytesRead);
                 requirePosition(totalBytesRead);
                 return;
-            } else {
-                throw InvalidProtocolBufferException.invalidWireType();
             }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
         int tagWireType2 = WireFormat.getTagWireType(this.tag);
         if (tagWireType2 == 0) {
@@ -1007,19 +1070,22 @@ public final class CodedInputStreamReader implements Reader {
                 list.add(Long.valueOf(this.input.readSInt64()));
                 if (this.input.isAtEnd()) {
                     return;
+                } else {
+                    tag = this.input.readTag();
                 }
-                readTag = this.input.readTag();
-            } while (readTag == this.tag);
-            this.nextTag = readTag;
-        } else if (tagWireType2 == 2) {
+            } while (tag == this.tag);
+            this.nextTag = tag;
+            return;
+        }
+        if (tagWireType2 == 2) {
             int totalBytesRead2 = this.input.getTotalBytesRead() + this.input.readUInt32();
             do {
                 list.add(Long.valueOf(this.input.readSInt64()));
             } while (this.input.getTotalBytesRead() < totalBytesRead2);
             requirePosition(totalBytesRead2);
-        } else {
-            throw InvalidProtocolBufferException.invalidWireType();
+            return;
         }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
     private void verifyPackedFixed64Length(int i) throws IOException {
@@ -1028,86 +1094,54 @@ public final class CodedInputStreamReader implements Reader {
         }
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r8v0, resolved type: java.util.Map<K, V> */
     /* JADX WARN: Code restructure failed: missing block: B:24:0x005c, code lost:
+    
         r8.put(r2, r3);
      */
     /* JADX WARN: Code restructure failed: missing block: B:26:0x0064, code lost:
+    
         return;
      */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Reader
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public <K, V> void readMap(java.util.Map<K, V> r8, com.google.oplus.protobuf.MapEntryLite.Metadata<K, V> r9, com.google.oplus.protobuf.ExtensionRegistryLite r10) throws java.io.IOException {
-        /*
-            r7 = this;
-            r0 = 2
-            r7.requireWireType(r0)
-            com.google.oplus.protobuf.CodedInputStream r1 = r7.input
-            int r1 = r1.readUInt32()
-            com.google.oplus.protobuf.CodedInputStream r2 = r7.input
-            int r1 = r2.pushLimit(r1)
-            K r2 = r9.defaultKey
-            V r3 = r9.defaultValue
-        L14:
-            int r4 = r7.getFieldNumber()     // Catch: java.lang.Throwable -> L65
-            r5 = 2147483647(0x7fffffff, float:NaN)
-            if (r4 == r5) goto L5c
-            com.google.oplus.protobuf.CodedInputStream r5 = r7.input     // Catch: java.lang.Throwable -> L65
-            boolean r5 = r5.isAtEnd()     // Catch: java.lang.Throwable -> L65
-            if (r5 == 0) goto L26
-            goto L5c
-        L26:
-            r5 = 1
-            java.lang.String r6 = "Unable to parse map entry."
-            if (r4 == r5) goto L47
-            if (r4 == r0) goto L3a
-            boolean r4 = r7.skipField()     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            if (r4 == 0) goto L34
-            goto L14
-        L34:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r4 = new com.google.oplus.protobuf.InvalidProtocolBufferException     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            r4.<init>(r6)     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            throw r4     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-        L3a:
-            com.google.oplus.protobuf.WireFormat$FieldType r4 = r9.valueType     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            V r5 = r9.defaultValue     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            java.lang.Class r5 = r5.getClass()     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            java.lang.Object r3 = r7.readField(r4, r5, r10)     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            goto L14
-        L47:
-            com.google.oplus.protobuf.WireFormat$FieldType r4 = r9.keyType     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            r5 = 0
-            java.lang.Object r2 = r7.readField(r4, r5, r5)     // Catch: com.google.oplus.protobuf.InvalidProtocolBufferException.InvalidWireTypeException -> L4f java.lang.Throwable -> L65
-            goto L14
-        L4f:
-            boolean r4 = r7.skipField()     // Catch: java.lang.Throwable -> L65
-            if (r4 == 0) goto L56
-            goto L14
-        L56:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r8 = new com.google.oplus.protobuf.InvalidProtocolBufferException     // Catch: java.lang.Throwable -> L65
-            r8.<init>(r6)     // Catch: java.lang.Throwable -> L65
-            throw r8     // Catch: java.lang.Throwable -> L65
-        L5c:
-            r8.put(r2, r3)     // Catch: java.lang.Throwable -> L65
-            com.google.oplus.protobuf.CodedInputStream r7 = r7.input
-            r7.popLimit(r1)
-            return
-        L65:
-            r8 = move-exception
-            com.google.oplus.protobuf.CodedInputStream r7 = r7.input
-            r7.popLimit(r1)
-            throw r8
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.CodedInputStreamReader.readMap(java.util.Map, com.google.oplus.protobuf.MapEntryLite$Metadata, com.google.oplus.protobuf.ExtensionRegistryLite):void");
+    public <K, V> void readMap(Map<K, V> map, MapEntryLite.Metadata<K, V> metadata, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        requireWireType(2);
+        int iPushLimit = this.input.pushLimit(this.input.readUInt32());
+        Object field = metadata.defaultKey;
+        Object field2 = metadata.defaultValue;
+        while (true) {
+            try {
+                int fieldNumber = getFieldNumber();
+                if (fieldNumber == Integer.MAX_VALUE || this.input.isAtEnd()) {
+                    break;
+                }
+                if (fieldNumber == 1) {
+                    field = readField(metadata.keyType, null, null);
+                } else if (fieldNumber == 2) {
+                    field2 = readField(metadata.valueType, metadata.defaultValue.getClass(), extensionRegistryLite);
+                } else {
+                    try {
+                        if (!skipField()) {
+                            throw new InvalidProtocolBufferException("Unable to parse map entry.");
+                        }
+                    } catch (InvalidProtocolBufferException.InvalidWireTypeException unused) {
+                        if (!skipField()) {
+                            throw new InvalidProtocolBufferException("Unable to parse map entry.");
+                        }
+                    }
+                }
+            } finally {
+                this.input.popLimit(iPushLimit);
+            }
+        }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.CodedInputStreamReader$1  reason: invalid class name */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.CodedInputStreamReader$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
         static {

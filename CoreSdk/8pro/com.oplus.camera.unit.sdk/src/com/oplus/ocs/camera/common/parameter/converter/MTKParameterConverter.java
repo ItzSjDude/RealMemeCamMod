@@ -4,9 +4,9 @@ import android.hardware.camera2.CaptureRequest;
 import android.util.Size;
 import com.oplus.ocs.camera.common.parameter.ConfigureParameter;
 import com.oplus.ocs.camera.common.parameter.PreviewParameter;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class MTKParameterConverter extends BaseParameterConverter {
+
+/* JADX INFO: loaded from: classes.dex */
+class MTKParameterConverter extends BaseParameterConverter {
     private static final CaptureRequest.Key<int[]> KEY_MTK_MFNR_FEATURE_ISP_FRAME_COUNT = new CaptureRequest.Key<>("com.mediatek.control.capture.hintForIspFrameCount", int[].class);
     private static final CaptureRequest.Key<int[]> KEY_MTK_MFNR_FEATURE_ISP_FRAME_INDEX = new CaptureRequest.Key<>("com.mediatek.control.capture.hintForIspFrameIndex", int[].class);
     private static final CaptureRequest.Key<int[]> KEY_CAPTURE_FLIP_MODE = new CaptureRequest.Key<>("com.mediatek.control.capture.flipmode", int[].class);
@@ -36,35 +36,35 @@ public class MTKParameterConverter extends BaseParameterConverter {
     public static final CaptureRequest.Key<int[]> KEY_MTK_VSDOF_OPTICAL_ZOOM = new CaptureRequest.Key<>("com.mediatek.vsdoffeature.vsdofFeatureOpticalZoomSet", int[].class);
     public static final CaptureRequest.Key<long[]> KEY_MTK_FLEXIBLE_CAPABILITIES = new CaptureRequest.Key<>("com.mediatek.cameraflex.flexibleCapabilities", long[].class);
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public MTKParameterConverter() {
-        this.mCustomParameterMap.put(ConfigureParameter.DUAL_CAMERA.getName(), KEY_DUAL_CAMERA);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_TUNING_DATA_ENABLE.getName(), KEY_MTK_TUNING_DATA_ENABLE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_SMVR_FEATURE_SMVR_MODES.getName(), KEY_MTK_SMVR_FEATURE_SMVR_MODES);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_NAVIGATION_NAVIGATIONMODE.getName(), KEY_MTK_NAVIGATION_NAVIGATIONMODE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_NAVIGATION_STREAMSIZE.getName(), KEY_MTK_NAVIGATION_STREAMSIZE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE.getName(), KEY_MTK_MULTI_CAM_FEATURE_MODE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE.getName(), KEY_MTK_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE);
-        this.mCustomParameterMap.put(ConfigureParameter.SESSION_REQUEST_CROP_REGION.getName(), KEY_MTK_SESSION_REQUEST_CROP_REGION);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_CAPTURE_RAW10.getName(), KEY_MTK_CAPTURE_RAW10);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_SESSION_REQUEST_FAST_LAUNCH.getName(), KEY_SESSION_REQUEST_FAST_LAUNCH);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_SESSION_REQUEST_PROPRIETARYCAPTURE.getName(), KEY_SESSION_REQUEST_PROPRIETARYCAPTURE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_SESSION_REQUEST_MSNR.getName(), KEY_MTK_REQUEST_MSNR_MODE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_REQUEST_ZSL_MODE.getName(), KEY_MTK_REQUEST_ZSL_MODE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_FLEXIBLE_CAPABILITIES.getName(), KEY_MTK_FLEXIBLE_CAPABILITIES);
+    /* JADX WARN: Type inference incomplete: some casts might be missing */
+    MTKParameterConverter() {
+        this.mCustomParameterMap.put(ConfigureParameter.DUAL_CAMERA.getName(), (CaptureRequest.Key<?>) KEY_DUAL_CAMERA);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_TUNING_DATA_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_MTK_TUNING_DATA_ENABLE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_SMVR_FEATURE_SMVR_MODES.getName(), (CaptureRequest.Key<?>) KEY_MTK_SMVR_FEATURE_SMVR_MODES);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_NAVIGATION_NAVIGATIONMODE.getName(), (CaptureRequest.Key<?>) KEY_MTK_NAVIGATION_NAVIGATIONMODE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_NAVIGATION_STREAMSIZE.getName(), (CaptureRequest.Key<?>) KEY_MTK_NAVIGATION_STREAMSIZE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE.getName(), (CaptureRequest.Key<?>) KEY_MTK_MULTI_CAM_FEATURE_MODE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE.getName(), (CaptureRequest.Key<?>) KEY_MTK_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE);
+        this.mCustomParameterMap.put(ConfigureParameter.SESSION_REQUEST_CROP_REGION.getName(), (CaptureRequest.Key<?>) KEY_MTK_SESSION_REQUEST_CROP_REGION);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_MTK_CAPTURE_RAW10.getName(), (CaptureRequest.Key<?>) KEY_MTK_CAPTURE_RAW10);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_SESSION_REQUEST_FAST_LAUNCH.getName(), (CaptureRequest.Key<?>) KEY_SESSION_REQUEST_FAST_LAUNCH);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_SESSION_REQUEST_PROPRIETARYCAPTURE.getName(), (CaptureRequest.Key<?>) KEY_SESSION_REQUEST_PROPRIETARYCAPTURE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_SESSION_REQUEST_MSNR.getName(), (CaptureRequest.Key<?>) KEY_MTK_REQUEST_MSNR_MODE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_REQUEST_ZSL_MODE.getName(), (CaptureRequest.Key<?>) KEY_MTK_REQUEST_ZSL_MODE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_FLEXIBLE_CAPABILITIES.getName(), (CaptureRequest.Key<?>) KEY_MTK_FLEXIBLE_CAPABILITIES);
         this.mCustomParameterMap.put(ConfigureParameter.KEY_VSDOF_PREVIEW_SIZE.getName(), KEY_MTK_VSDOF_PREVIEW_SIZE);
-        this.mCustomParameterMap.put(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM.getName(), KEY_MTK_VSDOF_OPTICAL_ZOOM);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_FLIP_MODE.getName(), KEY_CAPTURE_FLIP_MODE);
+        this.mCustomParameterMap.put(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM.getName(), (CaptureRequest.Key<?>) KEY_MTK_VSDOF_OPTICAL_ZOOM);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_FLIP_MODE.getName(), (CaptureRequest.Key<?>) KEY_CAPTURE_FLIP_MODE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_VIDEO_EIS_RECORD_STATE.getName(), KEY_VIDEO_MTK_EIS_RECORD_STATE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_FRAME_COUNT.getName(), KEY_MTK_MFNR_FEATURE_ISP_FRAME_COUNT);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_FRAME_INDEX.getName(), KEY_MTK_MFNR_FEATURE_ISP_FRAME_INDEX);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_MFNR_FEATURE_ISP_TUNING_MODE.getName(), KEY_MTK_MFNR_FEATURE_ISP_TUNING_MODE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_PRIVATE_RAW_ENABLE.getName(), KEY_MTK_CAPTURE_PRIVATE_RAW_ENABLE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_FRAME_COUNT.getName(), (CaptureRequest.Key<?>) KEY_MTK_MFNR_FEATURE_ISP_FRAME_COUNT);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_FRAME_INDEX.getName(), (CaptureRequest.Key<?>) KEY_MTK_MFNR_FEATURE_ISP_FRAME_INDEX);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_MFNR_FEATURE_ISP_TUNING_MODE.getName(), (CaptureRequest.Key<?>) KEY_MTK_MFNR_FEATURE_ISP_TUNING_MODE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_PRIVATE_RAW_ENABLE.getName(), (CaptureRequest.Key<?>) KEY_MTK_CAPTURE_PRIVATE_RAW_ENABLE);
         this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_PROCESS_RAW_ENABLE.getName(), KEY_MTK_CAPTURE_PROCESS_RAW_ENABLE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_RAW_BITS_PER_PIXEL.getName(), KEY_MTK_CAPTURE_RAW_BITS_PER_PIXEL);
-        this.mCustomParameterMap.put(PreviewParameter.FEATURE_AI_SHUT_CAPTURE.getName(), KEY_MTK_3A_FEATURE_AISHUT_CAPTURE);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_TUNING_DATA_REQUEST.getName(), KEY_MTK_TUNING_DATA_REQUEST);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_PICTURE_EXIF_FLAG.getName(), KEY_PICTURE_EXIF_FLAG);
-        this.mCustomParameterMap.put(PreviewParameter.KEY_COLOR_TEMPERATURE.getName(), KEY_NAME_MTK_COLOR_TEMPERATURE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_CAPTURE_RAW_BITS_PER_PIXEL.getName(), (CaptureRequest.Key<?>) KEY_MTK_CAPTURE_RAW_BITS_PER_PIXEL);
+        this.mCustomParameterMap.put(PreviewParameter.FEATURE_AI_SHUT_CAPTURE.getName(), (CaptureRequest.Key<?>) KEY_MTK_3A_FEATURE_AISHUT_CAPTURE);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_TUNING_DATA_REQUEST.getName(), (CaptureRequest.Key<?>) KEY_MTK_TUNING_DATA_REQUEST);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_PICTURE_EXIF_FLAG.getName(), (CaptureRequest.Key<?>) KEY_PICTURE_EXIF_FLAG);
+        this.mCustomParameterMap.put(PreviewParameter.KEY_COLOR_TEMPERATURE.getName(), (CaptureRequest.Key<?>) KEY_NAME_MTK_COLOR_TEMPERATURE);
     }
 }

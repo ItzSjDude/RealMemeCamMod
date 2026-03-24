@@ -4,71 +4,71 @@ import com.google.oplus.protobuf.Descriptors;
 import com.google.oplus.protobuf.MessageLite;
 import java.io.IOException;
 import java.io.InputStream;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface Message extends MessageLite, MessageOrBuilder {
 
-    /* loaded from: classes.dex */
     public interface Builder extends MessageLite.Builder, MessageOrBuilder {
         Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj);
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         Message build();
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         Message buildPartial();
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder clear();
 
         Builder clearField(Descriptors.FieldDescriptor fieldDescriptor);
 
         Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor);
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        Builder clone();
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX INFO: renamed from: clone */
+        Builder m2clone();
 
+        @Override // com.google.oplus.protobuf.MessageOrBuilder
         Descriptors.Descriptor getDescriptorForType();
 
         Builder getFieldBuilder(Descriptors.FieldDescriptor fieldDescriptor);
 
         Builder getRepeatedFieldBuilder(Descriptors.FieldDescriptor fieldDescriptor, int i);
 
-        @Override // 
         boolean mergeDelimitedFrom(InputStream inputStream) throws IOException;
 
-        @Override // 
         boolean mergeDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(ByteString byteString) throws InvalidProtocolBufferException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(CodedInputStream codedInputStream) throws IOException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException;
 
         Builder mergeFrom(Message message);
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(InputStream inputStream) throws IOException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([B)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(byte[] bArr) throws InvalidProtocolBufferException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BII)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         Builder mergeFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException;
 
         Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet);
@@ -84,15 +84,14 @@ public interface Message extends MessageLite, MessageOrBuilder {
 
     boolean equals(Object obj);
 
-    @Override // 
     Parser<? extends Message> getParserForType();
 
     int hashCode();
 
-    @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     Builder newBuilderForType();
 
-    @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     Builder toBuilder();
 
     String toString();

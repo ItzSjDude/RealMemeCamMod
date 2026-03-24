@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.producer.info;
 import android.graphics.Rect;
 import android.hardware.camera2.params.MeteringRectangle;
 import android.util.Size;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraMeteringRectangle {
     private final int mHeight;
     private final int mWeight;

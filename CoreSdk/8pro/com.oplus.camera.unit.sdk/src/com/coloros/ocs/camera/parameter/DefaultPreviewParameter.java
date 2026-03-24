@@ -5,7 +5,8 @@ import android.hardware.camera2.CaptureRequest;
 import androidx.annotation.NonNull;
 import com.oplus.ocs.camera.common.parameter.Parameter;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DefaultPreviewParameter extends Parameter {
     public static final Parameter.Key<Integer> KEY_FOCUS_MODE = new Parameter.Key<>("com.oppo.preview.focus.mode", Integer.class, 1);
     public static final Parameter.Key<RectF> KEY_AF_REGIONS = new Parameter.Key<>("com.oppo.preview.af.regions", RectF.class, 1);

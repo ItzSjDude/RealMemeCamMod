@@ -17,10 +17,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraConfigure {
     private static final String COLON = ":";
     private static final String COMMON = "common";
@@ -36,61 +38,57 @@ public final class CameraConfigure {
     private static boolean sbInit = false;
 
     public static synchronized void initialize() {
-        synchronized (CameraConfigure.class) {
-            if (sbInit) {
-                return;
-            }
-            ConditionVariable conditionVariable = PROJECT_FEATURES_READY_CONDITION;
-            conditionVariable.close();
-            ConditionVariable conditionVariable2 = FEATURE_CONFIG_CONDITION;
-            conditionVariable2.close();
-            if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()) {
-                sbInit = true;
-                conditionVariable.open();
-                conditionVariable2.open();
-                return;
-            }
-            parseFromProtobuf(ContextHolder.getContext());
+        if (sbInit) {
+            return;
         }
+        ConditionVariable conditionVariable = PROJECT_FEATURES_READY_CONDITION;
+        conditionVariable.close();
+        ConditionVariable conditionVariable2 = FEATURE_CONFIG_CONDITION;
+        conditionVariable2.close();
+        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()) {
+            sbInit = true;
+            conditionVariable.open();
+            conditionVariable2.open();
+            return;
+        }
+        parseFromProtobuf(ContextHolder.getContext());
     }
 
     public static synchronized void initialize(Context context) {
-        synchronized (CameraConfigure.class) {
-            if (sbInit) {
-                return;
-            }
-            ConditionVariable conditionVariable = PROJECT_FEATURES_READY_CONDITION;
-            conditionVariable.close();
-            ConditionVariable conditionVariable2 = FEATURE_CONFIG_CONDITION;
-            conditionVariable2.close();
-            if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()) {
-                sbInit = true;
-                conditionVariable.open();
-                conditionVariable2.open();
-                return;
-            }
-            parseFromProtobuf(context);
+        if (sbInit) {
+            return;
         }
+        ConditionVariable conditionVariable = PROJECT_FEATURES_READY_CONDITION;
+        conditionVariable.close();
+        ConditionVariable conditionVariable2 = FEATURE_CONFIG_CONDITION;
+        conditionVariable2.close();
+        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()) {
+            sbInit = true;
+            conditionVariable.open();
+            conditionVariable2.open();
+            return;
+        }
+        parseFromProtobuf(context);
     }
 
     private static void generateVendorTagMap(byte[] bArr) {
-        String[] split;
-        long currentTimeMillis = System.currentTimeMillis();
+        long jCurrentTimeMillis = System.currentTimeMillis();
         sVendorTagMap.clear();
-        for (String str : new String(bArr, StandardCharsets.UTF_8).split(VENDOR_TAG_SEPARATOR)) {
-            String[] split2 = str.split(COLON);
-            if (split2.length > 1) {
-                sVendorTagMap.put(split2[0], split2[1]);
+        String[] strArrSplit = new String(bArr, StandardCharsets.UTF_8).split(VENDOR_TAG_SEPARATOR);
+        for (String str : strArrSplit) {
+            String[] strArrSplit2 = str.split(COLON);
+            if (strArrSplit2.length > 1) {
+                sVendorTagMap.put(strArrSplit2[0], strArrSplit2[1]);
             } else {
-                sVendorTagMap.put(split2[0], "");
+                sVendorTagMap.put(strArrSplit2[0], "");
             }
         }
-        CameraUnitLog.d(TAG, "getVendorTagMap, size: " + split.length + ", cost time: " + (System.currentTimeMillis() - currentTimeMillis));
+        CameraUnitLog.d(TAG, "getVendorTagMap, size: " + strArrSplit.length + ", cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
     }
 
-    private static void parseFromProtobuf(Context context) {
+    private static void parseFromProtobuf(Context context) throws Throwable {
         CameraUnitLog.traceBeginSection("parseFromProtobuf");
-        long currentTimeMillis = System.currentTimeMillis();
+        long jCurrentTimeMillis = System.currentTimeMillis();
         int configParseVersion = ProtobufConfigureHelper.getConfigParseVersion();
         if (configParseVersion == 1) {
             PROJECT_FEATURES_READY_CONDITION.open();
@@ -99,105 +97,193 @@ public final class CameraConfigure {
             decodeConfigFileVersion2(context);
         }
         sbInit = true;
-        CameraUnitLog.e(TAG, "initialize, configParseVersion: " + ProtobufConfigureHelper.getConfigParseVersion() + ", cost time: " + (System.currentTimeMillis() - currentTimeMillis));
+        CameraUnitLog.e(TAG, "initialize, configParseVersion: " + ProtobufConfigureHelper.getConfigParseVersion() + ", cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
         CameraUnitLog.traceEndSection("parseFromProtobuf");
     }
 
     /* JADX WARN: Removed duplicated region for block: B:35:0x003f A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    private static void decodeConfigFileVersion1() {
-        /*
-            r0 = 0
-            java.io.FileInputStream r1 = new java.io.FileInputStream     // Catch: java.lang.Throwable -> L1c java.io.IOException -> L21
-            java.lang.String r2 = "/odm/etc/camera/config/camera_unit_feature_config.protobuf"
-            r1.<init>(r2)     // Catch: java.lang.Throwable -> L1c java.io.IOException -> L21
-            int r0 = r1.available()     // Catch: java.io.IOException -> L1a java.lang.Throwable -> L3c
-            byte[] r0 = new byte[r0]     // Catch: java.io.IOException -> L1a java.lang.Throwable -> L3c
-            r1.read(r0)     // Catch: java.io.IOException -> L1a java.lang.Throwable -> L3c
-            parseProtobufFeature(r0)     // Catch: java.io.IOException -> L1a java.lang.Throwable -> L3c
-            r1.close()     // Catch: java.io.IOException -> L18
-            goto L36
-        L18:
-            r0 = move-exception
-            goto L33
-        L1a:
-            r0 = move-exception
-            goto L25
-        L1c:
-            r1 = move-exception
-            r4 = r1
-            r1 = r0
-            r0 = r4
-            goto L3d
-        L21:
-            r1 = move-exception
-            r4 = r1
-            r1 = r0
-            r0 = r4
-        L25:
-            java.lang.String r2 = "CameraConfigure"
-            java.lang.String r3 = "decodeConfigFileVersion1, parse error!"
-            com.oplus.ocs.camera.common.util.CameraUnitLog.e(r2, r3, r0)     // Catch: java.lang.Throwable -> L3c
-            if (r1 == 0) goto L36
-            r1.close()     // Catch: java.io.IOException -> L32
-            goto L36
-        L32:
-            r0 = move-exception
-        L33:
-            r0.printStackTrace()
-        L36:
-            android.os.ConditionVariable r0 = com.oplus.ocs.camera.configure.CameraConfigure.FEATURE_CONFIG_CONDITION
-            r0.open()
-            return
-        L3c:
-            r0 = move-exception
-        L3d:
-            if (r1 == 0) goto L47
-            r1.close()     // Catch: java.io.IOException -> L43
-            goto L47
-        L43:
-            r1 = move-exception
-            r1.printStackTrace()
-        L47:
-            android.os.ConditionVariable r1 = com.oplus.ocs.camera.configure.CameraConfigure.FEATURE_CONFIG_CONDITION
-            r1.open()
-            throw r0
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.CameraConfigure.decodeConfigFileVersion1():void");
+    private static void decodeConfigFileVersion1() throws Throwable {
+        FileInputStream fileInputStream;
+        Throwable th;
+        IOException e;
+        try {
+            fileInputStream = new FileInputStream("/odm/etc/camera/config/camera_unit_feature_config.protobuf");
+            try {
+                try {
+                    byte[] bArr = new byte[fileInputStream.available()];
+                    fileInputStream.read(bArr);
+                    parseProtobufFeature(bArr);
+                    try {
+                        fileInputStream.close();
+                    } catch (IOException e2) {
+                        e = e2;
+                        e.printStackTrace();
+                    }
+                } catch (IOException e3) {
+                    e = e3;
+                    CameraUnitLog.e(TAG, "decodeConfigFileVersion1, parse error!", e);
+                    if (fileInputStream != null) {
+                        try {
+                            fileInputStream.close();
+                        } catch (IOException e4) {
+                            e = e4;
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            } catch (Throwable th2) {
+                th = th2;
+                if (fileInputStream != null) {
+                    try {
+                        fileInputStream.close();
+                    } catch (IOException e5) {
+                        e5.printStackTrace();
+                    }
+                }
+                FEATURE_CONFIG_CONDITION.open();
+                throw th;
+            }
+        } catch (IOException e6) {
+            fileInputStream = null;
+            e = e6;
+        } catch (Throwable th3) {
+            fileInputStream = null;
+            th = th3;
+            if (fileInputStream != null) {
+            }
+            FEATURE_CONFIG_CONDITION.open();
+            throw th;
+        }
+        FEATURE_CONFIG_CONDITION.open();
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:11:0x004a  */
-    /* JADX WARN: Removed duplicated region for block: B:12:0x004b A[Catch: all -> 0x00c4, IOException -> 0x00c6, TRY_LEAVE, TryCatch #1 {all -> 0x00c4, blocks: (B:3:0x0005, B:5:0x000c, B:7:0x0029, B:9:0x0030, B:22:0x0075, B:24:0x007c, B:26:0x008c, B:32:0x00a7, B:33:0x00ab, B:12:0x004b, B:47:0x00c7), top: B:64:0x0005 }] */
     /* JADX WARN: Removed duplicated region for block: B:24:0x007c A[Catch: all -> 0x00c4, IOException -> 0x00c6, TryCatch #1 {all -> 0x00c4, blocks: (B:3:0x0005, B:5:0x000c, B:7:0x0029, B:9:0x0030, B:22:0x0075, B:24:0x007c, B:26:0x008c, B:32:0x00a7, B:33:0x00ab, B:12:0x004b, B:47:0x00c7), top: B:64:0x0005 }] */
     /* JADX WARN: Removed duplicated region for block: B:62:0x00e3 A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /* JADX WARN: Removed duplicated region for block: B:66:0x00ce A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /* JADX WARN: Removed duplicated region for block: B:68:0x00b8 A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:8:0x002f  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    private static void decodeConfigFileVersion2(android.content.Context r7) {
-        /*
-            Method dump skipped, instructions count: 246
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.CameraConfigure.decodeConfigFileVersion2(android.content.Context):void");
+    private static void decodeConfigFileVersion2(Context context) throws Throwable {
+        int intFormStream;
+        int i;
+        FileInputStream fileInputStream = null;
+        try {
+            try {
+                FileInputStream fileInputStream2 = new FileInputStream("/odm/etc/camera/config/oplus_camera_feature_config");
+                if (context != null) {
+                    String str = context.getFilesDir().getAbsolutePath() + "/odm/etc/camera/config/oplus_camera_feature_config";
+                    FileInputStream fileInputStream3 = Util.isFileExist(str) ? new FileInputStream(str) : null;
+                    int intFormStream2 = readIntFormStream(fileInputStream2);
+                    CameraUnitLog.e(TAG, "decodeConfigFileVersion2, odmFileVersion:" + intFormStream2);
+                    if (fileInputStream3 != null) {
+                        int intFormStream3 = readIntFormStream(fileInputStream3);
+                        CameraUnitLog.e(TAG, "decodeConfigFileVersion2, rusFileVersion:" + intFormStream3);
+                        if (intFormStream3 >= intFormStream2) {
+                            try {
+                                fileInputStream2.close();
+                                fileInputStream = fileInputStream3;
+                                intFormStream = readIntFormStream(fileInputStream);
+                                for (i = 0; i < intFormStream; i++) {
+                                    int intFormStream4 = readIntFormStream(fileInputStream);
+                                    int intFormStream5 = readIntFormStream(fileInputStream);
+                                    byte[] bArr = new byte[intFormStream5];
+                                    if (fileInputStream.read(bArr) != intFormStream5) {
+                                        CameraUnitLog.e(TAG, "decodeConfigFileVersion2, content length is not correct, tag: " + intFormStream4);
+                                    }
+                                    if (intFormStream4 == 1) {
+                                        generateVendorTagMap(bArr);
+                                        PROJECT_FEATURES_READY_CONDITION.open();
+                                    } else if (intFormStream4 == 2) {
+                                        parseProtobufFeature(bArr);
+                                    }
+                                }
+                                if (fileInputStream != null) {
+                                    try {
+                                        fileInputStream.close();
+                                    } catch (IOException e) {
+                                        e = e;
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } catch (IOException e2) {
+                                e = e2;
+                                fileInputStream = fileInputStream3;
+                                CameraUnitLog.e(TAG, "decodeConfigFileVersion2, parse error!", e);
+                                if (fileInputStream != null) {
+                                }
+                            } catch (Throwable th) {
+                                th = th;
+                                fileInputStream = fileInputStream3;
+                                if (fileInputStream != null) {
+                                }
+                                PROJECT_FEATURES_READY_CONDITION.open();
+                                FEATURE_CONFIG_CONDITION.open();
+                                throw th;
+                            }
+                        } else {
+                            try {
+                                fileInputStream3.close();
+                            } catch (IOException e3) {
+                                e = e3;
+                                fileInputStream = fileInputStream2;
+                                CameraUnitLog.e(TAG, "decodeConfigFileVersion2, parse error!", e);
+                                if (fileInputStream != null) {
+                                    try {
+                                        fileInputStream.close();
+                                    } catch (IOException e4) {
+                                        e = e4;
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } catch (Throwable th2) {
+                                th = th2;
+                                fileInputStream = fileInputStream2;
+                                if (fileInputStream != null) {
+                                    try {
+                                        fileInputStream.close();
+                                    } catch (IOException e5) {
+                                        e5.printStackTrace();
+                                    }
+                                }
+                                PROJECT_FEATURES_READY_CONDITION.open();
+                                FEATURE_CONFIG_CONDITION.open();
+                                throw th;
+                            }
+                        }
+                    }
+                    fileInputStream = fileInputStream2;
+                    intFormStream = readIntFormStream(fileInputStream);
+                    while (i < intFormStream) {
+                    }
+                    if (fileInputStream != null) {
+                    }
+                }
+            } catch (Throwable th3) {
+                th = th3;
+            }
+        } catch (IOException e6) {
+            e = e6;
+        }
+        PROJECT_FEATURES_READY_CONDITION.open();
+        FEATURE_CONFIG_CONDITION.open();
     }
 
     private static void parseProtobufFeature(byte[] bArr) throws InvalidProtocolBufferException {
-        long currentTimeMillis = System.currentTimeMillis();
+        long jCurrentTimeMillis = System.currentTimeMillis();
         CameraUnitLog.traceBeginSection("FeatureApi.parse");
-        ProtobufFeatureConfig.FeatureTable parseFrom = ProtobufFeatureConfig.FeatureTable.parseFrom(bArr);
-        CameraUnitLog.e(TAG, "protobuf version: " + parseFrom.getVersion());
-        CameraUnitLog.e(TAG, "protobuf parser cost time: " + (System.currentTimeMillis() - currentTimeMillis));
+        ProtobufFeatureConfig.FeatureTable from = ProtobufFeatureConfig.FeatureTable.parseFrom(bArr);
+        CameraUnitLog.e(TAG, "protobuf version: " + from.getVersion());
+        CameraUnitLog.e(TAG, "protobuf parser cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
         CameraUnitLog.traceEndSection("FeatureApi.parse");
         CameraUnitLog.traceBeginSection("FeatureApi.initFeatureTable");
-        long currentTimeMillis2 = System.currentTimeMillis();
-        initFeatureTable(parseFrom);
-        CameraUnitLog.d(TAG, "initFeatureTable cost: " + (System.currentTimeMillis() - currentTimeMillis2));
+        long jCurrentTimeMillis2 = System.currentTimeMillis();
+        initFeatureTable(from);
+        CameraUnitLog.d(TAG, "initFeatureTable cost: " + (System.currentTimeMillis() - jCurrentTimeMillis2));
         CameraUnitLog.traceEndSection("FeatureApi.initFeatureTable");
     }
 
@@ -230,15 +316,15 @@ public final class CameraConfigure {
 
     @Nullable
     public static ProtobufFeatureConfigureInterface getFeatureConfigure(String str, String str2) {
-        if (ProtobufConfigureHelper.isFeatureConfigureFileExist()) {
-            FEATURE_CONFIG_CONDITION.block();
-            Map<String, Map<String, ProtobufFeatureConfigureImpl>> map = sFeatureConfigureMap;
-            if (map.containsKey(str) && map.get(str).containsKey(str2)) {
-                return map.get(str).get(str2);
-            }
-            return initFeatureConfigure(str, str2);
+        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()) {
+            return null;
         }
-        return null;
+        FEATURE_CONFIG_CONDITION.block();
+        Map<String, Map<String, ProtobufFeatureConfigureImpl>> map = sFeatureConfigureMap;
+        if (map.containsKey(str) && map.get(str).containsKey(str2)) {
+            return map.get(str).get(str2);
+        }
+        return initFeatureConfigure(str, str2);
     }
 
     private static void initFeatureTable(ProtobufFeatureConfig.FeatureTable featureTable) {
@@ -282,38 +368,39 @@ public final class CameraConfigure {
             }
             for (Map.Entry<Integer, ProtobufFeatureConfig.CameraTypeFeatureTableList> entry2 : value.getCameraTypeFeatureTablesMap().entrySet()) {
                 String strPool = featureTable.getStrPool(entry2.getKey().intValue());
-                List<Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> list = map2.get(strPool);
-                if (list == null) {
-                    list = new ArrayList<>();
-                    map2.put(strPool, list);
+                List<Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> arrayList = map2.get(strPool);
+                if (arrayList == null) {
+                    arrayList = new ArrayList<>();
+                    map2.put(strPool, arrayList);
                 }
-                for (ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable : entry2.getValue().getCameraTypeFeatureTableListList()) {
-                    list.add(initCameraTypeFeatureTable(cameraTypeFeatureTable, featureTable.getStrPoolList(), key, strPool));
+                Iterator<ProtobufFeatureConfig.CameraTypeFeatureTable> it = entry2.getValue().getCameraTypeFeatureTableListList().iterator();
+                while (it.hasNext()) {
+                    arrayList.add(initCameraTypeFeatureTable(it.next(), featureTable.getStrPoolList(), key, strPool));
                 }
             }
         }
     }
 
     private static Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> initCameraTypeFeatureTable(ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable, List<String> list, String str, String str2) {
-        HashMap hashMap = new HashMap();
-        HashMap hashMap2 = new HashMap();
+        HashMap map = new HashMap();
+        HashMap map2 = new HashMap();
         for (ProtobufFeatureConfig.Feature feature : cameraTypeFeatureTable.getFeatureListList()) {
-            ProtobufFeatureInfoImpl<?> initFeatureInfo = initFeatureInfo(feature, list, str);
-            if (initFeatureInfo != null) {
-                hashMap.put(initFeatureInfo.getFeatureKey(), initFeatureInfo);
+            ProtobufFeatureInfoImpl<?> protobufFeatureInfoImplInitFeatureInfo = initFeatureInfo(feature, list, str);
+            if (protobufFeatureInfoImplInitFeatureInfo != null) {
+                map.put(protobufFeatureInfoImplInitFeatureInfo.getFeatureKey(), protobufFeatureInfoImplInitFeatureInfo);
                 if (!feature.getConflictMapMap().isEmpty()) {
-                    hashMap2.put(initFeatureInfo.getFeatureKey(), feature);
+                    map2.put(protobufFeatureInfoImplInitFeatureInfo.getFeatureKey(), feature);
                 }
             }
         }
-        for (Map.Entry entry : hashMap2.entrySet()) {
-            ProtobufFeatureInfoInterface protobufFeatureInfoInterface = (ProtobufFeatureInfoInterface) hashMap.get(entry.getKey());
-            Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> initConflictMap = initConflictMap(((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list, protobufFeatureInfoInterface.getFeatureKey(), str, str2);
+        for (Map.Entry entry : map2.entrySet()) {
+            ProtobufFeatureInfoInterface protobufFeatureInfoInterface = (ProtobufFeatureInfoInterface) map.get(entry.getKey());
+            Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> mapInitConflictMap = initConflictMap(((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list, protobufFeatureInfoInterface.getFeatureKey(), str, str2);
             if (protobufFeatureInfoInterface instanceof ProtobufFeatureInfoImpl) {
-                ((ProtobufFeatureInfoImpl) protobufFeatureInfoInterface).setConflictMap(initConflictMap);
+                ((ProtobufFeatureInfoImpl) protobufFeatureInfoInterface).setConflictMap(mapInitConflictMap);
             }
         }
-        return hashMap;
+        return map;
     }
 
     @NonNull
@@ -325,13 +412,13 @@ public final class CameraConfigure {
             map.put(str, map2);
         }
         ProtobufFeatureConfigureImpl protobufFeatureConfigureImpl = map2.get(str2);
-        if (protobufFeatureConfigureImpl == null) {
-            ProtobufFeatureConfigureImpl create = ProtobufFeatureConfigureImpl.create(str, str2);
-            addFeature(str, str2, create);
-            map2.put(str2, create);
-            return create;
+        if (protobufFeatureConfigureImpl != null) {
+            return protobufFeatureConfigureImpl;
         }
-        return protobufFeatureConfigureImpl;
+        ProtobufFeatureConfigureImpl protobufFeatureConfigureImplCreate = ProtobufFeatureConfigureImpl.create(str, str2);
+        addFeature(str, str2, protobufFeatureConfigureImplCreate);
+        map2.put(str2, protobufFeatureConfigureImplCreate);
+        return protobufFeatureConfigureImplCreate;
     }
 
     private static void addFeature(String str, String str2, ProtobufFeatureConfigureImpl protobufFeatureConfigureImpl) {
@@ -341,39 +428,39 @@ public final class CameraConfigure {
         if (map2 != null) {
             protobufFeatureConfigureImpl.setGroupFeatureTableList(map2.get(str2));
         }
-        HashMap hashMap = new HashMap();
-        Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map3 = sFeatureTable.get(str);
-        if (map3 != null && (map = map3.get(str2)) != null && !map.isEmpty()) {
-            hashMap.putAll(map);
+        HashMap map3 = new HashMap();
+        Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map4 = sFeatureTable.get(str);
+        if (map4 != null && (map = map4.get(str2)) != null && !map.isEmpty()) {
+            map3.putAll(map);
         }
         if (!VENDOR_TAG.equalsIgnoreCase(str)) {
-            if (map3 != null && map3.containsKey("common")) {
-                for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry : map3.get("common").entrySet()) {
-                    if (!hashMap.containsKey(entry.getKey())) {
-                        hashMap.put(entry.getKey(), entry.getValue());
+            if (map4 != null && map4.containsKey("common")) {
+                for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry : map4.get("common").entrySet()) {
+                    if (!map3.containsKey(entry.getKey())) {
+                        map3.put(entry.getKey(), entry.getValue());
                     }
                 }
             }
-            Map<String, Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>>> map4 = sFeatureTable;
-            if (map4.containsKey("common")) {
-                Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map5 = map4.get("common");
-                if (map5.containsKey(str2)) {
-                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry2 : map5.get(str2).entrySet()) {
-                        if (!hashMap.containsKey(entry2.getKey())) {
-                            hashMap.put(entry2.getKey(), entry2.getValue());
+            Map<String, Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>>> map5 = sFeatureTable;
+            if (map5.containsKey("common")) {
+                Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map6 = map5.get("common");
+                if (map6.containsKey(str2)) {
+                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry2 : map6.get(str2).entrySet()) {
+                        if (!map3.containsKey(entry2.getKey())) {
+                            map3.put(entry2.getKey(), entry2.getValue());
                         }
                     }
                 }
-                if (map5.containsKey("common")) {
-                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry3 : map5.get("common").entrySet()) {
-                        if (!hashMap.containsKey(entry3.getKey())) {
-                            hashMap.put(entry3.getKey(), entry3.getValue());
+                if (map6.containsKey("common")) {
+                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry3 : map6.get("common").entrySet()) {
+                        if (!map3.containsKey(entry3.getKey())) {
+                            map3.put(entry3.getKey(), entry3.getValue());
                         }
                     }
                 }
             }
         }
-        protobufFeatureConfigureImpl.setFeatureTable(hashMap);
+        protobufFeatureConfigureImpl.setFeatureTable(map3);
     }
 
     @Nullable
@@ -386,11 +473,11 @@ public final class CameraConfigure {
         String str7 = list.get(feature.getFeatureValueTypeIndex());
         boolean groupConflict = feature.getGroupConflict();
         String lowerCase = TextUtils.isEmpty(str7) ? "String".toLowerCase() : str7;
-        CameraFeatureKey<?> initFeatureKey = CameraFeatureKeyContainer.initFeatureKey(str3, lowerCase);
-        if (initFeatureKey == null) {
+        CameraFeatureKey<?> cameraFeatureKeyInitFeatureKey = CameraFeatureKeyContainer.initFeatureKey(str3, lowerCase);
+        if (cameraFeatureKeyInitFeatureKey == null) {
             return null;
         }
-        return new ProtobufFeatureInfoImpl<>(str2, str4, str5, lowerCase, str6, groupConflict, initFeatureKey);
+        return new ProtobufFeatureInfoImpl<>(str2, str4, str5, lowerCase, str6, groupConflict, cameraFeatureKeyInitFeatureKey);
     }
 
     @NonNull

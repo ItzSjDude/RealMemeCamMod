@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface APSClientWrapper {
+
+/* JADX INFO: loaded from: classes.dex */
+interface APSClientWrapper {
     int addFrameBuff(String[] strArr, Object[] objArr, String[] strArr2);
 
     int addPreviewFrameBuff(ApsPreviewParam apsPreviewParam, ApsWatermarkParam apsWatermarkParam);
@@ -63,12 +63,9 @@ public interface APSClientWrapper {
 
     int unint(String[] strArr, Object[] objArr, String[] strArr2);
 
-    /* loaded from: classes.dex */
     public static abstract class Stub implements APSClientWrapper {
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class Proxy extends APSClientKeyBase implements APSClientWrapper {
+        private static class Proxy extends APSClientKeyBase implements APSClientWrapper {
             private static final int FIRST_CALL_TRANSACTION = 1;
             private static final String KEY_CONSUMER_PTR = "consumer_ptr";
             private static final String KEY_FRAME_NUMBER = "frameNumber";
@@ -180,33 +177,33 @@ public interface APSClientWrapper {
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int create(Object obj) {
                 this.mRemote.createClient(obj);
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_CREATE_USER_ID, Integer.valueOf(getCurrentUserId()));
-                obtainMap.put(KEY_CREATE_IS_CAMERAUNIT, true);
-                obtainMap.put(KEY_CREATE_APS_VERSION, Integer.valueOf(this.mRemote.getAlgoSwitchVersion()));
-                if (this.mRemote.transact(2, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_CREATE_USER_ID, Integer.valueOf(getCurrentUserId()));
+                mapObtainMap.put(KEY_CREATE_IS_CAMERAUNIT, true);
+                mapObtainMap.put(KEY_CREATE_APS_VERSION, Integer.valueOf(this.mRemote.getAlgoSwitchVersion()));
+                if (this.mRemote.transact(2, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 2");
                 }
-                Object obj2 = obtainMap2.get(KEY_CREATE_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj2 instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "create, result: " + obj2);
-                    return ((Integer) obj2).intValue();
+                Object obj2 = mapObtainMap2.get(KEY_CREATE_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj2 instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "create, result: " + obj2);
+                return ((Integer) obj2).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int destroy() {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                if (this.mRemote.transact(3, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                if (this.mRemote.transact(3, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 3");
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 this.mRemote.destroyClient();
                 return 0;
             }
@@ -217,59 +214,59 @@ public interface APSClientWrapper {
                     ApsAdapterLog.e(TAG, "algoInit, params or vendorTagIds is null! params: " + Arrays.toString(strArr2) + ", vendorTagIds: " + Arrays.toString(strArr3));
                     return -1;
                 }
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
                 int i = 0;
                 if (strArr != null && objArr != null && strArr.length == objArr.length) {
                     int length = strArr.length;
                     while (i < length) {
-                        obtainMap.put(buildKey(KEY_FUNC_ALGOINIT, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
+                        mapObtainMap.put(buildKey(KEY_FUNC_ALGOINIT, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
                         i++;
                     }
                     i = length;
                 }
-                obtainMap.put(KYE_ALGO_INIT_PARAMS, strArr2);
-                obtainMap.put(KEY_ALGO_INIT_VENDOR_TAG_IDS, strArr3);
+                mapObtainMap.put(KYE_ALGO_INIT_PARAMS, strArr2);
+                mapObtainMap.put(KEY_ALGO_INIT_VENDOR_TAG_IDS, strArr3);
                 ApsAdapterLog.i(TAG, "algoInit, paramsSize: " + strArr2.length + ", objectSize: " + i + ", vendorTagIdsSize: " + strArr3.length);
-                if (this.mRemote.transact(4, obtainMap, obtainMap2) == -1) {
+                if (this.mRemote.transact(4, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 4");
                 }
-                Object obj = obtainMap2.get(KEY_ALGO_INIT_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "algoInit, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_ALGO_INIT_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "algoInit, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int unint(String[] strArr, Object[] objArr, String[] strArr2) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
                 int i = 0;
                 if (strArr != null && objArr != null && strArr.length == objArr.length) {
                     int length = strArr.length;
                     while (i < length) {
-                        obtainMap.put(buildKey(KEY_FUNC_UNINT, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
+                        mapObtainMap.put(buildKey(KEY_FUNC_UNINT, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
                         i++;
                     }
                     i = length;
                 }
-                obtainMap.put(KEY_UNINT_PARAMS, strArr2);
+                mapObtainMap.put(KEY_UNINT_PARAMS, strArr2);
                 ApsAdapterLog.i(TAG, "unint, paramsSize: " + strArr2.length + ", objectSize: " + i);
-                if (this.mRemote.transact(5, obtainMap, obtainMap2) == -1) {
+                if (this.mRemote.transact(5, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 5");
                 }
-                Object obj = obtainMap2.get(KEY_UNINT_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "unint, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_UNINT_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "unint, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
@@ -278,98 +275,108 @@ public interface APSClientWrapper {
                 if (strArr == null || objArr == null || strArr.length > objArr.length) {
                     ApsAdapterLog.e(TAG, "addFrameBuff, object input is invalid, objectsInfo: " + Arrays.toString(strArr) + ", objects: " + Arrays.toString(objArr));
                     return -1;
-                } else if (strArr2 == null) {
+                }
+                if (strArr2 == null) {
                     ApsAdapterLog.e(TAG, "addFrameBuff, params is null!");
                     return -1;
-                } else {
-                    HashMap<String, Object> obtainMap = obtainMap();
-                    HashMap<String, Object> obtainMap2 = obtainMap();
-                    int length = strArr.length;
-                    ApsParameters apsParameters = new ApsParameters();
-                    for (int i = 0; i < length; i++) {
-                        if (strArr[i].equals("imagebufferobj") && (imageReader = ((ApsResult.ImageBuffer) objArr[i]).getImageReader()) != null) {
-                            apsParameters.set("imagereader_hash", String.valueOf(imageReader.hashCode()));
-                        }
-                        obtainMap.put(buildKey(KEY_FUNC_ADDFRAMEBUFF, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
+                }
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                int length = strArr.length;
+                ApsParameters apsParameters = new ApsParameters();
+                for (int i = 0; i < length; i++) {
+                    if (strArr[i].equals("imagebufferobj") && (imageReader = ((ApsResult.ImageBuffer) objArr[i]).getImageReader()) != null) {
+                        apsParameters.set("imagereader_hash", String.valueOf(imageReader.hashCode()));
                     }
-                    obtainMap.put(KEY_ADD_FRAME_BUFF_PARAMS, APSClient.mergeArrays(strArr2, apsParameters.getParameters()));
-                    ApsAdapterLog.i(TAG, "addFrameBuff, paramsSize: " + strArr2.length + ", objectSize: " + length);
-                    if (this.mRemote.transact(6, obtainMap, obtainMap2) == -1) {
-                        ApsAdapterLog.e(TAG, "APS has not implement this code: 6");
-                    }
-                    Object obj = obtainMap2.get(KEY_ADD_FRAME_BUFF_RESULT);
-                    recycleMap(obtainMap);
-                    recycleMap(obtainMap2);
-                    if (obj instanceof Integer) {
-                        ApsAdapterLog.d(TAG, "addFrameBuff, result: " + obj);
-                        return ((Integer) obj).intValue();
-                    }
+                    mapObtainMap.put(buildKey(KEY_FUNC_ADDFRAMEBUFF, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
+                }
+                mapObtainMap.put(KEY_ADD_FRAME_BUFF_PARAMS, APSClient.mergeArrays(strArr2, apsParameters.getParameters()));
+                ApsAdapterLog.i(TAG, "addFrameBuff, paramsSize: " + strArr2.length + ", objectSize: " + length);
+                if (this.mRemote.transact(6, mapObtainMap, mapObtainMap2) == -1) {
+                    ApsAdapterLog.e(TAG, "APS has not implement this code: 6");
+                }
+                Object obj = mapObtainMap2.get(KEY_ADD_FRAME_BUFF_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
                     return -1;
                 }
+                ApsAdapterLog.d(TAG, "addFrameBuff, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int processImages(String[] strArr, Object[] objArr, String[] strArr2, byte[] bArr) {
-                int i;
+                int length;
                 if (strArr2 == null) {
                     ApsAdapterLog.e(TAG, "processImages, params is null!");
                     return -1;
                 }
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
                 if (strArr == null || objArr == null || strArr.length != objArr.length) {
-                    i = 0;
+                    length = 0;
                 } else {
-                    i = strArr.length;
-                    for (int i2 = 0; i2 < i; i2++) {
-                        obtainMap.put(buildKey(KEY_FUNC_PROCESSIMAGES, strArr[i2], getKeySuffix(objArr[i2])), objArr[i2]);
+                    length = strArr.length;
+                    for (int i = 0; i < length; i++) {
+                        mapObtainMap.put(buildKey(KEY_FUNC_PROCESSIMAGES, strArr[i], getKeySuffix(objArr[i])), objArr[i]);
                     }
                 }
                 if (bArr != null) {
-                    obtainMap.put(KEY_PROCESS_IMAGES_WATERMARK_BUFFER, bArr);
+                    mapObtainMap.put(KEY_PROCESS_IMAGES_WATERMARK_BUFFER, bArr);
                 }
-                obtainMap.put(KEY_PROCESS_IMAGES_PARAMS, strArr2);
-                ApsAdapterLog.i(TAG, "processImages, paramsSize: " + strArr2.length + ", objectSize: " + i);
-                if (this.mRemote.transact(7, obtainMap, obtainMap2) == -1) {
+                mapObtainMap.put(KEY_PROCESS_IMAGES_PARAMS, strArr2);
+                ApsAdapterLog.i(TAG, "processImages, paramsSize: " + strArr2.length + ", objectSize: " + length);
+                if (this.mRemote.transact(7, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 7");
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 return 0;
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public String[] previewDecision(String[] strArr, CameraMetadata cameraMetadata) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_PREVIEW_DECISION_PARAMS, strArr);
-                obtainMap.put(KEY_PREVIEW_DECISION_CAMERA_METADATA, cameraMetadata);
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_PREVIEW_DECISION_PARAMS, strArr);
+                mapObtainMap.put(KEY_PREVIEW_DECISION_CAMERA_METADATA, cameraMetadata);
                 ApsAdapterLog.i(TAG, "previewDecision, paramsSize: " + strArr.length + ", metadata: " + cameraMetadata);
-                int transact = this.mRemote.transact(8, obtainMap, obtainMap2);
-                if (transact == -1) {
+                int iTransact = this.mRemote.transact(8, mapObtainMap, mapObtainMap2);
+                if (iTransact == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 8");
                 }
-                Object obj = obtainMap2.get(KEY_PREVIEW_DECISION_RESULT);
+                Object obj = mapObtainMap2.get(KEY_PREVIEW_DECISION_RESULT);
                 String[] strArr2 = obj != null ? (String[]) obj : null;
                 StringBuilder sb = new StringBuilder();
                 sb.append("previewDecision, ret: ");
-                sb.append(transact);
+                sb.append(iTransact);
                 sb.append(", resultSize: ");
                 sb.append(strArr2 != null ? strArr2.length : 0);
                 ApsAdapterLog.i(TAG, sb.toString());
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 return strArr2;
             }
 
+            /* JADX WARN: Type inference fix 'apply assigned field type' failed
+            java.lang.UnsupportedOperationException: ArgType.getObject(), call class: class jadx.core.dex.instructions.args.ArgType$UnknownArg
+            	at jadx.core.dex.instructions.args.ArgType.getObject(ArgType.java:593)
+            	at jadx.core.dex.attributes.nodes.ClassTypeVarsAttr.getTypeVarsMapFor(ClassTypeVarsAttr.java:35)
+            	at jadx.core.dex.nodes.utils.TypeUtils.replaceClassGenerics(TypeUtils.java:177)
+            	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.insertExplicitUseCast(FixTypesVisitor.java:397)
+            	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.tryFieldTypeWithNewCasts(FixTypesVisitor.java:359)
+            	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.applyFieldType(FixTypesVisitor.java:309)
+            	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.visit(FixTypesVisitor.java:94)
+             */
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int addPreviewFrameBuff(ApsPreviewParam apsPreviewParam, ApsWatermarkParam apsWatermarkParam) {
                 if (apsPreviewParam == null) {
                     ApsAdapterLog.e(TAG, "addPreviewFrameBuff, apsPreviewParam is null!");
                     return -1;
                 }
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
                 ApsParameters apsParameters = new ApsParameters();
                 apsParameters.set(KEY_FRAME_NUMBER, String.valueOf(apsPreviewParam.getFrameIdx()));
                 apsParameters.set(KEY_TIME_STAMP, String.valueOf(apsPreviewParam.getTimeStamp()));
@@ -377,31 +384,31 @@ public interface APSClientWrapper {
                 apsParameters.set(KEY_IS_DETACHED, String.valueOf(apsPreviewParam.getIsDetached()));
                 apsParameters.set(KEY_CONSUMER_PTR, String.valueOf(apsPreviewParam.getConsumerPtr()));
                 String[] processParamters = apsPreviewParam.getProcessParamters();
-                processApsPreviewParam(apsPreviewParam, obtainMap);
+                processApsPreviewParam(apsPreviewParam, mapObtainMap);
                 if (apsWatermarkParam != null) {
                     apsParameters.set(KEY_WATERMARK_REF_WIDTH, String.valueOf(apsWatermarkParam.getRefWidth()));
                     apsParameters.set(KEY_WATERMARK_WIDTH, String.valueOf(apsWatermarkParam.getWatermarkWidth()));
                     apsParameters.set(KEY_WATERMARK_HEIGHT, String.valueOf(apsWatermarkParam.getWatermarkHeight()));
                     if (apsWatermarkParam.getWatermarkBuffer() != null) {
-                        obtainMap.put(KEY_PREVIEW_FRAME_WATERMARK_BUFFER, apsWatermarkParam.getWatermarkBuffer());
+                        mapObtainMap.put(KEY_PREVIEW_FRAME_WATERMARK_BUFFER, apsWatermarkParam.getWatermarkBuffer());
                     }
                 }
-                String[] mergeArrays = APSClient.mergeArrays(processParamters, apsParameters.getParameters());
-                obtainMap.put(KEY_PREVIEW_FRAME_PARAMS_ARRAY, mergeArrays);
+                String[] strArrMergeArrays = APSClient.mergeArrays(processParamters, apsParameters.getParameters());
+                mapObtainMap.put(KEY_PREVIEW_FRAME_PARAMS_ARRAY, strArrMergeArrays);
                 if (ApsAdapterLog.isLogOn()) {
-                    ApsAdapterLog.i(TAG, "addPreviewFrameBuff, paramsSize: " + mergeArrays.length + ", MetaBuffer: " + apsPreviewParam.getMetaBuffer() + ", apsWatermarkParam: " + apsWatermarkParam + ", ImageBuff: " + Arrays.toString(apsPreviewParam.getImageBufferArray()));
+                    ApsAdapterLog.i(TAG, "addPreviewFrameBuff, paramsSize: " + strArrMergeArrays.length + ", MetaBuffer: " + apsPreviewParam.getMetaBuffer() + ", apsWatermarkParam: " + apsWatermarkParam + ", ImageBuff: " + Arrays.toString(apsPreviewParam.getImageBufferArray()));
                 }
-                if (this.mRemote.transact(9, obtainMap, obtainMap2) == -1) {
+                if (this.mRemote.transact(9, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 9");
                 }
-                Object obj = obtainMap2.get(KEY_PREVIEW_FRAME_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "addPreviewFrameBuff, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_PREVIEW_FRAME_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "addPreviewFrameBuff, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
@@ -411,7 +418,7 @@ public interface APSClientWrapper {
                 }
                 int length = rectArr.length;
                 Rect[] rectArr2 = new Rect[length];
-                long currentTimeMillis = System.currentTimeMillis();
+                long jCurrentTimeMillis = System.currentTimeMillis();
                 for (int i = 0; i < length; i++) {
                     int i2 = (length - 1) - i;
                     rectArr2[i].left = rectArr[i2].left;
@@ -419,267 +426,267 @@ public interface APSClientWrapper {
                     rectArr2[i].right = rectArr[i2].right;
                     rectArr2[i].bottom = rectArr[i2].bottom;
                 }
-                ApsAdapterLog.i(TAG, "roiTranslate, length: " + length + ", time: " + (System.currentTimeMillis() - currentTimeMillis));
+                ApsAdapterLog.i(TAG, "roiTranslate, length: " + length + ", time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
                 return rectArr2;
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public void setRequestMetadata(ApsCaptureRequestParam apsCaptureRequestParam) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                if (this.mRemote.transact(11, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                if (this.mRemote.transact(11, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 11");
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public void attachPreviewSurface(int i, Surface surface, int i2) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_ATTACH_PREVIEW_SURFACE_CAMERA_LOGIC_ID, Integer.valueOf(i));
-                obtainMap.put(KEY_ATTACH_PREVIEW_SURFACE_SURFACE, surface);
-                obtainMap.put(KEY_ATTACH_PREVIEW_SURFACE_SURFACE_HASH, Integer.valueOf(i2));
-                if (this.mRemote.transact(12, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_ATTACH_PREVIEW_SURFACE_CAMERA_LOGIC_ID, Integer.valueOf(i));
+                mapObtainMap.put(KEY_ATTACH_PREVIEW_SURFACE_SURFACE, surface);
+                mapObtainMap.put(KEY_ATTACH_PREVIEW_SURFACE_SURFACE_HASH, Integer.valueOf(i2));
+                if (this.mRemote.transact(12, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 12");
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public void detachPreviewSurface(int i) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_DETACH_PREVIEW_SURFACE_CAMERA_LOGIN_ID, Integer.valueOf(i));
-                if (this.mRemote.transact(13, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_DETACH_PREVIEW_SURFACE_CAMERA_LOGIN_ID, Integer.valueOf(i));
+                if (this.mRemote.transact(13, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 13");
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int stop(int i) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                if (this.mRemote.transact(14, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                if (this.mRemote.transact(14, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 14");
                 }
-                Object obj = obtainMap2.get(KEY_STOP_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "stop, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_STOP_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "stop, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int clear() {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                if (this.mRemote.transact(15, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                if (this.mRemote.transact(15, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 15");
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 return 0;
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int releaseBuffer(String str, HardwareBuffer hardwareBuffer) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put("pipeline_name_STRING_BASIC_", str);
-                obtainMap.put("hardwarebufferobj" + getKeySuffix(hardwareBuffer), hardwareBuffer);
-                if (this.mRemote.transact(16, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put("pipeline_name_STRING_BASIC_", str);
+                mapObtainMap.put("hardwarebufferobj" + getKeySuffix(hardwareBuffer), hardwareBuffer);
+                if (this.mRemote.transact(16, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 16");
                 }
-                Object obj = obtainMap2.get(buildKey(KEY_FUNC_RELEASEBUFF, "result", "_INT_BASIC_"));
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "releaseBuffer, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(buildKey(KEY_FUNC_RELEASEBUFF, "result", "_INT_BASIC_"));
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "releaseBuffer, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public APSClient.APSRuntimeInfo getRuntimeInfo() {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                if (this.mRemote.transact(17, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                if (this.mRemote.transact(17, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 17");
                 }
                 APSClient.APSRuntimeInfo aPSRuntimeInfo = new APSClient.APSRuntimeInfo();
-                Object obj = obtainMap2.get(KEY_GET_RUNTIME_INFO_MEM_SIZE);
+                Object obj = mapObtainMap2.get(KEY_GET_RUNTIME_INFO_MEM_SIZE);
                 if (obj != null) {
                     aPSRuntimeInfo.mInputMemSize = Integer.parseInt(String.valueOf(obj));
                 }
-                Object obj2 = obtainMap2.get(KEY_GET_RUNTIME_INFO_SINGLEALGO_MAXMEM);
+                Object obj2 = mapObtainMap2.get(KEY_GET_RUNTIME_INFO_SINGLEALGO_MAXMEM);
                 if (obj2 != null) {
                     aPSRuntimeInfo.mSingleAlgoMaxRunMem = Integer.parseInt(String.valueOf(obj2));
                 }
-                Object obj3 = obtainMap2.get(KEY_GET_RUNTIME_INFO_TOTAL_TIME);
+                Object obj3 = mapObtainMap2.get(KEY_GET_RUNTIME_INFO_TOTAL_TIME);
                 if (obj3 != null) {
                     aPSRuntimeInfo.mTotalTimeEstimate = Integer.parseInt(String.valueOf(obj3));
                 }
-                Object obj4 = obtainMap2.get(KEY_GET_RUNTIME_INFO_CNT_PENDING);
+                Object obj4 = mapObtainMap2.get(KEY_GET_RUNTIME_INFO_CNT_PENDING);
                 if (obj4 != null) {
                     aPSRuntimeInfo.mProcessCntPending = Integer.parseInt(String.valueOf(obj4));
                 }
                 if (ApsAdapterLog.isLogOn()) {
                     ApsAdapterLog.i(TAG, "mInputMemSize: " + aPSRuntimeInfo.mInputMemSize + " mSingleAlgoMaxRunMem: " + aPSRuntimeInfo.mSingleAlgoMaxRunMem + " mTotalTimeEstimate: " + aPSRuntimeInfo.mTotalTimeEstimate + " mProcessCntPending: " + aPSRuntimeInfo.mProcessCntPending);
                 }
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 return aPSRuntimeInfo;
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int setEnableAPSPipeline(String str, boolean z) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
                 ApsParameters apsParameters = new ApsParameters();
                 apsParameters.set("pipeline_name", str);
                 apsParameters.set("pipeline_enable", Boolean.toString(z));
-                obtainMap.put(KEY_SET_ENABLE_APS_PIPELINE_PARAM, apsParameters.getParameters());
-                if (this.mRemote.transact(18, obtainMap, obtainMap2) == -1) {
+                mapObtainMap.put(KEY_SET_ENABLE_APS_PIPELINE_PARAM, apsParameters.getParameters());
+                if (this.mRemote.transact(18, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 18");
                 }
-                Object obj = obtainMap2.get(KEY_SET_ENABLE_APS_PIPELINE_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "setEnableAPSPipeline, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_SET_ENABLE_APS_PIPELINE_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "setEnableAPSPipeline, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int setEnableAPSAlgoNode(String str, boolean z) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
                 ApsParameters apsParameters = new ApsParameters();
                 apsParameters.set("algonode_name", str);
                 apsParameters.set("algonode_enable", Boolean.toString(z));
-                obtainMap.put(KEY_SET_ENABLE_APS_ALGO_NODE_PARAM, apsParameters.getParameters());
-                if (this.mRemote.transact(19, obtainMap, obtainMap2) == -1) {
+                mapObtainMap.put(KEY_SET_ENABLE_APS_ALGO_NODE_PARAM, apsParameters.getParameters());
+                if (this.mRemote.transact(19, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 19");
                 }
-                Object obj = obtainMap2.get(KEY_SET_ENABLE_APS_ALGO_NODE_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "setEnableAPSAlgoNode, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_SET_ENABLE_APS_ALGO_NODE_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "setEnableAPSAlgoNode, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int beforeCapture(ApsParameters apsParameters) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_BEFORE_CAPTURE_PARAM, apsParameters.getParameters());
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_BEFORE_CAPTURE_PARAM, apsParameters.getParameters());
                 ApsAdapterLog.i(TAG, "beforeCapture, paramsSize: " + apsParameters.getParameters().length);
-                if (this.mRemote.transact(20, obtainMap, obtainMap2) == -1) {
+                if (this.mRemote.transact(20, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 20");
                 }
-                Object obj = obtainMap2.get(KEY_BEFORE_CAPTURE_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "beforecapture, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_BEFORE_CAPTURE_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "beforecapture, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public Bitmap processBitmap(Bitmap bitmap, CameraMetadata cameraMetadata, ApsParameters apsParameters) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_PROCESS_BITMAP_PARAM, apsParameters.getParameters());
-                obtainMap.put(KEY_PROCESS_BITMAP_CAMERA_METADATA, cameraMetadata);
-                obtainMap.put(KEY_PROCESS_BITMAP_BITMAP, bitmap);
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_PROCESS_BITMAP_PARAM, apsParameters.getParameters());
+                mapObtainMap.put(KEY_PROCESS_BITMAP_CAMERA_METADATA, cameraMetadata);
+                mapObtainMap.put(KEY_PROCESS_BITMAP_BITMAP, bitmap);
                 ApsAdapterLog.i(TAG, "processBitmap, paramsSize: " + apsParameters.getParameters().length + ", metadata: " + cameraMetadata + ", bitmap: " + bitmap);
-                int transact = this.mRemote.transact(21, obtainMap, obtainMap2);
-                if (transact == -1) {
+                int iTransact = this.mRemote.transact(21, mapObtainMap, mapObtainMap2);
+                if (iTransact == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 21");
                 }
-                ApsAdapterLog.v(TAG, "processBitmap, ret: " + transact);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                ApsAdapterLog.v(TAG, "processBitmap, ret: " + iTransact);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 return bitmap;
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public int startCapture(String[] strArr) {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                obtainMap.put(KEY_START_CAPTURE_PARAMS, strArr);
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                mapObtainMap.put(KEY_START_CAPTURE_PARAMS, strArr);
                 ApsAdapterLog.i(TAG, "startCapture, paramsSize: " + strArr.length);
-                if (this.mRemote.transact(22, obtainMap, obtainMap2) == -1) {
+                if (this.mRemote.transact(22, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 22");
                 }
-                Object obj = obtainMap2.get(KEY_START_CAPTURE_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
-                if (obj instanceof Integer) {
-                    ApsAdapterLog.d(TAG, "startcapture, result: " + obj);
-                    return ((Integer) obj).intValue();
+                Object obj = mapObtainMap2.get(KEY_START_CAPTURE_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
+                if (!(obj instanceof Integer)) {
+                    return -1;
                 }
-                return -1;
+                ApsAdapterLog.d(TAG, "startcapture, result: " + obj);
+                return ((Integer) obj).intValue();
             }
 
             @Override // com.oplus.ocs.camera.consumer.apsAdapter.APSClientWrapper
             public String getAPSVersion() {
-                HashMap<String, Object> obtainMap = obtainMap();
-                HashMap<String, Object> obtainMap2 = obtainMap();
-                if (this.mRemote.transact(23, obtainMap, obtainMap2) == -1) {
+                HashMap<String, Object> mapObtainMap = obtainMap();
+                HashMap<String, Object> mapObtainMap2 = obtainMap();
+                if (this.mRemote.transact(23, mapObtainMap, mapObtainMap2) == -1) {
                     ApsAdapterLog.e(TAG, "APS has not implement this code: 23");
                 }
-                String str = (String) obtainMap2.get(KEY_GET_VERSION_RESULT);
-                recycleMap(obtainMap);
-                recycleMap(obtainMap2);
+                String str = (String) mapObtainMap2.get(KEY_GET_VERSION_RESULT);
+                recycleMap(mapObtainMap);
+                recycleMap(mapObtainMap2);
                 return str;
             }
 
-            private void processApsPreviewParam(ApsPreviewParam apsPreviewParam, HashMap<String, Object> hashMap) {
+            private void processApsPreviewParam(ApsPreviewParam apsPreviewParam, HashMap<String, Object> map) {
                 ApsResult.ImageBuffer[] imageBufferArray = apsPreviewParam.getImageBufferArray();
                 if (imageBufferArray != null) {
-                    hashMap.put(KEY_PREVIEW_FRAME_IMAGE_BUFFER_ARRAY, imageBufferArray);
+                    map.put(KEY_PREVIEW_FRAME_IMAGE_BUFFER_ARRAY, imageBufferArray);
                     for (int i = 0; i < imageBufferArray.length; i++) {
-                        hashMap.put(buildKey(KEY_FUNC_ADDPREVIEWFRAMEBUFF, "imageBufferArray", String.valueOf(i), "_IMAGEBUFFER_OBJECT_"), imageBufferArray[i]);
+                        map.put(buildKey(KEY_FUNC_ADDPREVIEWFRAMEBUFF, "imageBufferArray", String.valueOf(i), "_IMAGEBUFFER_OBJECT_"), imageBufferArray[i]);
                         if (imageBufferArray[i].getHardwareBuffer() != null && imageBufferArray[i].getImage() != null) {
-                            hashMap.put(buildKey(KEY_FUNC_ADDPREVIEWFRAMEBUFF, "imageBufferArray", String.valueOf(i), "_HARDWAREBUFFER_OBJECT_"), imageBufferArray[i].getHardwareBuffer());
-                            hashMap.put(buildKey(KEY_FUNC_ADDPREVIEWFRAMEBUFF, "imageBufferArray", String.valueOf(i), "_IMAGE_OBJECT_"), imageBufferArray[i].getImage());
+                            map.put(buildKey(KEY_FUNC_ADDPREVIEWFRAMEBUFF, "imageBufferArray", String.valueOf(i), "_HARDWAREBUFFER_OBJECT_"), imageBufferArray[i].getHardwareBuffer());
+                            map.put(buildKey(KEY_FUNC_ADDPREVIEWFRAMEBUFF, "imageBufferArray", String.valueOf(i), "_IMAGE_OBJECT_"), imageBufferArray[i].getImage());
                         }
                     }
                 }
                 if (apsPreviewParam.getMetaBuffer() != null) {
-                    hashMap.put(KEY_PREVIEW_FRAME_META_BUFFER, apsPreviewParam.getMetaBuffer());
+                    map.put(KEY_PREVIEW_FRAME_META_BUFFER, apsPreviewParam.getMetaBuffer());
                     if (apsPreviewParam.getMetaBuffer().getImage() != null) {
-                        hashMap.put(KEY_PREVIEW_FRAME_META_IMAGE, apsPreviewParam.getMetaBuffer().getImage());
+                        map.put(KEY_PREVIEW_FRAME_META_IMAGE, apsPreviewParam.getMetaBuffer().getImage());
                     }
                     if (apsPreviewParam.getMetaBuffer().getHardwareBuffer() != null) {
-                        hashMap.put(KEY_PREVIEW_FRAME_META_HARDWAREBUFFER, apsPreviewParam.getMetaBuffer().getHardwareBuffer());
+                        map.put(KEY_PREVIEW_FRAME_META_HARDWAREBUFFER, apsPreviewParam.getMetaBuffer().getHardwareBuffer());
                     }
                 }
                 if (apsPreviewParam.getMetaObj() != null) {
-                    hashMap.put(KEY_PREVIEW_FRAME_META_OBJ, apsPreviewParam.getMetaObj());
+                    map.put(KEY_PREVIEW_FRAME_META_OBJ, apsPreviewParam.getMetaObj());
                 }
                 if (apsPreviewParam.getRole() != null) {
-                    hashMap.put(KEY_PREVIEW_FRAME_ROLES, apsPreviewParam.getRole());
+                    map.put(KEY_PREVIEW_FRAME_ROLES, apsPreviewParam.getRole());
                 }
                 if (apsPreviewParam.getMetadataPtr() != null) {
-                    hashMap.put(KEY_PREVIEW_FRAME_META_MAP, apsPreviewParam.getMetadataPtr());
+                    map.put(KEY_PREVIEW_FRAME_META_MAP, apsPreviewParam.getMetadataPtr());
                 }
             }
 
@@ -690,10 +697,10 @@ public interface APSClientWrapper {
                 return new HashMap<>();
             }
 
-            private synchronized void recycleMap(HashMap<String, Object> hashMap) {
-                if (hashMap != null) {
-                    hashMap.clear();
-                    this.mRecycleList.add(hashMap);
+            private synchronized void recycleMap(HashMap<String, Object> map) {
+                if (map != null) {
+                    map.clear();
+                    this.mRecycleList.add(map);
                 }
             }
         }

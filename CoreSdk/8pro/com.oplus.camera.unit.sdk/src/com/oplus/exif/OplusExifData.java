@@ -6,7 +6,8 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class OplusExifData {
     private static final String TAG = "ExifData";
     private static final byte[] USER_COMMENT_ASCII = {65, 83, 67, 73, 73, 0, 0, 0};
@@ -17,28 +18,23 @@ class OplusExifData {
     private ArrayList<byte[]> mStripBytes = new ArrayList<>();
     private byte[] mThumbnail;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public OplusExifData(ByteOrder byteOrder) {
+    OplusExifData(ByteOrder byteOrder) {
         this.mByteOrder = byteOrder;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public byte[] getCompressedThumbnail() {
+    protected byte[] getCompressedThumbnail() {
         return this.mThumbnail;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setCompressedThumbnail(byte[] bArr) {
+    protected void setCompressedThumbnail(byte[] bArr) {
         this.mThumbnail = bArr;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public boolean hasCompressedThumbnail() {
+    protected boolean hasCompressedThumbnail() {
         return this.mThumbnail != null;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setStripBytes(int i, byte[] bArr) {
+    protected void setStripBytes(int i, byte[] bArr) {
         if (i < this.mStripBytes.size()) {
             this.mStripBytes.set(i, bArr);
             return;
@@ -49,51 +45,44 @@ class OplusExifData {
         this.mStripBytes.add(bArr);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public int getStripCount() {
+    protected int getStripCount() {
         return this.mStripBytes.size();
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public byte[] getStrip(int i) {
+    protected byte[] getStrip(int i) {
         return this.mStripBytes.get(i);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public boolean hasUncompressedStrip() {
+    protected boolean hasUncompressedStrip() {
         return this.mStripBytes.size() != 0;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public ByteOrder getByteOrder() {
+    protected ByteOrder getByteOrder() {
         return this.mByteOrder;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusIfdData getIfdData(int i) {
+    protected OplusIfdData getIfdData(int i) {
         if (OplusExifTag.isValidIfd(i)) {
             return this.mIfdDatas[i];
         }
         return null;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addIfdData(OplusIfdData oplusIfdData) {
+    protected void addIfdData(OplusIfdData oplusIfdData) {
         this.mIfdDatas[oplusIfdData.getId()] = oplusIfdData;
     }
 
     protected OplusIfdData getOrCreateIfdData(int i) {
         OplusIfdData oplusIfdData = this.mIfdDatas[i];
-        if (oplusIfdData == null) {
-            OplusIfdData oplusIfdData2 = new OplusIfdData(i);
-            this.mIfdDatas[i] = oplusIfdData2;
-            return oplusIfdData2;
+        if (oplusIfdData != null) {
+            return oplusIfdData;
         }
-        return oplusIfdData;
+        OplusIfdData oplusIfdData2 = new OplusIfdData(i);
+        this.mIfdDatas[i] = oplusIfdData2;
+        return oplusIfdData2;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusExifTag getTag(short s, int i) {
+    protected OplusExifTag getTag(short s, int i) {
         OplusIfdData oplusIfdData = this.mIfdDatas[i];
         if (oplusIfdData == null) {
             return null;
@@ -101,8 +90,7 @@ class OplusExifData {
         return oplusIfdData.getTag(s);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusExifTag addTag(OplusExifTag oplusExifTag) {
+    protected OplusExifTag addTag(OplusExifTag oplusExifTag) {
         if (oplusExifTag != null) {
             return addTag(oplusExifTag, oplusExifTag.getIfd());
         }
@@ -116,8 +104,7 @@ class OplusExifData {
         return getOrCreateIfdData(i).setTag(oplusExifTag);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void clearThumbnailAndStrips() {
+    protected void clearThumbnailAndStrips() {
         this.mThumbnail = null;
         this.mStripBytes.clear();
     }
@@ -127,8 +114,7 @@ class OplusExifData {
         this.mIfdDatas[1] = null;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void removeTag(short s, int i) {
+    protected void removeTag(short s, int i) {
         OplusIfdData oplusIfdData = this.mIfdDatas[i];
         if (oplusIfdData == null) {
             return;
@@ -136,8 +122,7 @@ class OplusExifData {
         oplusIfdData.removeTag(s);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public String getUserComment() {
+    protected String getUserComment() {
         OplusExifTag tag;
         OplusIfdData oplusIfdData = this.mIfdDatas[0];
         if (oplusIfdData == null || (tag = oplusIfdData.getTag(OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_USER_COMMENT))) == null || tag.getComponentCount() < 8) {
@@ -165,9 +150,7 @@ class OplusExifData {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public List<OplusExifTag> getAllTags() {
-        OplusIfdData[] oplusIfdDataArr;
+    protected List<OplusExifTag> getAllTags() {
         OplusExifTag[] allTags;
         ArrayList arrayList = new ArrayList();
         for (OplusIfdData oplusIfdData : this.mIfdDatas) {
@@ -183,8 +166,7 @@ class OplusExifData {
         return arrayList;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public List<OplusExifTag> getAllTagsForIfd(int i) {
+    protected List<OplusExifTag> getAllTagsForIfd(int i) {
         OplusExifTag[] allTags;
         OplusIfdData oplusIfdData = this.mIfdDatas[i];
         if (oplusIfdData == null || (allTags = oplusIfdData.getAllTags()) == null) {
@@ -200,9 +182,7 @@ class OplusExifData {
         return arrayList;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public List<OplusExifTag> getAllTagsForTagId(short s) {
-        OplusIfdData[] oplusIfdDataArr;
+    protected List<OplusExifTag> getAllTagsForTagId(short s) {
         OplusExifTag tag;
         ArrayList arrayList = new ArrayList();
         for (OplusIfdData oplusIfdData : this.mIfdDatas) {

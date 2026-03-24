@@ -1,11 +1,11 @@
 package com.oplus.exif;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class OplusExifModifier {
     public static final boolean DEBUG = false;
     public static final String TAG = "ExifModifier";
@@ -15,9 +15,7 @@ class OplusExifModifier {
     private final List<TagOffset> mTagOffsets = new ArrayList();
     private final OplusExifData mTagToModified;
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class TagOffset {
+    private static class TagOffset {
         final int mOffset;
         final OplusExifTag mTag;
 
@@ -27,8 +25,7 @@ class OplusExifModifier {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusExifModifier(ByteBuffer byteBuffer, OplusExifInterface oplusExifInterface) throws IOException, OplusExifInvalidFormatException {
+    protected OplusExifModifier(ByteBuffer byteBuffer, OplusExifInterface oplusExifInterface) throws Throwable {
         this.mByteBuffer = byteBuffer;
         this.mOffsetBase = byteBuffer.position();
         this.mInterface = oplusExifInterface;
@@ -36,9 +33,9 @@ class OplusExifModifier {
         try {
             OplusByteBufferInputStream oplusByteBufferInputStream2 = new OplusByteBufferInputStream(byteBuffer);
             try {
-                OplusExifParser parse = OplusExifParser.parse(oplusByteBufferInputStream2, oplusExifInterface);
-                this.mTagToModified = new OplusExifData(parse.getByteOrder());
-                this.mOffsetBase += parse.getTiffStartPosition();
+                OplusExifParser oplusExifParser = OplusExifParser.parse(oplusByteBufferInputStream2, oplusExifInterface);
+                this.mTagToModified = new OplusExifData(oplusExifParser.getByteOrder());
+                this.mOffsetBase += oplusExifParser.getTiffStartPosition();
                 byteBuffer.position(0);
                 OplusExifInterface.closeSilently(oplusByteBufferInputStream2);
             } catch (Throwable th) {
@@ -56,8 +53,7 @@ class OplusExifModifier {
         return this.mTagToModified.getByteOrder();
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public boolean commit() throws IOException, OplusExifInvalidFormatException {
+    protected boolean commit() throws Throwable {
         OplusExifTag tag;
         OplusExifTag tag2;
         OplusByteBufferInputStream oplusByteBufferInputStream = null;
@@ -80,19 +76,19 @@ class OplusExifModifier {
                 if (oplusIfdDataArr[3] != null) {
                     i |= 16;
                 }
-                OplusExifParser parse = OplusExifParser.parse(oplusByteBufferInputStream2, i, this.mInterface);
-                for (int next = parse.next(); next != 5; next = parse.next()) {
+                OplusExifParser oplusExifParser = OplusExifParser.parse(oplusByteBufferInputStream2, i, this.mInterface);
+                for (int next = oplusExifParser.next(); next != 5; next = oplusExifParser.next()) {
                     if (next == 0) {
-                        oplusIfdData = oplusIfdDataArr[parse.getCurrentIfd()];
+                        oplusIfdData = oplusIfdDataArr[oplusExifParser.getCurrentIfd()];
                         if (oplusIfdData == null) {
-                            parse.skipRemainingTagsInCurrentIfd();
+                            oplusExifParser.skipRemainingTagsInCurrentIfd();
                         }
-                    } else if (next == 1 && (tag = parse.getTag()) != null && oplusIfdData != null && (tag2 = oplusIfdData.getTag(tag.getTagId())) != null) {
+                    } else if (next == 1 && (tag = oplusExifParser.getTag()) != null && oplusIfdData != null && (tag2 = oplusIfdData.getTag(tag.getTagId())) != null) {
                         if (tag2.getComponentCount() == tag.getComponentCount() && tag2.getDataType() == tag.getDataType()) {
                             this.mTagOffsets.add(new TagOffset(tag2, tag.getOffset()));
                             oplusIfdData.removeTag(tag.getTagId());
                             if (oplusIfdData.getTagCount() == 0) {
-                                parse.skipRemainingTagsInCurrentIfd();
+                                oplusExifParser.skipRemainingTagsInCurrentIfd();
                             }
                         }
                         OplusExifInterface.closeSilently(oplusByteBufferInputStream2);
@@ -136,24 +132,24 @@ class OplusExifModifier {
                 byte[] bArr = new byte[oplusExifTag.getComponentCount()];
                 oplusExifTag.getBytes(bArr);
                 this.mByteBuffer.put(bArr);
-                return;
+                break;
             case 2:
                 byte[] stringByte = oplusExifTag.getStringByte();
                 if (stringByte.length == oplusExifTag.getComponentCount()) {
                     stringByte[stringByte.length - 1] = 0;
                     this.mByteBuffer.put(stringByte);
-                    return;
+                } else {
+                    this.mByteBuffer.put(stringByte);
+                    this.mByteBuffer.put((byte) 0);
                 }
-                this.mByteBuffer.put(stringByte);
-                this.mByteBuffer.put((byte) 0);
-                return;
+                break;
             case 3:
                 int componentCount = oplusExifTag.getComponentCount();
                 while (i2 < componentCount) {
                     this.mByteBuffer.putShort((short) oplusExifTag.getValueAt(i2));
                     i2++;
                 }
-                return;
+                break;
             case 4:
             case 9:
                 int componentCount2 = oplusExifTag.getComponentCount();
@@ -161,7 +157,7 @@ class OplusExifModifier {
                     this.mByteBuffer.putInt((int) oplusExifTag.getValueAt(i2));
                     i2++;
                 }
-                return;
+                break;
             case 5:
             case 10:
                 int componentCount3 = oplusExifTag.getComponentCount();
@@ -171,11 +167,7 @@ class OplusExifModifier {
                     this.mByteBuffer.putInt((int) rational.getDenominator());
                     i2++;
                 }
-                return;
-            case 6:
-            case 8:
-            default:
-                return;
+                break;
         }
     }
 

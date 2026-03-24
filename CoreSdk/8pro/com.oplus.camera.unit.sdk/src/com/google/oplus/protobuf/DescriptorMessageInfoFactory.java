@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
+
+/* JADX INFO: loaded from: classes.dex */
+final class DescriptorMessageInfoFactory implements MessageInfoFactory {
     private static final String GET_DEFAULT_INSTANCE_METHOD_NAME = "getDefaultInstance";
     private static final DescriptorMessageInfoFactory instance = new DescriptorMessageInfoFactory();
     private static final Set<String> specialFieldNames = new HashSet(Arrays.asList("cached_size", "serialized_size", "class"));
@@ -55,18 +55,16 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
 
     private static MessageInfo convert(Class<?> cls, Descriptors.Descriptor descriptor) {
         int i = AnonymousClass3.$SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax[descriptor.getFile().getSyntax().ordinal()];
-        if (i != 1) {
-            if (i == 2) {
-                return convertProto3(cls, descriptor);
-            }
-            throw new IllegalArgumentException("Unsupported syntax: " + descriptor.getFile().getSyntax());
+        if (i == 1) {
+            return convertProto2(cls, descriptor);
         }
-        return convertProto2(cls, descriptor);
+        if (i == 2) {
+            return convertProto3(cls, descriptor);
+        }
+        throw new IllegalArgumentException("Unsupported syntax: " + descriptor.getFile().getSyntax());
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public static class IsInitializedCheckAnalyzer {
+    static class IsInitializedCheckAnalyzer {
         private final Map<Descriptors.Descriptor, Boolean> resultCache = new ConcurrentHashMap();
         private int index = 0;
         private final Stack<Node> stack = new Stack<>();
@@ -89,9 +87,7 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class Node {
+        private static class Node {
             StronglyConnectedComponent component = null;
             final Descriptors.Descriptor descriptor;
             final int index;
@@ -104,9 +100,7 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class StronglyConnectedComponent {
+        private static class StronglyConnectedComponent {
             final List<Descriptors.Descriptor> messages;
             boolean needsIsInitializedCheck;
 
@@ -117,7 +111,7 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         }
 
         private Node dfs(Descriptors.Descriptor descriptor) {
-            Node pop;
+            Node nodePop;
             int i = this.index;
             this.index = i + 1;
             Node node = new Node(descriptor, i);
@@ -136,10 +130,10 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
             if (node.index == node.lowLink) {
                 StronglyConnectedComponent stronglyConnectedComponent = new StronglyConnectedComponent();
                 do {
-                    pop = this.stack.pop();
-                    pop.component = stronglyConnectedComponent;
-                    stronglyConnectedComponent.messages.add(pop.descriptor);
-                } while (pop != node);
+                    nodePop = this.stack.pop();
+                    nodePop.component = stronglyConnectedComponent;
+                    stronglyConnectedComponent.messages.add(nodePop.descriptor);
+                } while (nodePop != node);
                 analyze(stronglyConnectedComponent);
             }
             return node;
@@ -161,7 +155,8 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
                 for (Descriptors.FieldDescriptor fieldDescriptor : next.getFields()) {
                     if (fieldDescriptor.isRequired()) {
                         break loop0;
-                    } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+                    }
+                    if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                         Node node = this.nodeCache.get(fieldDescriptor.getMessageType());
                         if (node.component != stronglyConnectedComponent && node.component.needsIsInitializedCheck) {
                             break loop0;
@@ -170,8 +165,9 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
                 }
             }
             stronglyConnectedComponent.needsIsInitializedCheck = z;
-            for (Descriptors.Descriptor descriptor : stronglyConnectedComponent.messages) {
-                this.resultCache.put(descriptor, Boolean.valueOf(stronglyConnectedComponent.needsIsInitializedCheck));
+            Iterator<Descriptors.Descriptor> it2 = stronglyConnectedComponent.messages.iterator();
+            while (it2.hasNext()) {
+                this.resultCache.put(it2.next(), Boolean.valueOf(stronglyConnectedComponent.needsIsInitializedCheck));
             }
         }
     }
@@ -182,75 +178,75 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
 
     private static StructuralMessageInfo convertProto2(Class<?> cls, Descriptors.Descriptor descriptor) {
         List<Descriptors.FieldDescriptor> fields = descriptor.getFields();
-        StructuralMessageInfo.Builder newBuilder = StructuralMessageInfo.newBuilder(fields.size());
-        newBuilder.withDefaultInstance(getDefaultInstance(cls));
-        newBuilder.withSyntax(ProtoSyntax.PROTO2);
-        newBuilder.withMessageSetWireFormat(descriptor.getOptions().getMessageSetWireFormat());
-        Internal.EnumVerifier enumVerifier = null;
+        StructuralMessageInfo.Builder builderNewBuilder = StructuralMessageInfo.newBuilder(fields.size());
+        builderNewBuilder.withDefaultInstance(getDefaultInstance(cls));
+        builderNewBuilder.withSyntax(ProtoSyntax.PROTO2);
+        builderNewBuilder.withMessageSetWireFormat(descriptor.getOptions().getMessageSetWireFormat());
+        AnonymousClass1 anonymousClass1 = null;
         OneofState oneofState = new OneofState();
-        java.lang.reflect.Field field = null;
+        java.lang.reflect.Field fieldBitField = null;
         int i = 0;
         int i2 = 0;
         int i3 = 1;
         while (i < fields.size()) {
             final Descriptors.FieldDescriptor fieldDescriptor = fields.get(i);
             boolean javaStringCheckUtf8 = fieldDescriptor.getFile().getOptions().getJavaStringCheckUtf8();
-            Internal.EnumVerifier enumVerifier2 = fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM ? new Internal.EnumVerifier() { // from class: com.google.oplus.protobuf.DescriptorMessageInfoFactory.1
+            Internal.EnumVerifier enumVerifier = fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM ? new Internal.EnumVerifier() { // from class: com.google.oplus.protobuf.DescriptorMessageInfoFactory.1
                 @Override // com.google.oplus.protobuf.Internal.EnumVerifier
                 public boolean isInRange(int i4) {
-                    return Descriptors.FieldDescriptor.this.getEnumType().findValueByNumber(i4) != null;
+                    return fieldDescriptor.getEnumType().findValueByNumber(i4) != null;
                 }
-            } : enumVerifier;
+            } : anonymousClass1;
             if (fieldDescriptor.getContainingOneof() != null) {
-                newBuilder.withField(buildOneofMember(cls, fieldDescriptor, oneofState, javaStringCheckUtf8, enumVerifier2));
+                builderNewBuilder.withField(buildOneofMember(cls, fieldDescriptor, oneofState, javaStringCheckUtf8, enumVerifier));
             } else {
-                java.lang.reflect.Field field2 = field(cls, fieldDescriptor);
+                java.lang.reflect.Field field = field(cls, fieldDescriptor);
                 int number = fieldDescriptor.getNumber();
                 FieldType fieldType = getFieldType(fieldDescriptor);
                 if (fieldDescriptor.isMapField()) {
-                    final Descriptors.FieldDescriptor findFieldByNumber = fieldDescriptor.getMessageType().findFieldByNumber(2);
-                    if (findFieldByNumber.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
-                        enumVerifier2 = new Internal.EnumVerifier() { // from class: com.google.oplus.protobuf.DescriptorMessageInfoFactory.2
+                    final Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = fieldDescriptor.getMessageType().findFieldByNumber(2);
+                    if (fieldDescriptorFindFieldByNumber.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
+                        enumVerifier = new Internal.EnumVerifier() { // from class: com.google.oplus.protobuf.DescriptorMessageInfoFactory.2
                             @Override // com.google.oplus.protobuf.Internal.EnumVerifier
                             public boolean isInRange(int i4) {
-                                return Descriptors.FieldDescriptor.this.getEnumType().findValueByNumber(i4) != null;
+                                return fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumber(i4) != null;
                             }
                         };
                     }
-                    newBuilder.withField(FieldInfo.forMapField(field2, number, SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), enumVerifier2));
+                    builderNewBuilder.withField(FieldInfo.forMapField(field, number, SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), enumVerifier));
                 } else if (!fieldDescriptor.isRepeated()) {
-                    if (field == null) {
-                        field = bitField(cls, i2);
+                    if (fieldBitField == null) {
+                        fieldBitField = bitField(cls, i2);
                     }
                     if (fieldDescriptor.isRequired()) {
-                        newBuilder.withField(FieldInfo.forProto2RequiredField(field2, number, fieldType, field, i3, javaStringCheckUtf8, enumVerifier2));
+                        builderNewBuilder.withField(FieldInfo.forProto2RequiredField(field, number, fieldType, fieldBitField, i3, javaStringCheckUtf8, enumVerifier));
                     } else {
-                        newBuilder.withField(FieldInfo.forProto2OptionalField(field2, number, fieldType, field, i3, javaStringCheckUtf8, enumVerifier2));
+                        builderNewBuilder.withField(FieldInfo.forProto2OptionalField(field, number, fieldType, fieldBitField, i3, javaStringCheckUtf8, enumVerifier));
                     }
-                } else if (enumVerifier2 != null) {
+                } else if (enumVerifier != null) {
                     if (fieldDescriptor.isPacked()) {
-                        newBuilder.withField(FieldInfo.forPackedFieldWithEnumVerifier(field2, number, fieldType, enumVerifier2, cachedSizeField(cls, fieldDescriptor)));
+                        builderNewBuilder.withField(FieldInfo.forPackedFieldWithEnumVerifier(field, number, fieldType, enumVerifier, cachedSizeField(cls, fieldDescriptor)));
                     } else {
-                        newBuilder.withField(FieldInfo.forFieldWithEnumVerifier(field2, number, fieldType, enumVerifier2));
+                        builderNewBuilder.withField(FieldInfo.forFieldWithEnumVerifier(field, number, fieldType, enumVerifier));
                     }
                 } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                    newBuilder.withField(FieldInfo.forRepeatedMessageField(field2, number, fieldType, getTypeForRepeatedMessageField(cls, fieldDescriptor)));
+                    builderNewBuilder.withField(FieldInfo.forRepeatedMessageField(field, number, fieldType, getTypeForRepeatedMessageField(cls, fieldDescriptor)));
                 } else if (fieldDescriptor.isPacked()) {
-                    newBuilder.withField(FieldInfo.forPackedField(field2, number, fieldType, cachedSizeField(cls, fieldDescriptor)));
+                    builderNewBuilder.withField(FieldInfo.forPackedField(field, number, fieldType, cachedSizeField(cls, fieldDescriptor)));
                 } else {
-                    newBuilder.withField(FieldInfo.forField(field2, number, fieldType, javaStringCheckUtf8));
+                    builderNewBuilder.withField(FieldInfo.forField(field, number, fieldType, javaStringCheckUtf8));
                 }
                 i++;
-                enumVerifier = null;
+                anonymousClass1 = null;
             }
             i3 <<= 1;
             if (i3 == 0) {
                 i2++;
                 i3 = 1;
-                field = null;
+                fieldBitField = null;
             }
             i++;
-            enumVerifier = null;
+            anonymousClass1 = null;
         }
         ArrayList arrayList = new ArrayList();
         for (int i4 = 0; i4 < fields.size(); i4++) {
@@ -263,31 +259,31 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         for (int i5 = 0; i5 < arrayList.size(); i5++) {
             iArr[i5] = ((Integer) arrayList.get(i5)).intValue();
         }
-        newBuilder.withCheckInitialized(iArr);
-        return newBuilder.build();
+        builderNewBuilder.withCheckInitialized(iArr);
+        return builderNewBuilder.build();
     }
 
     private static StructuralMessageInfo convertProto3(Class<?> cls, Descriptors.Descriptor descriptor) {
         List<Descriptors.FieldDescriptor> fields = descriptor.getFields();
-        StructuralMessageInfo.Builder newBuilder = StructuralMessageInfo.newBuilder(fields.size());
-        newBuilder.withDefaultInstance(getDefaultInstance(cls));
-        newBuilder.withSyntax(ProtoSyntax.PROTO3);
+        StructuralMessageInfo.Builder builderNewBuilder = StructuralMessageInfo.newBuilder(fields.size());
+        builderNewBuilder.withDefaultInstance(getDefaultInstance(cls));
+        builderNewBuilder.withSyntax(ProtoSyntax.PROTO3);
         OneofState oneofState = new OneofState();
         for (int i = 0; i < fields.size(); i++) {
             Descriptors.FieldDescriptor fieldDescriptor = fields.get(i);
             if (fieldDescriptor.getContainingOneof() != null) {
-                newBuilder.withField(buildOneofMember(cls, fieldDescriptor, oneofState, true, null));
+                builderNewBuilder.withField(buildOneofMember(cls, fieldDescriptor, oneofState, true, null));
             } else if (fieldDescriptor.isMapField()) {
-                newBuilder.withField(FieldInfo.forMapField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), null));
+                builderNewBuilder.withField(FieldInfo.forMapField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), null));
             } else if (fieldDescriptor.isRepeated() && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                newBuilder.withField(FieldInfo.forRepeatedMessageField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), getTypeForRepeatedMessageField(cls, fieldDescriptor)));
+                builderNewBuilder.withField(FieldInfo.forRepeatedMessageField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), getTypeForRepeatedMessageField(cls, fieldDescriptor)));
             } else if (fieldDescriptor.isPacked()) {
-                newBuilder.withField(FieldInfo.forPackedField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), cachedSizeField(cls, fieldDescriptor)));
+                builderNewBuilder.withField(FieldInfo.forPackedField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), cachedSizeField(cls, fieldDescriptor)));
             } else {
-                newBuilder.withField(FieldInfo.forField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), true));
+                builderNewBuilder.withField(FieldInfo.forField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), true));
             }
         }
-        return newBuilder.build();
+        return builderNewBuilder.build();
     }
 
     private static FieldInfo buildOneofMember(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor, OneofState oneofState, boolean z, Internal.EnumVerifier enumVerifier) {
@@ -320,10 +316,8 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.DescriptorMessageInfoFactory$3  reason: invalid class name */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass3 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.DescriptorMessageInfoFactory$3, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass3 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$JavaType;
@@ -570,8 +564,7 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         } else {
             name = fieldDescriptor.getName();
         }
-        String str = specialFieldNames.contains(name) ? "__" : "_";
-        return snakeCaseToCamelCase(name) + str;
+        return snakeCaseToCamelCase(name) + (specialFieldNames.contains(name) ? "__" : "_");
     }
 
     private static String getCachedSizeFieldName(Descriptors.FieldDescriptor fieldDescriptor) {
@@ -583,22 +576,20 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         StringBuilder sb = new StringBuilder(str.length() + 1);
         boolean z = false;
         for (int i = 0; i < str.length(); i++) {
-            char charAt = str.charAt(i);
-            if (charAt != '_') {
-                if (Character.isDigit(charAt)) {
-                    sb.append(charAt);
-                } else {
-                    if (z) {
-                        sb.append(Character.toUpperCase(charAt));
-                        z = false;
-                    } else if (i == 0) {
-                        sb.append(Character.toLowerCase(charAt));
-                    } else {
-                        sb.append(charAt);
-                    }
-                }
+            char cCharAt = str.charAt(i);
+            if (cCharAt == '_') {
+                z = true;
+            } else if (Character.isDigit(cCharAt)) {
+                sb.append(cCharAt);
+                z = true;
+            } else if (z) {
+                sb.append(Character.toUpperCase(cCharAt));
+                z = false;
+            } else if (i == 0) {
+                sb.append(Character.toLowerCase(cCharAt));
+            } else {
+                sb.append(cCharAt);
             }
-            z = true;
         }
         return sb.toString();
     }
@@ -620,13 +611,11 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
     }
 
     private static String getterForField(String str) {
-        String snakeCaseToCamelCase = snakeCaseToCamelCase(str);
-        return "get" + Character.toUpperCase(snakeCaseToCamelCase.charAt(0)) + snakeCaseToCamelCase.substring(1, snakeCaseToCamelCase.length());
+        String strSnakeCaseToCamelCase = snakeCaseToCamelCase(str);
+        return "get" + Character.toUpperCase(strSnakeCaseToCamelCase.charAt(0)) + strSnakeCaseToCamelCase.substring(1, strSnakeCaseToCamelCase.length());
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class OneofState {
+    private static final class OneofState {
         private OneofInfo[] oneofs;
 
         private OneofState() {
@@ -640,17 +629,17 @@ public final class DescriptorMessageInfoFactory implements MessageInfoFactory {
                 this.oneofs = (OneofInfo[]) Arrays.copyOf(oneofInfoArr, index * 2);
             }
             OneofInfo oneofInfo = this.oneofs[index];
-            if (oneofInfo == null) {
-                OneofInfo newInfo = newInfo(cls, oneofDescriptor);
-                this.oneofs[index] = newInfo;
-                return newInfo;
+            if (oneofInfo != null) {
+                return oneofInfo;
             }
-            return oneofInfo;
+            OneofInfo oneofInfoNewInfo = newInfo(cls, oneofDescriptor);
+            this.oneofs[index] = oneofInfoNewInfo;
+            return oneofInfoNewInfo;
         }
 
         private static OneofInfo newInfo(Class<?> cls, Descriptors.OneofDescriptor oneofDescriptor) {
-            String snakeCaseToCamelCase = DescriptorMessageInfoFactory.snakeCaseToCamelCase(oneofDescriptor.getName());
-            return new OneofInfo(oneofDescriptor.getIndex(), DescriptorMessageInfoFactory.field(cls, snakeCaseToCamelCase + "Case_"), DescriptorMessageInfoFactory.field(cls, snakeCaseToCamelCase + "_"));
+            String strSnakeCaseToCamelCase = DescriptorMessageInfoFactory.snakeCaseToCamelCase(oneofDescriptor.getName());
+            return new OneofInfo(oneofDescriptor.getIndex(), DescriptorMessageInfoFactory.field(cls, strSnakeCaseToCamelCase + "Case_"), DescriptorMessageInfoFactory.field(cls, strSnakeCaseToCamelCase + "_"));
         }
     }
 }

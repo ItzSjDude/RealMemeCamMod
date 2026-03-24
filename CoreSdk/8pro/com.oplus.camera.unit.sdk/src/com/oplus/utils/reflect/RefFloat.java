@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefFloat extends BaseField<Float> {
     private static final float DEFAULT_VALUE = ((Float) DEFAULT_TYPES.get(Float.class)).floatValue();
     private static final String TAG = "RefFloat";

@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class OrderedDataOutputStream extends FilterOutputStream {
     private final ByteBuffer mByteBuffer;
 

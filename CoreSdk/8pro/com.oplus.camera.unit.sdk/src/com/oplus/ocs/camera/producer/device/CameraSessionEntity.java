@@ -9,7 +9,8 @@ import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.LinkedList;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraSessionEntity {
     private static final int HEX_VALUE = 16;
     public static final int OPERATING_MODE_EXPLORER = 1073741824;
@@ -24,7 +25,6 @@ public class CameraSessionEntity {
     private boolean mbUseMetadataSurface = false;
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface SurfaceUsage {
         public static final String AI_DEPTH = "surface_key_ai_depth";
         public static final String METADATA = "surface_key_metadata";

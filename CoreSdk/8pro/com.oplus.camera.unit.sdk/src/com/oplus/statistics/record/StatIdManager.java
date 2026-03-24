@@ -3,7 +3,8 @@ package com.oplus.statistics.record;
 import android.content.Context;
 import com.oplus.statistics.storage.PreferenceHandler;
 import java.util.UUID;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StatIdManager {
     public static final long EXPIRE_TIME_MS = 30000;
     private static final String SP_KEY_APP_EXIT_TIME = "AppExitTime";
@@ -16,7 +17,6 @@ public class StatIdManager {
         this.mExitAppTime = 0L;
     }
 
-    /* loaded from: classes.dex */
     private static class Holder {
         private static final StatIdManager INSTANCE = new StatIdManager();
 
@@ -36,9 +36,9 @@ public class StatIdManager {
     }
 
     public void onAppExit(Context context) {
-        long currentTimeMillis = System.currentTimeMillis();
-        this.mExitAppTime = currentTimeMillis;
-        setAppExitTime2Sp(context, currentTimeMillis);
+        long jCurrentTimeMillis = System.currentTimeMillis();
+        this.mExitAppTime = jCurrentTimeMillis;
+        setAppExitTime2Sp(context, jCurrentTimeMillis);
     }
 
     public void refreshAppSessionIdIfNeed(Context context) {
@@ -50,9 +50,9 @@ public class StatIdManager {
     }
 
     public void refreshAppSessionId(Context context) {
-        String buildSessionId = buildSessionId();
-        this.mAppSessionId = buildSessionId;
-        setAppSessionId2Sp(context, buildSessionId);
+        String strBuildSessionId = buildSessionId();
+        this.mAppSessionId = strBuildSessionId;
+        setAppSessionId2Sp(context, strBuildSessionId);
     }
 
     private String buildSessionId() {
@@ -63,8 +63,8 @@ public class StatIdManager {
         if (this.mExitAppTime == 0) {
             this.mExitAppTime = getAppLastExitTimeFromSp(context);
         }
-        long currentTimeMillis = System.currentTimeMillis() - this.mExitAppTime;
-        return currentTimeMillis > 0 && currentTimeMillis < EXPIRE_TIME_MS;
+        long jCurrentTimeMillis = System.currentTimeMillis() - this.mExitAppTime;
+        return jCurrentTimeMillis > 0 && jCurrentTimeMillis < EXPIRE_TIME_MS;
     }
 
     private void setAppExitTime2Sp(Context context, long j) {

@@ -8,7 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class MapField<K, V> implements MutabilityOracle {
     private final Converter<K, V> converter;
     private volatile boolean isMutable;
@@ -16,9 +17,7 @@ public class MapField<K, V> implements MutabilityOracle {
     private MutatabilityAwareMap<K, V> mapData;
     private volatile StorageMode mode;
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public interface Converter<K, V> {
+    private interface Converter<K, V> {
         Message convertKeyAndValueToMessage(K k, V v);
 
         void convertMessageToKeyAndValue(Message message, Map<K, V> map);
@@ -26,15 +25,12 @@ public class MapField<K, V> implements MutabilityOracle {
         Message getMessageDefaultInstance();
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public enum StorageMode {
+    private enum StorageMode {
         MAP,
         LIST,
         BOTH
     }
 
-    /* loaded from: classes.dex */
     private static class ImmutableMessageConverter<K, V> implements Converter<K, V> {
         private final MapEntry<K, V> defaultEntry;
 
@@ -47,6 +43,7 @@ public class MapField<K, V> implements MutabilityOracle {
             return this.defaultEntry.newBuilderForType().setKey(k).setValue(v).buildPartial();
         }
 
+        /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: java.util.Map<K, V> */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.MapField.Converter
         public void convertMessageToKeyAndValue(Message message, Map<K, V> map) {
@@ -98,8 +95,9 @@ public class MapField<K, V> implements MutabilityOracle {
 
     private MutatabilityAwareMap<K, V> convertListToMap(List<Message> list) {
         LinkedHashMap linkedHashMap = new LinkedHashMap();
-        for (Message message : list) {
-            convertMessageToKeyAndValue(message, linkedHashMap);
+        Iterator<Message> it = list.iterator();
+        while (it.hasNext()) {
+            convertMessageToKeyAndValue(it.next(), linkedHashMap);
         }
         return new MutatabilityAwareMap<>(this, linkedHashMap);
     }
@@ -151,8 +149,7 @@ public class MapField<K, V> implements MutabilityOracle {
         return new MapField<>(this.converter, StorageMode.MAP, MapFieldLite.copy((Map) getMap()));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public List<Message> getList() {
+    List<Message> getList() {
         if (this.mode == StorageMode.MAP) {
             synchronized (this) {
                 if (this.mode == StorageMode.MAP) {
@@ -164,8 +161,7 @@ public class MapField<K, V> implements MutabilityOracle {
         return Collections.unmodifiableList(this.listData);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public List<Message> getMutableList() {
+    List<Message> getMutableList() {
         if (this.mode != StorageMode.LIST) {
             if (this.mode == StorageMode.MAP) {
                 this.listData = convertMapToList(this.mapData);
@@ -176,8 +172,7 @@ public class MapField<K, V> implements MutabilityOracle {
         return this.listData;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public Message getMapEntryMessageDefaultInstance() {
+    Message getMapEntryMessageDefaultInstance() {
         return this.converter.getMessageDefaultInstance();
     }
 
@@ -196,9 +191,7 @@ public class MapField<K, V> implements MutabilityOracle {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class MutatabilityAwareMap<K, V> implements Map<K, V> {
+    private static class MutatabilityAwareMap<K, V> implements Map<K, V> {
         private final Map<K, V> delegate;
         private final MutabilityOracle mutabilityOracle;
 
@@ -291,7 +284,6 @@ public class MapField<K, V> implements MutabilityOracle {
             return this.delegate.toString();
         }
 
-        /* loaded from: classes.dex */
         private static class MutatabilityAwareCollection<E> implements Collection<E> {
             private final Collection<E> delegate;
             private final MutabilityOracle mutabilityOracle;
@@ -385,9 +377,7 @@ public class MapField<K, V> implements MutabilityOracle {
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class MutatabilityAwareSet<E> implements Set<E> {
+        private static class MutatabilityAwareSet<E> implements Set<E> {
             private final Set<E> delegate;
             private final MutabilityOracle mutabilityOracle;
 
@@ -482,7 +472,6 @@ public class MapField<K, V> implements MutabilityOracle {
             }
         }
 
-        /* loaded from: classes.dex */
         private static class MutatabilityAwareIterator<E> implements Iterator<E> {
             private final Iterator<E> delegate;
             private final MutabilityOracle mutabilityOracle;

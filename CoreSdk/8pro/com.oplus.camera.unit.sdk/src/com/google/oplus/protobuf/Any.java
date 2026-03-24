@@ -7,10 +7,12 @@ import com.oplus.ocs.camera.producer.feature.FeatureImpl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
     private static final Any DEFAULT_INSTANCE = new Any();
     private static final Parser<Any> PARSER = new AbstractParser<Any>() { // from class: com.google.oplus.protobuf.Any.1
+        /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.Parser
         public Any parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return new Any(codedInputStream, extensionRegistryLite);
@@ -35,9 +37,8 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         this.value_ = ByteString.EMPTY;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
-    public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+    protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
         return new Any();
     }
 
@@ -49,19 +50,19 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
     private Any(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         this();
         extensionRegistryLite.getClass();
-        UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+        UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
         boolean z = false;
         while (!z) {
             try {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 10) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 10) {
                                 this.typeUrl_ = codedInputStream.readStringRequireUtf8();
-                            } else if (readTag == 18) {
+                            } else if (tag == 18) {
                                 this.value_ = codedInputStream.readBytes();
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -72,7 +73,7 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
                     throw e2.setUnfinishedMessage(this);
                 }
             } finally {
-                this.unknownFields = newBuilder.build();
+                this.unknownFields = builderNewBuilder.build();
                 makeExtensionsImmutable();
             }
         }
@@ -95,8 +96,8 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
     }
 
     private static String getTypeNameFromTypeUrl(String str) {
-        int lastIndexOf = str.lastIndexOf(47);
-        return lastIndexOf == -1 ? "" : str.substring(lastIndexOf + 1);
+        int iLastIndexOf = str.lastIndexOf(47);
+        return iLastIndexOf == -1 ? "" : str.substring(iLastIndexOf + 1);
     }
 
     public static <T extends Message> Any pack(T t) {
@@ -115,9 +116,10 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         boolean z;
         if (this.cachedUnpackValue == null) {
             z = false;
-        } else if (this.cachedUnpackValue.getClass() == cls) {
-            return (T) this.cachedUnpackValue;
         } else {
+            if (this.cachedUnpackValue.getClass() == cls) {
+                return (T) this.cachedUnpackValue;
+            }
             z = true;
         }
         if (z || !is(cls)) {
@@ -143,9 +145,9 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
     public ByteString getTypeUrlBytes() {
         Object obj = this.typeUrl_;
         if (obj instanceof String) {
-            ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-            this.typeUrl_ = copyFromUtf8;
-            return copyFromUtf8;
+            ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+            this.typeUrl_ = byteStringCopyFromUtf8;
+            return byteStringCopyFromUtf8;
         }
         return (ByteString) obj;
     }
@@ -185,11 +187,11 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         if (i != -1) {
             return i;
         }
-        int computeStringSize = GeneratedMessageV3.isStringEmpty(this.typeUrl_) ? 0 : 0 + GeneratedMessageV3.computeStringSize(1, this.typeUrl_);
+        int iComputeStringSize = GeneratedMessageV3.isStringEmpty(this.typeUrl_) ? 0 : 0 + GeneratedMessageV3.computeStringSize(1, this.typeUrl_);
         if (!this.value_.isEmpty()) {
-            computeStringSize += CodedOutputStream.computeBytesSize(2, this.value_);
+            iComputeStringSize += CodedOutputStream.computeBytesSize(2, this.value_);
         }
-        int serializedSize = computeStringSize + this.unknownFields.getSerializedSize();
+        int serializedSize = iComputeStringSize + this.unknownFields.getSerializedSize();
         this.memoizedSize = serializedSize;
         return serializedSize;
     }
@@ -211,9 +213,9 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         if (this.memoizedHashCode != 0) {
             return this.memoizedHashCode;
         }
-        int hashCode = ((((((((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getTypeUrl().hashCode()) * 37) + 2) * 53) + getValue().hashCode()) * 29) + this.unknownFields.hashCode();
-        this.memoizedHashCode = hashCode;
-        return hashCode;
+        int iHashCode = ((((((((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getTypeUrl().hashCode()) * 37) + 2) * 53) + getValue().hashCode()) * 29) + this.unknownFields.hashCode();
+        this.memoizedHashCode = iHashCode;
+        return iHashCode;
     }
 
     public static Any parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -264,6 +266,8 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         return (Any) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder newBuilderForType() {
         return newBuilder();
@@ -277,18 +281,20 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(any);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder toBuilder() {
         return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
     public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
         return new Builder(builderParent);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements AnyOrBuilder {
         private Object typeUrl_;
         private ByteString value_;
@@ -324,6 +330,10 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
             boolean z = GeneratedMessageV3.alwaysUseFieldBuilders;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             super.clear();
@@ -337,20 +347,26 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
             return AnyProto.internal_static_google_protobuf_Any_descriptor;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public Any getDefaultInstanceForType() {
             return Any.getDefaultInstance();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Any build() {
-            Any buildPartial = buildPartial();
-            if (buildPartial.isInitialized()) {
-                return buildPartial;
+            Any anyBuildPartial = buildPartial();
+            if (anyBuildPartial.isInitialized()) {
+                return anyBuildPartial;
             }
-            throw newUninitializedMessageException((Message) buildPartial);
+            throw newUninitializedMessageException((Message) anyBuildPartial);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Any buildPartial() {
             Any any = new Any(this);
@@ -360,37 +376,56 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
             return any;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public Builder clone() {
-            return (Builder) super.clone();
+        /* JADX INFO: renamed from: clone */
+        public Builder mo0clone() {
+            return (Builder) super.mo0clone();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.setField(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             return (Builder) super.clearField(fieldDescriptor);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             return (Builder) super.clearOneof(oneofDescriptor);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.addRepeatedField(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(Message message) {
             if (message instanceof Any) {
@@ -416,42 +451,43 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public com.google.oplus.protobuf.Any.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-            /*
-                r2 = this;
-                r0 = 0
-                com.google.oplus.protobuf.Parser r1 = com.google.oplus.protobuf.Any.access$500()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                com.google.oplus.protobuf.Any r3 = (com.google.oplus.protobuf.Any) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                if (r3 == 0) goto L10
-                r2.mergeFrom(r3)
-            L10:
-                return r2
-            L11:
-                r3 = move-exception
-                goto L21
-            L13:
-                r3 = move-exception
-                com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                com.google.oplus.protobuf.Any r4 = (com.google.oplus.protobuf.Any) r4     // Catch: java.lang.Throwable -> L11
-                java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                throw r3     // Catch: java.lang.Throwable -> L1f
-            L1f:
-                r3 = move-exception
-                r0 = r4
-            L21:
-                if (r0 == 0) goto L26
-                r2.mergeFrom(r0)
-            L26:
-                throw r3
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.Any.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.Any$Builder");
+        public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            Any any = null;
+            try {
+                try {
+                    Any any2 = (Any) Any.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                    if (any2 != null) {
+                        mergeFrom(any2);
+                    }
+                    return this;
+                } catch (InvalidProtocolBufferException e) {
+                    Any any3 = (Any) e.getUnfinishedMessage();
+                    try {
+                        throw e.unwrapIOException();
+                    } catch (Throwable th) {
+                        th = th;
+                        any = any3;
+                        if (any != null) {
+                        }
+                        throw th;
+                    }
+                }
+            } catch (Throwable th2) {
+                th = th2;
+                if (any != null) {
+                    mergeFrom(any);
+                }
+                throw th;
+            }
         }
 
         @Override // com.google.oplus.protobuf.AnyOrBuilder
@@ -469,9 +505,9 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         public ByteString getTypeUrlBytes() {
             Object obj = this.typeUrl_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.typeUrl_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.typeUrl_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -515,11 +551,16 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.setUnknownFields(unknownFieldSet);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -539,6 +580,8 @@ public final class Any extends GeneratedMessageV3 implements AnyOrBuilder {
         return PARSER;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
     public Any getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;

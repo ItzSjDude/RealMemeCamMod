@@ -4,7 +4,8 @@ import android.hardware.HardwareBuffer;
 import android.media.Image;
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsResultParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<Integer> KEY_CAMERA_RESULT_WIDTH = new ApsBaseParameter.Key<>("com.oplus.result.width", Integer.class, 0);
     public static final ApsBaseParameter.Key<Integer> KEY_CAMERA_RESULT_HEIGHT = new ApsBaseParameter.Key<>("com.oplus.result.height", Integer.class, 0);

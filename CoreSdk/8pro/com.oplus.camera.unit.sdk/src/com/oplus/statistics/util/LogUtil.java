@@ -2,7 +2,8 @@ package com.oplus.statistics.util;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class LogUtil {
     public static final String TAG_PREFIX = "OplusTrack-";
     private static boolean isDebug = false;

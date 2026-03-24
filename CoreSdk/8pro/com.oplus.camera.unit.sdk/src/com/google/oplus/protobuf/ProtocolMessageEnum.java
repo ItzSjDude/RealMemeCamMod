@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Descriptors;
 import com.google.oplus.protobuf.Internal;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ProtocolMessageEnum extends Internal.EnumLite {
     Descriptors.EnumDescriptor getDescriptorForType();
 

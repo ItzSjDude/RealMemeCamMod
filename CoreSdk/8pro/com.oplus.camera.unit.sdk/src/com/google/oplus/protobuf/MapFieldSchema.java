@@ -2,9 +2,9 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.MapEntryLite;
 import java.util.Map;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface MapFieldSchema {
+
+/* JADX INFO: loaded from: classes.dex */
+interface MapFieldSchema {
     Map<?, ?> forMapData(Object obj);
 
     MapEntryLite.Metadata<?, ?> forMapMetadata(Object obj);

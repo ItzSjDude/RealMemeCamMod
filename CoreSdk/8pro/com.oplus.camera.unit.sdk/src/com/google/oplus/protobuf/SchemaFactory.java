@@ -1,6 +1,6 @@
 package com.google.oplus.protobuf;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface SchemaFactory {
+
+/* JADX INFO: loaded from: classes.dex */
+interface SchemaFactory {
     <T> Schema<T> createSchema(Class<T> cls);
 }

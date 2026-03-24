@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.statistics.model;
 
 import com.oplus.ocs.camera.common.statistics.StatisticConstant;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PreviewDcsMsgData extends DcsMsgData implements Cloneable {
     public boolean mAiEnhance;
     public int mHdrStatus;
@@ -47,7 +48,8 @@ public class PreviewDcsMsgData extends DcsMsgData implements Cloneable {
         convertBoolean(StatisticConstant.KEY_SLOW_MOTION, this.mSlowMotion);
     }
 
-    /* renamed from: clone */
+    /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
+    /* JADX INFO: renamed from: clone, reason: merged with bridge method [inline-methods] */
     public PreviewDcsMsgData m3clone() {
         PreviewDcsMsgData previewDcsMsgData = new PreviewDcsMsgData(this.mCameraId);
         previewDcsMsgData.mModeName = this.mModeName;

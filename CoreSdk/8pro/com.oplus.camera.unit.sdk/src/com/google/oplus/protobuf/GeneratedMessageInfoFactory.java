@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class GeneratedMessageInfoFactory implements MessageInfoFactory {
     private static final GeneratedMessageInfoFactory instance = new GeneratedMessageInfoFactory();
 

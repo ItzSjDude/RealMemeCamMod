@@ -2,7 +2,8 @@ package com.singleblur.blur;
 
 import android.graphics.Rect;
 import com.common.Util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class BlurFilterLibrary {
     public static final int ST_BLUR_PARAM_TYPE_CAMERA_DIRECTION = 8193;
     public static final int ST_BLUR_PARAM_TYPE_EFFECT_TYPE = 12289;

@@ -1,7 +1,8 @@
 package com.oplus.statistics.data;
 
 import android.content.Context;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class AppStartBean extends TrackEvent {
     private static final String LOGIN_TIME = "loginTime";
     private String mTime;

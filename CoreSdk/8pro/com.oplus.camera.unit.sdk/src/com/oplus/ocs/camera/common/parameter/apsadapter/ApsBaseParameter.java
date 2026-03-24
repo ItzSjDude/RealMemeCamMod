@@ -5,7 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsBaseParameter {
     private static final String TAG = "ApsBaseParameter";
     private ConcurrentHashMap<String, ValueWrapper<?>> mCustomParameterMap;
@@ -51,7 +52,6 @@ public class ApsBaseParameter {
         this.mCustomParameterMap.clear();
     }
 
-    /* loaded from: classes.dex */
     public static final class Key<T> {
         private T mDefault;
         private String mKeyName;
@@ -97,7 +97,6 @@ public class ApsBaseParameter {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ValueWrapper<T> {
         private Supplier<T> mValue;
 
@@ -110,7 +109,6 @@ public class ApsBaseParameter {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class Supplier<T> {
         private T mValue;
 

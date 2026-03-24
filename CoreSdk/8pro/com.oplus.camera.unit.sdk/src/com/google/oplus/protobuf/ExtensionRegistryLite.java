@@ -4,7 +4,8 @@ import com.google.oplus.protobuf.GeneratedMessageLite;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ExtensionRegistryLite {
     static final ExtensionRegistryLite EMPTY_REGISTRY_LITE = new ExtensionRegistryLite(true);
     static final String EXTENSION_CLASS_NAME = "com.google.oplus.protobuf.Extension";
@@ -13,7 +14,6 @@ public class ExtensionRegistryLite {
     private static volatile ExtensionRegistryLite emptyRegistry;
     private final Map<ObjectIntPair, GeneratedMessageLite.GeneratedExtension<?, ?>> extensionsByNumber;
 
-    /* loaded from: classes.dex */
     private static class ExtensionClassHolder {
         static final Class<?> INSTANCE = resolveExtensionClass();
 
@@ -42,17 +42,17 @@ public class ExtensionRegistryLite {
     }
 
     public static ExtensionRegistryLite getEmptyRegistry() {
-        ExtensionRegistryLite extensionRegistryLite = emptyRegistry;
-        if (extensionRegistryLite == null) {
+        ExtensionRegistryLite extensionRegistryLiteCreateEmpty = emptyRegistry;
+        if (extensionRegistryLiteCreateEmpty == null) {
             synchronized (ExtensionRegistryLite.class) {
-                extensionRegistryLite = emptyRegistry;
-                if (extensionRegistryLite == null) {
-                    extensionRegistryLite = doFullRuntimeInheritanceCheck ? ExtensionRegistryFactory.createEmpty() : EMPTY_REGISTRY_LITE;
-                    emptyRegistry = extensionRegistryLite;
+                extensionRegistryLiteCreateEmpty = emptyRegistry;
+                if (extensionRegistryLiteCreateEmpty == null) {
+                    extensionRegistryLiteCreateEmpty = doFullRuntimeInheritanceCheck ? ExtensionRegistryFactory.createEmpty() : EMPTY_REGISTRY_LITE;
+                    emptyRegistry = extensionRegistryLiteCreateEmpty;
                 }
             }
         }
-        return extensionRegistryLite;
+        return extensionRegistryLiteCreateEmpty;
     }
 
     public ExtensionRegistryLite getUnmodifiable() {
@@ -60,7 +60,7 @@ public class ExtensionRegistryLite {
     }
 
     public <ContainingType extends MessageLite> GeneratedMessageLite.GeneratedExtension<ContainingType, ?> findLiteExtensionByNumber(ContainingType containingtype, int i) {
-        return (GeneratedMessageLite.GeneratedExtension<ContainingType, ?>) this.extensionsByNumber.get(new ObjectIntPair(containingtype, i));
+        return (GeneratedMessageLite.GeneratedExtension) this.extensionsByNumber.get(new ObjectIntPair(containingtype, i));
     }
 
     public final void add(GeneratedMessageLite.GeneratedExtension<?, ?> generatedExtension) {
@@ -69,7 +69,7 @@ public class ExtensionRegistryLite {
 
     public final void add(ExtensionLite<?, ?> extensionLite) {
         if (GeneratedMessageLite.GeneratedExtension.class.isAssignableFrom(extensionLite.getClass())) {
-            add((GeneratedMessageLite.GeneratedExtension) extensionLite);
+            add((GeneratedMessageLite.GeneratedExtension<?, ?>) extensionLite);
         }
         if (doFullRuntimeInheritanceCheck && ExtensionRegistryFactory.isFullRegistry(this)) {
             try {
@@ -80,13 +80,11 @@ public class ExtensionRegistryLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public ExtensionRegistryLite() {
+    ExtensionRegistryLite() {
         this.extensionsByNumber = new HashMap();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public ExtensionRegistryLite(ExtensionRegistryLite extensionRegistryLite) {
+    ExtensionRegistryLite(ExtensionRegistryLite extensionRegistryLite) {
         if (extensionRegistryLite == EMPTY_REGISTRY_LITE) {
             this.extensionsByNumber = Collections.emptyMap();
         } else {
@@ -98,9 +96,7 @@ public class ExtensionRegistryLite {
         this.extensionsByNumber = Collections.emptyMap();
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class ObjectIntPair {
+    private static final class ObjectIntPair {
         private final int number;
         private final Object object;
 
@@ -114,11 +110,11 @@ public class ExtensionRegistryLite {
         }
 
         public boolean equals(Object obj) {
-            if (obj instanceof ObjectIntPair) {
-                ObjectIntPair objectIntPair = (ObjectIntPair) obj;
-                return this.object == objectIntPair.object && this.number == objectIntPair.number;
+            if (!(obj instanceof ObjectIntPair)) {
+                return false;
             }
-            return false;
+            ObjectIntPair objectIntPair = (ObjectIntPair) obj;
+            return this.object == objectIntPair.object && this.number == objectIntPair.number;
         }
     }
 }

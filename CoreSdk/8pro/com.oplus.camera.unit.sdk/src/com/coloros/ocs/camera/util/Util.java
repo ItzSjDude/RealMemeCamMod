@@ -5,7 +5,8 @@ import com.coloros.ocs.camera.parameter.DefaultConfigureParameter;
 import com.coloros.ocs.camera.parameter.DefaultPreviewParameter;
 import com.oplus.ocs.camera.common.parameter.ConfigureParameter;
 import com.oplus.ocs.camera.common.parameter.PreviewParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class Util {
     public static String convertOldParameterKeyName(String str) {
         if (TextUtils.equals(str, DefaultConfigureParameter.VIDEO_FPS.getName())) {

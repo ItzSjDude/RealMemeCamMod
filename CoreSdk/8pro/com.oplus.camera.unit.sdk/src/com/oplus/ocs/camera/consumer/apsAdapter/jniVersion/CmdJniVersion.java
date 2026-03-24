@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.consumer.apsAdapter.jniVersion;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CmdJniVersion implements JniVersionBase {
     private static final String APSCLIENT_JNI_CMD_PATH = "APSClient-cmd-jni";
 

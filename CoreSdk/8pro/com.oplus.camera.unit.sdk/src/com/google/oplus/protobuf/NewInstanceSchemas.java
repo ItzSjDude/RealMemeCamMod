@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class NewInstanceSchemas {
     private static final NewInstanceSchema FULL_SCHEMA = loadSchemaForFullRuntime();
     private static final NewInstanceSchema LITE_SCHEMA = new NewInstanceSchemaLite();
@@ -7,13 +8,11 @@ final class NewInstanceSchemas {
     NewInstanceSchemas() {
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static NewInstanceSchema full() {
+    static NewInstanceSchema full() {
         return FULL_SCHEMA;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static NewInstanceSchema lite() {
+    static NewInstanceSchema lite() {
         return LITE_SCHEMA;
     }
 

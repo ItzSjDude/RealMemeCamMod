@@ -1,11 +1,18 @@
 package com.anc.humansdk;
 
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.util.Log;
+import com.oplus.exif.OplusExifTag;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class HumanEffectBokehApi {
     static final String TAG = "HumanEffectBokehApi";
     private static HumanEffectBokehApi sInstance = new HumanEffectBokehApi();
@@ -16,7 +23,6 @@ public class HumanEffectBokehApi {
     int mWidth = 0;
     int mHeight = 0;
 
-    /* loaded from: classes.dex */
     public static class ErrorCode {
         public static final int ANC_HUM_FAILURE = 3;
         public static final int ANC_HUM_GL_COMPILING = 7;
@@ -64,40 +70,41 @@ public class HumanEffectBokehApi {
         if (humanEffectBokehConfig == null) {
             Log.e(TAG, "config invalid!");
             return 1;
-        } else if ((humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0) && (humanEffectBokehConfig.modelPath == null || humanEffectBokehConfig.modelPath.trim().isEmpty())) {
+        }
+        if ((humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0) && (humanEffectBokehConfig.modelPath == null || humanEffectBokehConfig.modelPath.trim().isEmpty())) {
             Log.e(TAG, "config has no valid model info!");
             return 1;
-        } else if (humanEffectBokehConfig.runtime != NNRuntime.RUNTIME_UNKNOW.value() && humanEffectBokehConfig.runtime < NNRuntime.RUNTIME_RANGE.value()) {
-            if (this.handle.get() != 0) {
-                return 3;
-            }
-            if (!isSoLoaded.get()) {
-                System.loadLibrary("AncHumBokeh-jni");
-                isSoLoaded.set(true);
-            }
-            if (humanEffectBokehConfig.cachePath == null) {
-                humanEffectBokehConfig.cachePath = "";
-            }
-            if (humanEffectBokehConfig.nativeLibPath == null) {
-                humanEffectBokehConfig.nativeLibPath = "";
-            }
-            if (humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0) {
-                humanEffectBokehConfig.modelData = getFileContent(humanEffectBokehConfig.modelPath, humanEffectBokehConfig.assetsMgr);
-            }
-            if (humanEffectBokehConfig.modelData != null && humanEffectBokehConfig.modelData.length != 0) {
-                long nativeInitConfigHandle = nativeInitConfigHandle(humanEffectBokehConfig);
-                if (nativeInitConfigHandle == 0) {
-                    return 1;
-                }
-                this.handle.set(nativeInitConfigHandle);
-                return 0;
-            }
-            Log.e(TAG, "load model from fs failed!");
-            return 1;
-        } else {
+        }
+        if (humanEffectBokehConfig.runtime == NNRuntime.RUNTIME_UNKNOW.value() || humanEffectBokehConfig.runtime >= NNRuntime.RUNTIME_RANGE.value()) {
             Log.e(TAG, "please set valid nn runtime!");
             return 1;
         }
+        if (this.handle.get() != 0) {
+            return 3;
+        }
+        if (!isSoLoaded.get()) {
+            System.loadLibrary("AncHumBokeh-jni");
+            isSoLoaded.set(true);
+        }
+        if (humanEffectBokehConfig.cachePath == null) {
+            humanEffectBokehConfig.cachePath = "";
+        }
+        if (humanEffectBokehConfig.nativeLibPath == null) {
+            humanEffectBokehConfig.nativeLibPath = "";
+        }
+        if (humanEffectBokehConfig.modelData == null || humanEffectBokehConfig.modelData.length == 0) {
+            humanEffectBokehConfig.modelData = getFileContent(humanEffectBokehConfig.modelPath, humanEffectBokehConfig.assetsMgr);
+        }
+        if (humanEffectBokehConfig.modelData != null && humanEffectBokehConfig.modelData.length != 0) {
+            long jNativeInitConfigHandle = nativeInitConfigHandle(humanEffectBokehConfig);
+            if (jNativeInitConfigHandle == 0) {
+                return 1;
+            }
+            this.handle.set(jNativeInitConfigHandle);
+            return 0;
+        }
+        Log.e(TAG, "load model from fs failed!");
+        return 1;
     }
 
     public int setLogLevel(int i) {
@@ -114,8 +121,8 @@ public class HumanEffectBokehApi {
     }
 
     public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3, int i6, int i7, boolean z) {
-        int detectTextureIn = detectTextureIn(i, i6, i7, i4, f2, f3, z);
-        return detectTextureIn == 0 ? process(i, i2, f, i5 != 1, z) : detectTextureIn;
+        int iDetectTextureIn = detectTextureIn(i, i6, i7, i4, f2, f3, z);
+        return iDetectTextureIn == 0 ? process(i, i2, f, i5 != 1, z) : iDetectTextureIn;
     }
 
     public int processYUVRotation(byte[] bArr, int i, int i2, int i3, float f) {
@@ -132,9 +139,9 @@ public class HumanEffectBokehApi {
         if (this.handle.get() == 0) {
             return 2;
         }
-        int nativeRelease = nativeRelease(this.handle.get());
+        int iNativeRelease = nativeRelease(this.handle.get());
         this.handle.set(0L);
-        return nativeRelease;
+        return iNativeRelease;
     }
 
     public static HumanEffectBokehApi getInstance() {
@@ -187,9 +194,9 @@ public class HumanEffectBokehApi {
     }
 
     public int process(int i, int i2, int i3, int[] iArr, int[] iArr2, float f, int i4, int i5, float f2, float f3, int i6, int i7, int i8, boolean z) {
-        int detectTextureInSeg = detectTextureInSeg(i, i6, i7, i4, f2, f3, i8 > 0, z);
+        int iDetectTextureInSeg = detectTextureInSeg(i, i6, i7, i4, f2, f3, i8 > 0, z);
         boolean z2 = i5 != 1;
-        if (detectTextureInSeg != 0 || i8 <= 1) {
+        if (iDetectTextureInSeg != 0 || i8 <= 1) {
             return 3;
         }
         return process(i, i2, f, z2, z);
@@ -258,61 +265,47 @@ public class HumanEffectBokehApi {
         return nativeProcessImage(this.handle.get(), bitmap, bitmap2, f);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:13:0x0036 A[RETURN] */
-    /* JADX WARN: Removed duplicated region for block: B:21:0x002d A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:25:0x0037 A[EXC_TOP_SPLITTER, LOOP:0: B:25:0x0037->B:16:0x003e, LOOP_START, SYNTHETIC] */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    private static byte[] getFileContent(java.lang.String r6, android.content.res.AssetManager r7) {
-        /*
-            java.io.ByteArrayOutputStream r0 = new java.io.ByteArrayOutputStream
-            r0.<init>()
-            r1 = 8192(0x2000, float:1.148E-41)
-            byte[] r1 = new byte[r1]
-            r2 = 0
-            r3 = 0
-            if (r7 == 0) goto L29
-            java.io.InputStream r7 = r7.open(r6)     // Catch: java.io.IOException -> L13
-            r4 = 1
-            goto L2b
-        L13:
-            java.lang.String r7 = com.anc.humansdk.HumanEffectBokehApi.TAG
-            java.lang.StringBuilder r4 = new java.lang.StringBuilder
-            r4.<init>()
-            java.lang.String r5 = "fail to open "
-            r4.append(r5)
-            r4.append(r6)
-            java.lang.String r4 = r4.toString()
-            android.util.Log.e(r7, r4)
-        L29:
-            r4 = r2
-            r7 = r3
-        L2b:
-            if (r4 != 0) goto L34
-            java.io.FileInputStream r7 = new java.io.FileInputStream     // Catch: java.io.IOException -> L33
-            r7.<init>(r6)     // Catch: java.io.IOException -> L33
-            goto L34
-        L33:
-            return r3
-        L34:
-            if (r7 != 0) goto L37
-            return r3
-        L37:
-            int r6 = r7.read(r1)     // Catch: java.io.IOException -> L4d
-            r4 = -1
-            if (r6 == r4) goto L42
-            r0.write(r1, r2, r6)     // Catch: java.io.IOException -> L4d
-            goto L37
-        L42:
-            r7.close()     // Catch: java.io.IOException -> L4d
-            r0.close()     // Catch: java.io.IOException -> L4d
-            byte[] r6 = r0.toByteArray()
-            return r6
-        L4d:
-            return r3
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.anc.humansdk.HumanEffectBokehApi.getFileContent(java.lang.String, android.content.res.AssetManager):byte[]");
+    private static byte[] getFileContent(String str, AssetManager assetManager) {
+        InputStream inputStreamOpen;
+        boolean z;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] bArr = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
+        if (assetManager != null) {
+            try {
+                inputStreamOpen = assetManager.open(str);
+                z = true;
+            } catch (IOException unused) {
+                Log.e(TAG, "fail to open " + str);
+                z = false;
+                inputStreamOpen = null;
+            }
+        } else {
+            z = false;
+            inputStreamOpen = null;
+        }
+        if (!z) {
+            try {
+                inputStreamOpen = new FileInputStream(str);
+            } catch (IOException unused2) {
+                return null;
+            }
+        }
+        if (inputStreamOpen == null) {
+            return null;
+        }
+        while (true) {
+            try {
+                int i = inputStreamOpen.read(bArr);
+                if (i != -1) {
+                    byteArrayOutputStream.write(bArr, 0, i);
+                } else {
+                    inputStreamOpen.close();
+                    byteArrayOutputStream.close();
+                    return byteArrayOutputStream.toByteArray();
+                }
+            } catch (IOException unused3) {
+                return null;
+            }
+        }
     }
 }

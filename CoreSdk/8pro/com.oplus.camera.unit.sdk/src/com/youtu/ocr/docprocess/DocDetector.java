@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import com.common.Util;
 import com.youtu.ocr.docprocess.IText;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DocDetector implements IText {
     public static void init(Context context) {
     }
@@ -115,8 +116,8 @@ public class DocDetector implements IText {
 
     public void coordinateTransform2(Point[] pointArr, int i) {
         for (int i2 = 0; i2 < pointArr.length; i2++) {
-            DetectorPoint standardCoordinate2RealCoordinate = standardCoordinate2RealCoordinate(i, new DetectorPoint(pointArr[i2].x, pointArr[i2].y));
-            pointArr[i2] = new Point((int) standardCoordinate2RealCoordinate.x, (int) standardCoordinate2RealCoordinate.y);
+            DetectorPoint detectorPointStandardCoordinate2RealCoordinate = standardCoordinate2RealCoordinate(i, new DetectorPoint(pointArr[i2].x, pointArr[i2].y));
+            pointArr[i2] = new Point((int) detectorPointStandardCoordinate2RealCoordinate.x, (int) detectorPointStandardCoordinate2RealCoordinate.y);
         }
     }
 
@@ -124,14 +125,16 @@ public class DocDetector implements IText {
         DetectorPoint detectorPoint2;
         if (i == 0) {
             detectorPoint2 = new DetectorPoint(1.0f - detectorPoint.y, detectorPoint.x);
-        } else if (i == 90) {
-            return new DetectorPoint(detectorPoint.x, detectorPoint.y);
         } else {
+            if (i == 90) {
+                return new DetectorPoint(detectorPoint.x, detectorPoint.y);
+            }
             if (i == 180) {
                 detectorPoint2 = new DetectorPoint(detectorPoint.y, 1.0f - detectorPoint.x);
-            } else if (i != 270) {
-                return detectorPoint;
             } else {
+                if (i != 270) {
+                    return detectorPoint;
+                }
                 detectorPoint2 = new DetectorPoint(1.0f - detectorPoint.x, 1.0f - detectorPoint.y);
             }
         }
@@ -146,9 +149,10 @@ public class DocDetector implements IText {
             point2 = new Point(point.x, point.y);
         } else if (i == 180) {
             point2 = new Point(i3 - point.y, point.x);
-        } else if (i != 270) {
-            return point;
         } else {
+            if (i != 270) {
+                return point;
+            }
             point2 = new Point(i3 - point.x, i2 - point.y);
         }
         return point2;
@@ -184,7 +188,6 @@ public class DocDetector implements IText {
         Util.loadJNILibrary("XDocProcessSDK-jni");
     }
 
-    /* loaded from: classes.dex */
     public static class DetectorPoint {
         public float x;
         public float y;

@@ -2,8 +2,9 @@ package com.oplus.ocs.camera.configure;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
+/* JADX INFO: loaded from: classes.dex */
 @Retention(RetentionPolicy.SOURCE)
-/* loaded from: classes.dex */
 public @interface CameraFeatureName {
     public static final String P_AE = "com.oplus.preview.ae.regions";
     public static final String P_AF = "com.oplus.preview.af.regions";

@@ -1,15 +1,14 @@
 package com.common;
 
 import com.oplus.ocs.camera.common.statistics.StatisticConstant;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StaticsConstant {
 
-    /* loaded from: classes.dex */
     public @interface AbnormalDisplayKeys {
         public static final String KEY_ABNORMAL_PREVIEW = "abnormal_preview";
     }
 
-    /* loaded from: classes.dex */
     public @interface AbnormalDisplayValues {
         public static final int KEY_PREVIEW_CONFIG_FAILED = 2;
         public static final int KEY_PREVIEW_DROP_FRAME = 4;
@@ -19,7 +18,6 @@ public class StaticsConstant {
         public static final int KEY_PREVIEW_OPEN_CAMERA_ERROR = 1;
     }
 
-    /* loaded from: classes.dex */
     public static class EventType {
         public static final EventType ABNORMAL_DISPLAY = new EventType(StatisticConstant.STATISTIC_CAMERA_APP_CODE, "207", "abnormal_display");
         public String mAppId;

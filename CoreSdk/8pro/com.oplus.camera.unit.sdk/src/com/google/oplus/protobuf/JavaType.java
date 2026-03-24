@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public enum JavaType {
     VOID(Void.class, Void.class, null),
     INT(Integer.TYPE, Integer.class, 0),
@@ -11,7 +12,7 @@ public enum JavaType {
     BYTE_STRING(ByteString.class, ByteString.class, ByteString.EMPTY),
     ENUM(Integer.TYPE, Integer.class, null),
     MESSAGE(Object.class, Object.class, null);
-    
+
     private final Class<?> boxedType;
     private final Object defaultDefault;
     private final Class<?> type;

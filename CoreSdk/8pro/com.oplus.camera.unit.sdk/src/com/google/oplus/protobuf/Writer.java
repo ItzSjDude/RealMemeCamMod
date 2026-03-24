@@ -4,11 +4,10 @@ import com.google.oplus.protobuf.MapEntryLite;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface Writer {
 
-    /* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
+interface Writer {
+
     public enum FieldOrder {
         ASCENDING,
         DESCENDING

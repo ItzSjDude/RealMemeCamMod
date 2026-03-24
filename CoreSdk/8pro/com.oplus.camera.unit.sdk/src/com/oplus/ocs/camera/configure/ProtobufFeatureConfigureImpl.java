@@ -8,7 +8,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ProtobufFeatureConfigureImpl implements ProtobufFeatureConfigureInterface {
     private static final String TAG = "ProtobufFeatureConfigureImpl";
     private String mCameraType;
@@ -21,8 +22,7 @@ public class ProtobufFeatureConfigureImpl implements ProtobufFeatureConfigureInt
         this.mCameraType = str2;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static ProtobufFeatureConfigureImpl create(String str, String str2) {
+    protected static ProtobufFeatureConfigureImpl create(String str, String str2) {
         return new ProtobufFeatureConfigureImpl(str, str2);
     }
 
@@ -32,7 +32,7 @@ public class ProtobufFeatureConfigureImpl implements ProtobufFeatureConfigureInt
         if (cameraFeatureKey == null) {
             return null;
         }
-        return (ProtobufFeatureInfoInterface<P>) this.mFeatureTable.get(cameraFeatureKey);
+        return (ProtobufFeatureInfoInterface) this.mFeatureTable.get(cameraFeatureKey);
     }
 
     @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfigureInterface
@@ -94,16 +94,14 @@ public class ProtobufFeatureConfigureImpl implements ProtobufFeatureConfigureInt
         return z;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setFeatureTable(Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> map) {
+    protected void setFeatureTable(Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> map) {
         if (map == null || map.isEmpty()) {
             return;
         }
         this.mFeatureTable = map;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setGroupFeatureTableList(List<Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> list) {
+    protected void setGroupFeatureTableList(List<Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> list) {
         if (list == null || list.isEmpty()) {
             return;
         }

@@ -7,16 +7,16 @@ import com.oplus.ocs.camera.common.util.CameraConfigBase;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StarVideoMode extends StarryMode {
     @Override // com.oplus.ocs.camera.producer.mode.StarryMode, com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return CameraConstant.ModeName.STAR_VIDEO_MODE;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str, String str2) {
+    protected void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str, String str2) {
         super.updatePreviewRequestTag(builder, cameraRequestTag, str, str2);
         cameraRequestTag.mbStarVideoEnable = "on".equals(builder.get(PreviewParameter.KEY_STAR_VIDEO_ENABLE));
     }

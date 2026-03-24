@@ -1,5 +1,6 @@
 package com.coloros.ocs.camera.util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraImage {
     private com.oplus.ocs.camera.common.util.CameraImage mCameraImage;
 

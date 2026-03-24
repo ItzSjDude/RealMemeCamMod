@@ -5,10 +5,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.RandomAccess;
 
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class IntArrayList extends AbstractProtobufList<Integer>
-        implements Internal.IntList, RandomAccess, PrimitiveNonBoxingCollection {
+/* JADX INFO: loaded from: classes.dex */
+final class IntArrayList extends AbstractProtobufList<Integer> implements Internal.IntList, RandomAccess, PrimitiveNonBoxingCollection {
     private static final IntArrayList EMPTY_LIST;
     private int[] array;
     private int size;
@@ -23,8 +21,7 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         return EMPTY_LIST;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public IntArrayList() {
+    IntArrayList() {
         this(new int[10], 0);
     }
 
@@ -45,8 +42,7 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         this.modCount++;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -67,8 +63,7 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
     public int hashCode() {
         int i = 1;
         for (int i2 = 0; i2 < this.size; i2++) {
@@ -77,16 +72,18 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         return i;
     }
 
-    @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-              // com.google.oplus.protobuf.Internal.BooleanList
-    /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Integer> mutableCopyWithCapacity(int i) {
+    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+    /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$IntList' to match base method */
+    @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+    /* JADX INFO: renamed from: mutableCopyWithCapacity */
+    public Internal.ProtobufList<Integer> mutableCopyWithCapacity2(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }
         return new IntArrayList(Arrays.copyOf(this.array, i), this.size);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
     @Override // java.util.AbstractList, java.util.List
     public Integer get(int i) {
         return Integer.valueOf(getInt(i));
@@ -100,15 +97,15 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
 
     @Override // java.util.AbstractList, java.util.List
     public int indexOf(Object obj) {
-        if (obj instanceof Integer) {
-            int intValue = ((Integer) obj).intValue();
-            int size = size();
-            for (int i = 0; i < size; i++) {
-                if (this.array[i] == intValue) {
-                    return i;
-                }
-            }
+        if (!(obj instanceof Integer)) {
             return -1;
+        }
+        int iIntValue = ((Integer) obj).intValue();
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            if (this.array[i] == iIntValue) {
+                return i;
+            }
         }
         return -1;
     }
@@ -123,8 +120,8 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         return this.size;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.List
+    /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Integer set(int i, Integer num) {
         return Integer.valueOf(setInt(i, num.intValue()));
     }
@@ -139,15 +136,15 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         return i3;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.AbstractCollection, java.util.Collection, java.util.List
+    /* JADX DEBUG: Method merged with bridge method: add(Ljava/lang/Object;)Z */
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean add(Integer num) {
         addInt(num.intValue());
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.List
+    /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public void add(int i, Integer num) {
         addInt(i, num.intValue());
     }
@@ -188,8 +185,7 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         this.modCount++;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection,
-              // java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean addAll(Collection<? extends Integer> collection) {
         ensureIsMutable();
         Internal.checkNotNull(collection);
@@ -216,19 +212,19 @@ public final class IntArrayList extends AbstractProtobufList<Integer>
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.List
+    /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Integer remove(int i) {
         ensureIsMutable();
         ensureIndexInRange(i);
         int[] iArr = this.array;
-        int i3 = iArr[i];
+        int i2 = iArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(iArr, i + 1, iArr, i, (this.size - i) - 1);
+            System.arraycopy(iArr, i + 1, iArr, i, (r2 - i) - 1);
         }
         this.size--;
         this.modCount++;
-        return Integer.valueOf(i3);
+        return Integer.valueOf(i2);
     }
 
     private void ensureIndexInRange(int i) {

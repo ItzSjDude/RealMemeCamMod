@@ -2,7 +2,8 @@ package com.singleblur.faceapi.model;
 
 import android.graphics.PointF;
 import android.graphics.Rect;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FaceInfo implements Cloneable {
     public float eyeDist;
     public PointF[] facePoints;
@@ -13,7 +14,8 @@ public class FaceInfo implements Cloneable {
     public float score;
     public float yaw;
 
-    /* renamed from: clone */
+    /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
+    /* JADX INFO: renamed from: clone, reason: merged with bridge method [inline-methods] */
     public FaceInfo m11clone() {
         FaceInfo faceInfo = new FaceInfo();
         Rect rect = new Rect();

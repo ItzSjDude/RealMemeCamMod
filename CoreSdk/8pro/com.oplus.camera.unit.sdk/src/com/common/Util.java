@@ -2,7 +2,8 @@ package com.common;
 
 import android.os.Build;
 import android.util.Log;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class Util {
     private static final String PLATFORM_SUFFIX_MTK = ".trustonic";
     private static final String PLATFORM_SUFFIX_QCOM = ".qti";

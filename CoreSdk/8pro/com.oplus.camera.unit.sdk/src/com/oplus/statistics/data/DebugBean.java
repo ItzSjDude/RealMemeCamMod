@@ -2,7 +2,8 @@ package com.oplus.statistics.data;
 
 import android.content.Context;
 import com.oplus.statistics.DataTypeConstants;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DebugBean extends TrackEvent {
     private static final String DEBUG = "debug";
     private boolean mFlag;

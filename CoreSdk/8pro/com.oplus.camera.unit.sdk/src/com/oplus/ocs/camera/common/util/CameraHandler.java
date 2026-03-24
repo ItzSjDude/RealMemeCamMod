@@ -2,7 +2,8 @@ package com.oplus.ocs.camera.common.util;
 
 import android.os.Handler;
 import android.os.Looper;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraHandler extends Handler {
     protected Looper mMyLooper;
 

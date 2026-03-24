@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.consumer.apsAdapter.adapter;
 import android.hardware.camera2.CameraMetadata;
 import androidx.annotation.NonNull;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsPreviewDecisionParam {
     private HashMap<String, String> mAlgoHashMap;
     private int mAlgoVisualizationEnable;
@@ -26,7 +27,7 @@ public class ApsPreviewDecisionParam {
     private int mUltraHighResolutionEnable;
     private float mZoomRatio;
 
-    public ApsPreviewDecisionParam(float f, CameraMetadata cameraMetadata, int i, int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9, String str, int i10, int i11, int i12, int i13, int i14, int i15, HashMap<String, String> hashMap) {
+    public ApsPreviewDecisionParam(float f, CameraMetadata cameraMetadata, int i, int i2, int i3, int i4, int i5, int i6, int i7, int i8, int i9, String str, int i10, int i11, int i12, int i13, int i14, int i15, HashMap<String, String> map) {
         this.mZoomRatio = f;
         this.mMetadata = cameraMetadata;
         this.mMultiCameraMode = i;
@@ -45,7 +46,7 @@ public class ApsPreviewDecisionParam {
         this.mStreamerEnable = i14;
         this.mSuperRawEnable = i13;
         this.mRecordingCapture = i15;
-        this.mAlgoHashMap = hashMap;
+        this.mAlgoHashMap = map;
     }
 
     public void setZoomRatio(float f) {

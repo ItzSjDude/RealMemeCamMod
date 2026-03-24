@@ -11,25 +11,21 @@ import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import java.util.Map;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class MicroscopeVideoMode extends VideoMode {
     private static final String TAG = "MicroscopeVideoMode";
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
-              // com.oplus.ocs.camera.producer.mode.BaseMode
-    public String getFeatureName(String str) {
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    protected String getFeatureName(String str) {
         return null;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
-              // com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return "microscope_video_mode";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
-              // com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
         return "simple_preview_case";
     }
@@ -44,26 +40,18 @@ public class MicroscopeVideoMode extends VideoMode {
         return false;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
-              // com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            String str, ApsRequestTag apsRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(3);
         Map<String, String> featuresFromConfig = getFeaturesFromConfig(getConfigureParameter(str));
-        sdkCameraDeviceConfig.updateHalPreviewSize(
-                getCameraDeviceInfo(str).getPreviewMappingSizesFromConfig(str, featuresFromConfig));
-        sdkCameraDeviceConfig
-                .updateHalVideoSize(getCameraDeviceInfo(str).getVideoMappingSizesFromConfig(str, featuresFromConfig));
+        sdkCameraDeviceConfig.updateHalPreviewSize(getCameraDeviceInfo(str).getPreviewMappingSizesFromConfig(str, featuresFromConfig));
+        sdkCameraDeviceConfig.updateHalVideoSize(getCameraDeviceInfo(str).getVideoMappingSizesFromConfig(str, featuresFromConfig));
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
-              // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
-            @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        builder.set(CaptureRequest.FLASH_MODE, 2);
-        builder.set(CaptureRequest.CONTROL_AE_MODE, 1);
+        builder.set((CaptureRequest.Key<int>) CaptureRequest.FLASH_MODE, 2);
+        builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AE_MODE, 1);
     }
 }

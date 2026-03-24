@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ConfigFeatureImpl<P> extends ProtobufFeatureInfoImpl<P> implements FeatureInterface {
     private static final String TAG = "ConfigFeatureImpl";
     private int mCategoryIndex;
@@ -96,16 +97,17 @@ public class ConfigFeatureImpl<P> extends ProtobufFeatureInfoImpl<P> implements 
 
     @Override // com.oplus.ocs.camera.producer.feature.FeatureInterface
     public Map<String, Map<String, List<String>>> getConflictFeatureValues() {
-        HashMap hashMap = new HashMap();
+        HashMap map = new HashMap();
         for (Map.Entry<ConflictTargetValue<?>, List<ConflictFeature<?>>> entry : this.mConflictMap.entrySet()) {
             ConflictTargetValue<?> key = entry.getKey();
-            HashMap hashMap2 = new HashMap();
-            for (ConflictFeature<?> conflictFeature : entry.getValue()) {
-                hashMap2.put(conflictFeature.getFeatureKey().getName(), getSupportValueStringList(conflictFeature.getValueRange().getValue()));
+            List<ConflictFeature<?>> value = entry.getValue();
+            HashMap map2 = new HashMap();
+            for (ConflictFeature<?> conflictFeature : value) {
+                map2.put(conflictFeature.getFeatureKey().getName(), getSupportValueStringList(conflictFeature.getValueRange().getValue()));
             }
-            hashMap.put(key.getOriginValue(), hashMap2);
+            map.put(key.getOriginValue(), map2);
         }
-        return hashMap;
+        return map;
     }
 
     @Override // com.oplus.ocs.camera.producer.feature.FeatureInterface

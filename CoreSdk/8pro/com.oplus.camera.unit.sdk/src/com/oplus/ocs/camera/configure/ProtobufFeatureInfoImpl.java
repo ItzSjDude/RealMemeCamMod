@@ -6,16 +6,19 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ProtobufFeatureInfoImpl<P> implements ProtobufFeatureInfoInterface<P> {
     private static final String TAG = "ProtobufFeatureInfoImpl";
     protected final Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> mConflictMap = new LinkedHashMap();
+
     @NonNull
     private final Value<P> mDefaultValue;
     private final String mEntryType;
     private final CameraFeatureKey mFeatureKey;
     private final String mFeatureName;
     private final String mFeatureValueClassType;
+
     @NonNull
     private final Value<P> mValueRange;
     private final boolean mbGroupConflict;
@@ -86,8 +89,9 @@ public class ProtobufFeatureInfoImpl<P> implements ProtobufFeatureInfoInterface<
 
     @Override // com.oplus.ocs.camera.configure.ProtobufFeatureInfoInterface
     public boolean isFeatureValueConflict(Object obj) {
-        for (Map.Entry<ConflictTargetValue<?>, List<ConflictFeature<?>>> entry : this.mConflictMap.entrySet()) {
-            if (entry.getKey().isTargetValue(obj)) {
+        Iterator<Map.Entry<ConflictTargetValue<?>, List<ConflictFeature<?>>>> it = this.mConflictMap.entrySet().iterator();
+        while (it.hasNext()) {
+            if (it.next().getKey().isTargetValue(obj)) {
                 return true;
             }
         }
@@ -113,8 +117,7 @@ public class ProtobufFeatureInfoImpl<P> implements ProtobufFeatureInfoInterface<
         return "FeatureInfoImpl{mFeatureName='" + this.mFeatureName + "', mFeatureKeyName='" + this.mFeatureKey.getName() + "', mFeatureValueClassType='" + this.mFeatureValueClassType + "', mValueRange=" + this.mValueRange + ", mDefaultValue=" + this.mDefaultValue + ", mbGroupConflict=" + this.mbGroupConflict + ", mEntryType='" + this.mEntryType + "', mConflictMap=" + this.mConflictMap + '}';
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setConflictMap(Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> map) {
+    protected void setConflictMap(Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> map) {
         this.mConflictMap.clear();
         this.mConflictMap.putAll(map);
     }

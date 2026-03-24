@@ -6,7 +6,8 @@ import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsResultParameter;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraBaseResultHelper {
     protected ApsBaseParameter mBaseParameter = new ApsBaseParameter();
     private CaptureResult mCaptureResult = null;

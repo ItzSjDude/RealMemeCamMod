@@ -4,9 +4,9 @@ import com.google.oplus.protobuf.MapEntryLite;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface Reader {
+
+/* JADX INFO: loaded from: classes.dex */
+interface Reader {
     public static final int READ_DONE = Integer.MAX_VALUE;
     public static final int TAG_UNKNOWN = 0;
 

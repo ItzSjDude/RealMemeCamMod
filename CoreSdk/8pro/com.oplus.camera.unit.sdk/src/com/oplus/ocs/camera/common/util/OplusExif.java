@@ -5,7 +5,8 @@ import android.hardware.camera2.params.Face;
 import com.oplus.exif.OplusExifTag;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsCaptureResult;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OplusExif {
     private static final String TAG = "OplusExif";
     private static ConcurrentHashMap<String, Integer> sExifTagMap = new ConcurrentHashMap<>();
@@ -16,8 +17,8 @@ public class OplusExif {
         sExifTagMap.put("portrait_mode", 16);
         sExifTagMap.put("professional_mode", 256);
         sExifTagMap.put("sticker_mode", 512);
-        sExifTagMap.put("night_mode", Integer.valueOf((int) OplusExifTag.EXIF_TAG_NIGHT_SCENE));
-        sExifTagMap.put("id_photo_mode", Integer.valueOf((int) OplusExifTag.EXIF_TAG_AI_ID_PHOTO));
+        sExifTagMap.put("night_mode", Integer.valueOf(OplusExifTag.EXIF_TAG_NIGHT_SCENE));
+        sExifTagMap.put("id_photo_mode", Integer.valueOf(OplusExifTag.EXIF_TAG_AI_ID_PHOTO));
     }
 
     public static int getDateBaseExifTag(String str, int i) {

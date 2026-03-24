@@ -25,7 +25,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.PreviewApsImpl;
 import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
 import com.oplus.ocs.camera.consumer.apsAdapter.service.ApsAdapterListener;
 import java.util.concurrent.atomic.AtomicBoolean;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsListener {
     private static final long APS_INIT_TIME_OUT_MS = 5000;
     private static final boolean DEBUG = false;
@@ -52,8 +53,11 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
         createImageProcessThread();
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r1v3, resolved type: java.lang.Object[] */
+    /* JADX WARN: Multi-variable type inference failed */
     private void createImageProcessThread() {
         CameraHandlerThread cameraHandlerThread = null;
+        Object[] objArr = 0;
         if (this.mImageProcessHandler == null) {
             CameraHandlerThread cameraHandlerThread2 = new CameraHandlerThread("ImageProcessThread");
             cameraHandlerThread2.enableUxState();
@@ -281,36 +285,9 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
     public void onPreviewReceived(ApsResult apsResult) {
         String str = apsResult.mPipelineName;
         str.hashCode();
-        char c = 65535;
-        switch (str.hashCode()) {
-            case -1234210005:
-                if (str.equals(ApsParameters.APS_PIPELINE_NAME_PREVIEW)) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case -903274338:
-                if (str.equals(ApsParameters.APS_PIPELINE_NAME_VIDEO)) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case -363440471:
-                if (str.equals(ApsParameters.APS_PIPELINE_NAME_CAPTURE)) {
-                    c = 2;
-                    break;
-                }
-                break;
-            case 628778404:
-                if (str.equals(ApsParameters.APS_PIPELINE_NAME_DEFAULT)) {
-                    c = 3;
-                    break;
-                }
-                break;
-        }
-        switch (c) {
-            case 0:
-            case 3:
+        switch (str) {
+            case "pipeline_preview":
+            case "pipeline_default":
                 if (this.mbIsApsCaptureAlgoIniting.get()) {
                     apsResult.mDecisionResult = null;
                     ApsAdapterLog.d(TAG, "onPreviewReceived, aps capture algo is initing, reset mDecisionResult as null.");
@@ -318,32 +295,35 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                 ApsPreviewAdapterImpl apsPreviewAdapterImpl = this.mPreviewImpl;
                 if (apsPreviewAdapterImpl != null) {
                     apsPreviewAdapterImpl.onPreviewReceived(apsResult);
-                    return;
+                    break;
                 } else {
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mPreviewImpl is null.");
-                    return;
+                    break;
                 }
-            case 1:
+                break;
+            case "pipeline_video":
                 ApsVideoAdapterImpl apsVideoAdapterImpl = this.mVideoImpl;
                 if (apsVideoAdapterImpl != null) {
                     apsVideoAdapterImpl.onPreviewReceived(apsResult);
-                    return;
+                    break;
                 } else {
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mVideoImpl is null.");
-                    return;
+                    break;
                 }
-            case 2:
+                break;
+            case "pipeline_capture":
                 ApsCaptureAdapterImpl apsCaptureAdapterImpl = this.mCaptureImpl;
                 if (apsCaptureAdapterImpl != null) {
                     apsCaptureAdapterImpl.onRawReceived(apsResult);
-                    return;
+                    break;
                 } else {
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mCaptureImpl is null.");
-                    return;
+                    break;
                 }
+                break;
             default:
                 ApsAdapterLog.e(TAG, "onPreviewReceived, mPipelineName: " + apsResult.mPipelineName + " no need to processed.");
-                return;
+                break;
         }
     }
 
@@ -464,8 +444,10 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
         ApsPreviewAdapterImpl apsPreviewAdapterImpl;
         if (ImageCategory.ItemInfoType.PREVIEW == itemInfoType && (apsPreviewAdapterImpl = this.mPreviewImpl) != null) {
             apsPreviewAdapterImpl.setPermitProcess(z);
-        } else if (ImageCategory.ItemInfoType.VIDEO != itemInfoType || (apsVideoAdapterImpl = this.mVideoImpl) == null) {
         } else {
+            if (ImageCategory.ItemInfoType.VIDEO != itemInfoType || (apsVideoAdapterImpl = this.mVideoImpl) == null) {
+                return;
+            }
             apsVideoAdapterImpl.setPermitProcess(z);
         }
     }
@@ -513,9 +495,9 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
     public void setRequestMetadata(String str, ArrayMap<String, Long> arrayMap, int i, int i2) {
         ApsCaptureRequestParam apsCaptureRequestParam = new ApsCaptureRequestParam();
         apsCaptureRequestParam.mLogicalId = Integer.parseInt(str);
-        Long remove = arrayMap.remove(str);
-        if (remove != null) {
-            apsCaptureRequestParam.mLogicMetadata = remove.longValue();
+        Long lRemove = arrayMap.remove(str);
+        if (lRemove != null) {
+            apsCaptureRequestParam.mLogicMetadata = lRemove.longValue();
         }
         apsCaptureRequestParam.mPhysicalMetadatas = arrayMap;
         apsCaptureRequestParam.mMasterCameraId = i;
@@ -523,9 +505,7 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
         this.mApsInterface.setRequestMetadata(apsCaptureRequestParam);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public class ImageProcessHandler extends Handler {
+    private class ImageProcessHandler extends Handler {
         private ImageProcessHandler(Looper looper) {
             super(looper);
         }
@@ -554,13 +534,13 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                 ApsAdapterImpl.this.mPreviewImpl = new ApsPreviewAdapterImpl(ApsAdapterImpl.this.mApsInterface, ApsAdapterImpl.this.mImageListener);
                 ApsAdapterImpl.this.mVideoImpl = new ApsVideoAdapterImpl(ApsAdapterImpl.this.mApsInterface, ApsAdapterImpl.this.mImageListener);
                 ApsAdapterImpl.this.mCaptureImpl = new ApsCaptureAdapterImpl(ApsAdapterImpl.this.mApsInterface, ApsAdapterImpl.this.mImageListener, ApsAdapterImpl.this.mImageProcessHandler);
-                boolean connect = ApsAdapterImpl.this.mApsInterface.connect(AlgoSwitchConfig.getApsVersion());
+                boolean zConnect = ApsAdapterImpl.this.mApsInterface.connect(AlgoSwitchConfig.getApsVersion());
                 if (ApsAdapterImpl.this.mPreviewImpl != null) {
-                    ApsAdapterImpl.this.mPreviewImpl.setApsConnected(connect);
+                    ApsAdapterImpl.this.mPreviewImpl.setApsConnected(zConnect);
                 }
                 ApsAdapterImpl.this.mImageListener.onApsConnected();
                 ApsAdapterImpl.this.mInitSig.open();
-                ApsAdapterLog.v(ApsAdapterImpl.TAG, "ImageProcessHandler, handleMessage, MSG_APS_CONNECT, result : " + connect);
+                ApsAdapterLog.v(ApsAdapterImpl.TAG, "ImageProcessHandler, handleMessage, MSG_APS_CONNECT, result : " + zConnect);
             } else if (i != 2) {
                 if (i == 3) {
                     ApsAdapterLog.d(ApsAdapterImpl.TAG, "handleMessage, add frame, timestamp: " + ((Long) message.obj).longValue());

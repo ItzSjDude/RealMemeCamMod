@@ -3,8 +3,10 @@ package com.oplus.ocs.camera.consumer.debug;
 import com.oplus.ocs.camera.common.util.ParameterKeys;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PreviewPropProvider {
     private static final String ALGO_PROP_NAME_ANIMOJI = "animoji";
     private static final String ALGO_PROP_NAME_ASD = "asd";
@@ -32,8 +34,7 @@ public class PreviewPropProvider {
     private Map<Integer, String> mPropMap = new HashMap();
     private Map<String, Integer> mAlgoTable = new HashMap();
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public PreviewPropProvider() {
+    protected PreviewPropProvider() {
         this.mPropMap.put(1, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_BLUR));
         this.mPropMap.put(2, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_FILTER));
         this.mPropMap.put(4, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_FACE_SLENDER));
@@ -49,30 +50,29 @@ public class PreviewPropProvider {
         this.mPropMap.put(10002, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, "asd"));
         this.mPropMap.put(10003, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_RTB));
         Map<Integer, String> map = this.mPropMap;
-        Integer valueOf = Integer.valueOf((int) FLAG_APS_ALGO_RECTIFY);
-        map.put(valueOf, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_RECTIFY));
+        Integer numValueOf = Integer.valueOf(FLAG_APS_ALGO_RECTIFY);
+        map.put(numValueOf, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_RECTIFY));
         Map<Integer, String> map2 = this.mPropMap;
-        Integer valueOf2 = Integer.valueOf((int) FLAG_APS_ALGO_SUPEREIS);
-        map2.put(valueOf2, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_SUPEREIS));
+        Integer numValueOf2 = Integer.valueOf(FLAG_APS_ALGO_SUPEREIS);
+        map2.put(numValueOf2, String.format("%s.%s", ALGO_PROP_PREFIX_PREVIEW, ALGO_PROP_NAME_SUPEREIS));
         this.mAlgoTable.put(ParameterKeys.APS_ALGO_NAME_PF, 10001);
         this.mAlgoTable.put("preview_asd", 10002);
         this.mAlgoTable.put(ParameterKeys.APS_ALGO_NAME_VIDEO_WM_ON_INPUT, 128);
         this.mAlgoTable.put(ParameterKeys.APS_ALGO_NAME_VIDEO_WM_ON_OUTPUT, 128);
         this.mAlgoTable.put("preview_rtb", 10003);
-        this.mAlgoTable.put("preview_rectify", valueOf);
-        this.mAlgoTable.put("preview_supereis", valueOf2);
-        this.mAlgoTable.put(ParameterKeys.APS_ALGO_NAME_VIDEO_SUPEREIS, valueOf2);
+        this.mAlgoTable.put("preview_rectify", numValueOf);
+        this.mAlgoTable.put("preview_supereis", numValueOf2);
+        this.mAlgoTable.put(ParameterKeys.APS_ALGO_NAME_VIDEO_SUPEREIS, numValueOf2);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public String getAlgoProp(int i) {
+    protected String getAlgoProp(int i) {
         return this.mPropMap.get(Integer.valueOf(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setEnableAPSAlgoNode(ApsAdapterInterface apsAdapterInterface) {
-        for (Map.Entry<String, Integer> entry : this.mAlgoTable.entrySet()) {
-            apsAdapterInterface.setEnableAPSAlgoNode(entry.getKey(), !PropProvider.isPropDisable(this.mPropMap.get(entry.getValue())));
+    protected void setEnableAPSAlgoNode(ApsAdapterInterface apsAdapterInterface) {
+        Iterator<Map.Entry<String, Integer>> it = this.mAlgoTable.entrySet().iterator();
+        while (it.hasNext()) {
+            apsAdapterInterface.setEnableAPSAlgoNode(it.next().getKey(), !PropProvider.isPropDisable(this.mPropMap.get(r1.getValue())));
         }
     }
 }

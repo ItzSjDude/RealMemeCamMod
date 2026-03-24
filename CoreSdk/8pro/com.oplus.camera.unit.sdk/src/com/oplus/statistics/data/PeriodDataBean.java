@@ -4,7 +4,8 @@ import android.content.Context;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.statistics.DataTypeConstants;
 import com.oplus.statistics.util.VersionUtil;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PeriodDataBean extends CommonBean {
     private final int mEventType;
 

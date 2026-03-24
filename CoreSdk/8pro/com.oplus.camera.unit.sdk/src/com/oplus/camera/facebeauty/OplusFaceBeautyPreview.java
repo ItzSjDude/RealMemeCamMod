@@ -3,7 +3,8 @@ package com.oplus.camera.facebeauty;
 import android.text.TextUtils;
 import com.common.Util;
 import java.io.File;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OplusFaceBeautyPreview {
     public native int destroy();
 
@@ -29,12 +30,16 @@ public class OplusFaceBeautyPreview {
         if (Util.isQcomPlatform()) {
             if (isFileExist("/product/lib64/libApsFaceBeautyPreviewProductJni.so")) {
                 System.loadLibrary("ApsFaceBeautyPreviewProductJni");
+                return;
             } else if (isFileExist("/system_ext/lib64/libApsFaceBeautyPreviewJni.qti.so")) {
                 System.loadLibrary("ApsFaceBeautyPreviewJni.qti");
+                return;
             } else {
                 System.loadLibrary("ApsFaceBeautyPreviewJni");
+                return;
             }
-        } else if (isFileExist("/product/lib64/libApsFaceBeautyPreviewProductJni.so")) {
+        }
+        if (isFileExist("/product/lib64/libApsFaceBeautyPreviewProductJni.so")) {
             System.loadLibrary("ApsFaceBeautyPreviewProductJni");
         } else if (isFileExist("/system_ext/lib64/libApsFaceBeautyPreviewJni.trustonic.so")) {
             System.loadLibrary("ApsFaceBeautyPreviewJni.trustonic");
@@ -44,14 +49,11 @@ public class OplusFaceBeautyPreview {
     }
 
     private static synchronized boolean isFileExist(String str) {
-        boolean z;
-        synchronized (OplusFaceBeautyPreview.class) {
-            if (TextUtils.isEmpty(str)) {
-                throw new IllegalArgumentException("file path is empty!");
-            }
-            File file = new File(str);
-            z = file.exists() && file.length() != 0;
+        File file;
+        if (TextUtils.isEmpty(str)) {
+            throw new IllegalArgumentException("file path is empty!");
         }
-        return z;
+        file = new File(str);
+        return file.exists() && file.length() != 0;
     }
 }

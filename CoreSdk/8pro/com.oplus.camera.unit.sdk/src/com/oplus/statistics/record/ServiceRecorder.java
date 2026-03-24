@@ -11,14 +11,15 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ServiceRecorder implements IRecorder {
     private static final String DCS_PKG_NAME = new String(Base64.decode(Constant.DCS_PKG, 0), StandardCharsets.UTF_8);
     private static final String DCS_SERVICE_NAME = new String(Base64.decode(Constant.DCS_SERVICE, 0), StandardCharsets.UTF_8);
     private static final String TAG = "ServiceRecorder";
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$addTrackEvent$0(Context context) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("add Task failed: bean or context is null. context="), (r2v0 android.content.Context) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$addTrackEvent$0(Context context) {
         return "add Task failed: bean or context is null. context=" + context;
     }
 
@@ -45,8 +46,8 @@ public class ServiceRecorder implements IRecorder {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$addTrackEvent$1(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("startService exception="), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$addTrackEvent$1(Exception exc) {
         return "startService exception=" + exc;
     }
 

@@ -2,7 +2,8 @@ package com.oplus.statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OTrackConfig {
     public static final OTrackConfig DUMMY = new OTrackConfig();
     public static final int ENV_DEBUG = 1;
@@ -17,7 +18,6 @@ public class OTrackConfig {
     private String mVersionName;
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface EnvType {
     }
 
@@ -70,7 +70,6 @@ public class OTrackConfig {
         this.mAppName = str;
     }
 
-    /* loaded from: classes.dex */
     public static class Builder {
         private String appName;
         private int env = 0;

@@ -7,7 +7,8 @@ import com.coloros.ocs.camera.callback.CameraStateCallbackAdapter;
 import com.coloros.ocs.camera.info.CameraDeviceInfoInterface;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface CameraUnitInterface {
     boolean checkAuthenticationPermission(@NonNull Context context, @NonNull String str, int i);
 

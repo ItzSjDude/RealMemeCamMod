@@ -9,7 +9,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam;
 import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface;
 import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.NoneApsImpl;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CaptureApsImpl extends FullApsImpl {
     private static final String TAG = "CaptureApsImpl";
     private NoneApsImpl.ProcessHandler mProcessHandler;
@@ -76,12 +77,12 @@ public class CaptureApsImpl extends FullApsImpl {
         while (true) {
             if (i3 >= processParamters.length) {
                 break;
-            } else if (processParamters[i3].equals(ApsParameters.KEY_PIPELINE)) {
+            }
+            if (processParamters[i3].equals(ApsParameters.KEY_PIPELINE)) {
                 previewFrame.mPipeline = processParamters[i3 + 1];
                 break;
-            } else {
-                i3 += 2;
             }
+            i3 += 2;
         }
         this.mProcessHandler.sendMessage(this.mProcessHandler.obtainMessage(1, previewFrame));
         return 0;

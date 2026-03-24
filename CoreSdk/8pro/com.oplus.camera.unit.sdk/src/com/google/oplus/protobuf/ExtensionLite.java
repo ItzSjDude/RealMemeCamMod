@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.MessageLite;
 import com.google.oplus.protobuf.WireFormat;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class ExtensionLite<ContainingType extends MessageLite, Type> {
     public abstract Type getDefaultValue();
 
@@ -12,8 +13,7 @@ public abstract class ExtensionLite<ContainingType extends MessageLite, Type> {
 
     public abstract int getNumber();
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public boolean isLite() {
+    boolean isLite() {
         return true;
     }
 

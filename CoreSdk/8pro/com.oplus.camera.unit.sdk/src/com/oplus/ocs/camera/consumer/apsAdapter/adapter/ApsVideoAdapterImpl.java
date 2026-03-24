@@ -18,9 +18,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class ApsVideoAdapterImpl {
+
+/* JADX INFO: loaded from: classes.dex */
+class ApsVideoAdapterImpl {
     private static final boolean DEBUG = false;
     private static final int MSG_APS_ADD_VIDEO_FRAME = 1;
     private static final String TAG = "ApsVideoAdapterImpl";
@@ -34,15 +34,17 @@ public class ApsVideoAdapterImpl {
     private ProcessHandler mVideoProcessHandler = null;
     private ImageCategory.MetaItemInfo mCurMetaItemInfo = null;
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public ApsVideoAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener) {
+    protected ApsVideoAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener) {
         this.mApsInterface = apsInterface;
         this.mImageProcessListener = imageProcessListener;
         createProcessThread();
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r1v6, resolved type: java.lang.Object[] */
+    /* JADX WARN: Multi-variable type inference failed */
     private void createProcessThread() {
         HandlerThread handlerThread = null;
+        Object[] objArr = 0;
         if (this.mVideoProcessHandler == null) {
             HandlerThread handlerThread2 = new HandlerThread("VideoProcessThread");
             handlerThread2.start();
@@ -59,68 +61,65 @@ public class ApsVideoAdapterImpl {
     public void setPermitProcess(boolean z) {
         synchronized (this.mPermitLock) {
             if (this.mbPermit.booleanValue() != z) {
-                String str = TAG;
-                ApsAdapterLog.d(str, "setPermitProcess, mbPermit: " + this.mbPermit + " => " + z);
+                ApsAdapterLog.d(TAG, "setPermitProcess, mbPermit: " + this.mbPermit + " => " + z);
             }
             this.mbPermit = Boolean.valueOf(z);
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addImage(ImageCategory.ImageItemInfo imageItemInfo) {
+    protected void addImage(ImageCategory.ImageItemInfo imageItemInfo) {
         ImageCategory imageCategory;
         synchronized (this.mVideoQueueLock) {
             checkImageOverflow();
-            long longValue = ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
-            if (this.mVideoProcessMap.containsKey(Long.valueOf(longValue))) {
-                imageCategory = this.mVideoProcessMap.get(Long.valueOf(longValue));
+            long jLongValue = ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
+            if (this.mVideoProcessMap.containsKey(Long.valueOf(jLongValue))) {
+                imageCategory = this.mVideoProcessMap.get(Long.valueOf(jLongValue));
                 imageCategory.mImageItemList.add(imageItemInfo);
             } else {
                 imageCategory = new ImageCategory();
                 imageCategory.mImageItemList.add(imageItemInfo);
-                this.mVideoProcessMap.put(Long.valueOf(longValue), imageCategory);
+                this.mVideoProcessMap.put(Long.valueOf(jLongValue), imageCategory);
             }
-            boolean booleanValue = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_VIDEO_META_DATA)).booleanValue();
-            if (imageCategory.isValid() || !booleanValue) {
-                if (!booleanValue) {
+            boolean zBooleanValue = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_VIDEO_META_DATA)).booleanValue();
+            if (imageCategory.isValid() || !zBooleanValue) {
+                if (!zBooleanValue) {
                     ImageCategory.MetaItemInfo metaItemInfo = this.mCurMetaItemInfo;
                     if (metaItemInfo != null) {
                         imageCategory.mMetaItem = metaItemInfo.copy();
                     } else {
                         imageCategory.mMetaItem = new ImageCategory.MetaItemInfo();
                     }
-                    imageCategory.mMetaItem.setParameter(ApsParameters.KEY_TIME_STAMP, Long.valueOf(longValue));
+                    imageCategory.mMetaItem.setParameter(ApsParameters.KEY_TIME_STAMP, Long.valueOf(jLongValue));
                 }
-                this.mVideoProcessMap.remove(Long.valueOf(longValue));
-                Message obtainMessage = this.mVideoProcessHandler.obtainMessage(1);
-                obtainMessage.obj = imageCategory;
-                obtainMessage.sendToTarget();
+                this.mVideoProcessMap.remove(Long.valueOf(jLongValue));
+                Message messageObtainMessage = this.mVideoProcessHandler.obtainMessage(1);
+                messageObtainMessage.obj = imageCategory;
+                messageObtainMessage.sendToTarget();
             }
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addMetadata(ImageCategory.MetaItemInfo metaItemInfo) {
+    protected void addMetadata(ImageCategory.MetaItemInfo metaItemInfo) {
         ImageCategory imageCategory;
         synchronized (this.mVideoQueueLock) {
             ImageCategory.MetaItemInfo metaItemInfo2 = this.mCurMetaItemInfo;
             if (metaItemInfo2 == null || ((Long) metaItemInfo2.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() < ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()) {
                 this.mCurMetaItemInfo = metaItemInfo;
             }
-            long longValue = ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
-            if (this.mVideoProcessMap.containsKey(Long.valueOf(longValue))) {
-                imageCategory = this.mVideoProcessMap.get(Long.valueOf(longValue));
+            long jLongValue = ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
+            if (this.mVideoProcessMap.containsKey(Long.valueOf(jLongValue))) {
+                imageCategory = this.mVideoProcessMap.get(Long.valueOf(jLongValue));
                 imageCategory.mMetaItem = metaItemInfo;
             } else {
                 imageCategory = new ImageCategory();
                 imageCategory.mMetaItem = metaItemInfo;
-                this.mVideoProcessMap.put(Long.valueOf(longValue), imageCategory);
+                this.mVideoProcessMap.put(Long.valueOf(jLongValue), imageCategory);
             }
             if (imageCategory.isValid()) {
-                this.mVideoProcessMap.remove(Long.valueOf(longValue));
-                Message obtainMessage = this.mVideoProcessHandler.obtainMessage(1);
-                obtainMessage.obj = imageCategory;
-                obtainMessage.sendToTarget();
+                this.mVideoProcessMap.remove(Long.valueOf(jLongValue));
+                Message messageObtainMessage = this.mVideoProcessHandler.obtainMessage(1);
+                messageObtainMessage.obj = imageCategory;
+                messageObtainMessage.sendToTarget();
             }
         }
     }
@@ -158,16 +157,14 @@ public class ApsVideoAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void onPreviewReceived(ApsResult apsResult) {
+    protected void onPreviewReceived(ApsResult apsResult) {
         ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
         if (apsServiceListener != null) {
             apsServiceListener.onVideoReceived(apsResult);
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void flushImage() {
+    protected void flushImage() {
         synchronized (this.mVideoQueueLock) {
             Iterator<Map.Entry<Long, ImageCategory>> it = this.mVideoProcessMap.entrySet().iterator();
             while (it.hasNext()) {
@@ -185,8 +182,7 @@ public class ApsVideoAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void destroy() {
+    protected void destroy() {
         ProcessHandler processHandler = this.mVideoProcessHandler;
         if (processHandler != null) {
             processHandler.getLooper().quitSafely();
@@ -196,7 +192,7 @@ public class ApsVideoAdapterImpl {
 
     private void checkImageOverflow() {
         ArrayList arrayList = new ArrayList();
-        List<Long> arrayList2 = new ArrayList();
+        List arrayList2 = new ArrayList();
         for (Map.Entry<Long, ImageCategory> entry : this.mVideoProcessMap.entrySet()) {
             if (!entry.getValue().mImageItemList.isEmpty()) {
                 arrayList.add(entry.getKey());
@@ -208,12 +204,12 @@ public class ApsVideoAdapterImpl {
         if (arrayList2 == null || arrayList2.isEmpty()) {
             return;
         }
-        for (Long l : arrayList2) {
-            ImageCategory remove = this.mVideoProcessMap.remove(Long.valueOf(l.longValue()));
-            String str = TAG;
-            ApsAdapterLog.e(str, "checkImageOverflow, category: " + remove);
-            if (remove != null) {
-                remove.releaseImageItemList();
+        Iterator it = arrayList2.iterator();
+        while (it.hasNext()) {
+            ImageCategory imageCategoryRemove = this.mVideoProcessMap.remove(Long.valueOf(((Long) it.next()).longValue()));
+            ApsAdapterLog.e(TAG, "checkImageOverflow, category: " + imageCategoryRemove);
+            if (imageCategoryRemove != null) {
+                imageCategoryRemove.releaseImageItemList();
             }
             ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
             if (apsServiceListener != null) {
@@ -222,9 +218,7 @@ public class ApsVideoAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public class ProcessHandler extends Handler {
+    private class ProcessHandler extends Handler {
         private ProcessHandler(Looper looper) {
             super(looper);
         }
@@ -232,14 +226,14 @@ public class ApsVideoAdapterImpl {
         @Override // android.os.Handler
         public void handleMessage(Message message) {
             if (message.what != 1) {
-                String str = ApsVideoAdapterImpl.TAG;
-                ApsAdapterLog.e(str, "handleMessage, msg: " + message.what + " is not defined.");
-            } else if (message.obj == null || !(message.obj instanceof ImageCategory)) {
-                String str2 = ApsVideoAdapterImpl.TAG;
-                ApsAdapterLog.e(str2, "handleMessage, error msg: " + message.obj);
-            } else {
-                ApsVideoAdapterImpl.this.addVideoFrameBuff((ImageCategory) message.obj);
+                ApsAdapterLog.e(ApsVideoAdapterImpl.TAG, "handleMessage, msg: " + message.what + " is not defined.");
+                return;
             }
+            if (message.obj == null || !(message.obj instanceof ImageCategory)) {
+                ApsAdapterLog.e(ApsVideoAdapterImpl.TAG, "handleMessage, error msg: " + message.obj);
+                return;
+            }
+            ApsVideoAdapterImpl.this.addVideoFrameBuff((ImageCategory) message.obj);
         }
     }
 }

@@ -5,7 +5,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 abstract class BaseRef<T> implements IBaseRef {
     static final HashMap<Class<?>, Object> DEFAULT_TYPES;
     private final String mName;
@@ -14,20 +15,19 @@ abstract class BaseRef<T> implements IBaseRef {
     private final T mDefaultValue = initDefaultValue();
 
     static {
-        HashMap<Class<?>, Object> hashMap = new HashMap<>();
-        DEFAULT_TYPES = hashMap;
-        hashMap.put(Integer.class, 0);
-        hashMap.put(Short.class, (short) 0);
-        hashMap.put(Long.class, 0L);
-        hashMap.put(Float.class, Float.valueOf(0.0f));
-        hashMap.put(Double.class, Double.valueOf(0.0d));
-        hashMap.put(Boolean.class, false);
-        hashMap.put(Byte.class, (byte) 0);
-        hashMap.put(Character.class, (char) 0);
+        HashMap<Class<?>, Object> map = new HashMap<>();
+        DEFAULT_TYPES = map;
+        map.put(Integer.class, 0);
+        map.put(Short.class, (short) 0);
+        map.put(Long.class, 0L);
+        map.put(Float.class, Float.valueOf(0.0f));
+        map.put(Double.class, Double.valueOf(0.0d));
+        map.put(Boolean.class, false);
+        map.put(Byte.class, (byte) 0);
+        map.put(Character.class, (char) 0);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public BaseRef(Field field) {
+    BaseRef(Field field) {
         this.mName = field.getName();
         this.mType = getGenericType(field);
     }
@@ -42,8 +42,7 @@ abstract class BaseRef<T> implements IBaseRef {
         this.mStub = obj;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public Object checkStub(Object obj) {
+    Object checkStub(Object obj) {
         Class<?> cls;
         if (obj == null) {
             return obj;
@@ -61,17 +60,16 @@ abstract class BaseRef<T> implements IBaseRef {
         return null;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public T getDefaultValue() {
+    T getDefaultValue() {
         return this.mDefaultValue;
     }
 
     private Type getGenericType(Field field) {
         Type genericType = field.getGenericType();
-        if (genericType instanceof ParameterizedType) {
-            Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
-            return actualTypeArguments.length > 0 ? actualTypeArguments[0] : genericType;
+        if (!(genericType instanceof ParameterizedType)) {
+            return genericType;
         }
-        return genericType;
+        Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
+        return actualTypeArguments.length > 0 ? actualTypeArguments[0] : genericType;
     }
 }

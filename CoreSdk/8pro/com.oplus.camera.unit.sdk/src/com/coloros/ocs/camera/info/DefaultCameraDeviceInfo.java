@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DefaultCameraDeviceInfo implements CameraDeviceInfoInterface {
     private com.oplus.ocs.camera.appinterface.CameraDeviceInfoInterface mCameraDeviceInfoInterface;
 
@@ -45,14 +46,14 @@ public class DefaultCameraDeviceInfo implements CameraDeviceInfoInterface {
     }
 
     private Map<String, String> convertConfigFeatures(Map<String, String> map) {
-        HashMap hashMap = new HashMap();
+        HashMap map2 = new HashMap();
         if (map == null || map.isEmpty()) {
             return map;
         }
         for (String str : map.keySet()) {
-            hashMap.put(Util.convertOldParameterKeyName(str), map.get(str));
+            map2.put(Util.convertOldParameterKeyName(str), map.get(str));
         }
-        return hashMap;
+        return map2;
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInfoInterface
@@ -122,11 +123,11 @@ public class DefaultCameraDeviceInfo implements CameraDeviceInfoInterface {
         if (conflictParameter == null || conflictParameter.isEmpty()) {
             return conflictParameter;
         }
-        HashMap hashMap = new HashMap();
+        HashMap map = new HashMap();
         for (String str3 : conflictParameter.keySet()) {
-            hashMap.put(Util.convertNewParameterKeyName(str3), conflictParameter.get(str3));
+            map.put(Util.convertNewParameterKeyName(str3), conflictParameter.get(str3));
         }
-        return hashMap;
+        return map;
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInfoInterface

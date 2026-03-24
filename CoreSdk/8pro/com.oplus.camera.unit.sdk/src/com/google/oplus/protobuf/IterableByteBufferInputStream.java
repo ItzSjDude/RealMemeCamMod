@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.Iterator;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class IterableByteBufferInputStream extends InputStream {
+
+/* JADX INFO: loaded from: classes.dex */
+class IterableByteBufferInputStream extends InputStream {
     private long currentAddress;
     private byte[] currentArray;
     private int currentArrayOffset;
@@ -17,8 +17,7 @@ public class IterableByteBufferInputStream extends InputStream {
     private boolean hasArray;
     private Iterator<ByteBuffer> iterator;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public IterableByteBufferInputStream(Iterable<ByteBuffer> iterable) {
+    IterableByteBufferInputStream(Iterable<ByteBuffer> iterable) {
         this.iterator = iterable.iterator();
         for (ByteBuffer byteBuffer : iterable) {
             this.dataSize++;
@@ -35,22 +34,22 @@ public class IterableByteBufferInputStream extends InputStream {
 
     private boolean getNextByteBuffer() {
         this.currentIndex++;
-        if (this.iterator.hasNext()) {
-            ByteBuffer next = this.iterator.next();
-            this.currentByteBuffer = next;
-            this.currentByteBufferPos = next.position();
-            if (this.currentByteBuffer.hasArray()) {
-                this.hasArray = true;
-                this.currentArray = this.currentByteBuffer.array();
-                this.currentArrayOffset = this.currentByteBuffer.arrayOffset();
-            } else {
-                this.hasArray = false;
-                this.currentAddress = UnsafeUtil.addressOffset(this.currentByteBuffer);
-                this.currentArray = null;
-            }
-            return true;
+        if (!this.iterator.hasNext()) {
+            return false;
         }
-        return false;
+        ByteBuffer next = this.iterator.next();
+        this.currentByteBuffer = next;
+        this.currentByteBufferPos = next.position();
+        if (this.currentByteBuffer.hasArray()) {
+            this.hasArray = true;
+            this.currentArray = this.currentByteBuffer.array();
+            this.currentArrayOffset = this.currentByteBuffer.arrayOffset();
+        } else {
+            this.hasArray = false;
+            this.currentAddress = UnsafeUtil.addressOffset(this.currentByteBuffer);
+            this.currentArray = null;
+        }
+        return true;
     }
 
     private void updateCurrentByteBufferPos(int i) {
@@ -71,7 +70,7 @@ public class IterableByteBufferInputStream extends InputStream {
             updateCurrentByteBufferPos(1);
             return i;
         }
-        int i2 = UnsafeUtil.getByte(this.currentByteBufferPos + this.currentAddress) & 255;
+        int i2 = UnsafeUtil.getByte(((long) this.currentByteBufferPos) + this.currentAddress) & 255;
         updateCurrentByteBufferPos(1);
         return i2;
     }
@@ -81,9 +80,9 @@ public class IterableByteBufferInputStream extends InputStream {
         if (this.currentIndex == this.dataSize) {
             return -1;
         }
-        int limit = this.currentByteBuffer.limit();
+        int iLimit = this.currentByteBuffer.limit();
         int i3 = this.currentByteBufferPos;
-        int i4 = limit - i3;
+        int i4 = iLimit - i3;
         if (i2 > i4) {
             i2 = i4;
         }
@@ -91,10 +90,10 @@ public class IterableByteBufferInputStream extends InputStream {
             System.arraycopy(this.currentArray, i3 + this.currentArrayOffset, bArr, i, i2);
             updateCurrentByteBufferPos(i2);
         } else {
-            int position = this.currentByteBuffer.position();
+            int iPosition = this.currentByteBuffer.position();
             this.currentByteBuffer.position(this.currentByteBufferPos);
             this.currentByteBuffer.get(bArr, i, i2);
-            this.currentByteBuffer.position(position);
+            this.currentByteBuffer.position(iPosition);
             updateCurrentByteBufferPos(i2);
         }
         return i2;

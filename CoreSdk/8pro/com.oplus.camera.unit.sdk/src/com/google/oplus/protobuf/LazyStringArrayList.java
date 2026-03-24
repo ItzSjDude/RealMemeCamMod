@@ -7,7 +7,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.RandomAccess;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class LazyStringArrayList extends AbstractProtobufList<String> implements LazyStringList, RandomAccess {
     public static final LazyStringList EMPTY;
     private static final LazyStringArrayList EMPTY_LIST;
@@ -75,8 +76,10 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         this.list = arrayList;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
-    public LazyStringArrayList mutableCopyWithCapacity(int i) {
+    /* JADX INFO: renamed from: mutableCopyWithCapacity */
+    public LazyStringArrayList mutableCopyWithCapacity2(int i) {
         if (i < size()) {
             throw new IllegalArgumentException();
         }
@@ -85,6 +88,7 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         return new LazyStringArrayList((ArrayList<Object>) arrayList);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
     @Override // java.util.AbstractList, java.util.List
     public String get(int i) {
         Object obj = this.list.get(i);
@@ -112,12 +116,14 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         return this.list.size();
     }
 
+    /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public String set(int i, String str) {
         ensureIsMutable();
         return asString(this.list.set(i, str));
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public void add(int i, String str) {
         ensureIsMutable();
@@ -150,33 +156,34 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         if (collection instanceof LazyStringList) {
             collection = ((LazyStringList) collection).getUnderlyingElements();
         }
-        boolean addAll = this.list.addAll(i, collection);
+        boolean zAddAll = this.list.addAll(i, collection);
         this.modCount++;
-        return addAll;
+        return zAddAll;
     }
 
     @Override // com.google.oplus.protobuf.LazyStringList
     public boolean addAllByteString(Collection<? extends ByteString> collection) {
         ensureIsMutable();
-        boolean addAll = this.list.addAll(collection);
+        boolean zAddAll = this.list.addAll(collection);
         this.modCount++;
-        return addAll;
+        return zAddAll;
     }
 
     @Override // com.google.oplus.protobuf.LazyStringList
     public boolean addAllByteArray(Collection<byte[]> collection) {
         ensureIsMutable();
-        boolean addAll = this.list.addAll(collection);
+        boolean zAddAll = this.list.addAll(collection);
         this.modCount++;
-        return addAll;
+        return zAddAll;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public String remove(int i) {
         ensureIsMutable();
-        Object remove = this.list.remove(i);
+        Object objRemove = this.list.remove(i);
         this.modCount++;
-        return asString(remove);
+        return asString(objRemove);
     }
 
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
@@ -208,22 +215,23 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
     @Override // com.google.oplus.protobuf.LazyStringList
     public ByteString getByteString(int i) {
         Object obj = this.list.get(i);
-        ByteString asByteString = asByteString(obj);
-        if (asByteString != obj) {
-            this.list.set(i, asByteString);
+        ByteString byteStringAsByteString = asByteString(obj);
+        if (byteStringAsByteString != obj) {
+            this.list.set(i, byteStringAsByteString);
         }
-        return asByteString;
+        return byteStringAsByteString;
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r1v0, resolved type: byte[] */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.LazyStringList
     public byte[] getByteArray(int i) {
         Object obj = this.list.get(i);
-        byte[] asByteArray = asByteArray(obj);
-        if (asByteArray != obj) {
-            this.list.set(i, asByteArray);
+        byte[] bArrAsByteArray = asByteArray(obj);
+        if (bArrAsByteArray != obj) {
+            this.list.set(i, bArrAsByteArray);
         }
-        return asByteArray;
+        return bArrAsByteArray;
     }
 
     @Override // com.google.oplus.protobuf.LazyStringList
@@ -298,7 +306,6 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         }
     }
 
-    /* loaded from: classes.dex */
     private static class ByteArrayListView extends AbstractList<byte[]> implements RandomAccess {
         private final LazyStringArrayList list;
 
@@ -306,6 +313,7 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             this.list = lazyStringArrayList;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public byte[] get(int i) {
             return this.list.getByteArray(i);
@@ -316,6 +324,7 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             return this.list.size();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public byte[] set(int i, byte[] bArr) {
             Object andReturn = this.list.setAndReturn(i, bArr);
@@ -323,17 +332,19 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             return LazyStringArrayList.asByteArray(andReturn);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
         @Override // java.util.AbstractList, java.util.List
         public void add(int i, byte[] bArr) {
             this.list.add(i, bArr);
             this.modCount++;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public byte[] remove(int i) {
-            String remove = this.list.remove(i);
+            String strRemove = this.list.remove(i);
             this.modCount++;
-            return LazyStringArrayList.asByteArray(remove);
+            return LazyStringArrayList.asByteArray(strRemove);
         }
     }
 
@@ -342,7 +353,6 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         return new ByteArrayListView(this);
     }
 
-    /* loaded from: classes.dex */
     private static class ByteStringListView extends AbstractList<ByteString> implements RandomAccess {
         private final LazyStringArrayList list;
 
@@ -350,6 +360,7 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             this.list = lazyStringArrayList;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public ByteString get(int i) {
             return this.list.getByteString(i);
@@ -360,6 +371,7 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             return this.list.size();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public ByteString set(int i, ByteString byteString) {
             Object andReturn = this.list.setAndReturn(i, byteString);
@@ -367,17 +379,19 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             return LazyStringArrayList.asByteString(andReturn);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
         @Override // java.util.AbstractList, java.util.List
         public void add(int i, ByteString byteString) {
             this.list.add(i, byteString);
             this.modCount++;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
         @Override // java.util.AbstractList, java.util.List
         public ByteString remove(int i) {
-            String remove = this.list.remove(i);
+            String strRemove = this.list.remove(i);
             this.modCount++;
-            return LazyStringArrayList.asByteString(remove);
+            return LazyStringArrayList.asByteString(strRemove);
         }
     }
 

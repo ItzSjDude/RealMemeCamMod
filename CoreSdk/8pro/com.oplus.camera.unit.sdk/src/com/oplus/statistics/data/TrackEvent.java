@@ -12,7 +12,8 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.Map;
 import java.util.Objects;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class TrackEvent {
     protected static final String APP_ID = "appId";
     protected static final String APP_ID_STR = "appIdStr";
@@ -32,8 +33,8 @@ public abstract class TrackEvent {
     private String mVersionName = "";
     private String mAppName = "";
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$initBaseTrackInfo$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "appId is empty" */
+    static /* synthetic */ String lambda$initBaseTrackInfo$0() {
         return "appId is empty";
     }
 
@@ -51,23 +52,19 @@ public abstract class TrackEvent {
         return new ArrayMap(this.mTrackInfo);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public void addTrackInfo(String str, int i) {
+    void addTrackInfo(String str, int i) {
         this.mTrackInfo.put(str, Integer.valueOf(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addTrackInfo(String str, long j) {
+    protected void addTrackInfo(String str, long j) {
         this.mTrackInfo.put(str, Long.valueOf(j));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addTrackInfo(String str, boolean z) {
+    protected void addTrackInfo(String str, boolean z) {
         this.mTrackInfo.put(str, Boolean.valueOf(z));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addTrackInfo(String str, String str2) {
+    protected void addTrackInfo(String str, String str2) {
         this.mTrackInfo.put(str, str2);
     }
 

@@ -11,7 +11,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsExifData;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsExtendData;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PictureResultHelper extends CameraBaseResultHelper {
     private CaptureFailure mCaptureFailure = null;
 

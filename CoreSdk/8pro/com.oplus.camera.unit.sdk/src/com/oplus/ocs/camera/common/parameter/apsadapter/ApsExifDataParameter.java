@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.parameter.apsadapter;
 
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsExifDataParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<String> KEY_EXIF_SENSOR_NAME = new ApsBaseParameter.Key<>("com.oplus.exif.sensor_name", String.class);
     public static final ApsBaseParameter.Key<Integer> KEY_EXIF_ROTATE = new ApsBaseParameter.Key<>("com.oplus.exif.rotate", Integer.class);

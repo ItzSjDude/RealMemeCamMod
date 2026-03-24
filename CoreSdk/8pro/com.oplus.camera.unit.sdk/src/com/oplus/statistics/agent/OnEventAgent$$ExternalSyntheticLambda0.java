@@ -1,8 +1,11 @@
 package com.oplus.statistics.agent;
 
+import com.android.tools.r8.annotations.SynthesizedClass;
 import com.oplus.statistics.util.Supplier;
-/* compiled from: D8$$SyntheticClass */
-/* loaded from: classes.dex */
+
+/* JADX INFO: compiled from: D8$$SyntheticClass */
+/* JADX INFO: loaded from: classes.dex */
+@SynthesizedClass(kind = "Lambda")
 public final /* synthetic */ class OnEventAgent$$ExternalSyntheticLambda0 implements Supplier {
     public final /* synthetic */ Exception f$0;
 

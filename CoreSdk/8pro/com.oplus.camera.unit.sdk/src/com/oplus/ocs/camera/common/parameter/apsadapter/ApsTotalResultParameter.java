@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.parameter.apsadapter;
 
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsTotalResultParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<Integer> KEY_PREVIEW_BOKEN_STATE = new ApsBaseParameter.Key<>("com.oplus.preview.rtb_msg", Integer.class, -1);
     public static final ApsBaseParameter.Key<Integer> KEY_PREVIEW_AI_SCENE = new ApsBaseParameter.Key<>("com.oplus.preview.asd_scene_icon", Integer.class, 0);

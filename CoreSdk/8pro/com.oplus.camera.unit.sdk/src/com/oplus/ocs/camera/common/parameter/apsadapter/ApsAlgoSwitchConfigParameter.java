@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.common.parameter.apsadapter;
 import android.util.ArrayMap;
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsAlgoSwitchConfigParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<String> KEY_CAPTURE_CONFIG_CAMERA_MODE = new ApsBaseParameter.Key<>("capture_config_camera_mode", String.class);
     public static final ApsBaseParameter.Key<Integer> KEY_CAPTURE_CONFIG_CAMERA_ID = new ApsBaseParameter.Key<>("capture_config_camera_id", Integer.class);

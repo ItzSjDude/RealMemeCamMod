@@ -1,7 +1,8 @@
 package com.youtu.ocr.docprocess;
 
 import android.util.Log;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class GussianBlur {
     private double[] mGussianWeight;
     private int mKernelSize;

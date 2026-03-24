@@ -11,7 +11,8 @@ import com.oplus.ocs.camera.common.util.ApsRequestTag;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class GroupPhotoMode extends HighDefinitionMode {
     private static final String TAG = "GroupPhotoMode";
 

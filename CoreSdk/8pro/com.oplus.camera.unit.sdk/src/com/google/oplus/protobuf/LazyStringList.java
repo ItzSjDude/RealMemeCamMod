@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import java.util.Collection;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface LazyStringList extends ProtocolStringList {
     void add(ByteString byteString);
 

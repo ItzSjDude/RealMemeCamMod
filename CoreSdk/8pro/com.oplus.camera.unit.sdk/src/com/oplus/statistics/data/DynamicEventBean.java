@@ -2,7 +2,8 @@ package com.oplus.statistics.data;
 
 import android.content.Context;
 import com.oplus.statistics.DataTypeConstants;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DynamicEventBean extends TrackEvent {
     private static final String EVENT_BODY = "eventBody";
     private static final String UPLOAD_MODE = "uploadMode";

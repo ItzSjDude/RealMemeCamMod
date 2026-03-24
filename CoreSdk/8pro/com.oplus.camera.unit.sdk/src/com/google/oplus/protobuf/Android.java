@@ -1,5 +1,6 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class Android {
     private static boolean ASSUME_ANDROID;
     private static final boolean IS_ROBOLECTRIC;
@@ -12,13 +13,11 @@ final class Android {
         IS_ROBOLECTRIC = (ASSUME_ANDROID || getClassForName("org.robolectric.Robolectric") == null) ? false : true;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static boolean isOnAndroidDevice() {
+    static boolean isOnAndroidDevice() {
         return ASSUME_ANDROID || !(MEMORY_CLASS == null || IS_ROBOLECTRIC);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static Class<?> getMemoryClass() {
+    static Class<?> getMemoryClass() {
         return MEMORY_CLASS;
     }
 

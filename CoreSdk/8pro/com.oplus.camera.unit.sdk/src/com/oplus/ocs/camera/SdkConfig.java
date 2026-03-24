@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera;
 
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SdkConfig {
     public static final boolean DEBUG = false;
     public static final boolean META_DUMP = CameraUnitLog.isDebugLogOn();

@@ -2,7 +2,8 @@ package com.oplus.statistics.data;
 
 import android.content.Context;
 import com.oplus.statistics.DataTypeConstants;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ExceptionBean extends TrackEvent {
     private static final String EXCEPTION = "exception";
     private static final String EXCEPTION_COUNT = "count";

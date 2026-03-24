@@ -2,7 +2,8 @@ package com.oplus.statistics.util;
 
 import android.content.Intent;
 import java.util.ArrayList;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class IntentUtils {
     private static final String TAG = "IntentUtils";
 
@@ -20,8 +21,8 @@ public class IntentUtils {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getBooleanExtra$0(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("intent getBooleanExtra exception:"), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getBooleanExtra$0(Exception exc) {
         return "intent getBooleanExtra exception:" + exc;
     }
 
@@ -39,8 +40,8 @@ public class IntentUtils {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getStringExtra$1(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("intent getStringExtra exception:"), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getStringExtra$1(Exception exc) {
         return "intent getStringExtra exception:" + exc;
     }
 
@@ -58,8 +59,8 @@ public class IntentUtils {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getIntExtra$2(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("intent getIntExtra exception:"), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getIntExtra$2(Exception exc) {
         return "intent getIntExtra exception:" + exc;
     }
 
@@ -77,8 +78,8 @@ public class IntentUtils {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getLongExtra$3(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("intent getLongExtra exception:"), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getLongExtra$3(Exception exc) {
         return "intent getLongExtra exception:" + exc;
     }
 
@@ -96,8 +97,8 @@ public class IntentUtils {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getStringArrayListExtra$4(Exception exc) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("intent getStringArrayListExtra exception:"), (r2v0 java.lang.Exception) A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getStringArrayListExtra$4(Exception exc) {
         return "intent getStringArrayListExtra exception:" + exc;
     }
 }

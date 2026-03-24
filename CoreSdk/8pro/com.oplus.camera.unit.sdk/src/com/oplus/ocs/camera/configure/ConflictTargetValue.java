@@ -3,16 +3,18 @@ package com.oplus.ocs.camera.configure;
 import androidx.annotation.NonNull;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class ConflictTargetValue<P> {
     private final String mOriginValue;
+
     @NonNull
     private final List<Value<P>> mValue;
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static <V> ConflictTargetValue create(String str, Class<V> cls) {
+    protected static <V> ConflictTargetValue create(String str, Class<V> cls) {
         return new ConflictTargetValue(str, cls);
     }
 
@@ -29,18 +31,17 @@ class ConflictTargetValue<P> {
         arrayList.add(ValueFactory.getValue(str, cls));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public String getOriginValue() {
+    protected String getOriginValue() {
         return this.mOriginValue;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public boolean isTargetValue(Object obj) {
+    protected boolean isTargetValue(Object obj) {
         if (obj == null) {
             return false;
         }
-        for (Value<P> value : this.mValue) {
-            if (value.isTargetValue(obj)) {
+        Iterator<Value<P>> it = this.mValue.iterator();
+        while (it.hasNext()) {
+            if (it.next().isTargetValue(obj)) {
                 return true;
             }
         }

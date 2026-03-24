@@ -5,7 +5,8 @@ import android.hardware.camera2.CaptureResult;
 import android.util.ArrayMap;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsCameraMetadataKey;
 import java.util.Arrays;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsCaptureResult {
     private ApsTotalResult mApsTotalResult;
     public Integer mAwbMode;

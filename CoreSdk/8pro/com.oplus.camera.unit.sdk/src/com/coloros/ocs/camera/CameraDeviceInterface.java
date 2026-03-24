@@ -12,7 +12,8 @@ import com.coloros.ocs.camera.callback.CameraRecordingCallbackAdapter;
 import com.coloros.ocs.camera.info.CameraDeviceInfoInterface;
 import com.coloros.ocs.camera.parameter.SdkCameraDeviceConfig;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface CameraDeviceInterface {
     void abortCaptures();
 

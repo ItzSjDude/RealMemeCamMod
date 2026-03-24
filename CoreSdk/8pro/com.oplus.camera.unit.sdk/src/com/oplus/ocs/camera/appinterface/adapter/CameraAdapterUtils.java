@@ -8,7 +8,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils;
 import com.oplus.ocs.camera.consumer.apsAdapter.update.UpdateHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraAdapterUtils {
     private static final String TAG = "CameraAdapterUtils";
 
@@ -37,8 +38,8 @@ public class CameraAdapterUtils {
         return CameraConfigHelper.setVendorTagConfigRus(str, str2);
     }
 
-    public static void setAlgoSwitch(HashMap<String, String> hashMap) {
-        ApsUtils.setAlgoSwitch(hashMap);
+    public static void setAlgoSwitch(HashMap<String, String> map) {
+        ApsUtils.setAlgoSwitch(map);
     }
 
     public static void setSimulationMode(int i) {

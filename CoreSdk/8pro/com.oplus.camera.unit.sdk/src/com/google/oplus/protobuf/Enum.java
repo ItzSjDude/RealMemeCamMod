@@ -13,7 +13,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
     public static final int ENUMVALUE_FIELD_NUMBER = 2;
     public static final int NAME_FIELD_NUMBER = 1;
@@ -29,6 +30,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
     private int syntax_;
     private static final Enum DEFAULT_INSTANCE = new Enum();
     private static final Parser<Enum> PARSER = new AbstractParser<Enum>() { // from class: com.google.oplus.protobuf.Enum.1
+        /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.Parser
         public Enum parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return new Enum(codedInputStream, extensionRegistryLite);
@@ -48,9 +50,8 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         this.syntax_ = 0;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
-    public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+    protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
         return new Enum();
     }
 
@@ -59,33 +60,32 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         return this.unknownFields;
     }
 
-    /* JADX WARN: Multi-variable type inference failed */
     private Enum(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
         this();
         extensionRegistryLite.getClass();
-        UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+        UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
         boolean z = false;
-        boolean z2 = false;
+        int i = 0;
         while (!z) {
             try {
                 try {
-                    int readTag = codedInputStream.readTag();
-                    if (readTag != 0) {
-                        if (readTag == 10) {
+                    int tag = codedInputStream.readTag();
+                    if (tag != 0) {
+                        if (tag == 10) {
                             this.name_ = codedInputStream.readStringRequireUtf8();
-                        } else if (readTag == 18) {
-                            if (!(z2 & true)) {
+                        } else if (tag == 18) {
+                            if ((i & 1) == 0) {
                                 this.enumvalue_ = new ArrayList();
-                                z2 |= true;
+                                i |= 1;
                             }
-                            this.enumvalue_.add(codedInputStream.readMessage(EnumValue.parser(), extensionRegistryLite));
-                        } else if (readTag == 26) {
-                            if (!(z2 & true)) {
+                            this.enumvalue_.add((EnumValue) codedInputStream.readMessage(EnumValue.parser(), extensionRegistryLite));
+                        } else if (tag == 26) {
+                            if ((i & 2) == 0) {
                                 this.options_ = new ArrayList();
-                                z2 |= true;
+                                i |= 2;
                             }
-                            this.options_.add(codedInputStream.readMessage(Option.parser(), extensionRegistryLite));
-                        } else if (readTag == 34) {
+                            this.options_.add((Option) codedInputStream.readMessage(Option.parser(), extensionRegistryLite));
+                        } else if (tag == 34) {
                             SourceContext sourceContext = this.sourceContext_;
                             SourceContext.Builder builder = sourceContext != null ? sourceContext.toBuilder() : null;
                             SourceContext sourceContext2 = (SourceContext) codedInputStream.readMessage(SourceContext.parser(), extensionRegistryLite);
@@ -94,9 +94,9 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
                                 builder.mergeFrom(sourceContext2);
                                 this.sourceContext_ = builder.buildPartial();
                             }
-                        } else if (readTag == 40) {
+                        } else if (tag == 40) {
                             this.syntax_ = codedInputStream.readEnum();
-                        } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                        } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                         }
                     }
                     z = true;
@@ -106,13 +106,13 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
                     throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                 }
             } finally {
-                if (z2 & true) {
+                if ((i & 1) != 0) {
                     this.enumvalue_ = Collections.unmodifiableList(this.enumvalue_);
                 }
-                if (z2 & true) {
+                if ((i & 2) != 0) {
                     this.options_ = Collections.unmodifiableList(this.options_);
                 }
-                this.unknownFields = newBuilder.build();
+                this.unknownFields = builderNewBuilder.build();
                 makeExtensionsImmutable();
             }
         }
@@ -142,9 +142,9 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
     public ByteString getNameBytes() {
         Object obj = this.name_;
         if (obj instanceof String) {
-            ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-            this.name_ = copyFromUtf8;
-            return copyFromUtf8;
+            ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+            this.name_ = byteStringCopyFromUtf8;
+            return byteStringCopyFromUtf8;
         }
         return (ByteString) obj;
     }
@@ -222,8 +222,8 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
 
     @Override // com.google.oplus.protobuf.EnumOrBuilder
     public Syntax getSyntax() {
-        Syntax valueOf = Syntax.valueOf(this.syntax_);
-        return valueOf == null ? Syntax.UNRECOGNIZED : valueOf;
+        Syntax syntaxValueOf = Syntax.valueOf(this.syntax_);
+        return syntaxValueOf == null ? Syntax.UNRECOGNIZED : syntaxValueOf;
     }
 
     @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLiteOrBuilder
@@ -265,20 +265,20 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         if (i != -1) {
             return i;
         }
-        int computeStringSize = !GeneratedMessageV3.isStringEmpty(this.name_) ? GeneratedMessageV3.computeStringSize(1, this.name_) + 0 : 0;
+        int iComputeStringSize = !GeneratedMessageV3.isStringEmpty(this.name_) ? GeneratedMessageV3.computeStringSize(1, this.name_) + 0 : 0;
         for (int i2 = 0; i2 < this.enumvalue_.size(); i2++) {
-            computeStringSize += CodedOutputStream.computeMessageSize(2, this.enumvalue_.get(i2));
+            iComputeStringSize += CodedOutputStream.computeMessageSize(2, this.enumvalue_.get(i2));
         }
         for (int i3 = 0; i3 < this.options_.size(); i3++) {
-            computeStringSize += CodedOutputStream.computeMessageSize(3, this.options_.get(i3));
+            iComputeStringSize += CodedOutputStream.computeMessageSize(3, this.options_.get(i3));
         }
         if (this.sourceContext_ != null) {
-            computeStringSize += CodedOutputStream.computeMessageSize(4, getSourceContext());
+            iComputeStringSize += CodedOutputStream.computeMessageSize(4, getSourceContext());
         }
         if (this.syntax_ != Syntax.SYNTAX_PROTO2.getNumber()) {
-            computeStringSize += CodedOutputStream.computeEnumSize(5, this.syntax_);
+            iComputeStringSize += CodedOutputStream.computeEnumSize(5, this.syntax_);
         }
-        int serializedSize = computeStringSize + this.unknownFields.getSerializedSize();
+        int serializedSize = iComputeStringSize + this.unknownFields.getSerializedSize();
         this.memoizedSize = serializedSize;
         return serializedSize;
     }
@@ -303,19 +303,19 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         if (this.memoizedHashCode != 0) {
             return this.memoizedHashCode;
         }
-        int hashCode = ((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getName().hashCode();
+        int iHashCode = ((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getName().hashCode();
         if (getEnumvalueCount() > 0) {
-            hashCode = (((hashCode * 37) + 2) * 53) + getEnumvalueList().hashCode();
+            iHashCode = (((iHashCode * 37) + 2) * 53) + getEnumvalueList().hashCode();
         }
         if (getOptionsCount() > 0) {
-            hashCode = (((hashCode * 37) + 3) * 53) + getOptionsList().hashCode();
+            iHashCode = (((iHashCode * 37) + 3) * 53) + getOptionsList().hashCode();
         }
         if (hasSourceContext()) {
-            hashCode = (((hashCode * 37) + 4) * 53) + getSourceContext().hashCode();
+            iHashCode = (((iHashCode * 37) + 4) * 53) + getSourceContext().hashCode();
         }
-        int hashCode2 = (((((hashCode * 37) + 5) * 53) + this.syntax_) * 29) + this.unknownFields.hashCode();
-        this.memoizedHashCode = hashCode2;
-        return hashCode2;
+        int iHashCode2 = (((((iHashCode * 37) + 5) * 53) + this.syntax_) * 29) + this.unknownFields.hashCode();
+        this.memoizedHashCode = iHashCode2;
+        return iHashCode2;
     }
 
     public static Enum parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -366,6 +366,8 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         return (Enum) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder newBuilderForType() {
         return newBuilder();
@@ -379,18 +381,20 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(r1);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder toBuilder() {
         return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
     public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
         return new Builder(builderParent);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements EnumOrBuilder {
         private int bitField0_;
         private RepeatedFieldBuilderV3<EnumValue, EnumValue.Builder, EnumValueOrBuilder> enumvalueBuilder_;
@@ -440,6 +444,10 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             super.clear();
@@ -473,20 +481,26 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             return TypeProto.internal_static_google_protobuf_Enum_descriptor;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public Enum getDefaultInstanceForType() {
             return Enum.getDefaultInstance();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Enum build() {
-            Enum buildPartial = buildPartial();
-            if (buildPartial.isInitialized()) {
-                return buildPartial;
+            Enum enumBuildPartial = buildPartial();
+            if (enumBuildPartial.isInitialized()) {
+                return enumBuildPartial;
             }
-            throw newUninitializedMessageException((Message) buildPartial);
+            throw newUninitializedMessageException((Message) enumBuildPartial);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Enum buildPartial() {
             Enum r0 = new Enum(this);
@@ -515,44 +529,63 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             if (singleFieldBuilderV3 == null) {
                 r0.sourceContext_ = this.sourceContext_;
             } else {
-                r0.sourceContext_ = singleFieldBuilderV3.build();
+                r0.sourceContext_ = (SourceContext) singleFieldBuilderV3.build();
             }
             r0.syntax_ = this.syntax_;
             onBuilt();
             return r0;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public Builder clone() {
-            return (Builder) super.clone();
+        /* JADX INFO: renamed from: clone */
+        public Builder mo0clone() {
+            return (Builder) super.mo0clone();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.setField(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             return (Builder) super.clearField(fieldDescriptor);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             return (Builder) super.clearOneof(oneofDescriptor);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.addRepeatedField(fieldDescriptor, obj);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(Message message) {
             if (message instanceof Enum) {
@@ -625,42 +658,43 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public com.google.oplus.protobuf.Enum.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-            /*
-                r2 = this;
-                r0 = 0
-                com.google.oplus.protobuf.Parser r1 = com.google.oplus.protobuf.Enum.access$800()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                com.google.oplus.protobuf.Enum r3 = (com.google.oplus.protobuf.Enum) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                if (r3 == 0) goto L10
-                r2.mergeFrom(r3)
-            L10:
-                return r2
-            L11:
-                r3 = move-exception
-                goto L21
-            L13:
-                r3 = move-exception
-                com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                com.google.oplus.protobuf.Enum r4 = (com.google.oplus.protobuf.Enum) r4     // Catch: java.lang.Throwable -> L11
-                java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                throw r3     // Catch: java.lang.Throwable -> L1f
-            L1f:
-                r3 = move-exception
-                r0 = r4
-            L21:
-                if (r0 == 0) goto L26
-                r2.mergeFrom(r0)
-            L26:
-                throw r3
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.Enum.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.Enum$Builder");
+        public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            Enum r0 = null;
+            try {
+                try {
+                    Enum r3 = (Enum) Enum.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                    if (r3 != null) {
+                        mergeFrom(r3);
+                    }
+                    return this;
+                } catch (InvalidProtocolBufferException e) {
+                    Enum r4 = (Enum) e.getUnfinishedMessage();
+                    try {
+                        throw e.unwrapIOException();
+                    } catch (Throwable th) {
+                        th = th;
+                        r0 = r4;
+                        if (r0 != null) {
+                        }
+                        throw th;
+                    }
+                }
+            } catch (Throwable th2) {
+                th = th2;
+                if (r0 != null) {
+                    mergeFrom(r0);
+                }
+                throw th;
+            }
         }
 
         @Override // com.google.oplus.protobuf.EnumOrBuilder
@@ -678,9 +712,9 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         public ByteString getNameBytes() {
             Object obj = this.name_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.name_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.name_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -713,6 +747,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.EnumValue> */
         @Override // com.google.oplus.protobuf.EnumOrBuilder
         public List<EnumValue> getEnumvalueList() {
             RepeatedFieldBuilderV3<EnumValue, EnumValue.Builder, EnumValueOrBuilder> repeatedFieldBuilderV3 = this.enumvalueBuilder_;
@@ -737,7 +772,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.enumvalue_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessage(i);
+            return (EnumValue) repeatedFieldBuilderV3.getMessage(i);
         }
 
         public Builder setEnumvalue(int i, EnumValue enumValue) {
@@ -852,7 +887,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         }
 
         public EnumValue.Builder getEnumvalueBuilder(int i) {
-            return getEnumvalueFieldBuilder().getBuilder(i);
+            return (EnumValue.Builder) getEnumvalueFieldBuilder().getBuilder(i);
         }
 
         @Override // com.google.oplus.protobuf.EnumOrBuilder
@@ -861,9 +896,10 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.enumvalue_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+            return (EnumValueOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
         }
 
+        /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.EnumValueOrBuilder> */
         @Override // com.google.oplus.protobuf.EnumOrBuilder
         public List<? extends EnumValueOrBuilder> getEnumvalueOrBuilderList() {
             RepeatedFieldBuilderV3<EnumValue, EnumValue.Builder, EnumValueOrBuilder> repeatedFieldBuilderV3 = this.enumvalueBuilder_;
@@ -874,13 +910,14 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         }
 
         public EnumValue.Builder addEnumvalueBuilder() {
-            return getEnumvalueFieldBuilder().addBuilder(EnumValue.getDefaultInstance());
+            return (EnumValue.Builder) getEnumvalueFieldBuilder().addBuilder(EnumValue.getDefaultInstance());
         }
 
         public EnumValue.Builder addEnumvalueBuilder(int i) {
-            return getEnumvalueFieldBuilder().addBuilder(i, EnumValue.getDefaultInstance());
+            return (EnumValue.Builder) getEnumvalueFieldBuilder().addBuilder(i, EnumValue.getDefaultInstance());
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.EnumValue$Builder> */
         public List<EnumValue.Builder> getEnumvalueBuilderList() {
             return getEnumvalueFieldBuilder().getBuilderList();
         }
@@ -900,6 +937,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             }
         }
 
+        /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.Option> */
         @Override // com.google.oplus.protobuf.EnumOrBuilder
         public List<Option> getOptionsList() {
             RepeatedFieldBuilderV3<Option, Option.Builder, OptionOrBuilder> repeatedFieldBuilderV3 = this.optionsBuilder_;
@@ -924,7 +962,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.options_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessage(i);
+            return (Option) repeatedFieldBuilderV3.getMessage(i);
         }
 
         public Builder setOptions(int i, Option option) {
@@ -1039,7 +1077,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         }
 
         public Option.Builder getOptionsBuilder(int i) {
-            return getOptionsFieldBuilder().getBuilder(i);
+            return (Option.Builder) getOptionsFieldBuilder().getBuilder(i);
         }
 
         @Override // com.google.oplus.protobuf.EnumOrBuilder
@@ -1048,9 +1086,10 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             if (repeatedFieldBuilderV3 == null) {
                 return this.options_.get(i);
             }
-            return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+            return (OptionOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
         }
 
+        /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.OptionOrBuilder> */
         @Override // com.google.oplus.protobuf.EnumOrBuilder
         public List<? extends OptionOrBuilder> getOptionsOrBuilderList() {
             RepeatedFieldBuilderV3<Option, Option.Builder, OptionOrBuilder> repeatedFieldBuilderV3 = this.optionsBuilder_;
@@ -1061,13 +1100,14 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         }
 
         public Option.Builder addOptionsBuilder() {
-            return getOptionsFieldBuilder().addBuilder(Option.getDefaultInstance());
+            return (Option.Builder) getOptionsFieldBuilder().addBuilder(Option.getDefaultInstance());
         }
 
         public Option.Builder addOptionsBuilder(int i) {
-            return getOptionsFieldBuilder().addBuilder(i, Option.getDefaultInstance());
+            return (Option.Builder) getOptionsFieldBuilder().addBuilder(i, Option.getDefaultInstance());
         }
 
+        /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.Option$Builder> */
         public List<Option.Builder> getOptionsBuilderList() {
             return getOptionsFieldBuilder().getBuilderList();
         }
@@ -1092,7 +1132,7 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
                 SourceContext sourceContext = this.sourceContext_;
                 return sourceContext == null ? SourceContext.getDefaultInstance() : sourceContext;
             }
-            return singleFieldBuilderV3.getMessage();
+            return (SourceContext) singleFieldBuilderV3.getMessage();
         }
 
         public Builder setSourceContext(SourceContext sourceContext) {
@@ -1147,14 +1187,14 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
 
         public SourceContext.Builder getSourceContextBuilder() {
             onChanged();
-            return getSourceContextFieldBuilder().getBuilder();
+            return (SourceContext.Builder) getSourceContextFieldBuilder().getBuilder();
         }
 
         @Override // com.google.oplus.protobuf.EnumOrBuilder
         public SourceContextOrBuilder getSourceContextOrBuilder() {
             SingleFieldBuilderV3<SourceContext, SourceContext.Builder, SourceContextOrBuilder> singleFieldBuilderV3 = this.sourceContextBuilder_;
             if (singleFieldBuilderV3 != null) {
-                return singleFieldBuilderV3.getMessageOrBuilder();
+                return (SourceContextOrBuilder) singleFieldBuilderV3.getMessageOrBuilder();
             }
             SourceContext sourceContext = this.sourceContext_;
             return sourceContext == null ? SourceContext.getDefaultInstance() : sourceContext;
@@ -1181,8 +1221,8 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
 
         @Override // com.google.oplus.protobuf.EnumOrBuilder
         public Syntax getSyntax() {
-            Syntax valueOf = Syntax.valueOf(this.syntax_);
-            return valueOf == null ? Syntax.UNRECOGNIZED : valueOf;
+            Syntax syntaxValueOf = Syntax.valueOf(this.syntax_);
+            return syntaxValueOf == null ? Syntax.UNRECOGNIZED : syntaxValueOf;
         }
 
         public Builder setSyntax(Syntax syntax) {
@@ -1198,11 +1238,16 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
             return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
         public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.setUnknownFields(unknownFieldSet);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
         public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -1222,6 +1267,8 @@ public final class Enum extends GeneratedMessageV3 implements EnumOrBuilder {
         return PARSER;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
     public Enum getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;

@@ -4,7 +4,8 @@ import android.util.Log;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefStaticMethod<T> {
     private static final String TAG = "RefStaticMethod";
     private Method mMethod;
@@ -17,21 +18,21 @@ public class RefStaticMethod<T> {
         } else {
             int i = 0;
             if (field.isAnnotationPresent(MethodSignature.class)) {
-                String[] params = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
-                Class<?>[] clsArr = new Class[params.length];
-                Class<?>[] clsArr2 = new Class[params.length];
+                String[] strArrParams = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
+                Class<?>[] clsArr = new Class[strArrParams.length];
+                Class<?>[] clsArr2 = new Class[strArrParams.length];
                 boolean z = false;
-                while (i < params.length) {
-                    Class<?> protoType = getProtoType(params[i]);
+                while (i < strArrParams.length) {
+                    Class<?> protoType = getProtoType(strArrParams[i]);
                     if (protoType == null) {
                         try {
-                            protoType = Class.forName(params[i]);
+                            protoType = Class.forName(strArrParams[i]);
                         } catch (ClassNotFoundException e) {
                             Log.e(TAG, e.toString());
                         }
                     }
                     clsArr[i] = protoType;
-                    if ("java.util.HashSet".equals(params[i])) {
+                    if ("java.util.HashSet".equals(strArrParams[i])) {
                         try {
                             cls2 = Class.forName("android.util.ArraySet");
                         } catch (ClassNotFoundException e2) {
@@ -88,8 +89,7 @@ public class RefStaticMethod<T> {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static Class<?> getProtoType(String str) {
+    static Class<?> getProtoType(String str) {
         if (str.equals("int")) {
             return Integer.TYPE;
         }

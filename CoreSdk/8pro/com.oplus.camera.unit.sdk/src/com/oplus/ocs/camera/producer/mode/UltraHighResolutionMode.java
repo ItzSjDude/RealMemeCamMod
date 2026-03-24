@@ -14,16 +14,16 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class UltraHighResolutionMode extends PhotoMode {
     private static final String TAG = "UltraHighResolutionMode";
     private static final int ULTRA_HIGH_RESOLUTION_FULL_INPUT_SIZE_12MP = 12000000;
     public static final int ULTRA_HIGH_RESOLUTION_MAX_OUTPUT_HEIGHT = 9024;
     public static final int ULTRA_HIGH_RESOLUTION_MAX_OUTPUT_WIDTH = 12032;
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
+    protected boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
         return true;
     }
 
@@ -51,9 +51,8 @@ public class UltraHighResolutionMode extends PhotoMode {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         apsRequestTag.mModeName = "ultraHD_mode";
         cameraSessionEntity.setTemplate(1);
     }
@@ -66,14 +65,14 @@ public class UltraHighResolutionMode extends PhotoMode {
         if (fArr == null || 2 != fArr.length) {
             return;
         }
-        float f = 1.0f;
+        float fFloatValue = 1.0f;
         if (parameter != null && parameter.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO)) {
-            f = ((Float) parameter.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue();
+            fFloatValue = ((Float) parameter.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue();
         }
         if (size != null) {
             int width = size.getWidth() * size.getHeight();
             int[] iArr = {size.getWidth() * 2, size.getHeight() * 2, 0, 0};
-            if ((ULTRA_HIGH_RESOLUTION_FULL_INPUT_SIZE_12MP <= width && Float.compare(f, fArr[0]) == 0) || (z && Float.compare(f, fArr[1]) == 0)) {
+            if ((ULTRA_HIGH_RESOLUTION_FULL_INPUT_SIZE_12MP <= width && Float.compare(fFloatValue, fArr[0]) == 0) || (z && Float.compare(fFloatValue, fArr[1]) == 0)) {
                 iArr[0] = 12032;
                 iArr[1] = 9024;
             }

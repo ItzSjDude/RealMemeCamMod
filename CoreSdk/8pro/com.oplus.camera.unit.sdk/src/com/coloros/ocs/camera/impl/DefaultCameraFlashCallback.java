@@ -2,12 +2,12 @@ package com.coloros.ocs.camera.impl;
 
 import com.oplus.ocs.camera.appinterface.CameraFlashCallbackAdapter;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class DefaultCameraFlashCallback extends CameraFlashCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraFlashCallbackAdapter mCameraFlashCallback;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public DefaultCameraFlashCallback(com.coloros.ocs.camera.callback.CameraFlashCallbackAdapter cameraFlashCallbackAdapter) {
+    DefaultCameraFlashCallback(com.coloros.ocs.camera.callback.CameraFlashCallbackAdapter cameraFlashCallbackAdapter) {
         this.mCameraFlashCallback = cameraFlashCallbackAdapter;
     }
 

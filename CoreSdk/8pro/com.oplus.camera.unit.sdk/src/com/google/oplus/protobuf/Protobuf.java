@@ -3,9 +3,9 @@ package com.google.oplus.protobuf;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class Protobuf {
+
+/* JADX INFO: loaded from: classes.dex */
+final class Protobuf {
     private static final Protobuf INSTANCE = new Protobuf();
     private final ConcurrentMap<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap();
     private final SchemaFactory schemaFactory = new ManifestSchemaFactory();
@@ -36,13 +36,13 @@ public final class Protobuf {
 
     public <T> Schema<T> schemaFor(Class<T> cls) {
         Internal.checkNotNull(cls, "messageType");
-        Schema<T> schema = (Schema<T>) this.schemaCache.get(cls);
-        if (schema == null) {
-            Schema<T> createSchema = this.schemaFactory.createSchema(cls);
-            Schema<T> schema2 = (Schema<T>) registerSchema(cls, createSchema);
-            return schema2 != null ? schema2 : createSchema;
+        Schema<T> schema = (Schema) this.schemaCache.get(cls);
+        if (schema != null) {
+            return schema;
         }
-        return schema;
+        Schema<T> schemaCreateSchema = this.schemaFactory.createSchema(cls);
+        Schema<T> schema2 = (Schema<T>) registerSchema(cls, schemaCreateSchema);
+        return schema2 != null ? schema2 : schemaCreateSchema;
     }
 
     public <T> Schema<T> schemaFor(T t) {
@@ -65,12 +65,12 @@ public final class Protobuf {
     }
 
     int getTotalSchemaSize() {
-        int i = 0;
+        int schemaSize = 0;
         for (Schema<?> schema : this.schemaCache.values()) {
             if (schema instanceof MessageSchema) {
-                i += ((MessageSchema) schema).getSchemaSize();
+                schemaSize += ((MessageSchema) schema).getSchemaSize();
             }
         }
-        return i;
+        return schemaSize;
     }
 }

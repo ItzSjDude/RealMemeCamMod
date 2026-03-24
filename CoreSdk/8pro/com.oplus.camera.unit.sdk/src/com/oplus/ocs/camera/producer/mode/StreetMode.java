@@ -14,7 +14,8 @@ import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StreetMode extends PhotoMode {
     private static final int EDGE_FILTER_PARAM_LENGTH = 3;
     public static final int STREET_MAX_BURST_SHOT_NUM = 50;
@@ -26,9 +27,8 @@ public class StreetMode extends PhotoMode {
         return CameraConstant.ModeName.STREET_MODE;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         super.onConfigure(cameraSessionEntity, sdkCameraDeviceConfig, str, apsRequestTag);
         apsRequestTag.mModeName = CameraConstant.ModeName.STREET_MODE;
         cameraSessionEntity.setTemplate(1);
@@ -36,12 +36,12 @@ public class StreetMode extends PhotoMode {
 
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
     public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
-        CameraRequestTag createRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
-        initEdgeFilterRequest(builder, createRequestTag);
+        CameraRequestTag cameraRequestTagCreateRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
+        initEdgeFilterRequest(builder, cameraRequestTagCreateRequestTag);
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
-            updateMaxShotNum(createRequestTag, 50);
+            updateMaxShotNum(cameraRequestTagCreateRequestTag, 50);
         }
-        return createRequestTag;
+        return cameraRequestTagCreateRequestTag;
     }
 
     private void initEdgeFilterRequest(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag) {
@@ -92,11 +92,11 @@ public class StreetMode extends PhotoMode {
         if (cameraRequestTag == null || !cameraRequestTag.mbBurstShot) {
             return;
         }
-        int intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CSHOT_FIRST_REQUEST_NUM, 3)).intValue();
+        int iIntValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CSHOT_FIRST_REQUEST_NUM, 3)).intValue();
         if (!CameraCharacteristicsHelper.isSupportCShot(cameraRequestTag.mCameraType)) {
-            intValue = i;
+            iIntValue = i;
         }
-        cameraRequestTag.mRequestNum = intValue;
+        cameraRequestTag.mRequestNum = iIntValue;
         cameraRequestTag.mMaxBustShotNum = i;
     }
 

@@ -13,9 +13,9 @@ import com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter;
 import com.oplus.ocs.camera.common.parameter.Parameter;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.common.util.ConfigInfoPkg;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public interface Camera2Interface {
+
+/* JADX INFO: loaded from: classes.dex */
+interface Camera2Interface {
     void abortCaptures();
 
     void beforeCloseSession();

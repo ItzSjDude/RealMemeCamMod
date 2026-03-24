@@ -1,6 +1,8 @@
 package com.google.oplus.protobuf;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class RpcUtil {
+    /* JADX DEBUG: Multi-variable search result rejected for r0v0, resolved type: com.google.oplus.protobuf.RpcCallback<com.google.oplus.protobuf.Message> */
     /* JADX WARN: Multi-variable type inference failed */
     public static <Type extends Message> RpcCallback<Type> specializeCallback(RpcCallback<Message> rpcCallback) {
         return rpcCallback;
@@ -11,15 +13,16 @@ public final class RpcUtil {
 
     public static <Type extends Message> RpcCallback<Message> generalizeCallback(final RpcCallback<Type> rpcCallback, final Class<Type> cls, final Type type) {
         return new RpcCallback<Message>() { // from class: com.google.oplus.protobuf.RpcUtil.1
+            /* JADX DEBUG: Method merged with bridge method: run(Ljava/lang/Object;)V */
             @Override // com.google.oplus.protobuf.RpcCallback
             public void run(Message message) {
-                Message copyAsType;
+                Message messageCopyAsType;
                 try {
-                    copyAsType = (Message) cls.cast(message);
+                    messageCopyAsType = (Message) cls.cast(message);
                 } catch (ClassCastException unused) {
-                    copyAsType = RpcUtil.copyAsType(type, message);
+                    messageCopyAsType = RpcUtil.copyAsType(type, message);
                 }
-                rpcCallback.run(copyAsType);
+                rpcCallback.run(messageCopyAsType);
             }
         };
     }
@@ -41,12 +44,11 @@ public final class RpcUtil {
                     }
                     this.alreadyCalled = true;
                 }
-                RpcCallback.this.run(parametertype);
+                rpcCallback.run(parametertype);
             }
         };
     }
 
-    /* loaded from: classes.dex */
     public static final class AlreadyCalledException extends RuntimeException {
         private static final long serialVersionUID = 5469741279507848266L;
 

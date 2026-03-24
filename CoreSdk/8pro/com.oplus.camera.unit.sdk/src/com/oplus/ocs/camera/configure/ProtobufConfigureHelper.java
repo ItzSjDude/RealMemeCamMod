@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.configure;
 import com.oplus.ocs.camera.common.util.Util;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ProtobufConfigureHelper {
     protected static final String FEATURE_CONFIG_PATH_VERSION_1 = "/odm/etc/camera/config/camera_unit_feature_config.protobuf";
     protected static final String FEATURE_CONFIG_PATH_VERSION_2 = "/odm/etc/camera/config/oplus_camera_feature_config";
@@ -12,13 +13,11 @@ public class ProtobufConfigureHelper {
     private static final int sParseVersion = getParseVersion();
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface FileTag {
         public static final int TAG_PROTOBUF = 2;
         public static final int TAG_VENDOR_TAG = 1;
     }
 
-    /* loaded from: classes.dex */
     public @interface ParseVersion {
         public static final int VERSION_1 = 1;
         public static final int VERSION_2 = 2;

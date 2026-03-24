@@ -4,7 +4,8 @@ import android.content.Context;
 import com.oplus.statistics.data.AppStartBean;
 import com.oplus.statistics.record.ProxyRecorder;
 import com.oplus.statistics.util.TimeInfoUtil;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SpecialAppStartAgent {
     public static void onSpecialAppStart(Context context, int i) {
         AppStartBean appStartBean = new AppStartBean(context, TimeInfoUtil.getFormatTime());

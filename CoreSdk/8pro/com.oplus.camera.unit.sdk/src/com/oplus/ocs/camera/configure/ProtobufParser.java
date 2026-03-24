@@ -21,7 +21,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ProtobufParser implements IConfigParser {
     private static final String CONFIG_PATH = "/odm/etc/camera/config/camera_third_party_feature_config.protobuf";
     private static final String TAG = "ProtobufParser";
@@ -42,7 +43,7 @@ public class ProtobufParser implements IConfigParser {
     }
 
     @Override // com.oplus.ocs.camera.configure.IConfigParser
-    public void parseConfigureParameters(HashMap<String, String[]> hashMap, Map<String, String> map) {
+    public void parseConfigureParameters(HashMap<String, String[]> map, Map<String, String> map2) {
     }
 
     @Override // com.oplus.ocs.camera.configure.IConfigParser
@@ -111,12 +112,12 @@ public class ProtobufParser implements IConfigParser {
     }
 
     @Override // com.oplus.ocs.camera.configure.IConfigParser
-    public Map<String, Map<String, Map<String, FeatureInterface>>> parseModeCameraTypeFeature(List<String> list) {
+    public Map<String, Map<String, Map<String, FeatureInterface>>> parseModeCameraTypeFeature(List<String> list) throws Throwable {
         Map<String, Map<String, Map<String, FeatureInterface>>> map;
         FileInputStream fileInputStream;
-        long currentTimeMillis = System.currentTimeMillis();
+        long jCurrentTimeMillis = System.currentTimeMillis();
         FileInputStream fileInputStream2 = null;
-        Map<String, Map<String, Map<String, FeatureInterface>>> map2 = null;
+        Map<String, Map<String, Map<String, FeatureInterface>>> mapInitCameraFeatureTable = null;
         fileInputStream2 = null;
         try {
             try {
@@ -130,12 +131,12 @@ public class ProtobufParser implements IConfigParser {
             th = th;
         }
         try {
-            ProtobufFeatureConfig.FeatureTable parseFrom = ProtobufFeatureConfig.FeatureTable.parseFrom(fileInputStream);
-            CameraUnitLog.e(TAG, "protobuf version: " + parseFrom.getVersion());
-            CameraUnitLog.e(TAG, "protobuf parser cost time: " + (System.currentTimeMillis() - currentTimeMillis));
+            ProtobufFeatureConfig.FeatureTable from = ProtobufFeatureConfig.FeatureTable.parseFrom(fileInputStream);
+            CameraUnitLog.e(TAG, "protobuf version: " + from.getVersion());
+            CameraUnitLog.e(TAG, "protobuf parser cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
             CameraUnitLog.traceEndSection("ProtobufParser.parse");
             CameraUnitLog.traceBeginSection("ProtobufParser.initFeatureTable");
-            map2 = initCameraFeatureTable(parseFrom);
+            mapInitCameraFeatureTable = initCameraFeatureTable(from);
             CameraUnitLog.traceEndSection("ProtobufParser.initFeatureTable");
             try {
                 fileInputStream.close();
@@ -144,7 +145,7 @@ public class ProtobufParser implements IConfigParser {
             }
         } catch (IOException e3) {
             e = e3;
-            map = map2;
+            map = mapInitCameraFeatureTable;
             fileInputStream2 = fileInputStream;
             e.printStackTrace();
             if (fileInputStream2 != null) {
@@ -154,9 +155,7 @@ public class ProtobufParser implements IConfigParser {
                     e4.printStackTrace();
                 }
             }
-            map2 = map;
-            CameraUnitLog.e(TAG, "initialize cost time: " + (System.currentTimeMillis() - currentTimeMillis));
-            return map2;
+            mapInitCameraFeatureTable = map;
         } catch (Throwable th2) {
             th = th2;
             fileInputStream2 = fileInputStream;
@@ -169,58 +168,58 @@ public class ProtobufParser implements IConfigParser {
             }
             throw th;
         }
-        CameraUnitLog.e(TAG, "initialize cost time: " + (System.currentTimeMillis() - currentTimeMillis));
-        return map2;
+        CameraUnitLog.e(TAG, "initialize cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
+        return mapInitCameraFeatureTable;
     }
 
     private Map<String, Map<String, Map<String, FeatureInterface>>> initCameraFeatureTable(ProtobufFeatureConfig.FeatureTable featureTable) {
         ProtobufFeatureConfig.CameraFeatureTable cameraFeatureTable = featureTable.getCameraFeatureTable();
-        HashMap hashMap = new HashMap();
+        HashMap map = new HashMap();
         if (cameraFeatureTable != null) {
             for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : cameraFeatureTable.getModeFeatureTablesMap().entrySet()) {
                 String key = entry.getKey();
-                Map map = (Map) hashMap.computeIfAbsent(key, new Function() { // from class: com.oplus.ocs.camera.configure.ProtobufParser$$ExternalSyntheticLambda1
+                Map map2 = (Map) map.computeIfAbsent(key, new Function() { // from class: com.oplus.ocs.camera.configure.ProtobufParser$$ExternalSyntheticLambda1
                     @Override // java.util.function.Function
                     public final Object apply(Object obj) {
                         return ProtobufParser.lambda$initCameraFeatureTable$0((String) obj);
                     }
                 });
-                CameraUnitLog.d(TAG, "initCameraFeatureTable, modeName: " + key + ", modeTableSize: " + map.size());
+                CameraUnitLog.d(TAG, "initCameraFeatureTable, modeName: " + key + ", modeTableSize: " + map2.size());
                 for (Map.Entry<Integer, ProtobufFeatureConfig.CameraTypeFeatureTable> entry2 : entry.getValue().getCameraTypeFeatureTablesMap().entrySet()) {
                     String strPool = featureTable.getStrPool(entry2.getKey().intValue());
-                    map.put(strPool, initCameraTypeFeatureTable(entry2.getValue(), featureTable.getStrPoolList(), key, strPool));
+                    map2.put(strPool, initCameraTypeFeatureTable(entry2.getValue(), featureTable.getStrPoolList(), key, strPool));
                 }
             }
         }
-        return hashMap;
+        return map;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ Map lambda$initCameraFeatureTable$0(String str) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0002: CONSTRUCTOR  A[MD:():void (c)] (LINE:88) call: java.util.HashMap.<init>():void type: CONSTRUCTOR */
+    static /* synthetic */ Map lambda$initCameraFeatureTable$0(String str) {
         return new HashMap();
     }
 
     private Map<String, FeatureInterface> initCameraTypeFeatureTable(ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable, List<String> list, String str, String str2) {
-        HashMap hashMap = new HashMap();
-        HashMap hashMap2 = new HashMap();
+        HashMap map = new HashMap();
+        HashMap map2 = new HashMap();
         CameraConfigHelper.blockFeatureParameterMapIfNeeded();
         for (ProtobufFeatureConfig.Feature feature : cameraTypeFeatureTable.getFeatureListList()) {
-            ConfigFeatureImpl<?> initFeatureInfo = initFeatureInfo(feature, list, str);
-            if (initFeatureInfo != null) {
-                hashMap.put(initFeatureInfo.getFeatureKey().getName(), initFeatureInfo);
+            ConfigFeatureImpl<?> configFeatureImplInitFeatureInfo = initFeatureInfo(feature, list, str);
+            if (configFeatureImplInitFeatureInfo != null) {
+                map.put(configFeatureImplInitFeatureInfo.getFeatureKey().getName(), configFeatureImplInitFeatureInfo);
                 if (!feature.getConflictMapMap().isEmpty()) {
-                    hashMap2.put(initFeatureInfo.getFeatureKey(), feature);
+                    map2.put(configFeatureImplInitFeatureInfo.getFeatureKey(), feature);
                 }
             }
         }
-        for (Map.Entry entry : hashMap2.entrySet()) {
+        for (Map.Entry entry : map2.entrySet()) {
             String name = ((CameraFeatureKey) entry.getKey()).getName();
-            ProtobufFeatureInfoImpl protobufFeatureInfoImpl = hashMap.get(name) instanceof ConfigFeatureImpl ? (ConfigFeatureImpl) hashMap.get(name) : null;
+            ProtobufFeatureInfoImpl protobufFeatureInfoImpl = map.get(name) instanceof ConfigFeatureImpl ? (ConfigFeatureImpl) map.get(name) : null;
             if (protobufFeatureInfoImpl != null) {
                 protobufFeatureInfoImpl.setConflictMap(initConflictMap(((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list, protobufFeatureInfoImpl.getFeatureKey(), str, str2));
             }
         }
-        return hashMap;
+        return map;
     }
 
     private Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> initConflictMap(Map<Integer, ProtobufFeatureConfig.ConflictFeatureList> map, List<String> list, CameraFeatureKey<?> cameraFeatureKey, String str, String str2) {
@@ -258,15 +257,15 @@ public class ProtobufParser implements IConfigParser {
         String str7 = list.get(feature.getFeatureValueTypeIndex());
         boolean groupConflict = feature.getGroupConflict();
         String lowerCase = TextUtils.isEmpty(str7) ? "String".toLowerCase() : str7;
-        CameraFeatureKey<?> initFeatureKey = this.mFeatureKeyContainer.initFeatureKey(str3, lowerCase);
-        if (initFeatureKey == null) {
+        CameraFeatureKey<?> cameraFeatureKeyInitFeatureKey = this.mFeatureKeyContainer.initFeatureKey(str3, lowerCase);
+        if (cameraFeatureKeyInitFeatureKey == null) {
             return null;
         }
-        final ConfigFeatureImpl<?> configFeatureImpl = new ConfigFeatureImpl<>(str2, str4, str5, lowerCase, str6, groupConflict, initFeatureKey);
+        final ConfigFeatureImpl<?> configFeatureImpl = new ConfigFeatureImpl<>(str2, str4, str5, lowerCase, str6, groupConflict, cameraFeatureKeyInitFeatureKey);
         Optional.ofNullable(CameraConfigHelper.getFeatureOperationMode().get(str)).ifPresent(new Consumer() { // from class: com.oplus.ocs.camera.configure.ProtobufParser$$ExternalSyntheticLambda0
             @Override // java.util.function.Consumer
             public final void accept(Object obj) {
-                ConfigFeatureImpl.this.setOperationMode((Map) ((Map) obj).get(str2));
+                configFeatureImpl.setOperationMode((Map) ((Map) obj).get(str2));
             }
         });
         return configFeatureImpl;

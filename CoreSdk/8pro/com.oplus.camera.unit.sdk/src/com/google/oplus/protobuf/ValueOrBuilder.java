@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Value;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ValueOrBuilder extends MessageOrBuilder {
     boolean getBoolValue();
 

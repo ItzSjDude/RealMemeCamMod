@@ -9,7 +9,8 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.LinkedList;
 import java.util.Queue;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RequestFireWall {
     private static final int CACHE_CAPACITY = 100;
     private static final String TAG = "FireWall";
@@ -25,32 +26,31 @@ public class RequestFireWall {
 
     public boolean handleRequest(final String str) {
         Queue<Long> requestQueue = getRequestQueue(str);
-        long elapsedRealtime = SystemClock.elapsedRealtime();
-        requestQueue.add(Long.valueOf(elapsedRealtime));
-        final long requestCountInWindowImpl = getRequestCountInWindowImpl(requestQueue, elapsedRealtime);
+        long jElapsedRealtime = SystemClock.elapsedRealtime();
+        requestQueue.add(Long.valueOf(jElapsedRealtime));
+        final long requestCountInWindowImpl = getRequestCountInWindowImpl(requestQueue, jElapsedRealtime);
         boolean z = requestCountInWindowImpl <= ((long) this.mLimit);
-        if (!z && requestCountInWindowImpl % 10 == 1) {
+        if (!z && requestCountInWindowImpl % ((long) 10) == 1) {
             LogUtil.w(TAG, new Supplier() { // from class: com.oplus.statistics.strategy.RequestFireWall$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return RequestFireWall.this.m10xd9117441(str, requestCountInWindowImpl);
+                    return this.f$0.m10xd9117441(str, requestCountInWindowImpl);
                 }
             });
         }
         return z;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: lambda$handleRequest$0$com-oplus-statistics-strategy-RequestFireWall  reason: not valid java name */
-    public /* synthetic */ String m10xd9117441(String str, long j) {
+    /* JADX INFO: renamed from: lambda$handleRequest$0$com-oplus-statistics-strategy-RequestFireWall, reason: not valid java name */
+    /* synthetic */ String m10xd9117441(String str, long j) {
         return "Chatty!!! Allow " + this.mLimit + FeatureImpl.DELIMITER + this.mPeriod + "ms, but " + str + " request " + j + " in the recent period.";
     }
 
     private long getRequestCountInWindowImpl(@NonNull Queue<Long> queue, long j) {
-        Long peek = queue.peek();
-        while (peek != null && peek.longValue() < j - this.mPeriod) {
+        Long lPeek = queue.peek();
+        while (lPeek != null && lPeek.longValue() < j - this.mPeriod) {
             queue.poll();
-            peek = queue.peek();
+            lPeek = queue.peek();
         }
         return queue.size();
     }
@@ -58,15 +58,14 @@ public class RequestFireWall {
     @NonNull
     private Queue<Long> getRequestQueue(String str) {
         Queue<Long> queue = this.mRequestQueueMap.get(str);
-        if (queue == null) {
-            LinkedList linkedList = new LinkedList();
-            this.mRequestQueueMap.put(str, linkedList);
-            return linkedList;
+        if (queue != null) {
+            return queue;
         }
-        return queue;
+        LinkedList linkedList = new LinkedList();
+        this.mRequestQueueMap.put(str, linkedList);
+        return linkedList;
     }
 
-    /* loaded from: classes.dex */
     public static class Builder {
         private final int mLimit;
         private final long mPeriod;

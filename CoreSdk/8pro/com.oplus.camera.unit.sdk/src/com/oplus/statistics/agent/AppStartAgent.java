@@ -6,12 +6,13 @@ import com.oplus.statistics.record.ProxyRecorder;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import com.oplus.statistics.util.TimeInfoUtil;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class AppStartAgent {
     private static final String TAG = "AppStartAgent";
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$recordAppStart$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "调用AppStart" */
+    static /* synthetic */ String lambda$recordAppStart$0() {
         return "调用AppStart";
     }
 

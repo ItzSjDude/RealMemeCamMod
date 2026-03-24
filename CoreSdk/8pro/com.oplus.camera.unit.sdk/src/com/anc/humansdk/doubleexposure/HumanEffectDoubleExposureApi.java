@@ -10,22 +10,21 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class HumanEffectDoubleExposureApi {
     static final String TAG = "HumanEffectDoubleExposureApi";
-    static final boolean DEBUG = Log.isLoggable(TAG, 3);
+    static final boolean DEBUG = Log.isLoggable("HumanEffectDoubleExposureApi", 3);
     private static HumanEffectDoubleExposureApi sInstance = new HumanEffectDoubleExposureApi();
     private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
     private AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
     protected AtomicLong handle = new AtomicLong(0);
 
-    /* loaded from: classes.dex */
     public enum CameraType {
         CAMERA_TYPE_REAR,
         CAMERA_TYPE_FRONT
     }
 
-    /* loaded from: classes.dex */
     public enum ImageType {
         ANC_HUM_IMG_NV21,
         ANC_HUM_IMG_BGR,
@@ -89,8 +88,7 @@ public class HumanEffectDoubleExposureApi {
             if (andSet >= 0) {
                 nativeSetLogLevel(andSet);
             }
-            String str2 = TAG;
-            Log.e(str2, "log level " + andSet);
+            Log.e(TAG, "log level " + andSet);
             return this.handle.get() == 0 ? 3 : 0;
         }
         Log.e(TAG, "config invalid!");
@@ -118,39 +116,40 @@ public class HumanEffectDoubleExposureApi {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
-        } else if (humanProcessTextureRequest == null || humanProcessTexureResult == null || !humanProcessTextureRequest.IsValid()) {
-            return 1;
-        } else {
-            return nativeProcessTexture(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTexureResult.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.width, humanProcessTextureRequest.humanVideoTexture.height, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.isOES);
         }
+        if (humanProcessTextureRequest == null || humanProcessTexureResult == null || !humanProcessTextureRequest.IsValid()) {
+            return 1;
+        }
+        return nativeProcessTexture(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTexureResult.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.width, humanProcessTextureRequest.humanVideoTexture.height, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.isOES);
     }
 
     public int process(HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessTextureRequest humanProcessTextureRequest2, HumanProcessTexureResult humanProcessTexureResult) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
-        } else if (humanProcessTextureRequest == null || humanProcessTexureResult == null || !humanProcessTextureRequest.IsValid()) {
-            return 1;
-        } else {
-            int i = humanProcessTextureRequest.humanVideoTexture.width;
-            int i2 = humanProcessTextureRequest.humanVideoTexture.height;
-            int i3 = humanProcessTextureRequest2.humanVideoTexture.width;
-            int i4 = humanProcessTextureRequest2.humanVideoTexture.height;
-            String str = TAG;
-            Log.d(str, String.format("process fg %d, bg %d, out %d", Integer.valueOf(humanProcessTextureRequest.humanVideoTexture.texID), Integer.valueOf(humanProcessTextureRequest2.humanVideoTexture.texID), Integer.valueOf(humanProcessTexureResult.humanVideoTexture.texID)));
-            if (humanProcessTexureResult.humanVideoTexture.isOES) {
-                Log.e(str, "please set output 2d texture instead of oes.");
-                return 1;
-            }
-            return nativeProcessTextures(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTextureRequest2.humanVideoTexture.texID, humanProcessTextureRequest2.humanVideoTexture.isOES, humanProcessTexureResult.humanVideoTexture.texID, i, i2, i3, i4, humanProcessTextureRequest2.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.rotation);
         }
+        if (humanProcessTextureRequest == null || humanProcessTexureResult == null || !humanProcessTextureRequest.IsValid()) {
+            return 1;
+        }
+        int i = humanProcessTextureRequest.humanVideoTexture.width;
+        int i2 = humanProcessTextureRequest.humanVideoTexture.height;
+        int i3 = humanProcessTextureRequest2.humanVideoTexture.width;
+        int i4 = humanProcessTextureRequest2.humanVideoTexture.height;
+        String str = TAG;
+        Log.d(str, String.format("process fg %d, bg %d, out %d", Integer.valueOf(humanProcessTextureRequest.humanVideoTexture.texID), Integer.valueOf(humanProcessTextureRequest2.humanVideoTexture.texID), Integer.valueOf(humanProcessTexureResult.humanVideoTexture.texID)));
+        if (humanProcessTexureResult.humanVideoTexture.isOES) {
+            Log.e(str, "please set output 2d texture instead of oes.");
+            return 1;
+        }
+        return nativeProcessTextures(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTextureRequest2.humanVideoTexture.texID, humanProcessTextureRequest2.humanVideoTexture.isOES, humanProcessTexureResult.humanVideoTexture.texID, i, i2, i3, i4, humanProcessTextureRequest2.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.rotation);
     }
 
     public int process(HumanProcessFrameRequest humanProcessFrameRequest, HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessTexureResult humanProcessTexureResult) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
-        } else if (humanProcessFrameRequest != null && humanProcessTexureResult != null && humanProcessTextureRequest != null && humanProcessFrameRequest.IsValid() && humanProcessTextureRequest.IsValid() && humanProcessTexureResult.IsValid()) {
+        }
+        if (humanProcessFrameRequest != null && humanProcessTexureResult != null && humanProcessTextureRequest != null && humanProcessFrameRequest.IsValid() && humanProcessTextureRequest.IsValid() && humanProcessTexureResult.IsValid()) {
             String str = TAG;
             Log.e(str, "fgFrameRequest.cameratype " + humanProcessFrameRequest.cameraType + " bgTextureRequest.cameratype " + humanProcessTextureRequest.cameraType);
             int i = humanProcessFrameRequest.humanVideoFrame.width;
@@ -170,31 +169,29 @@ public class HumanEffectDoubleExposureApi {
                 return 1;
             }
             return nativeProcessFrameInTextureOut(this.handle.get(), humanProcessFrameRequest.humanVideoFrame.data, humanProcessFrameRequest.cameraType == CameraType.CAMERA_TYPE_REAR ? 0 : 1, humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTextureRequest.cameraType == CameraType.CAMERA_TYPE_REAR ? 0 : 1, humanProcessTexureResult.humanVideoTexture.texID, i, i2, i3, i4, humanProcessTextureRequest.humanVideoTexture.isBgFromAlbum, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessFrameRequest.humanVideoFrame.rotation);
-        } else {
-            String str2 = TAG;
-            StringBuilder sb = new StringBuilder();
-            sb.append("process: argment is invalid, fgFrameRequest is ");
-            String str3 = "valid";
-            sb.append((humanProcessFrameRequest == null || !humanProcessFrameRequest.IsValid()) ? "invalid" : "valid");
-            sb.append(", bgTextureRequest is ");
-            sb.append((humanProcessTextureRequest == null || !humanProcessTextureRequest.IsValid()) ? "invalid" : "valid");
-            sb.append(", texureResult is ");
-            sb.append((humanProcessTexureResult == null || !humanProcessTexureResult.IsValid()) ? "invalid" : "invalid");
-            Log.e(str2, sb.toString());
-            return 1;
         }
+        String str2 = TAG;
+        StringBuilder sb = new StringBuilder();
+        sb.append("process: argment is invalid, fgFrameRequest is ");
+        sb.append((humanProcessFrameRequest == null || !humanProcessFrameRequest.IsValid()) ? "invalid" : "valid");
+        sb.append(", bgTextureRequest is ");
+        sb.append((humanProcessTextureRequest == null || !humanProcessTextureRequest.IsValid()) ? "invalid" : "valid");
+        sb.append(", texureResult is ");
+        sb.append((humanProcessTexureResult == null || !humanProcessTexureResult.IsValid()) ? "invalid" : "valid");
+        Log.e(str2, sb.toString());
+        return 1;
     }
 
     public int process(HumanProcessHardwareBufferRequest humanProcessHardwareBufferRequest, HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessTexureResult humanProcessTexureResult) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
-        } else if (humanProcessHardwareBufferRequest != null && humanProcessTexureResult != null && humanProcessTextureRequest != null && humanProcessHardwareBufferRequest.IsValid() && humanProcessTextureRequest.IsValid() && humanProcessTexureResult.IsValid()) {
+        }
+        if (humanProcessHardwareBufferRequest != null && humanProcessTexureResult != null && humanProcessTextureRequest != null && humanProcessHardwareBufferRequest.IsValid() && humanProcessTextureRequest.IsValid() && humanProcessTexureResult.IsValid()) {
             int i = humanProcessHardwareBufferRequest.humanVideoFrame.width;
             int i2 = humanProcessHardwareBufferRequest.humanVideoFrame.height;
             if (humanProcessHardwareBufferRequest.humanVideoFrame.type != ImageType.ANC_HUM_IMG_NV21) {
-                String str = TAG;
-                Log.e(str, "process: argment is invalid, image type=%d" + humanProcessHardwareBufferRequest.humanVideoFrame.type);
+                Log.e(TAG, "process: argment is invalid, image type=%d" + humanProcessHardwareBufferRequest.humanVideoFrame.type);
                 return 1;
             }
             if (i % 64 != 0) {
@@ -207,19 +204,17 @@ public class HumanEffectDoubleExposureApi {
                 return 1;
             }
             return nativeProcessTextureAndHardwareBufferInTextureOut(this.handle.get(), 0, false, humanProcessHardwareBufferRequest.humanVideoFrame.data, humanProcessHardwareBufferRequest.humanVideoFrame.scanline, humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTexureResult.humanVideoTexture.texID, i, i2, i3, i4, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessHardwareBufferRequest.humanVideoFrame.rotation, humanProcessHardwareBufferRequest.cameraType == CameraType.CAMERA_TYPE_REAR ? 0 : 1, humanProcessTextureRequest.cameraType == CameraType.CAMERA_TYPE_REAR ? 0 : 1, humanProcessTextureRequest.humanVideoTexture.isBgFromAlbum);
-        } else {
-            String str2 = TAG;
-            StringBuilder sb = new StringBuilder();
-            sb.append("process: argment is invalid, fgFrameRequest is ");
-            String str3 = "valid";
-            sb.append((humanProcessHardwareBufferRequest == null || !humanProcessHardwareBufferRequest.IsValid()) ? "invalid" : "valid");
-            sb.append(", bgTextureRequest is ");
-            sb.append((humanProcessTextureRequest == null || !humanProcessTextureRequest.IsValid()) ? "invalid" : "valid");
-            sb.append(", texureResult is ");
-            sb.append((humanProcessTexureResult == null || !humanProcessTexureResult.IsValid()) ? "invalid" : "invalid");
-            Log.e(str2, sb.toString());
-            return 1;
         }
+        String str = TAG;
+        StringBuilder sb = new StringBuilder();
+        sb.append("process: argment is invalid, fgFrameRequest is ");
+        sb.append((humanProcessHardwareBufferRequest == null || !humanProcessHardwareBufferRequest.IsValid()) ? "invalid" : "valid");
+        sb.append(", bgTextureRequest is ");
+        sb.append((humanProcessTextureRequest == null || !humanProcessTextureRequest.IsValid()) ? "invalid" : "valid");
+        sb.append(", texureResult is ");
+        sb.append((humanProcessTexureResult == null || !humanProcessTexureResult.IsValid()) ? "invalid" : "valid");
+        Log.e(str, sb.toString());
+        return 1;
     }
 
     public int process(HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessHardwareBufferRequest humanProcessHardwareBufferRequest, HumanProcessTextureRequest humanProcessTextureRequest2, HumanProcessTexureResult humanProcessTexureResult) {
@@ -255,12 +250,11 @@ public class HumanEffectDoubleExposureApi {
         String str = TAG;
         StringBuilder sb = new StringBuilder();
         sb.append("process: argment is invalid, fgFrameRequest is ");
-        String str2 = "valid";
         sb.append((humanProcessHardwareBufferRequest == null || !humanProcessHardwareBufferRequest.IsValid()) ? "invalid" : "valid");
         sb.append(", bgTextureRequest is ");
         sb.append((humanProcessTextureRequest2 == null || !humanProcessTextureRequest2.IsValid()) ? "invalid" : "valid");
         sb.append(", texureResult is ");
-        sb.append((humanProcessTexureResult == null || !humanProcessTexureResult.IsValid()) ? "invalid" : "invalid");
+        sb.append((humanProcessTexureResult == null || !humanProcessTexureResult.IsValid()) ? "invalid" : "valid");
         Log.e(str, sb.toString());
         return 1;
     }
@@ -278,9 +272,9 @@ public class HumanEffectDoubleExposureApi {
             Log.e(TAG, "release: handle is invalid!");
             return 2;
         }
-        int nativeRelease = nativeRelease(this.handle.get());
+        int iNativeRelease = nativeRelease(this.handle.get());
         this.handle.set(0L);
-        return nativeRelease;
+        return iNativeRelease;
     }
 
     public int attachGL() {
@@ -305,9 +299,9 @@ public class HumanEffectDoubleExposureApi {
         try {
             FileInputStream fileInputStream = new FileInputStream(str);
             while (true) {
-                int read = fileInputStream.read(bArr);
-                if (read != -1) {
-                    byteArrayOutputStream.write(bArr, 0, read);
+                int i = fileInputStream.read(bArr);
+                if (i != -1) {
+                    byteArrayOutputStream.write(bArr, 0, i);
                 } else {
                     fileInputStream.close();
                     byteArrayOutputStream.close();
@@ -328,7 +322,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanEffectDoubleExposureConfig {
         public String cache_path;
         public boolean isBackCamera;
@@ -364,7 +357,6 @@ public class HumanEffectDoubleExposureApi {
             return new HumanEffectDoubleExposureConfigBuilder();
         }
 
-        /* loaded from: classes.dex */
         public static class HumanEffectDoubleExposureConfigBuilder {
             static final /* synthetic */ boolean $assertionsDisabled = false;
             private String cache_path;
@@ -413,7 +405,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameResult {
         public HumanVideoFrame humanVideoFrame;
 
@@ -431,7 +422,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTexureResult {
         public HumanVideoTexture humanVideoTexture;
 
@@ -449,7 +439,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessHardwareBufferRequest {
         public CameraType cameraType;
         public HumanVideoHardwareBuffer humanVideoFrame;
@@ -469,7 +458,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoHardwareBuffer {
         public HardwareBuffer data;
         public int height;
@@ -492,7 +480,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessHardwareBufferRequestBuilder {
         static final /* synthetic */ boolean $assertionsDisabled = false;
         public CameraType cameraType;
@@ -550,7 +537,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameRequest {
         public CameraType cameraType;
         public HumanVideoFrame humanVideoFrame;
@@ -570,7 +556,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameRequestBuilder {
         static final /* synthetic */ boolean $assertionsDisabled = false;
         public CameraType cameraType;
@@ -622,7 +607,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTextureRequest {
         public CameraType cameraType;
         public HumanVideoTexture humanVideoTexture;
@@ -642,7 +626,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTextureRequestBuilder {
         public CameraType cameraType;
         public int height;
@@ -697,13 +680,11 @@ public class HumanEffectDoubleExposureApi {
                     return new HumanProcessTextureRequest(this.cameraType, new HumanVideoTexture(i3, this.isOES, i, i2, i4, this.isBgFromAlbum));
                 }
             }
-            String str = HumanEffectDoubleExposureApi.TAG;
-            Log.e(str, "invalid HumanProcessTextureRequest, texID=" + this.texID + ", width=" + this.width + ",height=" + this.height + ",rotation=" + this.rotation + ", cameraType=" + this.cameraType);
+            Log.e(HumanEffectDoubleExposureApi.TAG, "invalid HumanProcessTextureRequest, texID=" + this.texID + ", width=" + this.width + ",height=" + this.height + ",rotation=" + this.rotation + ", cameraType=" + this.cameraType);
             return null;
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoFrame {
         public byte[] data;
         public int height;
@@ -724,7 +705,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoTexture {
         public int height;
         public boolean isBgFromAlbum;
@@ -747,7 +727,6 @@ public class HumanEffectDoubleExposureApi {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoDoubleExposureParams {
         public float bgAlpha;
         public float bgBrightness;

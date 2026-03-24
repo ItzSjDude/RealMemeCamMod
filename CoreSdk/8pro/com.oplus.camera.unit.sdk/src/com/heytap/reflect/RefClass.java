@@ -5,16 +5,17 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class RefClass {
     private static HashMap<Class<?>, Constructor<?>> REF_TYPES = null;
     private static final String TAG = "RefClass";
 
     static {
-        HashMap<Class<?>, Constructor<?>> hashMap = new HashMap<>();
-        REF_TYPES = hashMap;
+        HashMap<Class<?>, Constructor<?>> map = new HashMap<>();
+        REF_TYPES = map;
         try {
-            hashMap.put(RefObject.class, RefObject.class.getConstructor(Class.class, Field.class));
+            map.put(RefObject.class, RefObject.class.getConstructor(Class.class, Field.class));
             REF_TYPES.put(RefMethod.class, RefMethod.class.getConstructor(Class.class, Field.class));
             REF_TYPES.put(RefInt.class, RefInt.class.getConstructor(Class.class, Field.class));
             REF_TYPES.put(RefLong.class, RefLong.class.getConstructor(Class.class, Field.class));
@@ -40,7 +41,6 @@ public final class RefClass {
     }
 
     public static Class load(Class cls, Class<?> cls2) {
-        Field[] declaredFields;
         Constructor<?> constructor;
         for (Field field : cls.getDeclaredFields()) {
             try {

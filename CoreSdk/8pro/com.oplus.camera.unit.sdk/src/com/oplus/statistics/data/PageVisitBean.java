@@ -2,7 +2,8 @@ package com.oplus.statistics.data;
 
 import android.content.Context;
 import com.oplus.statistics.DataTypeConstants;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PageVisitBean extends TrackEvent {
     private static final String PAGE_VISIT_ACTIVIES = "activities";
     private static final String PAGE_VISIT_DURATION = "duration";

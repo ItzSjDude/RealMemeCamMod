@@ -5,7 +5,8 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class MemoryPreference {
     private static final String TAG = "MemoryPreference";
     private Map<String, String> mMemoryPref = new HashMap();
@@ -37,8 +38,15 @@ public class MemoryPreference {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getLong$0(String str, String str2, NumberFormatException numberFormatException) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("getLong key=")
+      (r2v0 java.lang.String)
+      (", value=")
+      (r3v0 java.lang.String)
+      (", exception=")
+      (wrap:java.lang.String:0x001a: INVOKE (r4v0 java.lang.NumberFormatException) VIRTUAL call: java.lang.NumberFormatException.toString():java.lang.String A[MD:():java.lang.String (s), WRAPPED])
+     A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getLong$0(String str, String str2, NumberFormatException numberFormatException) {
         return "getLong key=" + str + ", value=" + str2 + ", exception=" + numberFormatException.toString();
     }
 
@@ -64,8 +72,15 @@ public class MemoryPreference {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$getInt$1(String str, String str2, NumberFormatException numberFormatException) {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("getInt key=")
+      (r2v0 java.lang.String)
+      (", value=")
+      (r3v0 java.lang.String)
+      (", exception=")
+      (wrap:java.lang.String:0x001a: INVOKE (r4v0 java.lang.NumberFormatException) VIRTUAL call: java.lang.NumberFormatException.toString():java.lang.String A[MD:():java.lang.String (s), WRAPPED])
+     A[MD:():java.lang.String (c), SYNTHETIC] */
+    static /* synthetic */ String lambda$getInt$1(String str, String str2, NumberFormatException numberFormatException) {
         return "getInt key=" + str + ", value=" + str2 + ", exception=" + numberFormatException.toString();
     }
 

@@ -4,7 +4,8 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OplusExifTag {
     public static final String EXIF_KEY_TAGFLAGS = "tagflags";
     public static final int EXIF_TAG_AI_ID_PHOTO = 16384;
@@ -30,7 +31,6 @@ public class OplusExifTag {
     public static final short TYPE_ASCII = 2;
     public static final short TYPE_LONG = 9;
     public static final short TYPE_RATIONAL = 10;
-    private static final int[] TYPE_TO_SIZE_MAP;
     public static final short TYPE_UNDEFINED = 7;
     public static final short TYPE_UNSIGNED_BYTE = 1;
     public static final short TYPE_UNSIGNED_LONG = 4;
@@ -46,6 +46,7 @@ public class OplusExifTag {
     private final short mTagId;
     private Object mValue = null;
     private static Charset US_ASCII = Charset.forName("US-ASCII");
+    private static final int[] TYPE_TO_SIZE_MAP = {0, 1, 1, 2, 4, 8, 0, 1, 0, 4, 8};
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
 
     private static String convertTypeToString(short s) {
@@ -81,13 +82,7 @@ public class OplusExifTag {
         return s == 1 || s == 2 || s == 3 || s == 4 || s == 5 || s == 7 || s == 9 || s == 10;
     }
 
-    static {
-        TYPE_TO_SIZE_MAP = r0;
-        int[] iArr = {0, 1, 1, 2, 4, 8, 0, 1, 0, 4, 8};
-    }
-
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public OplusExifTag(short s, short s2, int i, int i2, boolean z) {
+    OplusExifTag(short s, short s2, int i, int i2, boolean z) {
         this.mTagId = s;
         this.mDataType = s2;
         this.mComponentCountActual = i;
@@ -103,8 +98,7 @@ public class OplusExifTag {
         return this.mIfd;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setIfd(int i) {
+    protected void setIfd(int i) {
         this.mIfd = i;
     }
 
@@ -124,8 +118,7 @@ public class OplusExifTag {
         return this.mComponentCountActual;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void forceSetComponentCount(int i) {
+    protected void forceSetComponentCount(int i) {
         this.mComponentCountActual = i;
     }
 
@@ -138,22 +131,22 @@ public class OplusExifTag {
             return false;
         }
         short s = this.mDataType;
-        if (s == 3 || s == 9 || s == 4) {
-            if (s == 3 && checkOverflowForUnsignedShort(iArr)) {
-                return false;
-            }
-            if (this.mDataType == 4 && checkOverflowForUnsignedLong(iArr)) {
-                return false;
-            }
-            long[] jArr = new long[iArr.length];
-            for (int i = 0; i < iArr.length; i++) {
-                jArr[i] = iArr[i];
-            }
-            this.mValue = jArr;
-            this.mComponentCountActual = iArr.length;
-            return true;
+        if (s != 3 && s != 9 && s != 4) {
+            return false;
         }
-        return false;
+        if (s == 3 && checkOverflowForUnsignedShort(iArr)) {
+            return false;
+        }
+        if (this.mDataType == 4 && checkOverflowForUnsignedLong(iArr)) {
+            return false;
+        }
+        long[] jArr = new long[iArr.length];
+        for (int i = 0; i < iArr.length; i++) {
+            jArr[i] = iArr[i];
+        }
+        this.mValue = jArr;
+        this.mComponentCountActual = iArr.length;
+        return true;
     }
 
     public boolean setValue(int i) {
@@ -175,24 +168,24 @@ public class OplusExifTag {
 
     public boolean setValue(String str) {
         short s = this.mDataType;
-        if (s == 2 || s == 7) {
-            byte[] bytes = str.getBytes(US_ASCII);
-            if (bytes.length > 0) {
-                if (bytes[bytes.length - 1] != 0 && this.mDataType != 7) {
-                    bytes = Arrays.copyOf(bytes, bytes.length + 1);
-                }
-            } else if (this.mDataType == 2 && this.mComponentCountActual == 1) {
-                bytes = new byte[]{0};
-            }
-            int length = bytes.length;
-            if (checkBadComponentCount(length)) {
-                return false;
-            }
-            this.mComponentCountActual = length;
-            this.mValue = bytes;
-            return true;
+        if (s != 2 && s != 7) {
+            return false;
         }
-        return false;
+        byte[] bytes = str.getBytes(US_ASCII);
+        if (bytes.length > 0) {
+            if (bytes[bytes.length - 1] != 0 && this.mDataType != 7) {
+                bytes = Arrays.copyOf(bytes, bytes.length + 1);
+            }
+        } else if (this.mDataType == 2 && this.mComponentCountActual == 1) {
+            bytes = new byte[]{0};
+        }
+        int length = bytes.length;
+        if (checkBadComponentCount(length)) {
+            return false;
+        }
+        this.mComponentCountActual = length;
+        this.mValue = bytes;
+        return true;
     }
 
     public boolean setValue(OplusRational[] oplusRationalArr) {
@@ -200,18 +193,18 @@ public class OplusExifTag {
             return false;
         }
         short s = this.mDataType;
-        if (s == 5 || s == 10) {
-            if (s == 5 && checkOverflowForUnsignedRational(oplusRationalArr)) {
-                return false;
-            }
-            if (this.mDataType == 10 && checkOverflowForRational(oplusRationalArr)) {
-                return false;
-            }
-            this.mValue = oplusRationalArr;
-            this.mComponentCountActual = oplusRationalArr.length;
-            return true;
+        if (s != 5 && s != 10) {
+            return false;
         }
-        return false;
+        if (s == 5 && checkOverflowForUnsignedRational(oplusRationalArr)) {
+            return false;
+        }
+        if (this.mDataType == 10 && checkOverflowForRational(oplusRationalArr)) {
+            return false;
+        }
+        this.mValue = oplusRationalArr;
+        this.mComponentCountActual = oplusRationalArr.length;
+        return true;
     }
 
     public boolean setValue(OplusRational oplusRational) {
@@ -223,14 +216,14 @@ public class OplusExifTag {
             return false;
         }
         short s = this.mDataType;
-        if (s == 1 || s == 7) {
-            byte[] bArr2 = new byte[i2];
-            this.mValue = bArr2;
-            System.arraycopy(bArr, i, bArr2, 0, i2);
-            this.mComponentCountActual = i2;
-            return true;
+        if (s != 1 && s != 7) {
+            return false;
         }
-        return false;
+        byte[] bArr2 = new byte[i2];
+        this.mValue = bArr2;
+        System.arraycopy(bArr, i, bArr2, 0, i2);
+        this.mComponentCountActual = i2;
+        return true;
     }
 
     public boolean setValue(byte[] bArr) {
@@ -283,7 +276,8 @@ public class OplusExifTag {
                 iArr[i] = sh == null ? 0 : sh.shortValue() & UNSIGNED_SHORT_MAX;
             }
             return setValue(iArr);
-        } else if (obj instanceof Integer[]) {
+        }
+        if (obj instanceof Integer[]) {
             Integer[] numArr = (Integer[]) obj;
             int[] iArr2 = new int[numArr.length];
             for (int i2 = 0; i2 < numArr.length; i2++) {
@@ -291,7 +285,8 @@ public class OplusExifTag {
                 iArr2[i2] = num == null ? 0 : num.intValue();
             }
             return setValue(iArr2);
-        } else if (obj instanceof Long[]) {
+        }
+        if (obj instanceof Long[]) {
             Long[] lArr = (Long[]) obj;
             long[] jArr = new long[lArr.length];
             for (int i3 = 0; i3 < lArr.length; i3++) {
@@ -299,17 +294,17 @@ public class OplusExifTag {
                 jArr[i3] = l == null ? 0L : l.longValue();
             }
             return setValue(jArr);
-        } else if (obj instanceof Byte[]) {
-            Byte[] bArr = (Byte[]) obj;
-            byte[] bArr2 = new byte[bArr.length];
-            for (int i4 = 0; i4 < bArr.length; i4++) {
-                Byte b = bArr[i4];
-                bArr2[i4] = b == null ? (byte) 0 : b.byteValue();
-            }
-            return setValue(bArr2);
-        } else {
+        }
+        if (!(obj instanceof Byte[])) {
             return false;
         }
+        Byte[] bArr = (Byte[]) obj;
+        byte[] bArr2 = new byte[bArr.length];
+        for (int i4 = 0; i4 < bArr.length; i4++) {
+            Byte b = bArr[i4];
+            bArr2[i4] = b == null ? (byte) 0 : b.byteValue();
+        }
+        return setValue(bArr2);
     }
 
     public boolean setTimeValue(long j) {
@@ -431,24 +426,24 @@ public class OplusExifTag {
                 return new String((byte[]) obj, US_ASCII);
             }
             return Arrays.toString((byte[]) obj);
-        } else if (obj instanceof long[]) {
+        }
+        if (obj instanceof long[]) {
             if (((long[]) obj).length == 1) {
                 return String.valueOf(((long[]) obj)[0]);
             }
             return Arrays.toString((long[]) obj);
-        } else if (obj instanceof Object[]) {
+        }
+        if (obj instanceof Object[]) {
             if (((Object[]) obj).length == 1) {
                 Object obj2 = ((Object[]) obj)[0];
                 return obj2 == null ? "" : obj2.toString();
             }
             return Arrays.toString((Object[]) obj);
-        } else {
-            return obj.toString();
         }
+        return obj.toString();
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public long getValueAt(int i) {
+    protected long getValueAt(int i) {
         Object obj = this.mValue;
         if (obj instanceof long[]) {
             return ((long[]) obj)[i];
@@ -466,13 +461,11 @@ public class OplusExifTag {
         return new String((byte[]) this.mValue, US_ASCII);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public byte[] getStringByte() {
+    protected byte[] getStringByte() {
         return (byte[]) this.mValue;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public OplusRational getRational(int i) {
+    protected OplusRational getRational(int i) {
         short s = this.mDataType;
         if (s != 10 && s != 5) {
             throw new IllegalArgumentException("Cannot get RATIONAL value from " + convertTypeToString(this.mDataType));
@@ -480,8 +473,7 @@ public class OplusExifTag {
         return ((OplusRational[]) this.mValue)[i];
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void getBytes(byte[] bArr) {
+    protected void getBytes(byte[] bArr) {
         getBytes(bArr, 0, bArr.length);
     }
 
@@ -498,23 +490,19 @@ public class OplusExifTag {
         System.arraycopy(obj, 0, bArr, i, i2);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public int getOffset() {
+    protected int getOffset() {
         return this.mOffset;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setOffset(int i) {
+    protected void setOffset(int i) {
         this.mOffset = i;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void setHasDefinedCount(boolean z) {
+    protected void setHasDefinedCount(boolean z) {
         this.mHasDefinedDefaultComponentCount = z;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public boolean hasDefinedCount() {
+    protected boolean hasDefinedCount() {
         return this.mHasDefinedDefaultComponentCount;
     }
 
@@ -568,39 +556,40 @@ public class OplusExifTag {
     }
 
     public boolean equals(Object obj) {
-        if (obj != null && (obj instanceof OplusExifTag)) {
-            OplusExifTag oplusExifTag = (OplusExifTag) obj;
-            if (oplusExifTag.mTagId == this.mTagId && oplusExifTag.mComponentCountActual == this.mComponentCountActual && oplusExifTag.mDataType == this.mDataType) {
-                Object obj2 = this.mValue;
-                if (obj2 == null) {
-                    return oplusExifTag.mValue == null;
-                }
-                Object obj3 = oplusExifTag.mValue;
-                if (obj3 == null) {
-                    return false;
-                }
-                if (obj2 instanceof long[]) {
-                    if (obj3 instanceof long[]) {
-                        return Arrays.equals((long[]) obj2, (long[]) obj3);
-                    }
-                    return false;
-                } else if (obj2 instanceof OplusRational[]) {
-                    if (obj3 instanceof OplusRational[]) {
-                        return Arrays.equals((OplusRational[]) obj2, (OplusRational[]) obj3);
-                    }
-                    return false;
-                } else if (obj2 instanceof byte[]) {
-                    if (obj3 instanceof byte[]) {
-                        return Arrays.equals((byte[]) obj2, (byte[]) obj3);
-                    }
-                    return false;
-                } else {
-                    return obj2.equals(obj3);
-                }
+        if (obj == null || !(obj instanceof OplusExifTag)) {
+            return false;
+        }
+        OplusExifTag oplusExifTag = (OplusExifTag) obj;
+        if (oplusExifTag.mTagId != this.mTagId || oplusExifTag.mComponentCountActual != this.mComponentCountActual || oplusExifTag.mDataType != this.mDataType) {
+            return false;
+        }
+        Object obj2 = this.mValue;
+        if (obj2 == null) {
+            return oplusExifTag.mValue == null;
+        }
+        Object obj3 = oplusExifTag.mValue;
+        if (obj3 == null) {
+            return false;
+        }
+        if (obj2 instanceof long[]) {
+            if (obj3 instanceof long[]) {
+                return Arrays.equals((long[]) obj2, (long[]) obj3);
             }
             return false;
         }
-        return false;
+        if (obj2 instanceof OplusRational[]) {
+            if (obj3 instanceof OplusRational[]) {
+                return Arrays.equals((OplusRational[]) obj2, (OplusRational[]) obj3);
+            }
+            return false;
+        }
+        if (obj2 instanceof byte[]) {
+            if (obj3 instanceof byte[]) {
+                return Arrays.equals((byte[]) obj2, (byte[]) obj3);
+            }
+            return false;
+        }
+        return obj2.equals(obj3);
     }
 
     public int hashCode() {

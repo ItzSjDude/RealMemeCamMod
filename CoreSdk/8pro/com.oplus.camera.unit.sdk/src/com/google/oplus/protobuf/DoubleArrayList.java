@@ -4,9 +4,9 @@ import com.google.oplus.protobuf.Internal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.RandomAccess;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class DoubleArrayList extends AbstractProtobufList<Double> implements Internal.DoubleList, RandomAccess, PrimitiveNonBoxingCollection {
+
+/* JADX INFO: loaded from: classes.dex */
+final class DoubleArrayList extends AbstractProtobufList<Double> implements Internal.DoubleList, RandomAccess, PrimitiveNonBoxingCollection {
     private static final DoubleArrayList EMPTY_LIST;
     private double[] array;
     private int size;
@@ -21,8 +21,7 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
         return EMPTY_LIST;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public DoubleArrayList() {
+    DoubleArrayList() {
         this(new double[10], 0);
     }
 
@@ -66,22 +65,25 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
 
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
     public int hashCode() {
-        int i = 1;
-        for (int i2 = 0; i2 < this.size; i2++) {
-            i = (i * 31) + Internal.hashLong(Double.doubleToLongBits(this.array[i2]));
+        int iHashLong = 1;
+        for (int i = 0; i < this.size; i++) {
+            iHashLong = (iHashLong * 31) + Internal.hashLong(Double.doubleToLongBits(this.array[i]));
         }
-        return i;
+        return iHashLong;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+    /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$DoubleList' to match base method */
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
-    /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Double> mutableCopyWithCapacity(int i) {
+    /* JADX INFO: renamed from: mutableCopyWithCapacity */
+    public Internal.ProtobufList<Double> mutableCopyWithCapacity2(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }
         return new DoubleArrayList(Arrays.copyOf(this.array, i), this.size);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
     @Override // java.util.AbstractList, java.util.List
     public Double get(int i) {
         return Double.valueOf(getDouble(i));
@@ -95,15 +97,15 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
 
     @Override // java.util.AbstractList, java.util.List
     public int indexOf(Object obj) {
-        if (obj instanceof Double) {
-            double doubleValue = ((Double) obj).doubleValue();
-            int size = size();
-            for (int i = 0; i < size; i++) {
-                if (this.array[i] == doubleValue) {
-                    return i;
-                }
-            }
+        if (!(obj instanceof Double)) {
             return -1;
+        }
+        double dDoubleValue = ((Double) obj).doubleValue();
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            if (this.array[i] == dDoubleValue) {
+                return i;
+            }
         }
         return -1;
     }
@@ -118,6 +120,7 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
         return this.size;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Double set(int i, Double d) {
         return Double.valueOf(setDouble(i, d.doubleValue()));
@@ -133,12 +136,14 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
         return d2;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(Ljava/lang/Object;)Z */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean add(Double d) {
         addDouble(d.doubleValue());
         return true;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public void add(int i, Double d) {
         addDouble(i, d.doubleValue());
@@ -207,15 +212,15 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
         return true;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Double remove(int i) {
-        int i2;
         ensureIsMutable();
         ensureIndexInRange(i);
         double[] dArr = this.array;
         double d = dArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(dArr, i + 1, dArr, i, (i2 - i) - 1);
+            System.arraycopy(dArr, i + 1, dArr, i, (r3 - i) - 1);
         }
         this.size--;
         this.modCount++;

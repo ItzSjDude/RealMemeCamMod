@@ -2,14 +2,16 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Descriptors;
 import com.google.oplus.protobuf.Internal;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public enum NullValue implements ProtocolMessageEnum {
     NULL_VALUE(0),
     UNRECOGNIZED(-1);
-    
+
     public static final int NULL_VALUE_VALUE = 0;
     private final int value;
     private static final Internal.EnumLiteMap<NullValue> internalValueMap = new Internal.EnumLiteMap<NullValue>() { // from class: com.google.oplus.protobuf.NullValue.1
+        /* JADX DEBUG: Method merged with bridge method: findValueByNumber(I)Lcom/google/oplus/protobuf/Internal$EnumLite; */
         @Override // com.google.oplus.protobuf.Internal.EnumLiteMap
         public NullValue findValueByNumber(int i) {
             return NullValue.forNumber(i);

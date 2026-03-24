@@ -1,5 +1,6 @@
 package com.oplus.statistics.util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class Constant {
     public static final String DCS_ACTION_FILE_UPLOAD = "oplus.intent.action.DCS_FILE_UPLOAD";
     public static final String DCS_FILE_UPLOAD_SERVICE = "Y29tLm5lYXJtZS5zdGF0aXN0aWNzLnJvbS5zZXJ2aWNlLkZpbGVVcGxvYWRTZXJ2aWNl";

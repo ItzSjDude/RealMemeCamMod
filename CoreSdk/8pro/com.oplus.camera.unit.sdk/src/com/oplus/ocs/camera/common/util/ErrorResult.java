@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.util;
 
 import androidx.annotation.NonNull;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class ErrorResult {
     public static final String CAMERA_DEVICE_ERROR = "camera device error";
     public static final int ERROR_CODE_ILLEGAL_STATE_ERROR = 10003;

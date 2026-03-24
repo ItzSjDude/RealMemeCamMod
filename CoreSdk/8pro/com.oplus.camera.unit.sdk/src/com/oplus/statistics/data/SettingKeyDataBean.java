@@ -6,7 +6,8 @@ import com.oplus.statistics.DataTypeConstants;
 import com.oplus.statistics.agent.StaticPeriodDataRecord;
 import com.oplus.statistics.util.VersionUtil;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SettingKeyDataBean extends CommonBean {
     private final int mEventType;
 

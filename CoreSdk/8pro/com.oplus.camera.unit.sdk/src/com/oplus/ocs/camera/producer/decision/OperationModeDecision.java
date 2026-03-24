@@ -13,7 +13,8 @@ import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OperationModeDecision {
     private static final String MODE_OPERATION_BEGINNING = "8";
     private static final String TAG = "OperationModeDecision";
@@ -22,14 +23,14 @@ public class OperationModeDecision {
     public static void updateOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig, CameraSessionEntity cameraSessionEntity, @NonNull Map<String, FeatureInterface> map) {
         String modeName = sdkCameraDeviceConfig.getModeName();
         String str = CameraConfigHelper.getModeOperationModeMap().get(modeName);
-        String parserFeatureOperationMode = parserFeatureOperationMode(sdkCameraDeviceConfig, map);
-        CameraUnitLog.d(TAG, "updateOperationMode, modeName: " + modeName + ", modeOperationMode: " + str + ", featureOperationMode: " + parserFeatureOperationMode);
-        if (parserFeatureOperationMode == null || (!parserFeatureOperationMode.startsWith(MODE_OPERATION_BEGINNING) && 1 != Integer.parseInt(parserFeatureOperationMode, 16))) {
-            parserFeatureOperationMode = calculateOperationMode(str, parserFeatureOperationMode);
+        String strCalculateOperationMode = parserFeatureOperationMode(sdkCameraDeviceConfig, map);
+        CameraUnitLog.d(TAG, "updateOperationMode, modeName: " + modeName + ", modeOperationMode: " + str + ", featureOperationMode: " + strCalculateOperationMode);
+        if (strCalculateOperationMode == null || (!strCalculateOperationMode.startsWith(MODE_OPERATION_BEGINNING) && 1 != Integer.parseInt(strCalculateOperationMode, 16))) {
+            strCalculateOperationMode = calculateOperationMode(str, strCalculateOperationMode);
         }
-        CameraUnitLog.i(TAG, "updateOperationMode, the last Value, modeOperationMode: " + parserFeatureOperationMode);
-        if (parserFeatureOperationMode != null) {
-            cameraSessionEntity.setOperationMode(parserFeatureOperationMode);
+        CameraUnitLog.i(TAG, "updateOperationMode, the last Value, modeOperationMode: " + strCalculateOperationMode);
+        if (strCalculateOperationMode != null) {
+            cameraSessionEntity.setOperationMode(strCalculateOperationMode);
         }
     }
 
@@ -59,10 +60,10 @@ public class OperationModeDecision {
                         str = 480 >= ((Integer) range.getUpper()).intValue() ? "video_480fps" : "video_960fps";
                     }
                 }
-                boolean isFeatureValueLegal = featureInterface.isFeatureValueLegal(name, str);
-                boolean isFeatureConflictLegal = featureInterface.isFeatureConflictLegal(sdkCameraDeviceConfig, name, str);
-                if (!isFeatureValueLegal || !isFeatureConflictLegal) {
-                    CameraUnitLog.e(TAG, "isFeatureConfigLegal, featureName: " + name + " isValueLegal: " + isFeatureValueLegal + ", isFeatureConflictLegal: " + isFeatureConflictLegal + ", so don't set operation mode value");
+                boolean zIsFeatureValueLegal = featureInterface.isFeatureValueLegal(name, str);
+                boolean zIsFeatureConflictLegal = featureInterface.isFeatureConflictLegal(sdkCameraDeviceConfig, name, str);
+                if (!zIsFeatureValueLegal || !zIsFeatureConflictLegal) {
+                    CameraUnitLog.e(TAG, "isFeatureConfigLegal, featureName: " + name + " isValueLegal: " + zIsFeatureValueLegal + ", isFeatureConflictLegal: " + zIsFeatureConflictLegal + ", so don't set operation mode value");
                     return false;
                 }
             }
@@ -71,22 +72,22 @@ public class OperationModeDecision {
     }
 
     private static String parserFeatureOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig, Map<String, FeatureInterface> map) {
-        Set<String> set = null;
+        Set<String> setKeySet = null;
         if (sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys() == null || map == null) {
             return null;
         }
         if (CameraConfigHelper.getFeatureOperationMode().get(sdkCameraDeviceConfig.getModeName()) != null) {
-            set = CameraConfigHelper.getFeatureOperationMode().get(sdkCameraDeviceConfig.getModeName()).keySet();
-            CameraUnitLog.d(TAG, "parserFeatureOperationMode, featureOperationPriority: " + set);
+            setKeySet = CameraConfigHelper.getFeatureOperationMode().get(sdkCameraDeviceConfig.getModeName()).keySet();
+            CameraUnitLog.d(TAG, "parserFeatureOperationMode, featureOperationPriority: " + setKeySet);
         }
-        String parseFeatureOperationPriority = parseFeatureOperationPriority(set, sdkCameraDeviceConfig, map);
-        if (parseFeatureOperationPriority == null) {
+        String featureOperationPriority = parseFeatureOperationPriority(setKeySet, sdkCameraDeviceConfig, map);
+        if (featureOperationPriority == null) {
             Iterator<Parameter.Key<?>> it = sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys().iterator();
-            while (it.hasNext() && (parseFeatureOperationPriority = getFeatureOperationMode(sdkCameraDeviceConfig, it.next(), map)) == null) {
+            while (it.hasNext() && (featureOperationPriority = getFeatureOperationMode(sdkCameraDeviceConfig, it.next(), map)) == null) {
             }
         }
-        CameraUnitLog.d(TAG, "parserFeatureOperationMode, featureOperationMode: " + parseFeatureOperationPriority);
-        return parseFeatureOperationPriority;
+        CameraUnitLog.d(TAG, "parserFeatureOperationMode, featureOperationMode: " + featureOperationPriority);
+        return featureOperationPriority;
     }
 
     private static String parseFeatureOperationPriority(Set<String> set, SdkCameraDeviceConfig sdkCameraDeviceConfig, Map<String, FeatureInterface> map) {

@@ -1,11 +1,9 @@
 package com.google.oplus.protobuf;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class TextFormatEscaper {
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public interface ByteSequence {
+/* JADX INFO: loaded from: classes.dex */
+final class TextFormatEscaper {
+
+    private interface ByteSequence {
         byte byteAt(int i);
 
         int size();
@@ -17,44 +15,42 @@ public final class TextFormatEscaper {
     static String escapeBytes(ByteSequence byteSequence) {
         StringBuilder sb = new StringBuilder(byteSequence.size());
         for (int i = 0; i < byteSequence.size(); i++) {
-            byte byteAt = byteSequence.byteAt(i);
-            if (byteAt == 34) {
+            byte bByteAt = byteSequence.byteAt(i);
+            if (bByteAt == 34) {
                 sb.append("\\\"");
-            } else if (byteAt == 39) {
+            } else if (bByteAt == 39) {
                 sb.append("\\'");
-            } else if (byteAt != 92) {
-                switch (byteAt) {
+            } else if (bByteAt != 92) {
+                switch (bByteAt) {
                     case 7:
                         sb.append("\\a");
-                        continue;
+                        break;
                     case 8:
                         sb.append("\\b");
-                        continue;
+                        break;
                     case 9:
                         sb.append("\\t");
-                        continue;
+                        break;
                     case 10:
                         sb.append("\\n");
-                        continue;
+                        break;
                     case 11:
                         sb.append("\\v");
-                        continue;
+                        break;
                     case 12:
                         sb.append("\\f");
-                        continue;
+                        break;
                     case 13:
                         sb.append("\\r");
-                        continue;
+                        break;
                     default:
-                        if (byteAt >= 32 && byteAt <= 126) {
-                            sb.append((char) byteAt);
-                            continue;
+                        if (bByteAt >= 32 && bByteAt <= 126) {
+                            sb.append((char) bByteAt);
                         } else {
                             sb.append('\\');
-                            sb.append((char) (((byteAt >>> 6) & 3) + 48));
-                            sb.append((char) (((byteAt >>> 3) & 7) + 48));
-                            sb.append((char) ((byteAt & 7) + 48));
-                            break;
+                            sb.append((char) (((bByteAt >>> 6) & 3) + 48));
+                            sb.append((char) (((bByteAt >>> 3) & 7) + 48));
+                            sb.append((char) ((bByteAt & 7) + 48));
                         }
                         break;
                 }
@@ -65,23 +61,21 @@ public final class TextFormatEscaper {
         return sb.toString();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static String escapeBytes(final ByteString byteString) {
+    static String escapeBytes(final ByteString byteString) {
         return escapeBytes(new ByteSequence() { // from class: com.google.oplus.protobuf.TextFormatEscaper.1
             @Override // com.google.oplus.protobuf.TextFormatEscaper.ByteSequence
             public int size() {
-                return ByteString.this.size();
+                return byteString.size();
             }
 
             @Override // com.google.oplus.protobuf.TextFormatEscaper.ByteSequence
             public byte byteAt(int i) {
-                return ByteString.this.byteAt(i);
+                return byteString.byteAt(i);
             }
         });
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static String escapeBytes(final byte[] bArr) {
+    static String escapeBytes(final byte[] bArr) {
         return escapeBytes(new ByteSequence() { // from class: com.google.oplus.protobuf.TextFormatEscaper.2
             @Override // com.google.oplus.protobuf.TextFormatEscaper.ByteSequence
             public int size() {
@@ -95,13 +89,11 @@ public final class TextFormatEscaper {
         });
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static String escapeText(String str) {
+    static String escapeText(String str) {
         return escapeBytes(ByteString.copyFromUtf8(str));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static String escapeDoubleQuotesAndBackslashes(String str) {
+    static String escapeDoubleQuotesAndBackslashes(String str) {
         return str.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

@@ -8,13 +8,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface IConfigParser {
     boolean loadConfigFile(Context context);
 
     List<String> parseCameraIdList();
 
-    void parseConfigureParameters(HashMap<String, String[]> hashMap, Map<String, String> map);
+    void parseConfigureParameters(HashMap<String, String[]> map, Map<String, String> map2);
 
     Map<String, String> parseDeviceInfo();
 

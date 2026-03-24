@@ -20,7 +20,8 @@ import com.oplus.ocs.camera.common.statistics.model.VideoDcsMsgData;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.common.util.ContextHolder;
 import com.oplus.statistics.OplusTrack;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class StatisticsManager {
     public static final long DELAY_TIME_3S = 3000;
     public static final int MSG_ADD_ERROR_CODE = 1;
@@ -55,7 +56,6 @@ public class StatisticsManager {
         this.mDcsHandler = null;
     }
 
-    /* loaded from: classes.dex */
     private class DcsHandler extends Handler {
         public DcsHandler(Looper looper) {
             super(looper);
@@ -67,20 +67,25 @@ public class StatisticsManager {
             int i = message.what;
             if (i == 1) {
                 StatisticsManager.this.reportApsErrorCode(StatisticConstant.ALGO_PROCESS_ERROR, (String) message.obj);
-            } else if (i == 2) {
+                return;
+            }
+            if (i == 2) {
                 StatisticsManager.this.reportAbnormalDisplay("abnormal_preview", 1);
-            } else if (i == 3) {
+                return;
+            }
+            if (i == 3) {
                 StatisticsManager.this.reportAbnormalDisplay("abnormal_preview", 5);
             } else if (i == 4) {
                 StatisticsManager.this.reportAbnormalDisplay("abnormal_preview", 3);
-            } else if (i != 5) {
             } else {
+                if (i != 5) {
+                    return;
+                }
                 StatisticsManager.this.reportFunctionalError(StatisticConstant.FunctionalErrorKeys.KEY_CAPTURE_FAILED, 23);
             }
         }
     }
 
-    /* loaded from: classes.dex */
     private static class SingleTonHolder {
         private static final StatisticsManager INSTANCE = new StatisticsManager();
 
@@ -435,10 +440,10 @@ public class StatisticsManager {
     public void setApsErrorCode(String str) {
         DcsHandler dcsHandler = this.mDcsHandler;
         if (dcsHandler != null) {
-            Message obtainMessage = dcsHandler.obtainMessage();
-            obtainMessage.what = 1;
-            obtainMessage.obj = str;
-            this.mDcsHandler.sendMessage(obtainMessage);
+            Message messageObtainMessage = dcsHandler.obtainMessage();
+            messageObtainMessage.what = 1;
+            messageObtainMessage.obj = str;
+            this.mDcsHandler.sendMessage(messageObtainMessage);
         }
     }
 

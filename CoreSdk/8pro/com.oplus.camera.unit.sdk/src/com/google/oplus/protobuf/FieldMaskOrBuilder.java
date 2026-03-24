@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface FieldMaskOrBuilder extends MessageOrBuilder {
     String getPaths(int i);
 

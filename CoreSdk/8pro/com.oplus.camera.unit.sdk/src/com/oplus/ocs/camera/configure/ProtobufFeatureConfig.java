@@ -30,7 +30,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class ProtobufFeatureConfig {
     private static Descriptors.FileDescriptor descriptor = Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(new String[]{"\n camera_unit_feature_config.proto\"¢\u0001\n\fFeatureTable\u0012\u0010\n\bstr_pool\u0018\u0001 \u0003(\t\u00121\n\u0014camera_feature_table\u0018\u0002 \u0001(\u000b2\u0013.CameraFeatureTable\u0012<\n\u001acamera_group_feature_table\u0018\u0003 \u0001(\u000b2\u0018.CameraGroupFeatureTable\u0012\u000f\n\u0007version\u0018\u0004 \u0001(\t\"Ü\u0002\n\u0007Feature\u0012\u001a\n\u0012feature_name_index\u0018\u0001 \u0001(\u0005\u0012\u001e\n\u0016feature_key_name_index\u0018\u0002 \u0001(\u0005\u0012!\n\u0019feature_value_range_index\u0018\u0003 \u0001(\u0005\u0012#\n\u001bfeature_default_Value_index\u0018\u0004 \u0001(\u0005\u0012\u0018\n\u0010entry_type_index\u0018\u0005 \u0001(\u0005\u0012 \n\u0018feature_value_type_index\u0018\u0006 \u0001(\u0005\u0012\u0016\n\u000egroup_conflict\u0018\u0007 \u0001(\b\u0012/\n\fconflict_map\u0018\b \u0003(\u000b2\u0019.Feature.ConflictMapEntry\u001aH\n\u0010ConflictMapEntry\u0012\u000b\n\u0003key\u0018\u0001 \u0001(\u0005\u0012#\n\u0005value\u0018\u0002 \u0001(\u000b2\u0014.ConflictFeatureList:\u00028\u0001\"B\n\u0013ConflictFeatureList\u0012+\n\u0011conflict_features\u0018\u0001 \u0003(\u000b2\u0010.ConflictFeature\"p\n\u000fConflictFeature\u0012\u001a\n\u0012feature_name_index\u0018\u0001 \u0001(\u0005\u0012\u001b\n\u0013feature_value_index\u0018\u0002 \u0001(\u0005\u0012$\n\u001cfeature_conflict_value_index\u0018\u0003 \u0001(\u0005\"8\n\u0016CameraTypeFeatureTable\u0012\u001e\n\ffeature_list\u0018\u0001 \u0003(\u000b2\b.Feature\"]\n\u001aCameraTypeFeatureTableList\u0012?\n\u001ecamera_type_feature_table_list\u0018\u0001 \u0003(\u000b2\u0017.CameraTypeFeatureTable\"¿\u0001\n\u0010ModeFeatureTable\u0012R\n\u001acamera_type_feature_tables\u0018\u0001 \u0003(\u000b2..ModeFeatureTable.CameraTypeFeatureTablesEntry\u001aW\n\u001cCameraTypeFeatureTablesEntry\u0012\u000b\n\u0003key\u0018\u0001 \u0001(\u0005\u0012&\n\u0005value\u0018\u0002 \u0001(\u000b2\u0017.CameraTypeFeatureTable:\u00028\u0001\"Í\u0001\n\u0015ModeGroupFeatureTable\u0012W\n\u001acamera_type_feature_tables\u0018\u0001 \u0003(\u000b23.ModeGroupFeatureTable.CameraTypeFeatureTablesEntry\u001a[\n\u001cCameraTypeFeatureTablesEntry\u0012\u000b\n\u0003key\u0018\u0001 \u0001(\u0005\u0012*\n\u0005value\u0018\u0002 \u0001(\u000b2\u001b.CameraTypeFeatureTableList:\u00028\u0001\"ª\u0001\n\u0012CameraFeatureTable\u0012G\n\u0013mode_feature_tables\u0018\u0001 \u0003(\u000b2*.CameraFeatureTable.ModeFeatureTablesEntry\u001aK\n\u0016ModeFeatureTablesEntry\u0012\u000b\n\u0003key\u0018\u0001 \u0001(\t\u0012 \n\u0005value\u0018\u0002 \u0001(\u000b2\u0011.ModeFeatureTable:\u00028\u0001\"É\u0001\n\u0017CameraGroupFeatureTable\u0012W\n\u0019mode_group_feature_tables\u0018\u0001 \u0003(\u000b24.CameraGroupFeatureTable.ModeGroupFeatureTablesEntry\u001aU\n\u001bModeGroupFeatureTablesEntry\u0012\u000b\n\u0003key\u0018\u0001 \u0001(\t\u0012%\n\u0005value\u0018\u0002 \u0001(\u000b2\u0016.ModeGroupFeatureTable:\u00028\u0001B7\n\u001ecom.oplus.ocs.camera.configureB\u0015ProtobufFeatureConfigb\u0006proto3"}, new Descriptors.FileDescriptor[0]);
     private static final Descriptors.Descriptor internal_static_CameraFeatureTable_ModeFeatureTablesEntry_descriptor;
@@ -64,7 +65,6 @@ public final class ProtobufFeatureConfig {
     private static final Descriptors.Descriptor internal_static_ModeGroupFeatureTable_descriptor;
     private static final GeneratedMessageV3.FieldAccessorTable internal_static_ModeGroupFeatureTable_fieldAccessorTable;
 
-    /* loaded from: classes.dex */
     public interface CameraFeatureTableOrBuilder extends MessageOrBuilder {
         boolean containsModeFeatureTables(String str);
 
@@ -80,7 +80,6 @@ public final class ProtobufFeatureConfig {
         ModeFeatureTable getModeFeatureTablesOrThrow(String str);
     }
 
-    /* loaded from: classes.dex */
     public interface CameraGroupFeatureTableOrBuilder extends MessageOrBuilder {
         boolean containsModeGroupFeatureTables(String str);
 
@@ -96,7 +95,6 @@ public final class ProtobufFeatureConfig {
         ModeGroupFeatureTable getModeGroupFeatureTablesOrThrow(String str);
     }
 
-    /* loaded from: classes.dex */
     public interface CameraTypeFeatureTableListOrBuilder extends MessageOrBuilder {
         CameraTypeFeatureTable getCameraTypeFeatureTableList(int i);
 
@@ -109,7 +107,6 @@ public final class ProtobufFeatureConfig {
         List<? extends CameraTypeFeatureTableOrBuilder> getCameraTypeFeatureTableListOrBuilderList();
     }
 
-    /* loaded from: classes.dex */
     public interface CameraTypeFeatureTableOrBuilder extends MessageOrBuilder {
         Feature getFeatureList(int i);
 
@@ -122,7 +119,6 @@ public final class ProtobufFeatureConfig {
         List<? extends FeatureOrBuilder> getFeatureListOrBuilderList();
     }
 
-    /* loaded from: classes.dex */
     public interface ConflictFeatureListOrBuilder extends MessageOrBuilder {
         ConflictFeature getConflictFeatures(int i);
 
@@ -135,7 +131,6 @@ public final class ProtobufFeatureConfig {
         List<? extends ConflictFeatureOrBuilder> getConflictFeaturesOrBuilderList();
     }
 
-    /* loaded from: classes.dex */
     public interface ConflictFeatureOrBuilder extends MessageOrBuilder {
         int getFeatureConflictValueIndex();
 
@@ -144,7 +139,6 @@ public final class ProtobufFeatureConfig {
         int getFeatureValueIndex();
     }
 
-    /* loaded from: classes.dex */
     public interface FeatureOrBuilder extends MessageOrBuilder {
         boolean containsConflictMap(int i);
 
@@ -174,7 +168,6 @@ public final class ProtobufFeatureConfig {
         boolean getGroupConflict();
     }
 
-    /* loaded from: classes.dex */
     public interface FeatureTableOrBuilder extends MessageOrBuilder {
         CameraFeatureTable getCameraFeatureTable();
 
@@ -201,7 +194,6 @@ public final class ProtobufFeatureConfig {
         boolean hasCameraGroupFeatureTable();
     }
 
-    /* loaded from: classes.dex */
     public interface ModeFeatureTableOrBuilder extends MessageOrBuilder {
         boolean containsCameraTypeFeatureTables(int i);
 
@@ -217,7 +209,6 @@ public final class ProtobufFeatureConfig {
         CameraTypeFeatureTable getCameraTypeFeatureTablesOrThrow(int i);
     }
 
-    /* loaded from: classes.dex */
     public interface ModeGroupFeatureTableOrBuilder extends MessageOrBuilder {
         boolean containsCameraTypeFeatureTables(int i);
 
@@ -243,12 +234,12 @@ public final class ProtobufFeatureConfig {
         registerAllExtensions((ExtensionRegistryLite) extensionRegistry);
     }
 
-    /* loaded from: classes.dex */
     public static final class FeatureTable extends GeneratedMessageV3 implements FeatureTableOrBuilder {
         public static final int CAMERA_FEATURE_TABLE_FIELD_NUMBER = 2;
         public static final int CAMERA_GROUP_FEATURE_TABLE_FIELD_NUMBER = 3;
         private static final FeatureTable DEFAULT_INSTANCE = new FeatureTable();
         private static final Parser<FeatureTable> PARSER = new AbstractParser<FeatureTable>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTable.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public FeatureTable parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new FeatureTable(codedInputStream, extensionRegistryLite);
@@ -274,9 +265,8 @@ public final class ProtobufFeatureConfig {
             this.version_ = "";
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new FeatureTable();
         }
 
@@ -285,19 +275,21 @@ public final class ProtobufFeatureConfig {
             return this.unknownFields;
         }
 
+        /* JADX DEBUG: Failed to insert an additional move for type inference into block B:70:0x000c */
+        /* JADX DEBUG: Failed to insert an additional move for type inference into block B:78:0x000c */
         private FeatureTable(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag != 10) {
-                                if (readTag == 18) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag != 10) {
+                                if (tag == 18) {
                                     CameraFeatureTable cameraFeatureTable = this.cameraFeatureTable_;
                                     CameraFeatureTable.Builder builder = cameraFeatureTable != null ? cameraFeatureTable.toBuilder() : null;
                                     CameraFeatureTable cameraFeatureTable2 = (CameraFeatureTable) codedInputStream.readMessage(CameraFeatureTable.parser(), extensionRegistryLite);
@@ -306,7 +298,7 @@ public final class ProtobufFeatureConfig {
                                         builder.mergeFrom(cameraFeatureTable2);
                                         this.cameraFeatureTable_ = builder.buildPartial();
                                     }
-                                } else if (readTag == 26) {
+                                } else if (tag == 26) {
                                     CameraGroupFeatureTable cameraGroupFeatureTable = this.cameraGroupFeatureTable_;
                                     CameraGroupFeatureTable.Builder builder2 = cameraGroupFeatureTable != null ? cameraGroupFeatureTable.toBuilder() : null;
                                     CameraGroupFeatureTable cameraGroupFeatureTable2 = (CameraGroupFeatureTable) codedInputStream.readMessage(CameraGroupFeatureTable.parser(), extensionRegistryLite);
@@ -315,19 +307,19 @@ public final class ProtobufFeatureConfig {
                                         builder2.mergeFrom(cameraGroupFeatureTable2);
                                         this.cameraGroupFeatureTable_ = builder2.buildPartial();
                                     }
-                                } else if (readTag == 34) {
+                                } else if (tag == 34) {
                                     this.version_ = codedInputStream.readStringRequireUtf8();
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             } else {
-                                String readStringRequireUtf8 = codedInputStream.readStringRequireUtf8();
-                                boolean z3 = z2;
+                                String stringRequireUtf8 = codedInputStream.readStringRequireUtf8();
+                                boolean z3 = (z2 ? 1 : 0) & true;
                                 z2 = z2;
                                 if (!z3) {
                                     this.strPool_ = new LazyStringArrayList();
-                                    z2 = true;
+                                    z2 = (z2 ? 1 : 0) | true;
                                 }
-                                this.strPool_.add(readStringRequireUtf8);
+                                this.strPool_.add(stringRequireUtf8);
                             }
                         }
                         z = true;
@@ -337,10 +329,10 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (z2) {
+                    if ((z2 ? 1 : 0) & true) {
                         this.strPool_ = this.strPool_.getUnmodifiableView();
                     }
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -355,6 +347,7 @@ public final class ProtobufFeatureConfig {
             return ProtobufFeatureConfig.internal_static_FeatureTable_fieldAccessorTable.ensureFieldAccessorsInitialized(FeatureTable.class, Builder.class);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getStrPoolList()Ljava/util/List; */
         @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTableOrBuilder
         public ProtocolStringList getStrPoolList() {
             return this.strPool_;
@@ -422,9 +415,9 @@ public final class ProtobufFeatureConfig {
         public ByteString getVersionBytes() {
             Object obj = this.version_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.version_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.version_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -465,11 +458,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
-            for (int i3 = 0; i3 < this.strPool_.size(); i3++) {
-                i2 += computeStringSizeNoTag(this.strPool_.getRaw(i3));
+            int iComputeStringSizeNoTag = 0;
+            for (int i2 = 0; i2 < this.strPool_.size(); i2++) {
+                iComputeStringSizeNoTag += computeStringSizeNoTag(this.strPool_.getRaw(i2));
             }
-            int size = 0 + i2 + (getStrPoolList().size() * 1);
+            int size = 0 + iComputeStringSizeNoTag + (getStrPoolList().size() * 1);
             if (this.cameraFeatureTable_ != null) {
                 size += CodedOutputStream.computeMessageSize(2, getCameraFeatureTable());
             }
@@ -493,11 +486,11 @@ public final class ProtobufFeatureConfig {
                 return super.equals(obj);
             }
             FeatureTable featureTable = (FeatureTable) obj;
-            if (getStrPoolList().equals(featureTable.getStrPoolList()) && hasCameraFeatureTable() == featureTable.hasCameraFeatureTable()) {
-                if ((!hasCameraFeatureTable() || getCameraFeatureTable().equals(featureTable.getCameraFeatureTable())) && hasCameraGroupFeatureTable() == featureTable.hasCameraGroupFeatureTable()) {
-                    return (!hasCameraGroupFeatureTable() || getCameraGroupFeatureTable().equals(featureTable.getCameraGroupFeatureTable())) && getVersion().equals(featureTable.getVersion()) && this.unknownFields.equals(featureTable.unknownFields);
-                }
+            if (!getStrPoolList().equals(featureTable.getStrPoolList()) || hasCameraFeatureTable() != featureTable.hasCameraFeatureTable()) {
                 return false;
+            }
+            if ((!hasCameraFeatureTable() || getCameraFeatureTable().equals(featureTable.getCameraFeatureTable())) && hasCameraGroupFeatureTable() == featureTable.hasCameraGroupFeatureTable()) {
+                return (!hasCameraGroupFeatureTable() || getCameraGroupFeatureTable().equals(featureTable.getCameraGroupFeatureTable())) && getVersion().equals(featureTable.getVersion()) && this.unknownFields.equals(featureTable.unknownFields);
             }
             return false;
         }
@@ -507,19 +500,19 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (getStrPoolCount() > 0) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getStrPoolList().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getStrPoolList().hashCode();
             }
             if (hasCameraFeatureTable()) {
-                hashCode = (((hashCode * 37) + 2) * 53) + getCameraFeatureTable().hashCode();
+                iHashCode = (((iHashCode * 37) + 2) * 53) + getCameraFeatureTable().hashCode();
             }
             if (hasCameraGroupFeatureTable()) {
-                hashCode = (((hashCode * 37) + 3) * 53) + getCameraGroupFeatureTable().hashCode();
+                iHashCode = (((iHashCode * 37) + 3) * 53) + getCameraGroupFeatureTable().hashCode();
             }
-            int hashCode2 = (((((hashCode * 37) + 4) * 53) + getVersion().hashCode()) * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (((((iHashCode * 37) + 4) * 53) + getVersion().hashCode()) * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static FeatureTable parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -570,6 +563,8 @@ public final class ProtobufFeatureConfig {
             return (FeatureTable) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -583,18 +578,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(featureTable);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements FeatureTableOrBuilder, Cloneable {
             private int bitField0_;
             private SingleFieldBuilderV3<CameraFeatureTable, CameraFeatureTable.Builder, CameraFeatureTableOrBuilder> cameraFeatureTableBuilder_;
@@ -635,6 +632,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = FeatureTable.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -661,20 +662,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_FeatureTable_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public FeatureTable getDefaultInstanceForType() {
                 return FeatureTable.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public FeatureTable build() {
-                FeatureTable buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                FeatureTable featureTableBuildPartial = buildPartial();
+                if (featureTableBuildPartial.isInitialized()) {
+                    return featureTableBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) featureTableBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public FeatureTable buildPartial() {
                 FeatureTable featureTable = new FeatureTable(this);
@@ -687,50 +694,69 @@ public final class ProtobufFeatureConfig {
                 if (singleFieldBuilderV3 == null) {
                     featureTable.cameraFeatureTable_ = this.cameraFeatureTable_;
                 } else {
-                    featureTable.cameraFeatureTable_ = singleFieldBuilderV3.build();
+                    featureTable.cameraFeatureTable_ = (CameraFeatureTable) singleFieldBuilderV3.build();
                 }
                 SingleFieldBuilderV3<CameraGroupFeatureTable, CameraGroupFeatureTable.Builder, CameraGroupFeatureTableOrBuilder> singleFieldBuilderV32 = this.cameraGroupFeatureTableBuilder_;
                 if (singleFieldBuilderV32 == null) {
                     featureTable.cameraGroupFeatureTable_ = this.cameraGroupFeatureTable_;
                 } else {
-                    featureTable.cameraGroupFeatureTable_ = singleFieldBuilderV32.build();
+                    featureTable.cameraGroupFeatureTable_ = (CameraGroupFeatureTable) singleFieldBuilderV32.build();
                 }
                 featureTable.version_ = this.version_;
                 onBuilt();
                 return featureTable;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof FeatureTable) {
@@ -769,42 +795,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTable.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTable.access$1100()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$FeatureTable r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTable) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$FeatureTable r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTable) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTable.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$FeatureTable$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                FeatureTable featureTable = null;
+                try {
+                    try {
+                        FeatureTable featureTable2 = (FeatureTable) FeatureTable.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (featureTable2 != null) {
+                            mergeFrom(featureTable2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        FeatureTable featureTable3 = (FeatureTable) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            featureTable = featureTable3;
+                            if (featureTable != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (featureTable != null) {
+                        mergeFrom(featureTable);
+                    }
+                    throw th;
+                }
             }
 
             private void ensureStrPoolIsMutable() {
@@ -814,6 +841,7 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getStrPoolList()Ljava/util/List; */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTableOrBuilder
             public ProtocolStringList getStrPoolList() {
                 return this.strPool_.getUnmodifiableView();
@@ -885,7 +913,7 @@ public final class ProtobufFeatureConfig {
                     CameraFeatureTable cameraFeatureTable = this.cameraFeatureTable_;
                     return cameraFeatureTable == null ? CameraFeatureTable.getDefaultInstance() : cameraFeatureTable;
                 }
-                return singleFieldBuilderV3.getMessage();
+                return (CameraFeatureTable) singleFieldBuilderV3.getMessage();
             }
 
             public Builder setCameraFeatureTable(CameraFeatureTable cameraFeatureTable) {
@@ -940,14 +968,14 @@ public final class ProtobufFeatureConfig {
 
             public CameraFeatureTable.Builder getCameraFeatureTableBuilder() {
                 onChanged();
-                return getCameraFeatureTableFieldBuilder().getBuilder();
+                return (CameraFeatureTable.Builder) getCameraFeatureTableFieldBuilder().getBuilder();
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTableOrBuilder
             public CameraFeatureTableOrBuilder getCameraFeatureTableOrBuilder() {
                 SingleFieldBuilderV3<CameraFeatureTable, CameraFeatureTable.Builder, CameraFeatureTableOrBuilder> singleFieldBuilderV3 = this.cameraFeatureTableBuilder_;
                 if (singleFieldBuilderV3 != null) {
-                    return singleFieldBuilderV3.getMessageOrBuilder();
+                    return (CameraFeatureTableOrBuilder) singleFieldBuilderV3.getMessageOrBuilder();
                 }
                 CameraFeatureTable cameraFeatureTable = this.cameraFeatureTable_;
                 return cameraFeatureTable == null ? CameraFeatureTable.getDefaultInstance() : cameraFeatureTable;
@@ -973,7 +1001,7 @@ public final class ProtobufFeatureConfig {
                     CameraGroupFeatureTable cameraGroupFeatureTable = this.cameraGroupFeatureTable_;
                     return cameraGroupFeatureTable == null ? CameraGroupFeatureTable.getDefaultInstance() : cameraGroupFeatureTable;
                 }
-                return singleFieldBuilderV3.getMessage();
+                return (CameraGroupFeatureTable) singleFieldBuilderV3.getMessage();
             }
 
             public Builder setCameraGroupFeatureTable(CameraGroupFeatureTable cameraGroupFeatureTable) {
@@ -1028,14 +1056,14 @@ public final class ProtobufFeatureConfig {
 
             public CameraGroupFeatureTable.Builder getCameraGroupFeatureTableBuilder() {
                 onChanged();
-                return getCameraGroupFeatureTableFieldBuilder().getBuilder();
+                return (CameraGroupFeatureTable.Builder) getCameraGroupFeatureTableFieldBuilder().getBuilder();
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureTableOrBuilder
             public CameraGroupFeatureTableOrBuilder getCameraGroupFeatureTableOrBuilder() {
                 SingleFieldBuilderV3<CameraGroupFeatureTable, CameraGroupFeatureTable.Builder, CameraGroupFeatureTableOrBuilder> singleFieldBuilderV3 = this.cameraGroupFeatureTableBuilder_;
                 if (singleFieldBuilderV3 != null) {
-                    return singleFieldBuilderV3.getMessageOrBuilder();
+                    return (CameraGroupFeatureTableOrBuilder) singleFieldBuilderV3.getMessageOrBuilder();
                 }
                 CameraGroupFeatureTable cameraGroupFeatureTable = this.cameraGroupFeatureTable_;
                 return cameraGroupFeatureTable == null ? CameraGroupFeatureTable.getDefaultInstance() : cameraGroupFeatureTable;
@@ -1064,9 +1092,9 @@ public final class ProtobufFeatureConfig {
             public ByteString getVersionBytes() {
                 Object obj = this.version_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.version_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.version_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -1092,11 +1120,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -1116,13 +1149,14 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public FeatureTable getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class Feature extends GeneratedMessageV3 implements FeatureOrBuilder {
         public static final int CONFLICT_MAP_FIELD_NUMBER = 8;
         public static final int ENTRY_TYPE_INDEX_FIELD_NUMBER = 5;
@@ -1144,6 +1178,7 @@ public final class ProtobufFeatureConfig {
         private byte memoizedIsInitialized;
         private static final Feature DEFAULT_INSTANCE = new Feature();
         private static final Parser<Feature> PARSER = new AbstractParser<Feature>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.Feature.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public Feature parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new Feature(codedInputStream, extensionRegistryLite);
@@ -1159,9 +1194,8 @@ public final class ProtobufFeatureConfig {
             this.memoizedIsInitialized = (byte) -1;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new Feature();
         }
 
@@ -1173,37 +1207,37 @@ public final class ProtobufFeatureConfig {
         private Feature(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
                         try {
-                            int readTag = codedInputStream.readTag();
-                            if (readTag != 0) {
-                                if (readTag == 8) {
+                            int tag = codedInputStream.readTag();
+                            if (tag != 0) {
+                                if (tag == 8) {
                                     this.featureNameIndex_ = codedInputStream.readInt32();
-                                } else if (readTag == 16) {
+                                } else if (tag == 16) {
                                     this.featureKeyNameIndex_ = codedInputStream.readInt32();
-                                } else if (readTag == 24) {
+                                } else if (tag == 24) {
                                     this.featureValueRangeIndex_ = codedInputStream.readInt32();
-                                } else if (readTag == 32) {
+                                } else if (tag == 32) {
                                     this.featureDefaultValueIndex_ = codedInputStream.readInt32();
-                                } else if (readTag == 40) {
+                                } else if (tag == 40) {
                                     this.entryTypeIndex_ = codedInputStream.readInt32();
-                                } else if (readTag == 48) {
+                                } else if (tag == 48) {
                                     this.featureValueTypeIndex_ = codedInputStream.readInt32();
-                                } else if (readTag == 56) {
+                                } else if (tag == 56) {
                                     this.groupConflict_ = codedInputStream.readBool();
-                                } else if (readTag == 66) {
+                                } else if (tag == 66) {
                                     if (!(z2 & true)) {
                                         this.conflictMap_ = MapField.newMapField(ConflictMapDefaultEntryHolder.defaultEntry);
                                         z2 |= true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(ConflictMapDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
                                     this.conflictMap_.getMutableMap().put((Integer) mapEntry.getKey(), (ConflictFeatureList) mapEntry.getValue());
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             }
                             z = true;
@@ -1214,7 +1248,7 @@ public final class ProtobufFeatureConfig {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -1272,9 +1306,7 @@ public final class ProtobufFeatureConfig {
             return this.groupConflict_;
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class ConflictMapDefaultEntryHolder {
+        private static final class ConflictMapDefaultEntryHolder {
             static final MapEntry<Integer, ConflictFeatureList> defaultEntry = MapEntry.newDefaultInstance(ProtobufFeatureConfig.internal_static_Feature_ConflictMapEntry_descriptor, WireFormat.FieldType.INT32, 0, WireFormat.FieldType.MESSAGE, ConflictFeatureList.getDefaultInstance());
 
             private ConflictMapDefaultEntryHolder() {
@@ -1377,35 +1409,35 @@ public final class ProtobufFeatureConfig {
                 return i;
             }
             int i2 = this.featureNameIndex_;
-            int computeInt32Size = i2 != 0 ? 0 + CodedOutputStream.computeInt32Size(1, i2) : 0;
+            int iComputeInt32Size = i2 != 0 ? 0 + CodedOutputStream.computeInt32Size(1, i2) : 0;
             int i3 = this.featureKeyNameIndex_;
             if (i3 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(2, i3);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(2, i3);
             }
             int i4 = this.featureValueRangeIndex_;
             if (i4 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(3, i4);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(3, i4);
             }
             int i5 = this.featureDefaultValueIndex_;
             if (i5 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(4, i5);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(4, i5);
             }
             int i6 = this.entryTypeIndex_;
             if (i6 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(5, i6);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(5, i6);
             }
             int i7 = this.featureValueTypeIndex_;
             if (i7 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(6, i7);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(6, i7);
             }
             boolean z = this.groupConflict_;
             if (z) {
-                computeInt32Size += CodedOutputStream.computeBoolSize(7, z);
+                iComputeInt32Size += CodedOutputStream.computeBoolSize(7, z);
             }
             for (Map.Entry<Integer, ConflictFeatureList> entry : internalGetConflictMap().getMap().entrySet()) {
-                computeInt32Size += CodedOutputStream.computeMessageSize(8, ConflictMapDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
+                iComputeInt32Size += CodedOutputStream.computeMessageSize(8, ConflictMapDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
             }
-            int serializedSize = computeInt32Size + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeInt32Size + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -1427,13 +1459,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = ((((((((((((((((((((((((((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getFeatureNameIndex()) * 37) + 2) * 53) + getFeatureKeyNameIndex()) * 37) + 3) * 53) + getFeatureValueRangeIndex()) * 37) + 4) * 53) + getFeatureDefaultValueIndex()) * 37) + 5) * 53) + getEntryTypeIndex()) * 37) + 6) * 53) + getFeatureValueTypeIndex()) * 37) + 7) * 53) + Internal.hashBoolean(getGroupConflict());
+            int iHashCode = ((((((((((((((((((((((((((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getFeatureNameIndex()) * 37) + 2) * 53) + getFeatureKeyNameIndex()) * 37) + 3) * 53) + getFeatureValueRangeIndex()) * 37) + 4) * 53) + getFeatureDefaultValueIndex()) * 37) + 5) * 53) + getEntryTypeIndex()) * 37) + 6) * 53) + getFeatureValueTypeIndex()) * 37) + 7) * 53) + Internal.hashBoolean(getGroupConflict());
             if (!internalGetConflictMap().getMap().isEmpty()) {
-                hashCode = (((hashCode * 37) + 8) * 53) + internalGetConflictMap().hashCode();
+                iHashCode = (((iHashCode * 37) + 8) * 53) + internalGetConflictMap().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static Feature parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -1484,6 +1516,8 @@ public final class ProtobufFeatureConfig {
             return (Feature) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -1497,18 +1531,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(feature);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements FeatureOrBuilder, Cloneable {
             private int bitField0_;
             private MapField<Integer, ConflictFeatureList> conflictMap_;
@@ -1563,6 +1599,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = Feature.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -1582,20 +1622,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_Feature_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public Feature getDefaultInstanceForType() {
                 return Feature.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Feature build() {
-                Feature buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                Feature featureBuildPartial = buildPartial();
+                if (featureBuildPartial.isInitialized()) {
+                    return featureBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) featureBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Feature buildPartial() {
                 Feature feature = new Feature(this);
@@ -1612,37 +1658,56 @@ public final class ProtobufFeatureConfig {
                 return feature;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof Feature) {
@@ -1683,42 +1748,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.Feature.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.Feature.access$3200()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$Feature r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.Feature) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$Feature r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.Feature) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.Feature.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$Feature$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                Feature feature = null;
+                try {
+                    try {
+                        Feature feature2 = (Feature) Feature.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (feature2 != null) {
+                            mergeFrom(feature2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        Feature feature3 = (Feature) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            feature = feature3;
+                            if (feature != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (feature != null) {
+                        mergeFrom(feature);
+                    }
+                    throw th;
+                }
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.FeatureOrBuilder
@@ -1918,11 +1984,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -1942,17 +2013,19 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public Feature getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ConflictFeatureList extends GeneratedMessageV3 implements ConflictFeatureListOrBuilder {
         public static final int CONFLICT_FEATURES_FIELD_NUMBER = 1;
         private static final ConflictFeatureList DEFAULT_INSTANCE = new ConflictFeatureList();
         private static final Parser<ConflictFeatureList> PARSER = new AbstractParser<ConflictFeatureList>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureList.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public ConflictFeatureList parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new ConflictFeatureList(codedInputStream, extensionRegistryLite);
@@ -1972,9 +2045,8 @@ public final class ProtobufFeatureConfig {
             this.conflictFeatures_ = Collections.emptyList();
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new ConflictFeatureList();
         }
 
@@ -1986,21 +2058,21 @@ public final class ProtobufFeatureConfig {
         private ConflictFeatureList(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 10) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 10) {
                                 if (!(z2 & true)) {
                                     this.conflictFeatures_ = new ArrayList();
                                     z2 |= true;
                                 }
                                 this.conflictFeatures_.add((ConflictFeature) codedInputStream.readMessage(ConflictFeature.parser(), extensionRegistryLite));
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -2013,7 +2085,7 @@ public final class ProtobufFeatureConfig {
                     if (z2 & true) {
                         this.conflictFeatures_ = Collections.unmodifiableList(this.conflictFeatures_);
                     }
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -2080,11 +2152,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
-            for (int i3 = 0; i3 < this.conflictFeatures_.size(); i3++) {
-                i2 += CodedOutputStream.computeMessageSize(1, this.conflictFeatures_.get(i3));
+            int iComputeMessageSize = 0;
+            for (int i2 = 0; i2 < this.conflictFeatures_.size(); i2++) {
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, this.conflictFeatures_.get(i2));
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -2106,13 +2178,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (getConflictFeaturesCount() > 0) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getConflictFeaturesList().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getConflictFeaturesList().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static ConflictFeatureList parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -2163,6 +2235,8 @@ public final class ProtobufFeatureConfig {
             return (ConflictFeatureList) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -2176,18 +2250,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(conflictFeatureList);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements ConflictFeatureListOrBuilder, Cloneable {
             private int bitField0_;
             private RepeatedFieldBuilderV3<ConflictFeature, ConflictFeature.Builder, ConflictFeatureOrBuilder> conflictFeaturesBuilder_;
@@ -2224,6 +2300,10 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -2242,20 +2322,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_ConflictFeatureList_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public ConflictFeatureList getDefaultInstanceForType() {
                 return ConflictFeatureList.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ConflictFeatureList build() {
-                ConflictFeatureList buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                ConflictFeatureList conflictFeatureListBuildPartial = buildPartial();
+                if (conflictFeatureListBuildPartial.isInitialized()) {
+                    return conflictFeatureListBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) conflictFeatureListBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ConflictFeatureList buildPartial() {
                 ConflictFeatureList conflictFeatureList = new ConflictFeatureList(this);
@@ -2274,37 +2360,56 @@ public final class ProtobufFeatureConfig {
                 return conflictFeatureList;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof ConflictFeatureList) {
@@ -2345,42 +2450,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureList.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureList.access$4300()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeatureList r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureList) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeatureList r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureList) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureList.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeatureList$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                ConflictFeatureList conflictFeatureList = null;
+                try {
+                    try {
+                        ConflictFeatureList conflictFeatureList2 = (ConflictFeatureList) ConflictFeatureList.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (conflictFeatureList2 != null) {
+                            mergeFrom(conflictFeatureList2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        ConflictFeatureList conflictFeatureList3 = (ConflictFeatureList) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            conflictFeatureList = conflictFeatureList3;
+                            if (conflictFeatureList != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (conflictFeatureList != null) {
+                        mergeFrom(conflictFeatureList);
+                    }
+                    throw th;
+                }
             }
 
             private void ensureConflictFeaturesIsMutable() {
@@ -2390,6 +2496,7 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeature> */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureListOrBuilder
             public List<ConflictFeature> getConflictFeaturesList() {
                 RepeatedFieldBuilderV3<ConflictFeature, ConflictFeature.Builder, ConflictFeatureOrBuilder> repeatedFieldBuilderV3 = this.conflictFeaturesBuilder_;
@@ -2414,7 +2521,7 @@ public final class ProtobufFeatureConfig {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.conflictFeatures_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessage(i);
+                return (ConflictFeature) repeatedFieldBuilderV3.getMessage(i);
             }
 
             public Builder setConflictFeatures(int i, ConflictFeature conflictFeature) {
@@ -2529,7 +2636,7 @@ public final class ProtobufFeatureConfig {
             }
 
             public ConflictFeature.Builder getConflictFeaturesBuilder(int i) {
-                return getConflictFeaturesFieldBuilder().getBuilder(i);
+                return (ConflictFeature.Builder) getConflictFeaturesFieldBuilder().getBuilder(i);
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureListOrBuilder
@@ -2538,9 +2645,10 @@ public final class ProtobufFeatureConfig {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.conflictFeatures_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+                return (ConflictFeatureOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
             }
 
+            /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeatureOrBuilder> */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureListOrBuilder
             public List<? extends ConflictFeatureOrBuilder> getConflictFeaturesOrBuilderList() {
                 RepeatedFieldBuilderV3<ConflictFeature, ConflictFeature.Builder, ConflictFeatureOrBuilder> repeatedFieldBuilderV3 = this.conflictFeaturesBuilder_;
@@ -2551,13 +2659,14 @@ public final class ProtobufFeatureConfig {
             }
 
             public ConflictFeature.Builder addConflictFeaturesBuilder() {
-                return getConflictFeaturesFieldBuilder().addBuilder(ConflictFeature.getDefaultInstance());
+                return (ConflictFeature.Builder) getConflictFeaturesFieldBuilder().addBuilder(ConflictFeature.getDefaultInstance());
             }
 
             public ConflictFeature.Builder addConflictFeaturesBuilder(int i) {
-                return getConflictFeaturesFieldBuilder().addBuilder(i, ConflictFeature.getDefaultInstance());
+                return (ConflictFeature.Builder) getConflictFeaturesFieldBuilder().addBuilder(i, ConflictFeature.getDefaultInstance());
             }
 
+            /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeature$Builder> */
             public List<ConflictFeature.Builder> getConflictFeaturesBuilderList() {
                 return getConflictFeaturesFieldBuilder().getBuilderList();
             }
@@ -2570,11 +2679,16 @@ public final class ProtobufFeatureConfig {
                 return this.conflictFeaturesBuilder_;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -2594,13 +2708,14 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public ConflictFeatureList getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ConflictFeature extends GeneratedMessageV3 implements ConflictFeatureOrBuilder {
         public static final int FEATURE_CONFLICT_VALUE_INDEX_FIELD_NUMBER = 3;
         public static final int FEATURE_NAME_INDEX_FIELD_NUMBER = 1;
@@ -2612,6 +2727,7 @@ public final class ProtobufFeatureConfig {
         private byte memoizedIsInitialized;
         private static final ConflictFeature DEFAULT_INSTANCE = new ConflictFeature();
         private static final Parser<ConflictFeature> PARSER = new AbstractParser<ConflictFeature>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeature.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public ConflictFeature parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new ConflictFeature(codedInputStream, extensionRegistryLite);
@@ -2627,9 +2743,8 @@ public final class ProtobufFeatureConfig {
             this.memoizedIsInitialized = (byte) -1;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new ConflictFeature();
         }
 
@@ -2641,20 +2756,20 @@ public final class ProtobufFeatureConfig {
         private ConflictFeature(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 8) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 8) {
                                 this.featureNameIndex_ = codedInputStream.readInt32();
-                            } else if (readTag == 16) {
+                            } else if (tag == 16) {
                                 this.featureValueIndex_ = codedInputStream.readInt32();
-                            } else if (readTag == 24) {
+                            } else if (tag == 24) {
                                 this.featureConflictValueIndex_ = codedInputStream.readInt32();
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -2664,7 +2779,7 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -2731,16 +2846,16 @@ public final class ProtobufFeatureConfig {
                 return i;
             }
             int i2 = this.featureNameIndex_;
-            int computeInt32Size = i2 != 0 ? 0 + CodedOutputStream.computeInt32Size(1, i2) : 0;
+            int iComputeInt32Size = i2 != 0 ? 0 + CodedOutputStream.computeInt32Size(1, i2) : 0;
             int i3 = this.featureValueIndex_;
             if (i3 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(2, i3);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(2, i3);
             }
             int i4 = this.featureConflictValueIndex_;
             if (i4 != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(3, i4);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(3, i4);
             }
-            int serializedSize = computeInt32Size + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeInt32Size + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -2762,9 +2877,9 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = ((((((((((((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getFeatureNameIndex()) * 37) + 2) * 53) + getFeatureValueIndex()) * 37) + 3) * 53) + getFeatureConflictValueIndex()) * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode;
-            return hashCode;
+            int iHashCode = ((((((((((((((779 + getDescriptor().hashCode()) * 37) + 1) * 53) + getFeatureNameIndex()) * 37) + 2) * 53) + getFeatureValueIndex()) * 37) + 3) * 53) + getFeatureConflictValueIndex()) * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode;
+            return iHashCode;
         }
 
         public static ConflictFeature parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -2815,6 +2930,8 @@ public final class ProtobufFeatureConfig {
             return (ConflictFeature) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -2828,18 +2945,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(conflictFeature);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements ConflictFeatureOrBuilder, Cloneable {
             private int featureConflictValueIndex_;
             private int featureNameIndex_;
@@ -2872,6 +2991,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = ConflictFeature.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -2886,20 +3009,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_ConflictFeature_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public ConflictFeature getDefaultInstanceForType() {
                 return ConflictFeature.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ConflictFeature build() {
-                ConflictFeature buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                ConflictFeature conflictFeatureBuildPartial = buildPartial();
+                if (conflictFeatureBuildPartial.isInitialized()) {
+                    return conflictFeatureBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) conflictFeatureBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ConflictFeature buildPartial() {
                 ConflictFeature conflictFeature = new ConflictFeature(this);
@@ -2910,37 +3039,56 @@ public final class ProtobufFeatureConfig {
                 return conflictFeature;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof ConflictFeature) {
@@ -2968,42 +3116,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeature.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeature.access$5500()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeature r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeature) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeature r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeature) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeature.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ConflictFeature$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                ConflictFeature conflictFeature = null;
+                try {
+                    try {
+                        ConflictFeature conflictFeature2 = (ConflictFeature) ConflictFeature.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (conflictFeature2 != null) {
+                            mergeFrom(conflictFeature2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        ConflictFeature conflictFeature3 = (ConflictFeature) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            conflictFeature = conflictFeature3;
+                            if (conflictFeature != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (conflictFeature != null) {
+                        mergeFrom(conflictFeature);
+                    }
+                    throw th;
+                }
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ConflictFeatureOrBuilder
@@ -3057,11 +3206,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -3081,13 +3235,14 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public ConflictFeature getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class CameraTypeFeatureTable extends GeneratedMessageV3 implements CameraTypeFeatureTableOrBuilder {
         public static final int FEATURE_LIST_FIELD_NUMBER = 1;
         private static final long serialVersionUID = 0;
@@ -3095,6 +3250,7 @@ public final class ProtobufFeatureConfig {
         private byte memoizedIsInitialized;
         private static final CameraTypeFeatureTable DEFAULT_INSTANCE = new CameraTypeFeatureTable();
         private static final Parser<CameraTypeFeatureTable> PARSER = new AbstractParser<CameraTypeFeatureTable>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTable.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public CameraTypeFeatureTable parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new CameraTypeFeatureTable(codedInputStream, extensionRegistryLite);
@@ -3111,9 +3267,8 @@ public final class ProtobufFeatureConfig {
             this.featureList_ = Collections.emptyList();
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new CameraTypeFeatureTable();
         }
 
@@ -3125,21 +3280,21 @@ public final class ProtobufFeatureConfig {
         private CameraTypeFeatureTable(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 10) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 10) {
                                 if (!(z2 & true)) {
                                     this.featureList_ = new ArrayList();
                                     z2 |= true;
                                 }
                                 this.featureList_.add((Feature) codedInputStream.readMessage(Feature.parser(), extensionRegistryLite));
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -3152,7 +3307,7 @@ public final class ProtobufFeatureConfig {
                     if (z2 & true) {
                         this.featureList_ = Collections.unmodifiableList(this.featureList_);
                     }
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -3219,11 +3374,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
-            for (int i3 = 0; i3 < this.featureList_.size(); i3++) {
-                i2 += CodedOutputStream.computeMessageSize(1, this.featureList_.get(i3));
+            int iComputeMessageSize = 0;
+            for (int i2 = 0; i2 < this.featureList_.size(); i2++) {
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, this.featureList_.get(i2));
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -3245,13 +3400,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (getFeatureListCount() > 0) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getFeatureListList().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getFeatureListList().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static CameraTypeFeatureTable parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -3302,6 +3457,8 @@ public final class ProtobufFeatureConfig {
             return (CameraTypeFeatureTable) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -3315,18 +3472,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(cameraTypeFeatureTable);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements CameraTypeFeatureTableOrBuilder, Cloneable {
             private int bitField0_;
             private RepeatedFieldBuilderV3<Feature, Feature.Builder, FeatureOrBuilder> featureListBuilder_;
@@ -3363,6 +3522,10 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -3381,20 +3544,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_CameraTypeFeatureTable_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public CameraTypeFeatureTable getDefaultInstanceForType() {
                 return CameraTypeFeatureTable.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraTypeFeatureTable build() {
-                CameraTypeFeatureTable buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                CameraTypeFeatureTable cameraTypeFeatureTableBuildPartial = buildPartial();
+                if (cameraTypeFeatureTableBuildPartial.isInitialized()) {
+                    return cameraTypeFeatureTableBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) cameraTypeFeatureTableBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraTypeFeatureTable buildPartial() {
                 CameraTypeFeatureTable cameraTypeFeatureTable = new CameraTypeFeatureTable(this);
@@ -3413,37 +3582,56 @@ public final class ProtobufFeatureConfig {
                 return cameraTypeFeatureTable;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof CameraTypeFeatureTable) {
@@ -3484,42 +3672,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTable.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTable.access$6600()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTable r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTable) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTable r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTable) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTable.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTable$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                CameraTypeFeatureTable cameraTypeFeatureTable = null;
+                try {
+                    try {
+                        CameraTypeFeatureTable cameraTypeFeatureTable2 = (CameraTypeFeatureTable) CameraTypeFeatureTable.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (cameraTypeFeatureTable2 != null) {
+                            mergeFrom(cameraTypeFeatureTable2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        CameraTypeFeatureTable cameraTypeFeatureTable3 = (CameraTypeFeatureTable) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            cameraTypeFeatureTable = cameraTypeFeatureTable3;
+                            if (cameraTypeFeatureTable != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (cameraTypeFeatureTable != null) {
+                        mergeFrom(cameraTypeFeatureTable);
+                    }
+                    throw th;
+                }
             }
 
             private void ensureFeatureListIsMutable() {
@@ -3529,6 +3718,7 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.oplus.ocs.camera.configure.ProtobufFeatureConfig$Feature> */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableOrBuilder
             public List<Feature> getFeatureListList() {
                 RepeatedFieldBuilderV3<Feature, Feature.Builder, FeatureOrBuilder> repeatedFieldBuilderV3 = this.featureListBuilder_;
@@ -3553,7 +3743,7 @@ public final class ProtobufFeatureConfig {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.featureList_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessage(i);
+                return (Feature) repeatedFieldBuilderV3.getMessage(i);
             }
 
             public Builder setFeatureList(int i, Feature feature) {
@@ -3668,7 +3858,7 @@ public final class ProtobufFeatureConfig {
             }
 
             public Feature.Builder getFeatureListBuilder(int i) {
-                return getFeatureListFieldBuilder().getBuilder(i);
+                return (Feature.Builder) getFeatureListFieldBuilder().getBuilder(i);
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableOrBuilder
@@ -3677,9 +3867,10 @@ public final class ProtobufFeatureConfig {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.featureList_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+                return (FeatureOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
             }
 
+            /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.oplus.ocs.camera.configure.ProtobufFeatureConfig$FeatureOrBuilder> */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableOrBuilder
             public List<? extends FeatureOrBuilder> getFeatureListOrBuilderList() {
                 RepeatedFieldBuilderV3<Feature, Feature.Builder, FeatureOrBuilder> repeatedFieldBuilderV3 = this.featureListBuilder_;
@@ -3690,13 +3881,14 @@ public final class ProtobufFeatureConfig {
             }
 
             public Feature.Builder addFeatureListBuilder() {
-                return getFeatureListFieldBuilder().addBuilder(Feature.getDefaultInstance());
+                return (Feature.Builder) getFeatureListFieldBuilder().addBuilder(Feature.getDefaultInstance());
             }
 
             public Feature.Builder addFeatureListBuilder(int i) {
-                return getFeatureListFieldBuilder().addBuilder(i, Feature.getDefaultInstance());
+                return (Feature.Builder) getFeatureListFieldBuilder().addBuilder(i, Feature.getDefaultInstance());
             }
 
+            /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.oplus.ocs.camera.configure.ProtobufFeatureConfig$Feature$Builder> */
             public List<Feature.Builder> getFeatureListBuilderList() {
                 return getFeatureListFieldBuilder().getBuilderList();
             }
@@ -3709,11 +3901,16 @@ public final class ProtobufFeatureConfig {
                 return this.featureListBuilder_;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -3733,17 +3930,19 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public CameraTypeFeatureTable getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class CameraTypeFeatureTableList extends GeneratedMessageV3 implements CameraTypeFeatureTableListOrBuilder {
         public static final int CAMERA_TYPE_FEATURE_TABLE_LIST_FIELD_NUMBER = 1;
         private static final CameraTypeFeatureTableList DEFAULT_INSTANCE = new CameraTypeFeatureTableList();
         private static final Parser<CameraTypeFeatureTableList> PARSER = new AbstractParser<CameraTypeFeatureTableList>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableList.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public CameraTypeFeatureTableList parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new CameraTypeFeatureTableList(codedInputStream, extensionRegistryLite);
@@ -3763,9 +3962,8 @@ public final class ProtobufFeatureConfig {
             this.cameraTypeFeatureTableList_ = Collections.emptyList();
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new CameraTypeFeatureTableList();
         }
 
@@ -3777,21 +3975,21 @@ public final class ProtobufFeatureConfig {
         private CameraTypeFeatureTableList(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 10) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 10) {
                                 if (!(z2 & true)) {
                                     this.cameraTypeFeatureTableList_ = new ArrayList();
                                     z2 |= true;
                                 }
                                 this.cameraTypeFeatureTableList_.add((CameraTypeFeatureTable) codedInputStream.readMessage(CameraTypeFeatureTable.parser(), extensionRegistryLite));
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -3804,7 +4002,7 @@ public final class ProtobufFeatureConfig {
                     if (z2 & true) {
                         this.cameraTypeFeatureTableList_ = Collections.unmodifiableList(this.cameraTypeFeatureTableList_);
                     }
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -3871,11 +4069,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
-            for (int i3 = 0; i3 < this.cameraTypeFeatureTableList_.size(); i3++) {
-                i2 += CodedOutputStream.computeMessageSize(1, this.cameraTypeFeatureTableList_.get(i3));
+            int iComputeMessageSize = 0;
+            for (int i2 = 0; i2 < this.cameraTypeFeatureTableList_.size(); i2++) {
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, this.cameraTypeFeatureTableList_.get(i2));
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -3897,13 +4095,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (getCameraTypeFeatureTableListCount() > 0) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getCameraTypeFeatureTableListList().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getCameraTypeFeatureTableListList().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static CameraTypeFeatureTableList parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -3954,6 +4152,8 @@ public final class ProtobufFeatureConfig {
             return (CameraTypeFeatureTableList) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -3967,18 +4167,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(cameraTypeFeatureTableList);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements CameraTypeFeatureTableListOrBuilder, Cloneable {
             private int bitField0_;
             private RepeatedFieldBuilderV3<CameraTypeFeatureTable, CameraTypeFeatureTable.Builder, CameraTypeFeatureTableOrBuilder> cameraTypeFeatureTableListBuilder_;
@@ -4015,6 +4217,10 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -4033,20 +4239,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_CameraTypeFeatureTableList_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public CameraTypeFeatureTableList getDefaultInstanceForType() {
                 return CameraTypeFeatureTableList.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraTypeFeatureTableList build() {
-                CameraTypeFeatureTableList buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                CameraTypeFeatureTableList cameraTypeFeatureTableListBuildPartial = buildPartial();
+                if (cameraTypeFeatureTableListBuildPartial.isInitialized()) {
+                    return cameraTypeFeatureTableListBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) cameraTypeFeatureTableListBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraTypeFeatureTableList buildPartial() {
                 CameraTypeFeatureTableList cameraTypeFeatureTableList = new CameraTypeFeatureTableList(this);
@@ -4065,37 +4277,56 @@ public final class ProtobufFeatureConfig {
                 return cameraTypeFeatureTableList;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof CameraTypeFeatureTableList) {
@@ -4136,42 +4367,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableList.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableList.access$7700()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTableList r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableList) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTableList r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableList) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableList.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTableList$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                CameraTypeFeatureTableList cameraTypeFeatureTableList = null;
+                try {
+                    try {
+                        CameraTypeFeatureTableList cameraTypeFeatureTableList2 = (CameraTypeFeatureTableList) CameraTypeFeatureTableList.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (cameraTypeFeatureTableList2 != null) {
+                            mergeFrom(cameraTypeFeatureTableList2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        CameraTypeFeatureTableList cameraTypeFeatureTableList3 = (CameraTypeFeatureTableList) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            cameraTypeFeatureTableList = cameraTypeFeatureTableList3;
+                            if (cameraTypeFeatureTableList != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (cameraTypeFeatureTableList != null) {
+                        mergeFrom(cameraTypeFeatureTableList);
+                    }
+                    throw th;
+                }
             }
 
             private void ensureCameraTypeFeatureTableListIsMutable() {
@@ -4181,6 +4413,7 @@ public final class ProtobufFeatureConfig {
                 }
             }
 
+            /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTable> */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableListOrBuilder
             public List<CameraTypeFeatureTable> getCameraTypeFeatureTableListList() {
                 RepeatedFieldBuilderV3<CameraTypeFeatureTable, CameraTypeFeatureTable.Builder, CameraTypeFeatureTableOrBuilder> repeatedFieldBuilderV3 = this.cameraTypeFeatureTableListBuilder_;
@@ -4205,7 +4438,7 @@ public final class ProtobufFeatureConfig {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.cameraTypeFeatureTableList_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessage(i);
+                return (CameraTypeFeatureTable) repeatedFieldBuilderV3.getMessage(i);
             }
 
             public Builder setCameraTypeFeatureTableList(int i, CameraTypeFeatureTable cameraTypeFeatureTable) {
@@ -4320,7 +4553,7 @@ public final class ProtobufFeatureConfig {
             }
 
             public CameraTypeFeatureTable.Builder getCameraTypeFeatureTableListBuilder(int i) {
-                return getCameraTypeFeatureTableListFieldBuilder().getBuilder(i);
+                return (CameraTypeFeatureTable.Builder) getCameraTypeFeatureTableListFieldBuilder().getBuilder(i);
             }
 
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableListOrBuilder
@@ -4329,9 +4562,10 @@ public final class ProtobufFeatureConfig {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.cameraTypeFeatureTableList_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+                return (CameraTypeFeatureTableOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
             }
 
+            /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTableOrBuilder> */
             @Override // com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraTypeFeatureTableListOrBuilder
             public List<? extends CameraTypeFeatureTableOrBuilder> getCameraTypeFeatureTableListOrBuilderList() {
                 RepeatedFieldBuilderV3<CameraTypeFeatureTable, CameraTypeFeatureTable.Builder, CameraTypeFeatureTableOrBuilder> repeatedFieldBuilderV3 = this.cameraTypeFeatureTableListBuilder_;
@@ -4342,13 +4576,14 @@ public final class ProtobufFeatureConfig {
             }
 
             public CameraTypeFeatureTable.Builder addCameraTypeFeatureTableListBuilder() {
-                return getCameraTypeFeatureTableListFieldBuilder().addBuilder(CameraTypeFeatureTable.getDefaultInstance());
+                return (CameraTypeFeatureTable.Builder) getCameraTypeFeatureTableListFieldBuilder().addBuilder(CameraTypeFeatureTable.getDefaultInstance());
             }
 
             public CameraTypeFeatureTable.Builder addCameraTypeFeatureTableListBuilder(int i) {
-                return getCameraTypeFeatureTableListFieldBuilder().addBuilder(i, CameraTypeFeatureTable.getDefaultInstance());
+                return (CameraTypeFeatureTable.Builder) getCameraTypeFeatureTableListFieldBuilder().addBuilder(i, CameraTypeFeatureTable.getDefaultInstance());
             }
 
+            /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraTypeFeatureTable$Builder> */
             public List<CameraTypeFeatureTable.Builder> getCameraTypeFeatureTableListBuilderList() {
                 return getCameraTypeFeatureTableListFieldBuilder().getBuilderList();
             }
@@ -4361,11 +4596,16 @@ public final class ProtobufFeatureConfig {
                 return this.cameraTypeFeatureTableListBuilder_;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -4385,17 +4625,19 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public CameraTypeFeatureTableList getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ModeFeatureTable extends GeneratedMessageV3 implements ModeFeatureTableOrBuilder {
         public static final int CAMERA_TYPE_FEATURE_TABLES_FIELD_NUMBER = 1;
         private static final ModeFeatureTable DEFAULT_INSTANCE = new ModeFeatureTable();
         private static final Parser<ModeFeatureTable> PARSER = new AbstractParser<ModeFeatureTable>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeFeatureTable.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public ModeFeatureTable parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new ModeFeatureTable(codedInputStream, extensionRegistryLite);
@@ -4414,9 +4656,8 @@ public final class ProtobufFeatureConfig {
             this.memoizedIsInitialized = (byte) -1;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new ModeFeatureTable();
         }
 
@@ -4428,23 +4669,23 @@ public final class ProtobufFeatureConfig {
         private ModeFeatureTable(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
                         try {
-                            int readTag = codedInputStream.readTag();
-                            if (readTag != 0) {
-                                if (readTag == 10) {
+                            int tag = codedInputStream.readTag();
+                            if (tag != 0) {
+                                if (tag == 10) {
                                     if (!(z2 & true)) {
                                         this.cameraTypeFeatureTables_ = MapField.newMapField(CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry);
                                         z2 |= true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
                                     this.cameraTypeFeatureTables_.getMutableMap().put((Integer) mapEntry.getKey(), (CameraTypeFeatureTable) mapEntry.getValue());
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             }
                             z = true;
@@ -4455,7 +4696,7 @@ public final class ProtobufFeatureConfig {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -4478,9 +4719,7 @@ public final class ProtobufFeatureConfig {
             return ProtobufFeatureConfig.internal_static_ModeFeatureTable_fieldAccessorTable.ensureFieldAccessorsInitialized(ModeFeatureTable.class, Builder.class);
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class CameraTypeFeatureTablesDefaultEntryHolder {
+        private static final class CameraTypeFeatureTablesDefaultEntryHolder {
             static final MapEntry<Integer, CameraTypeFeatureTable> defaultEntry = MapEntry.newDefaultInstance(ProtobufFeatureConfig.internal_static_ModeFeatureTable_CameraTypeFeatureTablesEntry_descriptor, WireFormat.FieldType.INT32, 0, WireFormat.FieldType.MESSAGE, CameraTypeFeatureTable.getDefaultInstance());
 
             private CameraTypeFeatureTablesDefaultEntryHolder() {
@@ -4554,11 +4793,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
+            int iComputeMessageSize = 0;
             for (Map.Entry<Integer, CameraTypeFeatureTable> entry : internalGetCameraTypeFeatureTables().getMap().entrySet()) {
-                i2 += CodedOutputStream.computeMessageSize(1, CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -4580,13 +4819,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (!internalGetCameraTypeFeatureTables().getMap().isEmpty()) {
-                hashCode = (((hashCode * 37) + 1) * 53) + internalGetCameraTypeFeatureTables().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + internalGetCameraTypeFeatureTables().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static ModeFeatureTable parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -4637,6 +4876,8 @@ public final class ProtobufFeatureConfig {
             return (ModeFeatureTable) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -4650,18 +4891,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(modeFeatureTable);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements ModeFeatureTableOrBuilder, Cloneable {
             private int bitField0_;
             private MapField<Integer, CameraTypeFeatureTable> cameraTypeFeatureTables_;
@@ -4709,6 +4952,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = ModeFeatureTable.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -4721,20 +4968,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_ModeFeatureTable_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public ModeFeatureTable getDefaultInstanceForType() {
                 return ModeFeatureTable.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ModeFeatureTable build() {
-                ModeFeatureTable buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                ModeFeatureTable modeFeatureTableBuildPartial = buildPartial();
+                if (modeFeatureTableBuildPartial.isInitialized()) {
+                    return modeFeatureTableBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) modeFeatureTableBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ModeFeatureTable buildPartial() {
                 ModeFeatureTable modeFeatureTable = new ModeFeatureTable(this);
@@ -4744,37 +4997,56 @@ public final class ProtobufFeatureConfig {
                 return modeFeatureTable;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof ModeFeatureTable) {
@@ -4794,42 +5066,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeFeatureTable.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeFeatureTable.access$8900()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ModeFeatureTable r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeFeatureTable) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ModeFeatureTable r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeFeatureTable) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeFeatureTable.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ModeFeatureTable$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                ModeFeatureTable modeFeatureTable = null;
+                try {
+                    try {
+                        ModeFeatureTable modeFeatureTable2 = (ModeFeatureTable) ModeFeatureTable.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (modeFeatureTable2 != null) {
+                            mergeFrom(modeFeatureTable2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        ModeFeatureTable modeFeatureTable3 = (ModeFeatureTable) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            modeFeatureTable = modeFeatureTable3;
+                            if (modeFeatureTable != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (modeFeatureTable != null) {
+                        mergeFrom(modeFeatureTable);
+                    }
+                    throw th;
+                }
             }
 
             private MapField<Integer, CameraTypeFeatureTable> internalGetCameraTypeFeatureTables() {
@@ -4910,11 +5183,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -4934,17 +5212,19 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public ModeFeatureTable getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ModeGroupFeatureTable extends GeneratedMessageV3 implements ModeGroupFeatureTableOrBuilder {
         public static final int CAMERA_TYPE_FEATURE_TABLES_FIELD_NUMBER = 1;
         private static final ModeGroupFeatureTable DEFAULT_INSTANCE = new ModeGroupFeatureTable();
         private static final Parser<ModeGroupFeatureTable> PARSER = new AbstractParser<ModeGroupFeatureTable>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeGroupFeatureTable.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public ModeGroupFeatureTable parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new ModeGroupFeatureTable(codedInputStream, extensionRegistryLite);
@@ -4963,9 +5243,8 @@ public final class ProtobufFeatureConfig {
             this.memoizedIsInitialized = (byte) -1;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new ModeGroupFeatureTable();
         }
 
@@ -4977,23 +5256,23 @@ public final class ProtobufFeatureConfig {
         private ModeGroupFeatureTable(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
                         try {
-                            int readTag = codedInputStream.readTag();
-                            if (readTag != 0) {
-                                if (readTag == 10) {
+                            int tag = codedInputStream.readTag();
+                            if (tag != 0) {
+                                if (tag == 10) {
                                     if (!(z2 & true)) {
                                         this.cameraTypeFeatureTables_ = MapField.newMapField(CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry);
                                         z2 |= true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
                                     this.cameraTypeFeatureTables_.getMutableMap().put((Integer) mapEntry.getKey(), (CameraTypeFeatureTableList) mapEntry.getValue());
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             }
                             z = true;
@@ -5004,7 +5283,7 @@ public final class ProtobufFeatureConfig {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -5027,9 +5306,7 @@ public final class ProtobufFeatureConfig {
             return ProtobufFeatureConfig.internal_static_ModeGroupFeatureTable_fieldAccessorTable.ensureFieldAccessorsInitialized(ModeGroupFeatureTable.class, Builder.class);
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class CameraTypeFeatureTablesDefaultEntryHolder {
+        private static final class CameraTypeFeatureTablesDefaultEntryHolder {
             static final MapEntry<Integer, CameraTypeFeatureTableList> defaultEntry = MapEntry.newDefaultInstance(ProtobufFeatureConfig.internal_static_ModeGroupFeatureTable_CameraTypeFeatureTablesEntry_descriptor, WireFormat.FieldType.INT32, 0, WireFormat.FieldType.MESSAGE, CameraTypeFeatureTableList.getDefaultInstance());
 
             private CameraTypeFeatureTablesDefaultEntryHolder() {
@@ -5103,11 +5380,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
+            int iComputeMessageSize = 0;
             for (Map.Entry<Integer, CameraTypeFeatureTableList> entry : internalGetCameraTypeFeatureTables().getMap().entrySet()) {
-                i2 += CodedOutputStream.computeMessageSize(1, CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -5129,13 +5406,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (!internalGetCameraTypeFeatureTables().getMap().isEmpty()) {
-                hashCode = (((hashCode * 37) + 1) * 53) + internalGetCameraTypeFeatureTables().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + internalGetCameraTypeFeatureTables().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static ModeGroupFeatureTable parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -5186,6 +5463,8 @@ public final class ProtobufFeatureConfig {
             return (ModeGroupFeatureTable) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -5199,18 +5478,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(modeGroupFeatureTable);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements ModeGroupFeatureTableOrBuilder, Cloneable {
             private int bitField0_;
             private MapField<Integer, CameraTypeFeatureTableList> cameraTypeFeatureTables_;
@@ -5258,6 +5539,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = ModeGroupFeatureTable.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -5270,20 +5555,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_ModeGroupFeatureTable_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public ModeGroupFeatureTable getDefaultInstanceForType() {
                 return ModeGroupFeatureTable.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ModeGroupFeatureTable build() {
-                ModeGroupFeatureTable buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                ModeGroupFeatureTable modeGroupFeatureTableBuildPartial = buildPartial();
+                if (modeGroupFeatureTableBuildPartial.isInitialized()) {
+                    return modeGroupFeatureTableBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) modeGroupFeatureTableBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public ModeGroupFeatureTable buildPartial() {
                 ModeGroupFeatureTable modeGroupFeatureTable = new ModeGroupFeatureTable(this);
@@ -5293,37 +5584,56 @@ public final class ProtobufFeatureConfig {
                 return modeGroupFeatureTable;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof ModeGroupFeatureTable) {
@@ -5343,42 +5653,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeGroupFeatureTable.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeGroupFeatureTable.access$10100()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ModeGroupFeatureTable r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeGroupFeatureTable) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ModeGroupFeatureTable r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeGroupFeatureTable) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.ModeGroupFeatureTable.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$ModeGroupFeatureTable$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                ModeGroupFeatureTable modeGroupFeatureTable = null;
+                try {
+                    try {
+                        ModeGroupFeatureTable modeGroupFeatureTable2 = (ModeGroupFeatureTable) ModeGroupFeatureTable.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (modeGroupFeatureTable2 != null) {
+                            mergeFrom(modeGroupFeatureTable2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        ModeGroupFeatureTable modeGroupFeatureTable3 = (ModeGroupFeatureTable) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            modeGroupFeatureTable = modeGroupFeatureTable3;
+                            if (modeGroupFeatureTable != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (modeGroupFeatureTable != null) {
+                        mergeFrom(modeGroupFeatureTable);
+                    }
+                    throw th;
+                }
             }
 
             private MapField<Integer, CameraTypeFeatureTableList> internalGetCameraTypeFeatureTables() {
@@ -5459,11 +5770,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -5483,13 +5799,14 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public ModeGroupFeatureTable getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class CameraFeatureTable extends GeneratedMessageV3 implements CameraFeatureTableOrBuilder {
         public static final int MODE_FEATURE_TABLES_FIELD_NUMBER = 1;
         private static final long serialVersionUID = 0;
@@ -5497,6 +5814,7 @@ public final class ProtobufFeatureConfig {
         private MapField<String, ModeFeatureTable> modeFeatureTables_;
         private static final CameraFeatureTable DEFAULT_INSTANCE = new CameraFeatureTable();
         private static final Parser<CameraFeatureTable> PARSER = new AbstractParser<CameraFeatureTable>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraFeatureTable.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public CameraFeatureTable parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new CameraFeatureTable(codedInputStream, extensionRegistryLite);
@@ -5512,9 +5830,8 @@ public final class ProtobufFeatureConfig {
             this.memoizedIsInitialized = (byte) -1;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new CameraFeatureTable();
         }
 
@@ -5526,23 +5843,23 @@ public final class ProtobufFeatureConfig {
         private CameraFeatureTable(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
                         try {
-                            int readTag = codedInputStream.readTag();
-                            if (readTag != 0) {
-                                if (readTag == 10) {
+                            int tag = codedInputStream.readTag();
+                            if (tag != 0) {
+                                if (tag == 10) {
                                     if (!(z2 & true)) {
                                         this.modeFeatureTables_ = MapField.newMapField(ModeFeatureTablesDefaultEntryHolder.defaultEntry);
                                         z2 |= true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(ModeFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
                                     this.modeFeatureTables_.getMutableMap().put((String) mapEntry.getKey(), (ModeFeatureTable) mapEntry.getValue());
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             }
                             z = true;
@@ -5553,7 +5870,7 @@ public final class ProtobufFeatureConfig {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -5576,9 +5893,7 @@ public final class ProtobufFeatureConfig {
             return ProtobufFeatureConfig.internal_static_CameraFeatureTable_fieldAccessorTable.ensureFieldAccessorsInitialized(CameraFeatureTable.class, Builder.class);
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class ModeFeatureTablesDefaultEntryHolder {
+        private static final class ModeFeatureTablesDefaultEntryHolder {
             static final MapEntry<String, ModeFeatureTable> defaultEntry = MapEntry.newDefaultInstance(ProtobufFeatureConfig.internal_static_CameraFeatureTable_ModeFeatureTablesEntry_descriptor, WireFormat.FieldType.STRING, "", WireFormat.FieldType.MESSAGE, ModeFeatureTable.getDefaultInstance());
 
             private ModeFeatureTablesDefaultEntryHolder() {
@@ -5655,11 +5970,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
+            int iComputeMessageSize = 0;
             for (Map.Entry<String, ModeFeatureTable> entry : internalGetModeFeatureTables().getMap().entrySet()) {
-                i2 += CodedOutputStream.computeMessageSize(1, ModeFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, ModeFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -5681,13 +5996,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (!internalGetModeFeatureTables().getMap().isEmpty()) {
-                hashCode = (((hashCode * 37) + 1) * 53) + internalGetModeFeatureTables().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + internalGetModeFeatureTables().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static CameraFeatureTable parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -5738,6 +6053,8 @@ public final class ProtobufFeatureConfig {
             return (CameraFeatureTable) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -5751,18 +6068,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(cameraFeatureTable);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements CameraFeatureTableOrBuilder, Cloneable {
             private int bitField0_;
             private MapField<String, ModeFeatureTable> modeFeatureTables_;
@@ -5810,6 +6129,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = CameraFeatureTable.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -5822,20 +6145,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_CameraFeatureTable_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public CameraFeatureTable getDefaultInstanceForType() {
                 return CameraFeatureTable.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraFeatureTable build() {
-                CameraFeatureTable buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                CameraFeatureTable cameraFeatureTableBuildPartial = buildPartial();
+                if (cameraFeatureTableBuildPartial.isInitialized()) {
+                    return cameraFeatureTableBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) cameraFeatureTableBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraFeatureTable buildPartial() {
                 CameraFeatureTable cameraFeatureTable = new CameraFeatureTable(this);
@@ -5845,37 +6174,56 @@ public final class ProtobufFeatureConfig {
                 return cameraFeatureTable;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof CameraFeatureTable) {
@@ -5895,42 +6243,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraFeatureTable.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraFeatureTable.access$11300()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraFeatureTable r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraFeatureTable) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraFeatureTable r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraFeatureTable) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraFeatureTable.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraFeatureTable$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                CameraFeatureTable cameraFeatureTable = null;
+                try {
+                    try {
+                        CameraFeatureTable cameraFeatureTable2 = (CameraFeatureTable) CameraFeatureTable.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (cameraFeatureTable2 != null) {
+                            mergeFrom(cameraFeatureTable2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        CameraFeatureTable cameraFeatureTable3 = (CameraFeatureTable) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            cameraFeatureTable = cameraFeatureTable3;
+                            if (cameraFeatureTable != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (cameraFeatureTable != null) {
+                        mergeFrom(cameraFeatureTable);
+                    }
+                    throw th;
+                }
             }
 
             private MapField<String, ModeFeatureTable> internalGetModeFeatureTables() {
@@ -6016,11 +6365,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -6040,13 +6394,14 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public CameraFeatureTable getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class CameraGroupFeatureTable extends GeneratedMessageV3 implements CameraGroupFeatureTableOrBuilder {
         public static final int MODE_GROUP_FEATURE_TABLES_FIELD_NUMBER = 1;
         private static final long serialVersionUID = 0;
@@ -6054,6 +6409,7 @@ public final class ProtobufFeatureConfig {
         private MapField<String, ModeGroupFeatureTable> modeGroupFeatureTables_;
         private static final CameraGroupFeatureTable DEFAULT_INSTANCE = new CameraGroupFeatureTable();
         private static final Parser<CameraGroupFeatureTable> PARSER = new AbstractParser<CameraGroupFeatureTable>() { // from class: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraGroupFeatureTable.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public CameraGroupFeatureTable parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new CameraGroupFeatureTable(codedInputStream, extensionRegistryLite);
@@ -6069,9 +6425,8 @@ public final class ProtobufFeatureConfig {
             this.memoizedIsInitialized = (byte) -1;
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new CameraGroupFeatureTable();
         }
 
@@ -6083,23 +6438,23 @@ public final class ProtobufFeatureConfig {
         private CameraGroupFeatureTable(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             boolean z2 = false;
             while (!z) {
                 try {
                     try {
                         try {
-                            int readTag = codedInputStream.readTag();
-                            if (readTag != 0) {
-                                if (readTag == 10) {
+                            int tag = codedInputStream.readTag();
+                            if (tag != 0) {
+                                if (tag == 10) {
                                     if (!(z2 & true)) {
                                         this.modeGroupFeatureTables_ = MapField.newMapField(ModeGroupFeatureTablesDefaultEntryHolder.defaultEntry);
                                         z2 |= true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(ModeGroupFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
                                     this.modeGroupFeatureTables_.getMutableMap().put((String) mapEntry.getKey(), (ModeGroupFeatureTable) mapEntry.getValue());
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             }
                             z = true;
@@ -6110,7 +6465,7 @@ public final class ProtobufFeatureConfig {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -6133,9 +6488,7 @@ public final class ProtobufFeatureConfig {
             return ProtobufFeatureConfig.internal_static_CameraGroupFeatureTable_fieldAccessorTable.ensureFieldAccessorsInitialized(CameraGroupFeatureTable.class, Builder.class);
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static final class ModeGroupFeatureTablesDefaultEntryHolder {
+        private static final class ModeGroupFeatureTablesDefaultEntryHolder {
             static final MapEntry<String, ModeGroupFeatureTable> defaultEntry = MapEntry.newDefaultInstance(ProtobufFeatureConfig.internal_static_CameraGroupFeatureTable_ModeGroupFeatureTablesEntry_descriptor, WireFormat.FieldType.STRING, "", WireFormat.FieldType.MESSAGE, ModeGroupFeatureTable.getDefaultInstance());
 
             private ModeGroupFeatureTablesDefaultEntryHolder() {
@@ -6212,11 +6565,11 @@ public final class ProtobufFeatureConfig {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
+            int iComputeMessageSize = 0;
             for (Map.Entry<String, ModeGroupFeatureTable> entry : internalGetModeGroupFeatureTables().getMap().entrySet()) {
-                i2 += CodedOutputStream.computeMessageSize(1, ModeGroupFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
+                iComputeMessageSize += CodedOutputStream.computeMessageSize(1, ModeGroupFeatureTablesDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
             }
-            int serializedSize = i2 + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -6238,13 +6591,13 @@ public final class ProtobufFeatureConfig {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (!internalGetModeGroupFeatureTables().getMap().isEmpty()) {
-                hashCode = (((hashCode * 37) + 1) * 53) + internalGetModeGroupFeatureTables().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + internalGetModeGroupFeatureTables().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static CameraGroupFeatureTable parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -6295,6 +6648,8 @@ public final class ProtobufFeatureConfig {
             return (CameraGroupFeatureTable) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -6308,18 +6663,20 @@ public final class ProtobufFeatureConfig {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(cameraGroupFeatureTable);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements CameraGroupFeatureTableOrBuilder, Cloneable {
             private int bitField0_;
             private MapField<String, ModeGroupFeatureTable> modeGroupFeatureTables_;
@@ -6367,6 +6724,10 @@ public final class ProtobufFeatureConfig {
                 boolean unused = CameraGroupFeatureTable.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
@@ -6379,20 +6740,26 @@ public final class ProtobufFeatureConfig {
                 return ProtobufFeatureConfig.internal_static_CameraGroupFeatureTable_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public CameraGroupFeatureTable getDefaultInstanceForType() {
                 return CameraGroupFeatureTable.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraGroupFeatureTable build() {
-                CameraGroupFeatureTable buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                CameraGroupFeatureTable cameraGroupFeatureTableBuildPartial = buildPartial();
+                if (cameraGroupFeatureTableBuildPartial.isInitialized()) {
+                    return cameraGroupFeatureTableBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) cameraGroupFeatureTableBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CameraGroupFeatureTable buildPartial() {
                 CameraGroupFeatureTable cameraGroupFeatureTable = new CameraGroupFeatureTable(this);
@@ -6402,37 +6769,56 @@ public final class ProtobufFeatureConfig {
                 return cameraGroupFeatureTable;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof CameraGroupFeatureTable) {
@@ -6452,42 +6838,43 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraGroupFeatureTable.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser r1 = com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraGroupFeatureTable.access$12500()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraGroupFeatureTable r3 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraGroupFeatureTable) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                    if (r3 == 0) goto L10
-                    r2.mergeFrom(r3)
-                L10:
-                    return r2
-                L11:
-                    r3 = move-exception
-                    goto L21
-                L13:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                    com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraGroupFeatureTable r4 = (com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraGroupFeatureTable) r4     // Catch: java.lang.Throwable -> L11
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                    throw r3     // Catch: java.lang.Throwable -> L1f
-                L1f:
-                    r3 = move-exception
-                    r0 = r4
-                L21:
-                    if (r0 == 0) goto L26
-                    r2.mergeFrom(r0)
-                L26:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.configure.ProtobufFeatureConfig.CameraGroupFeatureTable.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.oplus.ocs.camera.configure.ProtobufFeatureConfig$CameraGroupFeatureTable$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                CameraGroupFeatureTable cameraGroupFeatureTable = null;
+                try {
+                    try {
+                        CameraGroupFeatureTable cameraGroupFeatureTable2 = (CameraGroupFeatureTable) CameraGroupFeatureTable.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (cameraGroupFeatureTable2 != null) {
+                            mergeFrom(cameraGroupFeatureTable2);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        CameraGroupFeatureTable cameraGroupFeatureTable3 = (CameraGroupFeatureTable) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            cameraGroupFeatureTable = cameraGroupFeatureTable3;
+                            if (cameraGroupFeatureTable != null) {
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (cameraGroupFeatureTable != null) {
+                        mergeFrom(cameraGroupFeatureTable);
+                    }
+                    throw th;
+                }
             }
 
             private MapField<String, ModeGroupFeatureTable> internalGetModeGroupFeatureTables() {
@@ -6573,11 +6960,16 @@ public final class ProtobufFeatureConfig {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -6597,6 +6989,8 @@ public final class ProtobufFeatureConfig {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public CameraGroupFeatureTable getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;

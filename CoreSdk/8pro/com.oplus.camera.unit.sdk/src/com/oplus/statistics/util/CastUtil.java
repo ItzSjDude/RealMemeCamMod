@@ -2,7 +2,8 @@ package com.oplus.statistics.util;
 
 import java.util.Map;
 import org.json.JSONObject;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CastUtil {
     private static final String TAG = "CastUtil";
 

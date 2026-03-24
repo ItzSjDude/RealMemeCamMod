@@ -17,9 +17,9 @@ import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.Arrays;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class FishEyeMode extends PhotoMode {
+
+/* JADX INFO: loaded from: classes.dex */
+class FishEyeMode extends PhotoMode {
     private static final String TAG = "FishEyeMode";
 
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
@@ -32,60 +32,26 @@ public class FishEyeMode extends PhotoMode {
         return CameraConstant.UseCase.FISH_EYE;
     }
 
+    FishEyeMode() {
+    }
+
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
     public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
-        Size size = this.mTagMap.get(str3).mPreviewSize;
-        double width = size.getWidth() / size.getHeight();
+        Size size;
+        double width;
+        size = this.mTagMap.get(str3).mPreviewSize;
+        width = ((double) size.getWidth()) / ((double) size.getHeight());
         str.hashCode();
-        char c = 65535;
-        switch (str.hashCode()) {
-            case -2099255641:
-                if (str.equals("reprocess_input")) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case -1513135880:
-                if (str.equals("raw_output")) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case -318184504:
-                if (str.equals("preview")) {
-                    c = 2;
-                    break;
-                }
-                break;
-            case 163297377:
-                if (str.equals("capture_yuv")) {
-                    c = 3;
-                    break;
-                }
-                break;
-            case 369148211:
-                if (str.equals("raw16_output")) {
-                    c = 4;
-                    break;
-                }
-                break;
-            case 1267103479:
-                if (str.equals("reprocess_yuv")) {
-                    c = 5;
-                    break;
-                }
-                break;
-        }
-        switch (c) {
-            case 0:
-            case 1:
-            case 4:
+        switch (str) {
+            case "reprocess_input":
+            case "raw_output":
+            case "raw16_output":
                 Size sizeByFormat = CameraCharacteristicsHelper.getSizeByFormat(str3, 1.3333333333333333d, 32);
                 return new Pair<>(sizeByFormat, sizeByFormat);
-            case 2:
+            case "preview":
                 return new Pair<>(size, size);
-            case 3:
-            case 5:
+            case "capture_yuv":
+            case "reprocess_yuv":
                 Size pictureSize = getPictureSize(width);
                 return new Pair<>(pictureSize, pictureSize);
             default:
@@ -108,9 +74,8 @@ public class FishEyeMode extends PhotoMode {
         return maxSizeByRatio;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         apsRequestTag.mModeName = CameraConstant.ModeName.FISH_EYE_MODE;
         cameraSessionEntity.setTemplate(1);
     }

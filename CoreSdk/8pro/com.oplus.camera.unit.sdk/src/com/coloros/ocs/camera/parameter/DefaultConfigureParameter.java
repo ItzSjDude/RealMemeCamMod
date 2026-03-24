@@ -4,7 +4,8 @@ import android.hardware.camera2.CaptureRequest;
 import androidx.annotation.NonNull;
 import com.oplus.ocs.camera.common.parameter.Parameter;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class DefaultConfigureParameter extends Parameter {
     public static final Parameter.Key<String> VIDEO_FPS = new Parameter.Key<>("com.oppo.configure.video.fps", String.class, 3);
     public static final Parameter.Key<String> VIDEO_STABILIZATION_MODE = new Parameter.Key<>("com.oppo.configure.video.stabilization", String.class, 3);

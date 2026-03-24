@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.common.util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class ApsConstant {
     public static final String ACCELEROMETER_USE = "1";
     public static final int AIS_STATE_BRACKET_ELEVEN = 2;

@@ -17,10 +17,10 @@ import com.oplus.ocs.camera.consumer.apsAdapter.ApsCameraRequestTag;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ProducerConsumerInterfaceContract {
 
-    /* loaded from: classes.dex */
     public interface ConsumerInterface {
         int abortCaptures();
 
@@ -73,7 +73,6 @@ public interface ProducerConsumerInterfaceContract {
         void videoSnapshot(ApsCameraRequestTag apsCameraRequestTag);
     }
 
-    /* loaded from: classes.dex */
     public interface ProducerInterface {
         CameraStateCallbackAdapter createCameraStateCallback(@NonNull CameraStateCallbackAdapter cameraStateCallbackAdapter, Handler handler);
 

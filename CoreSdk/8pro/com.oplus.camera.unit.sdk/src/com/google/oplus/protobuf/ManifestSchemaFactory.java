@@ -1,7 +1,7 @@
 package com.google.oplus.protobuf;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class ManifestSchemaFactory implements SchemaFactory {
+
+/* JADX INFO: loaded from: classes.dex */
+final class ManifestSchemaFactory implements SchemaFactory {
     private static final MessageInfoFactory EMPTY_FACTORY = new MessageInfoFactory() { // from class: com.google.oplus.protobuf.ManifestSchemaFactory.1
         @Override // com.google.oplus.protobuf.MessageInfoFactory
         public boolean isSupported(Class<?> cls) {
@@ -26,14 +26,14 @@ public final class ManifestSchemaFactory implements SchemaFactory {
     @Override // com.google.oplus.protobuf.SchemaFactory
     public <T> Schema<T> createSchema(Class<T> cls) {
         SchemaUtil.requireGeneratedMessage(cls);
-        MessageInfo messageInfoFor = this.messageInfoFactory.messageInfoFor(cls);
-        if (messageInfoFor.isMessageSetWireFormat()) {
+        MessageInfo messageInfoMessageInfoFor = this.messageInfoFactory.messageInfoFor(cls);
+        if (messageInfoMessageInfoFor.isMessageSetWireFormat()) {
             if (GeneratedMessageLite.class.isAssignableFrom(cls)) {
-                return MessageSetSchema.newSchema(SchemaUtil.unknownFieldSetLiteSchema(), ExtensionSchemas.lite(), messageInfoFor.getDefaultInstance());
+                return MessageSetSchema.newSchema(SchemaUtil.unknownFieldSetLiteSchema(), ExtensionSchemas.lite(), messageInfoMessageInfoFor.getDefaultInstance());
             }
-            return MessageSetSchema.newSchema(SchemaUtil.proto2UnknownFieldSetSchema(), ExtensionSchemas.full(), messageInfoFor.getDefaultInstance());
+            return MessageSetSchema.newSchema(SchemaUtil.proto2UnknownFieldSetSchema(), ExtensionSchemas.full(), messageInfoMessageInfoFor.getDefaultInstance());
         }
-        return newSchema(cls, messageInfoFor);
+        return newSchema(cls, messageInfoMessageInfoFor);
     }
 
     private static <T> Schema<T> newSchema(Class<T> cls, MessageInfo messageInfo) {
@@ -42,11 +42,11 @@ public final class ManifestSchemaFactory implements SchemaFactory {
                 return MessageSchema.newSchema(cls, messageInfo, NewInstanceSchemas.lite(), ListFieldSchema.lite(), SchemaUtil.unknownFieldSetLiteSchema(), ExtensionSchemas.lite(), MapFieldSchemas.lite());
             }
             return MessageSchema.newSchema(cls, messageInfo, NewInstanceSchemas.lite(), ListFieldSchema.lite(), SchemaUtil.unknownFieldSetLiteSchema(), null, MapFieldSchemas.lite());
-        } else if (isProto2(messageInfo)) {
-            return MessageSchema.newSchema(cls, messageInfo, NewInstanceSchemas.full(), ListFieldSchema.full(), SchemaUtil.proto2UnknownFieldSetSchema(), ExtensionSchemas.full(), MapFieldSchemas.full());
-        } else {
-            return MessageSchema.newSchema(cls, messageInfo, NewInstanceSchemas.full(), ListFieldSchema.full(), SchemaUtil.proto3UnknownFieldSetSchema(), null, MapFieldSchemas.full());
         }
+        if (isProto2(messageInfo)) {
+            return MessageSchema.newSchema(cls, messageInfo, NewInstanceSchemas.full(), ListFieldSchema.full(), SchemaUtil.proto2UnknownFieldSetSchema(), ExtensionSchemas.full(), MapFieldSchemas.full());
+        }
+        return MessageSchema.newSchema(cls, messageInfo, NewInstanceSchemas.full(), ListFieldSchema.full(), SchemaUtil.proto3UnknownFieldSetSchema(), null, MapFieldSchemas.full());
     }
 
     private static boolean isProto2(MessageInfo messageInfo) {
@@ -57,9 +57,7 @@ public final class ManifestSchemaFactory implements SchemaFactory {
         return new CompositeMessageInfoFactory(GeneratedMessageInfoFactory.getInstance(), getDescriptorMessageInfoFactory());
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class CompositeMessageInfoFactory implements MessageInfoFactory {
+    private static class CompositeMessageInfoFactory implements MessageInfoFactory {
         private MessageInfoFactory[] factories;
 
         CompositeMessageInfoFactory(MessageInfoFactory... messageInfoFactoryArr) {
@@ -78,7 +76,6 @@ public final class ManifestSchemaFactory implements SchemaFactory {
 
         @Override // com.google.oplus.protobuf.MessageInfoFactory
         public MessageInfo messageInfoFor(Class<?> cls) {
-            MessageInfoFactory[] messageInfoFactoryArr;
             for (MessageInfoFactory messageInfoFactory : this.factories) {
                 if (messageInfoFactory.isSupported(cls)) {
                     return messageInfoFactory.messageInfoFor(cls);

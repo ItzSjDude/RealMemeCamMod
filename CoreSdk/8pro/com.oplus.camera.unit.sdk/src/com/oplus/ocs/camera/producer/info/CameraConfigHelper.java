@@ -7,6 +7,8 @@ import android.util.Pair;
 import android.util.Size;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.oplus.ocs.camera.appinterface.adapter.CameraAdapterUtils;
+import com.oplus.ocs.camera.common.statistics.StatisticsManager;
 import com.oplus.ocs.camera.common.util.CameraConfigBase;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
@@ -16,7 +18,9 @@ import com.oplus.ocs.camera.configure.JsonParser;
 import com.oplus.ocs.camera.configure.ProtobufConfigureHelper;
 import com.oplus.ocs.camera.configure.ProtobufParser;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils;
+import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
 import com.oplus.ocs.camera.producer.feature.FeatureFactory;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -28,7 +32,8 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraConfigHelper {
     public static final int PARAMETER_MAPPING_CATEGORY_INDEX = 2;
     public static final int PARAMETER_MAPPING_NAME_INDEX = 0;
@@ -63,13 +68,8 @@ public final class CameraConfigHelper {
     private static Map<String, String> sVendorTagMap = null;
     private static Map<String, Map<String, Map<String, String>>> sCaptureStreamNumberMap = null;
 
-    /* loaded from: classes.dex */
     public interface ConfigStatusCallback {
         void onConfigParseDone();
-    }
-
-    static /* synthetic */ List access$2100() {
-        return getCameraModeList();
     }
 
     private CameraConfigHelper() {
@@ -109,43 +109,117 @@ public final class CameraConfigHelper {
             thread.start();
         }
         Thread thread2 = new Thread(new Runnable() { // from class: com.oplus.ocs.camera.producer.info.CameraConfigHelper.1
-            /* JADX WARN: Code restructure failed: missing block: B:26:0x0191, code lost:
-                if (com.oplus.ocs.camera.producer.info.CameraConfigHelper.sbUseProtobufFeature == false) goto L28;
-             */
-            /* JADX WARN: Code restructure failed: missing block: B:33:0x01b5, code lost:
-                if (com.oplus.ocs.camera.producer.info.CameraConfigHelper.sbUseProtobufFeature != false) goto L26;
-             */
-            /* JADX WARN: Code restructure failed: missing block: B:34:0x01b7, code lost:
-                com.oplus.ocs.camera.producer.info.CameraConfigHelper.FEATURE_CONDITION.open();
-             */
-            /* JADX WARN: Code restructure failed: missing block: B:35:0x01be, code lost:
-                com.oplus.ocs.camera.producer.info.CameraConfigHelper.CAMERA_ID_TYPE_CONDITION.open();
-                com.oplus.ocs.camera.producer.info.CameraConfigHelper.APS_CONFIG_CONDITION.open();
-                com.oplus.ocs.camera.producer.info.CameraConfigHelper.FEATURE_PARAMETER_MAP_CONDITION.open();
-                com.oplus.ocs.camera.common.util.CameraUnitLog.initLog(r1);
-             */
-            /* JADX WARN: Code restructure failed: missing block: B:36:0x01d8, code lost:
-                return;
-             */
+            /* JADX DEBUG: Another duplicated slice has different insns count: {[INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE]}, finally: {[INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, IGET, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, INVOKE, IGET, INVOKE, IF] complete} */
+            /* JADX DEBUG: Don't trust debug lines info. Repeating lines: [261=4, 262=4, 263=4, 265=4] */
+            /* JADX WARN: Removed duplicated region for block: B:34:0x01b7  */
             @Override // java.lang.Runnable
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
             public void run() {
-                /*
-                    Method dump skipped, instructions count: 534
-                    To view this dump add '--comments-level debug' option
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.info.CameraConfigHelper.AnonymousClass1.run():void");
+                long jCurrentTimeMillis;
+                JsonParser jsonParser;
+                try {
+                    try {
+                        CameraUnitLog.i(CameraConfigHelper.TAG, "initialize config");
+                        try {
+                            Class<?> cls = Class.forName("android.hardware.camera2.OplusCameraManager");
+                            Method method = cls.getMethod("getInstance", new Class[0]);
+                            Method declaredMethod = cls.getDeclaredMethod("setCallInfo", new Class[0]);
+                            method.setAccessible(true);
+                            declaredMethod.setAccessible(true);
+                            declaredMethod.invoke(method.invoke(cls, new Object[0]), new Object[0]);
+                        } catch (Exception e) {
+                            CameraUnitLog.e(CameraConfigHelper.TAG, "initialize, ", e);
+                        }
+                        jCurrentTimeMillis = System.currentTimeMillis();
+                        jsonParser = new JsonParser();
+                    } catch (Exception e2) {
+                        CameraUnitLog.e(CameraConfigHelper.TAG, "initialize, failed!", e2);
+                        CameraConfigHelper.CAMERA_ID_CONDITION.open();
+                        CameraConfigHelper.MODE_CONDITION.open();
+                        CameraConfigHelper.VENDOR_TAG_CONDITION.open();
+                        if (!CameraConfigHelper.sbUseProtobufFeature) {
+                        }
+                    }
+                    if (!jsonParser.loadConfigFile(context)) {
+                        CameraConfigHelper.CAMERA_ID_CONDITION.open();
+                        CameraConfigHelper.MODE_CONDITION.open();
+                        CameraConfigHelper.VENDOR_TAG_CONDITION.open();
+                        if (!CameraConfigHelper.sbUseProtobufFeature) {
+                            CameraConfigHelper.FEATURE_CONDITION.open();
+                        }
+                        CameraConfigHelper.CAMERA_ID_TYPE_CONDITION.open();
+                        CameraConfigHelper.APS_CONFIG_CONDITION.open();
+                        CameraConfigHelper.FEATURE_PARAMETER_MAP_CONDITION.open();
+                        CameraUnitLog.initLog(context);
+                        return;
+                    }
+                    Map unused = CameraConfigHelper.sVendorTagMap = jsonParser.parseVendorTagInfo();
+                    CameraConfigHelper.VENDOR_TAG_CONDITION.open();
+                    List unused2 = CameraConfigHelper.sCameraIdList = jsonParser.parseCameraIdList();
+                    CameraConfigHelper.CAMERA_ID_CONDITION.open();
+                    Map unused3 = CameraConfigHelper.sSupportCameraModeMap = jsonParser.parseSupportedMode();
+                    CameraConfigHelper.MODE_CONDITION.open();
+                    jsonParser.parseConfigureParameters(CameraConfigHelper.sConfigureParameterMapping, CameraConfigHelper.sFeatureAndParameterMapping);
+                    Map unused4 = CameraConfigHelper.sModeOperationModeMap = jsonParser.parseModeOperationMode();
+                    Map unused5 = CameraConfigHelper.sDeviceInfoMap = jsonParser.parseDeviceInfo();
+                    Map unused6 = CameraConfigHelper.sFeatureOperationModeMap = jsonParser.parseFeatureOperationMode();
+                    Map unused7 = CameraConfigHelper.sUsecaseMap = jsonParser.parseUsecaseInfo();
+                    CameraConfigHelper.FEATURE_PARAMETER_MAP_CONDITION.open();
+                    List unused8 = CameraConfigHelper.sSupportDefaultPreviewSizes = jsonParser.parserDefaultSupportPreviewSizes();
+                    List unused9 = CameraConfigHelper.sSupportDefaultVideoSizes = jsonParser.parserDefaultSupportVideoSizes();
+                    Map unused10 = CameraConfigHelper.sMaxSupportVideoSize = jsonParser.parseMaxSupportVideoSize();
+                    Map unused11 = CameraConfigHelper.sSupportPreviewSizes = jsonParser.parseMaxSupportPreviewSize();
+                    Map unused12 = CameraConfigHelper.sSensorNumberMap = jsonParser.parserSensorNumberConfig();
+                    Map unused13 = CameraConfigHelper.sCaptureStreamNumberMap = jsonParser.parserCaptureStreamNumberConfig();
+                    CameraConfigHelper.parserDngDescription(jsonParser);
+                    if (!CameraConfigHelper.sbUseProtobufFeature) {
+                        FeatureFactory.initAllModeFeatures(jsonParser.parseModeCameraTypeFeature(CameraConfigHelper.getCameraModeList()));
+                        CameraConfigHelper.FEATURE_CONDITION.open();
+                    }
+                    CameraCharacteristicsHelper.initialize(context, CameraConfigHelper.getCameraIdList());
+                    CameraConfigHelper.CAMERA_ID_TYPE_CONDITION.open();
+                    if (!Util.isSystemCamera()) {
+                        CameraAdapterUtils.initConfigData(context);
+                    }
+                    AlgoSwitchConfig.initialize(context);
+                    if (CameraConfigHelper.mConfigStatusCallback != null) {
+                        CameraConfigHelper.mConfigStatusCallback.onConfigParseDone();
+                    }
+                    CameraConfigHelper.APS_CONFIG_CONDITION.open();
+                    StatisticsManager.getInstance().init(context);
+                    CameraUnitLog.i(CameraConfigHelper.TAG, "initialize config X, spend time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
+                    CameraConfigHelper.CAMERA_ID_CONDITION.open();
+                    CameraConfigHelper.MODE_CONDITION.open();
+                    CameraConfigHelper.VENDOR_TAG_CONDITION.open();
+                    if (!CameraConfigHelper.sbUseProtobufFeature) {
+                        CameraConfigHelper.FEATURE_CONDITION.open();
+                    }
+                    CameraConfigHelper.CAMERA_ID_TYPE_CONDITION.open();
+                    CameraConfigHelper.APS_CONFIG_CONDITION.open();
+                    CameraConfigHelper.FEATURE_PARAMETER_MAP_CONDITION.open();
+                    CameraUnitLog.initLog(context);
+                } catch (Throwable th) {
+                    CameraConfigHelper.CAMERA_ID_CONDITION.open();
+                    CameraConfigHelper.MODE_CONDITION.open();
+                    CameraConfigHelper.VENDOR_TAG_CONDITION.open();
+                    if (!CameraConfigHelper.sbUseProtobufFeature) {
+                        CameraConfigHelper.FEATURE_CONDITION.open();
+                    }
+                    CameraConfigHelper.CAMERA_ID_TYPE_CONDITION.open();
+                    CameraConfigHelper.APS_CONFIG_CONDITION.open();
+                    CameraConfigHelper.FEATURE_PARAMETER_MAP_CONDITION.open();
+                    CameraUnitLog.initLog(context);
+                    throw th;
+                }
             }
         });
         thread2.setName("jsonParserThread");
         thread2.start();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ void lambda$initialize$0() {
+    static /* synthetic */ void lambda$initialize$0() {
         FeatureFactory.initAllModeFeatures(new ProtobufParser().parseModeCameraTypeFeature(null));
         FEATURE_CONDITION.open();
     }
@@ -164,9 +238,9 @@ public final class CameraConfigHelper {
             return;
         }
         JSONObject jSONObject2 = jSONObject.getJSONObject(str);
-        Iterator<String> keys = jSONObject2.keys();
-        while (keys.hasNext()) {
-            String next = keys.next();
+        Iterator<String> itKeys = jSONObject2.keys();
+        while (itKeys.hasNext()) {
+            String next = itKeys.next();
             JSONArray jSONArray = jSONObject2.getJSONArray(next);
             LinkedList<Pair<String, String>> linkedList = new LinkedList<>();
             for (int i = 0; i < jSONArray.length(); i++) {
@@ -192,10 +266,12 @@ public final class CameraConfigHelper {
         return sSupportCameraModeMap;
     }
 
-    private static List<String> getCameraModeList() {
+    /* JADX INFO: Access modifiers changed from: private */
+    public static List<String> getCameraModeList() {
         ArrayList arrayList = new ArrayList();
-        for (Map.Entry<String, List<String>> entry : getSupportCameraMode().entrySet()) {
-            for (String str : entry.getValue()) {
+        Iterator<Map.Entry<String, List<String>>> it = getSupportCameraMode().entrySet().iterator();
+        while (it.hasNext()) {
+            for (String str : it.next().getValue()) {
                 if (!arrayList.contains(str)) {
                     arrayList.add(str);
                 }
@@ -235,37 +311,9 @@ public final class CameraConfigHelper {
             return sDngDescriptionDefault;
         }
         str.hashCode();
-        char c = 65535;
-        switch (str.hashCode()) {
-            case -712848524:
-                if (str.equals("rear_main")) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case -712636059:
-                if (str.equals("rear_tele")) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case -712543090:
-                if (str.equals("rear_wide")) {
-                    c = 2;
-                    break;
-                }
-                break;
+        switch (str) {
         }
-        switch (c) {
-            case 0:
-                return sDngDescriptionMain;
-            case 1:
-                return sDngDescriptionTele;
-            case 2:
-                return sDngDescriptionWide;
-            default:
-                return sDngDescriptionDefault;
-        }
+        return sDngDescriptionDefault;
     }
 
     public static Map<String, String> getDeviceInfoMap() {
@@ -307,9 +355,9 @@ public final class CameraConfigHelper {
             linkedList = map3.get("default");
             CameraUnitLog.i(TAG, "getMaxVideoSizeByFeature, will get the default values: " + linkedList);
         } else {
-            Set<Map.Entry<String, String>> entrySet = map.entrySet();
-            if (entrySet.iterator().hasNext()) {
-                String key = entrySet.iterator().next().getKey();
+            Set<Map.Entry<String, String>> setEntrySet = map.entrySet();
+            if (setEntrySet.iterator().hasNext()) {
+                String key = setEntrySet.iterator().next().getKey();
                 String featureMappingNameByParameterName = getFeatureMappingNameByParameterName(key);
                 str3 = map.get(key);
                 str4 = featureMappingNameByParameterName;
@@ -338,9 +386,9 @@ public final class CameraConfigHelper {
         if (map3 == null || (map2 = map3.get(str2)) == null || map == null || map.isEmpty()) {
             return null;
         }
-        Set<Map.Entry<String, String>> entrySet = map.entrySet();
-        if (entrySet.iterator().hasNext()) {
-            String key = entrySet.iterator().next().getKey();
+        Set<Map.Entry<String, String>> setEntrySet = map.entrySet();
+        if (setEntrySet.iterator().hasNext()) {
+            String key = setEntrySet.iterator().next().getKey();
             String featureMappingNameByParameterName = getFeatureMappingNameByParameterName(key);
             str3 = map.get(key);
             str4 = featureMappingNameByParameterName;
@@ -367,9 +415,10 @@ public final class CameraConfigHelper {
     private static LinkedList<Size> parserSizeFromConfig(List<String> list) {
         LinkedList<Size> linkedList = new LinkedList<>();
         if (list != null && !list.isEmpty()) {
-            for (String str : list) {
-                String[] split = str.split("X");
-                linkedList.add(new Size(Integer.parseInt(split[0]), Integer.parseInt(split[1])));
+            Iterator<String> it = list.iterator();
+            while (it.hasNext()) {
+                String[] strArrSplit = it.next().split("X");
+                linkedList.add(new Size(Integer.parseInt(strArrSplit[0]), Integer.parseInt(strArrSplit[1])));
             }
         }
         return linkedList;
@@ -379,12 +428,15 @@ public final class CameraConfigHelper {
         return sVendorTagMap;
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type: java.lang.StringBuilder */
+    /* JADX DEBUG: Multi-variable search result rejected for r6v7, resolved type: int[] */
+    /* JADX DEBUG: Multi-variable search result rejected for r8v9, resolved type: android.util.Size[] */
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Type inference failed for: r2v1, types: [T, java.lang.String] */
     /* JADX WARN: Type inference failed for: r6v3, types: [T, int[]] */
     public static <T> T getConfigValue(CameraConfigBase.Key<T> key, T t) {
-        T r2 = (T) getConfigValue(key.getName());
-        if (r2 == null) {
+        ?? r2 = (T) getConfigValue(key.getName());
+        if (r2 == 0) {
             return t;
         }
         try {
@@ -410,28 +462,28 @@ public final class CameraConfigHelper {
                 z = false;
             }
             return (T) Boolean.valueOf(z);
-        } else if (String.class.equals(key.getType())) {
-            return r2;
-        } else {
-            if (Size[].class.equals(key.getType())) {
-                return (T) Util.parserSizeLists(r2);
-            }
-            if (Size.class.equals(key.getType())) {
-                String[] split = r2.toUpperCase().split("X");
-                return split.length == 2 ? (T) new Size(Integer.parseInt(split[0]), Integer.parseInt(split[1])) : t;
-            } else if (!int[].class.equals(key.getType())) {
-                CameraUnitLog.e(TAG, "getConfigValue, key: " + key + ", Type isn't support");
-                return t;
-            } else {
-                String[] split2 = r2.toUpperCase().split(CameraConstant.JSON_CONNECTOR_COMMA);
-                int length = split2.length;
-                int[] r6 = new int[length];
-                for (int i = 0; i < length; i++) {
-                    r6[i] = Integer.parseInt(split2[i]);
-                }
-                return (T) r6;
-            }
         }
+        if (String.class.equals(key.getType())) {
+            return r2;
+        }
+        if (Size[].class.equals(key.getType())) {
+            return (T) Util.parserSizeLists(r2);
+        }
+        if (Size.class.equals(key.getType())) {
+            String[] strArrSplit = r2.toUpperCase().split("X");
+            return strArrSplit.length == 2 ? (T) new Size(Integer.parseInt(strArrSplit[0]), Integer.parseInt(strArrSplit[1])) : t;
+        }
+        if (int[].class.equals(key.getType())) {
+            String[] strArrSplit2 = r2.toUpperCase().split(CameraConstant.JSON_CONNECTOR_COMMA);
+            int length = strArrSplit2.length;
+            ?? r6 = (T) new int[length];
+            for (int i = 0; i < length; i++) {
+                r6[i] = Integer.parseInt(strArrSplit2[i]);
+            }
+            return r6;
+        }
+        CameraUnitLog.e(TAG, "getConfigValue, key: " + key + ", Type isn't support");
+        return t;
     }
 
     public static String getConfigValue(String str) {
@@ -447,10 +499,10 @@ public final class CameraConfigHelper {
         }
         checkVendorTagReady();
         Map<String, String> map = sVendorTagMap;
-        if (map != null) {
-            map.put(str, str2);
+        if (map == null) {
             return true;
         }
+        map.put(str, str2);
         return true;
     }
 

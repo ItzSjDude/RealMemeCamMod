@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.RandomAccess;
 import java.util.Set;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public final class Internal {
     private static final int DEFAULT_BUFFER_SIZE = 4096;
     public static final byte[] EMPTY_BYTE_ARRAY;
@@ -22,98 +22,95 @@ public final class Internal {
     static final Charset UTF_8 = Charset.forName("UTF-8");
     static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
 
-    /* loaded from: classes.dex */
     public interface BooleanList extends ProtobufList<Boolean> {
         void addBoolean(boolean z);
 
         boolean getBoolean(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-                  // com.google.oplus.protobuf.Internal.BooleanList
-        /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Boolean> mutableCopyWithCapacity(int i);
+        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$BooleanList' to match base method */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /* JADX INFO: renamed from: mutableCopyWithCapacity, reason: merged with bridge method [inline-methods] */
+        ProtobufList<Boolean> mutableCopyWithCapacity2(int i);
 
         boolean setBoolean(int i, boolean z);
     }
 
-    /* loaded from: classes.dex */
     public interface DoubleList extends ProtobufList<Double> {
         void addDouble(double d);
 
         double getDouble(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-                  // com.google.oplus.protobuf.Internal.BooleanList
-        /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Double> mutableCopyWithCapacity(int i);
+        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$DoubleList' to match base method */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /* JADX INFO: renamed from: mutableCopyWithCapacity */
+        ProtobufList<Double> mutableCopyWithCapacity2(int i);
 
         double setDouble(int i, double d);
     }
 
-    /* loaded from: classes.dex */
     public interface EnumLite {
         int getNumber();
     }
 
-    /* loaded from: classes.dex */
     public interface EnumLiteMap<T extends EnumLite> {
         T findValueByNumber(int i);
     }
 
-    /* loaded from: classes.dex */
     public interface EnumVerifier {
         boolean isInRange(int i);
     }
 
-    /* loaded from: classes.dex */
     public interface FloatList extends ProtobufList<Float> {
         void addFloat(float f);
 
         float getFloat(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-                  // com.google.oplus.protobuf.Internal.BooleanList
-        /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Float> mutableCopyWithCapacity(int i);
+        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$FloatList' to match base method */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /* JADX INFO: renamed from: mutableCopyWithCapacity */
+        ProtobufList<Float> mutableCopyWithCapacity2(int i);
 
         float setFloat(int i, float f);
     }
 
-    /* loaded from: classes.dex */
     public interface IntList extends ProtobufList<Integer> {
         void addInt(int i);
 
         int getInt(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-                  // com.google.oplus.protobuf.Internal.BooleanList
-        /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Integer> mutableCopyWithCapacity(int i);
+        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$IntList' to match base method */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /* JADX INFO: renamed from: mutableCopyWithCapacity */
+        ProtobufList<Integer> mutableCopyWithCapacity2(int i);
 
         int setInt(int i, int i2);
     }
 
-    /* loaded from: classes.dex */
     public interface LongList extends ProtobufList<Long> {
         void addLong(long j);
 
         long getLong(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-                  // com.google.oplus.protobuf.Internal.BooleanList
-        /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Long> mutableCopyWithCapacity(int i);
+        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$LongList' to match base method */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /* JADX INFO: renamed from: mutableCopyWithCapacity */
+        ProtobufList<Long> mutableCopyWithCapacity2(int i);
 
         long setLong(int i, long j);
     }
 
-    /* loaded from: classes.dex */
     public interface ProtobufList<E> extends List<E>, RandomAccess {
         boolean isModifiable();
 
         void makeImmutable();
 
-        ProtobufList<E> mutableCopyWithCapacity(int i);
+        /* JADX INFO: renamed from: mutableCopyWithCapacity */
+        ProtobufList<E> mutableCopyWithCapacity2(int i);
     }
 
     public static int hashBoolean(boolean z) {
@@ -134,14 +131,12 @@ public final class Internal {
         EMPTY_CODED_INPUT_STREAM = CodedInputStream.newInstance(bArr);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <T> T checkNotNull(T t) {
+    static <T> T checkNotNull(T t) {
         t.getClass();
         return t;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <T> T checkNotNull(T t, String str) {
+    static <T> T checkNotNull(T t, String str) {
         if (t != null) {
             return t;
         }
@@ -165,12 +160,12 @@ public final class Internal {
     }
 
     public static ByteBuffer copyByteBuffer(ByteBuffer byteBuffer) {
-        ByteBuffer duplicate = byteBuffer.duplicate();
-        duplicate.clear();
-        ByteBuffer allocate = ByteBuffer.allocate(duplicate.capacity());
-        allocate.put(duplicate);
-        allocate.clear();
-        return allocate;
+        ByteBuffer byteBufferDuplicate = byteBuffer.duplicate();
+        byteBufferDuplicate.clear();
+        ByteBuffer byteBufferAllocate = ByteBuffer.allocate(byteBufferDuplicate.capacity());
+        byteBufferAllocate.put(byteBufferDuplicate);
+        byteBufferAllocate.clear();
+        return byteBufferAllocate;
     }
 
     public static boolean isValidUtf8(ByteString byteString) {
@@ -194,11 +189,12 @@ public final class Internal {
     }
 
     public static int hashEnumList(List<? extends EnumLite> list) {
-        int i = 1;
-        for (EnumLite enumLite : list) {
-            i = (i * 31) + hashEnum(enumLite);
+        Iterator<? extends EnumLite> it = list.iterator();
+        int iHashEnum = 1;
+        while (it.hasNext()) {
+            iHashEnum = (iHashEnum * 31) + hashEnum(it.next());
         }
-        return i;
+        return iHashEnum;
     }
 
     public static boolean equals(List<byte[]> list, List<byte[]> list2) {
@@ -214,11 +210,12 @@ public final class Internal {
     }
 
     public static int hashCode(List<byte[]> list) {
-        int i = 1;
-        for (byte[] bArr : list) {
-            i = (i * 31) + hashCode(bArr);
+        Iterator<byte[]> it = list.iterator();
+        int iHashCode = 1;
+        while (it.hasNext()) {
+            iHashCode = (iHashCode * 31) + hashCode(it.next());
         }
-        return i;
+        return iHashCode;
     }
 
     public static int hashCode(byte[] bArr) {
@@ -226,15 +223,14 @@ public final class Internal {
     }
 
     static int hashCode(byte[] bArr, int i, int i2) {
-        int partialHash = partialHash(i2, bArr, i, i2);
-        if (partialHash == 0) {
+        int iPartialHash = partialHash(i2, bArr, i, i2);
+        if (iPartialHash == 0) {
             return 1;
         }
-        return partialHash;
+        return iPartialHash;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int partialHash(int i, byte[] bArr, int i2, int i3) {
+    static int partialHash(int i, byte[] bArr, int i2, int i3) {
         for (int i4 = i2; i4 < i2 + i3; i4++) {
             i = (i * 31) + bArr[i4];
         }
@@ -261,36 +257,36 @@ public final class Internal {
     }
 
     public static int hashCodeByteBuffer(List<ByteBuffer> list) {
-        int i = 1;
-        for (ByteBuffer byteBuffer : list) {
-            i = (i * 31) + hashCodeByteBuffer(byteBuffer);
+        Iterator<ByteBuffer> it = list.iterator();
+        int iHashCodeByteBuffer = 1;
+        while (it.hasNext()) {
+            iHashCodeByteBuffer = (iHashCodeByteBuffer * 31) + hashCodeByteBuffer(it.next());
         }
-        return i;
+        return iHashCodeByteBuffer;
     }
 
     public static int hashCodeByteBuffer(ByteBuffer byteBuffer) {
         if (byteBuffer.hasArray()) {
-            int partialHash = partialHash(byteBuffer.capacity(), byteBuffer.array(), byteBuffer.arrayOffset(),
-                    byteBuffer.capacity());
-            if (partialHash == 0) {
+            int iPartialHash = partialHash(byteBuffer.capacity(), byteBuffer.array(), byteBuffer.arrayOffset(), byteBuffer.capacity());
+            if (iPartialHash == 0) {
                 return 1;
             }
-            return partialHash;
+            return iPartialHash;
         }
-        int capacity = byteBuffer.capacity() <= 4096 ? byteBuffer.capacity() : 4096;
-        byte[] bArr = new byte[capacity];
-        ByteBuffer duplicate = byteBuffer.duplicate();
-        duplicate.clear();
-        int capacity2 = byteBuffer.capacity();
-        while (duplicate.remaining() > 0) {
-            int remaining = duplicate.remaining() <= capacity ? duplicate.remaining() : capacity;
-            duplicate.get(bArr, 0, remaining);
-            capacity2 = partialHash(capacity2, bArr, 0, remaining);
+        int iCapacity = byteBuffer.capacity() <= 4096 ? byteBuffer.capacity() : 4096;
+        byte[] bArr = new byte[iCapacity];
+        ByteBuffer byteBufferDuplicate = byteBuffer.duplicate();
+        byteBufferDuplicate.clear();
+        int iCapacity2 = byteBuffer.capacity();
+        while (byteBufferDuplicate.remaining() > 0) {
+            int iRemaining = byteBufferDuplicate.remaining() <= iCapacity ? byteBufferDuplicate.remaining() : iCapacity;
+            byteBufferDuplicate.get(bArr, 0, iRemaining);
+            iCapacity2 = partialHash(iCapacity2, bArr, 0, iRemaining);
         }
-        if (capacity2 == 0) {
+        if (iCapacity2 == 0) {
             return 1;
         }
-        return capacity2;
+        return iCapacity2;
     }
 
     public static <T extends MessageLite> T getDefaultInstance(Class<T> cls) {
@@ -302,17 +298,14 @@ public final class Internal {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static Object mergeMessage(Object obj, Object obj2) {
+    static Object mergeMessage(Object obj, Object obj2) {
         return ((MessageLite) obj).toBuilder().mergeFrom((MessageLite) obj2).buildPartial();
     }
 
-    /* loaded from: classes.dex */
     public static class ListAdapter<F, T> extends AbstractList<T> {
         private final Converter<F, T> converter;
         private final List<F> fromList;
 
-        /* loaded from: classes.dex */
         public interface Converter<F, T> {
             T convert(F f);
         }
@@ -324,7 +317,7 @@ public final class Internal {
 
         @Override // java.util.AbstractList, java.util.List
         public T get(int i) {
-            return this.converter.convert(this.fromList.get(i));
+            return (T) this.converter.convert(this.fromList.get(i));
         }
 
         @Override // java.util.AbstractCollection, java.util.Collection, java.util.List
@@ -333,35 +326,30 @@ public final class Internal {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class MapAdapter<K, V, RealValue> extends AbstractMap<K, V> {
         private final Map<K, RealValue> realMap;
         private final Converter<RealValue, V> valueConverter;
 
-        /* loaded from: classes.dex */
         public interface Converter<A, B> {
             A doBackward(B b);
 
             B doForward(A a);
         }
 
-        public static <T extends EnumLite> Converter<Integer, T> newEnumConverter(final EnumLiteMap<T> enumLiteMap,
-                final T t) {
-            return (Converter<Integer, T>) new Converter<Integer, T>() { // from class:
-                                                                         // com.google.oplus.protobuf.Internal.MapAdapter.1
-                /*
-                 * JADX WARN: Incorrect return type in method signature:
-                 * (Ljava/lang/Integer;)TT;
-                 */
+        public static <T extends EnumLite> Converter<Integer, T> newEnumConverter(final EnumLiteMap<T> enumLiteMap, final T t) {
+            return (Converter<Integer, T>) new Converter<Integer, T>() { // from class: com.google.oplus.protobuf.Internal.MapAdapter.1
+                /* JADX DEBUG: Method merged with bridge method: doForward(Ljava/lang/Object;)Ljava/lang/Object; */
+                /* JADX WARN: Incorrect return type in method signature: (Ljava/lang/Integer;)TT; */
                 @Override // com.google.oplus.protobuf.Internal.MapAdapter.Converter
-                public T doForward(Integer num) {
-                    T findValueByNumber = enumLiteMap.findValueByNumber(num.intValue());
-                    return findValueByNumber == null ? t : findValueByNumber;
+                public EnumLite doForward(Integer num) {
+                    EnumLite enumLiteFindValueByNumber = enumLiteMap.findValueByNumber(num.intValue());
+                    return enumLiteFindValueByNumber == null ? t : enumLiteFindValueByNumber;
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: doBackward(Ljava/lang/Object;)Ljava/lang/Object; */
                 /* JADX WARN: Incorrect types in method signature: (TT;)Ljava/lang/Integer; */
                 @Override // com.google.oplus.protobuf.Internal.MapAdapter.Converter
-                public Integer doBackward(T enumLite) {
+                public Integer doBackward(EnumLite enumLite) {
                     return Integer.valueOf(enumLite.getNumber());
                 }
             };
@@ -381,13 +369,14 @@ public final class Internal {
             return this.valueConverter.doForward(realvalue);
         }
 
+        /* JADX WARN: Type inference incomplete: some casts might be missing */
         @Override // java.util.AbstractMap, java.util.Map
         public V put(K k, V v) {
-            RealValue put = this.realMap.put(k, this.valueConverter.doBackward(v));
-            if (put == null) {
+            RealValue realvaluePut = this.realMap.put(k, this.valueConverter.doBackward(v));
+            if (realvaluePut == null) {
                 return null;
             }
-            return this.valueConverter.doForward(put);
+            return this.valueConverter.doForward(realvaluePut);
         }
 
         @Override // java.util.AbstractMap, java.util.Map
@@ -395,7 +384,6 @@ public final class Internal {
             return new SetAdapter(this.realMap.entrySet());
         }
 
-        /* loaded from: classes.dex */
         private class SetAdapter extends AbstractSet<Map.Entry<K, V>> {
             private final Set<Map.Entry<K, RealValue>> realSet;
 
@@ -403,8 +391,7 @@ public final class Internal {
                 this.realSet = set;
             }
 
-            @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable,
-                      // java.util.Set
+            @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, java.util.Set
             public Iterator<Map.Entry<K, V>> iterator() {
                 return new IteratorAdapter(this.realSet.iterator());
             }
@@ -415,7 +402,6 @@ public final class Internal {
             }
         }
 
-        /* loaded from: classes.dex */
         private class IteratorAdapter implements Iterator<Map.Entry<K, V>> {
             private final Iterator<Map.Entry<K, RealValue>> realIterator;
 
@@ -428,6 +414,7 @@ public final class Internal {
                 return this.realIterator.hasNext();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: next()Ljava/lang/Object; */
             @Override // java.util.Iterator
             public Map.Entry<K, V> next() {
                 return new EntryAdapter(this.realIterator.next());
@@ -439,9 +426,7 @@ public final class Internal {
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public class EntryAdapter implements Map.Entry<K, V> {
+        private class EntryAdapter implements Map.Entry<K, V> {
             private final Map.Entry<K, RealValue> realEntry;
 
             public EntryAdapter(Map.Entry<K, RealValue> entry) {
@@ -458,10 +443,9 @@ public final class Internal {
                 return (V) MapAdapter.this.valueConverter.doForward(this.realEntry.getValue());
             }
 
-            /* JADX WARN: Multi-variable type inference failed */
             @Override // java.util.Map.Entry
             public V setValue(V v) {
-                RealValue value = this.realEntry.setValue(MapAdapter.this.valueConverter.doBackward(v));
+                RealValue value = this.realEntry.setValue((RealValue) MapAdapter.this.valueConverter.doBackward(v));
                 if (value == null) {
                     return null;
                 }

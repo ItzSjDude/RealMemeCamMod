@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Field;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface FieldOrBuilder extends MessageOrBuilder {
     Field.Cardinality getCardinality();
 

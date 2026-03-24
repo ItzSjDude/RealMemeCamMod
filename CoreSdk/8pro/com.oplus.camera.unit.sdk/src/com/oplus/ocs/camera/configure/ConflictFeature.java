@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.configure;
 import androidx.annotation.Nullable;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ConflictFeature<P> {
     private static final String TAG = "ConflictFeature";
     private final Value<P> mDefaultValue;

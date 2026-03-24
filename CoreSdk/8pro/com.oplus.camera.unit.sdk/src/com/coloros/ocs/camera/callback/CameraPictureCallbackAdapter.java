@@ -7,7 +7,8 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.view.Surface;
 import androidx.annotation.NonNull;
 import com.coloros.ocs.camera.util.CameraImage;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraPictureCallbackAdapter {
     public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
     }
@@ -44,7 +45,6 @@ public abstract class CameraPictureCallbackAdapter {
         onCaptureFailed(captureRequest, new PictureResult(null, captureFailure));
     }
 
-    /* loaded from: classes.dex */
     public static final class PictureResult {
         private CaptureFailure mCaptureFailure;
         private CaptureResult mCaptureResult;

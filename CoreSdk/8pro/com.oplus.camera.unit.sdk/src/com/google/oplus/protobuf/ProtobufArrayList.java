@@ -3,7 +3,7 @@ package com.google.oplus.protobuf;
 import java.util.Arrays;
 import java.util.RandomAccess;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 final class ProtobufArrayList<E> extends AbstractProtobufList<E> implements RandomAccess {
     private static final ProtobufArrayList<Object> EMPTY_LIST;
     private E[] array;
@@ -20,7 +20,7 @@ final class ProtobufArrayList<E> extends AbstractProtobufList<E> implements Rand
     }
 
     ProtobufArrayList() {
-        this((E[]) new Object[10], 0);
+        this(new Object[10], 0);
     }
 
     private ProtobufArrayList(E[] eArr, int i) {
@@ -28,17 +28,17 @@ final class ProtobufArrayList<E> extends AbstractProtobufList<E> implements Rand
         this.size = i;
     }
 
-    @Override // com.google.oplus.protobuf.Internal.ProtobufList,
-              // com.google.oplus.protobuf.Internal.BooleanList
-    public ProtobufArrayList<E> mutableCopyWithCapacity(int i) {
+    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+    @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+    /* JADX INFO: renamed from: mutableCopyWithCapacity */
+    public ProtobufArrayList<E> mutableCopyWithCapacity2(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }
         return new ProtobufArrayList<>(Arrays.copyOf(this.array, i), this.size);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean add(E e) {
         ensureIsMutable();
         int i = this.size;
@@ -54,8 +54,7 @@ final class ProtobufArrayList<E> extends AbstractProtobufList<E> implements Rand
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public void add(int i, E e) {
         int i2;
         ensureIsMutable();
@@ -82,24 +81,21 @@ final class ProtobufArrayList<E> extends AbstractProtobufList<E> implements Rand
         return this.array[i];
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public E remove(int i) {
-        int i2;
         ensureIsMutable();
         ensureIndexInRange(i);
         E[] eArr = this.array;
         E e = eArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(eArr, i + 1, eArr, i, (i2 - i) - 1);
+            System.arraycopy(eArr, i + 1, eArr, i, (r2 - i) - 1);
         }
         this.size--;
         this.modCount++;
         return e;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
-              // java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public E set(int i, E e) {
         ensureIsMutable();
         ensureIndexInRange(i);

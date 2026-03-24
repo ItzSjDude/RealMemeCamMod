@@ -4,7 +4,8 @@ import android.util.Size;
 import android.view.Surface;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class SurfaceWrapper {
     private com.oplus.ocs.camera.common.surface.SurfaceWrapper mSurfaceWrapper;
 

@@ -2,7 +2,8 @@ package com.oplus.exif;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class OplusByteBufferInputStream extends InputStream {
     private ByteBuffer mBuf;
 
@@ -20,11 +21,11 @@ class OplusByteBufferInputStream extends InputStream {
 
     @Override // java.io.InputStream
     public int read(byte[] bArr, int i, int i2) {
-        if (this.mBuf.hasRemaining()) {
-            int min = Math.min(i2, this.mBuf.remaining());
-            this.mBuf.get(bArr, i, min);
-            return min;
+        if (!this.mBuf.hasRemaining()) {
+            return -1;
         }
-        return -1;
+        int iMin = Math.min(i2, this.mBuf.remaining());
+        this.mBuf.get(bArr, i, iMin);
+        return iMin;
     }
 }

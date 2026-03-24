@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.common.util;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraImage {
     private String mCameraType;
     private int mFormat;

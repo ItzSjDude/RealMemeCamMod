@@ -27,7 +27,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam;
 import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class NoneApsImpl implements ApsInterface {
     public static final int CAPTURE_PROC_DELAY = 20;
     public static final int MSG_APS_CAPTURE = 0;
@@ -38,7 +39,6 @@ public class NoneApsImpl implements ApsInterface {
     private ProcessHandler mProcessHandler = null;
     private Queue<CaptureFrame> mCaptureFrameQueue = new LinkedBlockingQueue();
 
-    /* loaded from: classes.dex */
     public static final class CaptureFrame {
         public ApsInterface.ApsListener mApsListener;
         public long mTimeStamp = -1;
@@ -47,7 +47,6 @@ public class NoneApsImpl implements ApsInterface {
         public byte[] mData = null;
     }
 
-    /* loaded from: classes.dex */
     public static final class PreviewFrame {
         public ApsInterface.ApsListener mApsListener;
         public long mTimeStamp = -1;
@@ -145,12 +144,12 @@ public class NoneApsImpl implements ApsInterface {
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
     public boolean connect(int i) {
         ApsAdapterLog.v(TAG, "connect");
-        if (this.mProcessHandler == null) {
-            HandlerThread handlerThread = new HandlerThread("NoneApsImpl Process Thread");
-            handlerThread.start();
-            this.mProcessHandler = new ProcessHandler(handlerThread.getLooper());
+        if (this.mProcessHandler != null) {
             return true;
         }
+        HandlerThread handlerThread = new HandlerThread("NoneApsImpl Process Thread");
+        handlerThread.start();
+        this.mProcessHandler = new ProcessHandler(handlerThread.getLooper());
         return true;
     }
 
@@ -196,12 +195,12 @@ public class NoneApsImpl implements ApsInterface {
             if (this.mCaptureFrameQueue.isEmpty()) {
                 return -1;
             }
-            CaptureFrame poll = this.mCaptureFrameQueue.poll();
+            CaptureFrame captureFramePoll = this.mCaptureFrameQueue.poll();
             int i = 0;
             while (true) {
                 if (i < strArr.length) {
-                    if (poll != null && strArr[i].equals(ApsParameters.KEY_PROCESS_IMAGE_IDENTITY)) {
-                        poll.mTimeStamp = Long.decode(strArr[i + 1]).longValue();
+                    if (captureFramePoll != null && strArr[i].equals(ApsParameters.KEY_PROCESS_IMAGE_IDENTITY)) {
+                        captureFramePoll.mTimeStamp = Long.decode(strArr[i + 1]).longValue();
                         break;
                     }
                     i += 2;
@@ -209,7 +208,7 @@ public class NoneApsImpl implements ApsInterface {
                     break;
                 }
             }
-            this.mProcessHandler.sendMessageDelayed(this.mProcessHandler.obtainMessage(0, poll), 20L);
+            this.mProcessHandler.sendMessageDelayed(this.mProcessHandler.obtainMessage(0, captureFramePoll), 20L);
             return 0;
         }
     }
@@ -257,18 +256,17 @@ public class NoneApsImpl implements ApsInterface {
         while (true) {
             if (i3 >= processParamters.length) {
                 break;
-            } else if (processParamters[i3].equals(ApsParameters.KEY_PIPELINE)) {
+            }
+            if (processParamters[i3].equals(ApsParameters.KEY_PIPELINE)) {
                 previewFrame.mPipeline = processParamters[i3 + 1];
                 break;
-            } else {
-                i3 += 2;
             }
+            i3 += 2;
         }
         this.mProcessHandler.sendMessage(this.mProcessHandler.obtainMessage(1, previewFrame));
         return 0;
     }
 
-    /* loaded from: classes.dex */
     public static class ProcessHandler extends Handler {
         public ProcessHandler(Looper looper) {
             super(looper);
@@ -286,20 +284,22 @@ public class NoneApsImpl implements ApsInterface {
                 apsResult.mCopyBuffer = captureFrame.mData;
                 apsResult.mBufferType = 256;
                 captureFrame.mApsListener.onCaptureReceived(apsResult);
-            } else if (i != 1) {
-            } else {
-                PreviewFrame previewFrame = (PreviewFrame) message.obj;
-                ApsResult apsResult2 = new ApsResult(previewFrame.mImage);
-                apsResult2.mIdentity = previewFrame.mTimeStamp;
-                apsResult2.mMetadata = (TotalCaptureResult) previewFrame.mMetadata;
-                apsResult2.mPipelineName = previewFrame.mPipeline;
-                apsResult2.mDecisionResult = new ApsAdapterDecision.DecisionResult();
-                apsResult2.mDecisionResult.mCameraId = previewFrame.mCameraId;
-                apsResult2.mDecisionResult.mCaptureMode = previewFrame.mCaptureMode;
-                apsResult2.mWidth = previewFrame.mImage.getWidth();
-                apsResult2.mHeight = previewFrame.mImage.getHeight();
-                previewFrame.mApsListener.onPreviewReceived(apsResult2);
+                return;
             }
+            if (i != 1) {
+                return;
+            }
+            PreviewFrame previewFrame = (PreviewFrame) message.obj;
+            ApsResult apsResult2 = new ApsResult(previewFrame.mImage);
+            apsResult2.mIdentity = previewFrame.mTimeStamp;
+            apsResult2.mMetadata = (TotalCaptureResult) previewFrame.mMetadata;
+            apsResult2.mPipelineName = previewFrame.mPipeline;
+            apsResult2.mDecisionResult = new ApsAdapterDecision.DecisionResult();
+            apsResult2.mDecisionResult.mCameraId = previewFrame.mCameraId;
+            apsResult2.mDecisionResult.mCaptureMode = previewFrame.mCaptureMode;
+            apsResult2.mWidth = previewFrame.mImage.getWidth();
+            apsResult2.mHeight = previewFrame.mImage.getHeight();
+            previewFrame.mApsListener.onPreviewReceived(apsResult2);
         }
     }
 }

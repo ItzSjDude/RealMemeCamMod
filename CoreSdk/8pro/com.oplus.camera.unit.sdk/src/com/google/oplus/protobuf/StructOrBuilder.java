@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface StructOrBuilder extends MessageOrBuilder {
     boolean containsFields(String str);
 

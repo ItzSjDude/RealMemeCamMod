@@ -17,7 +17,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public abstract class CameraPictureCallbackAdapter {
     private static final String TAG = "CameraPictureCallbackAdapter";
     private ApsResult mApsResult = null;
@@ -108,7 +109,6 @@ public abstract class CameraPictureCallbackAdapter {
         this.mApsResult = apsResult;
     }
 
-    /* loaded from: classes.dex */
     public static final class PictureResult {
         private PictureResultHelper mPictureResultHelper;
 
@@ -132,7 +132,6 @@ public abstract class CameraPictureCallbackAdapter {
             return this.mPictureResultHelper.getCaptureFailure();
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder {
             private ConcurrentHashMap<String, ApsBaseParameter.ValueWrapper<?>> mCustomParameterMap;
             private CaptureResult mCaptureResult = null;

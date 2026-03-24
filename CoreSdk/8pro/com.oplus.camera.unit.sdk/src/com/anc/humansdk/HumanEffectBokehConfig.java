@@ -2,7 +2,8 @@ package com.anc.humansdk;
 
 import android.content.res.AssetManager;
 import android.os.Build;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class HumanEffectBokehConfig {
     public AssetManager assetsMgr;
     public String cachePath;

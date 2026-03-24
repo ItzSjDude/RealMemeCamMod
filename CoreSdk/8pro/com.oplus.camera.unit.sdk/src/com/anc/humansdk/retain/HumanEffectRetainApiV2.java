@@ -10,22 +10,21 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class HumanEffectRetainApiV2 {
     static final String TAG = "HumanEffectRetainApiV2";
-    static final boolean DEBUG = Log.isLoggable(TAG, 3);
+    static final boolean DEBUG = Log.isLoggable("HumanEffectRetainApiV2", 3);
     private static HumanEffectRetainApiV2 sInstance = new HumanEffectRetainApiV2();
     private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
     private AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
     protected AtomicLong handle = new AtomicLong(0);
 
-    /* loaded from: classes.dex */
     public enum CameraType {
         CAMERA_TYPE_REAR,
         CAMERA_TYPE_FRONT
     }
 
-    /* loaded from: classes.dex */
     public enum ImageType {
         ANC_HUM_IMG_NV21,
         ANC_HUM_IMG_BGR,
@@ -127,23 +126,23 @@ public class HumanEffectRetainApiV2 {
         if (this.handle.get() == 0) {
             Log.e(TAG, "setParams: handle is invalid!");
             return 2;
-        } else if (humanVideoRetainParams.bgPath != null && humanVideoRetainParams.fgPath != null && !humanVideoRetainParams.bgPath.equals("") && !humanVideoRetainParams.fgPath.equals("")) {
-            return nativeSetParams(this.handle.get(), humanVideoRetainParams);
-        } else {
-            Log.e(TAG, "setParams: invalid args");
-            return 1;
         }
+        if (humanVideoRetainParams.bgPath != null && humanVideoRetainParams.fgPath != null && !humanVideoRetainParams.bgPath.equals("") && !humanVideoRetainParams.fgPath.equals("")) {
+            return nativeSetParams(this.handle.get(), humanVideoRetainParams);
+        }
+        Log.e(TAG, "setParams: invalid args");
+        return 1;
     }
 
     public int process(HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessTexureResult humanProcessTexureResult) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
-        } else if (humanProcessTextureRequest == null || humanProcessTexureResult == null || !humanProcessTextureRequest.IsValid()) {
-            return 1;
-        } else {
-            return nativeProcessTexture(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTexureResult.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.width, humanProcessTextureRequest.humanVideoTexture.height, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.isOES);
         }
+        if (humanProcessTextureRequest == null || humanProcessTexureResult == null || !humanProcessTextureRequest.IsValid()) {
+            return 1;
+        }
+        return nativeProcessTexture(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTexureResult.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.width, humanProcessTextureRequest.humanVideoTexture.height, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.isOES);
     }
 
     public int process(HumanProcessFrameRequest humanProcessFrameRequest, HumanProcessFrameResult humanProcessFrameResult) {
@@ -159,9 +158,9 @@ public class HumanEffectRetainApiV2 {
             Log.e(TAG, "release: handle is invalid!");
             return 2;
         }
-        int nativeRelease = nativeRelease(this.handle.get());
+        int iNativeRelease = nativeRelease(this.handle.get());
         this.handle.set(0L);
-        return nativeRelease;
+        return iNativeRelease;
     }
 
     public static HumanEffectRetainApiV2 getInstance() {
@@ -178,9 +177,9 @@ public class HumanEffectRetainApiV2 {
         try {
             FileInputStream fileInputStream = new FileInputStream(str);
             while (true) {
-                int read = fileInputStream.read(bArr);
-                if (read != -1) {
-                    byteArrayOutputStream.write(bArr, 0, read);
+                int i = fileInputStream.read(bArr);
+                if (i != -1) {
+                    byteArrayOutputStream.write(bArr, 0, i);
                 } else {
                     fileInputStream.close();
                     byteArrayOutputStream.close();
@@ -192,7 +191,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoConfig {
         public String cachePath;
         public boolean isBackCamera;
@@ -266,7 +264,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameResult {
         public HumanVideoFrame humanVideoFrame;
 
@@ -284,7 +281,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTexureResult {
         public HumanVideoTexture humanVideoTexture;
 
@@ -302,7 +298,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameRequest {
         public CameraType cameraType;
         public HumanVideoFrame humanVideoFrame;
@@ -322,7 +317,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessFrameRequestBuilder {
         static final /* synthetic */ boolean $assertionsDisabled = false;
         public CameraType cameraType;
@@ -374,7 +368,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTextureRequest {
         public CameraType cameraType;
         public HumanVideoTexture humanVideoTexture;
@@ -394,7 +387,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanProcessTextureRequestBuilder {
         static final /* synthetic */ boolean $assertionsDisabled = false;
         public CameraType cameraType;
@@ -449,7 +441,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoFrame {
         public byte[] data;
         public int height;
@@ -470,7 +461,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoTexture {
         public int height;
         public boolean isOES;
@@ -491,7 +481,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public enum SdkLoadType {
         ANC_LOAD_TYPE_DLOEPN,
         ANC_LOAD_TYPE_ANDROID_DLOPEN,
@@ -510,7 +499,6 @@ public class HumanEffectRetainApiV2 {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class HumanVideoRetainParams {
         public String bgPath;
         public String fgPath;

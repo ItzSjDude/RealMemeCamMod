@@ -3,10 +3,10 @@ package com.google.oplus.protobuf;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface MessageLite extends MessageLiteOrBuilder {
 
-    /* loaded from: classes.dex */
     public interface Builder extends MessageLiteOrBuilder, Cloneable {
         MessageLite build();
 
@@ -14,7 +14,8 @@ public interface MessageLite extends MessageLiteOrBuilder {
 
         Builder clear();
 
-        Builder clone();
+        /* JADX INFO: renamed from: clone */
+        Builder mo0clone();
 
         boolean mergeDelimitedFrom(InputStream inputStream) throws IOException;
 

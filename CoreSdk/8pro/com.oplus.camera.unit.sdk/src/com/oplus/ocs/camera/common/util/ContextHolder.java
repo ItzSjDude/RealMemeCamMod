@@ -3,8 +3,10 @@ package com.oplus.ocs.camera.common.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsContextHolder;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ContextHolder {
+
     @SuppressLint({"StaticFieldLeak"})
     private static Context sContext;
 

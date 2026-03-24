@@ -1,5 +1,6 @@
 package com.oplus.exif;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class OplusJpegHeader {
     public static final short APP0 = -32;
     public static final short APP1 = -31;

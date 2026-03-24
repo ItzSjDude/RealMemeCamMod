@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.common.parameter.apsadapter;
 
 import com.oplus.ocs.camera.common.parameter.apsadapter.ApsBaseParameter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsOtherParameter extends ApsBaseParameter {
     public static final ApsBaseParameter.Key<Object> KEY_REQUEST_TAG = new ApsBaseParameter.Key<>("com.oplus.request.tag", Object.class, null);
     public static final ApsBaseParameter.Key<Integer> KEY_CAPTURE_FAIL_CODE = new ApsBaseParameter.Key<>("com.oplus.capture.fail.code", Integer.class, 0);

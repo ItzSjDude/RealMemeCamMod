@@ -23,7 +23,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class TextFormat {
     private static final Logger logger = Logger.getLogger(TextFormat.class.getName());
     private static final Parser PARSER = Parser.newBuilder().build();
@@ -128,30 +129,36 @@ public final class TextFormat {
         int tagWireType = WireFormat.getTagWireType(i);
         if (tagWireType == 0) {
             textGenerator.print(unsignedToString(((Long) obj).longValue()));
-        } else if (tagWireType == 1) {
+            return;
+        }
+        if (tagWireType == 1) {
             textGenerator.print(String.format(null, "0x%016x", (Long) obj));
-        } else if (tagWireType != 2) {
+            return;
+        }
+        if (tagWireType != 2) {
             if (tagWireType == 3) {
                 Printer.printUnknownFields((UnknownFieldSet) obj, textGenerator);
-            } else if (tagWireType == 5) {
+                return;
+            }
+            if (tagWireType == 5) {
                 textGenerator.print(String.format(null, "0x%08x", (Integer) obj));
+                return;
             } else {
                 throw new IllegalArgumentException("Bad tag: " + i);
             }
-        } else {
-            try {
-                UnknownFieldSet parseFrom = UnknownFieldSet.parseFrom((ByteString) obj);
-                textGenerator.print("{");
-                textGenerator.eol();
-                textGenerator.indent();
-                Printer.printUnknownFields(parseFrom, textGenerator);
-                textGenerator.outdent();
-                textGenerator.print("}");
-            } catch (InvalidProtocolBufferException unused) {
-                textGenerator.print("\"");
-                textGenerator.print(escapeBytes((ByteString) obj));
-                textGenerator.print("\"");
-            }
+        }
+        try {
+            UnknownFieldSet from = UnknownFieldSet.parseFrom((ByteString) obj);
+            textGenerator.print("{");
+            textGenerator.eol();
+            textGenerator.indent();
+            Printer.printUnknownFields(from, textGenerator);
+            textGenerator.outdent();
+            textGenerator.print("}");
+        } catch (InvalidProtocolBufferException unused) {
+            textGenerator.print("\"");
+            textGenerator.print(escapeBytes((ByteString) obj));
+            textGenerator.print("\"");
         }
     }
 
@@ -159,7 +166,6 @@ public final class TextFormat {
         return Printer.DEFAULT;
     }
 
-    /* loaded from: classes.dex */
     public static final class Printer {
         private static final Printer DEFAULT = new Printer(true, TypeRegistry.getEmptyTypeRegistry());
         private final boolean escapeNonAscii;
@@ -198,27 +204,27 @@ public final class TextFormat {
 
         private boolean printAny(MessageOrBuilder messageOrBuilder, TextGenerator textGenerator) throws IOException {
             Descriptors.Descriptor descriptorForType = messageOrBuilder.getDescriptorForType();
-            Descriptors.FieldDescriptor findFieldByNumber = descriptorForType.findFieldByNumber(1);
-            Descriptors.FieldDescriptor findFieldByNumber2 = descriptorForType.findFieldByNumber(2);
-            if (findFieldByNumber != null && findFieldByNumber.getType() == Descriptors.FieldDescriptor.Type.STRING && findFieldByNumber2 != null && findFieldByNumber2.getType() == Descriptors.FieldDescriptor.Type.BYTES) {
-                String str = (String) messageOrBuilder.getField(findFieldByNumber);
+            Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = descriptorForType.findFieldByNumber(1);
+            Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber2 = descriptorForType.findFieldByNumber(2);
+            if (fieldDescriptorFindFieldByNumber != null && fieldDescriptorFindFieldByNumber.getType() == Descriptors.FieldDescriptor.Type.STRING && fieldDescriptorFindFieldByNumber2 != null && fieldDescriptorFindFieldByNumber2.getType() == Descriptors.FieldDescriptor.Type.BYTES) {
+                String str = (String) messageOrBuilder.getField(fieldDescriptorFindFieldByNumber);
                 if (str.isEmpty()) {
                     return false;
                 }
-                Object field = messageOrBuilder.getField(findFieldByNumber2);
+                Object field = messageOrBuilder.getField(fieldDescriptorFindFieldByNumber2);
                 try {
                     Descriptors.Descriptor descriptorForTypeUrl = this.typeRegistry.getDescriptorForTypeUrl(str);
                     if (descriptorForTypeUrl == null) {
                         return false;
                     }
-                    DynamicMessage.Builder newBuilderForType = DynamicMessage.getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
-                    newBuilderForType.mergeFrom((ByteString) field);
+                    DynamicMessage.Builder builderNewBuilderForType = DynamicMessage.getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
+                    builderNewBuilderForType.mergeFrom((ByteString) field);
                     textGenerator.print("[");
                     textGenerator.print(str);
                     textGenerator.print("] {");
                     textGenerator.eol();
                     textGenerator.indent();
-                    print(newBuilderForType, textGenerator);
+                    print(builderNewBuilderForType, textGenerator);
                     textGenerator.outdent();
                     textGenerator.print("}");
                     textGenerator.eol();
@@ -245,26 +251,29 @@ public final class TextFormat {
 
         private void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, TextGenerator textGenerator) throws IOException {
             if (fieldDescriptor.isMapField()) {
-                ArrayList<MapEntryAdapter> arrayList = new ArrayList();
-                for (Object obj2 : (List) obj) {
-                    arrayList.add(new MapEntryAdapter(obj2, fieldDescriptor));
+                ArrayList arrayList = new ArrayList();
+                Iterator it = ((List) obj).iterator();
+                while (it.hasNext()) {
+                    arrayList.add(new MapEntryAdapter(it.next(), fieldDescriptor));
                 }
                 Collections.sort(arrayList);
-                for (MapEntryAdapter mapEntryAdapter : arrayList) {
-                    printSingleField(fieldDescriptor, mapEntryAdapter.getEntry(), textGenerator);
+                Iterator it2 = arrayList.iterator();
+                while (it2.hasNext()) {
+                    printSingleField(fieldDescriptor, ((MapEntryAdapter) it2.next()).getEntry(), textGenerator);
                 }
-            } else if (fieldDescriptor.isRepeated()) {
-                for (Object obj3 : (List) obj) {
-                    printSingleField(fieldDescriptor, obj3, textGenerator);
-                }
-            } else {
-                printSingleField(fieldDescriptor, obj, textGenerator);
+                return;
             }
+            if (fieldDescriptor.isRepeated()) {
+                Iterator it3 = ((List) obj).iterator();
+                while (it3.hasNext()) {
+                    printSingleField(fieldDescriptor, it3.next(), textGenerator);
+                }
+                return;
+            }
+            printSingleField(fieldDescriptor, obj, textGenerator);
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
-        /* loaded from: classes.dex */
-        public static class MapEntryAdapter implements Comparable<MapEntryAdapter> {
+        private static class MapEntryAdapter implements Comparable<MapEntryAdapter> {
             private Object entry;
             private final Descriptors.FieldDescriptor.JavaType fieldType;
             private MapEntry mapEntry;
@@ -295,6 +304,7 @@ public final class TextFormat {
                 return mapEntry != null ? mapEntry : this.entry;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I */
             @Override // java.lang.Comparable
             public int compareTo(MapEntryAdapter mapEntryAdapter) {
                 if (getKey() == null || mapEntryAdapter.getKey() == null) {
@@ -302,30 +312,30 @@ public final class TextFormat {
                     return -1;
                 }
                 int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[this.fieldType.ordinal()];
-                if (i != 1) {
-                    if (i != 2) {
-                        if (i != 3) {
-                            if (i != 4) {
-                                return 0;
-                            }
-                            String str = (String) getKey();
-                            String str2 = (String) mapEntryAdapter.getKey();
-                            if (str == null && str2 == null) {
-                                return 0;
-                            }
-                            if (str != null || str2 == null) {
-                                if (str == null || str2 != null) {
-                                    return str.compareTo(str2);
-                                }
-                                return 1;
-                            }
-                            return -1;
-                        }
-                        return Integer.compare(((Integer) getKey()).intValue(), ((Integer) mapEntryAdapter.getKey()).intValue());
-                    }
+                if (i == 1) {
+                    return Boolean.compare(((Boolean) getKey()).booleanValue(), ((Boolean) mapEntryAdapter.getKey()).booleanValue());
+                }
+                if (i == 2) {
                     return Long.compare(((Long) getKey()).longValue(), ((Long) mapEntryAdapter.getKey()).longValue());
                 }
-                return Boolean.compare(((Boolean) getKey()).booleanValue(), ((Boolean) mapEntryAdapter.getKey()).booleanValue());
+                if (i == 3) {
+                    return Integer.compare(((Integer) getKey()).intValue(), ((Integer) mapEntryAdapter.getKey()).intValue());
+                }
+                if (i != 4) {
+                    return 0;
+                }
+                String str = (String) getKey();
+                String str2 = (String) mapEntryAdapter.getKey();
+                if (str == null && str2 == null) {
+                    return 0;
+                }
+                if (str == null && str2 != null) {
+                    return -1;
+                }
+                if (str == null || str2 != null) {
+                    return str.compareTo(str2);
+                }
+                return 1;
             }
         }
 
@@ -334,45 +344,45 @@ public final class TextFormat {
         }
 
         private void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, TextGenerator textGenerator) throws IOException {
-            String replace;
+            String strReplace;
             switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor.getType().ordinal()]) {
                 case 1:
                 case 2:
                 case 3:
                     textGenerator.print(((Integer) obj).toString());
-                    return;
+                    break;
                 case 4:
                 case 5:
                 case 6:
                     textGenerator.print(((Long) obj).toString());
-                    return;
+                    break;
                 case 7:
                     textGenerator.print(((Boolean) obj).toString());
-                    return;
+                    break;
                 case 8:
                     textGenerator.print(((Float) obj).toString());
-                    return;
+                    break;
                 case 9:
                     textGenerator.print(((Double) obj).toString());
-                    return;
+                    break;
                 case 10:
                 case 11:
                     textGenerator.print(TextFormat.unsignedToString(((Integer) obj).intValue()));
-                    return;
+                    break;
                 case 12:
                 case 13:
                     textGenerator.print(TextFormat.unsignedToString(((Long) obj).longValue()));
-                    return;
+                    break;
                 case 14:
                     textGenerator.print("\"");
                     if (this.escapeNonAscii) {
-                        replace = TextFormatEscaper.escapeText((String) obj);
+                        strReplace = TextFormatEscaper.escapeText((String) obj);
                     } else {
-                        replace = TextFormat.escapeDoubleQuotesAndBackslashes((String) obj).replace("\n", "\\n");
+                        strReplace = TextFormat.escapeDoubleQuotesAndBackslashes((String) obj).replace("\n", "\\n");
                     }
-                    textGenerator.print(replace);
+                    textGenerator.print(strReplace);
                     textGenerator.print("\"");
-                    return;
+                    break;
                 case 15:
                     textGenerator.print("\"");
                     if (obj instanceof ByteString) {
@@ -381,16 +391,14 @@ public final class TextFormat {
                         textGenerator.print(TextFormat.escapeBytes((byte[]) obj));
                     }
                     textGenerator.print("\"");
-                    return;
+                    break;
                 case 16:
                     textGenerator.print(((Descriptors.EnumValueDescriptor) obj).getName());
-                    return;
+                    break;
                 case 17:
                 case 18:
                     print((Message) obj, textGenerator);
-                    return;
-                default:
-                    return;
+                    break;
             }
         }
 
@@ -448,30 +456,36 @@ public final class TextFormat {
             int tagWireType = WireFormat.getTagWireType(i);
             if (tagWireType == 0) {
                 textGenerator.print(TextFormat.unsignedToString(((Long) obj).longValue()));
-            } else if (tagWireType == 1) {
+                return;
+            }
+            if (tagWireType == 1) {
                 textGenerator.print(String.format(null, "0x%016x", (Long) obj));
-            } else if (tagWireType != 2) {
+                return;
+            }
+            if (tagWireType != 2) {
                 if (tagWireType == 3) {
                     printUnknownFields((UnknownFieldSet) obj, textGenerator);
-                } else if (tagWireType == 5) {
+                    return;
+                }
+                if (tagWireType == 5) {
                     textGenerator.print(String.format(null, "0x%08x", (Integer) obj));
+                    return;
                 } else {
                     throw new IllegalArgumentException("Bad tag: " + i);
                 }
-            } else {
-                try {
-                    UnknownFieldSet parseFrom = UnknownFieldSet.parseFrom((ByteString) obj);
-                    textGenerator.print("{");
-                    textGenerator.eol();
-                    textGenerator.indent();
-                    printUnknownFields(parseFrom, textGenerator);
-                    textGenerator.outdent();
-                    textGenerator.print("}");
-                } catch (InvalidProtocolBufferException unused) {
-                    textGenerator.print("\"");
-                    textGenerator.print(TextFormat.escapeBytes((ByteString) obj));
-                    textGenerator.print("\"");
-                }
+            }
+            try {
+                UnknownFieldSet from = UnknownFieldSet.parseFrom((ByteString) obj);
+                textGenerator.print("{");
+                textGenerator.eol();
+                textGenerator.indent();
+                printUnknownFields(from, textGenerator);
+                textGenerator.outdent();
+                textGenerator.print("}");
+            } catch (InvalidProtocolBufferException unused) {
+                textGenerator.print("\"");
+                textGenerator.print(TextFormat.escapeBytes((ByteString) obj));
+                textGenerator.print("\"");
             }
         }
 
@@ -514,12 +528,12 @@ public final class TextFormat {
         /* JADX INFO: Access modifiers changed from: private */
         public static void printUnknownFields(UnknownFieldSet unknownFieldSet, TextGenerator textGenerator) throws IOException {
             for (Map.Entry<Integer, UnknownFieldSet.Field> entry : unknownFieldSet.asMap().entrySet()) {
-                int intValue = entry.getKey().intValue();
+                int iIntValue = entry.getKey().intValue();
                 UnknownFieldSet.Field value = entry.getValue();
-                printUnknownField(intValue, 0, value.getVarintList(), textGenerator);
-                printUnknownField(intValue, 5, value.getFixed32List(), textGenerator);
-                printUnknownField(intValue, 1, value.getFixed64List(), textGenerator);
-                printUnknownField(intValue, 2, value.getLengthDelimitedList(), textGenerator);
+                printUnknownField(iIntValue, 0, value.getVarintList(), textGenerator);
+                printUnknownField(iIntValue, 5, value.getFixed32List(), textGenerator);
+                printUnknownField(iIntValue, 1, value.getFixed64List(), textGenerator);
+                printUnknownField(iIntValue, 2, value.getLengthDelimitedList(), textGenerator);
                 for (UnknownFieldSet unknownFieldSet2 : value.getGroupList()) {
                     textGenerator.print(entry.getKey().toString());
                     textGenerator.print(" {");
@@ -543,10 +557,8 @@ public final class TextFormat {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.TextFormat$1  reason: invalid class name */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.TextFormat$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
 
@@ -650,7 +662,7 @@ public final class TextFormat {
         if (i >= 0) {
             return Integer.toString(i);
         }
-        return Long.toString(i & 4294967295L);
+        return Long.toString(((long) i) & 4294967295L);
     }
 
     public static String unsignedToString(long j) {
@@ -670,14 +682,13 @@ public final class TextFormat {
         return new TextGenerator(appendable, true, null);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class TextGenerator {
+    private static final class TextGenerator {
         private boolean atStartOfLine;
         private final StringBuilder indent;
         private final Appendable output;
         private final boolean singleLineMode;
 
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 java.lang.Appendable), (r2v0 boolean) A[MD:(java.lang.Appendable, boolean):void (m)] (LINE:817) call: com.google.oplus.protobuf.TextFormat.TextGenerator.<init>(java.lang.Appendable, boolean):void type: THIS */
         /* synthetic */ TextGenerator(Appendable appendable, boolean z, AnonymousClass1 anonymousClass1) {
             this(appendable, z);
         }
@@ -717,9 +728,7 @@ public final class TextFormat {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class Tokenizer {
+    private static final class Tokenizer {
         private int column;
         private String currentToken;
         private int line;
@@ -734,6 +743,7 @@ public final class TextFormat {
         private static final Pattern FLOAT_INFINITY = Pattern.compile("-?inf(inity)?f?", 2);
         private static final Pattern FLOAT_NAN = Pattern.compile("nanf?", 2);
 
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 java.lang.CharSequence) A[MD:(java.lang.CharSequence):void (m)] (LINE:901) call: com.google.oplus.protobuf.TextFormat.Tokenizer.<init>(java.lang.CharSequence):void type: THIS */
         /* synthetic */ Tokenizer(CharSequence charSequence, AnonymousClass1 anonymousClass1) {
             this(charSequence);
         }
@@ -808,11 +818,11 @@ public final class TextFormat {
         }
 
         public boolean tryConsume(String str) {
-            if (this.currentToken.equals(str)) {
-                nextToken();
-                return true;
+            if (!this.currentToken.equals(str)) {
+                return false;
             }
-            return false;
+            nextToken();
+            return true;
         }
 
         public void consume(String str) throws ParseException {
@@ -826,8 +836,8 @@ public final class TextFormat {
             if (this.currentToken.length() == 0) {
                 return false;
             }
-            char charAt = this.currentToken.charAt(0);
-            return ('0' <= charAt && charAt <= '9') || charAt == '-' || charAt == '+';
+            char cCharAt = this.currentToken.charAt(0);
+            return ('0' <= cCharAt && cCharAt <= '9') || cCharAt == '-' || cCharAt == '+';
         }
 
         public boolean lookingAt(String str) {
@@ -836,8 +846,8 @@ public final class TextFormat {
 
         public String consumeIdentifier() throws ParseException {
             for (int i = 0; i < this.currentToken.length(); i++) {
-                char charAt = this.currentToken.charAt(i);
-                if (('a' > charAt || charAt > 'z') && (('A' > charAt || charAt > 'Z') && !(('0' <= charAt && charAt <= '9') || charAt == '_' || charAt == '.'))) {
+                char cCharAt = this.currentToken.charAt(i);
+                if (('a' > cCharAt || cCharAt > 'z') && (('A' > cCharAt || cCharAt > 'Z') && !(('0' <= cCharAt && cCharAt <= '9') || cCharAt == '_' || cCharAt == '.'))) {
                     throw parseException("Expected identifier. Found '" + this.currentToken + "'");
                 }
             }
@@ -857,9 +867,9 @@ public final class TextFormat {
 
         public int consumeInt32() throws ParseException {
             try {
-                int parseInt32 = TextFormat.parseInt32(this.currentToken);
+                int int32 = TextFormat.parseInt32(this.currentToken);
                 nextToken();
-                return parseInt32;
+                return int32;
             } catch (NumberFormatException e) {
                 throw integerParseException(e);
             }
@@ -867,9 +877,9 @@ public final class TextFormat {
 
         public int consumeUInt32() throws ParseException {
             try {
-                int parseUInt32 = TextFormat.parseUInt32(this.currentToken);
+                int uInt32 = TextFormat.parseUInt32(this.currentToken);
                 nextToken();
-                return parseUInt32;
+                return uInt32;
             } catch (NumberFormatException e) {
                 throw integerParseException(e);
             }
@@ -877,9 +887,9 @@ public final class TextFormat {
 
         public long consumeInt64() throws ParseException {
             try {
-                long parseInt64 = TextFormat.parseInt64(this.currentToken);
+                long int64 = TextFormat.parseInt64(this.currentToken);
                 nextToken();
-                return parseInt64;
+                return int64;
             } catch (NumberFormatException e) {
                 throw integerParseException(e);
             }
@@ -896,9 +906,9 @@ public final class TextFormat {
 
         public long consumeUInt64() throws ParseException {
             try {
-                long parseUInt64 = TextFormat.parseUInt64(this.currentToken);
+                long uInt64 = TextFormat.parseUInt64(this.currentToken);
                 nextToken();
-                return parseUInt64;
+                return uInt64;
             } catch (NumberFormatException e) {
                 throw integerParseException(e);
             }
@@ -915,20 +925,20 @@ public final class TextFormat {
 
         public double consumeDouble() throws ParseException {
             if (DOUBLE_INFINITY.matcher(this.currentToken).matches()) {
-                boolean startsWith = this.currentToken.startsWith("-");
+                boolean zStartsWith = this.currentToken.startsWith("-");
                 nextToken();
-                return startsWith ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
-            } else if (this.currentToken.equalsIgnoreCase("nan")) {
+                return zStartsWith ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+            }
+            if (this.currentToken.equalsIgnoreCase("nan")) {
                 nextToken();
                 return Double.NaN;
-            } else {
-                try {
-                    double parseDouble = Double.parseDouble(this.currentToken);
-                    nextToken();
-                    return parseDouble;
-                } catch (NumberFormatException e) {
-                    throw floatParseException(e);
-                }
+            }
+            try {
+                double d = Double.parseDouble(this.currentToken);
+                nextToken();
+                return d;
+            } catch (NumberFormatException e) {
+                throw floatParseException(e);
             }
         }
 
@@ -943,20 +953,20 @@ public final class TextFormat {
 
         public float consumeFloat() throws ParseException {
             if (FLOAT_INFINITY.matcher(this.currentToken).matches()) {
-                boolean startsWith = this.currentToken.startsWith("-");
+                boolean zStartsWith = this.currentToken.startsWith("-");
                 nextToken();
-                return startsWith ? Float.NEGATIVE_INFINITY : Float.POSITIVE_INFINITY;
-            } else if (FLOAT_NAN.matcher(this.currentToken).matches()) {
+                return zStartsWith ? Float.NEGATIVE_INFINITY : Float.POSITIVE_INFINITY;
+            }
+            if (FLOAT_NAN.matcher(this.currentToken).matches()) {
                 nextToken();
                 return Float.NaN;
-            } else {
-                try {
-                    float parseFloat = Float.parseFloat(this.currentToken);
-                    nextToken();
-                    return parseFloat;
-                } catch (NumberFormatException e) {
-                    throw floatParseException(e);
-                }
+            }
+            try {
+                float f = Float.parseFloat(this.currentToken);
+                nextToken();
+                return f;
+            } catch (NumberFormatException e) {
+                throw floatParseException(e);
             }
         }
 
@@ -973,12 +983,12 @@ public final class TextFormat {
             if (this.currentToken.equals("true") || this.currentToken.equals("True") || this.currentToken.equals("t") || this.currentToken.equals("1")) {
                 nextToken();
                 return true;
-            } else if (this.currentToken.equals("false") || this.currentToken.equals("False") || this.currentToken.equals("f") || this.currentToken.equals("0")) {
+            }
+            if (this.currentToken.equals("false") || this.currentToken.equals("False") || this.currentToken.equals("f") || this.currentToken.equals("0")) {
                 nextToken();
                 return false;
-            } else {
-                throw parseException("Expected \"true\" or \"false\". Found \"" + this.currentToken + "\".");
             }
+            throw parseException("Expected \"true\" or \"false\". Found \"" + this.currentToken + "\".");
         }
 
         public String consumeString() throws ParseException {
@@ -1007,18 +1017,18 @@ public final class TextFormat {
         }
 
         private void consumeByteString(List<ByteString> list) throws ParseException {
-            char charAt = this.currentToken.length() > 0 ? this.currentToken.charAt(0) : (char) 0;
-            if (charAt != '\"' && charAt != '\'') {
+            char cCharAt = this.currentToken.length() > 0 ? this.currentToken.charAt(0) : (char) 0;
+            if (cCharAt != '\"' && cCharAt != '\'') {
                 throw parseException("Expected string.");
             }
             if (this.currentToken.length() >= 2) {
                 String str = this.currentToken;
-                if (str.charAt(str.length() - 1) == charAt) {
+                if (str.charAt(str.length() - 1) == cCharAt) {
                     try {
                         String str2 = this.currentToken;
-                        ByteString unescapeBytes = TextFormat.unescapeBytes(str2.substring(1, str2.length() - 1));
+                        ByteString byteStringUnescapeBytes = TextFormat.unescapeBytes(str2.substring(1, str2.length() - 1));
                         nextToken();
-                        list.add(unescapeBytes);
+                        list.add(byteStringUnescapeBytes);
                         return;
                     } catch (InvalidEscapeSequenceException e) {
                         throw parseException(e.getMessage());
@@ -1049,7 +1059,6 @@ public final class TextFormat {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class ParseException extends IOException {
         private static final long serialVersionUID = 3196188060225107702L;
         private final int column;
@@ -1074,7 +1083,6 @@ public final class TextFormat {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class UnknownFieldParseException extends ParseException {
         private final String unknownField;
 
@@ -1105,9 +1113,9 @@ public final class TextFormat {
     }
 
     public static <T extends Message> T parse(CharSequence charSequence, Class<T> cls) throws ParseException {
-        Message.Builder newBuilderForType = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
-        merge(charSequence, newBuilderForType);
-        return (T) newBuilderForType.build();
+        Message.Builder builderNewBuilderForType = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
+        merge(charSequence, builderNewBuilderForType);
+        return (T) builderNewBuilderForType.build();
     }
 
     public static void merge(Readable readable, ExtensionRegistry extensionRegistry, Message.Builder builder) throws IOException {
@@ -1119,12 +1127,11 @@ public final class TextFormat {
     }
 
     public static <T extends Message> T parse(CharSequence charSequence, ExtensionRegistry extensionRegistry, Class<T> cls) throws ParseException {
-        Message.Builder newBuilderForType = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
-        merge(charSequence, extensionRegistry, newBuilderForType);
-        return (T) newBuilderForType.build();
+        Message.Builder builderNewBuilderForType = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
+        merge(charSequence, extensionRegistry, builderNewBuilderForType);
+        return (T) builderNewBuilderForType.build();
     }
 
-    /* loaded from: classes.dex */
     public static class Parser {
         private static final int BUFFER_SIZE = 4096;
         private final boolean allowUnknownEnumValues;
@@ -1134,12 +1141,19 @@ public final class TextFormat {
         private final SingularOverwritePolicy singularOverwritePolicy;
         private final TypeRegistry typeRegistry;
 
-        /* loaded from: classes.dex */
         public enum SingularOverwritePolicy {
             ALLOW_SINGULAR_OVERWRITES,
             FORBID_SINGULAR_OVERWRITES
         }
 
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
+          (r1v0 com.google.oplus.protobuf.TypeRegistry)
+          (r2v0 boolean)
+          (r3v0 boolean)
+          (r4v0 boolean)
+          (r5v0 com.google.oplus.protobuf.TextFormat$Parser$SingularOverwritePolicy)
+          (r6v0 com.google.oplus.protobuf.TextFormatParseInfoTree$Builder)
+         A[MD:(com.google.oplus.protobuf.TypeRegistry, boolean, boolean, boolean, com.google.oplus.protobuf.TextFormat$Parser$SingularOverwritePolicy, com.google.oplus.protobuf.TextFormatParseInfoTree$Builder):void (m)] (LINE:1523) call: com.google.oplus.protobuf.TextFormat.Parser.<init>(com.google.oplus.protobuf.TypeRegistry, boolean, boolean, boolean, com.google.oplus.protobuf.TextFormat$Parser$SingularOverwritePolicy, com.google.oplus.protobuf.TextFormatParseInfoTree$Builder):void type: THIS */
         /* synthetic */ Parser(TypeRegistry typeRegistry, boolean z, boolean z2, boolean z3, SingularOverwritePolicy singularOverwritePolicy, TextFormatParseInfoTree.Builder builder, AnonymousClass1 anonymousClass1) {
             this(typeRegistry, z, z2, z3, singularOverwritePolicy, builder);
         }
@@ -1157,7 +1171,6 @@ public final class TextFormat {
             return new Builder();
         }
 
-        /* loaded from: classes.dex */
         public static class Builder {
             private boolean allowUnknownFields = false;
             private boolean allowUnknownEnumValues = false;
@@ -1210,26 +1223,22 @@ public final class TextFormat {
 
         private static StringBuilder toStringBuilder(Readable readable) throws IOException {
             StringBuilder sb = new StringBuilder();
-            CharBuffer allocate = CharBuffer.allocate(4096);
+            CharBuffer charBufferAllocate = CharBuffer.allocate(4096);
             while (true) {
-                int read = readable.read(allocate);
-                if (read == -1) {
+                int i = readable.read(charBufferAllocate);
+                if (i == -1) {
                     return sb;
                 }
-                allocate.flip();
-                sb.append((CharSequence) allocate, 0, read);
+                charBufferAllocate.flip();
+                sb.append((CharSequence) charBufferAllocate, 0, i);
             }
         }
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        /* loaded from: classes.dex */
-        public static final class UnknownField {
+        static final class UnknownField {
             final String message;
             final Type type;
 
-            /* JADX INFO: Access modifiers changed from: package-private */
-            /* loaded from: classes.dex */
-            public enum Type {
+            enum Type {
                 FIELD,
                 EXTENSION
             }
@@ -1262,10 +1271,11 @@ public final class TextFormat {
                     if (!it.hasNext()) {
                         z = true;
                         break;
-                    } else if (it.next().type == UnknownField.Type.FIELD) {
-                        z = false;
-                        break;
                     } else {
+                        if (it.next().type == UnknownField.Type.FIELD) {
+                            z = false;
+                            break;
+                        }
                         i++;
                     }
                 }
@@ -1276,8 +1286,8 @@ public final class TextFormat {
             } else {
                 i = 0;
             }
-            String[] split = list.get(i).message.split(":");
-            throw new ParseException(Integer.parseInt(split[0]), Integer.parseInt(split[1]), sb.toString());
+            String[] strArrSplit = list.get(i).message.split(":");
+            throw new ParseException(Integer.parseInt(strArrSplit[0]), Integer.parseInt(strArrSplit[1]), sb.toString());
         }
 
         public void merge(CharSequence charSequence, ExtensionRegistry extensionRegistry, Message.Builder builder) throws ParseException {
@@ -1295,7 +1305,7 @@ public final class TextFormat {
         }
 
         private void mergeField(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, TextFormatParseInfoTree.Builder builder, List<UnknownField> list) throws ParseException {
-            Descriptors.FieldDescriptor findFieldByName;
+            Descriptors.FieldDescriptor fieldDescriptorFindFieldByName;
             ExtensionRegistry.ExtensionInfo extensionInfo;
             int line = tokenizer.getLine();
             int column = tokenizer.getColumn();
@@ -1311,32 +1321,33 @@ public final class TextFormat {
                     sb.append('.');
                     sb.append(tokenizer.consumeIdentifier());
                 }
-                ExtensionRegistry.ExtensionInfo findExtensionByName = mergeTarget.findExtensionByName(extensionRegistry, sb.toString());
-                if (findExtensionByName == null) {
+                ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByName = mergeTarget.findExtensionByName(extensionRegistry, sb.toString());
+                if (extensionInfoFindExtensionByName == null) {
                     list.add(new UnknownField((tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t" + descriptorForType.getFullName() + ".[" + ((Object) sb) + "]", UnknownField.Type.EXTENSION));
-                } else if (findExtensionByName.descriptor.getContainingType() != descriptorForType) {
-                    throw tokenizer.parseExceptionPreviousToken("Extension \"" + ((Object) sb) + "\" does not extend message type \"" + descriptorForType.getFullName() + "\".");
                 } else {
-                    fieldDescriptor = findExtensionByName.descriptor;
+                    if (extensionInfoFindExtensionByName.descriptor.getContainingType() != descriptorForType) {
+                        throw tokenizer.parseExceptionPreviousToken("Extension \"" + ((Object) sb) + "\" does not extend message type \"" + descriptorForType.getFullName() + "\".");
+                    }
+                    fieldDescriptor = extensionInfoFindExtensionByName.descriptor;
                 }
                 tokenizer.consume("]");
-                extensionInfo = findExtensionByName;
-                findFieldByName = fieldDescriptor;
+                extensionInfo = extensionInfoFindExtensionByName;
+                fieldDescriptorFindFieldByName = fieldDescriptor;
             } else {
-                String consumeIdentifier = tokenizer.consumeIdentifier();
-                findFieldByName = descriptorForType.findFieldByName(consumeIdentifier);
-                if (findFieldByName == null && (findFieldByName = descriptorForType.findFieldByName(consumeIdentifier.toLowerCase(Locale.US))) != null && findFieldByName.getType() != Descriptors.FieldDescriptor.Type.GROUP) {
-                    findFieldByName = null;
+                String strConsumeIdentifier = tokenizer.consumeIdentifier();
+                fieldDescriptorFindFieldByName = descriptorForType.findFieldByName(strConsumeIdentifier);
+                if (fieldDescriptorFindFieldByName == null && (fieldDescriptorFindFieldByName = descriptorForType.findFieldByName(strConsumeIdentifier.toLowerCase(Locale.US))) != null && fieldDescriptorFindFieldByName.getType() != Descriptors.FieldDescriptor.Type.GROUP) {
+                    fieldDescriptorFindFieldByName = null;
                 }
-                if (findFieldByName != null && findFieldByName.getType() == Descriptors.FieldDescriptor.Type.GROUP && !findFieldByName.getMessageType().getName().equals(consumeIdentifier)) {
-                    findFieldByName = null;
+                if (fieldDescriptorFindFieldByName != null && fieldDescriptorFindFieldByName.getType() == Descriptors.FieldDescriptor.Type.GROUP && !fieldDescriptorFindFieldByName.getMessageType().getName().equals(strConsumeIdentifier)) {
+                    fieldDescriptorFindFieldByName = null;
                 }
-                if (findFieldByName == null) {
-                    list.add(new UnknownField((tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t" + descriptorForType.getFullName() + "." + consumeIdentifier, UnknownField.Type.FIELD));
+                if (fieldDescriptorFindFieldByName == null) {
+                    list.add(new UnknownField((tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t" + descriptorForType.getFullName() + "." + strConsumeIdentifier, UnknownField.Type.FIELD));
                 }
                 extensionInfo = null;
             }
-            if (findFieldByName == null) {
+            if (fieldDescriptorFindFieldByName == null) {
                 if (tokenizer.tryConsume(":") && !tokenizer.lookingAt("{") && !tokenizer.lookingAt("<")) {
                     skipFieldValue(tokenizer);
                     return;
@@ -1345,19 +1356,19 @@ public final class TextFormat {
                     return;
                 }
             }
-            if (findFieldByName.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+            if (fieldDescriptorFindFieldByName.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                 tokenizer.tryConsume(":");
                 if (builder != null) {
-                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, findFieldByName, extensionInfo, builder.getBuilderForSubMessageField(findFieldByName), list);
+                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptorFindFieldByName, extensionInfo, builder.getBuilderForSubMessageField(fieldDescriptorFindFieldByName), list);
                 } else {
-                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, findFieldByName, extensionInfo, builder, list);
+                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptorFindFieldByName, extensionInfo, builder, list);
                 }
             } else {
                 tokenizer.consume(":");
-                consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, findFieldByName, extensionInfo, builder, list);
+                consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptorFindFieldByName, extensionInfo, builder, list);
             }
             if (builder != null) {
-                builder.setLocation(findFieldByName, TextFormatParseLocation.create(line, column));
+                builder.setLocation(fieldDescriptorFindFieldByName, TextFormatParseLocation.create(line, column));
             }
             if (tokenizer.tryConsume(";")) {
                 return;
@@ -1374,8 +1385,9 @@ public final class TextFormat {
                     consumeFieldValue(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo, builder, list);
                     if (tokenizer.tryConsume("]")) {
                         return;
+                    } else {
+                        tokenizer.consume(CameraConstant.JSON_CONNECTOR_COMMA);
                     }
-                    tokenizer.consume(CameraConstant.JSON_CONNECTOR_COMMA);
                 }
             } else {
                 consumeFieldValue(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo, builder, list);
@@ -1384,16 +1396,17 @@ public final class TextFormat {
 
         private void consumeFieldValue(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, Descriptors.FieldDescriptor fieldDescriptor, ExtensionRegistry.ExtensionInfo extensionInfo, TextFormatParseInfoTree.Builder builder, List<UnknownField> list) throws ParseException {
             String str;
-            Object finish;
+            Object objFinish;
             if (this.singularOverwritePolicy == SingularOverwritePolicy.FORBID_SINGULAR_OVERWRITES && !fieldDescriptor.isRepeated()) {
                 if (mergeTarget.hasField(fieldDescriptor)) {
                     throw tokenizer.parseExceptionPreviousToken("Non-repeated field \"" + fieldDescriptor.getFullName() + "\" cannot be overwritten.");
-                } else if (fieldDescriptor.getContainingOneof() != null && mergeTarget.hasOneof(fieldDescriptor.getContainingOneof())) {
+                }
+                if (fieldDescriptor.getContainingOneof() != null && mergeTarget.hasOneof(fieldDescriptor.getContainingOneof())) {
                     Descriptors.OneofDescriptor containingOneof = fieldDescriptor.getContainingOneof();
                     throw tokenizer.parseExceptionPreviousToken("Field \"" + fieldDescriptor.getFullName() + "\" is specified along with field \"" + mergeTarget.getOneofFieldDescriptor(containingOneof).getFullName() + "\", another member of oneof \"" + containingOneof.getName() + "\".");
                 }
             }
-            Object obj = null;
+            Object objValueOf = null;
             if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                 if (tokenizer.tryConsume("<")) {
                     str = ">";
@@ -1403,74 +1416,74 @@ public final class TextFormat {
                 }
                 String str2 = str;
                 if (fieldDescriptor.getMessageType().getFullName().equals("google.protobuf.Any") && tokenizer.tryConsume("[")) {
-                    MessageReflection.MergeTarget newMergeTargetForField = mergeTarget.newMergeTargetForField(fieldDescriptor, DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType()));
-                    mergeAnyFieldValue(tokenizer, extensionRegistry, newMergeTargetForField, builder, list, fieldDescriptor.getMessageType());
-                    finish = newMergeTargetForField.finish();
+                    MessageReflection.MergeTarget mergeTargetNewMergeTargetForField = mergeTarget.newMergeTargetForField(fieldDescriptor, DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType()));
+                    mergeAnyFieldValue(tokenizer, extensionRegistry, mergeTargetNewMergeTargetForField, builder, list, fieldDescriptor.getMessageType());
+                    objFinish = mergeTargetNewMergeTargetForField.finish();
                     tokenizer.consume(str2);
                 } else {
-                    MessageReflection.MergeTarget newMergeTargetForField2 = mergeTarget.newMergeTargetForField(fieldDescriptor, extensionInfo != null ? extensionInfo.defaultInstance : null);
+                    MessageReflection.MergeTarget mergeTargetNewMergeTargetForField2 = mergeTarget.newMergeTargetForField(fieldDescriptor, extensionInfo != null ? extensionInfo.defaultInstance : null);
                     while (!tokenizer.tryConsume(str2)) {
                         if (tokenizer.atEnd()) {
                             throw tokenizer.parseException("Expected \"" + str2 + "\".");
                         }
-                        mergeField(tokenizer, extensionRegistry, newMergeTargetForField2, builder, list);
+                        mergeField(tokenizer, extensionRegistry, mergeTargetNewMergeTargetForField2, builder, list);
                     }
-                    finish = newMergeTargetForField2.finish();
+                    objFinish = mergeTargetNewMergeTargetForField2.finish();
                 }
-                obj = finish;
+                objValueOf = objFinish;
             } else {
                 switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor.getType().ordinal()]) {
                     case 1:
                     case 2:
                     case 3:
-                        obj = Integer.valueOf(tokenizer.consumeInt32());
+                        objValueOf = Integer.valueOf(tokenizer.consumeInt32());
                         break;
                     case 4:
                     case 5:
                     case 6:
-                        obj = Long.valueOf(tokenizer.consumeInt64());
+                        objValueOf = Long.valueOf(tokenizer.consumeInt64());
                         break;
                     case 7:
-                        obj = Boolean.valueOf(tokenizer.consumeBoolean());
+                        objValueOf = Boolean.valueOf(tokenizer.consumeBoolean());
                         break;
                     case 8:
-                        obj = Float.valueOf(tokenizer.consumeFloat());
+                        objValueOf = Float.valueOf(tokenizer.consumeFloat());
                         break;
                     case 9:
-                        obj = Double.valueOf(tokenizer.consumeDouble());
+                        objValueOf = Double.valueOf(tokenizer.consumeDouble());
                         break;
                     case 10:
                     case 11:
-                        obj = Integer.valueOf(tokenizer.consumeUInt32());
+                        objValueOf = Integer.valueOf(tokenizer.consumeUInt32());
                         break;
                     case 12:
                     case 13:
-                        obj = Long.valueOf(tokenizer.consumeUInt64());
+                        objValueOf = Long.valueOf(tokenizer.consumeUInt64());
                         break;
                     case 14:
-                        obj = tokenizer.consumeString();
+                        objValueOf = tokenizer.consumeString();
                         break;
                     case 15:
-                        obj = tokenizer.consumeByteString();
+                        objValueOf = tokenizer.consumeByteString();
                         break;
                     case 16:
                         Descriptors.EnumDescriptor enumType = fieldDescriptor.getEnumType();
                         if (tokenizer.lookingAtInteger()) {
-                            int consumeInt32 = tokenizer.consumeInt32();
-                            obj = enumType.findValueByNumber(consumeInt32);
-                            if (obj == null) {
-                                String str3 = "Enum type \"" + enumType.getFullName() + "\" has no value with number " + consumeInt32 + '.';
+                            int iConsumeInt32 = tokenizer.consumeInt32();
+                            objValueOf = enumType.findValueByNumber(iConsumeInt32);
+                            if (objValueOf == null) {
+                                String str3 = "Enum type \"" + enumType.getFullName() + "\" has no value with number " + iConsumeInt32 + '.';
                                 if (this.allowUnknownEnumValues) {
                                     TextFormat.logger.warning(str3);
                                     return;
                                 }
-                                throw tokenizer.parseExceptionPreviousToken("Enum type \"" + enumType.getFullName() + "\" has no value with number " + consumeInt32 + '.');
+                                throw tokenizer.parseExceptionPreviousToken("Enum type \"" + enumType.getFullName() + "\" has no value with number " + iConsumeInt32 + '.');
                             }
                         } else {
-                            String consumeIdentifier = tokenizer.consumeIdentifier();
-                            obj = enumType.findValueByName(consumeIdentifier);
-                            if (obj == null) {
-                                String str4 = "Enum type \"" + enumType.getFullName() + "\" has no value named \"" + consumeIdentifier + "\".";
+                            String strConsumeIdentifier = tokenizer.consumeIdentifier();
+                            objValueOf = enumType.findValueByName(strConsumeIdentifier);
+                            if (objValueOf == null) {
+                                String str4 = "Enum type \"" + enumType.getFullName() + "\" has no value named \"" + strConsumeIdentifier + "\".";
                                 if (this.allowUnknownEnumValues) {
                                     TextFormat.logger.warning(str4);
                                     return;
@@ -1478,16 +1491,15 @@ public final class TextFormat {
                                 throw tokenizer.parseExceptionPreviousToken(str4);
                             }
                         }
-                        break;
                     case 17:
                     case 18:
                         throw new RuntimeException("Can't get here.");
                 }
             }
             if (fieldDescriptor.isRepeated()) {
-                mergeTarget.addRepeatedField(fieldDescriptor, obj);
+                mergeTarget.addRepeatedField(fieldDescriptor, objValueOf);
             } else {
-                mergeTarget.setField(fieldDescriptor, obj);
+                mergeTarget.setField(fieldDescriptor, objValueOf);
             }
         }
 
@@ -1513,22 +1525,22 @@ public final class TextFormat {
                         str = "}";
                     }
                     String str2 = str;
-                    String sb2 = sb.toString();
+                    String string = sb.toString();
                     try {
-                        Descriptors.Descriptor descriptorForTypeUrl = this.typeRegistry.getDescriptorForTypeUrl(sb2);
+                        Descriptors.Descriptor descriptorForTypeUrl = this.typeRegistry.getDescriptorForTypeUrl(string);
                         if (descriptorForTypeUrl == null) {
-                            throw tokenizer.parseException("Unable to parse Any of type: " + sb2 + ". Please make sure that the TypeRegistry contains the descriptors for the given types.");
+                            throw tokenizer.parseException("Unable to parse Any of type: " + string + ". Please make sure that the TypeRegistry contains the descriptors for the given types.");
                         }
-                        DynamicMessage.Builder newBuilderForType = DynamicMessage.getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
-                        MessageReflection.BuilderAdapter builderAdapter = new MessageReflection.BuilderAdapter(newBuilderForType);
+                        DynamicMessage.Builder builderNewBuilderForType = DynamicMessage.getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
+                        MessageReflection.BuilderAdapter builderAdapter = new MessageReflection.BuilderAdapter(builderNewBuilderForType);
                         while (!tokenizer.tryConsume(str2)) {
                             mergeField(tokenizer, extensionRegistry, builderAdapter, builder, list);
                         }
                         mergeTarget.setField(descriptor.findFieldByName("type_url"), sb.toString());
-                        mergeTarget.setField(descriptor.findFieldByName("value"), newBuilderForType.build().toByteString());
+                        mergeTarget.setField(descriptor.findFieldByName("value"), builderNewBuilderForType.build().toByteString());
                         return;
                     } catch (InvalidProtocolBufferException unused) {
-                        throw tokenizer.parseException("Invalid valid type URL. Found: " + sb2);
+                        throw tokenizer.parseException("Invalid valid type URL. Found: " + string);
                     }
                 }
             }
@@ -1570,12 +1582,14 @@ public final class TextFormat {
 
         private static void skipFieldValue(Tokenizer tokenizer) throws ParseException {
             if (tokenizer.tryConsumeString()) {
-                do {
-                } while (tokenizer.tryConsumeString());
-            } else if (tokenizer.tryConsumeIdentifier() || tokenizer.tryConsumeInt64() || tokenizer.tryConsumeUInt64() || tokenizer.tryConsumeDouble() || tokenizer.tryConsumeFloat()) {
-            } else {
-                throw tokenizer.parseException("Invalid field value: " + tokenizer.currentToken);
+                while (tokenizer.tryConsumeString()) {
+                }
+                return;
             }
+            if (tokenizer.tryConsumeIdentifier() || tokenizer.tryConsumeInt64() || tokenizer.tryConsumeUInt64() || tokenizer.tryConsumeDouble() || tokenizer.tryConsumeFloat()) {
+                return;
+            }
+            throw tokenizer.parseException("Invalid field value: " + tokenizer.currentToken);
         }
     }
 
@@ -1591,121 +1605,122 @@ public final class TextFormat {
         int i;
         int i2;
         int i3;
-        int i4;
         int length;
-        ByteString copyFromUtf8 = ByteString.copyFromUtf8(charSequence.toString());
-        int size = copyFromUtf8.size();
+        ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8(charSequence.toString());
+        int size = byteStringCopyFromUtf8.size();
         byte[] bArr = new byte[size];
+        int i4 = 0;
         int i5 = 0;
-        int i6 = 0;
-        while (i5 < copyFromUtf8.size()) {
-            byte byteAt = copyFromUtf8.byteAt(i5);
-            if (byteAt == 92) {
-                i5++;
-                if (i5 < copyFromUtf8.size()) {
-                    byte byteAt2 = copyFromUtf8.byteAt(i5);
-                    if (isOctal(byteAt2)) {
-                        int digitValue = digitValue(byteAt2);
-                        int i7 = i5 + 1;
-                        if (i7 < copyFromUtf8.size() && isOctal(copyFromUtf8.byteAt(i7))) {
-                            digitValue = (digitValue * 8) + digitValue(copyFromUtf8.byteAt(i7));
-                            i5 = i7;
+        while (i4 < byteStringCopyFromUtf8.size()) {
+            byte bByteAt = byteStringCopyFromUtf8.byteAt(i4);
+            if (bByteAt == 92) {
+                i4++;
+                if (i4 < byteStringCopyFromUtf8.size()) {
+                    byte bByteAt2 = byteStringCopyFromUtf8.byteAt(i4);
+                    if (isOctal(bByteAt2)) {
+                        int iDigitValue = digitValue(bByteAt2);
+                        int i6 = i4 + 1;
+                        if (i6 < byteStringCopyFromUtf8.size() && isOctal(byteStringCopyFromUtf8.byteAt(i6))) {
+                            iDigitValue = (iDigitValue * 8) + digitValue(byteStringCopyFromUtf8.byteAt(i6));
+                            i4 = i6;
                         }
-                        int i8 = i5 + 1;
-                        if (i8 < copyFromUtf8.size() && isOctal(copyFromUtf8.byteAt(i8))) {
-                            digitValue = (digitValue * 8) + digitValue(copyFromUtf8.byteAt(i8));
-                            i5 = i8;
+                        int i7 = i4 + 1;
+                        if (i7 < byteStringCopyFromUtf8.size() && isOctal(byteStringCopyFromUtf8.byteAt(i7))) {
+                            iDigitValue = (iDigitValue * 8) + digitValue(byteStringCopyFromUtf8.byteAt(i7));
+                            i4 = i7;
                         }
-                        i = i6 + 1;
-                        bArr[i6] = (byte) digitValue;
+                        i = i5 + 1;
+                        bArr[i5] = (byte) iDigitValue;
                     } else {
-                        if (byteAt2 == 34) {
-                            i2 = i6 + 1;
-                            bArr[i6] = 34;
-                        } else if (byteAt2 == 39) {
-                            i2 = i6 + 1;
-                            bArr[i6] = 39;
-                        } else if (byteAt2 != 63) {
-                            if (byteAt2 == 85) {
-                                int i9 = i5 + 1;
-                                i3 = i9 + 7;
-                                if (i3 >= copyFromUtf8.size()) {
+                        if (bByteAt2 == 34) {
+                            i2 = i5 + 1;
+                            bArr[i5] = 34;
+                        } else if (bByteAt2 == 39) {
+                            i2 = i5 + 1;
+                            bArr[i5] = 39;
+                        } else if (bByteAt2 != 63) {
+                            if (bByteAt2 == 85) {
+                                int i8 = i4 + 1;
+                                i3 = i8 + 7;
+                                if (i3 >= byteStringCopyFromUtf8.size()) {
                                     throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U' with too few hex chars");
                                 }
-                                int i10 = 0;
-                                int i11 = i9;
+                                int iDigitValue2 = 0;
+                                int i9 = i8;
                                 while (true) {
-                                    if (i11 < i9 + 8) {
-                                        byte byteAt3 = copyFromUtf8.byteAt(i11);
-                                        if (!isHex(byteAt3)) {
+                                    int i10 = i8 + 8;
+                                    if (i9 < i10) {
+                                        byte bByteAt3 = byteStringCopyFromUtf8.byteAt(i9);
+                                        if (!isHex(bByteAt3)) {
                                             throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U' with too few hex chars");
                                         }
-                                        i10 = (i10 << 4) | digitValue(byteAt3);
-                                        i11++;
-                                    } else if (!Character.isValidCodePoint(i10)) {
-                                        throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U" + copyFromUtf8.substring(i9, i4).toStringUtf8() + "' is not a valid code point value");
+                                        iDigitValue2 = (iDigitValue2 << 4) | digitValue(bByteAt3);
+                                        i9++;
                                     } else {
-                                        Character.UnicodeBlock of = Character.UnicodeBlock.of(i10);
-                                        if (of.equals(Character.UnicodeBlock.LOW_SURROGATES) || of.equals(Character.UnicodeBlock.HIGH_SURROGATES) || of.equals(Character.UnicodeBlock.HIGH_PRIVATE_USE_SURROGATES)) {
-                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U" + copyFromUtf8.substring(i9, i4).toStringUtf8() + "' refers to a surrogate code unit");
+                                        if (!Character.isValidCodePoint(iDigitValue2)) {
+                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U" + byteStringCopyFromUtf8.substring(i8, i10).toStringUtf8() + "' is not a valid code point value");
                                         }
-                                        byte[] bytes = new String(new int[]{i10}, 0, 1).getBytes(StandardCharsets.UTF_8);
-                                        System.arraycopy(bytes, 0, bArr, i6, bytes.length);
+                                        Character.UnicodeBlock unicodeBlockOf = Character.UnicodeBlock.of(iDigitValue2);
+                                        if (unicodeBlockOf.equals(Character.UnicodeBlock.LOW_SURROGATES) || unicodeBlockOf.equals(Character.UnicodeBlock.HIGH_SURROGATES) || unicodeBlockOf.equals(Character.UnicodeBlock.HIGH_PRIVATE_USE_SURROGATES)) {
+                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U" + byteStringCopyFromUtf8.substring(i8, i10).toStringUtf8() + "' refers to a surrogate code unit");
+                                        }
+                                        byte[] bytes = new String(new int[]{iDigitValue2}, 0, 1).getBytes(StandardCharsets.UTF_8);
+                                        System.arraycopy(bytes, 0, bArr, i5, bytes.length);
                                         length = bytes.length;
                                     }
                                 }
-                            } else if (byteAt2 == 92) {
-                                i2 = i6 + 1;
-                                bArr[i6] = 92;
-                            } else if (byteAt2 == 102) {
-                                i2 = i6 + 1;
-                                bArr[i6] = 12;
-                            } else if (byteAt2 == 110) {
-                                i2 = i6 + 1;
-                                bArr[i6] = 10;
-                            } else if (byteAt2 == 114) {
-                                i2 = i6 + 1;
-                                bArr[i6] = 13;
-                            } else if (byteAt2 == 120) {
-                                i5++;
-                                if (i5 < copyFromUtf8.size() && isHex(copyFromUtf8.byteAt(i5))) {
-                                    int digitValue2 = digitValue(copyFromUtf8.byteAt(i5));
-                                    int i12 = i5 + 1;
-                                    if (i12 < copyFromUtf8.size() && isHex(copyFromUtf8.byteAt(i12))) {
-                                        digitValue2 = (digitValue2 * 16) + digitValue(copyFromUtf8.byteAt(i12));
-                                        i5 = i12;
+                            } else if (bByteAt2 == 92) {
+                                i2 = i5 + 1;
+                                bArr[i5] = 92;
+                            } else if (bByteAt2 == 102) {
+                                i2 = i5 + 1;
+                                bArr[i5] = 12;
+                            } else if (bByteAt2 == 110) {
+                                i2 = i5 + 1;
+                                bArr[i5] = 10;
+                            } else if (bByteAt2 == 114) {
+                                i2 = i5 + 1;
+                                bArr[i5] = 13;
+                            } else if (bByteAt2 == 120) {
+                                i4++;
+                                if (i4 < byteStringCopyFromUtf8.size() && isHex(byteStringCopyFromUtf8.byteAt(i4))) {
+                                    int iDigitValue3 = digitValue(byteStringCopyFromUtf8.byteAt(i4));
+                                    int i11 = i4 + 1;
+                                    if (i11 < byteStringCopyFromUtf8.size() && isHex(byteStringCopyFromUtf8.byteAt(i11))) {
+                                        iDigitValue3 = (iDigitValue3 * 16) + digitValue(byteStringCopyFromUtf8.byteAt(i11));
+                                        i4 = i11;
                                     }
-                                    i = i6 + 1;
-                                    bArr[i6] = (byte) digitValue2;
+                                    i = i5 + 1;
+                                    bArr[i5] = (byte) iDigitValue3;
                                 } else {
                                     throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\x' with no digits");
                                 }
-                            } else if (byteAt2 == 97) {
-                                i2 = i6 + 1;
-                                bArr[i6] = 7;
-                            } else if (byteAt2 == 98) {
-                                i2 = i6 + 1;
-                                bArr[i6] = 8;
+                            } else if (bByteAt2 == 97) {
+                                i2 = i5 + 1;
+                                bArr[i5] = 7;
+                            } else if (bByteAt2 == 98) {
+                                i2 = i5 + 1;
+                                bArr[i5] = 8;
                             } else {
-                                switch (byteAt2) {
+                                switch (bByteAt2) {
                                     case 116:
-                                        i2 = i6 + 1;
-                                        bArr[i6] = 9;
+                                        i2 = i5 + 1;
+                                        bArr[i5] = 9;
                                         break;
                                     case 117:
-                                        int i13 = i5 + 1;
-                                        i3 = i13 + 3;
-                                        if (i3 < copyFromUtf8.size() && isHex(copyFromUtf8.byteAt(i13))) {
-                                            int i14 = i13 + 1;
-                                            if (isHex(copyFromUtf8.byteAt(i14))) {
-                                                int i15 = i13 + 2;
-                                                if (isHex(copyFromUtf8.byteAt(i15)) && isHex(copyFromUtf8.byteAt(i3))) {
-                                                    char digitValue3 = (char) ((digitValue(copyFromUtf8.byteAt(i13)) << 12) | (digitValue(copyFromUtf8.byteAt(i14)) << 8) | (digitValue(copyFromUtf8.byteAt(i15)) << 4) | digitValue(copyFromUtf8.byteAt(i3)));
-                                                    if (Character.isSurrogate(digitValue3)) {
+                                        int i12 = i4 + 1;
+                                        i3 = i12 + 3;
+                                        if (i3 < byteStringCopyFromUtf8.size() && isHex(byteStringCopyFromUtf8.byteAt(i12))) {
+                                            int i13 = i12 + 1;
+                                            if (isHex(byteStringCopyFromUtf8.byteAt(i13))) {
+                                                int i14 = i12 + 2;
+                                                if (isHex(byteStringCopyFromUtf8.byteAt(i14)) && isHex(byteStringCopyFromUtf8.byteAt(i3))) {
+                                                    char cDigitValue = (char) ((digitValue(byteStringCopyFromUtf8.byteAt(i12)) << 12) | (digitValue(byteStringCopyFromUtf8.byteAt(i13)) << 8) | (digitValue(byteStringCopyFromUtf8.byteAt(i14)) << 4) | digitValue(byteStringCopyFromUtf8.byteAt(i3)));
+                                                    if (Character.isSurrogate(cDigitValue)) {
                                                         throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\u' refers to a surrogate");
                                                     }
-                                                    byte[] bytes2 = Character.toString(digitValue3).getBytes(StandardCharsets.UTF_8);
-                                                    System.arraycopy(bytes2, 0, bArr, i6, bytes2.length);
+                                                    byte[] bytes2 = Character.toString(cDigitValue).getBytes(StandardCharsets.UTF_8);
+                                                    System.arraycopy(bytes2, 0, bArr, i5, bytes2.length);
                                                     length = bytes2.length;
                                                     break;
                                                 }
@@ -1713,40 +1728,39 @@ public final class TextFormat {
                                         }
                                         throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\u' with too few hex chars");
                                     case 118:
-                                        i2 = i6 + 1;
-                                        bArr[i6] = 11;
+                                        i2 = i5 + 1;
+                                        bArr[i5] = 11;
                                         break;
                                     default:
-                                        throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\" + ((char) byteAt2) + '\'');
+                                        throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\" + ((char) bByteAt2) + '\'');
                                 }
                             }
-                            i6 += length;
-                            i5 = i3;
-                            i5++;
+                            i5 += length;
+                            i4 = i3;
+                            i4++;
                         } else {
-                            i2 = i6 + 1;
-                            bArr[i6] = 63;
+                            i2 = i5 + 1;
+                            bArr[i5] = 63;
                         }
-                        i6 = i2;
-                        i5++;
+                        i5 = i2;
+                        i4++;
                     }
                 } else {
                     throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\' at end of string.");
                 }
             } else {
-                i = i6 + 1;
-                bArr[i6] = byteAt;
+                i = i5 + 1;
+                bArr[i5] = bByteAt;
             }
-            i6 = i;
-            i5++;
+            i5 = i;
+            i4++;
         }
-        if (size == i6) {
+        if (size == i5) {
             return ByteString.wrap(bArr);
         }
-        return ByteString.copyFrom(bArr, 0, i6);
+        return ByteString.copyFrom(bArr, 0, i5);
     }
 
-    /* loaded from: classes.dex */
     public static class InvalidEscapeSequenceException extends IOException {
         private static final long serialVersionUID = -8164033650142593304L;
 
@@ -1767,23 +1781,19 @@ public final class TextFormat {
         return unescapeBytes(str).toStringUtf8();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int parseInt32(String str) throws NumberFormatException {
+    static int parseInt32(String str) throws NumberFormatException {
         return (int) parseInteger(str, true, false);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int parseUInt32(String str) throws NumberFormatException {
+    static int parseUInt32(String str) throws NumberFormatException {
         return (int) parseInteger(str, false, false);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static long parseInt64(String str) throws NumberFormatException {
+    static long parseInt64(String str) throws NumberFormatException {
         return parseInteger(str, true, true);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static long parseUInt64(String str) throws NumberFormatException {
+    static long parseUInt64(String str) throws NumberFormatException {
         return parseInteger(str, false, true);
     }
 
@@ -1792,9 +1802,10 @@ public final class TextFormat {
         boolean z3 = true;
         if (!str.startsWith("-", 0)) {
             z3 = false;
-        } else if (!z) {
-            throw new NumberFormatException("Number must be positive: " + str);
         } else {
+            if (!z) {
+                throw new NumberFormatException("Number must be positive: " + str);
+            }
             i = 1;
         }
         int i2 = 10;
@@ -1804,27 +1815,27 @@ public final class TextFormat {
         } else if (str.startsWith("0", i)) {
             i2 = 8;
         }
-        String substring = str.substring(i);
-        if (substring.length() < 16) {
-            long parseLong = Long.parseLong(substring, i2);
+        String strSubstring = str.substring(i);
+        if (strSubstring.length() < 16) {
+            long j = Long.parseLong(strSubstring, i2);
             if (z3) {
-                parseLong = -parseLong;
+                j = -j;
             }
             if (z2) {
-                return parseLong;
+                return j;
             }
             if (z) {
-                if (parseLong > 2147483647L || parseLong < -2147483648L) {
-                    throw new NumberFormatException("Number out of range for 32-bit signed integer: " + str);
+                if (j <= 2147483647L && j >= -2147483648L) {
+                    return j;
                 }
-                return parseLong;
-            } else if (parseLong >= CameraConstant.MEMORY_GB_4G || parseLong < 0) {
-                throw new NumberFormatException("Number out of range for 32-bit unsigned integer: " + str);
-            } else {
-                return parseLong;
+                throw new NumberFormatException("Number out of range for 32-bit signed integer: " + str);
             }
+            if (j < CameraConstant.MEMORY_GB_4G && j >= 0) {
+                return j;
+            }
+            throw new NumberFormatException("Number out of range for 32-bit unsigned integer: " + str);
         }
-        BigInteger bigInteger = new BigInteger(substring, i2);
+        BigInteger bigInteger = new BigInteger(strSubstring, i2);
         if (z3) {
             bigInteger = bigInteger.negate();
         }

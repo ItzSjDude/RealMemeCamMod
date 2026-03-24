@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.RandomAccess;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class SchemaUtil {
+
+/* JADX INFO: loaded from: classes.dex */
+final class SchemaUtil {
     private static final int DEFAULT_LOOK_UP_START_NUMBER = 40;
     private static final Class<?> GENERATED_MESSAGE_CLASS = getGeneratedMessageClass();
     private static final UnknownFieldSchema<?, ?> PROTO2_UNKNOWN_FIELD_SET_SCHEMA = getUnknownFieldSetSchema(false);
@@ -295,278 +295,262 @@ public final class SchemaUtil {
         writer.writeGroupList(i, list, schema);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeInt64ListNoTag(List<Long> list) {
-        int i;
+    static int computeSizeInt64ListNoTag(List<Long> list) {
+        int iComputeInt64SizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeInt64SizeNoTag(longArrayList.getLong(i2));
-                i2++;
+            iComputeInt64SizeNoTag = 0;
+            while (i < size) {
+                iComputeInt64SizeNoTag += CodedOutputStream.computeInt64SizeNoTag(longArrayList.getLong(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeInt64SizeNoTag(list.get(i2).longValue());
-                i2++;
+            iComputeInt64SizeNoTag = 0;
+            while (i < size) {
+                iComputeInt64SizeNoTag += CodedOutputStream.computeInt64SizeNoTag(list.get(i).longValue());
+                i++;
             }
         }
-        return i;
+        return iComputeInt64SizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeInt64List(int i, List<Long> list, boolean z) {
+    static int computeSizeInt64List(int i, List<Long> list, boolean z) {
         if (list.size() == 0) {
             return 0;
         }
-        int computeSizeInt64ListNoTag = computeSizeInt64ListNoTag(list);
+        int iComputeSizeInt64ListNoTag = computeSizeInt64ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeInt64ListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeInt64ListNoTag);
         }
-        return computeSizeInt64ListNoTag + (list.size() * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeInt64ListNoTag + (list.size() * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeUInt64ListNoTag(List<Long> list) {
-        int i;
+    static int computeSizeUInt64ListNoTag(List<Long> list) {
+        int iComputeUInt64SizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeUInt64SizeNoTag(longArrayList.getLong(i2));
-                i2++;
+            iComputeUInt64SizeNoTag = 0;
+            while (i < size) {
+                iComputeUInt64SizeNoTag += CodedOutputStream.computeUInt64SizeNoTag(longArrayList.getLong(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeUInt64SizeNoTag(list.get(i2).longValue());
-                i2++;
+            iComputeUInt64SizeNoTag = 0;
+            while (i < size) {
+                iComputeUInt64SizeNoTag += CodedOutputStream.computeUInt64SizeNoTag(list.get(i).longValue());
+                i++;
             }
         }
-        return i;
+        return iComputeUInt64SizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeUInt64List(int i, List<Long> list, boolean z) {
+    static int computeSizeUInt64List(int i, List<Long> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeSizeUInt64ListNoTag = computeSizeUInt64ListNoTag(list);
+        int iComputeSizeUInt64ListNoTag = computeSizeUInt64ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeUInt64ListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeUInt64ListNoTag);
         }
-        return computeSizeUInt64ListNoTag + (size * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeUInt64ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeSInt64ListNoTag(List<Long> list) {
-        int i;
+    static int computeSizeSInt64ListNoTag(List<Long> list) {
+        int iComputeSInt64SizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof LongArrayList) {
             LongArrayList longArrayList = (LongArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeSInt64SizeNoTag(longArrayList.getLong(i2));
-                i2++;
+            iComputeSInt64SizeNoTag = 0;
+            while (i < size) {
+                iComputeSInt64SizeNoTag += CodedOutputStream.computeSInt64SizeNoTag(longArrayList.getLong(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeSInt64SizeNoTag(list.get(i2).longValue());
-                i2++;
+            iComputeSInt64SizeNoTag = 0;
+            while (i < size) {
+                iComputeSInt64SizeNoTag += CodedOutputStream.computeSInt64SizeNoTag(list.get(i).longValue());
+                i++;
             }
         }
-        return i;
+        return iComputeSInt64SizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeSInt64List(int i, List<Long> list, boolean z) {
+    static int computeSizeSInt64List(int i, List<Long> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeSizeSInt64ListNoTag = computeSizeSInt64ListNoTag(list);
+        int iComputeSizeSInt64ListNoTag = computeSizeSInt64ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeSInt64ListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeSInt64ListNoTag);
         }
-        return computeSizeSInt64ListNoTag + (size * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeSInt64ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeEnumListNoTag(List<Integer> list) {
-        int i;
+    static int computeSizeEnumListNoTag(List<Integer> list) {
+        int iComputeEnumSizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeEnumSizeNoTag(intArrayList.getInt(i2));
-                i2++;
+            iComputeEnumSizeNoTag = 0;
+            while (i < size) {
+                iComputeEnumSizeNoTag += CodedOutputStream.computeEnumSizeNoTag(intArrayList.getInt(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeEnumSizeNoTag(list.get(i2).intValue());
-                i2++;
+            iComputeEnumSizeNoTag = 0;
+            while (i < size) {
+                iComputeEnumSizeNoTag += CodedOutputStream.computeEnumSizeNoTag(list.get(i).intValue());
+                i++;
             }
         }
-        return i;
+        return iComputeEnumSizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeEnumList(int i, List<Integer> list, boolean z) {
+    static int computeSizeEnumList(int i, List<Integer> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeSizeEnumListNoTag = computeSizeEnumListNoTag(list);
+        int iComputeSizeEnumListNoTag = computeSizeEnumListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeEnumListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeEnumListNoTag);
         }
-        return computeSizeEnumListNoTag + (size * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeEnumListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeInt32ListNoTag(List<Integer> list) {
-        int i;
+    static int computeSizeInt32ListNoTag(List<Integer> list) {
+        int iComputeInt32SizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeInt32SizeNoTag(intArrayList.getInt(i2));
-                i2++;
+            iComputeInt32SizeNoTag = 0;
+            while (i < size) {
+                iComputeInt32SizeNoTag += CodedOutputStream.computeInt32SizeNoTag(intArrayList.getInt(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeInt32SizeNoTag(list.get(i2).intValue());
-                i2++;
+            iComputeInt32SizeNoTag = 0;
+            while (i < size) {
+                iComputeInt32SizeNoTag += CodedOutputStream.computeInt32SizeNoTag(list.get(i).intValue());
+                i++;
             }
         }
-        return i;
+        return iComputeInt32SizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeInt32List(int i, List<Integer> list, boolean z) {
+    static int computeSizeInt32List(int i, List<Integer> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeSizeInt32ListNoTag = computeSizeInt32ListNoTag(list);
+        int iComputeSizeInt32ListNoTag = computeSizeInt32ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeInt32ListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeInt32ListNoTag);
         }
-        return computeSizeInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeUInt32ListNoTag(List<Integer> list) {
-        int i;
+    static int computeSizeUInt32ListNoTag(List<Integer> list) {
+        int iComputeUInt32SizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeUInt32SizeNoTag(intArrayList.getInt(i2));
-                i2++;
+            iComputeUInt32SizeNoTag = 0;
+            while (i < size) {
+                iComputeUInt32SizeNoTag += CodedOutputStream.computeUInt32SizeNoTag(intArrayList.getInt(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeUInt32SizeNoTag(list.get(i2).intValue());
-                i2++;
+            iComputeUInt32SizeNoTag = 0;
+            while (i < size) {
+                iComputeUInt32SizeNoTag += CodedOutputStream.computeUInt32SizeNoTag(list.get(i).intValue());
+                i++;
             }
         }
-        return i;
+        return iComputeUInt32SizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeUInt32List(int i, List<Integer> list, boolean z) {
+    static int computeSizeUInt32List(int i, List<Integer> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeSizeUInt32ListNoTag = computeSizeUInt32ListNoTag(list);
+        int iComputeSizeUInt32ListNoTag = computeSizeUInt32ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeUInt32ListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeUInt32ListNoTag);
         }
-        return computeSizeUInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeUInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeSInt32ListNoTag(List<Integer> list) {
-        int i;
+    static int computeSizeSInt32ListNoTag(List<Integer> list) {
+        int iComputeSInt32SizeNoTag;
         int size = list.size();
-        int i2 = 0;
+        int i = 0;
         if (size == 0) {
             return 0;
         }
         if (list instanceof IntArrayList) {
             IntArrayList intArrayList = (IntArrayList) list;
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeSInt32SizeNoTag(intArrayList.getInt(i2));
-                i2++;
+            iComputeSInt32SizeNoTag = 0;
+            while (i < size) {
+                iComputeSInt32SizeNoTag += CodedOutputStream.computeSInt32SizeNoTag(intArrayList.getInt(i));
+                i++;
             }
         } else {
-            i = 0;
-            while (i2 < size) {
-                i += CodedOutputStream.computeSInt32SizeNoTag(list.get(i2).intValue());
-                i2++;
+            iComputeSInt32SizeNoTag = 0;
+            while (i < size) {
+                iComputeSInt32SizeNoTag += CodedOutputStream.computeSInt32SizeNoTag(list.get(i).intValue());
+                i++;
             }
         }
-        return i;
+        return iComputeSInt32SizeNoTag;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeSInt32List(int i, List<Integer> list, boolean z) {
+    static int computeSizeSInt32List(int i, List<Integer> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeSizeSInt32ListNoTag = computeSizeSInt32ListNoTag(list);
+        int iComputeSizeSInt32ListNoTag = computeSizeSInt32ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSizeSInt32ListNoTag);
+            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeSInt32ListNoTag);
         }
-        return computeSizeSInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
+        return iComputeSizeSInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeFixed32ListNoTag(List<?> list) {
+    static int computeSizeFixed32ListNoTag(List<?> list) {
         return list.size() * 4;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeFixed32List(int i, List<?> list, boolean z) {
+    static int computeSizeFixed32List(int i, List<?> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
@@ -577,13 +561,11 @@ public final class SchemaUtil {
         return size * CodedOutputStream.computeFixed32Size(i, 0);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeFixed64ListNoTag(List<?> list) {
+    static int computeSizeFixed64ListNoTag(List<?> list) {
         return list.size() * 8;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeFixed64List(int i, List<?> list, boolean z) {
+    static int computeSizeFixed64List(int i, List<?> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
@@ -594,13 +576,11 @@ public final class SchemaUtil {
         return size * CodedOutputStream.computeFixed64Size(i, 0L);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeBoolListNoTag(List<?> list) {
+    static int computeSizeBoolListNoTag(List<?> list) {
         return list.size();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeBoolList(int i, List<?> list, boolean z) {
+    static int computeSizeBoolList(int i, List<?> list, boolean z) {
         int size = list.size();
         if (size == 0) {
             return 0;
@@ -611,45 +591,43 @@ public final class SchemaUtil {
         return size * CodedOutputStream.computeBoolSize(i, true);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeStringList(int i, List<?> list) {
-        int computeStringSizeNoTag;
-        int computeStringSizeNoTag2;
+    static int computeSizeStringList(int i, List<?> list) {
+        int iComputeStringSizeNoTag;
+        int iComputeStringSizeNoTag2;
         int size = list.size();
         int i2 = 0;
         if (size == 0) {
             return 0;
         }
-        int computeTagSize = CodedOutputStream.computeTagSize(i) * size;
+        int iComputeTagSize = CodedOutputStream.computeTagSize(i) * size;
         if (list instanceof LazyStringList) {
             LazyStringList lazyStringList = (LazyStringList) list;
             while (i2 < size) {
                 Object raw = lazyStringList.getRaw(i2);
                 if (raw instanceof ByteString) {
-                    computeStringSizeNoTag2 = CodedOutputStream.computeBytesSizeNoTag((ByteString) raw);
+                    iComputeStringSizeNoTag2 = CodedOutputStream.computeBytesSizeNoTag((ByteString) raw);
                 } else {
-                    computeStringSizeNoTag2 = CodedOutputStream.computeStringSizeNoTag((String) raw);
+                    iComputeStringSizeNoTag2 = CodedOutputStream.computeStringSizeNoTag((String) raw);
                 }
-                computeTagSize += computeStringSizeNoTag2;
+                iComputeTagSize += iComputeStringSizeNoTag2;
                 i2++;
             }
         } else {
             while (i2 < size) {
                 Object obj = list.get(i2);
                 if (obj instanceof ByteString) {
-                    computeStringSizeNoTag = CodedOutputStream.computeBytesSizeNoTag((ByteString) obj);
+                    iComputeStringSizeNoTag = CodedOutputStream.computeBytesSizeNoTag((ByteString) obj);
                 } else {
-                    computeStringSizeNoTag = CodedOutputStream.computeStringSizeNoTag((String) obj);
+                    iComputeStringSizeNoTag = CodedOutputStream.computeStringSizeNoTag((String) obj);
                 }
-                computeTagSize += computeStringSizeNoTag;
+                iComputeTagSize += iComputeStringSizeNoTag;
                 i2++;
             }
         }
-        return computeTagSize;
+        return iComputeTagSize;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeMessage(int i, Object obj, Schema schema) {
+    static int computeSizeMessage(int i, Object obj, Schema schema) {
         if (obj instanceof LazyFieldLite) {
             return CodedOutputStream.computeLazyFieldSize(i, (LazyFieldLite) obj);
         }
@@ -657,55 +635,53 @@ public final class SchemaUtil {
     }
 
     static int computeSizeMessageList(int i, List<?> list) {
-        int computeMessageSizeNoTag;
+        int iComputeMessageSizeNoTag;
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeTagSize = CodedOutputStream.computeTagSize(i) * size;
+        int iComputeTagSize = CodedOutputStream.computeTagSize(i) * size;
         for (int i2 = 0; i2 < size; i2++) {
             Object obj = list.get(i2);
             if (obj instanceof LazyFieldLite) {
-                computeMessageSizeNoTag = CodedOutputStream.computeLazyFieldSizeNoTag((LazyFieldLite) obj);
+                iComputeMessageSizeNoTag = CodedOutputStream.computeLazyFieldSizeNoTag((LazyFieldLite) obj);
             } else {
-                computeMessageSizeNoTag = CodedOutputStream.computeMessageSizeNoTag((MessageLite) obj);
+                iComputeMessageSizeNoTag = CodedOutputStream.computeMessageSizeNoTag((MessageLite) obj);
             }
-            computeTagSize += computeMessageSizeNoTag;
+            iComputeTagSize += iComputeMessageSizeNoTag;
         }
-        return computeTagSize;
+        return iComputeTagSize;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeMessageList(int i, List<?> list, Schema schema) {
-        int computeMessageSizeNoTag;
+    static int computeSizeMessageList(int i, List<?> list, Schema schema) {
+        int iComputeMessageSizeNoTag;
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeTagSize = CodedOutputStream.computeTagSize(i) * size;
+        int iComputeTagSize = CodedOutputStream.computeTagSize(i) * size;
         for (int i2 = 0; i2 < size; i2++) {
             Object obj = list.get(i2);
             if (obj instanceof LazyFieldLite) {
-                computeMessageSizeNoTag = CodedOutputStream.computeLazyFieldSizeNoTag((LazyFieldLite) obj);
+                iComputeMessageSizeNoTag = CodedOutputStream.computeLazyFieldSizeNoTag((LazyFieldLite) obj);
             } else {
-                computeMessageSizeNoTag = CodedOutputStream.computeMessageSizeNoTag((MessageLite) obj, schema);
+                iComputeMessageSizeNoTag = CodedOutputStream.computeMessageSizeNoTag((MessageLite) obj, schema);
             }
-            computeTagSize += computeMessageSizeNoTag;
+            iComputeTagSize += iComputeMessageSizeNoTag;
         }
-        return computeTagSize;
+        return iComputeTagSize;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeByteStringList(int i, List<ByteString> list) {
+    static int computeSizeByteStringList(int i, List<ByteString> list) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int computeTagSize = size * CodedOutputStream.computeTagSize(i);
+        int iComputeTagSize = size * CodedOutputStream.computeTagSize(i);
         for (int i2 = 0; i2 < list.size(); i2++) {
-            computeTagSize += CodedOutputStream.computeBytesSizeNoTag(list.get(i2));
+            iComputeTagSize += CodedOutputStream.computeBytesSizeNoTag(list.get(i2));
         }
-        return computeTagSize;
+        return iComputeTagSize;
     }
 
     static int computeSizeGroupList(int i, List<MessageLite> list) {
@@ -713,24 +689,23 @@ public final class SchemaUtil {
         if (size == 0) {
             return 0;
         }
-        int i2 = 0;
-        for (int i3 = 0; i3 < size; i3++) {
-            i2 += CodedOutputStream.computeGroupSize(i, list.get(i3));
+        int iComputeGroupSize = 0;
+        for (int i2 = 0; i2 < size; i2++) {
+            iComputeGroupSize += CodedOutputStream.computeGroupSize(i, list.get(i2));
         }
-        return i2;
+        return iComputeGroupSize;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int computeSizeGroupList(int i, List<MessageLite> list, Schema schema) {
+    static int computeSizeGroupList(int i, List<MessageLite> list, Schema schema) {
         int size = list.size();
         if (size == 0) {
             return 0;
         }
-        int i2 = 0;
-        for (int i3 = 0; i3 < size; i3++) {
-            i2 += CodedOutputStream.computeGroupSize(i, list.get(i3), schema);
+        int iComputeGroupSize = 0;
+        for (int i2 = 0; i2 < size; i2++) {
+            iComputeGroupSize += CodedOutputStream.computeGroupSize(i, list.get(i2), schema);
         }
-        return i2;
+        return iComputeGroupSize;
     }
 
     public static boolean shouldUseTableSwitch(FieldInfo[] fieldInfoArr) {
@@ -780,8 +755,7 @@ public final class SchemaUtil {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static Object getMapDefaultEntry(Class<?> cls, String str) {
+    static Object getMapDefaultEntry(Class<?> cls, String str) {
         try {
             java.lang.reflect.Field[] declaredFields = Class.forName(cls.getName() + "$" + toCamelCase(str, true) + "DefaultEntryHolder").getDeclaredFields();
             if (declaredFields.length != 1) {
@@ -796,54 +770,49 @@ public final class SchemaUtil {
     static String toCamelCase(String str, boolean z) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-            char charAt = str.charAt(i);
-            if ('a' > charAt || charAt > 'z') {
-                if ('A' > charAt || charAt > 'Z') {
-                    if ('0' <= charAt && charAt <= '9') {
-                        sb.append(charAt);
+            char cCharAt = str.charAt(i);
+            if ('a' > cCharAt || cCharAt > 'z') {
+                if ('A' > cCharAt || cCharAt > 'Z') {
+                    if ('0' <= cCharAt && cCharAt <= '9') {
+                        sb.append(cCharAt);
                     }
                     z = true;
                 } else if (i == 0 && !z) {
-                    sb.append((char) (charAt + ' '));
+                    sb.append((char) (cCharAt + ' '));
                 } else {
-                    sb.append(charAt);
+                    sb.append(cCharAt);
                 }
             } else if (z) {
-                sb.append((char) (charAt - ' '));
+                sb.append((char) (cCharAt - ' '));
             } else {
-                sb.append(charAt);
+                sb.append(cCharAt);
             }
             z = false;
         }
         return sb.toString();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static boolean safeEquals(Object obj, Object obj2) {
+    static boolean safeEquals(Object obj, Object obj2) {
         return obj == obj2 || (obj != null && obj.equals(obj2));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <T> void mergeMap(MapFieldSchema mapFieldSchema, T t, T t2, long j) {
+    static <T> void mergeMap(MapFieldSchema mapFieldSchema, T t, T t2, long j) {
         UnsafeUtil.putObject(t, j, mapFieldSchema.mergeFrom(UnsafeUtil.getObject(t, j), UnsafeUtil.getObject(t2, j)));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <T, FT extends FieldSet.FieldDescriptorLite<FT>> void mergeExtensions(ExtensionSchema<FT> extensionSchema, T t, T t2) {
-        FieldSet<FT> extensions = extensionSchema.getExtensions(t2);
+    static <T, FT extends FieldSet.FieldDescriptorLite<FT>> void mergeExtensions(ExtensionSchema<FT> extensionSchema, T t, T t2) {
+        FieldSet<T> extensions = extensionSchema.getExtensions(t2);
         if (extensions.isEmpty()) {
             return;
         }
         extensionSchema.getMutableExtensions(t).mergeFrom(extensions);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <T, UT, UB> void mergeUnknownFields(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, T t2) {
+    static <T, UT, UB> void mergeUnknownFields(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, T t2) {
         unknownFieldSchema.setToMessage(t, unknownFieldSchema.merge(unknownFieldSchema.getFromMessage(t), unknownFieldSchema.getFromMessage(t2)));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumLiteMap<?> enumLiteMap, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+    static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumLiteMap<?> enumLiteMap, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
         if (enumLiteMap == null) {
             return ub;
         }
@@ -851,14 +820,14 @@ public final class SchemaUtil {
             int size = list.size();
             int i2 = 0;
             for (int i3 = 0; i3 < size; i3++) {
-                int intValue = list.get(i3).intValue();
-                if (enumLiteMap.findValueByNumber(intValue) != null) {
+                int iIntValue = list.get(i3).intValue();
+                if (enumLiteMap.findValueByNumber(iIntValue) != null) {
                     if (i3 != i2) {
-                        list.set(i2, Integer.valueOf(intValue));
+                        list.set(i2, Integer.valueOf(iIntValue));
                     }
                     i2++;
                 } else {
-                    ub = (UB) storeUnknownEnum(i, intValue, ub, unknownFieldSchema);
+                    ub = (UB) storeUnknownEnum(i, iIntValue, ub, unknownFieldSchema);
                 }
             }
             if (i2 != size) {
@@ -867,9 +836,9 @@ public final class SchemaUtil {
         } else {
             Iterator<Integer> it = list.iterator();
             while (it.hasNext()) {
-                int intValue2 = it.next().intValue();
-                if (enumLiteMap.findValueByNumber(intValue2) == null) {
-                    ub = (UB) storeUnknownEnum(i, intValue2, ub, unknownFieldSchema);
+                int iIntValue2 = it.next().intValue();
+                if (enumLiteMap.findValueByNumber(iIntValue2) == null) {
+                    ub = (UB) storeUnknownEnum(i, iIntValue2, ub, unknownFieldSchema);
                     it.remove();
                 }
             }
@@ -877,8 +846,7 @@ public final class SchemaUtil {
         return ub;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumVerifier enumVerifier, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+    static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumVerifier enumVerifier, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
         if (enumVerifier == null) {
             return ub;
         }
@@ -886,14 +854,14 @@ public final class SchemaUtil {
             int size = list.size();
             int i2 = 0;
             for (int i3 = 0; i3 < size; i3++) {
-                int intValue = list.get(i3).intValue();
-                if (enumVerifier.isInRange(intValue)) {
+                int iIntValue = list.get(i3).intValue();
+                if (enumVerifier.isInRange(iIntValue)) {
                     if (i3 != i2) {
-                        list.set(i2, Integer.valueOf(intValue));
+                        list.set(i2, Integer.valueOf(iIntValue));
                     }
                     i2++;
                 } else {
-                    ub = (UB) storeUnknownEnum(i, intValue, ub, unknownFieldSchema);
+                    ub = (UB) storeUnknownEnum(i, iIntValue, ub, unknownFieldSchema);
                 }
             }
             if (i2 != size) {
@@ -902,9 +870,9 @@ public final class SchemaUtil {
         } else {
             Iterator<Integer> it = list.iterator();
             while (it.hasNext()) {
-                int intValue2 = it.next().intValue();
-                if (!enumVerifier.isInRange(intValue2)) {
-                    ub = (UB) storeUnknownEnum(i, intValue2, ub, unknownFieldSchema);
+                int iIntValue2 = it.next().intValue();
+                if (!enumVerifier.isInRange(iIntValue2)) {
+                    ub = (UB) storeUnknownEnum(i, iIntValue2, ub, unknownFieldSchema);
                     it.remove();
                 }
             }
@@ -912,8 +880,7 @@ public final class SchemaUtil {
         return ub;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static <UT, UB> UB storeUnknownEnum(int i, int i2, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+    static <UT, UB> UB storeUnknownEnum(int i, int i2, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
         if (ub == null) {
             ub = unknownFieldSchema.newBuilder();
         }

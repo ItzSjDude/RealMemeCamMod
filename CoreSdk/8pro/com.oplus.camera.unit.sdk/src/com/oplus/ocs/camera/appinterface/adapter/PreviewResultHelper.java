@@ -7,7 +7,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsTotalResult;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PreviewResultHelper extends CameraBaseResultHelper {
     private ApsResult.ImageBuffer mImageBuffer = null;
     private ConcurrentHashMap<String, Integer> mCustomResult = null;

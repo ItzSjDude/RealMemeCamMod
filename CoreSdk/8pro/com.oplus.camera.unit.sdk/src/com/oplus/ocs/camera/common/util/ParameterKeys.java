@@ -6,7 +6,8 @@ import com.oplus.ocs.camera.common.statistics.StatisticConstant;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ParameterKeys extends ApsParameters {
     public static final String ALGO_NAME_3D_PHOTO = "aps_algo_3d_photo";
     public static final String ALGO_NAME_AIHDR = "aps_algo_aihdr";
@@ -234,10 +235,10 @@ public class ParameterKeys extends ApsParameters {
     }
 
     static {
-        Float valueOf = Float.valueOf(0.0f);
-        KEY_ACCELEROMETER_X = new ApsParameters.Key<>("KEY_ACCELEROMETER_Y", 2, valueOf);
-        KEY_ACCELEROMETER_Y = new ApsParameters.Key<>("KEY_ACCELEROMETER_Y", 2, valueOf);
-        KEY_ACCELEROMETER_Z = new ApsParameters.Key<>("KEY_ACCELEROMETER_Z", 2, valueOf);
+        Float fValueOf = Float.valueOf(0.0f);
+        KEY_ACCELEROMETER_X = new ApsParameters.Key<>("KEY_ACCELEROMETER_Y", 2, fValueOf);
+        KEY_ACCELEROMETER_Y = new ApsParameters.Key<>("KEY_ACCELEROMETER_Y", 2, fValueOf);
+        KEY_ACCELEROMETER_Z = new ApsParameters.Key<>("KEY_ACCELEROMETER_Z", 2, fValueOf);
         KEY_VIDEO_WATERMARK_ENABLE = new ApsParameters.Key<>("video_watermark_enable", 1);
         KEY_FAST_CAPTURE = new ApsParameters.Key<>("fast_capture", 2, true);
         KEY_ORIENTATION = new ApsParameters.Key<>("orientation", 1, 0);

@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefDouble extends BaseField<Double> {
     private static final double DEFAULT_VALUE = ((Double) DEFAULT_TYPES.get(Double.class)).doubleValue();
     private static final String TAG = "RefDouble";

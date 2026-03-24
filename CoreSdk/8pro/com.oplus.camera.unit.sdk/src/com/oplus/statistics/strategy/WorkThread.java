@@ -10,8 +10,10 @@ import com.oplus.statistics.util.Supplier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class WorkThread extends HandlerThread {
     public static final int MSG_WHAT_CHATTY_EVENT = 1;
     private static final String TAG = "WorkThread";
@@ -20,12 +22,11 @@ public class WorkThread extends HandlerThread {
     private final SparseArray<PendingTask> mPendingTaskMap;
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface MsgWhatType {
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$onLooperPrepared$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onLooperPrepared, but looper is null" */
+    static /* synthetic */ String lambda$onLooperPrepared$0() {
         return "onLooperPrepared, but looper is null";
     }
 
@@ -94,28 +95,26 @@ public class WorkThread extends HandlerThread {
         }
         synchronized (this) {
             this.mHandler = new Handler(looper);
-            for (Runnable runnable : this.mPendingTaskList) {
-                this.mHandler.post(runnable);
+            Iterator<Runnable> it = this.mPendingTaskList.iterator();
+            while (it.hasNext()) {
+                this.mHandler.post(it.next());
             }
             this.mPendingTaskList.clear();
             for (int i = 0; i < this.mPendingTaskMap.size(); i++) {
-                PendingTask valueAt = this.mPendingTaskMap.valueAt(i);
-                this.mHandler.postDelayed(valueAt.runnable, valueAt.delayMillis);
+                PendingTask pendingTaskValueAt = this.mPendingTaskMap.valueAt(i);
+                this.mHandler.postDelayed(pendingTaskValueAt.runnable, pendingTaskValueAt.delayMillis);
             }
             this.mPendingTaskMap.clear();
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static class SingletonHolder {
+    private static class SingletonHolder {
         private static final WorkThread INSTANCE = new WorkThread();
 
         private SingletonHolder() {
         }
     }
 
-    /* loaded from: classes.dex */
     static class PendingTask {
         private final long delayMillis;
         private final Runnable runnable;

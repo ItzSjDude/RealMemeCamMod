@@ -23,7 +23,8 @@ import com.oplus.ocs.camera.common.util.CameraPerformance;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.common.util.ErrorResult;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
     private static final String ACTION_START_RECORDING = "startRecording";
     private static final String ACTION_TAKE_PICTURE = "takePicture";
@@ -82,9 +83,9 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                     if (Camera2StateMachineImpl.this.mDeviceState != 3 && Camera2StateMachineImpl.this.mDeviceState != 2) {
                         Camera2StateMachineImpl.this.setDeviceState(8);
                         Camera2StateMachineImpl.this.closeCameraAuto(false);
-                        return;
+                    } else {
+                        CameraUnitLog.e(Camera2StateMachineImpl.TAG, "onDisconnected, device already closed or is closing, mDeviceState:" + Camera2StateMachineImpl.this.mDeviceState);
                     }
-                    CameraUnitLog.e(Camera2StateMachineImpl.TAG, "onDisconnected, device already closed or is closing, mDeviceState:" + Camera2StateMachineImpl.this.mDeviceState);
                 }
             });
             if (Camera2StateMachineImpl.this.mCameraStateCallbackAdapter != null) {
@@ -98,9 +99,8 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
             synchronized (Camera2StateMachineImpl.this.mCameraStateCallbackAdapterLock) {
                 if (Camera2StateMachineImpl.this.mCameraStateCallbackAdapter != null) {
                     StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-                    String stackTraceElement = stackTrace.length < 3 ? "" : stackTrace[2].toString();
-                    CameraStateCallbackAdapter cameraStateCallbackAdapter = Camera2StateMachineImpl.this.mCameraStateCallbackAdapter;
-                    cameraStateCallbackAdapter.onCameraError(new ErrorResult(i, "camera device error, at: " + stackTraceElement));
+                    String string = stackTrace.length < 3 ? "" : stackTrace[2].toString();
+                    Camera2StateMachineImpl.this.mCameraStateCallbackAdapter.onCameraError(new ErrorResult(i, "camera device error, at: " + string));
                 }
             }
             if (i == 1) {
@@ -252,8 +252,7 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
         this.mCamera2Interface.setCallback(this.mInnerCameraStateCallback, this.mInnerSessionCallback, msgPackage.mPreviewCallback, msgPackage.mPictureCallback, msgPackage.mRecordingCallback);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public Camera2StateMachineImpl(String str) {
+    Camera2StateMachineImpl(String str) {
         this.mCameraName = null;
         this.mControlHandler = null;
         this.mCallbackHandler = null;
@@ -279,9 +278,7 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
         return this.mCameraName;
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public class StateMachineHandler extends CameraHandler {
+    private class StateMachineHandler extends CameraHandler {
         StateMachineHandler(Looper looper) {
             super(looper);
         }
@@ -310,7 +307,7 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                 case 1:
                     Camera2StateMachineImpl.this.mControlHandler.removeCallbacksAndMessages(null);
                     Camera2StateMachineImpl.this.openCameraDecision((MsgPackage) message.obj);
-                    return;
+                    break;
                 case 2:
                     CameraUnitLog.d(Camera2StateMachineImpl.TAG, "openCamera, MSG_OPEN_CAMERA_DEVICE, mDeviceState:" + Camera2StateMachineImpl.this.mDeviceState);
                     if (3 == Camera2StateMachineImpl.this.mDeviceState) {
@@ -325,7 +322,6 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                             Camera2StateMachineImpl.this.setDeviceState(1);
                             Camera2StateMachineImpl.this.mInnerCameraStateCallback.onOpened(null);
                             StatisticsManager.getInstance().onOpenCamera(Camera2StateMachineImpl.this.mCameraId, Camera2StateMachineImpl.this.mCameraName);
-                            return;
                         } catch (CameraAccessException | IllegalArgumentException | SecurityException e) {
                             CameraUnitLog.e(Camera2StateMachineImpl.TAG, "handleMessage, open camera failed", e);
                             Camera2StateMachineImpl.this.setDeviceState(3);
@@ -333,7 +329,7 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                             return;
                         }
                     }
-                    return;
+                    break;
                 case 3:
                     if (8 == Camera2StateMachineImpl.this.mDeviceState || 1 == Camera2StateMachineImpl.this.mDeviceState || 6 == Camera2StateMachineImpl.this.mDeviceState) {
                         try {
@@ -343,9 +339,7 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                             if (4 == Camera2StateMachineImpl.this.mDeviceState) {
                                 Camera2StateMachineImpl.this.setDeviceState(5);
                                 Camera2StateMachineImpl.this.mCameraStateCallbackAdapter.onSessionConfigured(Camera2StateMachineImpl.this.mCamera2Interface.getConfigInfo());
-                                return;
                             }
-                            return;
                         } catch (Exception e2) {
                             if (Camera2StateMachineImpl.this.mCameraStateCallbackAdapter != null) {
                                 Camera2StateMachineImpl.this.mCameraStateCallbackAdapter.onSessionConfigureFail(ErrorResult.STREAM_SURFACE_ERROR);
@@ -355,7 +349,7 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                             return;
                         }
                     }
-                    return;
+                    break;
                 case 4:
                     Camera2StateMachineImpl.this.mControlHandler.removeCallbacksAndMessages(null);
                     Camera2StateMachineImpl.this.setEnabled(false);
@@ -367,17 +361,15 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                                 Camera2StateMachineImpl.this.mSyncVariable.open();
                             }
                         });
-                        return;
                     }
-                    return;
+                    break;
                 case 5:
                     if (1 == Camera2StateMachineImpl.this.mDeviceState || 8 == Camera2StateMachineImpl.this.mDeviceState || 6 == Camera2StateMachineImpl.this.mDeviceState) {
                         Camera2StateMachineImpl.this.setDeviceState(2);
                         Camera2StateMachineImpl.this.mCamera2Interface.closeCameraDevice();
                         Camera2StateMachineImpl.this.mInnerCameraStateCallback.onClosed(null);
-                        return;
                     }
-                    return;
+                    break;
                 case 6:
                     if (5 == Camera2StateMachineImpl.this.mDeviceState) {
                         Camera2StateMachineImpl.this.setDeviceState(7);
@@ -386,40 +378,35 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                         Camera2StateMachineImpl.this.setDeviceState(8);
                         if (Camera2StateMachineImpl.this.mInnerSessionCallback != null) {
                             Camera2StateMachineImpl.this.mInnerSessionCallback.onClosed(null);
-                            return;
                         }
-                        return;
                     }
-                    return;
+                    break;
                 case 7:
                     if (5 == Camera2StateMachineImpl.this.mDeviceState || 10 == Camera2StateMachineImpl.this.mDeviceState) {
                         Camera2StateMachineImpl.this.setDeviceState(9);
                         MsgPackage msgPackage2 = (MsgPackage) message.obj;
                         if (Camera2StateMachineImpl.this.mCamera2Interface.startPreview(msgPackage2.mTag, msgPackage2.mParameter, Camera2StateMachineImpl.this.mCallbackHandler)) {
                             Camera2StateMachineImpl.this.setDeviceState(10);
-                            return;
                         } else {
                             Camera2StateMachineImpl.this.setDeviceState(5);
-                            return;
                         }
                     }
-                    return;
+                    break;
                 case 8:
                     if (10 == Camera2StateMachineImpl.this.mDeviceState) {
                         Camera2StateMachineImpl.this.setDeviceState(11);
                         Object obj = message.obj;
                         Camera2StateMachineImpl.this.mCamera2Interface.stopPreview(obj instanceof Boolean ? ((Boolean) obj).booleanValue() : true);
                         Camera2StateMachineImpl.this.setDeviceState(5);
-                        return;
                     }
-                    return;
+                    break;
                 case 9:
                     Camera2StateMachineImpl.this.mControlHandler.removeMessages(8);
                     Camera2StateMachineImpl.this.mControlHandler.removeMessages(7);
                     Camera2StateMachineImpl.this.mControlHandler.removeMessages(6);
                     Camera2StateMachineImpl.this.mControlHandler.removeMessages(3);
                     Camera2StateMachineImpl.this.createSessionDecision((MsgPackage) message.obj);
-                    return;
+                    break;
                 case 10:
                     if (10 == Camera2StateMachineImpl.this.mDeviceState) {
                         Camera2StateMachineImpl.this.mCamera2Interface.beforeCloseSession();
@@ -433,22 +420,17 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
                         Camera2StateMachineImpl.this.setDeviceState(8);
                         if (Camera2StateMachineImpl.this.mInnerSessionCallback != null) {
                             Camera2StateMachineImpl.this.mInnerSessionCallback.onClosed(null);
-                            return;
                         }
-                        return;
                     }
-                    return;
+                    break;
                 case 11:
                     MsgPackage msgPackage3 = (MsgPackage) message.obj;
                     if (!Camera2StateMachineImpl.this.mbEnabled) {
                         Camera2StateMachineImpl.this.abortAction(msgPackage3.mTag, Camera2StateMachineImpl.ACTION_TAKE_PICTURE);
-                        return;
                     } else {
                         Camera2StateMachineImpl.this.mCamera2Interface.takePicture(msgPackage3.mTag, msgPackage3.mParameter, Camera2StateMachineImpl.this.mCallbackHandler);
-                        return;
                     }
-                default:
-                    return;
+                    break;
             }
         }
     }
@@ -549,10 +531,10 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
     public void openCameraAuto(MsgPackage msgPackage) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 1;
-        obtainMessage.obj = msgPackage;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, true);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 1;
+        messageObtainMessage.obj = msgPackage;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, true);
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
@@ -564,12 +546,12 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
         if (z) {
             this.mSyncVariable.close();
         }
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 4;
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 4;
         if (z) {
-            obtainMessage.arg1 = 1;
+            messageObtainMessage.arg1 = 1;
         }
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, true);
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, true);
         if (z) {
             this.mSyncVariable.block();
         }
@@ -577,68 +559,68 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
     public void createSessionAuto(CameraSessionEntity cameraSessionEntity, Parameter parameter) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 9;
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 9;
         MsgPackage msgPackage = new MsgPackage();
         msgPackage.mSessionEntity = cameraSessionEntity;
         msgPackage.mParameter = parameter;
-        obtainMessage.obj = msgPackage;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, true);
+        messageObtainMessage.obj = msgPackage;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, true);
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public void openCamera(MsgPackage msgPackage, int i) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 2;
-        obtainMessage.arg1 = i;
-        obtainMessage.obj = msgPackage;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 2;
+        messageObtainMessage.arg1 = i;
+        messageObtainMessage.obj = msgPackage;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     private void closeCamera() {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 5;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 5;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     private void createSession(MsgPackage msgPackage) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 3;
-        obtainMessage.obj = msgPackage;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 3;
+        messageObtainMessage.obj = msgPackage;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     private void closeSession() {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 6;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 6;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
     public void closeOldSession() {
         this.mControlHandler.removeCallbacksAndMessages(null);
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 10;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 10;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
     public void startPreview(CameraRequestTag cameraRequestTag, Parameter parameter) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 7;
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 7;
         MsgPackage msgPackage = new MsgPackage();
         msgPackage.mTag = cameraRequestTag;
         msgPackage.mParameter = parameter;
-        obtainMessage.obj = msgPackage;
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        messageObtainMessage.obj = msgPackage;
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
     public void stopPreview(boolean z) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 8;
-        obtainMessage.obj = Boolean.valueOf(z);
-        this.mControlHandler.sendMessageWaitDecision(obtainMessage, false);
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 8;
+        messageObtainMessage.obj = Boolean.valueOf(z);
+        this.mControlHandler.sendMessageWaitDecision(messageObtainMessage, false);
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
@@ -728,16 +710,16 @@ public class Camera2StateMachineImpl implements Camera2StateMachineInterface {
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2StateMachineInterface
     public void takePicture(CameraRequestTag cameraRequestTag, Parameter parameter) {
-        Message obtainMessage = this.mControlHandler.obtainMessage();
-        obtainMessage.what = 11;
+        Message messageObtainMessage = this.mControlHandler.obtainMessage();
+        messageObtainMessage.what = 11;
         MsgPackage msgPackage = new MsgPackage();
         msgPackage.mTag = cameraRequestTag;
         msgPackage.mParameter = parameter;
-        obtainMessage.obj = msgPackage;
+        messageObtainMessage.obj = msgPackage;
         if (cameraRequestTag.mbRepeatingRequestCapture) {
-            this.mControlHandler.sendMessage(obtainMessage);
+            this.mControlHandler.sendMessage(messageObtainMessage);
         } else {
-            this.mControlHandler.sendMessageAtFrontOfQueue(obtainMessage);
+            this.mControlHandler.sendMessageAtFrontOfQueue(messageObtainMessage);
         }
     }
 

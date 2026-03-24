@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.GeneratedMessageV3;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class NewInstanceSchemaFull implements NewInstanceSchema {
     NewInstanceSchemaFull() {
     }

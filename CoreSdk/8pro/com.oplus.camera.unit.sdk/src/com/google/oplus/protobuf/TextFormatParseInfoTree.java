@@ -4,28 +4,31 @@ import com.google.oplus.protobuf.Descriptors;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class TextFormatParseInfoTree {
     private Map<Descriptors.FieldDescriptor, List<TextFormatParseLocation>> locationsFromField;
     Map<Descriptors.FieldDescriptor, List<TextFormatParseInfoTree>> subtreesFromField;
 
     private TextFormatParseInfoTree(Map<Descriptors.FieldDescriptor, List<TextFormatParseLocation>> map, Map<Descriptors.FieldDescriptor, List<Builder>> map2) {
-        HashMap hashMap = new HashMap();
+        HashMap map3 = new HashMap();
         for (Map.Entry<Descriptors.FieldDescriptor, List<TextFormatParseLocation>> entry : map.entrySet()) {
-            hashMap.put(entry.getKey(), Collections.unmodifiableList(entry.getValue()));
+            map3.put(entry.getKey(), Collections.unmodifiableList(entry.getValue()));
         }
-        this.locationsFromField = Collections.unmodifiableMap(hashMap);
-        HashMap hashMap2 = new HashMap();
+        this.locationsFromField = Collections.unmodifiableMap(map3);
+        HashMap map4 = new HashMap();
         for (Map.Entry<Descriptors.FieldDescriptor, List<Builder>> entry2 : map2.entrySet()) {
             ArrayList arrayList = new ArrayList();
-            for (Builder builder : entry2.getValue()) {
-                arrayList.add(builder.build());
+            Iterator<Builder> it = entry2.getValue().iterator();
+            while (it.hasNext()) {
+                arrayList.add(it.next().build());
             }
-            hashMap2.put(entry2.getKey(), Collections.unmodifiableList(arrayList));
+            map4.put(entry2.getKey(), Collections.unmodifiableList(arrayList));
         }
-        this.subtreesFromField = Collections.unmodifiableMap(hashMap2);
+        this.subtreesFromField = Collections.unmodifiableMap(map4);
     }
 
     public List<TextFormatParseLocation> getLocations(Descriptors.FieldDescriptor fieldDescriptor) {
@@ -60,7 +63,6 @@ public class TextFormatParseInfoTree {
         return list.get(i);
     }
 
-    /* loaded from: classes.dex */
     public static class Builder {
         private Map<Descriptors.FieldDescriptor, List<TextFormatParseLocation>> locationsFromField;
         private Map<Descriptors.FieldDescriptor, List<Builder>> subtreeBuildersFromField;
@@ -71,23 +73,23 @@ public class TextFormatParseInfoTree {
         }
 
         public Builder setLocation(Descriptors.FieldDescriptor fieldDescriptor, TextFormatParseLocation textFormatParseLocation) {
-            List<TextFormatParseLocation> list = this.locationsFromField.get(fieldDescriptor);
-            if (list == null) {
-                list = new ArrayList<>();
-                this.locationsFromField.put(fieldDescriptor, list);
+            List<TextFormatParseLocation> arrayList = this.locationsFromField.get(fieldDescriptor);
+            if (arrayList == null) {
+                arrayList = new ArrayList<>();
+                this.locationsFromField.put(fieldDescriptor, arrayList);
             }
-            list.add(textFormatParseLocation);
+            arrayList.add(textFormatParseLocation);
             return this;
         }
 
         public Builder getBuilderForSubMessageField(Descriptors.FieldDescriptor fieldDescriptor) {
-            List<Builder> list = this.subtreeBuildersFromField.get(fieldDescriptor);
-            if (list == null) {
-                list = new ArrayList<>();
-                this.subtreeBuildersFromField.put(fieldDescriptor, list);
+            List<Builder> arrayList = this.subtreeBuildersFromField.get(fieldDescriptor);
+            if (arrayList == null) {
+                arrayList = new ArrayList<>();
+                this.subtreeBuildersFromField.put(fieldDescriptor, arrayList);
             }
             Builder builder = new Builder();
-            list.add(builder);
+            arrayList.add(builder);
             return builder;
         }
 

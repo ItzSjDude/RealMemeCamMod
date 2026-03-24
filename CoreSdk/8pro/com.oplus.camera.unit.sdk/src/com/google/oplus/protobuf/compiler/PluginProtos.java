@@ -28,7 +28,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class PluginProtos {
     private static Descriptors.FileDescriptor descriptor = Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(new String[]{"\n%google/protobuf/compiler/plugin.proto\u0012\u0018google.protobuf.compiler\u001a google/protobuf/descriptor.proto\"F\n\u0007Version\u0012\r\n\u0005major\u0018\u0001 \u0001(\u0005\u0012\r\n\u0005minor\u0018\u0002 \u0001(\u0005\u0012\r\n\u0005patch\u0018\u0003 \u0001(\u0005\u0012\u000e\n\u0006suffix\u0018\u0004 \u0001(\t\"º\u0001\n\u0014CodeGeneratorRequest\u0012\u0018\n\u0010file_to_generate\u0018\u0001 \u0003(\t\u0012\u0011\n\tparameter\u0018\u0002 \u0001(\t\u00128\n\nproto_file\u0018\u000f \u0003(\u000b2$.google.protobuf.FileDescriptorProto\u0012;\n\u0010compiler_version\u0018\u0003 \u0001(\u000b2!.google.protobuf.compiler.Version\"Á\u0002\n\u0015CodeGeneratorResponse\u0012\r\n\u0005error\u0018\u0001 \u0001(\t\u0012\u001a\n\u0012supported_features\u0018\u0002 \u0001(\u0004\u0012B\n\u0004file\u0018\u000f \u0003(\u000b24.google.protobuf.compiler.CodeGeneratorResponse.File\u001a\u007f\n\u0004File\u0012\f\n\u0004name\u0018\u0001 \u0001(\t\u0012\u0017\n\u000finsertion_point\u0018\u0002 \u0001(\t\u0012\u000f\n\u0007content\u0018\u000f \u0001(\t\u0012?\n\u0013generated_code_info\u0018\u0010 \u0001(\u000b2\".google.protobuf.GeneratedCodeInfo\"8\n\u0007Feature\u0012\u0010\n\fFEATURE_NONE\u0010\u0000\u0012\u001b\n\u0017FEATURE_PROTO3_OPTIONAL\u0010\u0001BW\n\u001ccom.google.protobuf.compilerB\fPluginProtosZ)google.golang.org/protobuf/types/pluginpb"}, new Descriptors.FileDescriptor[]{DescriptorProtos.getDescriptor()});
     private static final Descriptors.Descriptor internal_static_google_protobuf_compiler_CodeGeneratorRequest_descriptor;
@@ -40,7 +41,6 @@ public final class PluginProtos {
     private static final Descriptors.Descriptor internal_static_google_protobuf_compiler_Version_descriptor;
     private static final GeneratedMessageV3.FieldAccessorTable internal_static_google_protobuf_compiler_Version_fieldAccessorTable;
 
-    /* loaded from: classes.dex */
     public interface CodeGeneratorRequestOrBuilder extends MessageOrBuilder {
         Version getCompilerVersion();
 
@@ -73,7 +73,6 @@ public final class PluginProtos {
         boolean hasParameter();
     }
 
-    /* loaded from: classes.dex */
     public interface CodeGeneratorResponseOrBuilder extends MessageOrBuilder {
         String getError();
 
@@ -96,7 +95,6 @@ public final class PluginProtos {
         boolean hasSupportedFeatures();
     }
 
-    /* loaded from: classes.dex */
     public interface VersionOrBuilder extends MessageOrBuilder {
         int getMajor();
 
@@ -127,7 +125,6 @@ public final class PluginProtos {
         registerAllExtensions((ExtensionRegistryLite) extensionRegistry);
     }
 
-    /* loaded from: classes.dex */
     public static final class Version extends GeneratedMessageV3 implements VersionOrBuilder {
         public static final int MAJOR_FIELD_NUMBER = 1;
         public static final int MINOR_FIELD_NUMBER = 2;
@@ -141,8 +138,10 @@ public final class PluginProtos {
         private int patch_;
         private volatile Object suffix_;
         private static final Version DEFAULT_INSTANCE = new Version();
+
         @Deprecated
         public static final Parser<Version> PARSER = new AbstractParser<Version>() { // from class: com.google.oplus.protobuf.compiler.PluginProtos.Version.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public Version parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new Version(codedInputStream, extensionRegistryLite);
@@ -159,9 +158,8 @@ public final class PluginProtos {
             this.suffix_ = "";
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new Version();
         }
 
@@ -173,27 +171,27 @@ public final class PluginProtos {
         private Version(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 8) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 8) {
                                 this.bitField0_ |= 1;
                                 this.major_ = codedInputStream.readInt32();
-                            } else if (readTag == 16) {
+                            } else if (tag == 16) {
                                 this.bitField0_ |= 2;
                                 this.minor_ = codedInputStream.readInt32();
-                            } else if (readTag == 24) {
+                            } else if (tag == 24) {
                                 this.bitField0_ |= 4;
                                 this.patch_ = codedInputStream.readInt32();
-                            } else if (readTag == 34) {
-                                ByteString readBytes = codedInputStream.readBytes();
+                            } else if (tag == 34) {
+                                ByteString bytes = codedInputStream.readBytes();
                                 this.bitField0_ |= 8;
-                                this.suffix_ = readBytes;
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                this.suffix_ = bytes;
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -203,7 +201,7 @@ public final class PluginProtos {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -271,9 +269,9 @@ public final class PluginProtos {
         public ByteString getSuffixBytes() {
             Object obj = this.suffix_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.suffix_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.suffix_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -314,17 +312,17 @@ public final class PluginProtos {
             if (i != -1) {
                 return i;
             }
-            int computeInt32Size = (this.bitField0_ & 1) != 0 ? 0 + CodedOutputStream.computeInt32Size(1, this.major_) : 0;
+            int iComputeInt32Size = (this.bitField0_ & 1) != 0 ? 0 + CodedOutputStream.computeInt32Size(1, this.major_) : 0;
             if ((this.bitField0_ & 2) != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(2, this.minor_);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(2, this.minor_);
             }
             if ((this.bitField0_ & 4) != 0) {
-                computeInt32Size += CodedOutputStream.computeInt32Size(3, this.patch_);
+                iComputeInt32Size += CodedOutputStream.computeInt32Size(3, this.patch_);
             }
             if ((this.bitField0_ & 8) != 0) {
-                computeInt32Size += GeneratedMessageV3.computeStringSize(4, this.suffix_);
+                iComputeInt32Size += GeneratedMessageV3.computeStringSize(4, this.suffix_);
             }
-            int serializedSize = computeInt32Size + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeInt32Size + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -341,14 +339,14 @@ public final class PluginProtos {
             if (hasMajor() != version.hasMajor()) {
                 return false;
             }
-            if ((!hasMajor() || getMajor() == version.getMajor()) && hasMinor() == version.hasMinor()) {
-                if ((!hasMinor() || getMinor() == version.getMinor()) && hasPatch() == version.hasPatch()) {
-                    if ((!hasPatch() || getPatch() == version.getPatch()) && hasSuffix() == version.hasSuffix()) {
-                        return (!hasSuffix() || getSuffix().equals(version.getSuffix())) && this.unknownFields.equals(version.unknownFields);
-                    }
-                    return false;
-                }
+            if ((hasMajor() && getMajor() != version.getMajor()) || hasMinor() != version.hasMinor()) {
                 return false;
+            }
+            if ((hasMinor() && getMinor() != version.getMinor()) || hasPatch() != version.hasPatch()) {
+                return false;
+            }
+            if ((!hasPatch() || getPatch() == version.getPatch()) && hasSuffix() == version.hasSuffix()) {
+                return (!hasSuffix() || getSuffix().equals(version.getSuffix())) && this.unknownFields.equals(version.unknownFields);
             }
             return false;
         }
@@ -358,22 +356,22 @@ public final class PluginProtos {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (hasMajor()) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getMajor();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getMajor();
             }
             if (hasMinor()) {
-                hashCode = (((hashCode * 37) + 2) * 53) + getMinor();
+                iHashCode = (((iHashCode * 37) + 2) * 53) + getMinor();
             }
             if (hasPatch()) {
-                hashCode = (((hashCode * 37) + 3) * 53) + getPatch();
+                iHashCode = (((iHashCode * 37) + 3) * 53) + getPatch();
             }
             if (hasSuffix()) {
-                hashCode = (((hashCode * 37) + 4) * 53) + getSuffix().hashCode();
+                iHashCode = (((iHashCode * 37) + 4) * 53) + getSuffix().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static Version parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -424,6 +422,8 @@ public final class PluginProtos {
             return (Version) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -437,18 +437,20 @@ public final class PluginProtos {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(version);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements VersionOrBuilder {
             private int bitField0_;
             private int major_;
@@ -485,14 +487,19 @@ public final class PluginProtos {
                 boolean unused = Version.alwaysUseFieldBuilders;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
                 this.major_ = 0;
+                int i = this.bitField0_ & (-2);
                 this.minor_ = 0;
                 this.patch_ = 0;
                 this.suffix_ = "";
-                this.bitField0_ = this.bitField0_ & (-2) & (-3) & (-5) & (-9);
+                this.bitField0_ = i & (-3) & (-5) & (-9);
                 return this;
             }
 
@@ -501,20 +508,26 @@ public final class PluginProtos {
                 return PluginProtos.internal_static_google_protobuf_compiler_Version_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public Version getDefaultInstanceForType() {
                 return Version.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Version build() {
-                Version buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                Version versionBuildPartial = buildPartial();
+                if (versionBuildPartial.isInitialized()) {
+                    return versionBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) versionBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Version buildPartial() {
                 int i;
@@ -543,37 +556,56 @@ public final class PluginProtos {
                 return version;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof Version) {
@@ -606,42 +638,43 @@ public final class PluginProtos {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0021  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.google.oplus.protobuf.compiler.PluginProtos.Version.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser<com.google.oplus.protobuf.compiler.PluginProtos$Version> r1 = com.google.oplus.protobuf.compiler.PluginProtos.Version.PARSER     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    com.google.oplus.protobuf.compiler.PluginProtos$Version r3 = (com.google.oplus.protobuf.compiler.PluginProtos.Version) r3     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    if (r3 == 0) goto Le
-                    r2.mergeFrom(r3)
-                Le:
-                    return r2
-                Lf:
-                    r3 = move-exception
-                    goto L1f
-                L11:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> Lf
-                    com.google.oplus.protobuf.compiler.PluginProtos$Version r4 = (com.google.oplus.protobuf.compiler.PluginProtos.Version) r4     // Catch: java.lang.Throwable -> Lf
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1d
-                    throw r3     // Catch: java.lang.Throwable -> L1d
-                L1d:
-                    r3 = move-exception
-                    r0 = r4
-                L1f:
-                    if (r0 == 0) goto L24
-                    r2.mergeFrom(r0)
-                L24:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.compiler.PluginProtos.Version.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.compiler.PluginProtos$Version$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                Version version = null;
+                try {
+                    try {
+                        Version partialFrom = Version.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (partialFrom != null) {
+                            mergeFrom(partialFrom);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        Version version2 = (Version) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            version = version2;
+                            if (version != null) {
+                                mergeFrom(version);
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (version != null) {
+                    }
+                    throw th;
+                }
             }
 
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.VersionOrBuilder
@@ -739,9 +772,9 @@ public final class PluginProtos {
             public ByteString getSuffixBytes() {
                 Object obj = this.suffix_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.suffix_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.suffix_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -769,11 +802,16 @@ public final class PluginProtos {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -793,13 +831,14 @@ public final class PluginProtos {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public Version getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class CodeGeneratorRequest extends GeneratedMessageV3 implements CodeGeneratorRequestOrBuilder {
         public static final int COMPILER_VERSION_FIELD_NUMBER = 3;
         public static final int FILE_TO_GENERATE_FIELD_NUMBER = 1;
@@ -813,8 +852,10 @@ public final class PluginProtos {
         private volatile Object parameter_;
         private List<DescriptorProtos.FileDescriptorProto> protoFile_;
         private static final CodeGeneratorRequest DEFAULT_INSTANCE = new CodeGeneratorRequest();
+
         @Deprecated
         public static final Parser<CodeGeneratorRequest> PARSER = new AbstractParser<CodeGeneratorRequest>() { // from class: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequest.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public CodeGeneratorRequest parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new CodeGeneratorRequest(codedInputStream, extensionRegistryLite);
@@ -833,9 +874,8 @@ public final class PluginProtos {
             this.protoFile_ = Collections.emptyList();
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new CodeGeneratorRequest();
         }
 
@@ -844,30 +884,29 @@ public final class PluginProtos {
             return this.unknownFields;
         }
 
-        /* JADX WARN: Multi-variable type inference failed */
         private CodeGeneratorRequest(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
-            boolean z2 = false;
+            int i = 0;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 10) {
-                                ByteString readBytes = codedInputStream.readBytes();
-                                if (!(z2 & true)) {
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 10) {
+                                ByteString bytes = codedInputStream.readBytes();
+                                if ((i & 1) == 0) {
                                     this.fileToGenerate_ = new LazyStringArrayList();
-                                    z2 |= true;
+                                    i |= 1;
                                 }
-                                this.fileToGenerate_.add(readBytes);
-                            } else if (readTag == 18) {
-                                ByteString readBytes2 = codedInputStream.readBytes();
+                                this.fileToGenerate_.add(bytes);
+                            } else if (tag == 18) {
+                                ByteString bytes2 = codedInputStream.readBytes();
                                 this.bitField0_ = 1 | this.bitField0_;
-                                this.parameter_ = readBytes2;
-                            } else if (readTag == 26) {
+                                this.parameter_ = bytes2;
+                            } else if (tag == 26) {
                                 Version.Builder builder = (this.bitField0_ & 2) != 0 ? this.compilerVersion_.toBuilder() : null;
                                 Version version = (Version) codedInputStream.readMessage(Version.PARSER, extensionRegistryLite);
                                 this.compilerVersion_ = version;
@@ -876,13 +915,13 @@ public final class PluginProtos {
                                     this.compilerVersion_ = builder.buildPartial();
                                 }
                                 this.bitField0_ |= 2;
-                            } else if (readTag == 122) {
-                                if (!(z2 & true)) {
+                            } else if (tag == 122) {
+                                if ((i & 4) == 0) {
                                     this.protoFile_ = new ArrayList();
-                                    z2 |= true;
+                                    i |= 4;
                                 }
-                                this.protoFile_.add(codedInputStream.readMessage(DescriptorProtos.FileDescriptorProto.PARSER, extensionRegistryLite));
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                this.protoFile_.add((DescriptorProtos.FileDescriptorProto) codedInputStream.readMessage(DescriptorProtos.FileDescriptorProto.PARSER, extensionRegistryLite));
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -892,13 +931,13 @@ public final class PluginProtos {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (z2 & true) {
+                    if ((i & 1) != 0) {
                         this.fileToGenerate_ = this.fileToGenerate_.getUnmodifiableView();
                     }
-                    if (z2 & true) {
+                    if ((i & 4) != 0) {
                         this.protoFile_ = Collections.unmodifiableList(this.protoFile_);
                     }
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -913,6 +952,7 @@ public final class PluginProtos {
             return PluginProtos.internal_static_google_protobuf_compiler_CodeGeneratorRequest_fieldAccessorTable.ensureFieldAccessorsInitialized(CodeGeneratorRequest.class, Builder.class);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getFileToGenerateList()Ljava/util/List; */
         @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequestOrBuilder
         public ProtocolStringList getFileToGenerateList() {
             return this.fileToGenerate_;
@@ -956,9 +996,9 @@ public final class PluginProtos {
         public ByteString getParameterBytes() {
             Object obj = this.parameter_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.parameter_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.parameter_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -1047,19 +1087,19 @@ public final class PluginProtos {
             if (i != -1) {
                 return i;
             }
-            int i2 = 0;
-            for (int i3 = 0; i3 < this.fileToGenerate_.size(); i3++) {
-                i2 += computeStringSizeNoTag(this.fileToGenerate_.getRaw(i3));
+            int iComputeStringSizeNoTag = 0;
+            for (int i2 = 0; i2 < this.fileToGenerate_.size(); i2++) {
+                iComputeStringSizeNoTag += computeStringSizeNoTag(this.fileToGenerate_.getRaw(i2));
             }
-            int size = i2 + 0 + (getFileToGenerateList().size() * 1);
+            int size = iComputeStringSizeNoTag + 0 + (getFileToGenerateList().size() * 1);
             if ((this.bitField0_ & 1) != 0) {
                 size += GeneratedMessageV3.computeStringSize(2, this.parameter_);
             }
             if ((this.bitField0_ & 2) != 0) {
                 size += CodedOutputStream.computeMessageSize(3, getCompilerVersion());
             }
-            for (int i4 = 0; i4 < this.protoFile_.size(); i4++) {
-                size += CodedOutputStream.computeMessageSize(15, this.protoFile_.get(i4));
+            for (int i3 = 0; i3 < this.protoFile_.size(); i3++) {
+                size += CodedOutputStream.computeMessageSize(15, this.protoFile_.get(i3));
             }
             int serializedSize = size + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
@@ -1075,11 +1115,11 @@ public final class PluginProtos {
                 return super.equals(obj);
             }
             CodeGeneratorRequest codeGeneratorRequest = (CodeGeneratorRequest) obj;
-            if (getFileToGenerateList().equals(codeGeneratorRequest.getFileToGenerateList()) && hasParameter() == codeGeneratorRequest.hasParameter()) {
-                if ((!hasParameter() || getParameter().equals(codeGeneratorRequest.getParameter())) && getProtoFileList().equals(codeGeneratorRequest.getProtoFileList()) && hasCompilerVersion() == codeGeneratorRequest.hasCompilerVersion()) {
-                    return (!hasCompilerVersion() || getCompilerVersion().equals(codeGeneratorRequest.getCompilerVersion())) && this.unknownFields.equals(codeGeneratorRequest.unknownFields);
-                }
+            if (!getFileToGenerateList().equals(codeGeneratorRequest.getFileToGenerateList()) || hasParameter() != codeGeneratorRequest.hasParameter()) {
                 return false;
+            }
+            if ((!hasParameter() || getParameter().equals(codeGeneratorRequest.getParameter())) && getProtoFileList().equals(codeGeneratorRequest.getProtoFileList()) && hasCompilerVersion() == codeGeneratorRequest.hasCompilerVersion()) {
+                return (!hasCompilerVersion() || getCompilerVersion().equals(codeGeneratorRequest.getCompilerVersion())) && this.unknownFields.equals(codeGeneratorRequest.unknownFields);
             }
             return false;
         }
@@ -1089,22 +1129,22 @@ public final class PluginProtos {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (getFileToGenerateCount() > 0) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getFileToGenerateList().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getFileToGenerateList().hashCode();
             }
             if (hasParameter()) {
-                hashCode = (((hashCode * 37) + 2) * 53) + getParameter().hashCode();
+                iHashCode = (((iHashCode * 37) + 2) * 53) + getParameter().hashCode();
             }
             if (getProtoFileCount() > 0) {
-                hashCode = (((hashCode * 37) + 15) * 53) + getProtoFileList().hashCode();
+                iHashCode = (((iHashCode * 37) + 15) * 53) + getProtoFileList().hashCode();
             }
             if (hasCompilerVersion()) {
-                hashCode = (((hashCode * 37) + 3) * 53) + getCompilerVersion().hashCode();
+                iHashCode = (((iHashCode * 37) + 3) * 53) + getCompilerVersion().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static CodeGeneratorRequest parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -1155,6 +1195,8 @@ public final class PluginProtos {
             return (CodeGeneratorRequest) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -1168,18 +1210,20 @@ public final class PluginProtos {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(codeGeneratorRequest);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements CodeGeneratorRequestOrBuilder {
             private int bitField0_;
             private SingleFieldBuilderV3<Version, Version.Builder, VersionOrBuilder> compilerVersionBuilder_;
@@ -1220,12 +1264,17 @@ public final class PluginProtos {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
                 this.fileToGenerate_ = LazyStringArrayList.EMPTY;
+                int i = this.bitField0_ & (-2);
                 this.parameter_ = "";
-                this.bitField0_ = this.bitField0_ & (-2) & (-3);
+                this.bitField0_ = i & (-3);
                 RepeatedFieldBuilderV3<DescriptorProtos.FileDescriptorProto, DescriptorProtos.FileDescriptorProto.Builder, DescriptorProtos.FileDescriptorProtoOrBuilder> repeatedFieldBuilderV3 = this.protoFileBuilder_;
                 if (repeatedFieldBuilderV3 == null) {
                     this.protoFile_ = Collections.emptyList();
@@ -1248,20 +1297,26 @@ public final class PluginProtos {
                 return PluginProtos.internal_static_google_protobuf_compiler_CodeGeneratorRequest_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public CodeGeneratorRequest getDefaultInstanceForType() {
                 return CodeGeneratorRequest.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CodeGeneratorRequest build() {
-                CodeGeneratorRequest buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                CodeGeneratorRequest codeGeneratorRequestBuildPartial = buildPartial();
+                if (codeGeneratorRequestBuildPartial.isInitialized()) {
+                    return codeGeneratorRequestBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) codeGeneratorRequestBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CodeGeneratorRequest buildPartial() {
                 CodeGeneratorRequest codeGeneratorRequest = new CodeGeneratorRequest(this);
@@ -1288,7 +1343,7 @@ public final class PluginProtos {
                     if (singleFieldBuilderV3 == null) {
                         codeGeneratorRequest.compilerVersion_ = this.compilerVersion_;
                     } else {
-                        codeGeneratorRequest.compilerVersion_ = singleFieldBuilderV3.build();
+                        codeGeneratorRequest.compilerVersion_ = (Version) singleFieldBuilderV3.build();
                     }
                     i2 |= 2;
                 }
@@ -1297,37 +1352,56 @@ public final class PluginProtos {
                 return codeGeneratorRequest;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof CodeGeneratorRequest) {
@@ -1396,42 +1470,43 @@ public final class PluginProtos {
                 return true;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0021  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequest.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser<com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorRequest> r1 = com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequest.PARSER     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorRequest r3 = (com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequest) r3     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    if (r3 == 0) goto Le
-                    r2.mergeFrom(r3)
-                Le:
-                    return r2
-                Lf:
-                    r3 = move-exception
-                    goto L1f
-                L11:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> Lf
-                    com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorRequest r4 = (com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequest) r4     // Catch: java.lang.Throwable -> Lf
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1d
-                    throw r3     // Catch: java.lang.Throwable -> L1d
-                L1d:
-                    r3 = move-exception
-                    r0 = r4
-                L1f:
-                    if (r0 == 0) goto L24
-                    r2.mergeFrom(r0)
-                L24:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequest.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorRequest$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                CodeGeneratorRequest codeGeneratorRequest = null;
+                try {
+                    try {
+                        CodeGeneratorRequest partialFrom = CodeGeneratorRequest.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (partialFrom != null) {
+                            mergeFrom(partialFrom);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        CodeGeneratorRequest codeGeneratorRequest2 = (CodeGeneratorRequest) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            codeGeneratorRequest = codeGeneratorRequest2;
+                            if (codeGeneratorRequest != null) {
+                                mergeFrom(codeGeneratorRequest);
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (codeGeneratorRequest != null) {
+                    }
+                    throw th;
+                }
             }
 
             private void ensureFileToGenerateIsMutable() {
@@ -1441,6 +1516,7 @@ public final class PluginProtos {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getFileToGenerateList()Ljava/util/List; */
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequestOrBuilder
             public ProtocolStringList getFileToGenerateList() {
                 return this.fileToGenerate_.getUnmodifiableView();
@@ -1522,9 +1598,9 @@ public final class PluginProtos {
             public ByteString getParameterBytes() {
                 Object obj = this.parameter_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.parameter_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.parameter_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -1559,6 +1635,7 @@ public final class PluginProtos {
                 }
             }
 
+            /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.DescriptorProtos$FileDescriptorProto> */
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequestOrBuilder
             public List<DescriptorProtos.FileDescriptorProto> getProtoFileList() {
                 RepeatedFieldBuilderV3<DescriptorProtos.FileDescriptorProto, DescriptorProtos.FileDescriptorProto.Builder, DescriptorProtos.FileDescriptorProtoOrBuilder> repeatedFieldBuilderV3 = this.protoFileBuilder_;
@@ -1583,7 +1660,7 @@ public final class PluginProtos {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.protoFile_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessage(i);
+                return (DescriptorProtos.FileDescriptorProto) repeatedFieldBuilderV3.getMessage(i);
             }
 
             public Builder setProtoFile(int i, DescriptorProtos.FileDescriptorProto fileDescriptorProto) {
@@ -1698,7 +1775,7 @@ public final class PluginProtos {
             }
 
             public DescriptorProtos.FileDescriptorProto.Builder getProtoFileBuilder(int i) {
-                return getProtoFileFieldBuilder().getBuilder(i);
+                return (DescriptorProtos.FileDescriptorProto.Builder) getProtoFileFieldBuilder().getBuilder(i);
             }
 
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequestOrBuilder
@@ -1707,9 +1784,10 @@ public final class PluginProtos {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.protoFile_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+                return (DescriptorProtos.FileDescriptorProtoOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
             }
 
+            /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.DescriptorProtos$FileDescriptorProtoOrBuilder> */
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequestOrBuilder
             public List<? extends DescriptorProtos.FileDescriptorProtoOrBuilder> getProtoFileOrBuilderList() {
                 RepeatedFieldBuilderV3<DescriptorProtos.FileDescriptorProto, DescriptorProtos.FileDescriptorProto.Builder, DescriptorProtos.FileDescriptorProtoOrBuilder> repeatedFieldBuilderV3 = this.protoFileBuilder_;
@@ -1720,13 +1798,14 @@ public final class PluginProtos {
             }
 
             public DescriptorProtos.FileDescriptorProto.Builder addProtoFileBuilder() {
-                return getProtoFileFieldBuilder().addBuilder(DescriptorProtos.FileDescriptorProto.getDefaultInstance());
+                return (DescriptorProtos.FileDescriptorProto.Builder) getProtoFileFieldBuilder().addBuilder(DescriptorProtos.FileDescriptorProto.getDefaultInstance());
             }
 
             public DescriptorProtos.FileDescriptorProto.Builder addProtoFileBuilder(int i) {
-                return getProtoFileFieldBuilder().addBuilder(i, DescriptorProtos.FileDescriptorProto.getDefaultInstance());
+                return (DescriptorProtos.FileDescriptorProto.Builder) getProtoFileFieldBuilder().addBuilder(i, DescriptorProtos.FileDescriptorProto.getDefaultInstance());
             }
 
+            /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.DescriptorProtos$FileDescriptorProto$Builder> */
             public List<DescriptorProtos.FileDescriptorProto.Builder> getProtoFileBuilderList() {
                 return getProtoFileFieldBuilder().getBuilderList();
             }
@@ -1751,7 +1830,7 @@ public final class PluginProtos {
                     Version version = this.compilerVersion_;
                     return version == null ? Version.getDefaultInstance() : version;
                 }
-                return singleFieldBuilderV3.getMessage();
+                return (Version) singleFieldBuilderV3.getMessage();
             }
 
             public Builder setCompilerVersion(Version version) {
@@ -1811,14 +1890,14 @@ public final class PluginProtos {
             public Version.Builder getCompilerVersionBuilder() {
                 this.bitField0_ |= 8;
                 onChanged();
-                return getCompilerVersionFieldBuilder().getBuilder();
+                return (Version.Builder) getCompilerVersionFieldBuilder().getBuilder();
             }
 
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorRequestOrBuilder
             public VersionOrBuilder getCompilerVersionOrBuilder() {
                 SingleFieldBuilderV3<Version, Version.Builder, VersionOrBuilder> singleFieldBuilderV3 = this.compilerVersionBuilder_;
                 if (singleFieldBuilderV3 != null) {
-                    return singleFieldBuilderV3.getMessageOrBuilder();
+                    return (VersionOrBuilder) singleFieldBuilderV3.getMessageOrBuilder();
                 }
                 Version version = this.compilerVersion_;
                 return version == null ? Version.getDefaultInstance() : version;
@@ -1832,11 +1911,16 @@ public final class PluginProtos {
                 return this.compilerVersionBuilder_;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -1856,13 +1940,14 @@ public final class PluginProtos {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public CodeGeneratorRequest getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class CodeGeneratorResponse extends GeneratedMessageV3 implements CodeGeneratorResponseOrBuilder {
         public static final int ERROR_FIELD_NUMBER = 1;
         public static final int FILE_FIELD_NUMBER = 15;
@@ -1874,15 +1959,16 @@ public final class PluginProtos {
         private byte memoizedIsInitialized;
         private long supportedFeatures_;
         private static final CodeGeneratorResponse DEFAULT_INSTANCE = new CodeGeneratorResponse();
+
         @Deprecated
         public static final Parser<CodeGeneratorResponse> PARSER = new AbstractParser<CodeGeneratorResponse>() { // from class: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.1
+            /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.Parser
             public CodeGeneratorResponse parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 return new CodeGeneratorResponse(codedInputStream, extensionRegistryLite);
             }
         };
 
-        /* loaded from: classes.dex */
         public interface FileOrBuilder extends MessageOrBuilder {
             String getContent();
 
@@ -1920,9 +2006,8 @@ public final class PluginProtos {
             this.file_ = Collections.emptyList();
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
-        public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+        protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
             return new CodeGeneratorResponse();
         }
 
@@ -1931,32 +2016,31 @@ public final class PluginProtos {
             return this.unknownFields;
         }
 
-        /* JADX WARN: Multi-variable type inference failed */
         private CodeGeneratorResponse(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             this();
             extensionRegistryLite.getClass();
-            UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+            UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
-            boolean z2 = false;
+            int i = 0;
             while (!z) {
                 try {
                     try {
-                        int readTag = codedInputStream.readTag();
-                        if (readTag != 0) {
-                            if (readTag == 10) {
-                                ByteString readBytes = codedInputStream.readBytes();
+                        int tag = codedInputStream.readTag();
+                        if (tag != 0) {
+                            if (tag == 10) {
+                                ByteString bytes = codedInputStream.readBytes();
                                 this.bitField0_ = 1 | this.bitField0_;
-                                this.error_ = readBytes;
-                            } else if (readTag == 16) {
+                                this.error_ = bytes;
+                            } else if (tag == 16) {
                                 this.bitField0_ |= 2;
                                 this.supportedFeatures_ = codedInputStream.readUInt64();
-                            } else if (readTag == 122) {
-                                if (!(z2 & true)) {
+                            } else if (tag == 122) {
+                                if ((i & 4) == 0) {
                                     this.file_ = new ArrayList();
-                                    z2 |= true;
+                                    i |= 4;
                                 }
-                                this.file_.add(codedInputStream.readMessage(File.PARSER, extensionRegistryLite));
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                this.file_.add((File) codedInputStream.readMessage(File.PARSER, extensionRegistryLite));
+                            } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                             }
                         }
                         z = true;
@@ -1966,10 +2050,10 @@ public final class PluginProtos {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (z2 & true) {
+                    if ((i & 4) != 0) {
                         this.file_ = Collections.unmodifiableList(this.file_);
                     }
-                    this.unknownFields = newBuilder.build();
+                    this.unknownFields = builderNewBuilder.build();
                     makeExtensionsImmutable();
                 }
             }
@@ -1984,15 +2068,15 @@ public final class PluginProtos {
             return PluginProtos.internal_static_google_protobuf_compiler_CodeGeneratorResponse_fieldAccessorTable.ensureFieldAccessorsInitialized(CodeGeneratorResponse.class, Builder.class);
         }
 
-        /* loaded from: classes.dex */
         public enum Feature implements ProtocolMessageEnum {
             FEATURE_NONE(0),
             FEATURE_PROTO3_OPTIONAL(1);
-            
+
             public static final int FEATURE_NONE_VALUE = 0;
             public static final int FEATURE_PROTO3_OPTIONAL_VALUE = 1;
             private final int value;
             private static final Internal.EnumLiteMap<Feature> internalValueMap = new Internal.EnumLiteMap<Feature>() { // from class: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.Feature.1
+                /* JADX DEBUG: Method merged with bridge method: findValueByNumber(I)Lcom/google/oplus/protobuf/Internal$EnumLite; */
                 @Override // com.google.oplus.protobuf.Internal.EnumLiteMap
                 public Feature findValueByNumber(int i) {
                     return Feature.forNumber(i);
@@ -2011,13 +2095,13 @@ public final class PluginProtos {
             }
 
             public static Feature forNumber(int i) {
-                if (i != 0) {
-                    if (i != 1) {
-                        return null;
-                    }
-                    return FEATURE_PROTO3_OPTIONAL;
+                if (i == 0) {
+                    return FEATURE_NONE;
                 }
-                return FEATURE_NONE;
+                if (i != 1) {
+                    return null;
+                }
+                return FEATURE_PROTO3_OPTIONAL;
             }
 
             public static Internal.EnumLiteMap<Feature> internalGetValueMap() {
@@ -2050,7 +2134,6 @@ public final class PluginProtos {
             }
         }
 
-        /* loaded from: classes.dex */
         public static final class File extends GeneratedMessageV3 implements FileOrBuilder {
             public static final int CONTENT_FIELD_NUMBER = 15;
             public static final int GENERATED_CODE_INFO_FIELD_NUMBER = 16;
@@ -2064,8 +2147,10 @@ public final class PluginProtos {
             private byte memoizedIsInitialized;
             private volatile Object name_;
             private static final File DEFAULT_INSTANCE = new File();
+
             @Deprecated
             public static final Parser<File> PARSER = new AbstractParser<File>() { // from class: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File.1
+                /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.Parser
                 public File parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                     return new File(codedInputStream, extensionRegistryLite);
@@ -2084,9 +2169,8 @@ public final class PluginProtos {
                 this.content_ = "";
             }
 
-            /* JADX INFO: Access modifiers changed from: protected */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3
-            public Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
+            protected Object newInstance(GeneratedMessageV3.UnusedPrivateParameter unusedPrivateParameter) {
                 return new File();
             }
 
@@ -2098,26 +2182,26 @@ public final class PluginProtos {
             private File(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
                 this();
                 extensionRegistryLite.getClass();
-                UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
+                UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
                 boolean z = false;
                 while (!z) {
                     try {
                         try {
-                            int readTag = codedInputStream.readTag();
-                            if (readTag != 0) {
-                                if (readTag == 10) {
-                                    ByteString readBytes = codedInputStream.readBytes();
+                            int tag = codedInputStream.readTag();
+                            if (tag != 0) {
+                                if (tag == 10) {
+                                    ByteString bytes = codedInputStream.readBytes();
                                     this.bitField0_ = 1 | this.bitField0_;
-                                    this.name_ = readBytes;
-                                } else if (readTag == 18) {
-                                    ByteString readBytes2 = codedInputStream.readBytes();
+                                    this.name_ = bytes;
+                                } else if (tag == 18) {
+                                    ByteString bytes2 = codedInputStream.readBytes();
                                     this.bitField0_ |= 2;
-                                    this.insertionPoint_ = readBytes2;
-                                } else if (readTag == 122) {
-                                    ByteString readBytes3 = codedInputStream.readBytes();
+                                    this.insertionPoint_ = bytes2;
+                                } else if (tag == 122) {
+                                    ByteString bytes3 = codedInputStream.readBytes();
                                     this.bitField0_ |= 4;
-                                    this.content_ = readBytes3;
-                                } else if (readTag == 130) {
+                                    this.content_ = bytes3;
+                                } else if (tag == 130) {
                                     DescriptorProtos.GeneratedCodeInfo.Builder builder = (this.bitField0_ & 8) != 0 ? this.generatedCodeInfo_.toBuilder() : null;
                                     DescriptorProtos.GeneratedCodeInfo generatedCodeInfo = (DescriptorProtos.GeneratedCodeInfo) codedInputStream.readMessage(DescriptorProtos.GeneratedCodeInfo.PARSER, extensionRegistryLite);
                                     this.generatedCodeInfo_ = generatedCodeInfo;
@@ -2126,7 +2210,7 @@ public final class PluginProtos {
                                         this.generatedCodeInfo_ = builder.buildPartial();
                                     }
                                     this.bitField0_ |= 8;
-                                } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                                } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                 }
                             }
                             z = true;
@@ -2136,7 +2220,7 @@ public final class PluginProtos {
                             throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                         }
                     } finally {
-                        this.unknownFields = newBuilder.build();
+                        this.unknownFields = builderNewBuilder.build();
                         makeExtensionsImmutable();
                     }
                 }
@@ -2174,9 +2258,9 @@ public final class PluginProtos {
             public ByteString getNameBytes() {
                 Object obj = this.name_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.name_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.name_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -2204,9 +2288,9 @@ public final class PluginProtos {
             public ByteString getInsertionPointBytes() {
                 Object obj = this.insertionPoint_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.insertionPoint_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.insertionPoint_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -2234,9 +2318,9 @@ public final class PluginProtos {
             public ByteString getContentBytes() {
                 Object obj = this.content_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.content_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.content_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -2294,17 +2378,17 @@ public final class PluginProtos {
                 if (i != -1) {
                     return i;
                 }
-                int computeStringSize = (this.bitField0_ & 1) != 0 ? 0 + GeneratedMessageV3.computeStringSize(1, this.name_) : 0;
+                int iComputeStringSize = (this.bitField0_ & 1) != 0 ? 0 + GeneratedMessageV3.computeStringSize(1, this.name_) : 0;
                 if ((this.bitField0_ & 2) != 0) {
-                    computeStringSize += GeneratedMessageV3.computeStringSize(2, this.insertionPoint_);
+                    iComputeStringSize += GeneratedMessageV3.computeStringSize(2, this.insertionPoint_);
                 }
                 if ((this.bitField0_ & 4) != 0) {
-                    computeStringSize += GeneratedMessageV3.computeStringSize(15, this.content_);
+                    iComputeStringSize += GeneratedMessageV3.computeStringSize(15, this.content_);
                 }
                 if ((this.bitField0_ & 8) != 0) {
-                    computeStringSize += CodedOutputStream.computeMessageSize(16, getGeneratedCodeInfo());
+                    iComputeStringSize += CodedOutputStream.computeMessageSize(16, getGeneratedCodeInfo());
                 }
-                int serializedSize = computeStringSize + this.unknownFields.getSerializedSize();
+                int serializedSize = iComputeStringSize + this.unknownFields.getSerializedSize();
                 this.memoizedSize = serializedSize;
                 return serializedSize;
             }
@@ -2321,14 +2405,14 @@ public final class PluginProtos {
                 if (hasName() != file.hasName()) {
                     return false;
                 }
-                if ((!hasName() || getName().equals(file.getName())) && hasInsertionPoint() == file.hasInsertionPoint()) {
-                    if ((!hasInsertionPoint() || getInsertionPoint().equals(file.getInsertionPoint())) && hasContent() == file.hasContent()) {
-                        if ((!hasContent() || getContent().equals(file.getContent())) && hasGeneratedCodeInfo() == file.hasGeneratedCodeInfo()) {
-                            return (!hasGeneratedCodeInfo() || getGeneratedCodeInfo().equals(file.getGeneratedCodeInfo())) && this.unknownFields.equals(file.unknownFields);
-                        }
-                        return false;
-                    }
+                if ((hasName() && !getName().equals(file.getName())) || hasInsertionPoint() != file.hasInsertionPoint()) {
                     return false;
+                }
+                if ((hasInsertionPoint() && !getInsertionPoint().equals(file.getInsertionPoint())) || hasContent() != file.hasContent()) {
+                    return false;
+                }
+                if ((!hasContent() || getContent().equals(file.getContent())) && hasGeneratedCodeInfo() == file.hasGeneratedCodeInfo()) {
+                    return (!hasGeneratedCodeInfo() || getGeneratedCodeInfo().equals(file.getGeneratedCodeInfo())) && this.unknownFields.equals(file.unknownFields);
                 }
                 return false;
             }
@@ -2338,22 +2422,22 @@ public final class PluginProtos {
                 if (this.memoizedHashCode != 0) {
                     return this.memoizedHashCode;
                 }
-                int hashCode = 779 + getDescriptor().hashCode();
+                int iHashCode = 779 + getDescriptor().hashCode();
                 if (hasName()) {
-                    hashCode = (((hashCode * 37) + 1) * 53) + getName().hashCode();
+                    iHashCode = (((iHashCode * 37) + 1) * 53) + getName().hashCode();
                 }
                 if (hasInsertionPoint()) {
-                    hashCode = (((hashCode * 37) + 2) * 53) + getInsertionPoint().hashCode();
+                    iHashCode = (((iHashCode * 37) + 2) * 53) + getInsertionPoint().hashCode();
                 }
                 if (hasContent()) {
-                    hashCode = (((hashCode * 37) + 15) * 53) + getContent().hashCode();
+                    iHashCode = (((iHashCode * 37) + 15) * 53) + getContent().hashCode();
                 }
                 if (hasGeneratedCodeInfo()) {
-                    hashCode = (((hashCode * 37) + 16) * 53) + getGeneratedCodeInfo().hashCode();
+                    iHashCode = (((iHashCode * 37) + 16) * 53) + getGeneratedCodeInfo().hashCode();
                 }
-                int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-                this.memoizedHashCode = hashCode2;
-                return hashCode2;
+                int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+                this.memoizedHashCode = iHashCode2;
+                return iHashCode2;
             }
 
             public static File parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -2404,6 +2488,8 @@ public final class PluginProtos {
                 return (File) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
             public Builder newBuilderForType() {
                 return newBuilder();
@@ -2417,18 +2503,20 @@ public final class PluginProtos {
                 return DEFAULT_INSTANCE.toBuilder().mergeFrom(file);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
             public Builder toBuilder() {
                 return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
             /* JADX INFO: Access modifiers changed from: protected */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3
             public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
                 return new Builder(builderParent);
             }
 
-            /* loaded from: classes.dex */
             public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements FileOrBuilder {
                 private int bitField0_;
                 private Object content_;
@@ -2472,13 +2560,18 @@ public final class PluginProtos {
                     }
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder clear() {
                     super.clear();
                     this.name_ = "";
+                    int i = this.bitField0_ & (-2);
                     this.insertionPoint_ = "";
                     this.content_ = "";
-                    this.bitField0_ = this.bitField0_ & (-2) & (-3) & (-5);
+                    this.bitField0_ = i & (-3) & (-5);
                     SingleFieldBuilderV3<DescriptorProtos.GeneratedCodeInfo, DescriptorProtos.GeneratedCodeInfo.Builder, DescriptorProtos.GeneratedCodeInfoOrBuilder> singleFieldBuilderV3 = this.generatedCodeInfoBuilder_;
                     if (singleFieldBuilderV3 == null) {
                         this.generatedCodeInfo_ = null;
@@ -2494,20 +2587,26 @@ public final class PluginProtos {
                     return PluginProtos.internal_static_google_protobuf_compiler_CodeGeneratorResponse_File_descriptor;
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+                /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
                 @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
                 public File getDefaultInstanceForType() {
                     return File.getDefaultInstance();
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+                /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
                 @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
                 public File build() {
-                    File buildPartial = buildPartial();
-                    if (buildPartial.isInitialized()) {
-                        return buildPartial;
+                    File fileBuildPartial = buildPartial();
+                    if (fileBuildPartial.isInitialized()) {
+                        return fileBuildPartial;
                     }
-                    throw newUninitializedMessageException((Message) buildPartial);
+                    throw newUninitializedMessageException((Message) fileBuildPartial);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+                /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
                 @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
                 public File buildPartial() {
                     File file = new File(this);
@@ -2527,7 +2626,7 @@ public final class PluginProtos {
                         if (singleFieldBuilderV3 == null) {
                             file.generatedCodeInfo_ = this.generatedCodeInfo_;
                         } else {
-                            file.generatedCodeInfo_ = singleFieldBuilderV3.build();
+                            file.generatedCodeInfo_ = (DescriptorProtos.GeneratedCodeInfo) singleFieldBuilderV3.build();
                         }
                         i2 |= 8;
                     }
@@ -2536,37 +2635,56 @@ public final class PluginProtos {
                     return file;
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-                /* renamed from: clone */
-                public Builder clone() {
-                    return (Builder) super.clone();
+                /* JADX INFO: renamed from: clone */
+                public Builder mo0clone() {
+                    return (Builder) super.mo0clone();
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                     return (Builder) super.setField(fieldDescriptor, obj);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                     return (Builder) super.clearField(fieldDescriptor);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                     return (Builder) super.clearOneof(oneofDescriptor);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                     return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                     return (Builder) super.addRepeatedField(fieldDescriptor, obj);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
                 public Builder mergeFrom(Message message) {
                     if (message instanceof File) {
@@ -2603,42 +2721,43 @@ public final class PluginProtos {
                     return this;
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
                 /* JADX WARN: Removed duplicated region for block: B:16:0x0021  */
                 @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
-                    To view partially-correct add '--show-bad-code' argument
                 */
-                public com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                    /*
-                        r2 = this;
-                        r0 = 0
-                        com.google.oplus.protobuf.Parser<com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$File> r1 = com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File.PARSER     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                        java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                        com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$File r3 = (com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File) r3     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                        if (r3 == 0) goto Le
-                        r2.mergeFrom(r3)
-                    Le:
-                        return r2
-                    Lf:
-                        r3 = move-exception
-                        goto L1f
-                    L11:
-                        r3 = move-exception
-                        com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> Lf
-                        com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$File r4 = (com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File) r4     // Catch: java.lang.Throwable -> Lf
-                        java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1d
-                        throw r3     // Catch: java.lang.Throwable -> L1d
-                    L1d:
-                        r3 = move-exception
-                        r0 = r4
-                    L1f:
-                        if (r0 == 0) goto L24
-                        r2.mergeFrom(r0)
-                    L24:
-                        throw r3
-                    */
-                    throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$File$Builder");
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                    File file = null;
+                    try {
+                        try {
+                            File partialFrom = File.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                            if (partialFrom != null) {
+                                mergeFrom(partialFrom);
+                            }
+                            return this;
+                        } catch (InvalidProtocolBufferException e) {
+                            File file2 = (File) e.getUnfinishedMessage();
+                            try {
+                                throw e.unwrapIOException();
+                            } catch (Throwable th) {
+                                th = th;
+                                file = file2;
+                                if (file != null) {
+                                    mergeFrom(file);
+                                }
+                                throw th;
+                            }
+                        }
+                    } catch (Throwable th2) {
+                        th = th2;
+                        if (file != null) {
+                        }
+                        throw th;
+                    }
                 }
 
                 @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.FileOrBuilder
@@ -2664,9 +2783,9 @@ public final class PluginProtos {
                 public ByteString getNameBytes() {
                     Object obj = this.name_;
                     if (obj instanceof String) {
-                        ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                        this.name_ = copyFromUtf8;
-                        return copyFromUtf8;
+                        ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                        this.name_ = byteStringCopyFromUtf8;
+                        return byteStringCopyFromUtf8;
                     }
                     return (ByteString) obj;
                 }
@@ -2717,9 +2836,9 @@ public final class PluginProtos {
                 public ByteString getInsertionPointBytes() {
                     Object obj = this.insertionPoint_;
                     if (obj instanceof String) {
-                        ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                        this.insertionPoint_ = copyFromUtf8;
-                        return copyFromUtf8;
+                        ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                        this.insertionPoint_ = byteStringCopyFromUtf8;
+                        return byteStringCopyFromUtf8;
                     }
                     return (ByteString) obj;
                 }
@@ -2770,9 +2889,9 @@ public final class PluginProtos {
                 public ByteString getContentBytes() {
                     Object obj = this.content_;
                     if (obj instanceof String) {
-                        ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                        this.content_ = copyFromUtf8;
-                        return copyFromUtf8;
+                        ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                        this.content_ = byteStringCopyFromUtf8;
+                        return byteStringCopyFromUtf8;
                     }
                     return (ByteString) obj;
                 }
@@ -2812,7 +2931,7 @@ public final class PluginProtos {
                         DescriptorProtos.GeneratedCodeInfo generatedCodeInfo = this.generatedCodeInfo_;
                         return generatedCodeInfo == null ? DescriptorProtos.GeneratedCodeInfo.getDefaultInstance() : generatedCodeInfo;
                     }
-                    return singleFieldBuilderV3.getMessage();
+                    return (DescriptorProtos.GeneratedCodeInfo) singleFieldBuilderV3.getMessage();
                 }
 
                 public Builder setGeneratedCodeInfo(DescriptorProtos.GeneratedCodeInfo generatedCodeInfo) {
@@ -2872,14 +2991,14 @@ public final class PluginProtos {
                 public DescriptorProtos.GeneratedCodeInfo.Builder getGeneratedCodeInfoBuilder() {
                     this.bitField0_ |= 8;
                     onChanged();
-                    return getGeneratedCodeInfoFieldBuilder().getBuilder();
+                    return (DescriptorProtos.GeneratedCodeInfo.Builder) getGeneratedCodeInfoFieldBuilder().getBuilder();
                 }
 
                 @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.FileOrBuilder
                 public DescriptorProtos.GeneratedCodeInfoOrBuilder getGeneratedCodeInfoOrBuilder() {
                     SingleFieldBuilderV3<DescriptorProtos.GeneratedCodeInfo, DescriptorProtos.GeneratedCodeInfo.Builder, DescriptorProtos.GeneratedCodeInfoOrBuilder> singleFieldBuilderV3 = this.generatedCodeInfoBuilder_;
                     if (singleFieldBuilderV3 != null) {
-                        return singleFieldBuilderV3.getMessageOrBuilder();
+                        return (DescriptorProtos.GeneratedCodeInfoOrBuilder) singleFieldBuilderV3.getMessageOrBuilder();
                     }
                     DescriptorProtos.GeneratedCodeInfo generatedCodeInfo = this.generatedCodeInfo_;
                     return generatedCodeInfo == null ? DescriptorProtos.GeneratedCodeInfo.getDefaultInstance() : generatedCodeInfo;
@@ -2893,11 +3012,16 @@ public final class PluginProtos {
                     return this.generatedCodeInfoBuilder_;
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
                 public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                     return (Builder) super.setUnknownFields(unknownFieldSet);
                 }
 
+                /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+                /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
                 public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                     return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -2917,6 +3041,8 @@ public final class PluginProtos {
                 return PARSER;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public File getDefaultInstanceForType() {
                 return DEFAULT_INSTANCE;
@@ -2946,9 +3072,9 @@ public final class PluginProtos {
         public ByteString getErrorBytes() {
             Object obj = this.error_;
             if (obj instanceof String) {
-                ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                this.error_ = copyFromUtf8;
-                return copyFromUtf8;
+                ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                this.error_ = byteStringCopyFromUtf8;
+                return byteStringCopyFromUtf8;
             }
             return (ByteString) obj;
         }
@@ -3021,14 +3147,14 @@ public final class PluginProtos {
             if (i != -1) {
                 return i;
             }
-            int computeStringSize = (this.bitField0_ & 1) != 0 ? GeneratedMessageV3.computeStringSize(1, this.error_) + 0 : 0;
+            int iComputeStringSize = (this.bitField0_ & 1) != 0 ? GeneratedMessageV3.computeStringSize(1, this.error_) + 0 : 0;
             if ((this.bitField0_ & 2) != 0) {
-                computeStringSize += CodedOutputStream.computeUInt64Size(2, this.supportedFeatures_);
+                iComputeStringSize += CodedOutputStream.computeUInt64Size(2, this.supportedFeatures_);
             }
             for (int i2 = 0; i2 < this.file_.size(); i2++) {
-                computeStringSize += CodedOutputStream.computeMessageSize(15, this.file_.get(i2));
+                iComputeStringSize += CodedOutputStream.computeMessageSize(15, this.file_.get(i2));
             }
-            int serializedSize = computeStringSize + this.unknownFields.getSerializedSize();
+            int serializedSize = iComputeStringSize + this.unknownFields.getSerializedSize();
             this.memoizedSize = serializedSize;
             return serializedSize;
         }
@@ -3056,19 +3182,19 @@ public final class PluginProtos {
             if (this.memoizedHashCode != 0) {
                 return this.memoizedHashCode;
             }
-            int hashCode = 779 + getDescriptor().hashCode();
+            int iHashCode = 779 + getDescriptor().hashCode();
             if (hasError()) {
-                hashCode = (((hashCode * 37) + 1) * 53) + getError().hashCode();
+                iHashCode = (((iHashCode * 37) + 1) * 53) + getError().hashCode();
             }
             if (hasSupportedFeatures()) {
-                hashCode = (((hashCode * 37) + 2) * 53) + Internal.hashLong(getSupportedFeatures());
+                iHashCode = (((iHashCode * 37) + 2) * 53) + Internal.hashLong(getSupportedFeatures());
             }
             if (getFileCount() > 0) {
-                hashCode = (((hashCode * 37) + 15) * 53) + getFileList().hashCode();
+                iHashCode = (((iHashCode * 37) + 15) * 53) + getFileList().hashCode();
             }
-            int hashCode2 = (hashCode * 29) + this.unknownFields.hashCode();
-            this.memoizedHashCode = hashCode2;
-            return hashCode2;
+            int iHashCode2 = (iHashCode * 29) + this.unknownFields.hashCode();
+            this.memoizedHashCode = iHashCode2;
+            return iHashCode2;
         }
 
         public static CodeGeneratorResponse parseFrom(ByteBuffer byteBuffer) throws InvalidProtocolBufferException {
@@ -3119,6 +3245,8 @@ public final class PluginProtos {
             return (CodeGeneratorResponse) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder newBuilderForType() {
             return newBuilder();
@@ -3132,18 +3260,20 @@ public final class PluginProtos {
             return DEFAULT_INSTANCE.toBuilder().mergeFrom(codeGeneratorResponse);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
         public Builder toBuilder() {
             return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX INFO: Access modifiers changed from: protected */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3
         public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
             return new Builder(builderParent);
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder extends GeneratedMessageV3.Builder<Builder> implements CodeGeneratorResponseOrBuilder {
             private int bitField0_;
             private Object error_;
@@ -3184,12 +3314,17 @@ public final class PluginProtos {
                 }
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clear() {
                 super.clear();
                 this.error_ = "";
+                int i = this.bitField0_ & (-2);
                 this.supportedFeatures_ = 0L;
-                this.bitField0_ = this.bitField0_ & (-2) & (-3);
+                this.bitField0_ = i & (-3);
                 RepeatedFieldBuilderV3<File, File.Builder, FileOrBuilder> repeatedFieldBuilderV3 = this.fileBuilder_;
                 if (repeatedFieldBuilderV3 == null) {
                     this.file_ = Collections.emptyList();
@@ -3205,20 +3340,26 @@ public final class PluginProtos {
                 return PluginProtos.internal_static_google_protobuf_compiler_CodeGeneratorResponse_descriptor;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
             public CodeGeneratorResponse getDefaultInstanceForType() {
                 return CodeGeneratorResponse.getDefaultInstance();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CodeGeneratorResponse build() {
-                CodeGeneratorResponse buildPartial = buildPartial();
-                if (buildPartial.isInitialized()) {
-                    return buildPartial;
+                CodeGeneratorResponse codeGeneratorResponseBuildPartial = buildPartial();
+                if (codeGeneratorResponseBuildPartial.isInitialized()) {
+                    return codeGeneratorResponseBuildPartial;
                 }
-                throw newUninitializedMessageException((Message) buildPartial);
+                throw newUninitializedMessageException((Message) codeGeneratorResponseBuildPartial);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
+            /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
             @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             public CodeGeneratorResponse buildPartial() {
                 CodeGeneratorResponse codeGeneratorResponse = new CodeGeneratorResponse(this);
@@ -3244,37 +3385,56 @@ public final class PluginProtos {
                 return codeGeneratorResponse;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
-            /* renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            /* JADX INFO: renamed from: clone */
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.setField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
                 return (Builder) super.clearField(fieldDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
                 return (Builder) super.clearOneof(oneofDescriptor);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
                 return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public Builder mergeFrom(Message message) {
                 if (message instanceof CodeGeneratorResponse) {
@@ -3323,42 +3483,43 @@ public final class PluginProtos {
                 return this;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
             /* JADX WARN: Removed duplicated region for block: B:16:0x0021  */
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
-                To view partially-correct add '--show-bad-code' argument
             */
-            public com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
-                /*
-                    r2 = this;
-                    r0 = 0
-                    com.google.oplus.protobuf.Parser<com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse> r1 = com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.PARSER     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse r3 = (com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse) r3     // Catch: java.lang.Throwable -> Lf com.google.oplus.protobuf.InvalidProtocolBufferException -> L11
-                    if (r3 == 0) goto Le
-                    r2.mergeFrom(r3)
-                Le:
-                    return r2
-                Lf:
-                    r3 = move-exception
-                    goto L1f
-                L11:
-                    r3 = move-exception
-                    com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> Lf
-                    com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse r4 = (com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse) r4     // Catch: java.lang.Throwable -> Lf
-                    java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1d
-                    throw r3     // Catch: java.lang.Throwable -> L1d
-                L1d:
-                    r3 = move-exception
-                    r0 = r4
-                L1f:
-                    if (r0 == 0) goto L24
-                    r2.mergeFrom(r0)
-                L24:
-                    throw r3
-                */
-                throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponse.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$Builder");
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                CodeGeneratorResponse codeGeneratorResponse = null;
+                try {
+                    try {
+                        CodeGeneratorResponse partialFrom = CodeGeneratorResponse.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
+                        if (partialFrom != null) {
+                            mergeFrom(partialFrom);
+                        }
+                        return this;
+                    } catch (InvalidProtocolBufferException e) {
+                        CodeGeneratorResponse codeGeneratorResponse2 = (CodeGeneratorResponse) e.getUnfinishedMessage();
+                        try {
+                            throw e.unwrapIOException();
+                        } catch (Throwable th) {
+                            th = th;
+                            codeGeneratorResponse = codeGeneratorResponse2;
+                            if (codeGeneratorResponse != null) {
+                                mergeFrom(codeGeneratorResponse);
+                            }
+                            throw th;
+                        }
+                    }
+                } catch (Throwable th2) {
+                    th = th2;
+                    if (codeGeneratorResponse != null) {
+                    }
+                    throw th;
+                }
             }
 
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponseOrBuilder
@@ -3384,9 +3545,9 @@ public final class PluginProtos {
             public ByteString getErrorBytes() {
                 Object obj = this.error_;
                 if (obj instanceof String) {
-                    ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) obj);
-                    this.error_ = copyFromUtf8;
-                    return copyFromUtf8;
+                    ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) obj);
+                    this.error_ = byteStringCopyFromUtf8;
+                    return byteStringCopyFromUtf8;
                 }
                 return (ByteString) obj;
             }
@@ -3445,6 +3606,7 @@ public final class PluginProtos {
                 }
             }
 
+            /* JADX DEBUG: Type inference failed for r1v1. Raw type applied. Possible types: java.util.List<MType extends com.google.oplus.protobuf.AbstractMessage>, java.util.List<com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$File> */
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponseOrBuilder
             public List<File> getFileList() {
                 RepeatedFieldBuilderV3<File, File.Builder, FileOrBuilder> repeatedFieldBuilderV3 = this.fileBuilder_;
@@ -3469,7 +3631,7 @@ public final class PluginProtos {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.file_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessage(i);
+                return (File) repeatedFieldBuilderV3.getMessage(i);
             }
 
             public Builder setFile(int i, File file) {
@@ -3584,7 +3746,7 @@ public final class PluginProtos {
             }
 
             public File.Builder getFileBuilder(int i) {
-                return getFileFieldBuilder().getBuilder(i);
+                return (File.Builder) getFileFieldBuilder().getBuilder(i);
             }
 
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponseOrBuilder
@@ -3593,9 +3755,10 @@ public final class PluginProtos {
                 if (repeatedFieldBuilderV3 == null) {
                     return this.file_.get(i);
                 }
-                return repeatedFieldBuilderV3.getMessageOrBuilder(i);
+                return (FileOrBuilder) repeatedFieldBuilderV3.getMessageOrBuilder(i);
             }
 
+            /* JADX DEBUG: Type inference failed for r1v3. Raw type applied. Possible types: java.util.List<IType extends com.google.oplus.protobuf.MessageOrBuilder>, java.util.List<? extends com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$FileOrBuilder> */
             @Override // com.google.oplus.protobuf.compiler.PluginProtos.CodeGeneratorResponseOrBuilder
             public List<? extends FileOrBuilder> getFileOrBuilderList() {
                 RepeatedFieldBuilderV3<File, File.Builder, FileOrBuilder> repeatedFieldBuilderV3 = this.fileBuilder_;
@@ -3606,13 +3769,14 @@ public final class PluginProtos {
             }
 
             public File.Builder addFileBuilder() {
-                return getFileFieldBuilder().addBuilder(File.getDefaultInstance());
+                return (File.Builder) getFileFieldBuilder().addBuilder(File.getDefaultInstance());
             }
 
             public File.Builder addFileBuilder(int i) {
-                return getFileFieldBuilder().addBuilder(i, File.getDefaultInstance());
+                return (File.Builder) getFileFieldBuilder().addBuilder(i, File.getDefaultInstance());
             }
 
+            /* JADX DEBUG: Type inference failed for r0v2. Raw type applied. Possible types: java.util.List<BType extends com.google.oplus.protobuf.AbstractMessage$Builder>, java.util.List<com.google.oplus.protobuf.compiler.PluginProtos$CodeGeneratorResponse$File$Builder> */
             public List<File.Builder> getFileBuilderList() {
                 return getFileFieldBuilder().getBuilderList();
             }
@@ -3625,11 +3789,16 @@ public final class PluginProtos {
                 return this.fileBuilder_;
             }
 
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.setUnknownFields(unknownFieldSet);
             }
 
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
+            /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
             public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
                 return (Builder) super.mergeUnknownFields(unknownFieldSet);
@@ -3649,6 +3818,8 @@ public final class PluginProtos {
             return PARSER;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public CodeGeneratorResponse getDefaultInstanceForType() {
             return DEFAULT_INSTANCE;

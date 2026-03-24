@@ -2,7 +2,7 @@ package com.google.oplus.protobuf;
 
 import java.io.IOException;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public final class WireFormat {
     static final int FIXED32_SIZE = 4;
     static final int FIXED64_SIZE = 8;
@@ -33,15 +33,13 @@ public final class WireFormat {
         return i & 7;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static int makeTag(int i, int i2) {
+    static int makeTag(int i, int i2) {
         return (i << 3) | i2;
     }
 
     private WireFormat() {
     }
 
-    /* loaded from: classes.dex */
     public enum JavaType {
         INT(0),
         LONG(0L),
@@ -64,47 +62,36 @@ public final class WireFormat {
         }
     }
 
-    /* loaded from: classes.dex */
-    public enum FieldType {
-        DOUBLE(JavaType.DOUBLE, 1),
-        FLOAT(JavaType.FLOAT, 5),
-        INT64(JavaType.LONG, 0),
-        UINT64(JavaType.LONG, 0),
-        INT32(JavaType.INT, 0),
-        FIXED64(JavaType.LONG, 1),
-        FIXED32(JavaType.INT, 5),
-        BOOL(JavaType.BOOLEAN, 0),
-        STRING(JavaType.STRING, 2) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.1
-            @Override // com.google.oplus.protobuf.WireFormat.FieldType
-            public boolean isPackable() {
-                return false;
-            }
-        },
-        GROUP(JavaType.MESSAGE, 3) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.2
-            @Override // com.google.oplus.protobuf.WireFormat.FieldType
-            public boolean isPackable() {
-                return false;
-            }
-        },
-        MESSAGE(JavaType.MESSAGE, 2) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.3
-            @Override // com.google.oplus.protobuf.WireFormat.FieldType
-            public boolean isPackable() {
-                return false;
-            }
-        },
-        BYTES(JavaType.BYTE_STRING, 2) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.4
-            @Override // com.google.oplus.protobuf.WireFormat.FieldType
-            public boolean isPackable() {
-                return false;
-            }
-        },
-        UINT32(JavaType.INT, 0),
-        ENUM(JavaType.ENUM, 0),
-        SFIXED32(JavaType.INT, 5),
-        SFIXED64(JavaType.LONG, 1),
-        SINT32(JavaType.INT, 0),
-        SINT64(JavaType.LONG, 0);
-
+    /* JADX WARN: Enum visitor error
+    jadx.core.utils.exceptions.JadxRuntimeException: Init of enum field 'STRING' uses external variables
+    	at jadx.core.dex.visitors.EnumVisitor.createEnumFieldByConstructor(EnumVisitor.java:451)
+    	at jadx.core.dex.visitors.EnumVisitor.processEnumFieldByRegister(EnumVisitor.java:395)
+    	at jadx.core.dex.visitors.EnumVisitor.extractEnumFieldsFromFilledArray(EnumVisitor.java:324)
+    	at jadx.core.dex.visitors.EnumVisitor.extractEnumFieldsFromInsn(EnumVisitor.java:262)
+    	at jadx.core.dex.visitors.EnumVisitor.convertToEnum(EnumVisitor.java:151)
+    	at jadx.core.dex.visitors.EnumVisitor.visit(EnumVisitor.java:100)
+     */
+    /* JADX WARN: Failed to restore enum class, 'enum' modifier and super class removed */
+    public static class FieldType {
+        private static final /* synthetic */ FieldType[] $VALUES;
+        public static final FieldType BOOL;
+        public static final FieldType BYTES;
+        public static final FieldType DOUBLE;
+        public static final FieldType ENUM;
+        public static final FieldType FIXED32;
+        public static final FieldType FIXED64;
+        public static final FieldType FLOAT;
+        public static final FieldType GROUP;
+        public static final FieldType INT32;
+        public static final FieldType INT64;
+        public static final FieldType MESSAGE;
+        public static final FieldType SFIXED32;
+        public static final FieldType SFIXED64;
+        public static final FieldType SINT32;
+        public static final FieldType SINT64;
+        public static final FieldType STRING;
+        public static final FieldType UINT32;
+        public static final FieldType UINT64;
         private final JavaType javaType;
         private final int wireType;
 
@@ -112,13 +99,99 @@ public final class WireFormat {
             return true;
         }
 
-        /* synthetic */ FieldType(JavaType javaType, int i, AnonymousClass1 anonymousClass1) {
-            this(javaType, i);
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 java.lang.String), (r2v0 int), (r3v0 com.google.oplus.protobuf.WireFormat$JavaType), (r4v0 int) A[MD:(java.lang.String, int, com.google.oplus.protobuf.WireFormat$JavaType, int):void (m)] (LINE:111) call: com.google.oplus.protobuf.WireFormat.FieldType.<init>(java.lang.String, int, com.google.oplus.protobuf.WireFormat$JavaType, int):void type: THIS */
+        /* synthetic */ FieldType(String str, int i, JavaType javaType, int i2, AnonymousClass1 anonymousClass1) {
+            this(str, i, javaType, i2);
         }
 
-        FieldType(JavaType javaType, int i) {
+        public static FieldType valueOf(String str) {
+            return (FieldType) java.lang.Enum.valueOf(FieldType.class, str);
+        }
+
+        public static FieldType[] values() {
+            return (FieldType[]) $VALUES.clone();
+        }
+
+        static {
+            FieldType fieldType = new FieldType("DOUBLE", 0, JavaType.DOUBLE, 1);
+            DOUBLE = fieldType;
+            FieldType fieldType2 = new FieldType("FLOAT", 1, JavaType.FLOAT, 5);
+            FLOAT = fieldType2;
+            int i = 2;
+            FieldType fieldType3 = new FieldType("INT64", 2, JavaType.LONG, 0);
+            INT64 = fieldType3;
+            FieldType fieldType4 = new FieldType("UINT64", 3, JavaType.LONG, 0);
+            UINT64 = fieldType4;
+            FieldType fieldType5 = new FieldType("INT32", 4, JavaType.INT, 0);
+            INT32 = fieldType5;
+            FieldType fieldType6 = new FieldType("FIXED64", 5, JavaType.LONG, 1);
+            FIXED64 = fieldType6;
+            FieldType fieldType7 = new FieldType("FIXED32", 6, JavaType.INT, 5);
+            FIXED32 = fieldType7;
+            FieldType fieldType8 = new FieldType("BOOL", 7, JavaType.BOOLEAN, 0);
+            BOOL = fieldType8;
+            FieldType fieldType9 = new FieldType("STRING", 8, JavaType.STRING, i) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.1
+                @Override // com.google.oplus.protobuf.WireFormat.FieldType
+                public boolean isPackable() {
+                    return false;
+                }
+
+                {
+                    AnonymousClass1 anonymousClass1 = null;
+                }
+            };
+            STRING = fieldType9;
+            FieldType fieldType10 = new FieldType("GROUP", 9, JavaType.MESSAGE, 3) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.2
+                @Override // com.google.oplus.protobuf.WireFormat.FieldType
+                public boolean isPackable() {
+                    return false;
+                }
+
+                {
+                    AnonymousClass1 anonymousClass1 = null;
+                }
+            };
+            GROUP = fieldType10;
+            FieldType fieldType11 = new FieldType("MESSAGE", 10, JavaType.MESSAGE, i) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.3
+                @Override // com.google.oplus.protobuf.WireFormat.FieldType
+                public boolean isPackable() {
+                    return false;
+                }
+
+                {
+                    AnonymousClass1 anonymousClass1 = null;
+                }
+            };
+            MESSAGE = fieldType11;
+            FieldType fieldType12 = new FieldType("BYTES", 11, JavaType.BYTE_STRING, i) { // from class: com.google.oplus.protobuf.WireFormat.FieldType.4
+                @Override // com.google.oplus.protobuf.WireFormat.FieldType
+                public boolean isPackable() {
+                    return false;
+                }
+
+                {
+                    AnonymousClass1 anonymousClass1 = null;
+                }
+            };
+            BYTES = fieldType12;
+            FieldType fieldType13 = new FieldType("UINT32", 12, JavaType.INT, 0);
+            UINT32 = fieldType13;
+            FieldType fieldType14 = new FieldType("ENUM", 13, JavaType.ENUM, 0);
+            ENUM = fieldType14;
+            FieldType fieldType15 = new FieldType("SFIXED32", 14, JavaType.INT, 5);
+            SFIXED32 = fieldType15;
+            FieldType fieldType16 = new FieldType("SFIXED64", 15, JavaType.LONG, 1);
+            SFIXED64 = fieldType16;
+            FieldType fieldType17 = new FieldType("SINT32", 16, JavaType.INT, 0);
+            SINT32 = fieldType17;
+            FieldType fieldType18 = new FieldType("SINT64", 17, JavaType.LONG, 0);
+            SINT64 = fieldType18;
+            $VALUES = new FieldType[]{fieldType, fieldType2, fieldType3, fieldType4, fieldType5, fieldType6, fieldType7, fieldType8, fieldType9, fieldType10, fieldType11, fieldType12, fieldType13, fieldType14, fieldType15, fieldType16, fieldType17, fieldType18};
+        }
+
+        private FieldType(String str, int i, JavaType javaType, int i2) {
             this.javaType = javaType;
-            this.wireType = i;
+            this.wireType = i2;
         }
 
         public JavaType getJavaType() {
@@ -130,9 +203,7 @@ public final class WireFormat {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: classes.dex */
-    public enum Utf8Validation {
+    enum Utf8Validation {
         LOOSE { // from class: com.google.oplus.protobuf.WireFormat.Utf8Validation.1
             @Override // com.google.oplus.protobuf.WireFormat.Utf8Validation
             Object readString(CodedInputStream codedInputStream) throws IOException {
@@ -153,13 +224,14 @@ public final class WireFormat {
         };
 
         abstract Object readString(CodedInputStream codedInputStream) throws IOException;
+
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 java.lang.String), (r2v0 int) A[MD:(java.lang.String, int):void (m)] (LINE:188) call: com.google.oplus.protobuf.WireFormat.Utf8Validation.<init>(java.lang.String, int):void type: THIS */
+        /* synthetic */ Utf8Validation(AnonymousClass1 anonymousClass1) {
+            this();
+        }
     }
 
-    /*
-     * renamed from: com.google.oplus.protobuf.WireFormat$1 reason: invalid class
-     * name
-     */
-    /* loaded from: classes.dex */
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.WireFormat$1, reason: invalid class name */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -241,9 +313,7 @@ public final class WireFormat {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static Object readPrimitiveField(CodedInputStream codedInputStream, FieldType fieldType,
-            Utf8Validation utf8Validation) throws IOException {
+    static Object readPrimitiveField(CodedInputStream codedInputStream, FieldType fieldType, Utf8Validation utf8Validation) throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 return Double.valueOf(codedInputStream.readDouble());

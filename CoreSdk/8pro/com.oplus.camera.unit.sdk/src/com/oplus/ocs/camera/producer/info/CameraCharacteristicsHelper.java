@@ -1,11 +1,15 @@
 package com.oplus.ocs.camera.producer.info;
 
+import android.content.Context;
+import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.util.Range;
 import android.util.Size;
 import android.util.SparseArray;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.oplus.ocs.camera.common.util.CameraConfigBase;
 import com.oplus.ocs.camera.common.util.CameraConstant;
@@ -17,10 +21,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraCharacteristicsHelper {
     private static final int BATCH_NUM_RATE = 30;
     private static final int DIVIDEND_360 = 360;
@@ -97,26 +103,77 @@ public final class CameraCharacteristicsHelper {
     private CameraCharacteristicsHelper() {
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:48:0x0077 A[SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:53:0x0020 A[SYNTHETIC] */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public static void initialize(@androidx.annotation.NonNull android.content.Context r11, @androidx.annotation.NonNull java.util.List<java.lang.String> r12) {
-        /*
-            Method dump skipped, instructions count: 341
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper.initialize(android.content.Context, java.util.List):void");
+    public static void initialize(@NonNull Context context, @NonNull List<String> list) {
+        CameraCharacteristicsWrapper cameraCharacteristicsWrapper;
+        CameraManager cameraManager = (CameraManager) context.getSystemService("camera");
+        sBackCameraIds = new ArrayList<>();
+        sFrontCameraIds = new ArrayList<>();
+        CameraCharacteristicsWrapper cameraCharacteristicsWrapper2 = null;
+        for (String str : list) {
+            try {
+                cameraCharacteristicsWrapper = new CameraCharacteristicsWrapper(cameraManager.getCameraCharacteristics(str));
+                try {
+                    if ("1".equals(str)) {
+                        cameraCharacteristicsWrapper2 = cameraCharacteristicsWrapper;
+                    }
+                } catch (CameraAccessException e) {
+                    e = e;
+                    CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e);
+                } catch (IllegalArgumentException e2) {
+                    e = e2;
+                    if ("0".equals(str)) {
+                        throw e;
+                    }
+                    CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e);
+                }
+            } catch (CameraAccessException e3) {
+                e = e3;
+                cameraCharacteristicsWrapper = null;
+            } catch (IllegalArgumentException e4) {
+                e = e4;
+                cameraCharacteristicsWrapper = null;
+            }
+            if (cameraCharacteristicsWrapper != null) {
+                int[] iArr = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_CUSTOM_CAMERA_TYPE);
+                int i = iArr != null ? iArr[0] : -1;
+                int[] iArr2 = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_AVAILABLE_STREAM_FPS_RANGES);
+                if (i > -1) {
+                    String cameraTypeByTypeId = getCameraTypeByTypeId(i);
+                    CameraUnitLog.v(TAG, "initialize, cameraId: " + str + ", cameraIdType: " + i + ", cameraType: " + cameraTypeByTypeId + ", availableStreamFpsRanges: " + Arrays.toString(iArr2));
+                    CameraIdType cameraIdType = new CameraIdType(cameraTypeByTypeId, Integer.parseInt(str));
+                    sCameraIdTypeMap.put(cameraTypeByTypeId, cameraIdType);
+                    sCameraIdArray.put(cameraIdType.getCameraId(), cameraIdType);
+                    sCameraCharacteristicsMap.put(cameraTypeByTypeId, cameraCharacteristicsWrapper);
+                    if (iArr2 != null) {
+                        sCameraTypeStreamFpsRangesMap.put(cameraTypeByTypeId, getStreamFpsRangesMap(iArr2));
+                    }
+                } else {
+                    CameraUnitLog.d(TAG, "initialize, cameraId : " + str + "'s cameraIdType is not configure!");
+                }
+                Object obj = cameraCharacteristicsWrapper.get(CameraCharacteristics.LENS_FACING);
+                if (obj != null && ((Integer) obj).intValue() == 0) {
+                    sFrontCameraIds.add(str);
+                } else {
+                    sBackCameraIds.add(str);
+                }
+            }
+        }
+        CameraIdType cameraIdType2 = new CameraIdType("rear_main_front_main", 100);
+        sCameraIdTypeMap.put("rear_main_front_main", cameraIdType2);
+        sCameraIdArray.put(100, cameraIdType2);
+        CameraIdType cameraIdType3 = new CameraIdType(CameraConstant.CameraType.REAR_MAIN_FRONT_SUB_CAMERA, 101);
+        sCameraIdTypeMap.put(CameraConstant.CameraType.REAR_MAIN_FRONT_SUB_CAMERA, cameraIdType3);
+        sCameraIdArray.put(101, cameraIdType3);
+        sCameraCharacteristicsMap.put("rear_main_front_main", cameraCharacteristicsWrapper2);
+        sCameraCharacteristicsMap.put(CameraConstant.CameraType.REAR_MAIN_FRONT_SUB_CAMERA, cameraCharacteristicsWrapper2);
     }
 
     private static Map<String, Range<Integer>> getStreamFpsRangesMap(int[] iArr) {
-        HashMap hashMap = new HashMap();
+        HashMap map = new HashMap();
         for (int i = 0; i < iArr.length; i += 5) {
-            hashMap.put(iArr[i + 0] + "_" + iArr[i + 1] + "_" + iArr[i + 2], new Range(Integer.valueOf(iArr[i + 3]), Integer.valueOf(iArr[i + 4])));
+            map.put(iArr[i + 0] + "_" + iArr[i + 1] + "_" + iArr[i + 2], new Range(Integer.valueOf(iArr[i + 3]), Integer.valueOf(iArr[i + 4])));
         }
-        return hashMap;
+        return map;
     }
 
     public static CameraIdType getCameraIdType(String str) {
@@ -142,8 +199,9 @@ public final class CameraCharacteristicsHelper {
         }
         if (physicalCameraIds.size() > 0) {
             ArrayList arrayList = new ArrayList();
-            for (String str2 : physicalCameraIds) {
-                arrayList.add(getCameraIdType(Integer.parseInt(str2)).getCameraType());
+            Iterator<String> it = physicalCameraIds.iterator();
+            while (it.hasNext()) {
+                arrayList.add(getCameraIdType(Integer.parseInt(it.next())).getCameraType());
             }
             return arrayList;
         }
@@ -253,15 +311,15 @@ public final class CameraCharacteristicsHelper {
         CameraUnitLog.d(TAG, "getPhysicalCameraIds, cameraType: " + str);
         CameraCharacteristicsWrapper cameraCharacteristicsWrapper = getCameraCharacteristicsWrapper(str);
         int[] iArr = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristics.REQUEST_AVAILABLE_CAPABILITIES);
-        if (iArr != null) {
-            for (int i : iArr) {
-                if (11 == i) {
-                    Set<String> physicalCameraIds = cameraCharacteristicsWrapper.get().getPhysicalCameraIds();
-                    CameraUnitLog.d(TAG, "getPhysicalCameraIds, physicalIds: " + physicalCameraIds);
-                    return (String[]) physicalCameraIds.toArray(new String[0]);
-                }
-            }
+        if (iArr == null) {
             return null;
+        }
+        for (int i : iArr) {
+            if (11 == i) {
+                Set<String> physicalCameraIds = cameraCharacteristicsWrapper.get().getPhysicalCameraIds();
+                CameraUnitLog.d(TAG, "getPhysicalCameraIds, physicalIds: " + physicalCameraIds);
+                return (String[]) physicalCameraIds.toArray(new String[0]);
+            }
         }
         return null;
     }
@@ -338,13 +396,13 @@ public final class CameraCharacteristicsHelper {
                     while (true) {
                         if (i3 >= iArr2.length) {
                             break;
-                        } else if (iArr2[i3] / 360 == i / 360) {
+                        }
+                        if (iArr2[i3] / 360 == i / 360) {
                             iArr[0] = iArr2[i3 + 1];
                             iArr[1] = iArr2[i3 + 2];
                             break;
-                        } else {
-                            i3++;
                         }
+                        i3++;
                     }
                     if (!isFrontCamera(getCameraIdType(str).getCameraId()) && iArr[0] > i2 && i2 > 0) {
                         iArr[0] = i2;
@@ -432,24 +490,28 @@ public final class CameraCharacteristicsHelper {
         }
         int[] intArrayConfig = cameraCharacteristicsWrapper.getIntArrayConfig(CameraCharacteristicsWrapper.KEY_STATIC_CSHOT_SUPPORT);
         int[] intArrayConfig2 = cameraCharacteristicsWrapper.getIntArrayConfig(CameraCharacteristicsWrapper.KEY_STATIC_SUPPORT_EARLY_NOTIFY);
-        if (intArrayConfig != null && intArrayConfig.length > 0) {
+        if (intArrayConfig == null || intArrayConfig.length <= 0) {
+            z = false;
+        } else {
             for (int i : intArrayConfig) {
                 if (i == 1) {
                     z = true;
                     break;
                 }
             }
+            z = false;
         }
-        z = false;
-        if (intArrayConfig2 != null && intArrayConfig2.length > 0) {
+        if (intArrayConfig2 == null || intArrayConfig2.length <= 0) {
+            z2 = false;
+        } else {
             for (int i2 : intArrayConfig2) {
                 if (i2 == 1) {
                     z2 = true;
                     break;
                 }
             }
+            z2 = false;
         }
-        z2 = false;
         return z && z2;
     }
 

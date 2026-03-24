@@ -2,16 +2,18 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Descriptors;
 import com.google.oplus.protobuf.Internal;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public enum Syntax implements ProtocolMessageEnum {
     SYNTAX_PROTO2(0),
     SYNTAX_PROTO3(1),
     UNRECOGNIZED(-1);
-    
+
     public static final int SYNTAX_PROTO2_VALUE = 0;
     public static final int SYNTAX_PROTO3_VALUE = 1;
     private final int value;
     private static final Internal.EnumLiteMap<Syntax> internalValueMap = new Internal.EnumLiteMap<Syntax>() { // from class: com.google.oplus.protobuf.Syntax.1
+        /* JADX DEBUG: Method merged with bridge method: findValueByNumber(I)Lcom/google/oplus/protobuf/Internal$EnumLite; */
         @Override // com.google.oplus.protobuf.Internal.EnumLiteMap
         public Syntax findValueByNumber(int i) {
             return Syntax.forNumber(i);
@@ -33,13 +35,13 @@ public enum Syntax implements ProtocolMessageEnum {
     }
 
     public static Syntax forNumber(int i) {
-        if (i != 0) {
-            if (i != 1) {
-                return null;
-            }
-            return SYNTAX_PROTO3;
+        if (i == 0) {
+            return SYNTAX_PROTO2;
         }
-        return SYNTAX_PROTO2;
+        if (i != 1) {
+            return null;
+        }
+        return SYNTAX_PROTO3;
     }
 
     public static Internal.EnumLiteMap<Syntax> internalGetValueMap() {

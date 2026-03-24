@@ -9,7 +9,8 @@ import com.coloros.ocs.camera.info.CameraDeviceInfoInterface;
 import com.coloros.ocs.camera.info.DefaultCameraDeviceInfo;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraUnitImpl implements CameraUnitInterface {
     private com.oplus.ocs.camera.appinterface.CameraUnitInterface mCameraUnitInterface;
 

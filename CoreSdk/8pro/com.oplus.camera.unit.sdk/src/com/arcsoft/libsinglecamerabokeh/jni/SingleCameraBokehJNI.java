@@ -1,5 +1,6 @@
 package com.arcsoft.libsinglecamerabokeh.jni;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class SingleCameraBokehJNI {
     public static final int CAMERA_TYPE_BACK = 0;
     public static final int CAMERA_TYPE_FRONT = 1;
@@ -55,12 +56,12 @@ public class SingleCameraBokehJNI {
 
     public int release() {
         long j = this.mGlobalPtr;
-        if (0 != j) {
-            int native_release = native_release(j);
-            this.mGlobalPtr = 0L;
-            return native_release;
+        if (0 == j) {
+            return 2;
         }
-        return 2;
+        int iNative_release = native_release(j);
+        this.mGlobalPtr = 0L;
+        return iNative_release;
     }
 
     public int forceUpdateFrame(int i) {
@@ -71,7 +72,6 @@ public class SingleCameraBokehJNI {
         return 2;
     }
 
-    /* loaded from: classes.dex */
     public static class SinCamVBProcessData {
         private int m_BlurLevel;
         private int m_FaceCount;
@@ -92,7 +92,6 @@ public class SingleCameraBokehJNI {
         }
     }
 
-    /* loaded from: classes.dex */
     public static class SinCamVBInitData {
         private int m_CameraType;
         private int m_Format;

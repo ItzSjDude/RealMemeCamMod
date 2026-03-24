@@ -14,7 +14,8 @@ import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.common.util.SensorManagerInterface;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ModeInterface extends SurfaceControlInterface, SensorManagerInterface {
     CameraSessionEntity configure(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig, String str);
 

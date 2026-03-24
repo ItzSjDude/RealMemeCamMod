@@ -3,8 +3,9 @@ package com.oplus.statistics.util;
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+/* JADX INFO: loaded from: classes.dex */
 @SuppressLint({"SimpleDateFormat"})
-/* loaded from: classes.dex */
 public class TimeInfoUtil {
     public static final long MILLISECOND_OF_A_DAY = 86400000;
     public static final long MILLISECOND_OF_A_WEEK = 604800000;

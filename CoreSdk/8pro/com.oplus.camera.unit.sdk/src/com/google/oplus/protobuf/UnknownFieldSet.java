@@ -10,11 +10,13 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.TreeMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class UnknownFieldSet implements MessageLite {
     private final Map<Integer, Field> fields;
     private final Map<Integer, Field> fieldsDescending;
@@ -32,7 +34,7 @@ public final class UnknownFieldSet implements MessageLite {
     }
 
     public static Builder newBuilder() {
-        return Builder.access$000();
+        return Builder.create();
     }
 
     public static Builder newBuilder(UnknownFieldSet unknownFieldSet) {
@@ -43,6 +45,7 @@ public final class UnknownFieldSet implements MessageLite {
         return defaultInstance;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
     public UnknownFieldSet getDefaultInstanceForType() {
         return defaultInstance;
@@ -91,9 +94,9 @@ public final class UnknownFieldSet implements MessageLite {
     @Override // com.google.oplus.protobuf.MessageLite
     public ByteString toByteString() {
         try {
-            ByteString.CodedBuilder newCodedBuilder = ByteString.newCodedBuilder(getSerializedSize());
-            writeTo(newCodedBuilder.getCodedOutput());
-            return newCodedBuilder.build();
+            ByteString.CodedBuilder codedBuilderNewCodedBuilder = ByteString.newCodedBuilder(getSerializedSize());
+            writeTo(codedBuilderNewCodedBuilder.getCodedOutput());
+            return codedBuilderNewCodedBuilder.build();
         } catch (IOException e) {
             throw new RuntimeException("Serializing to a ByteString threw an IOException (should never happen).", e);
         }
@@ -103,9 +106,9 @@ public final class UnknownFieldSet implements MessageLite {
     public byte[] toByteArray() {
         try {
             byte[] bArr = new byte[getSerializedSize()];
-            CodedOutputStream newInstance = CodedOutputStream.newInstance(bArr);
-            writeTo(newInstance);
-            newInstance.checkNoSpaceLeft();
+            CodedOutputStream codedOutputStreamNewInstance = CodedOutputStream.newInstance(bArr);
+            writeTo(codedOutputStreamNewInstance);
+            codedOutputStreamNewInstance.checkNoSpaceLeft();
             return bArr;
         } catch (IOException e) {
             throw new RuntimeException("Serializing to a byte array threw an IOException (should never happen).", e);
@@ -114,26 +117,26 @@ public final class UnknownFieldSet implements MessageLite {
 
     @Override // com.google.oplus.protobuf.MessageLite
     public void writeTo(OutputStream outputStream) throws IOException {
-        CodedOutputStream newInstance = CodedOutputStream.newInstance(outputStream);
-        writeTo(newInstance);
-        newInstance.flush();
+        CodedOutputStream codedOutputStreamNewInstance = CodedOutputStream.newInstance(outputStream);
+        writeTo(codedOutputStreamNewInstance);
+        codedOutputStreamNewInstance.flush();
     }
 
     @Override // com.google.oplus.protobuf.MessageLite
     public void writeDelimitedTo(OutputStream outputStream) throws IOException {
-        CodedOutputStream newInstance = CodedOutputStream.newInstance(outputStream);
-        newInstance.writeRawVarint32(getSerializedSize());
-        writeTo(newInstance);
-        newInstance.flush();
+        CodedOutputStream codedOutputStreamNewInstance = CodedOutputStream.newInstance(outputStream);
+        codedOutputStreamNewInstance.writeRawVarint32(getSerializedSize());
+        writeTo(codedOutputStreamNewInstance);
+        codedOutputStreamNewInstance.flush();
     }
 
     @Override // com.google.oplus.protobuf.MessageLite
     public int getSerializedSize() {
-        int i = 0;
+        int serializedSize = 0;
         for (Map.Entry<Integer, Field> entry : this.fields.entrySet()) {
-            i += entry.getValue().getSerializedSize(entry.getKey().intValue());
+            serializedSize += entry.getValue().getSerializedSize(entry.getKey().intValue());
         }
-        return i;
+        return serializedSize;
     }
 
     public void writeAsMessageSetTo(CodedOutputStream codedOutputStream) throws IOException {
@@ -142,8 +145,7 @@ public final class UnknownFieldSet implements MessageLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public void writeTo(Writer writer) throws IOException {
+    void writeTo(Writer writer) throws IOException {
         if (writer.fieldOrder() == Writer.FieldOrder.DESCENDING) {
             for (Map.Entry<Integer, Field> entry : this.fieldsDescending.entrySet()) {
                 entry.getValue().writeTo(entry.getKey().intValue(), writer);
@@ -155,8 +157,7 @@ public final class UnknownFieldSet implements MessageLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public void writeAsMessageSetTo(Writer writer) throws IOException {
+    void writeAsMessageSetTo(Writer writer) throws IOException {
         if (writer.fieldOrder() == Writer.FieldOrder.DESCENDING) {
             for (Map.Entry<Integer, Field> entry : this.fieldsDescending.entrySet()) {
                 entry.getValue().writeAsMessageSetExtensionTo(entry.getKey().intValue(), writer);
@@ -169,11 +170,11 @@ public final class UnknownFieldSet implements MessageLite {
     }
 
     public int getSerializedSizeAsMessageSet() {
-        int i = 0;
+        int serializedSizeAsMessageSetExtension = 0;
         for (Map.Entry<Integer, Field> entry : this.fields.entrySet()) {
-            i += entry.getValue().getSerializedSizeAsMessageSetExtension(entry.getKey().intValue());
+            serializedSizeAsMessageSetExtension += entry.getValue().getSerializedSizeAsMessageSetExtension(entry.getKey().intValue());
         }
-        return i;
+        return serializedSizeAsMessageSetExtension;
     }
 
     public static UnknownFieldSet parseFrom(CodedInputStream codedInputStream) throws IOException {
@@ -192,17 +193,18 @@ public final class UnknownFieldSet implements MessageLite {
         return newBuilder().mergeFrom(inputStream).build();
     }
 
+    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder newBuilderForType() {
         return newBuilder();
     }
 
+    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder toBuilder() {
         return newBuilder().mergeFrom(this);
     }
 
-    /* loaded from: classes.dex */
     public static final class Builder implements MessageLite.Builder {
         private Map<Integer, Field> fields;
         private Field.Builder lastField;
@@ -213,14 +215,11 @@ public final class UnknownFieldSet implements MessageLite {
             return true;
         }
 
-        static /* synthetic */ Builder access$000() {
-            return create();
-        }
-
         private Builder() {
         }
 
-        private static Builder create() {
+        /* JADX INFO: Access modifiers changed from: private */
+        public static Builder create() {
             Builder builder = new Builder();
             builder.reinitialize();
             return builder;
@@ -240,14 +239,15 @@ public final class UnknownFieldSet implements MessageLite {
             }
             Field field = this.fields.get(Integer.valueOf(i));
             this.lastFieldNumber = i;
-            Field.Builder newBuilder = Field.newBuilder();
-            this.lastField = newBuilder;
+            Field.Builder builderNewBuilder = Field.newBuilder();
+            this.lastField = builderNewBuilder;
             if (field != null) {
-                newBuilder.mergeFrom(field);
+                builderNewBuilder.mergeFrom(field);
             }
             return this.lastField;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public UnknownFieldSet build() {
             UnknownFieldSet unknownFieldSet;
@@ -261,18 +261,22 @@ public final class UnknownFieldSet implements MessageLite {
             return unknownFieldSet;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public UnknownFieldSet buildPartial() {
             return build();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        /* renamed from: clone */
-        public Builder clone() {
+        /* JADX INFO: renamed from: clone, reason: merged with bridge method [inline-methods] */
+        public Builder m2clone() {
             getFieldBuilder(0);
             return UnknownFieldSet.newBuilder().mergeFrom(new UnknownFieldSet(this.fields, Collections.unmodifiableMap(((TreeMap) this.fields).descendingMap())));
         }
 
+        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
         public UnknownFieldSet getDefaultInstanceForType() {
             return UnknownFieldSet.getDefaultInstance();
@@ -284,6 +288,7 @@ public final class UnknownFieldSet implements MessageLite {
             this.lastField = null;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             reinitialize();
@@ -368,15 +373,16 @@ public final class UnknownFieldSet implements MessageLite {
             return Collections.unmodifiableMap(this.fields);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(CodedInputStream codedInputStream) throws IOException {
-            int readTag;
+            int tag;
             do {
-                readTag = codedInputStream.readTag();
-                if (readTag == 0) {
+                tag = codedInputStream.readTag();
+                if (tag == 0) {
                     break;
                 }
-            } while (mergeFieldFrom(readTag, codedInputStream));
+            } while (mergeFieldFrom(tag, codedInputStream));
             return this;
         }
 
@@ -386,34 +392,38 @@ public final class UnknownFieldSet implements MessageLite {
             if (tagWireType == 0) {
                 getFieldBuilder(tagFieldNumber).addVarint(codedInputStream.readInt64());
                 return true;
-            } else if (tagWireType == 1) {
+            }
+            if (tagWireType == 1) {
                 getFieldBuilder(tagFieldNumber).addFixed64(codedInputStream.readFixed64());
                 return true;
-            } else if (tagWireType == 2) {
+            }
+            if (tagWireType == 2) {
                 getFieldBuilder(tagFieldNumber).addLengthDelimited(codedInputStream.readBytes());
                 return true;
-            } else if (tagWireType == 3) {
-                Builder newBuilder = UnknownFieldSet.newBuilder();
-                codedInputStream.readGroup(tagFieldNumber, newBuilder, ExtensionRegistry.getEmptyRegistry());
-                getFieldBuilder(tagFieldNumber).addGroup(newBuilder.build());
+            }
+            if (tagWireType == 3) {
+                Builder builderNewBuilder = UnknownFieldSet.newBuilder();
+                codedInputStream.readGroup(tagFieldNumber, builderNewBuilder, ExtensionRegistry.getEmptyRegistry());
+                getFieldBuilder(tagFieldNumber).addGroup(builderNewBuilder.build());
                 return true;
-            } else if (tagWireType != 4) {
-                if (tagWireType == 5) {
-                    getFieldBuilder(tagFieldNumber).addFixed32(codedInputStream.readFixed32());
-                    return true;
-                }
-                throw InvalidProtocolBufferException.invalidWireType();
-            } else {
+            }
+            if (tagWireType == 4) {
                 return false;
             }
+            if (tagWireType == 5) {
+                getFieldBuilder(tagFieldNumber).addFixed32(codedInputStream.readFixed32());
+                return true;
+            }
+            throw InvalidProtocolBufferException.invalidWireType();
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(ByteString byteString) throws InvalidProtocolBufferException {
             try {
-                CodedInputStream newCodedInput = byteString.newCodedInput();
-                mergeFrom(newCodedInput);
-                newCodedInput.checkLastTagWas(0);
+                CodedInputStream codedInputStreamNewCodedInput = byteString.newCodedInput();
+                mergeFrom(codedInputStreamNewCodedInput);
+                codedInputStreamNewCodedInput.checkLastTagWas(0);
                 return this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
@@ -422,12 +432,13 @@ public final class UnknownFieldSet implements MessageLite {
             }
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([B)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(byte[] bArr) throws InvalidProtocolBufferException {
             try {
-                CodedInputStream newInstance = CodedInputStream.newInstance(bArr);
-                mergeFrom(newInstance);
-                newInstance.checkLastTagWas(0);
+                CodedInputStream codedInputStreamNewInstance = CodedInputStream.newInstance(bArr);
+                mergeFrom(codedInputStreamNewInstance);
+                codedInputStreamNewInstance.checkLastTagWas(0);
                 return this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
@@ -436,21 +447,22 @@ public final class UnknownFieldSet implements MessageLite {
             }
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(InputStream inputStream) throws IOException {
-            CodedInputStream newInstance = CodedInputStream.newInstance(inputStream);
-            mergeFrom(newInstance);
-            newInstance.checkLastTagWas(0);
+            CodedInputStream codedInputStreamNewInstance = CodedInputStream.newInstance(inputStream);
+            mergeFrom(codedInputStreamNewInstance);
+            codedInputStreamNewInstance.checkLastTagWas(0);
             return this;
         }
 
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public boolean mergeDelimitedFrom(InputStream inputStream) throws IOException {
-            int read = inputStream.read();
-            if (read == -1) {
+            int i = inputStream.read();
+            if (i == -1) {
                 return false;
             }
-            mergeFrom((InputStream) new AbstractMessageLite.Builder.LimitedInputStream(inputStream, CodedInputStream.readRawVarint32(read, inputStream)));
+            mergeFrom((InputStream) new AbstractMessageLite.Builder.LimitedInputStream(inputStream, CodedInputStream.readRawVarint32(i, inputStream)));
             return true;
         }
 
@@ -459,22 +471,25 @@ public final class UnknownFieldSet implements MessageLite {
             return mergeDelimitedFrom(inputStream);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
             return mergeFrom(codedInputStream);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return mergeFrom(byteString);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BII)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
             try {
-                CodedInputStream newInstance = CodedInputStream.newInstance(bArr, i, i2);
-                mergeFrom(newInstance);
-                newInstance.checkLastTagWas(0);
+                CodedInputStream codedInputStreamNewInstance = CodedInputStream.newInstance(bArr, i, i2);
+                mergeFrom(codedInputStreamNewInstance);
+                codedInputStreamNewInstance.checkLastTagWas(0);
                 return this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
@@ -483,21 +498,25 @@ public final class UnknownFieldSet implements MessageLite {
             }
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return mergeFrom(bArr);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return mergeFrom(bArr, i, i2);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
             return mergeFrom(inputStream);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/MessageLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder
         public Builder mergeFrom(MessageLite messageLite) {
             if (messageLite instanceof UnknownFieldSet) {
@@ -507,7 +526,6 @@ public final class UnknownFieldSet implements MessageLite {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class Field {
         private static final Field fieldDefaultInstance = newBuilder().build();
         private List<Integer> fixed32;
@@ -520,7 +538,7 @@ public final class UnknownFieldSet implements MessageLite {
         }
 
         public static Builder newBuilder() {
-            return Builder.access$300();
+            return Builder.create();
         }
 
         public static Builder newBuilder(Field field) {
@@ -571,55 +589,66 @@ public final class UnknownFieldSet implements MessageLite {
 
         public ByteString toByteString(int i) {
             try {
-                ByteString.CodedBuilder newCodedBuilder = ByteString.newCodedBuilder(getSerializedSize(i));
-                writeTo(i, newCodedBuilder.getCodedOutput());
-                return newCodedBuilder.build();
+                ByteString.CodedBuilder codedBuilderNewCodedBuilder = ByteString.newCodedBuilder(getSerializedSize(i));
+                writeTo(i, codedBuilderNewCodedBuilder.getCodedOutput());
+                return codedBuilderNewCodedBuilder.build();
             } catch (IOException e) {
                 throw new RuntimeException("Serializing to a ByteString should never fail with an IOException", e);
             }
         }
 
         public void writeTo(int i, CodedOutputStream codedOutputStream) throws IOException {
-            for (Long l : this.varint) {
-                codedOutputStream.writeUInt64(i, l.longValue());
+            Iterator<Long> it = this.varint.iterator();
+            while (it.hasNext()) {
+                codedOutputStream.writeUInt64(i, it.next().longValue());
             }
-            for (Integer num : this.fixed32) {
-                codedOutputStream.writeFixed32(i, num.intValue());
+            Iterator<Integer> it2 = this.fixed32.iterator();
+            while (it2.hasNext()) {
+                codedOutputStream.writeFixed32(i, it2.next().intValue());
             }
-            for (Long l2 : this.fixed64) {
-                codedOutputStream.writeFixed64(i, l2.longValue());
+            Iterator<Long> it3 = this.fixed64.iterator();
+            while (it3.hasNext()) {
+                codedOutputStream.writeFixed64(i, it3.next().longValue());
             }
-            for (ByteString byteString : this.lengthDelimited) {
-                codedOutputStream.writeBytes(i, byteString);
+            Iterator<ByteString> it4 = this.lengthDelimited.iterator();
+            while (it4.hasNext()) {
+                codedOutputStream.writeBytes(i, it4.next());
             }
-            for (UnknownFieldSet unknownFieldSet : this.group) {
-                codedOutputStream.writeGroup(i, unknownFieldSet);
+            Iterator<UnknownFieldSet> it5 = this.group.iterator();
+            while (it5.hasNext()) {
+                codedOutputStream.writeGroup(i, it5.next());
             }
         }
 
         public int getSerializedSize(int i) {
-            int i2 = 0;
-            for (Long l : this.varint) {
-                i2 += CodedOutputStream.computeUInt64Size(i, l.longValue());
+            Iterator<Long> it = this.varint.iterator();
+            int iComputeGroupSize = 0;
+            while (it.hasNext()) {
+                iComputeGroupSize += CodedOutputStream.computeUInt64Size(i, it.next().longValue());
             }
-            for (Integer num : this.fixed32) {
-                i2 += CodedOutputStream.computeFixed32Size(i, num.intValue());
+            Iterator<Integer> it2 = this.fixed32.iterator();
+            while (it2.hasNext()) {
+                iComputeGroupSize += CodedOutputStream.computeFixed32Size(i, it2.next().intValue());
             }
-            for (Long l2 : this.fixed64) {
-                i2 += CodedOutputStream.computeFixed64Size(i, l2.longValue());
+            Iterator<Long> it3 = this.fixed64.iterator();
+            while (it3.hasNext()) {
+                iComputeGroupSize += CodedOutputStream.computeFixed64Size(i, it3.next().longValue());
             }
-            for (ByteString byteString : this.lengthDelimited) {
-                i2 += CodedOutputStream.computeBytesSize(i, byteString);
+            Iterator<ByteString> it4 = this.lengthDelimited.iterator();
+            while (it4.hasNext()) {
+                iComputeGroupSize += CodedOutputStream.computeBytesSize(i, it4.next());
             }
-            for (UnknownFieldSet unknownFieldSet : this.group) {
-                i2 += CodedOutputStream.computeGroupSize(i, unknownFieldSet);
+            Iterator<UnknownFieldSet> it5 = this.group.iterator();
+            while (it5.hasNext()) {
+                iComputeGroupSize += CodedOutputStream.computeGroupSize(i, it5.next());
             }
-            return i2;
+            return iComputeGroupSize;
         }
 
         public void writeAsMessageSetExtensionTo(int i, CodedOutputStream codedOutputStream) throws IOException {
-            for (ByteString byteString : this.lengthDelimited) {
-                codedOutputStream.writeRawMessageSetExtension(i, byteString);
+            Iterator<ByteString> it = this.lengthDelimited.iterator();
+            while (it.hasNext()) {
+                codedOutputStream.writeRawMessageSetExtension(i, it.next());
             }
         }
 
@@ -653,31 +682,29 @@ public final class UnknownFieldSet implements MessageLite {
                 }
                 return;
             }
-            for (ByteString byteString : this.lengthDelimited) {
-                writer.writeMessageSetItem(i, byteString);
+            Iterator<ByteString> it = this.lengthDelimited.iterator();
+            while (it.hasNext()) {
+                writer.writeMessageSetItem(i, it.next());
             }
         }
 
         public int getSerializedSizeAsMessageSetExtension(int i) {
-            int i2 = 0;
-            for (ByteString byteString : this.lengthDelimited) {
-                i2 += CodedOutputStream.computeRawMessageSetExtensionSize(i, byteString);
+            Iterator<ByteString> it = this.lengthDelimited.iterator();
+            int iComputeRawMessageSetExtensionSize = 0;
+            while (it.hasNext()) {
+                iComputeRawMessageSetExtensionSize += CodedOutputStream.computeRawMessageSetExtensionSize(i, it.next());
             }
-            return i2;
+            return iComputeRawMessageSetExtensionSize;
         }
 
-        /* loaded from: classes.dex */
         public static final class Builder {
             private Field result;
-
-            static /* synthetic */ Builder access$300() {
-                return create();
-            }
 
             private Builder() {
             }
 
-            private static Builder create() {
+            /* JADX INFO: Access modifiers changed from: private */
+            public static Builder create() {
                 Builder builder = new Builder();
                 builder.result = new Field();
                 return builder;
@@ -800,22 +827,23 @@ public final class UnknownFieldSet implements MessageLite {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class Parser extends AbstractParser<UnknownFieldSet> {
+        /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.Parser
         public UnknownFieldSet parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
-            Builder newBuilder = UnknownFieldSet.newBuilder();
+            Builder builderNewBuilder = UnknownFieldSet.newBuilder();
             try {
-                newBuilder.mergeFrom(codedInputStream);
-                return newBuilder.buildPartial();
+                builderNewBuilder.mergeFrom(codedInputStream);
+                return builderNewBuilder.buildPartial();
             } catch (InvalidProtocolBufferException e) {
-                throw e.setUnfinishedMessage(newBuilder.buildPartial());
+                throw e.setUnfinishedMessage(builderNewBuilder.buildPartial());
             } catch (IOException e2) {
-                throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(newBuilder.buildPartial());
+                throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(builderNewBuilder.buildPartial());
             }
         }
     }
 
+    /* JADX DEBUG: Method merged with bridge method: getParserForType()Lcom/google/oplus/protobuf/Parser; */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public final Parser getParserForType() {
         return PARSER;

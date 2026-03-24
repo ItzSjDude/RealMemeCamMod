@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import java.nio.ByteBuffer;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 abstract class AllocatedBuffer {
     public abstract byte[] array();
 

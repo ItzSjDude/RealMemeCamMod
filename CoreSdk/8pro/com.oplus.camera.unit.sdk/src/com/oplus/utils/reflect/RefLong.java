@@ -2,7 +2,8 @@ package com.oplus.utils.reflect;
 
 import android.util.Log;
 import java.lang.reflect.Field;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefLong extends BaseField<Long> {
     private static final long DEFAULT_VALUE = ((Long) DEFAULT_TYPES.get(Long.class)).longValue();
     private static final String TAG = "RefLong";

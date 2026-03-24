@@ -5,7 +5,8 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.media.Image;
 import com.oplus.ocs.camera.common.parameter.Parameter;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface Camera2DeviceInterface {
     void abortCaptures();
 

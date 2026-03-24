@@ -12,49 +12,45 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.HashMap;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class OTrackContext {
     private static final String TAG = "OTrackContext";
     private static Map<String, OTrackContext> sTrackContextMap = new HashMap();
     private final String mAppId;
     private OTrackConfig mConfig;
+
     @NonNull
     private final Context mContext;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static /* synthetic */ String lambda$createDefaultConfig$0() {
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "createDefaultConfig PackageManager.NameNotFoundException." */
+    static /* synthetic */ String lambda$createDefaultConfig$0() {
         return "createDefaultConfig PackageManager.NameNotFoundException.";
     }
 
     private OTrackContext(String str, @NonNull Context context, @Nullable OTrackConfig oTrackConfig) {
-        OTrackConfig createDefaultConfig;
+        OTrackConfig oTrackConfigCreateDefaultConfig;
         this.mAppId = str;
         this.mContext = context;
         if (oTrackConfig != null) {
-            createDefaultConfig = createDefaultConfig(context, oTrackConfig);
+            oTrackConfigCreateDefaultConfig = createDefaultConfig(context, oTrackConfig);
         } else {
-            createDefaultConfig = createDefaultConfig(context);
+            oTrackConfigCreateDefaultConfig = createDefaultConfig(context);
         }
-        this.mConfig = createDefaultConfig;
+        this.mConfig = oTrackConfigCreateDefaultConfig;
     }
 
     @Nullable
     public static synchronized OTrackContext get(String str) {
-        OTrackContext oTrackContext;
-        synchronized (OTrackContext.class) {
-            oTrackContext = sTrackContextMap.get(str);
-        }
-        return oTrackContext;
+        return sTrackContextMap.get(str);
     }
 
     public static synchronized OTrackContext createIfNeed(String str, @NonNull Context context, @Nullable OTrackConfig oTrackConfig) {
         OTrackContext oTrackContext;
-        synchronized (OTrackContext.class) {
-            oTrackContext = get(str);
-            if (oTrackContext == null) {
-                oTrackContext = new OTrackContext(str, context, oTrackConfig);
-                sTrackContextMap.put(str, oTrackContext);
-            }
+        oTrackContext = get(str);
+        if (oTrackContext == null) {
+            oTrackContext = new OTrackContext(str, context, oTrackConfig);
+            sTrackContextMap.put(str, oTrackContext);
         }
         return oTrackContext;
     }

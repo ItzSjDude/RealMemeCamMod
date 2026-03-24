@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class RefMethod<T> extends BaseRef<T> {
     private static final String TAG = "RefMethod";
     private final Method mMethod;
@@ -61,28 +61,27 @@ public class RefMethod<T> extends BaseRef<T> {
         Method method = null;
         try {
             if (field.isAnnotationPresent(MethodName.class)) {
-                Method method2 = getMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(),
-                        ((MethodName) field.getAnnotation(MethodName.class)).name());
+                Method method2 = getMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(), ((MethodName) field.getAnnotation(MethodName.class)).name());
                 method2.setAccessible(true);
                 return method2;
             }
             int i = 0;
             if (field.isAnnotationPresent(MethodSignature.class)) {
-                String[] params = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
-                Class<?>[] clsArr = new Class[params.length];
-                Class<?>[] clsArr2 = new Class[params.length];
+                String[] strArrParams = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
+                Class<?>[] clsArr = new Class[strArrParams.length];
+                Class<?>[] clsArr2 = new Class[strArrParams.length];
                 boolean z = false;
-                for (int i2 = 0; i2 < params.length; i2++) {
-                    Class<?> protoType = getProtoType(params[i2]);
+                for (int i2 = 0; i2 < strArrParams.length; i2++) {
+                    Class<?> protoType = getProtoType(strArrParams[i2]);
                     if (protoType == null) {
                         try {
-                            protoType = Class.forName(params[i2]);
+                            protoType = Class.forName(strArrParams[i2]);
                         } catch (ClassNotFoundException e) {
                             Log.e(TAG, e.getMessage());
                         }
                     }
                     clsArr[i2] = protoType;
-                    if ("java.util.HashSet".equals(params[i2])) {
+                    if ("java.util.HashSet".equals(strArrParams[i2])) {
                         try {
                             cls2 = Class.forName("android.util.ArraySet");
                         } catch (ClassNotFoundException e2) {
@@ -100,21 +99,19 @@ public class RefMethod<T> extends BaseRef<T> {
                     }
                 }
                 try {
-                    method = getMethod(cls, field, clsArr,
-                            ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                    method = getMethod(cls, field, clsArr, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                 } catch (Exception e3) {
                     Log.e(TAG, e3.getMessage());
                     if (z) {
-                        method = getMethod(cls, field, clsArr2,
-                                ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                        method = getMethod(cls, field, clsArr2, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                     }
                 }
-                Class<?>[] clsArr3 = new Class[params.length];
-                while (i < params.length) {
-                    Class<?> protoType2 = getProtoType(params[i]);
+                Class<?>[] clsArr3 = new Class[strArrParams.length];
+                while (i < strArrParams.length) {
+                    Class<?> protoType2 = getProtoType(strArrParams[i]);
                     if (protoType2 == null) {
                         try {
-                            protoType2 = Class.forName(params[i]);
+                            protoType2 = Class.forName(strArrParams[i]);
                         } catch (ClassNotFoundException e4) {
                             Log.e(TAG, e4.getMessage());
                         }
@@ -122,8 +119,7 @@ public class RefMethod<T> extends BaseRef<T> {
                     clsArr3[i] = protoType2;
                     i++;
                 }
-                Method method3 = getMethod(cls, field, clsArr3,
-                        ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                Method method3 = getMethod(cls, field, clsArr3, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                 method3.setAccessible(true);
                 return method3;
             }
@@ -136,15 +132,18 @@ public class RefMethod<T> extends BaseRef<T> {
                         method4.setAccessible(true);
                         return method4;
                     } catch (Exception e5) {
-                        Log.e(TAG, e5.getMessage());
-                        return method4;
+                        e = e5;
+                        method = method4;
+                        Log.e(TAG, e.getMessage());
+                        return method;
                     }
                 }
                 i++;
             }
             return null;
         } catch (Exception e6) {
-            Log.e(TAG, e6.getMessage());
+            e = e6;
+            Log.e(TAG, e.getMessage());
             return method;
         }
     }

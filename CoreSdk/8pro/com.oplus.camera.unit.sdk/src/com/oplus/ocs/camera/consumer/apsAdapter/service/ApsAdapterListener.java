@@ -8,10 +8,10 @@ import com.oplus.ocs.camera.consumer.apsAdapter.ApsCameraRequestTag;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsTotalResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsAdapterListener {
 
-    /* loaded from: classes.dex */
     public interface ApsServiceListener {
         void onFinishAddFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo);
 
@@ -24,7 +24,6 @@ public class ApsAdapterListener {
         void reportDataToDcs(StaticsConstant.EventType eventType, String str, int i);
     }
 
-    /* loaded from: classes.dex */
     public interface CaptureCallback {
         void onApsCaptureCompleted(ApsResult apsResult, ApsTotalResult apsTotalResult, ApsCameraRequestTag apsCameraRequestTag);
 

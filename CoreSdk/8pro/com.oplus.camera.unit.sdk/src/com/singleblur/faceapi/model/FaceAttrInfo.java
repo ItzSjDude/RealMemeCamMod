@@ -1,5 +1,6 @@
 package com.singleblur.faceapi.model;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FaceAttrInfo {
     public int age;
     public int attractive;

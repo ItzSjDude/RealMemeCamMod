@@ -3,7 +3,8 @@ package com.google.oplus.protobuf;
 import com.google.oplus.protobuf.Writer;
 import java.io.IOException;
 import java.util.Arrays;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class UnknownFieldSetLite {
     private static final UnknownFieldSetLite DEFAULT_INSTANCE = new UnknownFieldSetLite(0, new int[0], new Object[0], false);
     private static final int MIN_CAPACITY = 8;
@@ -17,19 +18,17 @@ public final class UnknownFieldSetLite {
         return DEFAULT_INSTANCE;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static UnknownFieldSetLite newInstance() {
+    static UnknownFieldSetLite newInstance() {
         return new UnknownFieldSetLite();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public static UnknownFieldSetLite mutableCopyOf(UnknownFieldSetLite unknownFieldSetLite, UnknownFieldSetLite unknownFieldSetLite2) {
+    static UnknownFieldSetLite mutableCopyOf(UnknownFieldSetLite unknownFieldSetLite, UnknownFieldSetLite unknownFieldSetLite2) {
         int i = unknownFieldSetLite.count + unknownFieldSetLite2.count;
-        int[] copyOf = Arrays.copyOf(unknownFieldSetLite.tags, i);
-        System.arraycopy(unknownFieldSetLite2.tags, 0, copyOf, unknownFieldSetLite.count, unknownFieldSetLite2.count);
-        Object[] copyOf2 = Arrays.copyOf(unknownFieldSetLite.objects, i);
-        System.arraycopy(unknownFieldSetLite2.objects, 0, copyOf2, unknownFieldSetLite.count, unknownFieldSetLite2.count);
-        return new UnknownFieldSetLite(i, copyOf, copyOf2, true);
+        int[] iArrCopyOf = Arrays.copyOf(unknownFieldSetLite.tags, i);
+        System.arraycopy(unknownFieldSetLite2.tags, 0, iArrCopyOf, unknownFieldSetLite.count, unknownFieldSetLite2.count);
+        Object[] objArrCopyOf = Arrays.copyOf(unknownFieldSetLite.objects, i);
+        System.arraycopy(unknownFieldSetLite2.objects, 0, objArrCopyOf, unknownFieldSetLite.count, unknownFieldSetLite2.count);
+        return new UnknownFieldSetLite(i, iArrCopyOf, objArrCopyOf, true);
     }
 
     private UnknownFieldSetLite() {
@@ -83,8 +82,7 @@ public final class UnknownFieldSetLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public void writeAsMessageSetTo(Writer writer) throws IOException {
+    void writeAsMessageSetTo(Writer writer) throws IOException {
         if (writer.fieldOrder() == Writer.FieldOrder.DESCENDING) {
             for (int i = this.count - 1; i >= 0; i--) {
                 writer.writeMessageSetItem(WireFormat.getTagFieldNumber(this.tags[i]), this.objects[i]);
@@ -116,17 +114,24 @@ public final class UnknownFieldSetLite {
         int tagWireType = WireFormat.getTagWireType(i);
         if (tagWireType == 0) {
             writer.writeInt64(tagFieldNumber, ((Long) obj).longValue());
-        } else if (tagWireType == 1) {
+            return;
+        }
+        if (tagWireType == 1) {
             writer.writeFixed64(tagFieldNumber, ((Long) obj).longValue());
-        } else if (tagWireType == 2) {
+            return;
+        }
+        if (tagWireType == 2) {
             writer.writeBytes(tagFieldNumber, (ByteString) obj);
-        } else if (tagWireType != 3) {
+            return;
+        }
+        if (tagWireType != 3) {
             if (tagWireType == 5) {
                 writer.writeFixed32(tagFieldNumber, ((Integer) obj).intValue());
                 return;
             }
             throw new RuntimeException(InvalidProtocolBufferException.invalidWireType());
-        } else if (writer.fieldOrder() == Writer.FieldOrder.ASCENDING) {
+        }
+        if (writer.fieldOrder() == Writer.FieldOrder.ASCENDING) {
             writer.writeStartGroup(tagFieldNumber);
             ((UnknownFieldSetLite) obj).writeTo(writer);
             writer.writeEndGroup(tagFieldNumber);
@@ -142,16 +147,16 @@ public final class UnknownFieldSetLite {
         if (i != -1) {
             return i;
         }
-        int i2 = 0;
-        for (int i3 = 0; i3 < this.count; i3++) {
-            i2 += CodedOutputStream.computeRawMessageSetExtensionSize(WireFormat.getTagFieldNumber(this.tags[i3]), (ByteString) this.objects[i3]);
+        int iComputeRawMessageSetExtensionSize = 0;
+        for (int i2 = 0; i2 < this.count; i2++) {
+            iComputeRawMessageSetExtensionSize += CodedOutputStream.computeRawMessageSetExtensionSize(WireFormat.getTagFieldNumber(this.tags[i2]), (ByteString) this.objects[i2]);
         }
-        this.memoizedSerializedSize = i2;
-        return i2;
+        this.memoizedSerializedSize = iComputeRawMessageSetExtensionSize;
+        return iComputeRawMessageSetExtensionSize;
     }
 
     public int getSerializedSize() {
-        int computeUInt64Size;
+        int iComputeUInt64Size;
         int i = this.memoizedSerializedSize;
         if (i != -1) {
             return i;
@@ -162,19 +167,19 @@ public final class UnknownFieldSetLite {
             int tagFieldNumber = WireFormat.getTagFieldNumber(i4);
             int tagWireType = WireFormat.getTagWireType(i4);
             if (tagWireType == 0) {
-                computeUInt64Size = CodedOutputStream.computeUInt64Size(tagFieldNumber, ((Long) this.objects[i3]).longValue());
+                iComputeUInt64Size = CodedOutputStream.computeUInt64Size(tagFieldNumber, ((Long) this.objects[i3]).longValue());
             } else if (tagWireType == 1) {
-                computeUInt64Size = CodedOutputStream.computeFixed64Size(tagFieldNumber, ((Long) this.objects[i3]).longValue());
+                iComputeUInt64Size = CodedOutputStream.computeFixed64Size(tagFieldNumber, ((Long) this.objects[i3]).longValue());
             } else if (tagWireType == 2) {
-                computeUInt64Size = CodedOutputStream.computeBytesSize(tagFieldNumber, (ByteString) this.objects[i3]);
+                iComputeUInt64Size = CodedOutputStream.computeBytesSize(tagFieldNumber, (ByteString) this.objects[i3]);
             } else if (tagWireType == 3) {
-                computeUInt64Size = (CodedOutputStream.computeTagSize(tagFieldNumber) * 2) + ((UnknownFieldSetLite) this.objects[i3]).getSerializedSize();
+                iComputeUInt64Size = (CodedOutputStream.computeTagSize(tagFieldNumber) * 2) + ((UnknownFieldSetLite) this.objects[i3]).getSerializedSize();
             } else if (tagWireType == 5) {
-                computeUInt64Size = CodedOutputStream.computeFixed32Size(tagFieldNumber, ((Integer) this.objects[i3]).intValue());
+                iComputeUInt64Size = CodedOutputStream.computeFixed32Size(tagFieldNumber, ((Integer) this.objects[i3]).intValue());
             } else {
                 throw new IllegalStateException(InvalidProtocolBufferException.invalidWireType());
             }
-            i2 += computeUInt64Size;
+            i2 += iComputeUInt64Size;
         }
         this.memoizedSerializedSize = i2;
         return i2;
@@ -202,12 +207,12 @@ public final class UnknownFieldSetLite {
         if (this == obj) {
             return true;
         }
-        if (obj != null && (obj instanceof UnknownFieldSetLite)) {
-            UnknownFieldSetLite unknownFieldSetLite = (UnknownFieldSetLite) obj;
-            int i = this.count;
-            return i == unknownFieldSetLite.count && tagsEquals(this.tags, unknownFieldSetLite.tags, i) && objectsEquals(this.objects, unknownFieldSetLite.objects, this.count);
+        if (obj == null || !(obj instanceof UnknownFieldSetLite)) {
+            return false;
         }
-        return false;
+        UnknownFieldSetLite unknownFieldSetLite = (UnknownFieldSetLite) obj;
+        int i = this.count;
+        return i == unknownFieldSetLite.count && tagsEquals(this.tags, unknownFieldSetLite.tags, i) && objectsEquals(this.objects, unknownFieldSetLite.objects, this.count);
     }
 
     private static int hashCode(int[] iArr, int i) {
@@ -219,11 +224,11 @@ public final class UnknownFieldSetLite {
     }
 
     private static int hashCode(Object[] objArr, int i) {
-        int i2 = 17;
-        for (int i3 = 0; i3 < i; i3++) {
-            i2 = (i2 * 31) + objArr[i3].hashCode();
+        int iHashCode = 17;
+        for (int i2 = 0; i2 < i; i2++) {
+            iHashCode = (iHashCode * 31) + objArr[i2].hashCode();
         }
-        return i2;
+        return iHashCode;
     }
 
     public int hashCode() {
@@ -231,15 +236,13 @@ public final class UnknownFieldSetLite {
         return ((((527 + i) * 31) + hashCode(this.tags, i)) * 31) + hashCode(this.objects, this.count);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public final void printWithIndent(StringBuilder sb, int i) {
+    final void printWithIndent(StringBuilder sb, int i) {
         for (int i2 = 0; i2 < this.count; i2++) {
             MessageLiteToString.printField(sb, i, String.valueOf(WireFormat.getTagFieldNumber(this.tags[i2])), this.objects[i2]);
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public void storeField(int i, Object obj) {
+    void storeField(int i, Object obj) {
         checkMutable();
         ensureCapacity();
         int[] iArr = this.tags;
@@ -259,39 +262,40 @@ public final class UnknownFieldSetLite {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public boolean mergeFieldFrom(int i, CodedInputStream codedInputStream) throws IOException {
+    boolean mergeFieldFrom(int i, CodedInputStream codedInputStream) throws IOException {
         checkMutable();
         int tagFieldNumber = WireFormat.getTagFieldNumber(i);
         int tagWireType = WireFormat.getTagWireType(i);
         if (tagWireType == 0) {
             storeField(i, Long.valueOf(codedInputStream.readInt64()));
             return true;
-        } else if (tagWireType == 1) {
+        }
+        if (tagWireType == 1) {
             storeField(i, Long.valueOf(codedInputStream.readFixed64()));
             return true;
-        } else if (tagWireType == 2) {
+        }
+        if (tagWireType == 2) {
             storeField(i, codedInputStream.readBytes());
             return true;
-        } else if (tagWireType == 3) {
+        }
+        if (tagWireType == 3) {
             UnknownFieldSetLite unknownFieldSetLite = new UnknownFieldSetLite();
             unknownFieldSetLite.mergeFrom(codedInputStream);
             codedInputStream.checkLastTagWas(WireFormat.makeTag(tagFieldNumber, 4));
             storeField(i, unknownFieldSetLite);
             return true;
-        } else if (tagWireType != 4) {
-            if (tagWireType == 5) {
-                storeField(i, Integer.valueOf(codedInputStream.readFixed32()));
-                return true;
-            }
-            throw InvalidProtocolBufferException.invalidWireType();
-        } else {
+        }
+        if (tagWireType == 4) {
             return false;
         }
+        if (tagWireType == 5) {
+            storeField(i, Integer.valueOf(codedInputStream.readFixed32()));
+            return true;
+        }
+        throw InvalidProtocolBufferException.invalidWireType();
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public UnknownFieldSetLite mergeVarintField(int i, int i2) {
+    UnknownFieldSetLite mergeVarintField(int i, int i2) {
         checkMutable();
         if (i == 0) {
             throw new IllegalArgumentException("Zero is not a valid field number.");
@@ -300,8 +304,7 @@ public final class UnknownFieldSetLite {
         return this;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public UnknownFieldSetLite mergeLengthDelimitedField(int i, ByteString byteString) {
+    UnknownFieldSetLite mergeLengthDelimitedField(int i, ByteString byteString) {
         checkMutable();
         if (i == 0) {
             throw new IllegalArgumentException("Zero is not a valid field number.");
@@ -311,13 +314,13 @@ public final class UnknownFieldSetLite {
     }
 
     private UnknownFieldSetLite mergeFrom(CodedInputStream codedInputStream) throws IOException {
-        int readTag;
+        int tag;
         do {
-            readTag = codedInputStream.readTag();
-            if (readTag == 0) {
+            tag = codedInputStream.readTag();
+            if (tag == 0) {
                 break;
             }
-        } while (mergeFieldFrom(readTag, codedInputStream));
+        } while (mergeFieldFrom(tag, codedInputStream));
         return this;
     }
 }

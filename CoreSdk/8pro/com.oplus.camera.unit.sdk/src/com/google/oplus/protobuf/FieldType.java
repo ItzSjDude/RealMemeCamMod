@@ -3,7 +3,8 @@ package com.google.oplus.protobuf;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.TypeVariable;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public enum FieldType {
     DOUBLE(0, Collection.SCALAR, JavaType.DOUBLE),
     FLOAT(1, Collection.SCALAR, JavaType.FLOAT),
@@ -56,7 +57,7 @@ public enum FieldType {
     SINT64_LIST_PACKED(48, Collection.PACKED_VECTOR, JavaType.LONG),
     GROUP_LIST(49, Collection.VECTOR, JavaType.MESSAGE),
     MAP(50, Collection.MAP, JavaType.VOID);
-    
+
     private static final java.lang.reflect.Type[] EMPTY_TYPES = new java.lang.reflect.Type[0];
     private static final FieldType[] VALUES;
     private final Collection collection;
@@ -66,9 +67,9 @@ public enum FieldType {
     private final boolean primitiveScalar;
 
     static {
-        FieldType[] values = values();
-        VALUES = new FieldType[values.length];
-        for (FieldType fieldType : values) {
+        FieldType[] fieldTypeArrValues = values();
+        VALUES = new FieldType[fieldTypeArrValues.length];
+        for (FieldType fieldType : fieldTypeArrValues) {
             VALUES[fieldType.id] = fieldType;
         }
     }
@@ -79,19 +80,15 @@ public enum FieldType {
         this.collection = collection;
         this.javaType = javaType;
         int i3 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$FieldType$Collection[collection.ordinal()];
-        boolean z = true;
-        if (i3 == 1) {
-            this.elementType = javaType.getBoxedType();
-        } else if (i3 == 2) {
+        if (i3 == 1 || i3 == 2) {
             this.elementType = javaType.getBoxedType();
         } else {
             this.elementType = null;
         }
-        this.primitiveScalar = (collection != Collection.SCALAR || (i2 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$JavaType[javaType.ordinal()]) == 1 || i2 == 2 || i2 == 3) ? false : z;
+        this.primitiveScalar = (collection != Collection.SCALAR || (i2 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$JavaType[javaType.ordinal()]) == 1 || i2 == 2 || i2 == 3) ? false : true;
     }
 
-    /* renamed from: com.google.oplus.protobuf.FieldType$1  reason: invalid class name */
-    /* loaded from: classes.dex */
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.FieldType$1, reason: invalid class name */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$FieldType$Collection;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$JavaType;
@@ -165,33 +162,32 @@ public enum FieldType {
 
     private boolean isValidForList(java.lang.reflect.Field field) {
         Class<?> type = field.getType();
-        if (this.javaType.getType().isAssignableFrom(type)) {
-            java.lang.reflect.Type[] typeArr = EMPTY_TYPES;
-            if (field.getGenericType() instanceof ParameterizedType) {
-                typeArr = ((ParameterizedType) field.getGenericType()).getActualTypeArguments();
-            }
-            java.lang.reflect.Type listParameter = getListParameter(type, typeArr);
-            if (listParameter instanceof Class) {
-                return this.elementType.isAssignableFrom((Class) listParameter);
-            }
-            return true;
+        if (!this.javaType.getType().isAssignableFrom(type)) {
+            return false;
         }
-        return false;
+        java.lang.reflect.Type[] actualTypeArguments = EMPTY_TYPES;
+        if (field.getGenericType() instanceof ParameterizedType) {
+            actualTypeArguments = ((ParameterizedType) field.getGenericType()).getActualTypeArguments();
+        }
+        java.lang.reflect.Type listParameter = getListParameter(type, actualTypeArguments);
+        if (listParameter instanceof Class) {
+            return this.elementType.isAssignableFrom((Class) listParameter);
+        }
+        return true;
     }
 
     public static FieldType forId(int i) {
-        if (i >= 0) {
-            FieldType[] fieldTypeArr = VALUES;
-            if (i >= fieldTypeArr.length) {
-                return null;
-            }
-            return fieldTypeArr[i];
+        if (i < 0) {
+            return null;
         }
-        return null;
+        FieldType[] fieldTypeArr = VALUES;
+        if (i >= fieldTypeArr.length) {
+            return null;
+        }
+        return fieldTypeArr[i];
     }
 
     private static java.lang.reflect.Type getGenericSuperList(Class<?> cls) {
-        java.lang.reflect.Type[] genericInterfaces;
         for (java.lang.reflect.Type type : cls.getGenericInterfaces()) {
             if ((type instanceof ParameterizedType) && List.class.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
                 return type;
@@ -225,13 +221,13 @@ public enum FieldType {
                                 if (i3 >= typeParameters.length) {
                                     z = false;
                                     break;
-                                } else if (type == typeParameters[i3]) {
+                                }
+                                if (type == typeParameters[i3]) {
                                     actualTypeArguments[i2] = typeArr[i3];
                                     z = true;
                                     break;
-                                } else {
-                                    i3++;
                                 }
+                                i3++;
                             }
                             if (!z) {
                                 throw new RuntimeException("Unable to find replacement for " + type);
@@ -258,21 +254,21 @@ public enum FieldType {
                         }
                     }
                 }
-            } else if (typeArr.length != 1) {
-                throw new RuntimeException("Unable to identify parameter type for List<T>");
             } else {
+                if (typeArr.length != 1) {
+                    throw new RuntimeException("Unable to identify parameter type for List<T>");
+                }
                 return typeArr[0];
             }
         }
     }
 
-    /* loaded from: classes.dex */
     enum Collection {
         SCALAR(false),
         VECTOR(true),
         PACKED_VECTOR(true),
         MAP(false);
-        
+
         private final boolean isList;
 
         Collection(boolean z) {

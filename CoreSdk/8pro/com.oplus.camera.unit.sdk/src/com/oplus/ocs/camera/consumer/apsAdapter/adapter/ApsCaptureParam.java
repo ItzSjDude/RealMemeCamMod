@@ -3,7 +3,8 @@ package com.oplus.ocs.camera.consumer.apsAdapter.adapter;
 import android.hardware.camera2.CameraMetadata;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import java.util.Arrays;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsCaptureParam {
     private String m10BitsEnable;
     private String mCaptureEvList;

@@ -3,15 +3,15 @@ package com.oplus.ocs.camera.producer.info;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraIdType {
     public static final int MULTI_DEVICE_ID = 100;
     public static final int MULTI_DEVICE_ID_FOLDER = 101;
     private int mCameraId;
     private String mCameraType;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public CameraIdType(String str, int i) {
+    CameraIdType(String str, int i) {
         this.mCameraType = str;
         this.mCameraId = i;
     }
@@ -28,14 +28,14 @@ public class CameraIdType {
             arrayList.add(CameraCharacteristicsHelper.getCameraIdType(CameraCharacteristicsHelper.getCameraIdType("rear_main").getCameraId()));
             arrayList.add(CameraCharacteristicsHelper.getCameraIdType(CameraCharacteristicsHelper.getCameraIdType("front_main").getCameraId()));
             return arrayList;
-        } else if (i == 101) {
+        }
+        if (i == 101) {
             ArrayList arrayList2 = new ArrayList();
             arrayList2.add(CameraCharacteristicsHelper.getCameraIdType(CameraCharacteristicsHelper.getCameraIdType("rear_main").getCameraId()));
             arrayList2.add(CameraCharacteristicsHelper.getCameraIdType(CameraCharacteristicsHelper.getCameraIdType("front_wide").getCameraId()));
             return arrayList2;
-        } else {
-            return Collections.singletonList(this);
         }
+        return Collections.singletonList(this);
     }
 
     public String getCameraType() {

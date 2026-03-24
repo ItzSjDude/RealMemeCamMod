@@ -14,9 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public abstract class BinaryWriter extends ByteOutput implements Writer {
+/* JADX INFO: loaded from: classes.dex */
+abstract class BinaryWriter extends ByteOutput implements Writer {
     public static final int DEFAULT_CHUNK_SIZE = 4096;
     private static final int MAP_KEY_NUMBER = 1;
     private static final int MAP_VALUE_NUMBER = 2;
@@ -73,6 +72,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
 
     abstract void writeVarint64(long j);
 
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.BufferAllocator), (r2v0 int) A[MD:(com.google.oplus.protobuf.BufferAllocator, int):void (m)] (LINE:69) call: com.google.oplus.protobuf.BinaryWriter.<init>(com.google.oplus.protobuf.BufferAllocator, int):void type: THIS */
     /* synthetic */ BinaryWriter(BufferAllocator bufferAllocator, int i, AnonymousClass1 anonymousClass1) {
         this(bufferAllocator, i);
     }
@@ -104,7 +104,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
     }
 
     static boolean isUnsafeDirectSupported() {
-        return UnsafeDirectWriter.access$000();
+        return UnsafeDirectWriter.isSupported();
     }
 
     static BinaryWriter newSafeHeapInstance(BufferAllocator bufferAllocator, int i) {
@@ -616,13 +616,8 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /*
-     * renamed from: com.google.oplus.protobuf.BinaryWriter$1 reason: invalid class
-     * name
-     */
-    /* loaded from: classes.dex */
-    public static /* synthetic */ class AnonymousClass1 {
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.BinaryWriter$1, reason: invalid class name */
+    static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
         static {
@@ -699,8 +694,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    static final void writeMapEntryField(Writer writer, int i, WireFormat.FieldType fieldType, Object obj)
-            throws IOException {
+    static final void writeMapEntryField(Writer writer, int i, WireFormat.FieldType fieldType, Object obj) throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 writer.writeBool(i, ((Boolean) obj).booleanValue());
@@ -754,10 +748,11 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
                 if (obj instanceof Internal.EnumLite) {
                     writer.writeEnum(i, ((Internal.EnumLite) obj).getNumber());
                     return;
-                } else if (obj instanceof Integer) {
-                    writer.writeEnum(i, ((Integer) obj).intValue());
-                    return;
                 } else {
+                    if (obj instanceof Integer) {
+                        writer.writeEnum(i, ((Integer) obj).intValue());
+                        return;
+                    }
                     throw new IllegalArgumentException("Unexpected type for enum in map.");
                 }
             default:
@@ -853,9 +848,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         return this.alloc.allocateDirectBuffer(Math.max(i, this.chunkSize));
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class SafeHeapWriter extends BinaryWriter {
+    private static final class SafeHeapWriter extends BinaryWriter {
         private AllocatedBuffer allocatedBuffer;
         private byte[] buffer;
         private int limit;
@@ -897,11 +890,11 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             this.buffers.addFirst(allocatedBuffer);
             this.allocatedBuffer = allocatedBuffer;
             this.buffer = allocatedBuffer.array();
-            int arrayOffset = allocatedBuffer.arrayOffset();
-            this.limit = allocatedBuffer.limit() + arrayOffset;
-            int position = arrayOffset + allocatedBuffer.position();
-            this.offset = position;
-            this.offsetMinusOne = position - 1;
+            int iArrayOffset = allocatedBuffer.arrayOffset();
+            this.limit = allocatedBuffer.limit() + iArrayOffset;
+            int iPosition = iArrayOffset + allocatedBuffer.position();
+            this.offset = iPosition;
+            this.offsetMinusOne = iPosition - 1;
             int i = this.limit - 1;
             this.limitMinusOne = i;
             this.pos = i;
@@ -980,8 +973,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeString(int i, String str) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             writeString(str);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -1001,8 +995,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             Protobuf.getInstance().writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -1010,8 +1005,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj, Schema schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             schema.writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -1072,9 +1068,13 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         void writeVarint32(int i) {
             if ((i & (-128)) == 0) {
                 writeVarint32OneByte(i);
-            } else if ((i & (-16384)) == 0) {
+                return;
+            }
+            if ((i & (-16384)) == 0) {
                 writeVarint32TwoBytes(i);
-            } else if (((-2097152) & i) == 0) {
+                return;
+            }
+            if (((-2097152) & i) == 0) {
                 writeVarint32ThreeBytes(i);
             } else if (((-268435456) & i) == 0) {
                 writeVarint32FourBytes(i);
@@ -1143,36 +1143,34 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             switch (BinaryWriter.computeUInt64SizeNoTag(j)) {
                 case 1:
                     writeVarint64OneByte(j);
-                    return;
+                    break;
                 case 2:
                     writeVarint64TwoBytes(j);
-                    return;
+                    break;
                 case 3:
                     writeVarint64ThreeBytes(j);
-                    return;
+                    break;
                 case 4:
                     writeVarint64FourBytes(j);
-                    return;
+                    break;
                 case 5:
                     writeVarint64FiveBytes(j);
-                    return;
+                    break;
                 case 6:
                     writeVarint64SixBytes(j);
-                    return;
+                    break;
                 case 7:
                     writeVarint64SevenBytes(j);
-                    return;
+                    break;
                 case 8:
                     writeVarint64EightBytes(j);
-                    return;
+                    break;
                 case 9:
                     writeVarint64NineBytes(j);
-                    return;
+                    break;
                 case 10:
                     writeVarint64TenBytes(j);
-                    return;
-                default:
-                    return;
+                    break;
             }
         }
 
@@ -1377,12 +1375,12 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             int i;
             int i2;
             int i3;
-            char charAt;
+            char cCharAt;
             requireSpace(str.length());
             int length = str.length() - 1;
             this.pos -= length;
-            while (length >= 0 && (charAt = str.charAt(length)) < 128) {
-                this.buffer[this.pos + length] = (byte) charAt;
+            while (length >= 0 && (cCharAt = str.charAt(length)) < 128) {
+                this.buffer[this.pos + length] = (byte) cCharAt;
                 length--;
             }
             if (length == -1) {
@@ -1391,45 +1389,46 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             }
             this.pos += length;
             while (length >= 0) {
-                char charAt2 = str.charAt(length);
-                if (charAt2 < 128 && (i3 = this.pos) > this.offsetMinusOne) {
+                char cCharAt2 = str.charAt(length);
+                if (cCharAt2 < 128 && (i3 = this.pos) > this.offsetMinusOne) {
                     byte[] bArr = this.buffer;
                     this.pos = i3 - 1;
-                    bArr[i3] = (byte) charAt2;
-                } else if (charAt2 < 2048 && (i2 = this.pos) > this.offset) {
+                    bArr[i3] = (byte) cCharAt2;
+                } else if (cCharAt2 < 2048 && (i2 = this.pos) > this.offset) {
                     byte[] bArr2 = this.buffer;
                     int i4 = i2 - 1;
-                    bArr2[i2] = (byte) ((charAt2 & '?') | 128);
+                    bArr2[i2] = (byte) ((cCharAt2 & '?') | 128);
                     this.pos = i4 - 1;
-                    bArr2[i4] = (byte) ((charAt2 >>> 6) | 960);
-                } else if ((charAt2 < 55296 || 57343 < charAt2) && (i = this.pos) > this.offset + 1) {
+                    bArr2[i4] = (byte) ((cCharAt2 >>> 6) | 960);
+                } else if ((cCharAt2 < 55296 || 57343 < cCharAt2) && (i = this.pos) > this.offset + 1) {
                     byte[] bArr3 = this.buffer;
                     int i5 = i - 1;
-                    bArr3[i] = (byte) ((charAt2 & '?') | 128);
+                    bArr3[i] = (byte) ((cCharAt2 & '?') | 128);
                     int i6 = i5 - 1;
-                    bArr3[i5] = (byte) (((charAt2 >>> 6) & 63) | 128);
+                    bArr3[i5] = (byte) (((cCharAt2 >>> 6) & 63) | 128);
                     this.pos = i6 - 1;
-                    bArr3[i6] = (byte) ((charAt2 >>> '\f') | 480);
-                } else if (this.pos > this.offset + 2) {
-                    if (length != 0) {
-                        char charAt3 = str.charAt(length - 1);
-                        if (Character.isSurrogatePair(charAt3, charAt2)) {
-                            length--;
-                            int codePoint = Character.toCodePoint(charAt3, charAt2);
-                            byte[] bArr4 = this.buffer;
-                            int i7 = this.pos;
-                            int i8 = i7 - 1;
-                            bArr4[i7] = (byte) ((codePoint & 63) | 128);
-                            int i9 = i8 - 1;
-                            bArr4[i8] = (byte) (((codePoint >>> 6) & 63) | 128);
-                            int i10 = i9 - 1;
-                            bArr4[i9] = (byte) (((codePoint >>> 12) & 63) | 128);
-                            this.pos = i10 - 1;
-                            bArr4[i10] = (byte) ((codePoint >>> 18) | 240);
-                        }
-                    }
-                    throw new Utf8.UnpairedSurrogateException(length - 1, length);
+                    bArr3[i6] = (byte) ((cCharAt2 >>> '\f') | 480);
                 } else {
+                    if (this.pos > this.offset + 2) {
+                        if (length != 0) {
+                            char cCharAt3 = str.charAt(length - 1);
+                            if (Character.isSurrogatePair(cCharAt3, cCharAt2)) {
+                                length--;
+                                int codePoint = Character.toCodePoint(cCharAt3, cCharAt2);
+                                byte[] bArr4 = this.buffer;
+                                int i7 = this.pos;
+                                int i8 = i7 - 1;
+                                bArr4[i7] = (byte) ((codePoint & 63) | 128);
+                                int i9 = i8 - 1;
+                                bArr4[i8] = (byte) (((codePoint >>> 6) & 63) | 128);
+                                int i10 = i9 - 1;
+                                bArr4[i9] = (byte) (((codePoint >>> 12) & 63) | 128);
+                                this.pos = i10 - 1;
+                                bArr4[i10] = (byte) ((codePoint >>> 18) | 240);
+                            }
+                        }
+                        throw new Utf8.UnpairedSurrogateException(length - 1, length);
+                    }
                     requireSpace(length);
                     length++;
                 }
@@ -1461,35 +1460,35 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
                 this.totalDoneBytes += i2;
                 this.buffers.addFirst(AllocatedBuffer.wrap(bArr, i, i2));
                 nextBuffer();
-                return;
+            } else {
+                int i3 = this.pos - i2;
+                this.pos = i3;
+                System.arraycopy(bArr, i, this.buffer, i3 + 1, i2);
             }
-            int i3 = this.pos - i2;
-            this.pos = i3;
-            System.arraycopy(bArr, i, this.buffer, i3 + 1, i2);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                nextBuffer(remaining);
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                nextBuffer(iRemaining);
             }
-            int i = this.pos - remaining;
+            int i = this.pos - iRemaining;
             this.pos = i;
-            byteBuffer.get(this.buffer, i + 1, remaining);
+            byteBuffer.get(this.buffer, i + 1, iRemaining);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                this.totalDoneBytes += remaining;
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                this.totalDoneBytes += iRemaining;
                 this.buffers.addFirst(AllocatedBuffer.wrap(byteBuffer));
                 nextBuffer();
             }
-            int i = this.pos - remaining;
+            int i = this.pos - iRemaining;
             this.pos = i;
-            byteBuffer.get(this.buffer, i + 1, remaining);
+            byteBuffer.get(this.buffer, i + 1, iRemaining);
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -1500,9 +1499,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class UnsafeHeapWriter extends BinaryWriter {
+    private static final class UnsafeHeapWriter extends BinaryWriter {
         private AllocatedBuffer allocatedBuffer;
         private byte[] buffer;
         private long limit;
@@ -1551,11 +1548,11 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             this.buffers.addFirst(allocatedBuffer);
             this.allocatedBuffer = allocatedBuffer;
             this.buffer = allocatedBuffer.array();
-            int arrayOffset = allocatedBuffer.arrayOffset();
-            this.limit = allocatedBuffer.limit() + arrayOffset;
-            long position = arrayOffset + allocatedBuffer.position();
-            this.offset = position;
-            this.offsetMinusOne = position - 1;
+            int iArrayOffset = allocatedBuffer.arrayOffset();
+            this.limit = allocatedBuffer.limit() + iArrayOffset;
+            long jPosition = iArrayOffset + allocatedBuffer.position();
+            this.offset = jPosition;
+            this.offsetMinusOne = jPosition - 1;
             long j = this.limit - 1;
             this.limitMinusOne = j;
             this.pos = j;
@@ -1634,8 +1631,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeString(int i, String str) {
             int totalBytesWritten = getTotalBytesWritten();
             writeString(str);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -1655,8 +1653,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             Protobuf.getInstance().writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -1664,8 +1663,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj, Schema schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             schema.writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -1726,9 +1726,13 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         void writeVarint32(int i) {
             if ((i & (-128)) == 0) {
                 writeVarint32OneByte(i);
-            } else if ((i & (-16384)) == 0) {
+                return;
+            }
+            if ((i & (-16384)) == 0) {
                 writeVarint32TwoBytes(i);
-            } else if (((-2097152) & i) == 0) {
+                return;
+            }
+            if (((-2097152) & i) == 0) {
                 writeVarint32ThreeBytes(i);
             } else if (((-268435456) & i) == 0) {
                 writeVarint32FourBytes(i);
@@ -1817,36 +1821,34 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             switch (BinaryWriter.computeUInt64SizeNoTag(j)) {
                 case 1:
                     writeVarint64OneByte(j);
-                    return;
+                    break;
                 case 2:
                     writeVarint64TwoBytes(j);
-                    return;
+                    break;
                 case 3:
                     writeVarint64ThreeBytes(j);
-                    return;
+                    break;
                 case 4:
                     writeVarint64FourBytes(j);
-                    return;
+                    break;
                 case 5:
                     writeVarint64FiveBytes(j);
-                    return;
+                    break;
                 case 6:
                     writeVarint64SixBytes(j);
-                    return;
+                    break;
                 case 7:
                     writeVarint64SevenBytes(j);
-                    return;
+                    break;
                 case 8:
                     writeVarint64EightBytes(j);
-                    return;
+                    break;
                 case 9:
                     writeVarint64NineBytes(j);
-                    return;
+                    break;
                 case 10:
                     writeVarint64TenBytes(j);
-                    return;
-                default:
-                    return;
+                    break;
             }
         }
 
@@ -2156,93 +2158,96 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             UnsafeUtil.putByte(bArr8, j9, (byte) (((int) j) & 255));
         }
 
+        /* JADX DEBUG: Move duplicate insns, count: 1 to block B:3:0x000d */
+        /* JADX WARN: Removed duplicated region for block: B:17:0x0048  */
+        /* JADX WARN: Removed duplicated region for block: B:22:0x0073  */
+        /* JADX WARN: Removed duplicated region for block: B:29:0x00b5  */
         @Override // com.google.oplus.protobuf.BinaryWriter
+        /*
+            Code decompiled incorrectly, please refer to instructions dump.
+        */
         void writeString(String str) {
-            char charAt;
+            char cCharAt;
             requireSpace(str.length());
             int length = str.length();
             while (true) {
                 length--;
-                if (length < 0 || (charAt = str.charAt(length)) >= 128) {
+                if (length < 0 || (cCharAt = str.charAt(length)) >= 128) {
                     break;
                 }
                 byte[] bArr = this.buffer;
                 long j = this.pos;
                 this.pos = j - 1;
-                UnsafeUtil.putByte(bArr, j, (byte) charAt);
+                UnsafeUtil.putByte(bArr, j, (byte) cCharAt);
             }
             if (length == -1) {
                 return;
             }
             while (length >= 0) {
-                char charAt2 = str.charAt(length);
-                if (charAt2 < 128) {
+                char cCharAt2 = str.charAt(length);
+                if (cCharAt2 < 128) {
                     long j2 = this.pos;
                     if (j2 > this.offsetMinusOne) {
                         byte[] bArr2 = this.buffer;
                         this.pos = j2 - 1;
-                        UnsafeUtil.putByte(bArr2, j2, (byte) charAt2);
-                        length--;
-                    }
-                }
-                if (charAt2 < 2048) {
-                    long j3 = this.pos;
-                    if (j3 > this.offset) {
-                        byte[] bArr3 = this.buffer;
-                        this.pos = j3 - 1;
-                        UnsafeUtil.putByte(bArr3, j3, (byte) ((charAt2 & '?') | 128));
-                        byte[] bArr4 = this.buffer;
-                        long j4 = this.pos;
-                        this.pos = j4 - 1;
-                        UnsafeUtil.putByte(bArr4, j4, (byte) ((charAt2 >>> 6) | 960));
-                        length--;
-                    }
-                }
-                if (charAt2 < 55296 || 57343 < charAt2) {
-                    long j5 = this.pos;
-                    if (j5 > this.offset + 1) {
-                        byte[] bArr5 = this.buffer;
-                        this.pos = j5 - 1;
-                        UnsafeUtil.putByte(bArr5, j5, (byte) ((charAt2 & '?') | 128));
-                        byte[] bArr6 = this.buffer;
-                        long j6 = this.pos;
-                        this.pos = j6 - 1;
-                        UnsafeUtil.putByte(bArr6, j6, (byte) (((charAt2 >>> 6) & 63) | 128));
-                        byte[] bArr7 = this.buffer;
-                        long j7 = this.pos;
-                        this.pos = j7 - 1;
-                        UnsafeUtil.putByte(bArr7, j7, (byte) ((charAt2 >>> '\f') | 480));
-                        length--;
-                    }
-                }
-                if (this.pos > this.offset + 2) {
-                    if (length != 0) {
-                        char charAt3 = str.charAt(length - 1);
-                        if (Character.isSurrogatePair(charAt3, charAt2)) {
-                            length--;
-                            int codePoint = Character.toCodePoint(charAt3, charAt2);
-                            byte[] bArr8 = this.buffer;
-                            long j8 = this.pos;
-                            this.pos = j8 - 1;
-                            UnsafeUtil.putByte(bArr8, j8, (byte) ((codePoint & 63) | 128));
-                            byte[] bArr9 = this.buffer;
-                            long j9 = this.pos;
-                            this.pos = j9 - 1;
-                            UnsafeUtil.putByte(bArr9, j9, (byte) (((codePoint >>> 6) & 63) | 128));
-                            byte[] bArr10 = this.buffer;
-                            long j10 = this.pos;
-                            this.pos = j10 - 1;
-                            UnsafeUtil.putByte(bArr10, j10, (byte) (((codePoint >>> 12) & 63) | 128));
-                            byte[] bArr11 = this.buffer;
-                            long j11 = this.pos;
-                            this.pos = j11 - 1;
-                            UnsafeUtil.putByte(bArr11, j11, (byte) ((codePoint >>> 18) | 240));
+                        UnsafeUtil.putByte(bArr2, j2, (byte) cCharAt2);
+                    } else if (cCharAt2 < 2048) {
+                        long j3 = this.pos;
+                        if (j3 > this.offset) {
+                            byte[] bArr3 = this.buffer;
+                            this.pos = j3 - 1;
+                            UnsafeUtil.putByte(bArr3, j3, (byte) ((cCharAt2 & '?') | 128));
+                            byte[] bArr4 = this.buffer;
+                            long j4 = this.pos;
+                            this.pos = j4 - 1;
+                            UnsafeUtil.putByte(bArr4, j4, (byte) ((cCharAt2 >>> 6) | 960));
+                        } else if (cCharAt2 < 55296 || 57343 < cCharAt2) {
+                            long j5 = this.pos;
+                            if (j5 > this.offset + 1) {
+                                byte[] bArr5 = this.buffer;
+                                this.pos = j5 - 1;
+                                UnsafeUtil.putByte(bArr5, j5, (byte) ((cCharAt2 & '?') | 128));
+                                byte[] bArr6 = this.buffer;
+                                long j6 = this.pos;
+                                this.pos = j6 - 1;
+                                UnsafeUtil.putByte(bArr6, j6, (byte) (((cCharAt2 >>> 6) & 63) | 128));
+                                byte[] bArr7 = this.buffer;
+                                long j7 = this.pos;
+                                this.pos = j7 - 1;
+                                UnsafeUtil.putByte(bArr7, j7, (byte) ((cCharAt2 >>> '\f') | 480));
+                            } else {
+                                if (this.pos > this.offset + 2) {
+                                    if (length != 0) {
+                                        char cCharAt3 = str.charAt(length - 1);
+                                        if (Character.isSurrogatePair(cCharAt3, cCharAt2)) {
+                                            length--;
+                                            int codePoint = Character.toCodePoint(cCharAt3, cCharAt2);
+                                            byte[] bArr8 = this.buffer;
+                                            long j8 = this.pos;
+                                            this.pos = j8 - 1;
+                                            UnsafeUtil.putByte(bArr8, j8, (byte) ((codePoint & 63) | 128));
+                                            byte[] bArr9 = this.buffer;
+                                            long j9 = this.pos;
+                                            this.pos = j9 - 1;
+                                            UnsafeUtil.putByte(bArr9, j9, (byte) (((codePoint >>> 6) & 63) | 128));
+                                            byte[] bArr10 = this.buffer;
+                                            long j10 = this.pos;
+                                            this.pos = j10 - 1;
+                                            UnsafeUtil.putByte(bArr10, j10, (byte) (((codePoint >>> 12) & 63) | 128));
+                                            byte[] bArr11 = this.buffer;
+                                            long j11 = this.pos;
+                                            this.pos = j11 - 1;
+                                            UnsafeUtil.putByte(bArr11, j11, (byte) ((codePoint >>> 18) | 240));
+                                        }
+                                    }
+                                    throw new Utf8.UnpairedSurrogateException(length - 1, length);
+                                }
+                                requireSpace(length);
+                                length++;
+                            }
                         }
                     }
-                    throw new Utf8.UnpairedSurrogateException(length - 1, length);
                 }
-                requireSpace(length);
-                length++;
                 length--;
             }
         }
@@ -2258,48 +2263,46 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) {
             if (i < 0 || i + i2 > bArr.length) {
-                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d",
-                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             requireSpace(i2);
-            this.pos -= i2;
+            this.pos -= (long) i2;
             System.arraycopy(bArr, i, this.buffer, arrayPos() + 1, i2);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) {
             if (i < 0 || i + i2 > bArr.length) {
-                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d",
-                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             if (spaceLeft() < i2) {
                 this.totalDoneBytes += i2;
                 this.buffers.addFirst(AllocatedBuffer.wrap(bArr, i, i2));
                 nextBuffer();
-                return;
+            } else {
+                this.pos -= (long) i2;
+                System.arraycopy(bArr, i, this.buffer, arrayPos() + 1, i2);
             }
-            this.pos -= i2;
-            System.arraycopy(bArr, i, this.buffer, arrayPos() + 1, i2);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            requireSpace(remaining);
-            this.pos -= remaining;
-            byteBuffer.get(this.buffer, arrayPos() + 1, remaining);
+            int iRemaining = byteBuffer.remaining();
+            requireSpace(iRemaining);
+            this.pos -= (long) iRemaining;
+            byteBuffer.get(this.buffer, arrayPos() + 1, iRemaining);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                this.totalDoneBytes += remaining;
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                this.totalDoneBytes += iRemaining;
                 this.buffers.addFirst(AllocatedBuffer.wrap(byteBuffer));
                 nextBuffer();
             }
-            this.pos -= remaining;
-            byteBuffer.get(this.buffer, arrayPos() + 1, remaining);
+            this.pos -= (long) iRemaining;
+            byteBuffer.get(this.buffer, arrayPos() + 1, iRemaining);
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2310,9 +2313,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class SafeDirectWriter extends BinaryWriter {
+    private static final class SafeDirectWriter extends BinaryWriter {
         private ByteBuffer buffer;
         private int limitMinusOne;
         private int pos;
@@ -2334,19 +2335,19 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             if (!allocatedBuffer.hasNioBuffer()) {
                 throw new RuntimeException("Allocated buffer does not have NIO buffer");
             }
-            ByteBuffer nioBuffer = allocatedBuffer.nioBuffer();
-            if (!nioBuffer.isDirect()) {
+            ByteBuffer byteBufferNioBuffer = allocatedBuffer.nioBuffer();
+            if (!byteBufferNioBuffer.isDirect()) {
                 throw new RuntimeException("Allocator returned non-direct buffer");
             }
             finishCurrentBuffer();
             this.buffers.addFirst(allocatedBuffer);
-            this.buffer = nioBuffer;
-            nioBuffer.limit(nioBuffer.capacity());
+            this.buffer = byteBufferNioBuffer;
+            byteBufferNioBuffer.limit(byteBufferNioBuffer.capacity());
             this.buffer.position(0);
             this.buffer.order(ByteOrder.LITTLE_ENDIAN);
-            int limit = this.buffer.limit() - 1;
-            this.limitMinusOne = limit;
-            this.pos = limit;
+            int iLimit = this.buffer.limit() - 1;
+            this.limitMinusOne = iLimit;
+            this.pos = iLimit;
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2433,8 +2434,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeString(int i, String str) {
             int totalBytesWritten = getTotalBytesWritten();
             writeString(str);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -2454,8 +2456,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             Protobuf.getInstance().writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -2463,8 +2466,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj, Schema schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             schema.writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -2525,9 +2529,13 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         void writeVarint32(int i) {
             if ((i & (-128)) == 0) {
                 writeVarint32OneByte(i);
-            } else if ((i & (-16384)) == 0) {
+                return;
+            }
+            if ((i & (-16384)) == 0) {
                 writeVarint32TwoBytes(i);
-            } else if (((-2097152) & i) == 0) {
+                return;
+            }
+            if (((-2097152) & i) == 0) {
                 writeVarint32ThreeBytes(i);
             } else if (((-268435456) & i) == 0) {
                 writeVarint32FourBytes(i);
@@ -2552,14 +2560,13 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint32ThreeBytes(int i) {
             int i2 = this.pos - 3;
             this.pos = i2;
-            this.buffer.putInt(i2, (((i & 127) | 128) << 8) | ((2080768 & i) << 10) | (((i & 16256) | 16384) << 9));
+            this.buffer.putInt(i2, (((i & 127) | 128) << 8) | ((2080768 & i) << 10) | (((i & 16256) | OplusExifTag.EXIF_TAG_AI_ID_PHOTO) << 9));
         }
 
         private void writeVarint32FourBytes(int i) {
             int i2 = this.pos - 4;
             this.pos = i2;
-            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2)
-                    | (((i & 16256) | 16384) << 1));
+            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2) | (((i & 16256) | OplusExifTag.EXIF_TAG_AI_ID_PHOTO) << 1));
         }
 
         private void writeVarint32FiveBytes(int i) {
@@ -2569,8 +2576,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             byteBuffer.put(i2, (byte) (i >>> 28));
             int i3 = this.pos - 4;
             this.pos = i3;
-            this.buffer.putInt(i3 + 1, (i & 127) | 128 | ((((i >>> 21) & 127) | 128) << 24)
-                    | ((((i >>> 14) & 127) | 128) << 16) | ((((i >>> 7) & 127) | 128) << 8));
+            this.buffer.putInt(i3 + 1, (i & 127) | 128 | ((((i >>> 21) & 127) | 128) << 24) | ((((i >>> 14) & 127) | 128) << 16) | ((((i >>> 7) & 127) | 128) << 8));
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2578,36 +2584,34 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             switch (BinaryWriter.computeUInt64SizeNoTag(j)) {
                 case 1:
                     writeVarint64OneByte(j);
-                    return;
+                    break;
                 case 2:
                     writeVarint64TwoBytes(j);
-                    return;
+                    break;
                 case 3:
                     writeVarint64ThreeBytes(j);
-                    return;
+                    break;
                 case 4:
                     writeVarint64FourBytes(j);
-                    return;
+                    break;
                 case 5:
                     writeVarint64FiveBytes(j);
-                    return;
+                    break;
                 case 6:
                     writeVarint64SixBytes(j);
-                    return;
+                    break;
                 case 7:
                     writeVarint64SevenBytes(j);
-                    return;
+                    break;
                 case 8:
                     writeVarint64EightBytes(j);
-                    return;
+                    break;
                 case 9:
                     writeVarint64NineBytes(j);
-                    return;
+                    break;
                 case 10:
                     writeVarint64TenBytes(j);
-                    return;
-                default:
-                    return;
+                    break;
             }
         }
 
@@ -2630,50 +2634,31 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint64FiveBytes(long j) {
             int i = this.pos - 5;
             this.pos = i;
-            this.buffer.putLong(i - 2,
-                    (((j & 127) | 128) << 24) | ((34091302912L & j) << 28) | (((266338304 & j) | 268435456) << 27)
-                            | (((2080768 & j) | 2097152) << 26) | (((16256 & j) | 16384) << 25));
+            this.buffer.putLong(i - 2, (((j & 127) | 128) << 24) | ((34091302912L & j) << 28) | (((266338304 & j) | 268435456) << 27) | (((2080768 & j) | 2097152) << 26) | (((16256 & j) | 16384) << 25));
         }
 
         private void writeVarint64SixBytes(long j) {
             int i = this.pos - 6;
             this.pos = i;
-            this.buffer.putLong(i - 1,
-                    (((j & 127) | 128) << 16) | ((4363686772736L & j) << 21)
-                            | (((34091302912L & j) | 34359738368L) << 20) | (((266338304 & j) | 268435456) << 19)
-                            | (((2080768 & j) | 2097152) << 18) | (((16256 & j) | 16384) << 17));
+            this.buffer.putLong(i - 1, (((j & 127) | 128) << 16) | ((4363686772736L & j) << 21) | (((34091302912L & j) | 34359738368L) << 20) | (((266338304 & j) | 268435456) << 19) | (((2080768 & j) | 2097152) << 18) | (((16256 & j) | 16384) << 17));
         }
 
         private void writeVarint64SevenBytes(long j) {
             int i = this.pos - 7;
             this.pos = i;
-            this.buffer.putLong(i,
-                    (((j & 127) | 128) << 8) | ((558551906910208L & j) << 14)
-                            | (((4363686772736L & j) | 4398046511104L) << 13)
-                            | (((34091302912L & j) | 34359738368L) << 12) | (((266338304 & j) | 268435456) << 11)
-                            | (((2080768 & j) | 2097152) << 10) | (((16256 & j) | 16384) << 9));
+            this.buffer.putLong(i, (((j & 127) | 128) << 8) | ((558551906910208L & j) << 14) | (((4363686772736L & j) | 4398046511104L) << 13) | (((34091302912L & j) | 34359738368L) << 12) | (((266338304 & j) | 268435456) << 11) | (((2080768 & j) | 2097152) << 10) | (((16256 & j) | 16384) << 9));
         }
 
         private void writeVarint64EightBytes(long j) {
             int i = this.pos - 8;
             this.pos = i;
-            this.buffer.putLong(i + 1,
-                    (j & 127) | 128 | ((71494644084506624L & j) << 7)
-                            | (((558551906910208L & j) | 562949953421312L) << 6)
-                            | (((4363686772736L & j) | 4398046511104L) << 5)
-                            | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3)
-                            | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
+            this.buffer.putLong(i + 1, (j & 127) | 128 | ((71494644084506624L & j) << 7) | (((558551906910208L & j) | 562949953421312L) << 6) | (((4363686772736L & j) | 4398046511104L) << 5) | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3) | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
         }
 
         private void writeVarint64EightBytesWithSign(long j) {
             int i = this.pos - 8;
             this.pos = i;
-            this.buffer.putLong(i + 1,
-                    (j & 127) | 128 | (((71494644084506624L & j) | 72057594037927936L) << 7)
-                            | (((558551906910208L & j) | 562949953421312L) << 6)
-                            | (((4363686772736L & j) | 4398046511104L) << 5)
-                            | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3)
-                            | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
+            this.buffer.putLong(i + 1, (j & 127) | 128 | (((71494644084506624L & j) | 72057594037927936L) << 7) | (((558551906910208L & j) | 562949953421312L) << 6) | (((4363686772736L & j) | 4398046511104L) << 5) | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3) | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
         }
 
         private void writeVarint64NineBytes(long j) {
@@ -2715,12 +2700,12 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             int i;
             int i2;
             int i3;
-            char charAt;
+            char cCharAt;
             requireSpace(str.length());
             int length = str.length() - 1;
             this.pos -= length;
-            while (length >= 0 && (charAt = str.charAt(length)) < 128) {
-                this.buffer.put(this.pos + length, (byte) charAt);
+            while (length >= 0 && (cCharAt = str.charAt(length)) < 128) {
+                this.buffer.put(this.pos + length, (byte) cCharAt);
                 length--;
             }
             if (length == -1) {
@@ -2729,57 +2714,58 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             }
             this.pos += length;
             while (length >= 0) {
-                char charAt2 = str.charAt(length);
-                if (charAt2 < 128 && (i3 = this.pos) >= 0) {
+                char cCharAt2 = str.charAt(length);
+                if (cCharAt2 < 128 && (i3 = this.pos) >= 0) {
                     ByteBuffer byteBuffer = this.buffer;
                     this.pos = i3 - 1;
-                    byteBuffer.put(i3, (byte) charAt2);
-                } else if (charAt2 < 2048 && (i2 = this.pos) > 0) {
+                    byteBuffer.put(i3, (byte) cCharAt2);
+                } else if (cCharAt2 < 2048 && (i2 = this.pos) > 0) {
                     ByteBuffer byteBuffer2 = this.buffer;
                     this.pos = i2 - 1;
-                    byteBuffer2.put(i2, (byte) ((charAt2 & '?') | 128));
+                    byteBuffer2.put(i2, (byte) ((cCharAt2 & '?') | 128));
                     ByteBuffer byteBuffer3 = this.buffer;
                     int i4 = this.pos;
                     this.pos = i4 - 1;
-                    byteBuffer3.put(i4, (byte) ((charAt2 >>> 6) | 960));
-                } else if ((charAt2 < 55296 || 57343 < charAt2) && (i = this.pos) > 1) {
+                    byteBuffer3.put(i4, (byte) ((cCharAt2 >>> 6) | 960));
+                } else if ((cCharAt2 < 55296 || 57343 < cCharAt2) && (i = this.pos) > 1) {
                     ByteBuffer byteBuffer4 = this.buffer;
                     this.pos = i - 1;
-                    byteBuffer4.put(i, (byte) ((charAt2 & '?') | 128));
+                    byteBuffer4.put(i, (byte) ((cCharAt2 & '?') | 128));
                     ByteBuffer byteBuffer5 = this.buffer;
                     int i5 = this.pos;
                     this.pos = i5 - 1;
-                    byteBuffer5.put(i5, (byte) (((charAt2 >>> 6) & 63) | 128));
+                    byteBuffer5.put(i5, (byte) (((cCharAt2 >>> 6) & 63) | 128));
                     ByteBuffer byteBuffer6 = this.buffer;
                     int i6 = this.pos;
                     this.pos = i6 - 1;
-                    byteBuffer6.put(i6, (byte) ((charAt2 >>> '\f') | 480));
-                } else if (this.pos > 2) {
-                    if (length != 0) {
-                        char charAt3 = str.charAt(length - 1);
-                        if (Character.isSurrogatePair(charAt3, charAt2)) {
-                            length--;
-                            int codePoint = Character.toCodePoint(charAt3, charAt2);
-                            ByteBuffer byteBuffer7 = this.buffer;
-                            int i7 = this.pos;
-                            this.pos = i7 - 1;
-                            byteBuffer7.put(i7, (byte) ((codePoint & 63) | 128));
-                            ByteBuffer byteBuffer8 = this.buffer;
-                            int i8 = this.pos;
-                            this.pos = i8 - 1;
-                            byteBuffer8.put(i8, (byte) (((codePoint >>> 6) & 63) | 128));
-                            ByteBuffer byteBuffer9 = this.buffer;
-                            int i9 = this.pos;
-                            this.pos = i9 - 1;
-                            byteBuffer9.put(i9, (byte) (((codePoint >>> 12) & 63) | 128));
-                            ByteBuffer byteBuffer10 = this.buffer;
-                            int i10 = this.pos;
-                            this.pos = i10 - 1;
-                            byteBuffer10.put(i10, (byte) ((codePoint >>> 18) | 240));
-                        }
-                    }
-                    throw new Utf8.UnpairedSurrogateException(length - 1, length);
+                    byteBuffer6.put(i6, (byte) ((cCharAt2 >>> '\f') | 480));
                 } else {
+                    if (this.pos > 2) {
+                        if (length != 0) {
+                            char cCharAt3 = str.charAt(length - 1);
+                            if (Character.isSurrogatePair(cCharAt3, cCharAt2)) {
+                                length--;
+                                int codePoint = Character.toCodePoint(cCharAt3, cCharAt2);
+                                ByteBuffer byteBuffer7 = this.buffer;
+                                int i7 = this.pos;
+                                this.pos = i7 - 1;
+                                byteBuffer7.put(i7, (byte) ((codePoint & 63) | 128));
+                                ByteBuffer byteBuffer8 = this.buffer;
+                                int i8 = this.pos;
+                                this.pos = i8 - 1;
+                                byteBuffer8.put(i8, (byte) (((codePoint >>> 6) & 63) | 128));
+                                ByteBuffer byteBuffer9 = this.buffer;
+                                int i9 = this.pos;
+                                this.pos = i9 - 1;
+                                byteBuffer9.put(i9, (byte) (((codePoint >>> 12) & 63) | 128));
+                                ByteBuffer byteBuffer10 = this.buffer;
+                                int i10 = this.pos;
+                                this.pos = i10 - 1;
+                                byteBuffer10.put(i10, (byte) ((codePoint >>> 18) | 240));
+                            }
+                        }
+                        throw new Utf8.UnpairedSurrogateException(length - 1, length);
+                    }
                     requireSpace(length);
                     length++;
                 }
@@ -2812,21 +2798,21 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
                 this.totalDoneBytes += i2;
                 this.buffers.addFirst(AllocatedBuffer.wrap(bArr, i, i2));
                 nextBuffer();
-                return;
+            } else {
+                int i3 = this.pos - i2;
+                this.pos = i3;
+                this.buffer.position(i3 + 1);
+                this.buffer.put(bArr, i, i2);
             }
-            int i3 = this.pos - i2;
-            this.pos = i3;
-            this.buffer.position(i3 + 1);
-            this.buffer.put(bArr, i, i2);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                nextBuffer(remaining);
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                nextBuffer(iRemaining);
             }
-            int i = this.pos - remaining;
+            int i = this.pos - iRemaining;
             this.pos = i;
             this.buffer.position(i + 1);
             this.buffer.put(byteBuffer);
@@ -2834,17 +2820,17 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                this.totalDoneBytes += remaining;
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                this.totalDoneBytes += iRemaining;
                 this.buffers.addFirst(AllocatedBuffer.wrap(byteBuffer));
                 nextBuffer();
-                return;
+            } else {
+                int i = this.pos - iRemaining;
+                this.pos = i;
+                this.buffer.position(i + 1);
+                this.buffer.put(byteBuffer);
             }
-            int i = this.pos - remaining;
-            this.pos = i;
-            this.buffer.position(i + 1);
-            this.buffer.put(byteBuffer);
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2855,24 +2841,19 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class UnsafeDirectWriter extends BinaryWriter {
+    private static final class UnsafeDirectWriter extends BinaryWriter {
         private ByteBuffer buffer;
         private long bufferOffset;
         private long limitMinusOne;
         private long pos;
-
-        static /* synthetic */ boolean access$000() {
-            return isSupported();
-        }
 
         UnsafeDirectWriter(BufferAllocator bufferAllocator, int i) {
             super(bufferAllocator, i, null);
             nextBuffer();
         }
 
-        private static boolean isSupported() {
+        /* JADX INFO: Access modifiers changed from: private */
+        public static boolean isSupported() {
             return UnsafeUtil.hasUnsafeByteBufferOperations();
         }
 
@@ -2888,20 +2869,20 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             if (!allocatedBuffer.hasNioBuffer()) {
                 throw new RuntimeException("Allocated buffer does not have NIO buffer");
             }
-            ByteBuffer nioBuffer = allocatedBuffer.nioBuffer();
-            if (!nioBuffer.isDirect()) {
+            ByteBuffer byteBufferNioBuffer = allocatedBuffer.nioBuffer();
+            if (!byteBufferNioBuffer.isDirect()) {
                 throw new RuntimeException("Allocator returned non-direct buffer");
             }
             finishCurrentBuffer();
             this.buffers.addFirst(allocatedBuffer);
-            this.buffer = nioBuffer;
-            nioBuffer.limit(nioBuffer.capacity());
+            this.buffer = byteBufferNioBuffer;
+            byteBufferNioBuffer.limit(byteBufferNioBuffer.capacity());
             this.buffer.position(0);
-            long addressOffset = UnsafeUtil.addressOffset(this.buffer);
-            this.bufferOffset = addressOffset;
-            long limit = addressOffset + (this.buffer.limit() - 1);
-            this.limitMinusOne = limit;
-            this.pos = limit;
+            long jAddressOffset = UnsafeUtil.addressOffset(this.buffer);
+            this.bufferOffset = jAddressOffset;
+            long jLimit = jAddressOffset + ((long) (this.buffer.limit() - 1));
+            this.limitMinusOne = jLimit;
+            this.pos = jLimit;
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2992,8 +2973,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeString(int i, String str) {
             int totalBytesWritten = getTotalBytesWritten();
             writeString(str);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -3013,8 +2995,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             Protobuf.getInstance().writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -3022,8 +3005,9 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         public void writeMessage(int i, Object obj, Schema schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
             schema.writeTo(obj, this);
+            int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
-            writeVarint32(getTotalBytesWritten() - totalBytesWritten);
+            writeVarint32(totalBytesWritten2);
             writeTag(i, 2);
         }
 
@@ -3084,9 +3068,13 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         void writeVarint32(int i) {
             if ((i & (-128)) == 0) {
                 writeVarint32OneByte(i);
-            } else if ((i & (-16384)) == 0) {
+                return;
+            }
+            if ((i & (-16384)) == 0) {
                 writeVarint32TwoBytes(i);
-            } else if (((-2097152) & i) == 0) {
+                return;
+            }
+            if (((-2097152) & i) == 0) {
                 writeVarint32ThreeBytes(i);
             } else if (((-268435456) & i) == 0) {
                 writeVarint32FourBytes(i);
@@ -3160,36 +3148,34 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             switch (BinaryWriter.computeUInt64SizeNoTag(j)) {
                 case 1:
                     writeVarint64OneByte(j);
-                    return;
+                    break;
                 case 2:
                     writeVarint64TwoBytes(j);
-                    return;
+                    break;
                 case 3:
                     writeVarint64ThreeBytes(j);
-                    return;
+                    break;
                 case 4:
                     writeVarint64FourBytes(j);
-                    return;
+                    break;
                 case 5:
                     writeVarint64FiveBytes(j);
-                    return;
+                    break;
                 case 6:
                     writeVarint64SixBytes(j);
-                    return;
+                    break;
                 case 7:
                     writeVarint64SevenBytes(j);
-                    return;
+                    break;
                 case 8:
                     writeVarint64EightBytes(j);
-                    return;
+                    break;
                 case 9:
                     writeVarint64NineBytes(j);
-                    return;
+                    break;
                 case 10:
                     writeVarint64TenBytes(j);
-                    return;
-                default:
-                    return;
+                    break;
             }
         }
 
@@ -3432,82 +3418,85 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             UnsafeUtil.putByte(j9, (byte) (((int) j) & 255));
         }
 
+        /* JADX DEBUG: Move duplicate insns, count: 1 to block B:3:0x000d */
+        /* JADX WARN: Removed duplicated region for block: B:17:0x0044  */
+        /* JADX WARN: Removed duplicated region for block: B:22:0x006b  */
+        /* JADX WARN: Removed duplicated region for block: B:29:0x00a7  */
         @Override // com.google.oplus.protobuf.BinaryWriter
+        /*
+            Code decompiled incorrectly, please refer to instructions dump.
+        */
         void writeString(String str) {
-            char charAt;
+            char cCharAt;
             requireSpace(str.length());
             int length = str.length();
             while (true) {
                 length--;
-                if (length < 0 || (charAt = str.charAt(length)) >= 128) {
+                if (length < 0 || (cCharAt = str.charAt(length)) >= 128) {
                     break;
                 }
                 long j = this.pos;
                 this.pos = j - 1;
-                UnsafeUtil.putByte(j, (byte) charAt);
+                UnsafeUtil.putByte(j, (byte) cCharAt);
             }
             if (length == -1) {
                 return;
             }
             while (length >= 0) {
-                char charAt2 = str.charAt(length);
-                if (charAt2 < 128) {
+                char cCharAt2 = str.charAt(length);
+                if (cCharAt2 < 128) {
                     long j2 = this.pos;
                     if (j2 >= this.bufferOffset) {
                         this.pos = j2 - 1;
-                        UnsafeUtil.putByte(j2, (byte) charAt2);
-                        length--;
-                    }
-                }
-                if (charAt2 < 2048) {
-                    long j3 = this.pos;
-                    if (j3 > this.bufferOffset) {
-                        this.pos = j3 - 1;
-                        UnsafeUtil.putByte(j3, (byte) ((charAt2 & '?') | 128));
-                        long j4 = this.pos;
-                        this.pos = j4 - 1;
-                        UnsafeUtil.putByte(j4, (byte) ((charAt2 >>> 6) | 960));
-                        length--;
-                    }
-                }
-                if (charAt2 < 55296 || 57343 < charAt2) {
-                    long j5 = this.pos;
-                    if (j5 > this.bufferOffset + 1) {
-                        this.pos = j5 - 1;
-                        UnsafeUtil.putByte(j5, (byte) ((charAt2 & '?') | 128));
-                        long j6 = this.pos;
-                        this.pos = j6 - 1;
-                        UnsafeUtil.putByte(j6, (byte) (((charAt2 >>> 6) & 63) | 128));
-                        long j7 = this.pos;
-                        this.pos = j7 - 1;
-                        UnsafeUtil.putByte(j7, (byte) ((charAt2 >>> '\f') | 480));
-                        length--;
-                    }
-                }
-                if (this.pos > this.bufferOffset + 2) {
-                    if (length != 0) {
-                        char charAt3 = str.charAt(length - 1);
-                        if (Character.isSurrogatePair(charAt3, charAt2)) {
-                            length--;
-                            int codePoint = Character.toCodePoint(charAt3, charAt2);
-                            long j8 = this.pos;
-                            this.pos = j8 - 1;
-                            UnsafeUtil.putByte(j8, (byte) ((codePoint & 63) | 128));
-                            long j9 = this.pos;
-                            this.pos = j9 - 1;
-                            UnsafeUtil.putByte(j9, (byte) (((codePoint >>> 6) & 63) | 128));
-                            long j10 = this.pos;
-                            this.pos = j10 - 1;
-                            UnsafeUtil.putByte(j10, (byte) (((codePoint >>> 12) & 63) | 128));
-                            long j11 = this.pos;
-                            this.pos = j11 - 1;
-                            UnsafeUtil.putByte(j11, (byte) ((codePoint >>> 18) | 240));
+                        UnsafeUtil.putByte(j2, (byte) cCharAt2);
+                    } else if (cCharAt2 < 2048) {
+                        long j3 = this.pos;
+                        if (j3 > this.bufferOffset) {
+                            this.pos = j3 - 1;
+                            UnsafeUtil.putByte(j3, (byte) ((cCharAt2 & '?') | 128));
+                            long j4 = this.pos;
+                            this.pos = j4 - 1;
+                            UnsafeUtil.putByte(j4, (byte) ((cCharAt2 >>> 6) | 960));
+                        } else if (cCharAt2 < 55296 || 57343 < cCharAt2) {
+                            long j5 = this.pos;
+                            if (j5 > this.bufferOffset + 1) {
+                                this.pos = j5 - 1;
+                                UnsafeUtil.putByte(j5, (byte) ((cCharAt2 & '?') | 128));
+                                long j6 = this.pos;
+                                this.pos = j6 - 1;
+                                UnsafeUtil.putByte(j6, (byte) (((cCharAt2 >>> 6) & 63) | 128));
+                                long j7 = this.pos;
+                                this.pos = j7 - 1;
+                                UnsafeUtil.putByte(j7, (byte) ((cCharAt2 >>> '\f') | 480));
+                            } else {
+                                if (this.pos > this.bufferOffset + 2) {
+                                    if (length != 0) {
+                                        char cCharAt3 = str.charAt(length - 1);
+                                        if (Character.isSurrogatePair(cCharAt3, cCharAt2)) {
+                                            length--;
+                                            int codePoint = Character.toCodePoint(cCharAt3, cCharAt2);
+                                            long j8 = this.pos;
+                                            this.pos = j8 - 1;
+                                            UnsafeUtil.putByte(j8, (byte) ((codePoint & 63) | 128));
+                                            long j9 = this.pos;
+                                            this.pos = j9 - 1;
+                                            UnsafeUtil.putByte(j9, (byte) (((codePoint >>> 6) & 63) | 128));
+                                            long j10 = this.pos;
+                                            this.pos = j10 - 1;
+                                            UnsafeUtil.putByte(j10, (byte) (((codePoint >>> 12) & 63) | 128));
+                                            long j11 = this.pos;
+                                            this.pos = j11 - 1;
+                                            UnsafeUtil.putByte(j11, (byte) ((codePoint >>> 18) | 240));
+                                        }
+                                    }
+                                    throw new Utf8.UnpairedSurrogateException(length - 1, length);
+                                }
+                                requireSpace(length);
+                                length++;
+                            }
                         }
                     }
-                    throw new Utf8.UnpairedSurrogateException(length - 1, length);
                 }
-                requireSpace(length);
-                length++;
                 length--;
             }
         }
@@ -3524,7 +3513,7 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             if (spaceLeft() < i2) {
                 nextBuffer(i2);
             }
-            this.pos -= i2;
+            this.pos -= (long) i2;
             this.buffer.position(bufferPos() + 1);
             this.buffer.put(bArr, i, i2);
         }
@@ -3535,36 +3524,36 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
                 this.totalDoneBytes += i2;
                 this.buffers.addFirst(AllocatedBuffer.wrap(bArr, i, i2));
                 nextBuffer();
-                return;
+            } else {
+                this.pos -= (long) i2;
+                this.buffer.position(bufferPos() + 1);
+                this.buffer.put(bArr, i, i2);
             }
-            this.pos -= i2;
-            this.buffer.position(bufferPos() + 1);
-            this.buffer.put(bArr, i, i2);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                nextBuffer(remaining);
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                nextBuffer(iRemaining);
             }
-            this.pos -= remaining;
+            this.pos -= (long) iRemaining;
             this.buffer.position(bufferPos() + 1);
             this.buffer.put(byteBuffer);
         }
 
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) {
-            int remaining = byteBuffer.remaining();
-            if (spaceLeft() < remaining) {
-                this.totalDoneBytes += remaining;
+            int iRemaining = byteBuffer.remaining();
+            if (spaceLeft() < iRemaining) {
+                this.totalDoneBytes += iRemaining;
                 this.buffers.addFirst(AllocatedBuffer.wrap(byteBuffer));
                 nextBuffer();
-                return;
+            } else {
+                this.pos -= (long) iRemaining;
+                this.buffer.position(bufferPos() + 1);
+                this.buffer.put(byteBuffer);
             }
-            this.pos -= remaining;
-            this.buffer.position(bufferPos() + 1);
-            this.buffer.put(byteBuffer);
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter

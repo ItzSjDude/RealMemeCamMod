@@ -4,7 +4,8 @@ import android.util.Log;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class RefMethod<T> {
     private static final String TAG = "RefMethod";
     private Method mMethod;
@@ -16,13 +17,13 @@ public class RefMethod<T> {
         } else {
             int i = 0;
             if (field.isAnnotationPresent(MethodSignature.class)) {
-                String[] params = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
-                Class<?>[] clsArr = new Class[params.length];
-                while (i < params.length) {
-                    Class<?> protoType = RefStaticMethod.getProtoType(params[i]);
+                String[] strArrParams = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
+                Class<?>[] clsArr = new Class[strArrParams.length];
+                while (i < strArrParams.length) {
+                    Class<?> protoType = RefStaticMethod.getProtoType(strArrParams[i]);
                     if (protoType == null) {
                         try {
-                            protoType = Class.forName(params[i]);
+                            protoType = Class.forName(strArrParams[i]);
                         } catch (ClassNotFoundException e) {
                             Log.e(TAG, e.toString());
                         }

@@ -4,7 +4,8 @@ import android.hardware.camera2.CaptureRequest;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.math.BigDecimal;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public final class CameraConstant {
     public static final String AI_FOLLOW = "ai_follow";
     public static final int ALPHA_FULL = 255;
@@ -158,21 +159,18 @@ public final class CameraConstant {
     public static final byte[] MTK_TUNING_REQUEST_RAW_AND_YUV = {3};
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface AiFolowValues {
         public static final String AI_FOLLOW_OFF = "off";
         public static final String AI_FOLLOW_ON = "on";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface AiNightVideoValues {
         public static final int AI_NIGHT_VIDEO_OFF = 0;
         public static final int AI_NIGHT_VIDEO_ON = 1;
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface ApsPreviewCallbackType {
         public static final String KEY_PREVIEW_CALLBACK_TYPE_HARDWARE_BUFFER = "0";
         public static final String KEY_PREVIEW_CALLBACK_TYPE_IMAGE_NV12 = "1";
@@ -180,7 +178,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface BokehState {
         public static final int CAMERA_CALIBRATION = 8;
         public static final int CAMERA_COVERGED_MAIN = 10;
@@ -197,14 +194,12 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface BokehType {
         public static final String DUAL_BOKEH = "dual_bokeh";
         public static final String SINGLE_BOKEH = "single_bokeh";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface CameraIdType {
         public static final int FRONT_AUX_RGB_CAMERA = 3;
         public static final int FRONT_PORTRAIT_MODE = 10;
@@ -230,7 +225,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface CameraType {
         public static final String FRONT_DUAL_CAMERA = "front_dual";
         public static final String FRONT_MAIN_CAMERA = "front_main";
@@ -257,7 +251,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface CaptureFailCode {
         public static final int BURST_MEMORY_NOT_ENOUGH = 2;
         public static final int MEMORY_NOT_ENOUGH = 1;
@@ -265,7 +258,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface CommonStateValue {
         public static final String AUTO = "auto";
         public static final String OFF = "off";
@@ -273,14 +265,12 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface EIS {
         public static final int EIS_RECORD_STATE_START = 1;
         public static final int EIS_RECORD_STATE_STOP = 0;
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface FlashMode {
         public static final String FLASH_AUTO = "auto";
         public static final String FLASH_OFF = "off";
@@ -289,7 +279,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface FocusMode {
         public static final int AF_MODE_AUTO = 3;
         public static final int AF_MODE_CONTINUOUS_PICTURE = 1;
@@ -299,7 +288,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface FpsValue {
         public static final int FPS_120 = 120;
         public static final int FPS_240 = 240;
@@ -311,7 +299,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface HdrMode {
         public static final String AUTO = "auto";
         public static final String OFF = "off";
@@ -319,14 +306,12 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface HyperLapse {
         public static final String HYPER_LAPSE = "hyper_lapse";
         public static final String OFF = "off";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface ModeName {
         public static final String BASIC_CAPTURE_MODE = "basic_capture_mode";
         public static final String BASIC_PREVIEW_MODE = "basic_preview_mode";
@@ -364,26 +349,22 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface MonoFilterType {
         public static final String BLACK_WHITE = "black_white";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface MonoPortrait {
         public static final String MONO_PORTRAIT = "mono_portrait";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface NightVideo {
         public static final String NORMAL_NIGHT_VIDEO = "normal_night_video";
         public static final String ULTRA_NIGHT_VIDEO = "ultra_night_video";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface Orientation {
         public static final int ORIENTATION_0 = 0;
         public static final int ORIENTATION_180 = 180;
@@ -392,14 +373,12 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface PortraitBodyType {
         public static final String FULL_BODY = "full_body";
         public static final String HALF_BODY = "half_body";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface RawValue {
         public static final String NONE = "none";
         public static final String RAW = "raw";
@@ -407,7 +386,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface RecordingState {
         public static final int RECORDING_PAUSE = 2;
         public static final int RECORDING_RESUME = 3;
@@ -416,7 +394,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface SensorMode {
         public static final String BINNING = "binning";
         public static final String IZOOM = "izoom";
@@ -424,7 +401,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface SessionSurfaceType {
         public static final String JSON_KEY_STREAM_CAPTURE = "capture";
         public static final String JSON_KEY_STREAM_CAPTURE_RAW = "capture_raw";
@@ -446,13 +422,11 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface StreamerPortrait {
         public static final String STREAMER_PORTRAIT = "streamer_portrait";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface SurfaceType {
         public static final int IMAGE_READER = 3;
         public static final int IMAGE_READER_RAW = 8;
@@ -468,7 +442,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface TiltShiftParamKeys {
         public static final String BLUR_VALUE = "blurValue";
         public static final String CENTER_POSITION = "centerPosition";
@@ -479,7 +452,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface UseCase {
         public static final String AI_FOLLOW_CASE = "ai_follow_case";
         public static final String AI_HIGH_PIXEL_CASE = "ai_high_pixel_case";
@@ -533,7 +505,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface UsecaseName {
         public static final String GESTURE = "gesture";
         public static final String PHOTO = "photo_mode";
@@ -542,7 +513,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface VideoEffectParamKeys {
         public static final String BLUR_LEVEL = "blur_level";
         public static final String BLUR_SHOW = "blur_show";
@@ -551,14 +521,12 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface VideoEncoder {
         public static final String H264 = "H264";
         public static final String H265 = "H265";
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface VideoFpsValue {
         public static final String VIDEO_FPS_120 = "video_120fps";
         public static final String VIDEO_FPS_240 = "video_240fps";
@@ -569,7 +537,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface VideoStabilizationMode {
         public static final String SUPER_STABILIZATION = "super_stabilization";
         public static final String SUPER_STABILIZATION_FRONT = "super_stabilization_front";
@@ -577,7 +544,6 @@ public final class CameraConstant {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    /* loaded from: classes.dex */
     public @interface WaterMarkParamKeys {
         public static final String BITMAP = "bitmap";
         public static final String FILE_PATH = "filePath";

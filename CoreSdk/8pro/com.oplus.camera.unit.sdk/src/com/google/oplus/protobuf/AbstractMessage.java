@@ -15,12 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public abstract class AbstractMessage extends AbstractMessageLite implements Message {
     protected int memoizedSize = -1;
 
     /* JADX INFO: Access modifiers changed from: protected */
-    /* loaded from: classes.dex */
     public interface BuilderParent {
         void markDirty();
     }
@@ -40,8 +39,7 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
         return MessageReflection.isInitialized(this);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public Message.Builder newBuilderForType(BuilderParent builderParent) {
+    protected Message.Builder newBuilderForType(BuilderParent builderParent) {
         throw new UnsupportedOperationException("Nested builder is not supported for this type.");
     }
 
@@ -101,27 +99,25 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Message) {
-            Message message = (Message) obj;
-            if (getDescriptorForType() != message.getDescriptorForType()) {
-                return false;
-            }
-            return compareFields(getAllFields(), message.getAllFields())
-                    && getUnknownFields().equals(message.getUnknownFields());
+        if (!(obj instanceof Message)) {
+            return false;
         }
-        return false;
+        Message message = (Message) obj;
+        if (getDescriptorForType() != message.getDescriptorForType()) {
+            return false;
+        }
+        return compareFields(getAllFields(), message.getAllFields()) && getUnknownFields().equals(message.getUnknownFields());
     }
 
     @Override // com.google.oplus.protobuf.Message
     public int hashCode() {
         int i = this.memoizedHashCode;
-        if (i == 0) {
-            int hashFields = (hashFields(779 + getDescriptorForType().hashCode(), getAllFields()) * 29)
-                    + getUnknownFields().hashCode();
-            this.memoizedHashCode = hashFields;
-            return hashFields;
+        if (i != 0) {
+            return i;
         }
-        return i;
+        int iHashFields = (hashFields(779 + getDescriptorForType().hashCode(), getAllFields()) * 29) + getUnknownFields().hashCode();
+        this.memoizedHashCode = iHashFields;
+        return iHashFields;
     }
 
     private static ByteString toByteString(Object obj) {
@@ -142,34 +138,33 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
         if (list.isEmpty()) {
             return Collections.emptyMap();
         }
-        HashMap hashMap = new HashMap();
+        HashMap map = new HashMap();
         Iterator it = list.iterator();
         Message message = (Message) it.next();
         Descriptors.Descriptor descriptorForType = message.getDescriptorForType();
-        Descriptors.FieldDescriptor findFieldByName = descriptorForType.findFieldByName("key");
-        Descriptors.FieldDescriptor findFieldByName2 = descriptorForType.findFieldByName("value");
-        Object field = message.getField(findFieldByName2);
+        Descriptors.FieldDescriptor fieldDescriptorFindFieldByName = descriptorForType.findFieldByName("key");
+        Descriptors.FieldDescriptor fieldDescriptorFindFieldByName2 = descriptorForType.findFieldByName("value");
+        Object field = message.getField(fieldDescriptorFindFieldByName2);
         if (field instanceof Descriptors.EnumValueDescriptor) {
             field = Integer.valueOf(((Descriptors.EnumValueDescriptor) field).getNumber());
         }
-        hashMap.put(message.getField(findFieldByName), field);
+        map.put(message.getField(fieldDescriptorFindFieldByName), field);
         while (it.hasNext()) {
             Message message2 = (Message) it.next();
-            Object field2 = message2.getField(findFieldByName2);
+            Object field2 = message2.getField(fieldDescriptorFindFieldByName2);
             if (field2 instanceof Descriptors.EnumValueDescriptor) {
                 field2 = Integer.valueOf(((Descriptors.EnumValueDescriptor) field2).getNumber());
             }
-            hashMap.put(message2.getField(findFieldByName), field2);
+            map.put(message2.getField(fieldDescriptorFindFieldByName), field2);
         }
-        return hashMap;
+        return map;
     }
 
     private static boolean compareMapField(Object obj, Object obj2) {
         return MapFieldLite.equals(convertMapEntryListToMap((List) obj), convertMapEntryListToMap((List) obj2));
     }
 
-    static boolean compareFields(Map<Descriptors.FieldDescriptor, Object> map,
-            Map<Descriptors.FieldDescriptor, Object> map2) {
+    static boolean compareFields(Map<Descriptors.FieldDescriptor, Object> map, Map<Descriptors.FieldDescriptor, Object> map2) {
         if (map.size() != map2.size()) {
             return false;
         }
@@ -191,7 +186,6 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
                             return false;
                         }
                     }
-                    continue;
                 } else if (!compareBytes(obj, obj2)) {
                     return false;
                 }
@@ -210,44 +204,44 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
         return MapFieldLite.calculateHashCodeForMap(convertMapEntryListToMap((List) obj));
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static int hashFields(int i, Map<Descriptors.FieldDescriptor, Object> map) {
+    protected static int hashFields(int i, Map<Descriptors.FieldDescriptor, Object> map) {
         int i2;
-        int hashEnum;
+        int iHashEnum;
         for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : map.entrySet()) {
             Descriptors.FieldDescriptor key = entry.getKey();
             Object value = entry.getValue();
             int number = (i * 37) + key.getNumber();
             if (key.isMapField()) {
                 i2 = number * 53;
-                hashEnum = hashMapField(value);
+                iHashEnum = hashMapField(value);
             } else if (key.getType() != Descriptors.FieldDescriptor.Type.ENUM) {
                 i2 = number * 53;
-                hashEnum = value.hashCode();
+                iHashEnum = value.hashCode();
             } else if (key.isRepeated()) {
                 i2 = number * 53;
-                hashEnum = Internal.hashEnumList((List) value);
+                iHashEnum = Internal.hashEnumList((List) value);
             } else {
                 i2 = number * 53;
-                hashEnum = Internal.hashEnum((Internal.EnumLite) value);
+                iHashEnum = Internal.hashEnum((Internal.EnumLite) value);
             }
-            i = i2 + hashEnum;
+            i = i2 + iHashEnum;
         }
         return i;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     @Override // com.google.oplus.protobuf.AbstractMessageLite
-    public UninitializedMessageException newUninitializedMessageException() {
+    UninitializedMessageException newUninitializedMessageException() {
         return Builder.newUninitializedMessageException((Message) this);
     }
 
-    /* loaded from: classes.dex */
-    public static abstract class Builder<BuilderType extends Builder<BuilderType>> extends AbstractMessageLite.Builder
-            implements Message.Builder {
+    public static abstract class Builder<BuilderType extends Builder<BuilderType>> extends AbstractMessageLite.Builder implements Message.Builder {
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder
-        /* renamed from: clone */
-        public BuilderType clone() {
+        /* JADX INFO: renamed from: clone */
+        public BuilderType mo0clone() {
             throw new UnsupportedOperationException("clone() should be implemented in subclasses.");
         }
 
@@ -261,18 +255,21 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
             throw new UnsupportedOperationException("getOneofFieldDescriptor() is not implemented.");
         }
 
+        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             throw new UnsupportedOperationException("clearOneof() is not implemented.");
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType clear() {
-            for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : getAllFields().entrySet()) {
-                clearField(entry.getKey());
+            Iterator<Map.Entry<Descriptors.FieldDescriptor, Object>> it = getAllFields().entrySet().iterator();
+            while (it.hasNext()) {
+                clearField(it.next().getKey());
             }
-            return (BuilderType) this;
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.MessageOrBuilder
@@ -285,15 +282,19 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
             return MessageReflection.delimitWithCommas(findInitializationErrors());
         }
 
+        /* JADX DEBUG: Method merged with bridge method: internalMergeFrom(Lcom/google/oplus/protobuf/AbstractMessageLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Multi-variable search result rejected for r1v0, resolved type: com.google.oplus.protobuf.AbstractMessageLite */
         /* JADX INFO: Access modifiers changed from: protected */
+        /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder
         public BuilderType internalMergeFrom(AbstractMessageLite abstractMessageLite) {
-            return mergeFrom((Message) abstractMessageLite);
+            return (BuilderType) mergeFrom((Message) abstractMessageLite);
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(Message message) {
-            return mergeFrom(message, message.getAllFields());
+            return (BuilderType) mergeFrom(message, message.getAllFields());
         }
 
         BuilderType mergeFrom(Message message, Map<Descriptors.FieldDescriptor, Object> map) {
@@ -303,57 +304,57 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
             for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : map.entrySet()) {
                 Descriptors.FieldDescriptor key = entry.getKey();
                 if (key.isRepeated()) {
-                    for (Object obj : (List) entry.getValue()) {
-                        addRepeatedField(key, obj);
+                    Iterator it = ((List) entry.getValue()).iterator();
+                    while (it.hasNext()) {
+                        addRepeatedField(key, it.next());
                     }
                 } else if (key.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                     Message message2 = (Message) getField(key);
                     if (message2 == message2.getDefaultInstanceForType()) {
                         setField(key, entry.getValue());
                     } else {
-                        setField(key, message2.newBuilderForType().mergeFrom(message2)
-                                .mergeFrom((Message) entry.getValue()).build());
+                        setField(key, message2.newBuilderForType().mergeFrom(message2).mergeFrom((Message) entry.getValue()).build());
                     }
                 } else {
                     setField(key, entry.getValue());
                 }
             }
             mergeUnknownFields(message.getUnknownFields());
-            return (BuilderType) this;
+            return this;
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(CodedInputStream codedInputStream) throws IOException {
-            return mergeFrom(codedInputStream, (ExtensionRegistryLite) ExtensionRegistry.getEmptyRegistry());
+            return (BuilderType) mergeFrom(codedInputStream, (ExtensionRegistryLite) ExtensionRegistry.getEmptyRegistry());
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
-                throws IOException {
-            int readTag;
-            UnknownFieldSet.Builder newBuilder = codedInputStream.shouldDiscardUnknownFields() ? null
-                    : UnknownFieldSet.newBuilder(getUnknownFields());
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+            int tag;
+            UnknownFieldSet.Builder builderNewBuilder = codedInputStream.shouldDiscardUnknownFields() ? null : UnknownFieldSet.newBuilder(getUnknownFields());
             do {
-                readTag = codedInputStream.readTag();
-                if (readTag == 0) {
+                tag = codedInputStream.readTag();
+                if (tag == 0) {
                     break;
                 }
-            } while (MessageReflection.mergeFieldFrom(codedInputStream, newBuilder, extensionRegistryLite,
-                    getDescriptorForType(), new MessageReflection.BuilderAdapter(this), readTag));
-            if (newBuilder != null) {
-                setUnknownFields(newBuilder.build());
+            } while (MessageReflection.mergeFieldFrom(codedInputStream, builderNewBuilder, extensionRegistryLite, getDescriptorForType(), new MessageReflection.BuilderAdapter(this), tag));
+            if (builderNewBuilder != null) {
+                setUnknownFields(builderNewBuilder.build());
             }
-            return (BuilderType) this;
+            return this;
         }
 
+        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
         @Override // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             setUnknownFields(UnknownFieldSet.newBuilder(getUnknownFields()).mergeFrom(unknownFieldSet).build());
-            return (BuilderType) this;
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.Message.Builder
@@ -370,93 +371,89 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
             return TextFormat.printer().printToString(this);
         }
 
-        /* JADX INFO: Access modifiers changed from: protected */
-        public static UninitializedMessageException newUninitializedMessageException(Message message) {
+        protected static UninitializedMessageException newUninitializedMessageException(Message message) {
             return new UninitializedMessageException(MessageReflection.findMissingFields(message));
         }
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        public void markClean() {
+        void markClean() {
             throw new IllegalStateException("Should be overridden by subclasses.");
         }
 
-        /* JADX INFO: Access modifiers changed from: package-private */
-        public void dispose() {
+        void dispose() {
             throw new IllegalStateException("Should be overridden by subclasses.");
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(ByteString byteString) throws InvalidProtocolBufferException {
             return (BuilderType) super.mergeFrom(byteString);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
-                throws InvalidProtocolBufferException {
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/ByteString;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return (BuilderType) super.mergeFrom(byteString, extensionRegistryLite);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([B)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([B)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([B)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(byte[] bArr) throws InvalidProtocolBufferException {
             return (BuilderType) super.mergeFrom(bArr);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BII)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BII)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BII)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
             return (BuilderType) super.mergeFrom(bArr, i, i2);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
-                throws InvalidProtocolBufferException {
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BLcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return (BuilderType) super.mergeFrom(bArr, extensionRegistryLite);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite)
-                throws InvalidProtocolBufferException {
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom([BIILcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
             return (BuilderType) super.mergeFrom(bArr, i, i2, extensionRegistryLite);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(InputStream inputStream) throws IOException {
             return (BuilderType) super.mergeFrom(inputStream);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
-                throws IOException {
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
+        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Ljava/io/InputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
             return (BuilderType) super.mergeFrom(inputStream, extensionRegistryLite);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         public boolean mergeDelimitedFrom(InputStream inputStream) throws IOException {
             return super.mergeDelimitedFrom(inputStream);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder,
-                  // com.google.oplus.protobuf.MessageLite.Builder,
-                  // com.google.oplus.protobuf.Message.Builder
-        public boolean mergeDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
-                throws IOException {
+        @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        public boolean mergeDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
             return super.mergeDelimitedFrom(inputStream, extensionRegistryLite);
         }
     }
@@ -468,10 +465,11 @@ public abstract class AbstractMessage extends AbstractMessageLite implements Mes
 
     @Deprecated
     protected static int hashEnumList(List<? extends Internal.EnumLite> list) {
-        int i = 1;
-        for (Internal.EnumLite enumLite : list) {
-            i = (i * 31) + hashEnum(enumLite);
+        Iterator<? extends Internal.EnumLite> it = list.iterator();
+        int iHashEnum = 1;
+        while (it.hasNext()) {
+            iHashEnum = (iHashEnum * 31) + hashEnum(it.next());
         }
-        return i;
+        return iHashEnum;
     }
 }

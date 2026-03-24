@@ -12,13 +12,12 @@ import java.nio.InvalidMarkException;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class NioByteString extends ByteString.LeafByteString {
+
+/* JADX INFO: loaded from: classes.dex */
+final class NioByteString extends ByteString.LeafByteString {
     private final ByteBuffer buffer;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public NioByteString(ByteBuffer byteBuffer) {
+    NioByteString(ByteBuffer byteBuffer) {
         Internal.checkNotNull(byteBuffer, "buffer");
         this.buffer = byteBuffer.slice().order(ByteOrder.nativeOrder());
     }
@@ -63,12 +62,11 @@ public final class NioByteString extends ByteString.LeafByteString {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.ByteString
-    public void copyToInternal(byte[] bArr, int i, int i2, int i3) {
-        ByteBuffer slice = this.buffer.slice();
-        slice.position(i);
-        slice.get(bArr, i2, i3);
+    protected void copyToInternal(byte[] bArr, int i, int i2, int i3) {
+        ByteBuffer byteBufferSlice = this.buffer.slice();
+        byteBufferSlice.position(i);
+        byteBufferSlice.get(bArr, i2, i3);
     }
 
     @Override // com.google.oplus.protobuf.ByteString
@@ -81,25 +79,22 @@ public final class NioByteString extends ByteString.LeafByteString {
         outputStream.write(toByteArray());
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     @Override // com.google.oplus.protobuf.ByteString.LeafByteString
-    public boolean equalsRange(ByteString byteString, int i, int i2) {
+    boolean equalsRange(ByteString byteString, int i, int i2) {
         return substring(0, i2).equals(byteString.substring(i, i2 + i));
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     @Override // com.google.oplus.protobuf.ByteString
-    public void writeToInternal(OutputStream outputStream, int i, int i2) throws IOException {
+    void writeToInternal(OutputStream outputStream, int i, int i2) throws IOException {
         if (this.buffer.hasArray()) {
             outputStream.write(this.buffer.array(), this.buffer.arrayOffset() + this.buffer.position() + i, i2);
-            return;
+        } else {
+            ByteBufferWriter.write(slice(i, i2 + i), outputStream);
         }
-        ByteBufferWriter.write(slice(i, i2 + i), outputStream);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     @Override // com.google.oplus.protobuf.ByteString
-    public void writeTo(ByteOutput byteOutput) throws IOException {
+    void writeTo(ByteOutput byteOutput) throws IOException {
         byteOutput.writeLazy(this.buffer.slice());
     }
 
@@ -116,18 +111,18 @@ public final class NioByteString extends ByteString.LeafByteString {
     @Override // com.google.oplus.protobuf.ByteString
     protected String toStringInternal(Charset charset) {
         byte[] byteArray;
-        int i;
+        int iArrayOffset;
         int length;
         if (this.buffer.hasArray()) {
             byteArray = this.buffer.array();
-            i = this.buffer.arrayOffset() + this.buffer.position();
+            iArrayOffset = this.buffer.arrayOffset() + this.buffer.position();
             length = this.buffer.remaining();
         } else {
             byteArray = toByteArray();
-            i = 0;
+            iArrayOffset = 0;
             length = byteArray.length;
         }
-        return new String(byteArray, i, length, charset);
+        return new String(byteArray, iArrayOffset, length, charset);
     }
 
     @Override // com.google.oplus.protobuf.ByteString
@@ -135,9 +130,8 @@ public final class NioByteString extends ByteString.LeafByteString {
         return Utf8.isValidUtf8(this.buffer);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.ByteString
-    public int partialIsValidUtf8(int i, int i2, int i3) {
+    protected int partialIsValidUtf8(int i, int i2, int i3) {
         return Utf8.partialIsValidUtf8(i, this.buffer, i2, i3 + i2);
     }
 
@@ -146,28 +140,27 @@ public final class NioByteString extends ByteString.LeafByteString {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof ByteString) {
-            ByteString byteString = (ByteString) obj;
-            if (size() != byteString.size()) {
-                return false;
-            }
-            if (size() == 0) {
-                return true;
-            }
-            if (obj instanceof NioByteString) {
-                return this.buffer.equals(((NioByteString) obj).buffer);
-            }
-            if (obj instanceof RopeByteString) {
-                return obj.equals(this);
-            }
-            return this.buffer.equals(byteString.asReadOnlyByteBuffer());
+        if (!(obj instanceof ByteString)) {
+            return false;
         }
-        return false;
+        ByteString byteString = (ByteString) obj;
+        if (size() != byteString.size()) {
+            return false;
+        }
+        if (size() == 0) {
+            return true;
+        }
+        if (obj instanceof NioByteString) {
+            return this.buffer.equals(((NioByteString) obj).buffer);
+        }
+        if (obj instanceof RopeByteString) {
+            return obj.equals(this);
+        }
+        return this.buffer.equals(byteString.asReadOnlyByteBuffer());
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.ByteString
-    public int partialHash(int i, int i2, int i3) {
+    protected int partialHash(int i, int i2, int i3) {
         for (int i4 = i2; i4 < i2 + i3; i4++) {
             i = (i * 31) + this.buffer.get(i4);
         }
@@ -217,12 +210,12 @@ public final class NioByteString extends ByteString.LeafByteString {
 
             @Override // java.io.InputStream
             public int read(byte[] bArr, int i, int i2) throws IOException {
-                if (this.buf.hasRemaining()) {
-                    int min = Math.min(i2, this.buf.remaining());
-                    this.buf.get(bArr, i, min);
-                    return min;
+                if (!this.buf.hasRemaining()) {
+                    return -1;
                 }
-                return -1;
+                int iMin = Math.min(i2, this.buf.remaining());
+                this.buf.get(bArr, i, iMin);
+                return iMin;
             }
         };
     }
@@ -236,9 +229,9 @@ public final class NioByteString extends ByteString.LeafByteString {
         if (i < this.buffer.position() || i2 > this.buffer.limit() || i > i2) {
             throw new IllegalArgumentException(String.format("Invalid indices [%d, %d]", Integer.valueOf(i), Integer.valueOf(i2)));
         }
-        ByteBuffer slice = this.buffer.slice();
-        slice.position(i - this.buffer.position());
-        slice.limit(i2 - this.buffer.position());
-        return slice;
+        ByteBuffer byteBufferSlice = this.buffer.slice();
+        byteBufferSlice.position(i - this.buffer.position());
+        byteBufferSlice.limit(i2 - this.buffer.position());
+        return byteBufferSlice;
     }
 }

@@ -6,7 +6,10 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
-/* loaded from: classes.dex */
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraCharacteristicsWrapper {
     private static final String TAG = "CameraCharacteristicsWrapper";
     private CameraCharacteristics mCameraCharacteristics;
@@ -39,8 +42,7 @@ public class CameraCharacteristicsWrapper {
     public static final CameraCharacteristics.Key<int[]> KEY_BOKEH_FORCE_UPSCALE_SIZE = new CameraCharacteristics.Key<>("com.oplus.custom.front.portrait.size", int[].class);
     public static final CameraCharacteristics.Key<Integer> KEY_STREAMING_HDR_TYPE = new CameraCharacteristics.Key<>("com.oplus.streaming.hdr.type", Integer.class);
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public CameraCharacteristicsWrapper(CameraCharacteristics cameraCharacteristics) {
+    CameraCharacteristicsWrapper(CameraCharacteristics cameraCharacteristics) {
         this.mCameraCharacteristics = cameraCharacteristics;
     }
 
@@ -56,122 +58,52 @@ public class CameraCharacteristicsWrapper {
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:16:0x0042  */
-    /* JADX WARN: Removed duplicated region for block: B:17:0x0049  */
-    /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public java.lang.String[] getVendorTagAndId() {
-        /*
-            r8 = this;
-            java.lang.String r0 = "CameraCharacteristicsWrapper"
-            java.util.ArrayList r1 = new java.util.ArrayList
-            r1.<init>()
-            r2 = 0
-            android.hardware.camera2.CameraCharacteristics r3 = r8.mCameraCharacteristics     // Catch: java.lang.IllegalArgumentException -> L2c
-            android.hardware.camera2.CameraCharacteristics$Key<int[]> r4 = com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper.KEY_VENDOR_TAG_ID     // Catch: java.lang.IllegalArgumentException -> L2c
-            java.lang.Object r3 = r3.get(r4)     // Catch: java.lang.IllegalArgumentException -> L2c
-            int[] r3 = (int[]) r3     // Catch: java.lang.IllegalArgumentException -> L2c
-            android.hardware.camera2.CameraCharacteristics r4 = r8.mCameraCharacteristics     // Catch: java.lang.IllegalArgumentException -> L29
-            android.hardware.camera2.CameraCharacteristics$Key<byte[]> r5 = com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper.KEY_VENDOR_TAG_NAME     // Catch: java.lang.IllegalArgumentException -> L29
-            java.lang.Object r4 = r4.get(r5)     // Catch: java.lang.IllegalArgumentException -> L29
-            byte[] r4 = (byte[]) r4     // Catch: java.lang.IllegalArgumentException -> L29
-            android.hardware.camera2.CameraCharacteristics r8 = r8.mCameraCharacteristics     // Catch: java.lang.IllegalArgumentException -> L27
-            android.hardware.camera2.CameraCharacteristics$Key<int[]> r5 = com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper.KEY_VENDOR_TAG_COUNT     // Catch: java.lang.IllegalArgumentException -> L27
-            java.lang.Object r8 = r8.get(r5)     // Catch: java.lang.IllegalArgumentException -> L27
-            int[] r8 = (int[]) r8     // Catch: java.lang.IllegalArgumentException -> L27
-            goto L35
-        L27:
-            r8 = move-exception
-            goto L2f
-        L29:
-            r8 = move-exception
-            r4 = r2
-            goto L2f
-        L2c:
-            r8 = move-exception
-            r3 = r2
-            r4 = r3
-        L2f:
-            java.lang.String r5 = "getVendorTagAndId"
-            com.oplus.ocs.camera.common.util.CameraUnitLog.e(r0, r5, r8)
-            r8 = r2
-        L35:
-            java.lang.StringBuilder r5 = new java.lang.StringBuilder
-            r5.<init>()
-            java.lang.String r6 = "getVendorTagAndId, count: "
-            r5.append(r6)
-            r6 = 0
-            if (r8 == 0) goto L49
-            r8 = r8[r6]
-            java.lang.Integer r8 = java.lang.Integer.valueOf(r8)
-            goto L4a
-        L49:
-            r8 = r2
-        L4a:
-            r5.append(r8)
-            java.lang.String r8 = r5.toString()
-            com.oplus.ocs.camera.common.util.CameraUnitLog.d(r0, r8)
-            if (r3 == 0) goto Lc0
-            if (r4 != 0) goto L59
-            goto Lc0
-        L59:
-            java.lang.String r8 = new java.lang.String
-            java.nio.charset.Charset r2 = java.nio.charset.StandardCharsets.UTF_8
-            r8.<init>(r4, r2)
-            java.lang.String r2 = ";"
-            java.lang.String[] r8 = r8.split(r2)
-            r2 = r6
-        L67:
-            int r4 = r8.length
-            if (r2 >= r4) goto L81
-            r4 = r8[r2]
-            java.lang.String r5 = "\u0000"
-            java.lang.String r7 = ""
-            java.lang.String r4 = r4.replace(r5, r7)
-            r8[r2] = r4
-            java.lang.String r5 = " "
-            java.lang.String r4 = r4.replace(r5, r7)
-            r8[r2] = r4
-            int r2 = r2 + 1
-            goto L67
-        L81:
-            java.lang.StringBuilder r2 = new java.lang.StringBuilder
-            r2.<init>()
-            java.lang.String r4 = "getVendorTagAndId, names array length: "
-            r2.append(r4)
-            int r4 = r8.length
-            r2.append(r4)
-            java.lang.String r4 = ", ids array length: "
-            r2.append(r4)
-            int r4 = r3.length
-            r2.append(r4)
-            java.lang.String r2 = r2.toString()
-            com.oplus.ocs.camera.common.util.CameraUnitLog.d(r0, r2)
-            r0 = r6
-        La0:
-            int r2 = r3.length
-            if (r0 >= r2) goto Lb7
-            int r2 = r8.length
-            if (r0 >= r2) goto Lb4
-            r2 = r8[r0]
-            r1.add(r2)
-            r2 = r3[r0]
-            java.lang.String r2 = java.lang.Integer.toString(r2)
-            r1.add(r2)
-        Lb4:
-            int r0 = r0 + 1
-            goto La0
-        Lb7:
-            java.lang.String[] r8 = new java.lang.String[r6]
-            java.lang.Object[] r8 = r1.toArray(r8)
-            java.lang.String[] r8 = (java.lang.String[]) r8
-            return r8
-        Lc0:
-            return r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper.getVendorTagAndId():java.lang.String[]");
+    public String[] getVendorTagAndId() {
+        int[] iArr;
+        byte[] bArr;
+        int[] iArr2;
+        ArrayList arrayList = new ArrayList();
+        try {
+            iArr = (int[]) this.mCameraCharacteristics.get(KEY_VENDOR_TAG_ID);
+            try {
+                bArr = (byte[]) this.mCameraCharacteristics.get(KEY_VENDOR_TAG_NAME);
+                try {
+                    iArr2 = (int[]) this.mCameraCharacteristics.get(KEY_VENDOR_TAG_COUNT);
+                } catch (IllegalArgumentException e) {
+                    e = e;
+                    CameraUnitLog.e(TAG, "getVendorTagAndId", e);
+                    iArr2 = null;
+                }
+            } catch (IllegalArgumentException e2) {
+                e = e2;
+                bArr = null;
+            }
+        } catch (IllegalArgumentException e3) {
+            e = e3;
+            iArr = null;
+            bArr = null;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("getVendorTagAndId, count: ");
+        sb.append(iArr2 != null ? Integer.valueOf(iArr2[0]) : null);
+        CameraUnitLog.d(TAG, sb.toString());
+        if (iArr == null || bArr == null) {
+            return null;
+        }
+        String[] strArrSplit = new String(bArr, StandardCharsets.UTF_8).split(";");
+        for (int i = 0; i < strArrSplit.length; i++) {
+            String strReplace = strArrSplit[i].replace("\u0000", "");
+            strArrSplit[i] = strReplace;
+            strArrSplit[i] = strReplace.replace(" ", "");
+        }
+        CameraUnitLog.d(TAG, "getVendorTagAndId, names array length: " + strArrSplit.length + ", ids array length: " + iArr.length);
+        for (int i2 = 0; i2 < iArr.length; i2++) {
+            if (i2 < strArrSplit.length) {
+                arrayList.add(strArrSplit[i2]);
+                arrayList.add(Integer.toString(iArr[i2]));
+            }
+        }
+        return (String[]) arrayList.toArray(new String[0]);
     }
 
     public int[] getIntArrayConfig(CameraCharacteristics.Key<?> key) {

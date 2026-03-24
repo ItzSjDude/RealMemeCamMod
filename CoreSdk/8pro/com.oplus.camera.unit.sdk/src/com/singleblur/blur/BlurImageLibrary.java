@@ -1,5 +1,6 @@
 package com.singleblur.blur;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class BlurImageLibrary {
     public static final int ST_BLUR_PARAM_TYPE_EREA_RATIO = 4097;
 

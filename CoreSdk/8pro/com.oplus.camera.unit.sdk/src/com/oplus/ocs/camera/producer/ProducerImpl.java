@@ -53,10 +53,11 @@ import com.oplus.ocs.camera.producer.mode.ModeFactory;
 import com.oplus.ocs.camera.producer.mode.ModeInterface;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInterfaceContract.ProducerInterface {
     private static final int DELAY_TO_AVOID_FRAMEWORK_CONFLICT = 50;
     private static final String TAG = "ProducerImpl";
@@ -114,6 +115,16 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         return null;
     }
 
+    /* JADX WARN: Type inference fix 'apply assigned field type' failed
+    java.lang.UnsupportedOperationException: ArgType.getObject(), call class: class jadx.core.dex.instructions.args.ArgType$UnknownArg
+    	at jadx.core.dex.instructions.args.ArgType.getObject(ArgType.java:593)
+    	at jadx.core.dex.attributes.nodes.ClassTypeVarsAttr.getTypeVarsMapFor(ClassTypeVarsAttr.java:35)
+    	at jadx.core.dex.nodes.utils.TypeUtils.replaceClassGenerics(TypeUtils.java:177)
+    	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.insertExplicitUseCast(FixTypesVisitor.java:397)
+    	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.tryFieldTypeWithNewCasts(FixTypesVisitor.java:359)
+    	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.applyFieldType(FixTypesVisitor.java:309)
+    	at jadx.core.dex.visitors.typeinference.FixTypesVisitor.visit(FixTypesVisitor.java:94)
+     */
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
     public void configure(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig) {
         CameraUnitLog.traceBeginSection("CameraUnitProducerImplConfigure");
@@ -141,13 +152,9 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             this.mCurrentMode.unInit();
         }
         this.mCurrentMode = mode;
-        this.mCurrentMode.setRearFrontCameraId(CameraCharacteristicsHelper.isFrontCamera(
-                CameraCharacteristicsHelper.getCameraIdType(this.mCamera2DeviceInterface.getCameraType()).getCameraId())
-                        ? 1
-                        : 0);
+        this.mCurrentMode.setRearFrontCameraId(CameraCharacteristicsHelper.isFrontCamera(CameraCharacteristicsHelper.getCameraIdType(this.mCamera2DeviceInterface.getCameraType()).getCameraId()) ? 1 : 0);
         this.mCaptureSig.open();
-        CameraUnitLog.d(TAG,
-                "configure, modeName: " + sdkCameraDeviceConfig.getModeName() + ", mCurrentMode: " + this.mCurrentMode);
+        CameraUnitLog.d(TAG, "configure, modeName: " + sdkCameraDeviceConfig.getModeName() + ", mCurrentMode: " + this.mCurrentMode);
         CameraConfigHelper.blockApsConfigIfNeeded();
         if (this.mbManageMultiDevice) {
             this.mConfigureCallbackCount = 0;
@@ -157,8 +164,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
                 SdkCameraDeviceConfig value = entry.getValue();
                 updateReportedCameraId(key, value);
                 this.mConfigureSig.close();
-                CameraUnitLog.d(TAG,
-                        "configure, count: " + i + ", mConfigureCallbackCount: " + this.mConfigureCallbackCount);
+                CameraUnitLog.d(TAG, "configure, count: " + i + ", mConfigureCallbackCount: " + this.mConfigureCallbackCount);
                 if (i > 0 && this.mConfigureCallbackCount < i) {
                     this.mConfigureSig.block();
                 }
@@ -175,34 +181,26 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         CameraUnitLog.traceEndSection("CameraUnitProducerImplConfigure");
     }
 
-    private void configureSession(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            @NonNull PreviewParameter.Builder builder, @NonNull Camera2DeviceInterface camera2DeviceInterface, int i) {
-        CameraSessionEntity configure = this.mCurrentMode.configure(sdkCameraDeviceConfig,
-                camera2DeviceInterface.getCameraType());
-        if (configure == null) {
+    private void configureSession(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig, @NonNull PreviewParameter.Builder builder, @NonNull Camera2DeviceInterface camera2DeviceInterface, int i) {
+        CameraSessionEntity cameraSessionEntityConfigure = this.mCurrentMode.configure(sdkCameraDeviceConfig, camera2DeviceInterface.getCameraType());
+        if (cameraSessionEntityConfigure == null) {
             if (this.mDefaultCameraStateCallbackAdapter != null) {
                 this.mDefaultCameraStateCallbackAdapter.onSessionConfigureFail(ErrorResult.PARAMETER_ERROR);
             }
             CameraUnitLog.e(TAG, "configureSession, fail");
             return;
         }
-        int operationMode = configure.getOperationMode();
+        int operationMode = cameraSessionEntityConfigure.getOperationMode();
         Size appSurfaceSize = sdkCameraDeviceConfig.getDefaultPreviewSurface().getAppSurfaceSize();
         builder.set(ConfigureParameter.KEY_CONFIGURE_OPERATION_MODE, String.valueOf(operationMode));
         builder.set(ConfigureParameter.KEY_CONFIGURE_STREAM_SIZE, appSurfaceSize);
-        if (sdkCameraDeviceConfig.getConfigureParameter() != null && !TextUtils.isEmpty(
-                (CharSequence) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS))) {
-            builder.set(ConfigureParameter.VIDEO_FPS,
-                    ((String) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS)));
+        if (sdkCameraDeviceConfig.getConfigureParameter() != null && !TextUtils.isEmpty((CharSequence) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS))) {
+            builder.set(ConfigureParameter.VIDEO_FPS, (String) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS));
         }
-        CameraUnitLog.e(TAG,
-                "configureSession, operationMode: " + operationMode + ", hex value: 0x"
-                        + Integer.toHexString(operationMode) + ", defaultPreviewSize: " + appSurfaceSize.getWidth()
-                        + "x" + appSurfaceSize.getHeight());
-        Parameter buildStageParameter = buildStageParameter(Parameter.ParameterStage.CONFIGURE,
-                camera2DeviceInterface.getCameraType(), builder, null);
-        configure.setDelay(i);
-        camera2DeviceInterface.configure(configure, buildStageParameter);
+        CameraUnitLog.e(TAG, "configureSession, operationMode: " + operationMode + ", hex value: 0x" + Integer.toHexString(operationMode) + ", defaultPreviewSize: " + appSurfaceSize.getWidth() + "x" + appSurfaceSize.getHeight());
+        Parameter parameterBuildStageParameter = buildStageParameter(Parameter.ParameterStage.CONFIGURE, camera2DeviceInterface.getCameraType(), builder, null);
+        cameraSessionEntityConfigure.setDelay(i);
+        camera2DeviceInterface.configure(cameraSessionEntityConfigure, parameterBuildStageParameter);
     }
 
     public void setCameraState(int i) {
@@ -278,21 +276,20 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         }
     }
 
-    private Parameter buildStageParameter(String str, String str2, @NonNull PreviewParameter.Builder builder,
-            @Nullable CameraRequestTag cameraRequestTag) {
+    private Parameter buildStageParameter(String str, String str2, @NonNull PreviewParameter.Builder builder, @Nullable CameraRequestTag cameraRequestTag) {
         this.mCurrentMode.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        Parameter build = builder.build();
-        this.mCurrentMode.updateStageParameter(build, str, str2, cameraRequestTag);
-        return build;
+        Parameter parameterBuild = builder.build();
+        this.mCurrentMode.updateStageParameter(parameterBuild, str, str2, cameraRequestTag);
+        return parameterBuild;
     }
 
-    /*
-     * JADX WARN: Code restructure failed: missing block: B:64:0x018d, code lost:
-     * if (r1[0] == 1) goto L72;
-     */
+    /* JADX WARN: Removed duplicated region for block: B:66:0x0190  */
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
-    public void startPreview(Map<String, Surface> map, CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter,
-            Handler handler) {
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+    */
+    public void startPreview(Map<String, Surface> map, CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter, Handler handler) {
+        boolean z;
         if (this.mbStopPreviewAfterCapture) {
             CameraUnitLog.d(TAG, "startPreview, intercept preview");
             return;
@@ -306,87 +303,77 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         Camera2DeviceInterface camera2DeviceInterface2 = this.mSubCamera2DeviceInterface;
         this.mPreviewCallback = cameraPreviewCallbackAdapter;
         this.mPreviewSurfaces = map;
-        if (camera2DeviceInterface == null || (this.mbManageMultiDevice && camera2DeviceInterface2 == null)
-                || this.mCurrentMode == null) {
-            CameraUnitLog.e(TAG, "startPreview, invalid state, mCamera2DeviceInterface: " + camera2DeviceInterface
-                    + ", mCurrentMode: " + this.mCurrentMode);
+        if (camera2DeviceInterface == null || (((z = this.mbManageMultiDevice) && camera2DeviceInterface2 == null) || this.mCurrentMode == null)) {
+            CameraUnitLog.e(TAG, "startPreview, invalid state, mCamera2DeviceInterface: " + camera2DeviceInterface + ", mCurrentMode: " + this.mCurrentMode);
             return;
         }
-        if (this.mbManageMultiDevice) {
+        int i = 0;
+        if (z) {
             if (map == null || map.isEmpty()) {
                 throw new IllegalArgumentException("preview surface are not allowed null in multi device!");
             }
             for (Map.Entry<String, Surface> entry : map.entrySet()) {
-                Camera2DeviceInterface camera2DeviceInterface3 = "rear_main".equals(entry.getKey())
-                        ? camera2DeviceInterface
-                        : camera2DeviceInterface2;
-                PreviewParameter.Builder builder = "rear_main".equals(entry.getKey()) ? this.mAllStageParameterBuilder
-                        : this.mSubAllStageParameterBuilder;
-                CameraRequestTag createRequestTag = this.mCurrentMode.createRequestTag(entry.getKey(),
-                        cameraPreviewCallbackAdapter, handler, "start_preview", builder);
-                createRequestTag.mConsumerInterface = this.mConsumerInterface;
+                Camera2DeviceInterface camera2DeviceInterface3 = "rear_main".equals(entry.getKey()) ? camera2DeviceInterface : camera2DeviceInterface2;
+                PreviewParameter.Builder builder = "rear_main".equals(entry.getKey()) ? this.mAllStageParameterBuilder : this.mSubAllStageParameterBuilder;
+                Camera2DeviceInterface camera2DeviceInterface4 = camera2DeviceInterface3;
+                int i2 = i;
+                CameraRequestTag cameraRequestTagCreateRequestTag = this.mCurrentMode.createRequestTag(entry.getKey(), cameraPreviewCallbackAdapter, handler, Parameter.ParameterStage.START_PREVIEW, builder);
+                cameraRequestTagCreateRequestTag.mConsumerInterface = this.mConsumerInterface;
                 if (entry.getValue() != null) {
-                    createRequestTag.mAddTargetSurfaces.put(
-                            new SurfaceKey(camera2DeviceInterface3.getCameraType(), "surface_key_preview", 0),
-                            entry.getValue());
+                    cameraRequestTagCreateRequestTag.mAddTargetSurfaces.put(new SurfaceKey(camera2DeviceInterface4.getCameraType(), "surface_key_preview", i2), entry.getValue());
                 }
-                if (("front_main".equals(entry.getKey()) || "front_wide".equals(entry.getKey()))
-                        && "multi_camera_mode".equals(createRequestTag.mCaptureMode) && 1 == this.mCameraState
-                        && Util.isSystemCamera()) {
+                if (("front_main".equals(entry.getKey()) || "front_wide".equals(entry.getKey())) && "multi_camera_mode".equals(cameraRequestTagCreateRequestTag.mCaptureMode) && 1 == this.mCameraState && Util.isSystemCamera()) {
                     return;
                 }
-                camera2DeviceInterface3.startPreview(createRequestTag,
-                        buildStageParameter("start_preview", entry.getKey(), builder, createRequestTag));
+                camera2DeviceInterface4.startPreview(cameraRequestTagCreateRequestTag, buildStageParameter(Parameter.ParameterStage.START_PREVIEW, entry.getKey(), builder, cameraRequestTagCreateRequestTag));
+                i = i2;
             }
         } else {
             String cameraType = camera2DeviceInterface.getCameraType();
-            CameraRequestTag createRequestTag2 = this.mCurrentMode.createRequestTag(cameraType,
-                    cameraPreviewCallbackAdapter, handler, "start_preview", this.mAllStageParameterBuilder);
-            createRequestTag2.mConsumerInterface = this.mConsumerInterface;
-            Parameter buildStageParameter = buildStageParameter("start_preview", cameraType,
-                    this.mAllStageParameterBuilder, createRequestTag2);
-            CameraUnitLog.d(TAG, "startPreview, tag hashCode: " + createRequestTag2.hashCode());
+            CameraRequestTag cameraRequestTagCreateRequestTag2 = this.mCurrentMode.createRequestTag(cameraType, cameraPreviewCallbackAdapter, handler, Parameter.ParameterStage.START_PREVIEW, this.mAllStageParameterBuilder);
+            cameraRequestTagCreateRequestTag2.mConsumerInterface = this.mConsumerInterface;
+            Parameter parameterBuildStageParameter = buildStageParameter(Parameter.ParameterStage.START_PREVIEW, cameraType, this.mAllStageParameterBuilder, cameraRequestTagCreateRequestTag2);
+            CameraUnitLog.d(TAG, "startPreview, tag hashCode: " + cameraRequestTagCreateRequestTag2.hashCode());
             if (map != null) {
-                for (Surface surface : map.values()) {
-                    createRequestTag2.mAddTargetSurfaces.put(new SurfaceKey(cameraType, "surface_key_preview", 35),
-                            surface);
+                Iterator<Surface> it = map.values().iterator();
+                while (it.hasNext()) {
+                    cameraRequestTagCreateRequestTag2.mAddTargetSurfaces.put(new SurfaceKey(cameraType, "surface_key_preview", 35), it.next());
                 }
             }
-            int[] iArr = (int[]) buildStageParameter.get(PreviewParameter.KEY_TRIPOD_MODE);
-            createRequestTag2.mbTripodEnable = iArr != null && iArr[0] == 1;
-            checkFlashModeConflict(buildStageParameter, camera2DeviceInterface);
-            camera2DeviceInterface.startPreview(createRequestTag2, buildStageParameter);
-            CameraRequestTag cameraRequestTag = this.mCurrentCaptureRequestTag;
-            if (cameraRequestTag != null) {
-                cameraRequestTag.mbRepeatingRequestCapture = false;
+            int[] iArr = (int[]) parameterBuildStageParameter.get(PreviewParameter.KEY_TRIPOD_MODE);
+            if (iArr != null) {
+                boolean z2 = iArr[0] == 1;
+                cameraRequestTagCreateRequestTag2.mbTripodEnable = z2;
+                checkFlashModeConflict(parameterBuildStageParameter, camera2DeviceInterface);
+                camera2DeviceInterface.startPreview(cameraRequestTagCreateRequestTag2, parameterBuildStageParameter);
+                CameraRequestTag cameraRequestTag = this.mCurrentCaptureRequestTag;
+                if (cameraRequestTag != null) {
+                    cameraRequestTag.mbRepeatingRequestCapture = false;
+                }
+                CameraRequestTag cameraRequestTag2 = this.mCurrentPreviewRequestTag;
+                if (cameraRequestTag2 != null) {
+                    cameraRequestTag2.mbLongExposureCaptureEnable = false;
+                }
+                this.mCurrentPreviewRequestTag = cameraRequestTagCreateRequestTag2;
             }
-            CameraRequestTag cameraRequestTag2 = this.mCurrentPreviewRequestTag;
-            if (cameraRequestTag2 != null) {
-                cameraRequestTag2.mbLongExposureCaptureEnable = false;
-            }
-            this.mCurrentPreviewRequestTag = createRequestTag2;
         }
         CameraUnitLog.traceEndSection("CameraUnitProducerImplStartPreview");
     }
 
     private void checkFlashModeConflict(Parameter parameter, Camera2DeviceInterface camera2DeviceInterface) {
-        if (parameter == null || camera2DeviceInterface == null
-                || !parameter.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO)) {
+        if (parameter == null || camera2DeviceInterface == null || !parameter.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO)) {
             return;
         }
         Float f = (Float) parameter.get(PreviewParameter.KEY_ZOOM_RATIO);
-        boolean equals = "rear_sat".equals(camera2DeviceInterface.getCameraType());
+        boolean zEquals = "rear_sat".equals(camera2DeviceInterface.getCameraType());
         boolean z = false;
         Boolean bool = (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FLASH_WIDE_TEL_SUPPORT, false);
-        if (!equals || bool.booleanValue()) {
+        if (!zEquals || bool.booleanValue()) {
             return;
         }
-        CameraDeviceInfoInterface cameraDeviceInfo = this.mCurrentMode
-                .getCameraDeviceInfo(camera2DeviceInterface.getCameraType());
-        List list = (List) cameraDeviceInfo
-                .getPreviewParameterRange(PreviewParameter.KEY_SAT_CAMERA_NONE_ZOOM_RATIO.getName());
-        if (list != null && list.size() >= 2 && (f.floatValue() < ((Float) list.get(1)).floatValue()
-                || (list.size() == 3 && f.floatValue() >= ((Float) list.get(2)).floatValue()))) {
+        CameraDeviceInfoInterface cameraDeviceInfo = this.mCurrentMode.getCameraDeviceInfo(camera2DeviceInterface.getCameraType());
+        List list = (List) cameraDeviceInfo.getPreviewParameterRange(PreviewParameter.KEY_SAT_CAMERA_NONE_ZOOM_RATIO.getName());
+        if (list != null && list.size() >= 2 && (f.floatValue() < ((Float) list.get(1)).floatValue() || (list.size() == 3 && f.floatValue() >= ((Float) list.get(2)).floatValue()))) {
             z = true;
         }
         if (z) {
@@ -401,8 +388,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             }
             return;
         }
-        List<String> list2 = (List) cameraDeviceInfo
-                .getPreviewParameterRange(PreviewParameter.KEY_FLASH_MODE.getName());
+        List<String> list2 = (List) cameraDeviceInfo.getPreviewParameterRange(PreviewParameter.KEY_FLASH_MODE.getName());
         DefaultFlashCallbackAdapter defaultFlashCallbackAdapter2 = this.mDefaultFlashCallbackAdapter;
         if (defaultFlashCallbackAdapter2 != null) {
             defaultFlashCallbackAdapter2.onFlashModeChanged((String) parameter.get(PreviewParameter.KEY_FLASH_MODE));
@@ -466,48 +452,39 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
     }
 
     @Override // com.oplus.ocs.camera.ProducerConsumerInterfaceContract.ProducerInterface
-    public void onReprocess(Image image, TotalCaptureResult totalCaptureResult, Rect rect,
-            CameraRequestTag cameraRequestTag) {
+    public void onReprocess(Image image, TotalCaptureResult totalCaptureResult, Rect rect, CameraRequestTag cameraRequestTag) {
         if (image == null || totalCaptureResult == null || cameraRequestTag == null) {
             if (cameraRequestTag != null) {
                 CameraUnitLog.e(TAG, "onReprocess, failed");
-                handleCaptureFailed(cameraRequestTag.mUserCallbackHandler,
-                        (CameraPictureCallbackAdapter) cameraRequestTag.mCallback);
+                handleCaptureFailed(cameraRequestTag.mUserCallbackHandler, (CameraPictureCallbackAdapter) cameraRequestTag.mCallback);
+                return;
             }
-        } else if (this.mCamera2DeviceInterface != null) {
+            return;
+        }
+        if (this.mCamera2DeviceInterface != null) {
             CameraUnitLog.d(TAG, "onReprocess, image: " + image + ", rect: " + rect);
             if (cameraRequestTag.mbLongExposureCaptureEnable) {
                 cameraRequestTag = (CameraRequestTag) cameraRequestTag.clone();
             }
             CameraRequestTag cameraRequestTag2 = cameraRequestTag;
             cameraRequestTag2.setRequestMode(CameraRequestTag.RequestMode.CAPTURE_REPROCESS);
-            Parameter buildStageParameter = buildStageParameter(Parameter.ParameterStage.BEFORE_TAKE_PICTURE,
-                    this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, cameraRequestTag2);
+            Parameter parameterBuildStageParameter = buildStageParameter(Parameter.ParameterStage.BEFORE_TAKE_PICTURE, this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, cameraRequestTag2);
             cameraRequestTag2.mRequestNum = 1;
             cameraRequestTag2.mCaptureEvList = null;
             cameraRequestTag2.mbInNightProcess = false;
             cameraRequestTag2.mAddTargetSurfaces.clear();
             if ("rear_sat".equals(cameraRequestTag2.mCameraType)) {
-                if (this.mCamera2DeviceInterface.getSupportWrapper("surface_key_reprocess_yuv", "rear_sat",
-                        cameraRequestTag2.mRequestFormat)) {
-                    cameraRequestTag2.mAddTargetSurfaces.put(
-                            new SurfaceKey("rear_sat", "surface_key_reprocess_yuv", cameraRequestTag2.mRequestFormat),
-                            null);
+                if (this.mCamera2DeviceInterface.getSupportWrapper("surface_key_reprocess_yuv", "rear_sat", cameraRequestTag2.mRequestFormat)) {
+                    cameraRequestTag2.mAddTargetSurfaces.put(new SurfaceKey("rear_sat", "surface_key_reprocess_yuv", cameraRequestTag2.mRequestFormat), null);
                 } else {
-                    cameraRequestTag2.mAddTargetSurfaces.put(
-                            new SurfaceKey("rear_main", "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
-                    cameraRequestTag2.mAddTargetSurfaces.put(
-                            new SurfaceKey("rear_wide", "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
-                    cameraRequestTag2.mAddTargetSurfaces.put(
-                            new SurfaceKey("rear_tele", "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
+                    cameraRequestTag2.mAddTargetSurfaces.put(new SurfaceKey("rear_main", "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
+                    cameraRequestTag2.mAddTargetSurfaces.put(new SurfaceKey("rear_wide", "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
+                    cameraRequestTag2.mAddTargetSurfaces.put(new SurfaceKey("rear_tele", "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
                 }
             } else {
-                cameraRequestTag2.mAddTargetSurfaces.put(new SurfaceKey(this.mCamera2DeviceInterface.getCameraType(),
-                        cameraRequestTag2.mbUseMFNRSize ? "surface_key_picture_mfnr" : "surface_key_picture",
-                        cameraRequestTag2.mRequestFormat), null);
+                cameraRequestTag2.mAddTargetSurfaces.put(new SurfaceKey(this.mCamera2DeviceInterface.getCameraType(), cameraRequestTag2.mbUseMFNRSize ? "surface_key_picture_mfnr" : "surface_key_picture", cameraRequestTag2.mRequestFormat), null);
             }
-            this.mCamera2DeviceInterface.reprocessImage(image, totalCaptureResult, rect, cameraRequestTag2,
-                    buildStageParameter);
+            this.mCamera2DeviceInterface.reprocessImage(image, totalCaptureResult, rect, cameraRequestTag2, parameterBuildStageParameter);
         }
     }
 
@@ -527,22 +504,17 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
     public void takePicture(CameraPictureCallbackAdapter cameraPictureCallbackAdapter, Handler handler) {
         if (this.mCamera2DeviceInterface != null) {
             synchronized (this.mPreviewResultLock) {
-                CameraRequestTag createRequestTag = this.mCurrentMode.createRequestTag(
-                        this.mCamera2DeviceInterface.getCameraType(), cameraPictureCallbackAdapter, handler,
-                        Parameter.ParameterStage.BEFORE_TAKE_PICTURE, this.mAllStageParameterBuilder);
-                discardUselessBuffer(createRequestTag);
-                createRequestTag.mbStopPreviewAfterCapture = this.mbStopPreviewAfterCapture;
-                this.mCurrentCaptureRequestTag = createRequestTag;
-                if (createRequestTag.mbLongExposureCaptureEnable) {
+                CameraRequestTag cameraRequestTagCreateRequestTag = this.mCurrentMode.createRequestTag(this.mCamera2DeviceInterface.getCameraType(), cameraPictureCallbackAdapter, handler, Parameter.ParameterStage.BEFORE_TAKE_PICTURE, this.mAllStageParameterBuilder);
+                discardUselessBuffer(cameraRequestTagCreateRequestTag);
+                cameraRequestTagCreateRequestTag.mbStopPreviewAfterCapture = this.mbStopPreviewAfterCapture;
+                this.mCurrentCaptureRequestTag = cameraRequestTagCreateRequestTag;
+                if (cameraRequestTagCreateRequestTag.mbLongExposureCaptureEnable) {
                     this.mCurrentPreviewRequestTag.mbLongExposureCaptureEnable = true;
                 }
-                createRequestTag.mConsumerInterface = this.mConsumerInterface;
-                boolean z = createRequestTag.mbBurstShot
-                        && CameraCharacteristicsHelper.isSupportCShot(createRequestTag.mCameraType);
-                int isAllowedToTakePicture = this.mCurrentMode.isAllowedToTakePicture(cameraPictureCallbackAdapter,
-                        handler, createRequestTag);
-                if (isAllowedToTakePicture == 0 && !this.mConsumerInterface.isApsCaptureAlgoInitializing()
-                        && (this.mbApsFinishAddFrame || z)) {
+                cameraRequestTagCreateRequestTag.mConsumerInterface = this.mConsumerInterface;
+                boolean z = cameraRequestTagCreateRequestTag.mbBurstShot && CameraCharacteristicsHelper.isSupportCShot(cameraRequestTagCreateRequestTag.mCameraType);
+                int iIsAllowedToTakePicture = this.mCurrentMode.isAllowedToTakePicture(cameraPictureCallbackAdapter, handler, cameraRequestTagCreateRequestTag);
+                if (iIsAllowedToTakePicture == 0 && !this.mConsumerInterface.isApsCaptureAlgoInitializing() && (this.mbApsFinishAddFrame || z)) {
                     if (this.mCurrentMode.isNeedAPSProcess()) {
                         setApsFinishAddFrame(false);
                         setApsFinishProcessFrame(false);
@@ -550,75 +522,54 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
                     }
                     setCameraState(2);
                     this.mCaptureSig.close();
-                    Parameter buildStageParameter = buildStageParameter(Parameter.ParameterStage.BEFORE_TAKE_PICTURE,
-                            this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder,
-                            createRequestTag);
-                    this.mConsumerInterface.startCapture(createRequestTag);
+                    Parameter parameterBuildStageParameter = buildStageParameter(Parameter.ParameterStage.BEFORE_TAKE_PICTURE, this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, cameraRequestTagCreateRequestTag);
+                    this.mConsumerInterface.startCapture(cameraRequestTagCreateRequestTag);
                     ImageCategory.MetaItemInfo metaItemInfo = new ImageCategory.MetaItemInfo();
-                    if (createRequestTag.mbFaceRectifyOpen && !createRequestTag.mbBurstShot
-                            && !AlgoSwitchConfig.isUseApsDecision()) {
-                        CameraUnitLog.i(TAG,
-                                "takePicture, joinAppAndHalAlgoFlag ALGO_NAME_FACE_RECTIFY : " + Arrays.toString(Util
-                                        .joinAppAndHalAlgoFlag(new String[] { ParameterKeys.ALGO_NAME_FACE_RECTIFY },
-                                                createRequestTag.mApsAlgoFlags)));
-                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST, Util.joinAppAndHalAlgoFlag(
-                                new String[] { ParameterKeys.ALGO_NAME_FACE_RECTIFY }, createRequestTag.mApsAlgoFlags));
+                    if (cameraRequestTagCreateRequestTag.mbFaceRectifyOpen && !cameraRequestTagCreateRequestTag.mbBurstShot && !AlgoSwitchConfig.isUseApsDecision()) {
+                        CameraUnitLog.i(TAG, "takePicture, joinAppAndHalAlgoFlag ALGO_NAME_FACE_RECTIFY : " + Arrays.toString(Util.joinAppAndHalAlgoFlag(new String[]{ParameterKeys.ALGO_NAME_FACE_RECTIFY}, cameraRequestTagCreateRequestTag.mApsAlgoFlags)));
+                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST, Util.joinAppAndHalAlgoFlag(new String[]{ParameterKeys.ALGO_NAME_FACE_RECTIFY}, cameraRequestTagCreateRequestTag.mApsAlgoFlags));
                     } else {
-                        CameraUnitLog.i(TAG, "takePicture, KEY_CAPTURE_ALGO_LIST : "
-                                + Arrays.toString(createRequestTag.mApsAlgoFlags));
-                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST, createRequestTag.mApsAlgoFlags);
+                        CameraUnitLog.i(TAG, "takePicture, KEY_CAPTURE_ALGO_LIST : " + Arrays.toString(cameraRequestTagCreateRequestTag.mApsAlgoFlags));
+                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST, cameraRequestTagCreateRequestTag.mApsAlgoFlags);
                     }
-                    metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_SCENE,
-                            Integer.valueOf(createRequestTag.mApsDecisionSceneMode));
-                    metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FEATURE_TYPE,
-                            Integer.valueOf(createRequestTag.mApsDecisionFeatureType));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_SCENE, Integer.valueOf(cameraRequestTagCreateRequestTag.mApsDecisionSceneMode));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FEATURE_TYPE, Integer.valueOf(cameraRequestTagCreateRequestTag.mApsDecisionFeatureType));
                     this.mConsumerInterface.beforeCapture(metaItemInfo);
                     if (this.mCurrentMode.isSupportVideoSnapShot(this.mCamera2DeviceInterface.getCameraType())) {
-                        createRequestTag.mAppOpaqueObj = buildStageParameter.get(PreviewParameter.KEY_REQUEST_TAG);
+                        cameraRequestTagCreateRequestTag.mAppOpaqueObj = parameterBuildStageParameter.get(PreviewParameter.KEY_REQUEST_TAG);
                         CameraUnitLog.d(TAG, "takePicture, is video snap shot.");
                         if (this.mCurrentMode.isVideoSnapShotByAps(this.mCamera2DeviceInterface.getCameraType())) {
                             ApsCameraRequestTag apsCameraRequestTag = new ApsCameraRequestTag();
-                            apsCameraRequestTag.mbFrontCamera = CameraCharacteristicsHelper
-                                    .isFrontCamera(createRequestTag.mRearFrontCameraId);
+                            apsCameraRequestTag.mbFrontCamera = CameraCharacteristicsHelper.isFrontCamera(cameraRequestTagCreateRequestTag.mRearFrontCameraId);
                             apsCameraRequestTag.mbQcom = PlatformUtil.isQualcommPlatform();
                             apsCameraRequestTag.mbPIAI = false;
-                            apsCameraRequestTag.mTag = createRequestTag;
-                            if (!createRequestTag.mApsRequestTag.mPreviewSize
-                                    .equals(createRequestTag.mApsRequestTag.mInputVideoSize)) {
-                                createRequestTag.mUpScaleOutputSize = new int[] {
-                                        createRequestTag.mApsRequestTag.mInputVideoSize.getWidth(),
-                                        createRequestTag.mApsRequestTag.mInputVideoSize.getHeight() };
+                            apsCameraRequestTag.mTag = cameraRequestTagCreateRequestTag;
+                            if (!cameraRequestTagCreateRequestTag.mApsRequestTag.mPreviewSize.equals(cameraRequestTagCreateRequestTag.mApsRequestTag.mInputVideoSize)) {
+                                cameraRequestTagCreateRequestTag.mUpScaleOutputSize = new int[]{cameraRequestTagCreateRequestTag.mApsRequestTag.mInputVideoSize.getWidth(), cameraRequestTagCreateRequestTag.mApsRequestTag.mInputVideoSize.getHeight()};
                             }
-                            createRequestTag.mConsumerInterface.videoSnapshot(apsCameraRequestTag);
-                            if (createRequestTag.mApsRequestTag != null
-                                    && !createRequestTag.mApsRequestTag.mbPreviewProcessByAps) {
-                                createRequestTag.mApsRequestTag.mVideoSnapShotTimeStamp = System.currentTimeMillis();
-                                createRequestTag.mApsRequestTag.mbNeedSendVideoSnapShotImage = true;
-                                createRequestTag.mApsRequestTag.mbNeedSendVideoSnapShotMeta = true;
+                            cameraRequestTagCreateRequestTag.mConsumerInterface.videoSnapshot(apsCameraRequestTag);
+                            if (cameraRequestTagCreateRequestTag.mApsRequestTag != null && !cameraRequestTagCreateRequestTag.mApsRequestTag.mbPreviewProcessByAps) {
+                                cameraRequestTagCreateRequestTag.mApsRequestTag.mVideoSnapShotTimeStamp = System.currentTimeMillis();
+                                cameraRequestTagCreateRequestTag.mApsRequestTag.mbNeedSendVideoSnapShotImage = true;
+                                cameraRequestTagCreateRequestTag.mApsRequestTag.mbNeedSendVideoSnapShotMeta = true;
                             }
                         } else {
-                            this.mCamera2DeviceInterface.videoSnapshot(createRequestTag, buildStageParameter);
+                            this.mCamera2DeviceInterface.videoSnapshot(cameraRequestTagCreateRequestTag, parameterBuildStageParameter);
                         }
                     } else {
-                        CameraUnitLog.v(TAG, "takePicture, mbSuperTextOpen: " + createRequestTag.mbSuperTextOpen
-                                + ", mSuperTextVertices:" + createRequestTag.mSuperTextVertices);
-                        if (createRequestTag.mbSuperTextOpen) {
+                        CameraUnitLog.v(TAG, "takePicture, mbSuperTextOpen: " + cameraRequestTagCreateRequestTag.mbSuperTextOpen + ", mSuperTextVertices:" + cameraRequestTagCreateRequestTag.mSuperTextVertices);
+                        if (cameraRequestTagCreateRequestTag.mbSuperTextOpen) {
                             this.mAllStageParameterBuilder.remove(PreviewParameter.KEY_SUPER_TEXT_VERTICES);
                         }
-                        this.mCamera2DeviceInterface.takePicture(createRequestTag, buildStageParameter);
+                        this.mCamera2DeviceInterface.takePicture(cameraRequestTagCreateRequestTag, parameterBuildStageParameter);
                     }
                     return;
                 }
-                CameraUnitLog.e(TAG,
-                        "takePicture, not allow take picture, mbApsFinishAddFrame: " + this.mbApsFinishAddFrame
-                                + ", isApsCaptureAlgoInitializing: "
-                                + this.mConsumerInterface.isApsCaptureAlgoInitializing() + ", checkResult: "
-                                + isAllowedToTakePicture + ", isCShot: " + z);
+                CameraUnitLog.e(TAG, "takePicture, not allow take picture, mbApsFinishAddFrame: " + this.mbApsFinishAddFrame + ", isApsCaptureAlgoInitializing: " + this.mConsumerInterface.isApsCaptureAlgoInitializing() + ", checkResult: " + iIsAllowedToTakePicture + ", isCShot: " + z);
                 if (!this.mbApsFinishAddFrame) {
-                    StatisticsManager.getInstance()
-                            .reportFunctionalError(StatisticConstant.FunctionalErrorKeys.KEY_CAPTURE_FAILED, 3);
+                    StatisticsManager.getInstance().reportFunctionalError(StatisticConstant.FunctionalErrorKeys.KEY_CAPTURE_FAILED, 3);
                 }
-                if (2 != isAllowedToTakePicture) {
+                if (2 != iIsAllowedToTakePicture) {
                     handleCaptureFailed(handler, cameraPictureCallbackAdapter);
                 }
                 return;
@@ -649,14 +600,9 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
     public void startRecording(CameraRecordingCallbackAdapter cameraRecordingCallbackAdapter, Handler handler) {
         if (this.mCamera2DeviceInterface != null) {
-            CameraRequestTag createRequestTag = this.mCurrentMode.createRequestTag(
-                    this.mCamera2DeviceInterface.getCameraType(), cameraRecordingCallbackAdapter, handler,
-                    Parameter.ParameterStage.START_RECORDING, this.mAllStageParameterBuilder);
-            createRequestTag.mConsumerInterface = this.mConsumerInterface;
-            this.mCamera2DeviceInterface.startRecording(createRequestTag,
-                    buildStageParameter(Parameter.ParameterStage.START_RECORDING,
-                            this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder,
-                            createRequestTag));
+            CameraRequestTag cameraRequestTagCreateRequestTag = this.mCurrentMode.createRequestTag(this.mCamera2DeviceInterface.getCameraType(), cameraRecordingCallbackAdapter, handler, Parameter.ParameterStage.START_RECORDING, this.mAllStageParameterBuilder);
+            cameraRequestTagCreateRequestTag.mConsumerInterface = this.mConsumerInterface;
+            this.mCamera2DeviceInterface.startRecording(cameraRequestTagCreateRequestTag, buildStageParameter(Parameter.ParameterStage.START_RECORDING, this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, cameraRequestTagCreateRequestTag));
         }
     }
 
@@ -677,8 +623,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
     public void stopRecording() {
         if (this.mCamera2DeviceInterface != null) {
-            this.mCamera2DeviceInterface.stopRecording(buildStageParameter(Parameter.ParameterStage.STOP_RECORDING,
-                    this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, null));
+            this.mCamera2DeviceInterface.stopRecording(buildStageParameter(Parameter.ParameterStage.STOP_RECORDING, this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, null));
         }
     }
 
@@ -690,8 +635,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
 
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
     public void close(boolean z, boolean z2) {
-        boolean z3 = z2 && !(isApsFinishAddFrame() && this.mbApsFinishProcessFrame)
-                && this.mCurrentMode.delayCloseForCapturTime() > 0;
+        boolean z3 = z2 && !(isApsFinishAddFrame() && this.mbApsFinishProcessFrame) && this.mCurrentMode.delayCloseForCapturTime() > 0;
         CameraUnitLog.d(TAG, "close, sync: " + z + ", mbTakingPicture: " + this.mbTakingPicture + ", needDelay: " + z3);
         if (z3) {
             this.mCaptureSig.block(this.mCurrentMode.delayCloseForCapturTime());
@@ -718,19 +662,14 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
     public Bitmap processBitmap(Bitmap bitmap, CaptureResult captureResult, int i, int i2, int i3) {
         ImageCategory.MetaItemInfo metaItemInfo = new ImageCategory.MetaItemInfo();
-        metaItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP,
-                (Long) captureResult.get(CaptureResult.SENSOR_TIMESTAMP));
+        metaItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, (Long) captureResult.get(CaptureResult.SENSOR_TIMESTAMP));
         metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_ID, String.valueOf(i));
         metaItemInfo.setParameter(ParameterKeys.KEY_LOGIC_CAMERA_ID, Integer.valueOf(i2));
         metaItemInfo.setParameter(ParameterKeys.KEY_ORIENTATION, Integer.valueOf(i3));
-        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST,
-                new String[] { ParameterKeys.ALGO_NAME_FACE_RECTIFY });
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST, new String[]{ParameterKeys.ALGO_NAME_FACE_RECTIFY});
         PreviewParameter.Builder builder = this.mAllStageParameterBuilder;
         if (builder != null) {
-            metaItemInfo.setParameter(ParameterKeys.KEY_ZOOM_RATIO,
-                    String.valueOf(builder.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO)
-                            ? ((Float) this.mAllStageParameterBuilder.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue()
-                            : 1.0f));
+            metaItemInfo.setParameter(ParameterKeys.KEY_ZOOM_RATIO, String.valueOf(builder.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO) ? ((Float) this.mAllStageParameterBuilder.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue() : 1.0f));
         }
         return this.mConsumerInterface.processBitmap(bitmap, captureResult, metaItemInfo);
     }
@@ -745,8 +684,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         ImageCategory.ImageItemInfo imageItemInfo = new ImageCategory.ImageItemInfo();
         ImageCategory.MetaItemInfo metaItemInfo = new ImageCategory.MetaItemInfo();
         if (this.mCurrentCaptureRequestTag != null) {
-            metaItemInfo.setParameter(ParameterKeys.KEY_IMAGE_FORMAT,
-                    Integer.valueOf(this.mCurrentCaptureRequestTag.mRequestFormat));
+            metaItemInfo.setParameter(ParameterKeys.KEY_IMAGE_FORMAT, Integer.valueOf(this.mCurrentCaptureRequestTag.mRequestFormat));
         }
         return this.mConsumerInterface.notifyLastCaptureFrame(imageItemInfo, metaItemInfo);
     }
@@ -766,12 +704,10 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
     }
 
     @Override // com.oplus.ocs.camera.ProducerConsumerInterfaceContract.ProducerInterface
-    public CameraStateCallbackAdapter createCameraStateCallback(
-            @NonNull CameraStateCallbackAdapter cameraStateCallbackAdapter, Handler handler) {
+    public CameraStateCallbackAdapter createCameraStateCallback(@NonNull CameraStateCallbackAdapter cameraStateCallbackAdapter, Handler handler) {
         if (this.mDefaultCameraStateCallbackAdapter == null) {
             CameraUnitLog.i(TAG, "createCameraStateCallback, no valid callback, create new");
-            this.mDefaultCameraStateCallbackAdapter = new DefaultCameraStateCallbackAdapter(cameraStateCallbackAdapter,
-                    handler);
+            this.mDefaultCameraStateCallbackAdapter = new DefaultCameraStateCallbackAdapter(cameraStateCallbackAdapter, handler);
         } else {
             CameraUnitLog.i(TAG, "createCameraStateCallback, callback already exists, return old");
         }
@@ -818,34 +754,33 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         synchronized (this.mPreviewResultLock) {
             if (this.mbTakingPicture) {
                 CameraUnitLog.d(TAG, "onPreviewResultReceived, mbTakingPicture: " + this.mbTakingPicture);
-            } else if (!this.mbSessionConfigured) {
+                return;
+            }
+            if (!this.mbSessionConfigured) {
                 CameraUnitLog.e(TAG, "onPreviewResultReceived, mbSessionConfigured is false, return!");
-            } else {
-                ModeInterface modeInterface = this.mCurrentMode;
-                if (modeInterface == null) {
-                    CameraUnitLog.e(TAG, "onPreviewResultReceived, mCurrentMode is null, return!");
-                    return;
+                return;
+            }
+            ModeInterface modeInterface = this.mCurrentMode;
+            if (modeInterface == null) {
+                CameraUnitLog.e(TAG, "onPreviewResultReceived, mCurrentMode is null, return!");
+                return;
+            }
+            boolean zNeedStartPreview = modeInterface.needStartPreview(previewResult);
+            try {
+                if (this.mCamera2DeviceInterface != null && !this.mbManageMultiDevice) {
+                    buildStageParameter(Parameter.ParameterStage.START_PREVIEW, this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder, this.mCurrentPreviewRequestTag);
                 }
-                boolean needStartPreview = modeInterface.needStartPreview(previewResult);
-                try {
-                    if (this.mCamera2DeviceInterface != null && !this.mbManageMultiDevice) {
-                        buildStageParameter(Parameter.ParameterStage.START_PREVIEW,
-                                this.mCamera2DeviceInterface.getCameraType(), this.mAllStageParameterBuilder,
-                                this.mCurrentPreviewRequestTag);
-                    }
-                    if (needStartPreview) {
-                        startPreview(this.mPreviewSurfaces, this.mPreviewCallback, handler);
-                    }
-                } catch (Exception e) {
-                    CameraUnitLog.e(TAG, "onPreviewResultReceived, start preview error.", e);
+                if (zNeedStartPreview) {
+                    startPreview(this.mPreviewSurfaces, this.mPreviewCallback, handler);
                 }
+            } catch (Exception e) {
+                CameraUnitLog.e(TAG, "onPreviewResultReceived, start preview error.", e);
             }
         }
     }
 
     @Override // com.oplus.ocs.camera.ProducerConsumerInterfaceContract.ProducerInterface
-    public boolean needMatchPreviewTimestamp(String str, CameraRequestTag cameraRequestTag,
-            ApsAdapterDecision.DecisionResult decisionResult) {
+    public boolean needMatchPreviewTimestamp(String str, CameraRequestTag cameraRequestTag, ApsAdapterDecision.DecisionResult decisionResult) {
         ModeInterface modeInterface = this.mCurrentMode;
         if (modeInterface != null) {
             return modeInterface.needMatchPreviewTimestamp(this.mCameraState, str, cameraRequestTag, decisionResult);
@@ -880,8 +815,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.1
             @Override // java.lang.Runnable
             public void run() {
-                cameraPictureCallbackAdapter.onCaptureFailed((CaptureRequest) null,
-                        (CameraPictureCallbackAdapter.PictureResult) null);
+                cameraPictureCallbackAdapter.onCaptureFailed((CaptureRequest) null, (CameraPictureCallbackAdapter.PictureResult) null);
             }
         });
     }
@@ -903,14 +837,11 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public final class DefaultCameraStateCallbackAdapter extends CameraStateCallbackAdapter {
+    private final class DefaultCameraStateCallbackAdapter extends CameraStateCallbackAdapter {
         private CameraStateCallbackAdapter mCameraStateCallbackAdapter;
         private Handler mHandler;
 
-        DefaultCameraStateCallbackAdapter(@NonNull CameraStateCallbackAdapter cameraStateCallbackAdapter,
-                Handler handler) {
+        DefaultCameraStateCallbackAdapter(@NonNull CameraStateCallbackAdapter cameraStateCallbackAdapter, Handler handler) {
             this.mCameraStateCallbackAdapter = null;
             this.mHandler = null;
             if (cameraStateCallbackAdapter == null) {
@@ -937,19 +868,16 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
                     } else if ("front_main".equals(cameraType) || "front_wide".equals(cameraType)) {
                         ProducerImpl.this.mSubCamera2DeviceInterface = camera2DeviceInterface;
                     }
-                    if (ProducerImpl.this.mCamera2DeviceInterface == null
-                            || ProducerImpl.this.mSubCamera2DeviceInterface == null) {
+                    if (ProducerImpl.this.mCamera2DeviceInterface == null || ProducerImpl.this.mSubCamera2DeviceInterface == null) {
                         return;
                     }
                 }
                 Handler handler = this.mHandler;
                 if (handler != null) {
-                    handler.post(new Runnable() { // from class:
-                                                  // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.1
+                    handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.1
                         @Override // java.lang.Runnable
                         public void run() {
-                            DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter
-                                    .onCameraOpened(ProducerImpl.this);
+                            DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onCameraOpened(ProducerImpl.this);
                         }
                     });
                 } else {
@@ -967,8 +895,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             CameraUnitLog.v(ProducerImpl.TAG, "onCameraDisconnected");
             Handler handler = this.mHandler;
             if (handler != null) {
-                handler.post(new Runnable() { // from class:
-                                              // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.2
+                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.2
                     @Override // java.lang.Runnable
                     public void run() {
                         DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onCameraDisconnected();
@@ -996,8 +923,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             }
             Handler handler = this.mHandler;
             if (handler != null) {
-                handler.post(new Runnable() { // from class:
-                                              // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.3
+                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.3
                     @Override // java.lang.Runnable
                     public void run() {
                         DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onCameraError(errorResult);
@@ -1012,17 +938,13 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         public void onCameraClosed() {
             super.onCameraClosed();
             synchronized (ProducerImpl.this.mDeviceLock) {
-                if (!ProducerImpl.this.mbManageMultiDevice || ProducerImpl.this.mCamera2DeviceInterface == null
-                        || ProducerImpl.this.mSubCamera2DeviceInterface == null
-                        || (ProducerImpl.this.mCamera2DeviceInterface.isClosed()
-                                && ProducerImpl.this.mSubCamera2DeviceInterface.isClosed())) {
+                if (!ProducerImpl.this.mbManageMultiDevice || ProducerImpl.this.mCamera2DeviceInterface == null || ProducerImpl.this.mSubCamera2DeviceInterface == null || (ProducerImpl.this.mCamera2DeviceInterface.isClosed() && ProducerImpl.this.mSubCamera2DeviceInterface.isClosed())) {
                     ProducerImpl.this.mConsumerInterface.onCameraClosed();
                     ProducerImpl.this.mCamera2DeviceInterface = null;
                     ProducerImpl.this.mSubCamera2DeviceInterface = null;
                     Handler handler = this.mHandler;
                     if (handler != null) {
-                        handler.post(new Runnable() { // from class:
-                                                      // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.4
+                        handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.4
                             @Override // java.lang.Runnable
                             public void run() {
                                 DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onCameraClosed();
@@ -1051,22 +973,14 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             synchronized (ProducerImpl.this.mDeviceLock) {
                 if (ProducerImpl.this.mbManageMultiDevice) {
                     ProducerImpl.access$1308(ProducerImpl.this);
-                    if ((ProducerImpl.this.mCamera2DeviceInterface != null
-                            && !ProducerImpl.this.mCamera2DeviceInterface.isConfigured())
-                            || ((ProducerImpl.this.mSubCamera2DeviceInterface != null
-                                    && !ProducerImpl.this.mSubCamera2DeviceInterface.isConfigured())
-                                    || ProducerImpl.this.mConfigureCallbackCount < 2)) {
-                        CameraUnitLog.d(ProducerImpl.TAG,
-                                "onSessionConfigured, has configured count: "
-                                        + ProducerImpl.this.mConfigureCallbackCount + ", need wait: "
-                                        + (2 - ProducerImpl.this.mConfigureCallbackCount) + " count");
+                    if ((ProducerImpl.this.mCamera2DeviceInterface != null && !ProducerImpl.this.mCamera2DeviceInterface.isConfigured()) || ((ProducerImpl.this.mSubCamera2DeviceInterface != null && !ProducerImpl.this.mSubCamera2DeviceInterface.isConfigured()) || ProducerImpl.this.mConfigureCallbackCount < 2)) {
+                        CameraUnitLog.d(ProducerImpl.TAG, "onSessionConfigured, has configured count: " + ProducerImpl.this.mConfigureCallbackCount + ", need wait: " + (2 - ProducerImpl.this.mConfigureCallbackCount) + " count");
                         return;
                     }
                 }
                 Handler handler = this.mHandler;
                 if (handler != null) {
-                    handler.post(new Runnable() { // from class:
-                                                  // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.5
+                    handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.5
                         @Override // java.lang.Runnable
                         public void run() {
                             DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onSessionConfigured();
@@ -1089,12 +1003,10 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             StatisticsManager.getInstance().reportAbnormalDisplay("abnormal_preview", 2);
             Handler handler = this.mHandler;
             if (handler != null) {
-                handler.post(new Runnable() { // from class:
-                                              // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.6
+                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.6
                     @Override // java.lang.Runnable
                     public void run() {
-                        DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter
-                                .onSessionConfigureFail(errorResult);
+                        DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onSessionConfigureFail(errorResult);
                     }
                 });
             } else {
@@ -1113,8 +1025,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
             if (ProducerImpl.this.mCloseSessionCallBackCount >= (ProducerImpl.this.mbManageMultiDevice ? 2 : 1)) {
                 Handler handler = this.mHandler;
                 if (handler != null) {
-                    handler.post(new Runnable() { // from class:
-                                                  // com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.7
+                    handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultCameraStateCallbackAdapter.7
                         @Override // java.lang.Runnable
                         public void run() {
                             DefaultCameraStateCallbackAdapter.this.mCameraStateCallbackAdapter.onSessionClosed();
@@ -1127,14 +1038,11 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public static final class DefaultFlashCallbackAdapter extends CameraFlashCallbackAdapter {
+    private static final class DefaultFlashCallbackAdapter extends CameraFlashCallbackAdapter {
         CameraFlashCallbackAdapter mCameraFlashCallbackAdapter;
         Handler mCameraFlashCallbackHandler;
 
-        public DefaultFlashCallbackAdapter(@NonNull CameraFlashCallbackAdapter cameraFlashCallbackAdapter,
-                @Nullable Handler handler) {
+        public DefaultFlashCallbackAdapter(@NonNull CameraFlashCallbackAdapter cameraFlashCallbackAdapter, @Nullable Handler handler) {
             this.mCameraFlashCallbackAdapter = null;
             this.mCameraFlashCallbackHandler = null;
             if (cameraFlashCallbackAdapter == null) {
@@ -1148,12 +1056,10 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         public void onFlashModeSupportListChanged(final List<String> list) {
             Handler handler = this.mCameraFlashCallbackHandler;
             if (handler != null) {
-                handler.post(new Runnable() { // from class:
-                                              // com.oplus.ocs.camera.producer.ProducerImpl.DefaultFlashCallbackAdapter.1
+                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultFlashCallbackAdapter.1
                     @Override // java.lang.Runnable
                     public void run() {
-                        DefaultFlashCallbackAdapter.this.mCameraFlashCallbackAdapter
-                                .onFlashModeSupportListChanged(list);
+                        DefaultFlashCallbackAdapter.this.mCameraFlashCallbackAdapter.onFlashModeSupportListChanged(list);
                     }
                 });
             } else {
@@ -1165,8 +1071,7 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
         public void onFlashModeChanged(final String str) {
             Handler handler = this.mCameraFlashCallbackHandler;
             if (handler != null) {
-                handler.post(new Runnable() { // from class:
-                                              // com.oplus.ocs.camera.producer.ProducerImpl.DefaultFlashCallbackAdapter.2
+                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.producer.ProducerImpl.DefaultFlashCallbackAdapter.2
                     @Override // java.lang.Runnable
                     public void run() {
                         DefaultFlashCallbackAdapter.this.mCameraFlashCallbackAdapter.onFlashModeChanged(str);

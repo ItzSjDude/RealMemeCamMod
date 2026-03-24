@@ -9,7 +9,8 @@ import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class MicroscopeCaptureMode extends PhotoMode {
     private static final String TAG = "MicroscopeCaptureMode";
 
@@ -23,12 +24,10 @@ public class MicroscopeCaptureMode extends PhotoMode {
         return CameraConstant.UseCase.MICROSCOPE_CAPTURE;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
-        String str2 = TAG;
-        CameraUnitLog.d(str2, "onConfigure, mModeName: " + apsRequestTag.mModeName);
+        CameraUnitLog.d(TAG, "onConfigure, mModeName: " + apsRequestTag.mModeName);
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface

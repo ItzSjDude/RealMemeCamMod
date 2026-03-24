@@ -21,7 +21,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam;
 import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface;
 import java.util.Arrays;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class FullApsImpl implements ApsInterface, APSClient.BufferCallback, APSClient.HeifCodecCallback {
     private static final String TAG = "FullApsImpl";
     private APSClient mApsClient;
@@ -51,11 +52,11 @@ public class FullApsImpl implements ApsInterface, APSClient.BufferCallback, APSC
         if (this.mbConnected) {
             return true;
         }
-        if (this.mApsClient.connect(i) == 0) {
-            this.mbConnected = true;
-            return true;
+        if (this.mApsClient.connect(i) != 0) {
+            return false;
         }
-        return false;
+        this.mbConnected = true;
+        return true;
     }
 
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
@@ -181,10 +182,10 @@ public class FullApsImpl implements ApsInterface, APSClient.BufferCallback, APSC
 
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
     public int addPreviewFrameBuff(ApsPreviewParam apsPreviewParam, ApsWatermarkParam apsWatermarkParam) {
-        long currentTimeMillis = System.currentTimeMillis();
-        if (currentTimeMillis - this.mFrameLogInterval > StatisticsManager.DELAY_TIME_3S) {
+        long jCurrentTimeMillis = System.currentTimeMillis();
+        if (jCurrentTimeMillis - this.mFrameLogInterval > StatisticsManager.DELAY_TIME_3S) {
             ApsAdapterLog.v(TAG, "addPreviewFrameBuff, time: " + apsPreviewParam.getTimeStamp() + ", roles: " + Arrays.toString(apsPreviewParam.getRole()));
-            this.mFrameLogInterval = currentTimeMillis;
+            this.mFrameLogInterval = jCurrentTimeMillis;
         }
         ApsResult.ImageBuffer[] imageBufferArray = apsPreviewParam.getImageBufferArray();
         if (apsPreviewParam.getIsDetached() && imageBufferArray != null) {
@@ -194,14 +195,14 @@ public class FullApsImpl implements ApsInterface, APSClient.BufferCallback, APSC
         }
         long timeStamp = apsPreviewParam.getTimeStamp();
         ApsAdapterLog.traceBegin("addPreviewFrameBuff, timestamp: " + timeStamp, "53pv_addPreviewFrameBuff", timeStamp);
-        int addPreviewFrameBuffToAPS = this.mApsClient.addPreviewFrameBuffToAPS(apsPreviewParam, apsWatermarkParam);
+        int iAddPreviewFrameBuffToAPS = this.mApsClient.addPreviewFrameBuffToAPS(apsPreviewParam, apsWatermarkParam);
         ApsAdapterLog.traceEnd("addPreviewFrameBuff, timestamp: " + timeStamp, "53pv_addPreviewFrameBuff");
         if (apsPreviewParam.getIsDetached() && imageBufferArray != null) {
             for (ApsResult.ImageBuffer imageBuffer : imageBufferArray) {
                 imageBuffer.getImage().close();
             }
         }
-        return addPreviewFrameBuffToAPS;
+        return iAddPreviewFrameBuffToAPS;
     }
 
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface

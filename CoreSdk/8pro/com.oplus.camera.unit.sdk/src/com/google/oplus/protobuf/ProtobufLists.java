@@ -1,7 +1,8 @@
 package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.Internal;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 final class ProtobufLists {
     private ProtobufLists() {
     }
@@ -12,7 +13,7 @@ final class ProtobufLists {
 
     public static <E> Internal.ProtobufList<E> mutableCopy(Internal.ProtobufList<E> protobufList) {
         int size = protobufList.size();
-        return protobufList.mutableCopyWithCapacity(size == 0 ? 10 : size * 2);
+        return protobufList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
     }
 
     public static Internal.BooleanList emptyBooleanList() {

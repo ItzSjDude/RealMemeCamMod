@@ -4,9 +4,9 @@ import com.google.oplus.protobuf.Internal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.RandomAccess;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public final class LongArrayList extends AbstractProtobufList<Long> implements Internal.LongList, RandomAccess, PrimitiveNonBoxingCollection {
+
+/* JADX INFO: loaded from: classes.dex */
+final class LongArrayList extends AbstractProtobufList<Long> implements Internal.LongList, RandomAccess, PrimitiveNonBoxingCollection {
     private static final LongArrayList EMPTY_LIST;
     private long[] array;
     private int size;
@@ -21,8 +21,7 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
         return EMPTY_LIST;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public LongArrayList() {
+    LongArrayList() {
         this(new long[10], 0);
     }
 
@@ -66,22 +65,25 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
 
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
     public int hashCode() {
-        int i = 1;
-        for (int i2 = 0; i2 < this.size; i2++) {
-            i = (i * 31) + Internal.hashLong(this.array[i2]);
+        int iHashLong = 1;
+        for (int i = 0; i < this.size; i++) {
+            iHashLong = (iHashLong * 31) + Internal.hashLong(this.array[i]);
         }
-        return i;
+        return iHashLong;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
+    /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$LongList' to match base method */
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
-    /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Long> mutableCopyWithCapacity(int i) {
+    /* JADX INFO: renamed from: mutableCopyWithCapacity */
+    public Internal.ProtobufList<Long> mutableCopyWithCapacity2(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }
         return new LongArrayList(Arrays.copyOf(this.array, i), this.size);
     }
 
+    /* JADX DEBUG: Method merged with bridge method: get(I)Ljava/lang/Object; */
     @Override // java.util.AbstractList, java.util.List
     public Long get(int i) {
         return Long.valueOf(getLong(i));
@@ -95,15 +97,15 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
 
     @Override // java.util.AbstractList, java.util.List
     public int indexOf(Object obj) {
-        if (obj instanceof Long) {
-            long longValue = ((Long) obj).longValue();
-            int size = size();
-            for (int i = 0; i < size; i++) {
-                if (this.array[i] == longValue) {
-                    return i;
-                }
-            }
+        if (!(obj instanceof Long)) {
             return -1;
+        }
+        long jLongValue = ((Long) obj).longValue();
+        int size = size();
+        for (int i = 0; i < size; i++) {
+            if (this.array[i] == jLongValue) {
+                return i;
+            }
         }
         return -1;
     }
@@ -118,6 +120,7 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
         return this.size;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Long set(int i, Long l) {
         return Long.valueOf(setLong(i, l.longValue()));
@@ -133,12 +136,14 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
         return j2;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(Ljava/lang/Object;)Z */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean add(Long l) {
         addLong(l.longValue());
         return true;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public void add(int i, Long l) {
         addLong(i, l.longValue());
@@ -207,15 +212,15 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
         return true;
     }
 
+    /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
     @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
     public Long remove(int i) {
-        int i2;
         ensureIsMutable();
         ensureIndexInRange(i);
         long[] jArr = this.array;
         long j = jArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(jArr, i + 1, jArr, i, (i2 - i) - 1);
+            System.arraycopy(jArr, i + 1, jArr, i, (r3 - i) - 1);
         }
         this.size--;
         this.modCount++;

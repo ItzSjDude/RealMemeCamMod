@@ -12,7 +12,8 @@ import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class XpanMode extends PhotoMode {
     private static final String TAG = "XpanMode";
 
@@ -26,9 +27,8 @@ public class XpanMode extends PhotoMode {
         return "simple_photo_case";
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
+    protected boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
         synchronized (this.mPreviewResultLock) {
             return ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT)).intValue() > 0;
         }
@@ -40,15 +40,13 @@ public class XpanMode extends PhotoMode {
         if (str.equals("capture_yuv") || str.equals("capture")) {
             if ("rear_main".equals(str2)) {
                 Size size = (Size) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_XPAN_MAIN_PICTURE_SIZE, null);
-                String str4 = TAG;
-                CameraUnitLog.d(str4, "getSurfaceSize() - rearMainSize: " + size);
+                CameraUnitLog.d(TAG, "getSurfaceSize() - rearMainSize: " + size);
                 if (size != null) {
                     return new Pair<>(size, size);
                 }
             } else if ("rear_wide".equals(str2)) {
                 Size size2 = (Size) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_XPAN_WIDE_PICTURE_SIZE, null);
-                String str5 = TAG;
-                CameraUnitLog.d(str5, "getSurfaceSize() - rearWideSize: " + size2);
+                CameraUnitLog.d(TAG, "getSurfaceSize() - rearWideSize: " + size2);
                 if (size2 != null) {
                     return new Pair<>(size2, size2);
                 }
@@ -57,9 +55,8 @@ public class XpanMode extends PhotoMode {
         return super.getSurfaceSize(sdkCameraDeviceConfig, str, str2, str3);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
         apsRequestTag.mModeName = CameraConstant.ModeName.XPAN_MODE;
     }

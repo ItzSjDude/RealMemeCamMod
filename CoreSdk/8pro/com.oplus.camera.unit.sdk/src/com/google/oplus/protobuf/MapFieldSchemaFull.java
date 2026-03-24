@@ -2,7 +2,8 @@ package com.google.oplus.protobuf;
 
 import com.google.oplus.protobuf.MapEntryLite;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class MapFieldSchemaFull implements MapFieldSchema {
     MapFieldSchemaFull() {
     }
@@ -59,7 +60,7 @@ class MapFieldSchemaFull implements MapFieldSchema {
     }
 
     private static <K, V> int getSerializedSizeFull(int i, Object obj, Object obj2) {
-        int i2 = 0;
+        int iComputeTagSize = 0;
         if (obj == null) {
             return 0;
         }
@@ -69,8 +70,8 @@ class MapFieldSchemaFull implements MapFieldSchema {
             return 0;
         }
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            i2 += CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(MapEntryLite.computeSerializedSize(mapEntry.getMetadata(), entry.getKey(), entry.getValue()));
+            iComputeTagSize += CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(MapEntryLite.computeSerializedSize(mapEntry.getMetadata(), entry.getKey(), entry.getValue()));
         }
-        return i2;
+        return iComputeTagSize;
     }
 }
