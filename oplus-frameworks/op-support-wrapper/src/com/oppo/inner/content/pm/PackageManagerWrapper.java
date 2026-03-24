@@ -11,7 +11,7 @@ import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageStats;
 import android.content.pm.ResolveInfo;
-import android.content.res.IUxIconPackageManagerExt;
+// import android.content.res.IUxIconPackageManagerExt;
 import android.graphics.drawable.Drawable;
 import android.os.RemoteException;
 import android.os.UserHandle;

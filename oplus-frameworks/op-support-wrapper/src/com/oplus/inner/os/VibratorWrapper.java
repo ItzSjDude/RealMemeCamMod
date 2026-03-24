@@ -4,7 +4,7 @@ import android.media.AudioAttributes;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
-import com.oplus.os.OplusVibratorConstant;
+// import com.oplus.os.OplusVibratorConstant;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 

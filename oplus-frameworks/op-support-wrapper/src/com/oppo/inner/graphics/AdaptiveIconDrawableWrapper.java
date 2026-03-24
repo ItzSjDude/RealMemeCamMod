@@ -1,7 +1,7 @@
 package com.oppo.inner.graphics;
 
 import android.graphics.drawable.AdaptiveIconDrawable;
-import android.graphics.drawable.IAdaptiveIconDrawableExt;
+// import android.graphics.drawable.IAdaptiveIconDrawableExt;
 import android.util.Log;
 
 /* loaded from: classes.dex */

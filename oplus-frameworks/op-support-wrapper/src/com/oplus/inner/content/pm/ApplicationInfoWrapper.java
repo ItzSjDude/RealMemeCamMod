@@ -1,7 +1,7 @@
 package com.oplus.inner.content.pm;
 
 import android.content.pm.ApplicationInfo;
-import android.content.pm.IApplicationInfoExt;
+// import android.content.pm.IApplicationInfoExt;
 
 /* loaded from: classes.dex */
 public class ApplicationInfoWrapper {
