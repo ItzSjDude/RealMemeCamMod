@@ -3,15 +3,31 @@ package com.oppo.inner.internal.os;
 import android.content.Context;
 import android.util.Log;
 import com.android.internal.os.PowerProfile;
-import com.oplus.inner.internal.os.PowerProfileWrapper;
 
+/* loaded from: classes.dex */
 public class PowerProfileWrapper {
+    private static final String TAG = "PowerProfileWrapper";
+
+    private PowerProfileWrapper() {
+    }
+
     public static double getBatteryCapacity(Context context) {
-        return PowerProfileWrapper.getBatteryCapacity(context);
+        try {
+            PowerProfile powerProfile = new PowerProfile(context);
+            return powerProfile.getBatteryCapacity();
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return 0.0d;
+        }
     }
 
     public static double getAveragePower(Context context, String type) {
-        return PowerProfileWrapper.getAveragePower(context, type);
+        try {
+            PowerProfile powerProfile = new PowerProfile(context);
+            return powerProfile.getAveragePower(type);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return 0.0d;
+        }
     }
-
 }

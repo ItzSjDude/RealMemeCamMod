@@ -2,11 +2,21 @@ package com.oppo.inner.content;
 
 import android.content.ContentProviderOperation;
 import android.util.Log;
-import com.oplus.inner.content.ContentProviderOperationWrapper;
 
+/* loaded from: classes.dex */
 public class ContentProviderOperationWrapper {
-    public static int getType(ContentProviderOperation cpo) {
-        return ContentProviderOperationWrapper.getType(cpo);
+    private static final String TAG = "ContentProviderOperationWrapper";
+
+    private ContentProviderOperationWrapper() {
     }
 
+    public static int getType(ContentProviderOperation cpo) {
+        try {
+            int result = cpo.getType();
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1;
+        }
+    }
 }

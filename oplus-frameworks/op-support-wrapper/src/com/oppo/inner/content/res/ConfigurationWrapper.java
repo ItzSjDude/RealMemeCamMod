@@ -4,83 +4,247 @@ import android.content.res.Configuration;
 import android.content.res.OplusBaseConfiguration;
 import android.util.Log;
 import com.oplus.util.OplusTypeCastingHelper;
-import com.oplus.inner.content.res.ConfigurationWrapper;
 
+/* loaded from: classes.dex */
 public class ConfigurationWrapper {
+    private static final String TAG = "ConfigurationWrapper";
+
     public static void setFlipFont(Configuration configuration, int flipfont) {
-        ConfigurationWrapper.setFlipFont(configuration, flipfont);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mFlipFont = flipfont;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static int getFlipFont(Configuration configuration) {
-        return ConfigurationWrapper.getFlipFont(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return -1;
+            }
+            int result = baseConfiguration.mOplusExtraConfiguration.mFlipFont;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1;
+        }
     }
 
     public static int getThemeChanged(Configuration configuration) {
-        return ConfigurationWrapper.getThemeChanged(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return -1;
+            }
+            int result = baseConfiguration.mOplusExtraConfiguration.mThemeChanged;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1;
+        }
     }
 
     public static void setThemeChanged(Configuration configuration, int val) {
-        ConfigurationWrapper.setThemeChanged(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mThemeChanged = val;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static long getThemeChangedFlags(Configuration configuration) {
-        return ConfigurationWrapper.getThemeChangedFlags(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return -1L;
+            }
+            long result = baseConfiguration.mOplusExtraConfiguration.mThemeChangedFlags;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1L;
+        }
     }
 
     public static void setThemeChangedFlags(Configuration configuration, long val) {
-        ConfigurationWrapper.setThemeChangedFlags(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mThemeChangedFlags = val;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static int getAccessibleChanged(Configuration configuration) {
-        return ConfigurationWrapper.getAccessibleChanged(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return 0;
+            }
+            int result = baseConfiguration.mOplusExtraConfiguration.mAccessibleChanged;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return 0;
+        }
     }
 
     public static void setAccessibleChanged(Configuration configuration, int val) {
-        ConfigurationWrapper.setAccessibleChanged(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mAccessibleChanged = val;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static long getUxIconConfig(Configuration configuration) {
-        return ConfigurationWrapper.getUxIconConfig(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return -1L;
+            }
+            long result = baseConfiguration.mOplusExtraConfiguration.mUxIconConfig;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1L;
+        }
     }
 
     public static void setUxIconConfig(Configuration configuration, long val) {
-        ConfigurationWrapper.setUxIconConfig(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mUxIconConfig = val;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static long getMaterialColor(Configuration configuration) {
-        return ConfigurationWrapper.getMaterialColor(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return -1L;
+            }
+            long result = baseConfiguration.mOplusExtraConfiguration.mMaterialColor;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1L;
+        }
     }
 
     public static void setMaterialColor(Configuration configuration, long val) {
-        ConfigurationWrapper.setMaterialColor(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mMaterialColor = val;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static String getIconPackName(Configuration configuration) {
-        return ConfigurationWrapper.getIconPackName(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return "";
+            }
+            String result = baseConfiguration.mOplusExtraConfiguration.mIconPackName;
+            return result;
+        } catch (Throwable ex) {
+            Log.e(TAG, ex.toString());
+            return "";
+        }
     }
 
     public static void setIconPackName(Configuration configuration, String val) {
-        ConfigurationWrapper.setIconPackName(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mIconPackName = val;
+            }
+        } catch (Throwable ex) {
+            Log.e(TAG, ex.toString());
+        }
     }
 
     public static String getCustomThemePath(Configuration configuration) {
-        return ConfigurationWrapper.getCustomThemePath(configuration);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration == null) {
+                return "";
+            }
+            String result = baseConfiguration.mOplusExtraConfiguration.mThemePrefix;
+            return result;
+        } catch (Throwable ex) {
+            Log.e(TAG, ex.toString());
+            return "";
+        }
     }
 
     public static void setCustomThemePath(Configuration configuration, String val) {
-        ConfigurationWrapper.setCustomThemePath(configuration, val);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mThemePrefix = val;
+            }
+        } catch (Throwable ex) {
+            Log.e(TAG, ex.toString());
+        }
     }
 
     public static void setDarkModeStyleArgs(Configuration configuration, float bgMaxL, float fgMaxL, float dialogBgMaxL) {
-        ConfigurationWrapper.setDarkModeStyleArgs(configuration, bgMaxL, fgMaxL, dialogBgMaxL);
+        try {
+            OplusBaseConfiguration baseConfiguration = typeCasting(configuration);
+            if (baseConfiguration != null) {
+                baseConfiguration.mOplusExtraConfiguration.mDarkModeBackgroundMaxL = bgMaxL;
+                baseConfiguration.mOplusExtraConfiguration.mDarkModeForegroundMinL = fgMaxL;
+                baseConfiguration.mOplusExtraConfiguration.mDarkModeDialogBgMaxL = dialogBgMaxL;
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static boolean isDarkModeIconOpen(Configuration configuration) {
-        return ConfigurationWrapper.isDarkModeIconOpen(configuration);
+        try {
+            Long systemIconConfig = Long.valueOf(getUxIconConfig(configuration));
+            int darkModeIcon = Long.valueOf(systemIconConfig.longValue() >> 61).intValue() & 1;
+            return darkModeIcon == 1;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return false;
+        }
     }
 
     public static void toggleDarkModeIconConfig(Configuration configuration) {
-        ConfigurationWrapper.toggleDarkModeIconConfig(configuration);
+        try {
+            long systemIconConfig = getUxIconConfig(configuration);
+            long darkModeIcon = 1 << 61;
+            long value = systemIconConfig ^ darkModeIcon;
+            setUxIconConfig(configuration, value);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
+    private static OplusBaseConfiguration typeCasting(Configuration configuration) {
+        return (OplusBaseConfiguration) OplusTypeCastingHelper.typeCasting(OplusBaseConfiguration.class, configuration);
+    }
 }

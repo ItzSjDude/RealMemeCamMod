@@ -1,55 +1,84 @@
 package com.oppo.inner.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
-import com.oplus.inner.bluetooth.BluetoothDeviceWrapper;
 
+/* loaded from: classes.dex */
 public class BluetoothDeviceWrapper {
     public static boolean isConnected(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.isConnected(device);
+        if (device != null) {
+            return device.isConnected();
+        }
+        return false;
     }
 
     public static String getAliasName(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.getAliasName(device);
+        if (device != null) {
+            return device.getAlias();
+        }
+        return "";
     }
 
     public static int getBatteryLevel(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.getBatteryLevel(device);
+        if (device != null) {
+            return device.getBatteryLevel();
+        }
+        return -1;
     }
 
     public static boolean cancelBondProcess(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.cancelBondProcess(device);
+        if (device != null) {
+            return device.cancelBondProcess();
+        }
+        return false;
     }
 
     public static boolean removeBond(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.removeBond(device);
+        if (device != null) {
+            return device.removeBond();
+        }
+        return false;
     }
 
     public static boolean setAlias(BluetoothDevice device, String name) {
-        return BluetoothDeviceWrapper.setAlias(device, name);
+        return device != null && device.setAlias(name) == 0;
     }
 
     public static boolean isBluetoothDock(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.isBluetoothDock(device);
+        return false;
     }
 
     public static boolean isBondingInitiatedLocally(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.isBondingInitiatedLocally(device);
+        if (device != null) {
+            return device.isBondingInitiatedLocally();
+        }
+        return false;
     }
 
     public static int getPhonebookAccessPermission(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.getPhonebookAccessPermission(device);
+        if (device != null) {
+            return device.getPhonebookAccessPermission();
+        }
+        return 0;
     }
 
     public static boolean setPhonebookAccessPermission(BluetoothDevice device, int value) {
-        return BluetoothDeviceWrapper.setPhonebookAccessPermission(device, value);
+        if (device != null) {
+            return device.setPhonebookAccessPermission(value);
+        }
+        return false;
     }
 
     public static int getMessageAccessPermission(BluetoothDevice device) {
-        return BluetoothDeviceWrapper.getMessageAccessPermission(device);
+        if (device != null) {
+            return device.getMessageAccessPermission();
+        }
+        return 0;
     }
 
     public static boolean setMessageAccessPermission(BluetoothDevice device, int value) {
-        return BluetoothDeviceWrapper.setMessageAccessPermission(device, value);
+        if (device != null) {
+            return device.setMessageAccessPermission(value);
+        }
+        return false;
     }
-
 }

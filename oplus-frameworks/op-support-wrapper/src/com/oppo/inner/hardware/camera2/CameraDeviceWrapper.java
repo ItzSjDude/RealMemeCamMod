@@ -7,11 +7,19 @@ import android.hardware.camera2.params.OutputConfiguration;
 import android.os.Handler;
 import android.util.Log;
 import java.util.List;
-import com.oplus.inner.hardware.camera2.CameraDeviceWrapper;
 
+/* loaded from: classes.dex */
 public class CameraDeviceWrapper {
-    public static void createCustomCaptureSession(CameraDevice cameraDevice, InputConfiguration inputConfig, List<OutputConfiguration> outputs, int operatingMode, CameraCaptureSession.StateCallback callback, Handler handler) {
-        CameraDeviceWrapper.createCustomCaptureSession(cameraDevice, inputConfig, outputs, operatingMode, callback, handler);
+    private static final String TAG = "CameraDeviceWrapper";
+
+    private CameraDeviceWrapper() {
     }
 
+    public static void createCustomCaptureSession(CameraDevice cameraDevice, InputConfiguration inputConfig, List<OutputConfiguration> outputs, int operatingMode, CameraCaptureSession.StateCallback callback, Handler handler) {
+        try {
+            cameraDevice.createCustomCaptureSession(inputConfig, outputs, operatingMode, callback, handler);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+    }
 }

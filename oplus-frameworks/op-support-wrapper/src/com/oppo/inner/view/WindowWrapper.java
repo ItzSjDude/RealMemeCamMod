@@ -2,15 +2,22 @@ package com.oppo.inner.view;
 
 import android.util.Log;
 import android.view.Window;
-import com.oplus.inner.view.WindowWrapper;
 
+/* loaded from: classes.dex */
 public class WindowWrapper {
+    public static final String TAG = "WindowWrapper";
+
     public static boolean isDestroyed(Window window) {
-        return WindowWrapper.isDestroyed(window);
+        try {
+            boolean result = window.isDestroyed();
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return false;
+        }
     }
 
     public static void setCloseOnTouchOutside(Window window, boolean close) {
-        WindowWrapper.setCloseOnTouchOutside(window, close);
+        window.setCloseOnTouchOutside(close);
     }
-
 }

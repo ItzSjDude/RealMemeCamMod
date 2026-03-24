@@ -2,19 +2,41 @@ package com.oppo.inner.content.res;
 
 import android.content.res.Resources;
 import android.util.Log;
-import com.oplus.inner.content.res.ResourcesWrapper;
 
+/* loaded from: classes.dex */
 public class ResourcesWrapper {
+    private static final String TAG = "ResourcesWrapper";
+
     public static float getCompatApplicationScale(Resources res) {
-        return ResourcesWrapper.getCompatApplicationScale(res);
+        try {
+            float result = res.getCompatibilityInfo().applicationScale;
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return -1.0f;
+        }
     }
 
     public static boolean getThemeChanged(Resources res) {
-        return ResourcesWrapper.getThemeChanged(res);
+        try {
+            if (res.mResourcesExt == null) {
+                return false;
+            }
+            boolean result = res.mResourcesExt.getThemeChanged();
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return false;
+        }
     }
 
     public static void setIsThemeChanged(Resources res, boolean changed) {
-        ResourcesWrapper.setIsThemeChanged(res, changed);
+        try {
+            if (res.mResourcesExt != null) {
+                res.mResourcesExt.setIsThemeChanged(changed);
+            }
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
-
 }

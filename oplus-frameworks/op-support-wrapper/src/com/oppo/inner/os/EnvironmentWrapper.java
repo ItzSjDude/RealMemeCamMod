@@ -2,11 +2,24 @@ package com.oppo.inner.os;
 
 import android.os.Environment;
 import java.io.File;
-import com.oplus.inner.os.EnvironmentWrapper;
 
+/* loaded from: classes.dex */
 public class EnvironmentWrapper {
-    public static File getVendorDirectory() {
-        return EnvironmentWrapper.getVendorDirectory();
+    private static final String TAG = "EnvironmentWrapper";
+
+    public static class UserEnvironmentWrapper {
+        private Environment.UserEnvironment mUserEnvironment;
+
+        public UserEnvironmentWrapper(int userId) {
+            this.mUserEnvironment = new Environment.UserEnvironment(userId);
+        }
+
+        public File getExternalStorageDirectory() {
+            return this.mUserEnvironment.getExternalDirs()[0];
+        }
     }
 
+    public static File getVendorDirectory() {
+        return Environment.getVendorDirectory();
+    }
 }

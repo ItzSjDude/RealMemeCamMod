@@ -2,11 +2,15 @@ package com.oppo.inner.content.pm;
 
 import android.content.ComponentName;
 import android.content.pm.ComponentInfo;
-import com.oplus.inner.content.pm.ComponentInfoWrapper;
 
+/* loaded from: classes.dex */
 public class ComponentInfoWrapper {
-    public static ComponentName getComponentName(ComponentInfo componentInfo) {
-        return ComponentInfoWrapper.getComponentName(componentInfo);
+    private static final String TAG = "ComponentInfoWrapper";
+
+    private ComponentInfoWrapper() {
     }
 
+    public static ComponentName getComponentName(ComponentInfo componentInfo) {
+        return componentInfo.getComponentName();
+    }
 }

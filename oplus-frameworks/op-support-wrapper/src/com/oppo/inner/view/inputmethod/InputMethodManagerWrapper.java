@@ -2,11 +2,21 @@ package com.oppo.inner.view.inputmethod;
 
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
-import com.oplus.inner.view.inputmethod.InputMethodManagerWrapper;
 
+/* loaded from: classes.dex */
 public class InputMethodManagerWrapper {
-    public static int getInputMethodWindowVisibleHeight(InputMethodManager inputMethodManager) {
-        return InputMethodManagerWrapper.getInputMethodWindowVisibleHeight(inputMethodManager);
+    private static final String TAG = "InputMethodManagerWrapper";
+
+    private InputMethodManagerWrapper() {
     }
 
+    public static int getInputMethodWindowVisibleHeight(InputMethodManager inputMethodManager) {
+        try {
+            int result = inputMethodManager.getInputMethodWindowVisibleHeight();
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return 0;
+        }
+    }
 }

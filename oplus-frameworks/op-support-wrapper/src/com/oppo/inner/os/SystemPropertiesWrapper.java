@@ -2,31 +2,69 @@ package com.oppo.inner.os;
 
 import android.os.SystemProperties;
 import android.util.Log;
-import com.oplus.inner.os.SystemPropertiesWrapper;
 
+/* loaded from: classes.dex */
 public class SystemPropertiesWrapper {
+    private static final String TAG = "SystemPropertiesWrapper";
+
+    private SystemPropertiesWrapper() {
+    }
+
     public static String get(String key) {
-        return SystemPropertiesWrapper.get(key);
+        try {
+            String result = SystemProperties.get(key);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return null;
+        }
     }
 
     public static String get(String key, String def) {
-        return SystemPropertiesWrapper.get(key, def);
+        try {
+            String result = SystemProperties.get(key, def);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return def;
+        }
     }
 
     public static int getInt(String key, int def) {
-        return SystemPropertiesWrapper.getInt(key, def);
+        try {
+            int result = SystemProperties.getInt(key, def);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return def;
+        }
     }
 
     public static long getLong(String key, long def) {
-        return SystemPropertiesWrapper.getLong(key, def);
+        try {
+            long result = SystemProperties.getLong(key, def);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return def;
+        }
     }
 
     public static boolean getBoolean(String key, boolean def) {
-        return SystemPropertiesWrapper.getBoolean(key, def);
+        try {
+            boolean result = SystemProperties.getBoolean(key, def);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return def;
+        }
     }
 
     public static void set(String key, String val) {
-        SystemPropertiesWrapper.set(key, val);
+        try {
+            SystemProperties.set(key, val);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
-
 }

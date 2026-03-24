@@ -7,27 +7,54 @@ import android.os.UserHandle;
 import android.util.Log;
 import android.view.Display;
 import java.io.File;
-import com.oplus.inner.content.ContextWrapper;
 
+/* loaded from: classes.dex */
 public class ContextWrapper {
+    public static final String STATUS_BAR_SERVICE = "statusbar";
+    private static final String TAG = "ContextWrapper";
+
     public static void startActivityAsUser(Context context, Intent intent, UserHandle user) {
-        ContextWrapper.startActivityAsUser(context, intent, user);
+        try {
+            context.startActivityAsUser(intent, user);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static void startActivityAsUser(Context context, Intent intent, Bundle options, UserHandle userId) {
-        ContextWrapper.startActivityAsUser(context, intent, options, userId);
+        try {
+            context.startActivityAsUser(intent, options, userId);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static Display getDisplay(Context context) {
-        return ContextWrapper.getDisplay(context);
+        try {
+            Display result = context.getDisplay();
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return null;
+        }
     }
 
     public static Context createCredentialProtectedStorageContext(Context context) {
-        return ContextWrapper.createCredentialProtectedStorageContext(context);
+        try {
+            Context result = context.createCredentialProtectedStorageContext();
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return null;
+        }
     }
 
     public static File getSharedPreferencesPath(Context context, String name) {
-        return ContextWrapper.getSharedPreferencesPath(context, name);
+        try {
+            return context.getSharedPreferencesPath(name);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return null;
+        }
     }
-
 }

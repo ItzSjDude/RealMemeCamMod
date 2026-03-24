@@ -17,64 +17,234 @@ import android.os.RemoteException;
 import android.os.UserHandle;
 import android.os.storage.VolumeInfo;
 import android.util.Log;
-import com.oplus.inner.os.storage.VolumeInfoWrapper;
+import com.oppo.inner.os.storage.VolumeInfoWrapper;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import com.oplus.inner.content.pm.PackageManagerWrapper;
 
+/* loaded from: classes.dex */
 public class PackageManagerWrapper {
+    public static final int FLAG_PERMISSION_REVIEW_REQUIRED = 64;
+    public static final int INSTALL_FAILED_INVALID_URI = -3;
+    public static final int INSTALL_REPLACE_EXISTING = 2;
+    public static final int OPLUS_UNFREEZE_FLAG_NORMAL = 1;
+    public static final int STATE_OPLUS_FREEZE_FREEZED = 2;
+    private static final String TAG = "PackageManagerWrapper";
+
+    public interface IPackageDataObserverWrapper {
+        void onRemoveCompleted(String str, boolean z);
+    }
+
+    public interface IPackageDeleteObserverWrapper {
+        void packageDeleted(String str, int i);
+    }
+
+    public interface IPackageStatsObserverWrapper {
+        void onGetStatsCompleted(PackageStats packageStats, boolean z);
+    }
+
     public static void deletePackageAsUser(Context ctx, String packageName, final IPackageDeleteObserverWrapper observer, int flags, int userId) {
-        PackageManagerWrapper.deletePackageAsUser(ctx, packageName, observer, flags, userId);
+        IPackageDeleteObserver iPackageDeleteObserver = null;
+        if (observer != null) {
+            iPackageDeleteObserver = new IPackageDeleteObserver.Stub() { // from class: com.oppo.inner.content.pm.PackageManagerWrapper.1
+                public void packageDeleted(String packageName2, int returnCode) {
+                    observer.packageDeleted(packageName2, returnCode);
+                }
+            };
+        }
+        try {
+            ctx.getPackageManager().deletePackageAsUser(packageName, iPackageDeleteObserver, flags, userId);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static void deletePackage(Context ctx, String packageName, final IPackageDeleteObserverWrapper observer, int flags) {
-        PackageManagerWrapper.deletePackage(ctx, packageName, observer, flags);
+        IPackageDeleteObserver iPackageDeleteObserver = null;
+        if (observer != null) {
+            iPackageDeleteObserver = new IPackageDeleteObserver.Stub() { // from class: com.oppo.inner.content.pm.PackageManagerWrapper.2
+                public void packageDeleted(String packageName2, int returnCode) {
+                    observer.packageDeleted(packageName2, returnCode);
+                }
+            };
+        }
+        try {
+            ctx.getPackageManager().deletePackage(packageName, iPackageDeleteObserver, flags);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
-    public static int movePackage(PackageManager pm, String packageName, VolumeInfoWrapper volumeInfoWrapper) {
-        return PackageManagerWrapper.movePackage(pm, packageName, volumeInfoWrapper);
+    public static int movePackage(PackageManager pm, String packageName, VolumeInfoWrapper volumeInfoWrapper) throws NoSuchFieldException {
+        try {
+            Field field = volumeInfoWrapper.getClass().getDeclaredField("mVolumeInfo");
+            field.setAccessible(true);
+            return pm.movePackage(packageName, (VolumeInfo) field.get(volumeInfoWrapper));
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+            return 0;
+        }
     }
 
     public static void grantRuntimePermission(PackageManager pm, String packageName, String permissionName, UserHandle user) {
-        PackageManagerWrapper.grantRuntimePermission(pm, packageName, permissionName, user);
+        try {
+            pm.grantRuntimePermission(packageName, permissionName, user);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
-    public static int installExistingPackageAsUser(String packageName, int installReason, int userId) {
-        return PackageManagerWrapper.installExistingPackageAsUser(packageName, installReason, userId);
+    public static int installExistingPackageAsUser(String packageName, int installReason, int userId) throws PackageManager.NameNotFoundException {
+        try {
+            IPackageManager mPM = ActivityThread.getPackageManager();
+            int res = mPM.installExistingPackageAsUser(packageName, userId, 4194304, installReason, (List) null);
+            if (res == -3) {
+                throw new PackageManager.NameNotFoundException("Package " + packageName + " doesn't exist");
+            }
+            return res;
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
     }
 
     public static List<ApplicationInfo> getInstalledApplicationsAsUser(PackageManager pm, int flags, int userId) {
-        return PackageManagerWrapper.getInstalledApplicationsAsUser(pm, flags, userId);
+        return pm.getInstalledApplicationsAsUser(flags, userId);
     }
 
     public static void deleteApplicationCacheFiles(Context ctx, String packageName, final IPackageDataObserverWrapper observerWrapper) {
-        PackageManagerWrapper.deleteApplicationCacheFiles(ctx, packageName, observerWrapper);
+        IPackageDataObserver iPackageDataObserver = null;
+        if (observerWrapper != null) {
+            iPackageDataObserver = new IPackageDataObserver.Stub() { // from class: com.oppo.inner.content.pm.PackageManagerWrapper.3
+                public void onRemoveCompleted(String packageName2, boolean succeeded) {
+                    observerWrapper.onRemoveCompleted(packageName2, succeeded);
+                }
+            };
+        }
+        try {
+            ctx.getPackageManager().deleteApplicationCacheFiles(packageName, iPackageDataObserver);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
     }
 
     public static void deleteApplicationCacheFilesAsUser(Context ctx, String packageName, int userId, final IPackageDataObserverWrapper observerWrapper) {
-        PackageManagerWrapper.deleteApplicationCacheFilesAsUser(ctx, packageName, userId, observerWrapper);
+        IPackageDataObserver iPackageDataObserver = null;
+        if (observerWrapper != null) {
+            iPackageDataObserver = new IPackageDataObserver.Stub() { // from class: com.oppo.inner.content.pm.PackageManagerWrapper.4
+                public void onRemoveCompleted(String packageName2, boolean succeeded) {
+                    observerWrapper.onRemoveCompleted(packageName2, succeeded);
+                }
+            };
+        }
+        try {
+            ctx.getPackageManager().deleteApplicationCacheFilesAsUser(packageName, userId, iPackageDataObserver);
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+    }
+
+    private PackageManagerWrapper() {
     }
 
     public static void getPackageSizeInfo(PackageManager pm, String packageName, final IPackageStatsObserverWrapper observer) {
-        PackageManagerWrapper.getPackageSizeInfo(pm, packageName, observer);
+        IPackageStatsObserver iPackageStatsObserver = null;
+        if (observer != null) {
+            try {
+                iPackageStatsObserver = new IPackageStatsObserver.Stub() { // from class: com.oppo.inner.content.pm.PackageManagerWrapper.5
+                    public void onGetStatsCompleted(PackageStats stats, boolean succeeded) {
+                        observer.onGetStatsCompleted(stats, succeeded);
+                    }
+                };
+            } catch (Throwable e) {
+                Log.e(TAG, e.toString());
+                return;
+            }
+        }
+        pm.getPackageSizeInfo(packageName, iPackageStatsObserver);
     }
 
     public static ComponentName getHomeActivities(PackageManager pm, List<ResolveInfo> outActivities) {
-        return PackageManagerWrapper.getHomeActivities(pm, outActivities);
+        try {
+            ComponentName result = pm.getHomeActivities(outActivities);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return null;
+        }
     }
 
     public static void clearCachedIconForActivity(PackageManager pm, ComponentName activityName) {
-        PackageManagerWrapper.clearCachedIconForActivity(pm, activityName);
+        if (pm != null) {
+            try {
+                if (pm.mPackageManagerExt != null) {
+                    IUxIconPackageManagerExt uxIconPackageManagerExt = (IUxIconPackageManagerExt) pm.mPackageManagerExt.getUxIconPackageManagerExt();
+                    if (uxIconPackageManagerExt == null) {
+                        uxIconPackageManagerExt = IUxIconPackageManagerExt.DEFAULT;
+                    }
+                    uxIconPackageManagerExt.clearCachedIconForActivity(activityName);
+                }
+            } catch (Throwable e) {
+                Log.e(TAG, e.toString());
+            }
+        }
     }
 
     public static Drawable getUxIconDrawable(PackageManager pm, Drawable src, boolean isForegroundDrawable) {
-        return PackageManagerWrapper.getUxIconDrawable(pm, src, isForegroundDrawable);
+        if (pm == null) {
+            return src;
+        }
+        try {
+            if (pm.mPackageManagerExt == null) {
+                return src;
+            }
+            IUxIconPackageManagerExt uxIconPackageManagerExt = (IUxIconPackageManagerExt) pm.mPackageManagerExt.getUxIconPackageManagerExt();
+            if (uxIconPackageManagerExt == null) {
+                uxIconPackageManagerExt = IUxIconPackageManagerExt.DEFAULT;
+            }
+            Drawable result = uxIconPackageManagerExt.getUxIconDrawable(src, isForegroundDrawable);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return src;
+        }
     }
 
     public static Drawable getUxIconDrawable(PackageManager pm, String packageName, Drawable src, boolean isForegroundDrawable) {
-        return PackageManagerWrapper.getUxIconDrawable(pm, packageName, src, isForegroundDrawable);
+        if (pm == null) {
+            return src;
+        }
+        try {
+            if (pm.mPackageManagerExt == null) {
+                return src;
+            }
+            IUxIconPackageManagerExt uxIconPackageManagerExt = (IUxIconPackageManagerExt) pm.mPackageManagerExt.getUxIconPackageManagerExt();
+            if (uxIconPackageManagerExt == null) {
+                uxIconPackageManagerExt = IUxIconPackageManagerExt.DEFAULT;
+            }
+            Drawable result = uxIconPackageManagerExt.getUxIconDrawable(packageName, src, isForegroundDrawable);
+            return result;
+        } catch (Throwable e) {
+            Log.e(TAG, e.toString());
+            return src;
+        }
     }
 
+    private static Object callMethodByReflect(Object object, String methodName, Class<?>[] paramTypes, Object[] args) throws NoSuchMethodException, SecurityException {
+        Class clazz = object.getClass();
+        try {
+            Method method = clazz.getMethod(methodName, paramTypes);
+            method.setAccessible(true);
+            return method.invoke(object, args);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            return null;
+        } catch (NoSuchMethodException e2) {
+            e2.printStackTrace();
+            return null;
+        } catch (InvocationTargetException e3) {
+            e3.printStackTrace();
+            return null;
+        }
+    }
 }
