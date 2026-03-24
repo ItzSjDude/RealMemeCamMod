@@ -988,7 +988,7 @@ cc_prebuilt_library_shared {
 // --- Prebuilt Camera App ---
 android_app_import {
     name: "OplusCamera",
-    apk: "system_ext/priv-app/OplusCamera/OplusCamera.apk",
+    apk: "apps/OplusCamera/OplusCamera.apk",
     prefer: true,
     certificate: "platform",
     dex_preopt: {
@@ -1019,7 +1019,7 @@ java_library {
 
 android_app_import {
     name: "OplusPhotos",
-    apk: "prebuilt_apps/OplusPhotos.apk",
+    apk: "apps/OplusPhotos/OplusPhotos.apk",
     prefer: true,
     certificate: "platform",
     dex_preopt: {
