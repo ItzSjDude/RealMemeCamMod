@@ -84,20 +84,13 @@ public class CameraMetadataNativeWrapper {
             HashMap<CaptureResult.Key<?>, Integer> temp = new HashMap<>();
             for (CaptureResult.Key<?> key2 : vendorKeyMap2.keySet()) {
                 try {
-                    objArr = new Object[i];
+                    Object[] objArr = new Object[2];
                     objArr[0] = new String(key2.getName());
-                    vendorKeyMap = vendorKeyMap2;
-                } catch (Exception e) {
-                    // empty catch
-                }
-                try {
                     objArr[1] = new Long(key2.getVendorId());
                     int vendorTagId = ((Integer) getVendorTagFromKey.invoke(null, objArr)).intValue();
                     temp.put(key2, Integer.valueOf(vendorTagId));
-                    vendorKeyMap2 = vendorKeyMap;
-                    i = 2;
-                } catch (Exception e2) {
-                    Log.e(TAG, "getVendorTagId error", e2);
+                } catch (Exception e) {
+                    Log.e(TAG, "getVendorTagId error", e);
                     return null;
                 }
             }
@@ -120,6 +113,7 @@ public class CameraMetadataNativeWrapper {
         } catch (Exception e5) {
             // empty
         }
+        return vendorKeyMap2;
     }
 
     public static long getMetadataPtr(Object obj) throws NoSuchFieldException {

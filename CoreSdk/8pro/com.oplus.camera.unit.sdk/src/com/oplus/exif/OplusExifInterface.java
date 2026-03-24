@@ -779,8 +779,8 @@ public class OplusExifInterface {
         RandomAccessFile randomAccessFile;
         File file;
         BufferedInputStream bufferedInputStream;
-        ?? r0 = 0;
-        r0 = 0;
+        java.io.Closeable r0 = null;
+        r0 = null;
         try {
             try {
                 file = new File(str);

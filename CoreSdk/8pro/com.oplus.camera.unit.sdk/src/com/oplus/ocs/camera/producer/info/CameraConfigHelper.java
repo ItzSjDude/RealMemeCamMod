@@ -383,8 +383,8 @@ public final class CameraConfigHelper {
     /* JADX WARN: Type inference failed for: r2v1, types: [T, java.lang.String] */
     /* JADX WARN: Type inference failed for: r6v3, types: [T, int[]] */
     public static <T> T getConfigValue(CameraConfigBase.Key<T> key, T t) {
-        ?? r2 = (T) getConfigValue(key.getName());
-        if (r2 == 0) {
+        T r2 = (T) getConfigValue(key.getName());
+        if (r2 == null) {
             return t;
         }
         try {
@@ -425,11 +425,11 @@ public final class CameraConfigHelper {
             } else {
                 String[] split2 = r2.toUpperCase().split(CameraConstant.JSON_CONNECTOR_COMMA);
                 int length = split2.length;
-                ?? r6 = (T) new int[length];
+                int[] r6 = new int[length];
                 for (int i = 0; i < length; i++) {
                     r6[i] = Integer.parseInt(split2[i]);
                 }
-                return r6;
+                return (T) r6;
             }
         }
     }

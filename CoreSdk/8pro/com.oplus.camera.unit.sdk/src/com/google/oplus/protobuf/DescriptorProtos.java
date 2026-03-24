@@ -15672,7 +15672,7 @@ public final class DescriptorProtos {
             boolean z = false;
             int i = 0;
             while (true) {
-                ?? r3 = 1048576;
+                int r3 = 1048576;
                 if (z) {
                     return;
                 }
