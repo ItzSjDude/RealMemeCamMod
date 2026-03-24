@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.oplus.romupdate">
+
+    <uses-sdk
+        android:minSdkVersion="29"
+        android:targetSdkVersion="31" />
+
+    <application
+        android:allowBackup="false"
+        
+        android:label="RomUpdate Shim"
+        android:supportsRtl="true">
+
+        <provider
+            android:name=".RomUpdateProvider"
+            android:authorities="com.oplus.romupdate.provider.db;com.nearme.romupdate.provider.db"
+            android:exported="true" />
+    </application>
+</manifest>
