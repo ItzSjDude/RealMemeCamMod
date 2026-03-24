@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+
 @CheckReturnValue
 /* loaded from: classes.dex */
 public abstract class ByteString implements Iterable<Byte>, Serializable {
@@ -101,15 +102,23 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
 
     static {
         byteArrayCopier = Android.isOnAndroidDevice() ? new SystemByteArrayCopier() : new ArraysByteArrayCopier();
-        UNSIGNED_LEXICOGRAPHICAL_COMPARATOR = new Comparator<ByteString>() { // from class: com.google.oplus.protobuf.ByteString.2
-            /* JADX WARN: Type inference failed for: r0v0, types: [com.google.oplus.protobuf.ByteString$ByteIterator] */
-            /* JADX WARN: Type inference failed for: r3v1, types: [com.google.oplus.protobuf.ByteString$ByteIterator] */
+        UNSIGNED_LEXICOGRAPHICAL_COMPARATOR = new Comparator<ByteString>() { // from class:
+                                                                             // com.google.oplus.protobuf.ByteString.2
+            /*
+             * JADX WARN: Type inference failed for: r0v0, types:
+             * [com.google.oplus.protobuf.ByteString$ByteIterator]
+             */
+            /*
+             * JADX WARN: Type inference failed for: r3v1, types:
+             * [com.google.oplus.protobuf.ByteString$ByteIterator]
+             */
             @Override // java.util.Comparator
             public int compare(ByteString byteString, ByteString byteString2) {
-                ?? iterator2 = byteString.iterator2();
-                ?? iterator22 = byteString2.iterator2();
+                ByteIterator iterator2 = (ByteIterator) byteString.iterator2();
+                ByteIterator iterator22 = (ByteIterator) byteString2.iterator2();
                 while (iterator2.hasNext() && iterator22.hasNext()) {
-                    int compare = Integer.compare(ByteString.toInt(iterator2.nextByte()), ByteString.toInt(iterator22.nextByte()));
+                    int compare = Integer.compare(ByteString.toInt(iterator2.nextByte()),
+                            ByteString.toInt(iterator22.nextByte()));
                     if (compare != 0) {
                         return compare;
                     }
@@ -508,7 +517,8 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         public String toString() {
-            return String.format("<ByteString.Output@%s size=%d>", Integer.toHexString(System.identityHashCode(this)), Integer.valueOf(size()));
+            return String.format("<ByteString.Output@%s size=%d>", Integer.toHexString(System.identityHashCode(this)),
+                    Integer.valueOf(size()));
         }
 
         private void flushFullBuffer(int i) {
@@ -591,7 +601,9 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
     }
 
     public final String toString() {
-        return String.format(Locale.ROOT, "<ByteString@%s size=%d contents=\"%s\">", Integer.toHexString(System.identityHashCode(this)), Integer.valueOf(size()), truncateAndEscapeForDisplay());
+        return String.format(Locale.ROOT, "<ByteString@%s size=%d contents=\"%s\">",
+                Integer.toHexString(System.identityHashCode(this)), Integer.valueOf(size()),
+                truncateAndEscapeForDisplay());
     }
 
     private String truncateAndEscapeForDisplay() {
@@ -705,7 +717,8 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
                     LiteralByteString literalByteString = (LiteralByteString) obj;
                     int peekCachedHashCode = peekCachedHashCode();
                     int peekCachedHashCode2 = literalByteString.peekCachedHashCode();
-                    if (peekCachedHashCode == 0 || peekCachedHashCode2 == 0 || peekCachedHashCode == peekCachedHashCode2) {
+                    if (peekCachedHashCode == 0 || peekCachedHashCode2 == 0
+                            || peekCachedHashCode == peekCachedHashCode2) {
                         return equalsRange(literalByteString, 0, size());
                     }
                     return false;
@@ -774,18 +787,21 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
             this.bytesLength = i2;
         }
 
-        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString, com.google.oplus.protobuf.ByteString
+        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString,
+                  // com.google.oplus.protobuf.ByteString
         public byte byteAt(int i) {
             checkIndex(i, size());
             return this.bytes[this.bytesOffset + i];
         }
 
-        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString, com.google.oplus.protobuf.ByteString
+        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString,
+                  // com.google.oplus.protobuf.ByteString
         byte internalByteAt(int i) {
             return this.bytes[this.bytesOffset + i];
         }
 
-        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString, com.google.oplus.protobuf.ByteString
+        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString,
+                  // com.google.oplus.protobuf.ByteString
         public int size() {
             return this.bytesLength;
         }
@@ -795,7 +811,8 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
             return this.bytesOffset;
         }
 
-        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString, com.google.oplus.protobuf.ByteString
+        @Override // com.google.oplus.protobuf.ByteString.LiteralByteString,
+                  // com.google.oplus.protobuf.ByteString
         protected void copyToInternal(byte[] bArr, int i, int i2, int i3) {
             System.arraycopy(this.bytes, getOffsetIntoBytes() + i, bArr, i2, i3);
         }

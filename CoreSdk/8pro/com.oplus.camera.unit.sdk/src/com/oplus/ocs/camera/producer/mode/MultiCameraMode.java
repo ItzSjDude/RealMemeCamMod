@@ -20,6 +20,7 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
 import com.oplus.ocs.camera.producer.info.CameraIdType;
 import java.util.List;
+
 /* loaded from: classes.dex */
 public class MultiCameraMode extends BaseMode {
     private static final String TAG = "MultiCameraMode";
@@ -41,7 +42,8 @@ public class MultiCameraMode extends BaseMode {
         cameraDeviceInfoImpl.setPhysicalCameraTypeList(CameraCharacteristicsHelper.getCameraList(str));
         cameraDeviceInfoImpl.setSupportPictureSizeList(getPictureSizes(str, 256));
         if (str.equals("rear_main")) {
-            cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_ZOOM_RATIO.getName(), new ZoomHelper(str).getZoomRatioList(false, false, false));
+            cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_ZOOM_RATIO.getName(),
+                    new ZoomHelper(str).getZoomRatioList(false, false, false));
         }
         return cameraDeviceInfoImpl;
     }
@@ -51,20 +53,23 @@ public class MultiCameraMode extends BaseMode {
         if (checkSetStreamFpsRange(builder, str)) {
             return;
         }
-        builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, (CaptureRequest.Key) new Range(30, 30));
+        builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, new Range(30, 30));
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.DUAL_CAMERA, (Parameter.Key<int[]>) parserCameraIds());
+        builder.set(ConfigureParameter.DUAL_CAMERA, parserCameraIds());
         if (Parameter.ParameterStage.CONFIGURE.equals(str)) {
-            builder.set((Parameter.Key<Parameter.Key<byte[]>>) ConfigureParameter.KEY_TUNING_DATA_ENABLE, (Parameter.Key<byte[]>) new byte[]{0});
+            builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { 0 });
             Parameter configureParameter = getConfigureParameter(str2);
             if (configureParameter.containCustomKey(ConfigureParameter.KEY_DUAL_SCENE_MASTER)) {
-                builder.set((Parameter.Key<Parameter.Key<Integer>>) ConfigureParameter.KEY_DUAL_SCENE_MASTER, (Parameter.Key<Integer>) ((Integer) configureParameter.get(ConfigureParameter.KEY_DUAL_SCENE_MASTER)));
+                builder.set(ConfigureParameter.KEY_DUAL_SCENE_MASTER,
+                        (Integer) configureParameter.get(ConfigureParameter.KEY_DUAL_SCENE_MASTER));
             }
-            builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.KEY_SESSION_REQUEST_PROPRIETARYCAPTURE, (Parameter.Key<int[]>) new int[]{0});
+            builder.set(ConfigureParameter.KEY_SESSION_REQUEST_PROPRIETARYCAPTURE, new int[] { 0 });
         }
     }
 
@@ -80,23 +85,30 @@ public class MultiCameraMode extends BaseMode {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
-        CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2 + ", cameraType: " + str3);
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
+        CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2
+                + ", cameraType: " + str3);
         return new Pair<>(this.mTagMap.get(str3).mPreviewSize, this.mTagMap.get(str3).mPreviewSize);
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
-        return "rear_main_rear_wide".equals(str) ? "multi_case_main_wide" : "rear_main_rear_tele".equals(str) ? "multi_case_main_tele" : "rear_wide_rear_tele".equals(str) ? "multi_case_wide_tele" : "simple_preview_case";
+        return "rear_main_rear_wide".equals(str) ? "multi_case_main_wide"
+                : "rear_main_rear_tele".equals(str) ? "multi_case_main_tele"
+                        : "rear_wide_rear_tele".equals(str) ? "multi_case_wide_tele" : "simple_preview_case";
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameter(parameter, str, str2, cameraRequestTag);
     }
 

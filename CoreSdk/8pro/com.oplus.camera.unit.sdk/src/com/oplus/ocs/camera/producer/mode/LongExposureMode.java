@@ -19,6 +19,7 @@ import com.oplus.ocs.camera.producer.device.AEAFHelp;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import java.util.List;
+
 /* loaded from: classes.dex */
 public class LongExposureMode extends BaseMode {
     private static final String TAG = "LongExposureMode";
@@ -29,7 +30,8 @@ public class LongExposureMode extends BaseMode {
         return true;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
     public int delayCloseForCapturTime() {
         return 0;
     }
@@ -54,14 +56,18 @@ public class LongExposureMode extends BaseMode {
         return true;
     }
 
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
+    /*
+     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+     */
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         Size size = this.mTagMap.get(str3).mPreviewSize;
         size.getWidth();
         size.getHeight();
         List<SurfaceWrapper> pictureSurfaces = sdkCameraDeviceConfig.getPictureSurfaces();
-        CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2 + ", cameraType: " + str3);
+        CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2
+                + ", cameraType: " + str3);
         str.hashCode();
         char c = 65535;
         switch (str.hashCode()) {
@@ -129,7 +135,8 @@ public class LongExposureMode extends BaseMode {
             case 6:
             case 7:
                 if (pictureSurfaces.size() > 0) {
-                    return new Pair<>(pictureSurfaces.get(0).getAppSurfaceSize(), pictureSurfaces.get(0).getHalSurfaceSize());
+                    return new Pair<>(pictureSurfaces.get(0).getAppSurfaceSize(),
+                            pictureSurfaces.get(0).getHalSurfaceSize());
                 }
                 break;
         }
@@ -137,39 +144,46 @@ public class LongExposureMode extends BaseMode {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameter(parameter, str, str2, cameraRequestTag);
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
-            parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_LOCK, (CaptureRequest.Key) true);
-            parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_LOCK, (CaptureRequest.Key) true);
-            parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AF_MODE, (CaptureRequest.Key) 1);
-            parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AF_REGIONS, (CaptureRequest.Key) AEAFHelp.getDefaultWeightRegion());
-            parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_MODE, (CaptureRequest.Key) 1);
-            parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_REGIONS, (CaptureRequest.Key) AEAFHelp.getDefaultWeightRegion());
+            parameter.set(CaptureRequest.CONTROL_AE_LOCK, true);
+            parameter.set(CaptureRequest.CONTROL_AWB_LOCK, true);
+            parameter.set(CaptureRequest.CONTROL_AF_MODE, 1);
+            parameter.set(CaptureRequest.CONTROL_AF_REGIONS, AEAFHelp.getDefaultWeightRegion());
+            parameter.set(CaptureRequest.CONTROL_MODE, 1);
+            parameter.set(CaptureRequest.CONTROL_AE_REGIONS, AEAFHelp.getDefaultWeightRegion());
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         if (cameraRequestTag != null) {
             str.hashCode();
             if (!str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
                 if (str.equals(Parameter.ParameterStage.START_PREVIEW)) {
-                    builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.STATISTICS_LENS_SHADING_MAP_MODE, (CaptureRequest.Key) 1);
+                    builder.set(CaptureRequest.STATISTICS_LENS_SHADING_MAP_MODE, 1);
                     return;
                 }
                 return;
             }
             if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
                 cameraRequestTag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
-                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN)).booleanValue();
-                cameraRequestTag.mbFilterVignette = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE)).booleanValue();
+                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN))
+                        .booleanValue();
+                cameraRequestTag.mbFilterVignette = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE))
+                        .booleanValue();
             }
             if (cameraRequestTag.getRequestMode() == CameraRequestTag.RequestMode.CAPTURE_REPROCESS) {
                 cameraRequestTag.mbLongExposureCaptureEnable = false;
@@ -178,8 +192,10 @@ public class LongExposureMode extends BaseMode {
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder) {
         CameraRequestTag createRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
             createRequestTag.mbLongExposureCaptureEnable = true;
@@ -188,13 +204,15 @@ public class LongExposureMode extends BaseMode {
             createRequestTag.mbRaw2yuvEnable = true;
             createRequestTag.mbRectifyEnable = true;
         }
-        CameraUnitLog.v(TAG, "createRequestTag, createRequestTag: " + str + ", stage: " + str2 + ", tag: " + createRequestTag);
+        CameraUnitLog.v(TAG,
+                "createRequestTag, createRequestTag: " + str + ", stage: " + str2 + ", tag: " + createRequestTag);
         return createRequestTag;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey, PreviewParameter.Builder builder) {
+    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
+            PreviewParameter.Builder builder) {
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
             if (32 == surfaceKey.getFormat() || "surface_key_preview".equals(surfaceKey.getUsage())) {
                 return true;
@@ -204,12 +222,15 @@ public class LongExposureMode extends BaseMode {
             }
         }
         boolean needAddToTarget = super.needAddToTarget(str, str2, surfaceKey, builder);
-        CameraUnitLog.v(TAG, "needAddToTarget, sessionCameraType: " + str + ", stage: " + str2 + ", surfaceKey: " + surfaceKey + ", need: " + needAddToTarget);
+        CameraUnitLog.v(TAG, "needAddToTarget, sessionCameraType: " + str + ", stage: " + str2 + ", surfaceKey: "
+                + surfaceKey + ", need: " + needAddToTarget);
         return needAddToTarget;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag, ApsAdapterDecision.DecisionResult decisionResult) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag,
+            ApsAdapterDecision.DecisionResult decisionResult) {
         if (2 == i) {
             return true;
         }

@@ -15,6 +15,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 /* loaded from: classes.dex */
 public class AlgoSwitchConfig {
     private static final String ALGO_SWITCH_CONFIG_NAME = "oplus_camera_algo_switch_config";
@@ -98,7 +99,8 @@ public class AlgoSwitchConfig {
         PreviewConfig.Component component;
         CONFIG_CONDITION.block();
         PreviewConfig previewConfig = sPreviewConfigMap.get(str + "@" + i);
-        if (previewConfig != null && previewConfig.mComponentMap.containsKey(str2) && (component = previewConfig.mComponentMap.get(str2)) != null && component.mAlgoList != null) {
+        if (previewConfig != null && previewConfig.mComponentMap.containsKey(str2)
+                && (component = previewConfig.mComponentMap.get(str2)) != null && component.mAlgoList != null) {
             for (String str4 : component.mAlgoList) {
                 if (str4.equals(str3)) {
                     return true;
@@ -140,7 +142,8 @@ public class AlgoSwitchConfig {
         return new PreviewConfig(previewConfig);
     }
 
-    public static PreviewConfig getPreviewConfig(String str, int i, Size size, Size size2, Size size3, boolean z, boolean z2, boolean z3) {
+    public static PreviewConfig getPreviewConfig(String str, int i, Size size, Size size2, Size size3, boolean z,
+            boolean z2, boolean z3) {
         CONFIG_CONDITION.block();
         HashMap<String, PreviewConfig> hashMap = sPreviewConfigMap;
         PreviewConfig previewConfig = hashMap.get(str + "@" + i);
@@ -156,7 +159,8 @@ public class AlgoSwitchConfig {
             if (z2 && z) {
                 component.mbEnable = true;
             }
-            if ((component.mMasterInputWidth != size.getWidth() || component.mMasterInputHeight != size.getHeight()) && component.mbEnable) {
+            if ((component.mMasterInputWidth != size.getWidth() || component.mMasterInputHeight != size.getHeight())
+                    && component.mbEnable) {
                 component.mMasterInputWidth = size.getWidth();
                 component.mMasterInputHeight = size.getHeight();
                 component.mSlaveInputWidth = size.getWidth();
@@ -173,7 +177,8 @@ public class AlgoSwitchConfig {
             if (z2 && z) {
                 component2.mbEnable = true;
             }
-            if ((component2.mMasterInputWidth != size2.getWidth() || component2.mMasterInputHeight != size2.getHeight()) && component2.mbEnable) {
+            if ((component2.mMasterInputWidth != size2.getWidth() || component2.mMasterInputHeight != size2.getHeight())
+                    && component2.mbEnable) {
                 component2.mMasterInputWidth = size2.getWidth();
                 component2.mMasterInputHeight = size2.getHeight();
                 component2.mSlaveInputWidth = size2.getWidth();
@@ -187,7 +192,8 @@ public class AlgoSwitchConfig {
         if (size != null && previewConfig2.mComponentMap.keySet().contains(APS_PIPELINE_ASD)) {
             PreviewConfig.Component component3 = previewConfig2.mComponentMap.get(APS_PIPELINE_ASD);
             checkNeedAlgorithmVideoFrc(false, component3);
-            if ((component3.mMasterInputWidth != size.getWidth() || component3.mMasterInputHeight != size.getHeight()) && component3.mbEnable) {
+            if ((component3.mMasterInputWidth != size.getWidth() || component3.mMasterInputHeight != size.getHeight())
+                    && component3.mbEnable) {
                 component3.mMasterInputWidth = size.getWidth();
                 component3.mMasterInputHeight = size.getHeight();
                 component3.mSlaveInputWidth = size.getWidth();
@@ -266,7 +272,8 @@ public class AlgoSwitchConfig {
                                     captureConfig.mAlgos.add(str);
                                 }
                             }
-                            sCaptureConfigMap.put(captureConfig.mCameraMode + "@" + captureConfig.mCameraId, captureConfig);
+                            sCaptureConfigMap.put(captureConfig.mCameraMode + "@" + captureConfig.mCameraId,
+                                    captureConfig);
                         }
                     }
                 } catch (Exception e) {
@@ -298,7 +305,8 @@ public class AlgoSwitchConfig {
                             previewConfig.mCameraMode = string;
                             previewConfig.mCameraId = jSONObject3.getInt(str3);
                             previewConfig.mCameraNum = jSONObject3.getInt("camera_num");
-                            previewConfig.mIsSeparateStreamForPrevAndVideo = jSONObject3.getInt("separate_preview_video");
+                            previewConfig.mIsSeparateStreamForPrevAndVideo = jSONObject3
+                                    .getInt("separate_preview_video");
                             JSONObject jSONObject4 = jSONObject3.getJSONObject("pipelines");
                             Iterator<String> keys = jSONObject4.keys();
                             while (keys.hasNext()) {
@@ -344,13 +352,15 @@ public class AlgoSwitchConfig {
                                             } catch (Exception e) {
                                                 e = e;
                                                 try {
-                                                    ApsAdapterLog.d(TAG, "parsePreviewConfig, config: " + previewConfig.mCameraMode + "@" + previewConfig.mCameraId + ", pipeline: " + next + ", e1: " + e.getMessage());
+                                                    ApsAdapterLog.d(TAG,
+                                                            "parsePreviewConfig, config: " + previewConfig.mCameraMode
+                                                                    + "@" + previewConfig.mCameraId + ", pipeline: "
+                                                                    + next + ", e1: " + e.getMessage());
                                                     continue;
                                                     previewConfig.mComponentMap.put(next, component);
                                                     str3 = str;
                                                 } catch (Exception e2) {
-                                                    e = e2;
-                                                    ApsAdapterLog.e(TAG, "parsePreviewConfig, e2: " + e.getMessage());
+                                                    ApsAdapterLog.e(TAG, "parsePreviewConfig, e2: " + e2.getMessage());
                                                     i++;
                                                     str3 = str;
                                                 }
@@ -360,14 +370,15 @@ public class AlgoSwitchConfig {
                                     str = str3;
                                     continue;
                                 } catch (Exception e3) {
-                                    e = e3;
+                                    // e = e3;
                                     str = str3;
                                 }
                                 previewConfig.mComponentMap.put(next, component);
                                 str3 = str;
                             }
                             str2 = str3;
-                            sPreviewConfigMap.put(previewConfig.mCameraMode + "@" + previewConfig.mCameraId, previewConfig);
+                            sPreviewConfigMap.put(previewConfig.mCameraMode + "@" + previewConfig.mCameraId,
+                                    previewConfig);
                         } else {
                             str2 = str3;
                         }
@@ -376,7 +387,7 @@ public class AlgoSwitchConfig {
                     }
                     str = str3;
                 } catch (Exception e4) {
-                    e = e4;
+                    // e = e4;
                     str = str3;
                 }
                 i++;
@@ -414,7 +425,8 @@ public class AlgoSwitchConfig {
         }
 
         public String toString() {
-            return "mCameraMode: " + this.mCameraMode + ", mCameraId: " + this.mCameraId + ", mbEnable: " + this.mbEnable + ", mAlgos: " + this.mAlgos;
+            return "mCameraMode: " + this.mCameraMode + ", mCameraId: " + this.mCameraId + ", mbEnable: "
+                    + this.mbEnable + ", mAlgos: " + this.mAlgos;
         }
     }
 
@@ -450,7 +462,9 @@ public class AlgoSwitchConfig {
         }
 
         public String toString() {
-            return "mCameraMode: " + this.mCameraMode + ", mCameraId: " + this.mCameraId + ", mCameraNum: " + this.mCameraNum + ", mIsSeparateStreamForPrevAndVideo: " + this.mIsSeparateStreamForPrevAndVideo + ", mComponentMap: " + this.mComponentMap;
+            return "mCameraMode: " + this.mCameraMode + ", mCameraId: " + this.mCameraId + ", mCameraNum: "
+                    + this.mCameraNum + ", mIsSeparateStreamForPrevAndVideo: " + this.mIsSeparateStreamForPrevAndVideo
+                    + ", mComponentMap: " + this.mComponentMap;
         }
 
         /* loaded from: classes.dex */
@@ -470,7 +484,14 @@ public class AlgoSwitchConfig {
             public String[] mAlgoList = null;
 
             public String toString() {
-                return "{mbEnable: " + this.mbEnable + ", mMasterInputWidth: " + this.mMasterInputWidth + ", mMasterInputHeight: " + this.mMasterInputHeight + ", mSlaveInputWidth: " + this.mSlaveInputWidth + ", mSlaveInputHeight: " + this.mSlaveInputHeight + ", mThirdInputWidth: " + this.mThirdInputWidth + ", mThirdInputHeight: " + this.mThirdInputHeight + ", mOutputWidth: " + this.mOutputWidth + ", mOutputHeight: " + this.mOutputHeight + ", mFrameSkipCnt: " + this.mFrameSkipCnt + ", mPipelineCopyFrom: " + this.mPipelineCopyFrom + ", mAlgoNodeCopyFrom: " + this.mAlgoNodeCopyFrom + ", mAlgoList: " + Arrays.toString(this.mAlgoList) + "}";
+                return "{mbEnable: " + this.mbEnable + ", mMasterInputWidth: " + this.mMasterInputWidth
+                        + ", mMasterInputHeight: " + this.mMasterInputHeight + ", mSlaveInputWidth: "
+                        + this.mSlaveInputWidth + ", mSlaveInputHeight: " + this.mSlaveInputHeight
+                        + ", mThirdInputWidth: " + this.mThirdInputWidth + ", mThirdInputHeight: "
+                        + this.mThirdInputHeight + ", mOutputWidth: " + this.mOutputWidth + ", mOutputHeight: "
+                        + this.mOutputHeight + ", mFrameSkipCnt: " + this.mFrameSkipCnt + ", mPipelineCopyFrom: "
+                        + this.mPipelineCopyFrom + ", mAlgoNodeCopyFrom: " + this.mAlgoNodeCopyFrom + ", mAlgoList: "
+                        + Arrays.toString(this.mAlgoList) + "}";
             }
         }
     }

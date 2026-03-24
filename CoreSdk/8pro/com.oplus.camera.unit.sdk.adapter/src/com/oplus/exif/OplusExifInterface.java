@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
+
 /* loaded from: classes.dex */
 public class OplusExifInterface {
     private static final String DATETIME_FORMAT_STR = "yyyy:MM:dd HH:mm:ss";
@@ -775,53 +776,29 @@ public class OplusExifInterface {
     /* JADX WARN: Type inference failed for: r0v1 */
     /* JADX WARN: Type inference failed for: r0v2, types: [java.io.Closeable] */
     /* JADX WARN: Type inference failed for: r0v3 */
-    public boolean rewriteExif(String str, Collection<OplusExifTag> collection) throws FileNotFoundException, IOException {
-        RandomAccessFile randomAccessFile;
-        File file;
-        BufferedInputStream bufferedInputStream;
-        ?? r0 = 0;
-        r0 = 0;
+    public boolean rewriteExif(String str, Collection<OplusExifTag> collection)
+            throws FileNotFoundException, IOException {
+        RandomAccessFile randomAccessFile = null;
+        BufferedInputStream bufferedInputStream = null;
         try {
-            try {
-                file = new File(str);
-                bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-            } catch (Throwable th) {
-                th = th;
-                r0 = str;
-                randomAccessFile = null;
+            File file = new File(str);
+            bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+            long offsetToExifEndFromSOF = OplusExifParser.parse(bufferedInputStream, this).getOffsetToExifEndFromSOF();
+            bufferedInputStream.close();
+            bufferedInputStream = null;
+
+            randomAccessFile = new RandomAccessFile(file, "rw");
+            if (randomAccessFile.length() < offsetToExifEndFromSOF) {
+                throw new IOException("Filesize changed during operation");
             }
-            try {
-                try {
-                    long offsetToExifEndFromSOF = OplusExifParser.parse(bufferedInputStream, this).getOffsetToExifEndFromSOF();
-                    bufferedInputStream.close();
-                    randomAccessFile = new RandomAccessFile(file, "rw");
-                    try {
-                        if (randomAccessFile.length() < offsetToExifEndFromSOF) {
-                            throw new IOException("Filesize changed during operation");
-                        }
-                        boolean rewriteExif = rewriteExif(randomAccessFile.getChannel().map(FileChannel.MapMode.READ_WRITE, 0L, offsetToExifEndFromSOF), collection);
-                        closeSilently(null);
-                        closeSilently(randomAccessFile);
-                        return rewriteExif;
-                    } catch (IOException e) {
-                        throw e;
-                    } catch (Throwable th2) {
-                        th = th2;
-                        closeSilently(r0);
-                        closeSilently(randomAccessFile);
-                        throw th;
-                    }
-                } catch (OplusExifInvalidFormatException e2) {
-                    throw new IOException("Invalid exif format : ", e2);
-                }
-            } catch (IOException e3) {
-                throw e3;
-            }
-        } catch (IOException e4) {
-            throw e4;
-        } catch (Throwable th3) {
-            th = th3;
-            randomAccessFile = null;
+            return rewriteExif(
+                    randomAccessFile.getChannel().map(FileChannel.MapMode.READ_WRITE, 0L, offsetToExifEndFromSOF),
+                    collection);
+        } catch (OplusExifInvalidFormatException e) {
+            throw new IOException("Invalid exif format : ", e);
+        } finally {
+            closeSilently(bufferedInputStream);
+            closeSilently(randomAccessFile);
         }
     }
 
@@ -837,7 +814,8 @@ public class OplusExifInterface {
         }
     }
 
-    public void forceRewriteExif(String str, Collection<OplusExifTag> collection) throws FileNotFoundException, IOException {
+    public void forceRewriteExif(String str, Collection<OplusExifTag> collection)
+            throws FileNotFoundException, IOException {
         InputStream fileInputStream;
         if (collection == null || rewriteExif(str, collection)) {
             return;
@@ -1131,7 +1109,8 @@ public class OplusExifInterface {
 
     public int setTagDefinition(short s, int i, short s2, short s3, int[] iArr) {
         int defineTag;
-        if (!sBannedDefines.contains(Short.valueOf(s)) && OplusExifTag.isValidType(s2) && OplusExifTag.isValidIfd(i) && (defineTag = defineTag(i, s)) != -1) {
+        if (!sBannedDefines.contains(Short.valueOf(s)) && OplusExifTag.isValidType(s2) && OplusExifTag.isValidIfd(i)
+                && (defineTag = defineTag(i, s)) != -1) {
             int[] tagDefinitionsForTagId = getTagDefinitionsForTagId(s);
             SparseIntArray tagInfo = getTagInfo();
             boolean z = false;
@@ -1183,7 +1162,8 @@ public class OplusExifInterface {
     }
 
     protected int getTagDefinitionForTag(OplusExifTag oplusExifTag) {
-        return getTagDefinitionForTag(oplusExifTag.getTagId(), oplusExifTag.getDataType(), oplusExifTag.getComponentCount(), oplusExifTag.getIfd());
+        return getTagDefinitionForTag(oplusExifTag.getTagId(), oplusExifTag.getDataType(),
+                oplusExifTag.getComponentCount(), oplusExifTag.getIfd());
     }
 
     protected int getTagDefinitionForTag(short s, short s2, int i, int i2) {
@@ -1293,7 +1273,8 @@ public class OplusExifInterface {
 
     public static double convertLatOrLongToDouble(OplusRational[] oplusRationalArr, String str) {
         try {
-            double d = oplusRationalArr[0].toDouble() + (oplusRationalArr[1].toDouble() / 60.0d) + (oplusRationalArr[2].toDouble() / 3600.0d);
+            double d = oplusRationalArr[0].toDouble() + (oplusRationalArr[1].toDouble() / 60.0d)
+                    + (oplusRationalArr[2].toDouble() / 3600.0d);
             if (!str.equals(GpsLatitudeRef.SOUTH)) {
                 if (!str.equals(GpsLongitudeRef.WEST)) {
                     return d;
@@ -1310,10 +1291,12 @@ public class OplusExifInterface {
         String tagStringValue = getTagStringValue(TAG_GPS_LATITUDE_REF);
         OplusRational[] tagRationalValues2 = getTagRationalValues(TAG_GPS_LONGITUDE);
         String tagStringValue2 = getTagStringValue(TAG_GPS_LONGITUDE_REF);
-        if (tagRationalValues == null || tagRationalValues2 == null || tagStringValue == null || tagStringValue2 == null || tagRationalValues.length < 3 || tagRationalValues2.length < 3) {
+        if (tagRationalValues == null || tagRationalValues2 == null || tagStringValue == null || tagStringValue2 == null
+                || tagRationalValues.length < 3 || tagRationalValues2.length < 3) {
             return null;
         }
-        return new double[]{convertLatOrLongToDouble(tagRationalValues, tagStringValue), convertLatOrLongToDouble(tagRationalValues2, tagStringValue2)};
+        return new double[] { convertLatOrLongToDouble(tagRationalValues, tagStringValue),
+                convertLatOrLongToDouble(tagRationalValues2, tagStringValue2) };
     }
 
     public boolean addDateTimeStampTag(int i, long j, TimeZone timeZone) {
@@ -1333,7 +1316,8 @@ public class OplusExifInterface {
         OplusExifTag buildTag = buildTag(TAG_GPS_LATITUDE, toExifLatLong(d));
         OplusExifTag buildTag2 = buildTag(TAG_GPS_LONGITUDE, toExifLatLong(d2));
         OplusExifTag buildTag3 = buildTag(TAG_GPS_LATITUDE_REF, d >= 0.0d ? "N" : GpsLatitudeRef.SOUTH);
-        OplusExifTag buildTag4 = buildTag(TAG_GPS_LONGITUDE_REF, d2 >= 0.0d ? GpsLongitudeRef.EAST : GpsLongitudeRef.WEST);
+        OplusExifTag buildTag4 = buildTag(TAG_GPS_LONGITUDE_REF,
+                d2 >= 0.0d ? GpsLongitudeRef.EAST : GpsLongitudeRef.WEST);
         if (buildTag == null || buildTag2 == null || buildTag3 == null || buildTag4 == null) {
             return false;
         }
@@ -1351,7 +1335,10 @@ public class OplusExifInterface {
         }
         setTag(buildTag);
         this.mGPSTimeStampCalendar.setTimeInMillis(j);
-        OplusExifTag buildTag2 = buildTag(TAG_GPS_TIME_STAMP, new OplusRational[]{new OplusRational(this.mGPSTimeStampCalendar.get(11), 1L), new OplusRational(this.mGPSTimeStampCalendar.get(12), 1L), new OplusRational(this.mGPSTimeStampCalendar.get(13), 1L)});
+        OplusExifTag buildTag2 = buildTag(TAG_GPS_TIME_STAMP,
+                new OplusRational[] { new OplusRational(this.mGPSTimeStampCalendar.get(11), 1L),
+                        new OplusRational(this.mGPSTimeStampCalendar.get(12), 1L),
+                        new OplusRational(this.mGPSTimeStampCalendar.get(13), 1L) });
         if (buildTag2 == null) {
             return false;
         }
@@ -1364,7 +1351,8 @@ public class OplusExifInterface {
         int i = (int) abs;
         double d2 = (abs - i) * 60.0d;
         int i2 = (int) d2;
-        return new OplusRational[]{new OplusRational(i, 1L), new OplusRational(i2, 1L), new OplusRational((int) ((d2 - i2) * 6000.0d), 100L)};
+        return new OplusRational[] { new OplusRational(i, 1L), new OplusRational(i2, 1L),
+                new OplusRational((int) ((d2 - i2) * 6000.0d), 100L) };
     }
 
     private void doExifStreamIO(InputStream inputStream, OutputStream outputStream) throws IOException {
@@ -1396,7 +1384,7 @@ public class OplusExifInterface {
     }
 
     private void initTagInfo() {
-        int flagsFromAllowedIfds = getFlagsFromAllowedIfds(new int[]{0, 1}) << 24;
+        int flagsFromAllowedIfds = getFlagsFromAllowedIfds(new int[] { 0, 1 }) << 24;
         SparseIntArray sparseIntArray = this.mTagInfo;
         int i = TAG_MAKE;
         int i2 = flagsFromAllowedIfds | 131072;
@@ -1440,10 +1428,10 @@ public class OplusExifInterface {
         this.mTagInfo.put(TAG_COPYRIGHT, i3);
         this.mTagInfo.put(TAG_EXIF_IFD, i5);
         this.mTagInfo.put(TAG_GPS_IFD, i5);
-        int flagsFromAllowedIfds2 = (getFlagsFromAllowedIfds(new int[]{1}) << 24) | 262144 | 1;
+        int flagsFromAllowedIfds2 = (getFlagsFromAllowedIfds(new int[] { 1 }) << 24) | 262144 | 1;
         this.mTagInfo.put(TAG_JPEG_INTERCHANGE_FORMAT, flagsFromAllowedIfds2);
         this.mTagInfo.put(TAG_JPEG_INTERCHANGE_FORMAT_LENGTH, flagsFromAllowedIfds2);
-        int flagsFromAllowedIfds3 = getFlagsFromAllowedIfds(new int[]{2}) << 24;
+        int flagsFromAllowedIfds3 = getFlagsFromAllowedIfds(new int[] { 2 }) << 24;
         int i12 = flagsFromAllowedIfds3 | 458752;
         int i13 = i12 | 4;
         this.mTagInfo.put(TAG_EXIF_VERSION, i13);
@@ -1515,7 +1503,7 @@ public class OplusExifInterface {
         this.mTagInfo.put(TAG_DEVICE_SETTING_DESCRIPTION, i18);
         this.mTagInfo.put(TAG_SUBJECT_DISTANCE_RANGE, i15);
         this.mTagInfo.put(TAG_INTEROPERABILITY_IFD, i17);
-        int flagsFromAllowedIfds4 = getFlagsFromAllowedIfds(new int[]{4}) << 24;
+        int flagsFromAllowedIfds4 = getFlagsFromAllowedIfds(new int[] { 4 }) << 24;
         int i25 = 65536 | flagsFromAllowedIfds4;
         this.mTagInfo.put(TAG_GPS_VERSION_ID, i25 | 4);
         int i26 = flagsFromAllowedIfds4 | 131072;
@@ -1553,7 +1541,7 @@ public class OplusExifInterface {
         this.mTagInfo.put(TAG_GPS_AREA_INFORMATION, i32);
         this.mTagInfo.put(TAG_GPS_DATE_STAMP, i26 | 11);
         this.mTagInfo.put(TAG_GPS_DIFFERENTIAL, flagsFromAllowedIfds4 | 196608 | 11);
-        this.mTagInfo.put(TAG_INTEROPERABILITY_INDEX, (getFlagsFromAllowedIfds(new int[]{3}) << 24) | 131072 | 0);
+        this.mTagInfo.put(TAG_INTEROPERABILITY_INDEX, (getFlagsFromAllowedIfds(new int[] { 3 }) << 24) | 131072 | 0);
     }
 
     protected static int[] getAllowedIfdsFromInfo(int i) {

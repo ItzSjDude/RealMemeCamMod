@@ -30,6 +30,7 @@ import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
+
 /* loaded from: classes.dex */
 public class NightMode extends PhotoMode {
     protected static final int NIGHT_DELAY_CLOSE_CAMERA_FOR_CAPTURE_TIME = 3000;
@@ -41,24 +42,31 @@ public class NightMode extends PhotoMode {
     private boolean mbTripodModeOpened = false;
     private boolean mbIsFrontMFNRSizeSupported = false;
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return "night_mode";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected boolean isExplorerOpen(String str) {
         return true;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public boolean useOplusCameraCase(String str) {
         return true;
     }
 
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
+    /*
+     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+     */
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         char c;
         Size[] sizeArr;
         char c2;
@@ -146,13 +154,15 @@ public class NightMode extends PhotoMode {
             case 0:
             case 1:
             case 4:
-                if ("front_main".equals(str3) && (sizeArr = (Size[]) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FRONT_NIGHT_RAW_PICTURE_SIZE, null)) != null) {
+                if ("front_main".equals(str3) && (sizeArr = (Size[]) CameraConfigHelper
+                        .getConfigValue(CameraConfigBase.KEY_FRONT_NIGHT_RAW_PICTURE_SIZE, null)) != null) {
                     Size size3 = sizeArr[0];
                     return new Pair<>(size3, size3);
                 }
                 Size appSurfaceSize = surfaceWrapper.getAppSurfaceSize();
                 if ("rear_main".equals(str3)) {
-                    Size[] sizeArr2 = (Size[]) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_BACK_NIGHT_RAW_PICTURE_SIZE, null);
+                    Size[] sizeArr2 = (Size[]) CameraConfigHelper
+                            .getConfigValue(CameraConfigBase.KEY_BACK_NIGHT_RAW_PICTURE_SIZE, null);
                     if (sizeArr2 != null && sizeArr2.length != 0) {
                         size2 = sizeArr2[0];
                     }
@@ -160,7 +170,8 @@ public class NightMode extends PhotoMode {
                         return new Pair<>(appSurfaceSize, size2);
                     }
                 }
-                return new Pair<>(appSurfaceSize, CameraCharacteristicsHelper.getSizeByFormat(str3, 1.3333333333333333d, 32));
+                return new Pair<>(appSurfaceSize,
+                        CameraCharacteristicsHelper.getSizeByFormat(str3, 1.3333333333333333d, 32));
             case 2:
                 return new Pair<>(size, size);
             case 3:
@@ -203,7 +214,10 @@ public class NightMode extends PhotoMode {
                     }
                     switch (c2) {
                         case 0:
-                            Size maxSize = Util.getMaxSize(new Size[]{geMaxSize(CameraConfigBase.KEY_SAT_MAIN_PICTURE_SIZE, width), geMaxSize(CameraConfigBase.KEY_SAT_SUB_PICTURE_SIZE, width), geMaxSize(CameraConfigBase.KEY_SAT_THIRD_PICTURE_SIZE, width)});
+                            Size maxSize = Util.getMaxSize(
+                                    new Size[] { geMaxSize(CameraConfigBase.KEY_SAT_MAIN_PICTURE_SIZE, width),
+                                            geMaxSize(CameraConfigBase.KEY_SAT_SUB_PICTURE_SIZE, width),
+                                            geMaxSize(CameraConfigBase.KEY_SAT_THIRD_PICTURE_SIZE, width) });
                             return new Pair<>(maxSize, maxSize);
                         case 1:
                             Size geMaxSize = geMaxSize(CameraConfigBase.KEY_SAT_MAIN_PICTURE_SIZE, width);
@@ -221,7 +235,8 @@ public class NightMode extends PhotoMode {
                 Size tuningSize = CameraCharacteristicsHelper.getTuningSize(str3);
                 return new Pair<>(tuningSize, tuningSize);
             case 7:
-                Size tuningDataSurfaceSize = CameraCharacteristicsHelper.getTuningDataSurfaceSize(str3, "tuning_data_yuv");
+                Size tuningDataSurfaceSize = CameraCharacteristicsHelper.getTuningDataSurfaceSize(str3,
+                        "tuning_data_yuv");
                 return new Pair<>(tuningDataSurfaceSize, tuningDataSurfaceSize);
             case '\t':
                 if ("front_main".equals(str3) || "front_wide".equals(str3)) {
@@ -236,42 +251,60 @@ public class NightMode extends PhotoMode {
         return new Pair<>(size, size);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
-        return "rear_sat".equals(str) ? "sat_night_case" : "front_main".equals(str) ? this.mbIsFrontMFNRSizeSupported ? CameraConstant.UseCase.FRONT_MFNR_NIGHT : "front_night_case" : "front_wide".equals(str) ? this.mbIsFrontMFNRSizeSupported ? CameraConstant.UseCase.FRONT_MFNR_NIGHT : CameraConstant.UseCase.FRONT_SUB_NIGHT : "none_sat_night_case";
+        return "rear_sat".equals(str) ? "sat_night_case"
+                : "front_main".equals(str)
+                        ? this.mbIsFrontMFNRSizeSupported ? CameraConstant.UseCase.FRONT_MFNR_NIGHT : "front_night_case"
+                        : "front_wide".equals(str)
+                                ? this.mbIsFrontMFNRSizeSupported ? CameraConstant.UseCase.FRONT_MFNR_NIGHT
+                                        : CameraConstant.UseCase.FRONT_SUB_NIGHT
+                                : "none_sat_night_case";
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    public void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
         this.mbAiNightMode = false;
         this.mbUltraDarkMode = false;
         this.mbTripodModeOpened = false;
-        this.mbIsFrontMFNRSizeSupported = CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FRONT_MFNR_PICTURE_SIZE, null) != null;
+        this.mbIsFrontMFNRSizeSupported = CameraConfigHelper
+                .getConfigValue(CameraConfigBase.KEY_FRONT_MFNR_PICTURE_SIZE, null) != null;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameter(parameter, str, str2, cameraRequestTag);
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
-            if (PlatformUtil.isMtkPlatform() && cameraRequestTag != null && cameraRequestTag.mCaptureEvList != null && cameraRequestTag.mbInNightProcess && 29 != cameraRequestTag.mFeatureType) {
-                parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_LOCK, (CaptureRequest.Key) true);
+            if (PlatformUtil.isMtkPlatform() && cameraRequestTag != null && cameraRequestTag.mCaptureEvList != null
+                    && cameraRequestTag.mbInNightProcess && 29 != cameraRequestTag.mFeatureType) {
+                parameter.set(CaptureRequest.CONTROL_AE_LOCK, true);
             }
-            if (PlatformUtil.isMtkPlatform() && "1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_NIGHT_FRONT_ZSL_DISABLE)) && "front_main".equals(str2)) {
-                parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_ENABLE_ZSL, (CaptureRequest.Key) false);
+            if (PlatformUtil.isMtkPlatform()
+                    && "1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_NIGHT_FRONT_ZSL_DISABLE))
+                    && "front_main".equals(str2)) {
+                parameter.set(CaptureRequest.CONTROL_ENABLE_ZSL, false);
             }
             if (cameraRequestTag != null && cameraRequestTag.mbInNightProcess && 29 != cameraRequestTag.mFeatureType) {
-                parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AF_MODE, (CaptureRequest.Key) 1);
-                parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AF_REGIONS, (CaptureRequest.Key) AEAFHelp.getDefaultWeightRegion());
-                parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_MODE, (CaptureRequest.Key) 1);
-                parameter.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_REGIONS, (CaptureRequest.Key) AEAFHelp.getDefaultWeightRegion());
+                parameter.set(CaptureRequest.CONTROL_AF_MODE, 1);
+                parameter.set(CaptureRequest.CONTROL_AF_REGIONS, AEAFHelp.getDefaultWeightRegion());
+                parameter.set(CaptureRequest.CONTROL_MODE, 1);
+                parameter.set(CaptureRequest.CONTROL_AE_REGIONS, AEAFHelp.getDefaultWeightRegion());
             }
             if (!PlatformUtil.isMtkPlatform() || cameraRequestTag == null) {
                 return;
             }
-            boolean z = 13 == cameraRequestTag.mApsDecisionFeatureType || 14 == cameraRequestTag.mApsDecisionFeatureType || 29 == cameraRequestTag.mApsDecisionFeatureType;
-            boolean z2 = 11 == cameraRequestTag.mApsDecisionFeatureType || 10 == cameraRequestTag.mApsDecisionFeatureType;
+            boolean z = 13 == cameraRequestTag.mApsDecisionFeatureType || 14 == cameraRequestTag.mApsDecisionFeatureType
+                    || 29 == cameraRequestTag.mApsDecisionFeatureType;
+            boolean z2 = 11 == cameraRequestTag.mApsDecisionFeatureType
+                    || 10 == cameraRequestTag.mApsDecisionFeatureType;
             boolean z3 = 9 == cameraRequestTag.mApsDecisionFeatureType;
             if (z || (z2 && CameraCharacteristicsHelper.isFrontCamera(cameraRequestTag.mCameraId))) {
                 cameraRequestTag.mbNeedPreviewStream = new boolean[cameraRequestTag.mRequestNum];
@@ -287,8 +320,11 @@ public class NightMode extends PhotoMode {
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         int[] iArr = (int[]) builder.get(PreviewParameter.KEY_TRIPOD_MODE);
         boolean z = true;
@@ -298,42 +334,56 @@ public class NightMode extends PhotoMode {
             if (!str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
                 if (str.equals(Parameter.ParameterStage.START_PREVIEW)) {
                     if (builder.containsKey(PreviewParameter.KEY_STARBURST_MODE)) {
-                        cameraRequestTag.mbStarburstEnable = ((Boolean) builder.get(PreviewParameter.KEY_STARBURST_MODE)).booleanValue();
+                        cameraRequestTag.mbStarburstEnable = ((Boolean) builder
+                                .get(PreviewParameter.KEY_STARBURST_MODE)).booleanValue();
                     }
                     checkColorTemperature(builder);
-                    cameraRequestTag.mb3DLutEnable = ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_3D_LUT_SUPPORT, false)).booleanValue();
+                    cameraRequestTag.mb3DLutEnable = ((Boolean) CameraConfigHelper
+                            .getConfigValue(CameraConfigBase.KEY_3D_LUT_SUPPORT, false)).booleanValue();
                     return;
                 }
                 return;
             }
             if (builder.containsKey(PreviewParameter.KEY_STARBURST_MODE)) {
-                cameraRequestTag.mbStarburstEnable = ((Boolean) builder.get(PreviewParameter.KEY_STARBURST_MODE)).booleanValue();
+                cameraRequestTag.mbStarburstEnable = ((Boolean) builder.get(PreviewParameter.KEY_STARBURST_MODE))
+                        .booleanValue();
                 synchronized (this.mPreviewResultLock) {
                     if (this.mPreviewResult != null && cameraRequestTag.mbStarburstEnable) {
-                        cameraRequestTag.mStarburstInfo = (float[]) this.mPreviewResult.getCaptureResult().get(ApsCameraMetadataKey.KEY_STARBURST_INFO);
-                        builder.set((Parameter.Key<Parameter.Key<float[]>>) PreviewParameter.KEY_STARBURST_INFO, (Parameter.Key<float[]>) cameraRequestTag.mStarburstInfo);
+                        cameraRequestTag.mStarburstInfo = (float[]) this.mPreviewResult.getCaptureResult()
+                                .get(ApsCameraMetadataKey.KEY_STARBURST_INFO);
+                        builder.set(PreviewParameter.KEY_STARBURST_INFO, cameraRequestTag.mStarburstInfo);
                     }
                 }
             }
-            if (!"front_main".equals(str2) || !this.mbIsFrontMFNRSizeSupported || !((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FRONT_NIGHT_USE_MFNR_PICTURE_SIZE_SUPPORT, false)).booleanValue()) {
+            if (!"front_main".equals(str2) || !this.mbIsFrontMFNRSizeSupported
+                    || !((Boolean) CameraConfigHelper
+                            .getConfigValue(CameraConfigBase.KEY_FRONT_NIGHT_USE_MFNR_PICTURE_SIZE_SUPPORT, false))
+                            .booleanValue()) {
                 z = false;
             }
             cameraRequestTag.mbUseMFNRSize = z;
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder) {
         CameraRequestTag createRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
         synchronized (this.mPreviewResultLock) {
             if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
                 boolean z = true;
-                createRequestTag.mbInNightProcess = Util.getNightStateDecision(this.mPreviewResult) > 0 && !createRequestTag.mbBurstShot;
+                createRequestTag.mbInNightProcess = Util.getNightStateDecision(this.mPreviewResult) > 0
+                        && !createRequestTag.mbBurstShot;
                 if (builder.containCustomKey(PreviewParameter.KEY_NIGHT_PRO_MODE)) {
-                    createRequestTag.mbNightProMode = ((Boolean) builder.get(PreviewParameter.KEY_NIGHT_PRO_MODE)).booleanValue();
+                    createRequestTag.mbNightProMode = ((Boolean) builder.get(PreviewParameter.KEY_NIGHT_PRO_MODE))
+                            .booleanValue();
                 }
-                createRequestTag.mFeatureType = ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue();
-                if (13 != createRequestTag.mFeatureType && 14 != createRequestTag.mFeatureType && 29 != createRequestTag.mFeatureType) {
+                createRequestTag.mFeatureType = ((Integer) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue();
+                if (13 != createRequestTag.mFeatureType && 14 != createRequestTag.mFeatureType
+                        && 29 != createRequestTag.mFeatureType) {
                     z = false;
                 }
                 createRequestTag.mbUltraDarkMode = z;
@@ -342,28 +392,36 @@ public class NightMode extends PhotoMode {
                 }
             }
             if (createRequestTag.mbInNightProcess) {
-                createRequestTag.mCaptureEvList = (int[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
-                createRequestTag.mCaptureEtList = (long[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_ET_LIST);
+                createRequestTag.mCaptureEvList = (int[]) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
+                createRequestTag.mCaptureEtList = (long[]) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_ET_LIST);
             }
         }
         return createRequestTag;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey, PreviewParameter.Builder builder) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
+            PreviewParameter.Builder builder) {
         synchronized (this.mPreviewResultLock) {
-            if (surfaceKey.getUsage() == "surface_key_reprocess_yuv" && Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2) && Util.getNightStateDecision(this.mPreviewResult) == 0) {
+            if (surfaceKey.getUsage() == "surface_key_reprocess_yuv"
+                    && Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)
+                    && Util.getNightStateDecision(this.mPreviewResult) == 0) {
                 return false;
             }
             return super.needAddToTarget(str, str2, surfaceKey, builder);
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
     public int delayCloseForCapturTime() {
         if (this.mbAiNightMode || this.mbUltraDarkMode || this.mbSuperNightMode || this.mbPortraitSuperNight) {
-            return (this.mbTripodModeOpened || !(PlatformUtil.isMtkPlatform() || Util.isSupportOfflineNight(getModeName()))) ? 0 : 3000;
+            return (this.mbTripodModeOpened
+                    || !(PlatformUtil.isMtkPlatform() || Util.isSupportOfflineNight(getModeName()))) ? 0 : 3000;
         } else if (!this.mbTripodModeOpened || Util.getNightStateDecision(this.mPreviewResult) == 0) {
             return super.delayCloseForCapturTime();
         } else {
@@ -371,7 +429,9 @@ public class NightMode extends PhotoMode {
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
     public boolean needStartPreview(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
         boolean needStartPreview = super.needStartPreview(previewResult);
         boolean z = true;
@@ -399,36 +459,47 @@ public class NightMode extends PhotoMode {
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public long getHalMemory() {
         int intValue;
         if (this.mbTenBitOpen) {
             return super.getHalMemory();
         }
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_COMMON_SUPPORT_DIFFERENCE, false)).booleanValue()) {
+        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_COMMON_SUPPORT_DIFFERENCE,
+                false)).booleanValue()) {
             long totalMemory = AlgoSwitchConfig.getTotalMemory();
-            int intValue2 = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT, 0)).intValue();
+            int intValue2 = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT, 0))
+                    .intValue();
             if (CameraConstant.MEMORY_GB_8G < totalMemory) {
-                intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT_12G, Integer.valueOf(intValue2))).intValue();
+                intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT_12G,
+                        Integer.valueOf(intValue2))).intValue();
             } else if (CameraConstant.MEMORY_GB_6G < totalMemory) {
-                intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT_8G, Integer.valueOf(intValue2))).intValue();
+                intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT_8G,
+                        Integer.valueOf(intValue2))).intValue();
             } else if (CameraConstant.MEMORY_GB_4G >= totalMemory) {
                 return intValue2;
             } else {
-                intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT_6G, Integer.valueOf(intValue2))).intValue();
+                intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT_6G,
+                        Integer.valueOf(intValue2))).intValue();
             }
         } else {
-            intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT, 0)).intValue();
+            intValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_NIGHT, 0))
+                    .intValue();
         }
         return intValue;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public CameraDeviceInfoInterface createCameraDeviceInfo(String str) {
         CameraDeviceInfoImpl cameraDeviceInfoImpl = (CameraDeviceInfoImpl) super.createCameraDeviceInfo(str);
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_NIGHT_PRO_SUPPORT, false)).booleanValue()) {
-            cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_COLOR_TEMPERATURE_RANGE.getName(), CameraCharacteristicsHelper.getColorTemperatureValueList(str));
+        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_NIGHT_PRO_SUPPORT, false))
+                .booleanValue()) {
+            cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(
+                    PreviewParameter.KEY_COLOR_TEMPERATURE_RANGE.getName(),
+                    CameraCharacteristicsHelper.getColorTemperatureValueList(str));
         }
         return cameraDeviceInfoImpl;
     }
@@ -437,13 +508,13 @@ public class NightMode extends PhotoMode {
         int[] iArr = (int[]) builder.get(PreviewParameter.KEY_COLOR_TEMPERATURE);
         if (iArr != null && iArr.length > 0 && -1 != iArr[0]) {
             if (PlatformUtil.isMtkPlatform()) {
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_MODE, (CaptureRequest.Key) 10);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 10);
                 return;
             } else {
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_MODE, (CaptureRequest.Key) 0);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 0);
                 return;
             }
         }
-        builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_MODE, (CaptureRequest.Key) 1);
+        builder.set(CaptureRequest.CONTROL_AWB_MODE, 1);
     }
 }

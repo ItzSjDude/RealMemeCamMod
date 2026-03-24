@@ -65,6 +65,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.IntPredicate;
 import java.util.stream.Stream;
+
 /* loaded from: classes.dex */
 public abstract class BaseMode implements ModeInterface {
     public static final int CHECK_MEMORY_ERR = 2;
@@ -75,7 +76,8 @@ public abstract class BaseMode implements ModeInterface {
     protected static final String FRONT_MIRROR_ENABLE = "on";
     private static final String TAG = "BaseMode";
     private static final SurfaceDecision sSurfaceDecision = new SurfaceDecision();
-    private static final String[] SELECTED_ALGOS_FOR_TIMESTAMP_MATCH = {ParameterKeys.PREVIEW_ALGO_NAME_HYPERLAPSE, ParameterKeys.PREVIEW_ALGO_NAME_EIS, "preview_supereis", ParameterKeys.PREVIEW_ALGO_NAME_SAT};
+    private static final String[] SELECTED_ALGOS_FOR_TIMESTAMP_MATCH = { ParameterKeys.PREVIEW_ALGO_NAME_HYPERLAPSE,
+            ParameterKeys.PREVIEW_ALGO_NAME_EIS, "preview_supereis", ParameterKeys.PREVIEW_ALGO_NAME_SAT };
     public static long mShutterButtonClickTime = 0;
     protected ConcurrentHashMap<String, SdkCameraDeviceConfig> mConfigMap = new ConcurrentHashMap<>();
     protected Map<String, ApsRequestTag> mTagMap = new HashMap();
@@ -159,7 +161,8 @@ public abstract class BaseMode implements ModeInterface {
         return 0;
     }
 
-    protected abstract Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3);
+    protected abstract Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str,
+            String str2, String str3);
 
     protected abstract String getSurfaceUseCase(String str, boolean z);
 
@@ -201,11 +204,13 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    public boolean needRemoveTarget(String str, String str2, @NonNull SurfaceKey surfaceKey, PreviewParameter.Builder builder) {
+    public boolean needRemoveTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
+            PreviewParameter.Builder builder) {
         return false;
     }
 
-    protected abstract void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag);
+    protected abstract void onConfigure(CameraSessionEntity cameraSessionEntity,
+            SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag);
 
     protected boolean useMfnrSizeToCalculateMemory() {
         return false;
@@ -214,7 +219,8 @@ public abstract class BaseMode implements ModeInterface {
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
     public void initialize() {
         initializeFeatures();
-        this.mDelayCloseCameraForCapture = ApsUtils.stringConvertInt(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_DELAY_CLOSE_CAMERA_FOR_CAPTURE));
+        this.mDelayCloseCameraForCapture = ApsUtils
+                .stringConvertInt(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_DELAY_CLOSE_CAMERA_FOR_CAPTURE));
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
@@ -242,9 +248,16 @@ public abstract class BaseMode implements ModeInterface {
         apsRequestTag.mbNeedPreviewMetadata = needPreviewMeta(str);
         apsRequestTag.mbNeedVideoMetadata = needVideoMeta(str);
         apsRequestTag.mModeName = getModeName();
-        sdkCameraDeviceConfig.updateHalPreviewSize(getCameraDeviceInfo(str).getPreviewMappingSizesFromConfig(str, getFeaturesFromConfig(sdkCameraDeviceConfig.getConfigureParameter())));
+        sdkCameraDeviceConfig.updateHalPreviewSize(getCameraDeviceInfo(str).getPreviewMappingSizesFromConfig(str,
+                getFeaturesFromConfig(sdkCameraDeviceConfig.getConfigureParameter())));
         onConfigure(cameraSessionEntity, sdkCameraDeviceConfig, str, apsRequestTag);
-        if (map2 != null && map2.containsKey(ConfigureParameter.KEY_EXPLORER_ENABLE.getName()) && map2.get(ConfigureParameter.KEY_EXPLORER_ENABLE.getName()).getSupportValues().contains("on") && ((sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.KEY_EXPLORER_CHIP_STATE) == null || 1 == ((Integer) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.KEY_EXPLORER_CHIP_STATE)).intValue()) && isExplorerOpen(str))) {
+        if (map2 != null && map2.containsKey(ConfigureParameter.KEY_EXPLORER_ENABLE.getName())
+                && map2.get(ConfigureParameter.KEY_EXPLORER_ENABLE.getName()).getSupportValues().contains("on")
+                && ((sdkCameraDeviceConfig.getConfigureParameter()
+                        .get(ConfigureParameter.KEY_EXPLORER_CHIP_STATE) == null
+                        || 1 == ((Integer) sdkCameraDeviceConfig.getConfigureParameter()
+                                .get(ConfigureParameter.KEY_EXPLORER_CHIP_STATE)).intValue())
+                        && isExplorerOpen(str))) {
             cameraSessionEntity.updateExplorerOperationMode();
         }
         apsRequestTag.mOperationMode = cameraSessionEntity.getOperationMode();
@@ -259,7 +272,8 @@ public abstract class BaseMode implements ModeInterface {
         apsRequestTag.mPreviewCallbackType = getPreviewCallbackType(sdkCameraDeviceConfig.getPreviewSurfaceTypes());
         apsRequestTag.mRearFrontCameraId = this.mRearFrontCameraId;
         if (sdkCameraDeviceConfig.getConfigureParameter().containCustomKey(ConfigureParameter.KEY_QUICK_JPEG_SWITCH)) {
-            apsRequestTag.mbSupportQuickJpeg = ((Boolean) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.KEY_QUICK_JPEG_SWITCH)).booleanValue();
+            apsRequestTag.mbSupportQuickJpeg = ((Boolean) sdkCameraDeviceConfig.getConfigureParameter()
+                    .get(ConfigureParameter.KEY_QUICK_JPEG_SWITCH)).booleanValue();
         }
         SurfaceWrapper videoSurface = sdkCameraDeviceConfig.getVideoSurface();
         if (videoSurface == null || videoSurface.getHalSurfaceSize() == null) {
@@ -306,14 +320,16 @@ public abstract class BaseMode implements ModeInterface {
 
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
     @CallSuper
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         long[] flexibleCapabilities;
         if (cameraRequestTag != null) {
             if (builder.containCustomKey(PreviewParameter.KEY_SINGLE_BLUR_ALGONAME)) {
                 cameraRequestTag.mSingleBlurAlgoName = (String) builder.get(PreviewParameter.KEY_SINGLE_BLUR_ALGONAME);
             }
             if (builder.get(PreviewParameter.KEY_FILTER_OPEN) != null) {
-                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN)).booleanValue();
+                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN))
+                        .booleanValue();
             }
         }
         str.hashCode();
@@ -344,94 +360,115 @@ public abstract class BaseMode implements ModeInterface {
             case 0:
                 updateCaptureRequestTag(builder, cameraRequestTag, str2);
                 if (builder.containCustomKey(PreviewParameter.KEY_CAPTURE_TIME)) {
-                    builder.set((Parameter.Key<Parameter.Key<Long>>) PreviewParameter.KEY_EXIF_TAG_DATETIME, (Parameter.Key<Long>) ((Long) builder.get(PreviewParameter.KEY_CAPTURE_TIME)));
+                    builder.set(PreviewParameter.KEY_EXIF_TAG_DATETIME,
+                            (Long) builder.get(PreviewParameter.KEY_CAPTURE_TIME));
                     return;
                 }
                 return;
             case 1:
                 if (!Util.isSystemCamera() && useOplusCameraCase(str2)) {
-                    builder.set((Parameter.Key<Parameter.Key<byte[]>>) ConfigureParameter.IS_OPLUS_PACKAGE, (Parameter.Key<byte[]>) new byte[]{1});
+                    builder.set(ConfigureParameter.IS_OPLUS_PACKAGE, new byte[] { 1 });
                 }
                 updateFpsRange(getConfigureParameter(str2), builder, str2);
                 if ("rear_sat".equals(str2) && PlatformUtil.isMtkPlatform()) {
-                    builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, (Parameter.Key<int[]>) new int[]{0});
+                    builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[] { 0 });
                 }
-                Boolean bool = (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_TUNING_DATA_BUFFER_SUPPORT, false);
+                Boolean bool = (Boolean) CameraConfigHelper
+                        .getConfigValue(CameraConfigBase.KEY_TUNING_DATA_BUFFER_SUPPORT, false);
                 if (bool == null || !bool.booleanValue()) {
                     b = 1;
                 }
-                builder.set((Parameter.Key<Parameter.Key<byte[]>>) ConfigureParameter.KEY_TUNING_DATA_ENABLE, (Parameter.Key<byte[]>) new byte[]{b});
-                builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.KEY_SESSION_REQUEST_FAST_LAUNCH, (Parameter.Key<int[]>) new int[]{1});
+                builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { b });
+                builder.set(ConfigureParameter.KEY_SESSION_REQUEST_FAST_LAUNCH, new int[] { 1 });
                 if (Util.isSystemCamera()) {
-                    builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.KEY_SESSION_REQUEST_MSNR, (Parameter.Key<int[]>) new int[]{1});
+                    builder.set(ConfigureParameter.KEY_SESSION_REQUEST_MSNR, new int[] { 1 });
                 }
                 Parameter configureParameter = getConfigureParameter(str2);
                 if (configureParameter.containCustomKey(ConfigureParameter.KEY_TORCH_FLASH_ENABLE)) {
-                    builder.set((Parameter.Key<Parameter.Key<String>>) ConfigureParameter.KEY_TORCH_FLASH_ENABLE, (Parameter.Key<String>) ((String) configureParameter.get(ConfigureParameter.KEY_TORCH_FLASH_ENABLE)));
+                    builder.set(ConfigureParameter.KEY_TORCH_FLASH_ENABLE,
+                            (String) configureParameter.get(ConfigureParameter.KEY_TORCH_FLASH_ENABLE));
                 }
                 if (configureParameter.containCustomKey(ConfigureParameter.SESSION_REQUEST_CROP_REGION)) {
-                    builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.SESSION_REQUEST_CROP_REGION, (Parameter.Key<int[]>) ((int[]) configureParameter.get(ConfigureParameter.SESSION_REQUEST_CROP_REGION)));
+                    builder.set(ConfigureParameter.SESSION_REQUEST_CROP_REGION,
+                            (int[]) configureParameter.get(ConfigureParameter.SESSION_REQUEST_CROP_REGION));
                 }
                 if (configureParameter.containCustomKey(ConfigureParameter.KEY_CALLER_PACKAGE_NAME)) {
-                    builder.set((Parameter.Key<Parameter.Key<byte[]>>) ConfigureParameter.KEY_CALLER_PACKAGE_NAME, (Parameter.Key<byte[]>) ((byte[]) configureParameter.get(ConfigureParameter.KEY_CALLER_PACKAGE_NAME)));
+                    builder.set(ConfigureParameter.KEY_CALLER_PACKAGE_NAME,
+                            (byte[]) configureParameter.get(ConfigureParameter.KEY_CALLER_PACKAGE_NAME));
                 }
                 if (configureParameter.containCustomKey(ConfigureParameter.KEY_REAR_SELF_MODE_REVERSE)) {
-                    builder.set((Parameter.Key<Parameter.Key<Integer>>) ConfigureParameter.KEY_REAR_SELF_MODE_REVERSE, (Parameter.Key<Integer>) ((Integer) configureParameter.get(ConfigureParameter.KEY_REAR_SELF_MODE_REVERSE)));
+                    builder.set(ConfigureParameter.KEY_REAR_SELF_MODE_REVERSE,
+                            (Integer) configureParameter.get(ConfigureParameter.KEY_REAR_SELF_MODE_REVERSE));
                 }
-                if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CAPTURE_WITH_RAW10, false)).booleanValue() && !"night_mode".equals(getModeName())) {
-                    builder.set((Parameter.Key<Parameter.Key<int[]>>) ConfigureParameter.KEY_MTK_CAPTURE_RAW10, (Parameter.Key<int[]>) new int[]{1});
+                if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CAPTURE_WITH_RAW10, false))
+                        .booleanValue() && !"night_mode".equals(getModeName())) {
+                    builder.set(ConfigureParameter.KEY_MTK_CAPTURE_RAW10, new int[] { 1 });
                 }
                 if (configureParameter.containCustomKey(ConfigureParameter.KEY_MAKEUP_STATE)) {
-                    builder.set((Parameter.Key<Parameter.Key<Integer>>) ConfigureParameter.KEY_MAKEUP_STATE, (Parameter.Key<Integer>) ((Integer) configureParameter.get(ConfigureParameter.KEY_MAKEUP_STATE)));
+                    builder.set(ConfigureParameter.KEY_MAKEUP_STATE,
+                            (Integer) configureParameter.get(ConfigureParameter.KEY_MAKEUP_STATE));
                 }
                 if (configureParameter.containCustomKey(ConfigureParameter.KEY_REQUEST_ZSL_MODE)) {
-                    builder.set((Parameter.Key<Parameter.Key<byte[]>>) ConfigureParameter.KEY_REQUEST_ZSL_MODE, (Parameter.Key<byte[]>) ((byte[]) configureParameter.get(ConfigureParameter.KEY_REQUEST_ZSL_MODE)));
+                    builder.set(ConfigureParameter.KEY_REQUEST_ZSL_MODE,
+                            (byte[]) configureParameter.get(ConfigureParameter.KEY_REQUEST_ZSL_MODE));
                 }
-                if (("on".equals(configureParameter.get(ConfigureParameter.PHOTO_10BIT_ENABLE)) || "1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_SUPPORT_WCG2))) && (flexibleCapabilities = getFlexibleCapabilities(str2)) != null) {
-                    builder.set((Parameter.Key<Parameter.Key<long[]>>) ConfigureParameter.KEY_FLEXIBLE_CAPABILITIES, (Parameter.Key<long[]>) flexibleCapabilities);
+                if (("on".equals(configureParameter.get(ConfigureParameter.PHOTO_10BIT_ENABLE))
+                        || "1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_SUPPORT_WCG2)))
+                        && (flexibleCapabilities = getFlexibleCapabilities(str2)) != null) {
+                    builder.set(ConfigureParameter.KEY_FLEXIBLE_CAPABILITIES, flexibleCapabilities);
                 }
                 if (CameraConstant.MonoFilterType.BLACK_WHITE.equals(this.mTagMap.get(str2).mFeatureName)) {
-                    builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_EXTENDED_SCENE_MODE, (CaptureRequest.Key) 1);
+                    builder.set(CaptureRequest.CONTROL_EXTENDED_SCENE_MODE, 1);
                 }
-                if ("rear_sat".equals(str2) && configureParameter.containCustomKey(ConfigureParameter.KEY_CUSTOM_ZOOM_RATIO)) {
-                    builder.set((Parameter.Key<Parameter.Key<Float>>) ConfigureParameter.KEY_CUSTOM_ZOOM_RATIO, (Parameter.Key<Float>) ((Float) configureParameter.get(ConfigureParameter.KEY_CUSTOM_ZOOM_RATIO)));
+                if ("rear_sat".equals(str2)
+                        && configureParameter.containCustomKey(ConfigureParameter.KEY_CUSTOM_ZOOM_RATIO)) {
+                    builder.set(ConfigureParameter.KEY_CUSTOM_ZOOM_RATIO,
+                            (Float) configureParameter.get(ConfigureParameter.KEY_CUSTOM_ZOOM_RATIO));
                 }
                 if (configureParameter.get(ConfigureParameter.KEY_IS_FROM_MAIN_MENU) != null) {
-                    builder.set((Parameter.Key<Parameter.Key<Boolean>>) ConfigureParameter.KEY_IS_FROM_MAIN_MENU, (Parameter.Key<Boolean>) ((Boolean) configureParameter.get(ConfigureParameter.KEY_IS_FROM_MAIN_MENU)));
+                    builder.set(ConfigureParameter.KEY_IS_FROM_MAIN_MENU,
+                            (Boolean) configureParameter.get(ConfigureParameter.KEY_IS_FROM_MAIN_MENU));
                     return;
                 }
                 return;
             case 2:
                 if (!getCameraDeviceInfo(str2).isSupportPreviewParameter(PreviewParameter.KEY_ZOOM_RATIO.getName())) {
-                    builder.set((Parameter.Key<Parameter.Key<Float>>) PreviewParameter.KEY_ZOOM_RATIO, (Parameter.Key<Float>) Float.valueOf(1.0f));
+                    builder.set(PreviewParameter.KEY_ZOOM_RATIO, Float.valueOf(1.0f));
                 }
                 if (cameraRequestTag != null) {
                     cameraRequestTag.mbPiEnable = "on".equals(builder.get(PreviewParameter.KEY_AI_PHOTO));
-                    cameraRequestTag.mbVisualizationEnable = "on".equals(builder.get(PreviewParameter.KEY_ALGO_VISUALIZATION_ENABLE));
+                    cameraRequestTag.mbVisualizationEnable = "on"
+                            .equals(builder.get(PreviewParameter.KEY_ALGO_VISUALIZATION_ENABLE));
                     if (builder.get(PreviewParameter.KEY_FACE_RECTIFY_ENABLE) != null) {
-                        cameraRequestTag.mbFaceRectifyOpen = ((Boolean) builder.get(PreviewParameter.KEY_FACE_RECTIFY_ENABLE)).booleanValue();
+                        cameraRequestTag.mbFaceRectifyOpen = ((Boolean) builder
+                                .get(PreviewParameter.KEY_FACE_RECTIFY_ENABLE)).booleanValue();
                     }
                     if (builder.get(PreviewParameter.KEY_IS_FROM_MAIN_MENU) != null) {
-                        cameraRequestTag.mbFromMainMenu = ((Boolean) builder.get(PreviewParameter.KEY_IS_FROM_MAIN_MENU)).booleanValue();
+                        cameraRequestTag.mbFromMainMenu = ((Boolean) builder
+                                .get(PreviewParameter.KEY_IS_FROM_MAIN_MENU)).booleanValue();
                     }
                     if (builder.get(PreviewParameter.KEY_SUPPORT_MAKEUP) != null) {
-                        cameraRequestTag.mbSupportMakeup = ((Boolean) builder.get(PreviewParameter.KEY_SUPPORT_MAKEUP)).booleanValue();
+                        cameraRequestTag.mbSupportMakeup = ((Boolean) builder.get(PreviewParameter.KEY_SUPPORT_MAKEUP))
+                                .booleanValue();
                     }
                     if (builder.containCustomKey(PreviewParameter.KEY_WATERMARK_CAPTURE_ENABLE)) {
-                        cameraRequestTag.mbPhotoWaterMarkEnable = "on".equals(builder.get(PreviewParameter.KEY_WATERMARK_CAPTURE_ENABLE));
+                        cameraRequestTag.mbPhotoWaterMarkEnable = "on"
+                                .equals(builder.get(PreviewParameter.KEY_WATERMARK_CAPTURE_ENABLE));
                     }
                     if (builder.containCustomKey(PreviewParameter.KEY_FAST_SHOT_ENABLE)) {
-                        cameraRequestTag.mbFastShotEnable = ((Boolean) builder.get(PreviewParameter.KEY_FAST_SHOT_ENABLE)).booleanValue();
+                        cameraRequestTag.mbFastShotEnable = ((Boolean) builder
+                                .get(PreviewParameter.KEY_FAST_SHOT_ENABLE)).booleanValue();
                     }
                 }
-                builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_APS_FEATURE_TYPE, (Parameter.Key<int[]>) new int[]{this.mApsDecisionFeatureType});
+                builder.set(PreviewParameter.KEY_APS_FEATURE_TYPE, new int[] { this.mApsDecisionFeatureType });
                 synchronized (this.mBracketLock) {
-                    builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_BRACKET_MODE, (Parameter.Key<int[]>) new int[]{this.mApsBracketMode});
+                    builder.set(PreviewParameter.KEY_BRACKET_MODE, new int[] { this.mApsBracketMode });
                 }
-                builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_AIS_STATE, (Parameter.Key<int[]>) new int[]{this.mAisState});
-                builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_MOVING_OBJECT, (Parameter.Key<int[]>) new int[]{this.mAsdMovingObject});
+                builder.set(PreviewParameter.KEY_AIS_STATE, new int[] { this.mAisState });
+                builder.set(PreviewParameter.KEY_MOVING_OBJECT, new int[] { this.mAsdMovingObject });
                 updatePreviewRequestTag(builder, cameraRequestTag, str, str2);
-                if (builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE) != null && ((Boolean) builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE)).booleanValue()) {
+                if (builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE) != null
+                        && ((Boolean) builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE)).booleanValue()) {
                     z = true;
                 }
                 cameraRequestTag.mbSuperTextOpen = z;
@@ -444,13 +481,17 @@ public abstract class BaseMode implements ModeInterface {
     /* JADX INFO: Access modifiers changed from: protected */
     public void fillWatermarkParam(CameraRequestTag cameraRequestTag, Bundle bundle) {
         Size size = bundle.getSize("size");
-        cameraRequestTag.mApsWatermarkParam = new ApsWatermarkParam(bundle.getInt("refWidth"), size.getHeight(), size.getWidth(), bundle.getByteArray("buffer"), (Bitmap) bundle.getParcelable(CameraConstant.WaterMarkParamKeys.BITMAP));
+        cameraRequestTag.mApsWatermarkParam = new ApsWatermarkParam(bundle.getInt("refWidth"), size.getHeight(),
+                size.getWidth(), bundle.getByteArray("buffer"),
+                (Bitmap) bundle.getParcelable(CameraConstant.WaterMarkParamKeys.BITMAP));
         cameraRequestTag.mbWatermarkNeedScale = bundle.getBoolean(CameraConstant.WaterMarkParamKeys.NEED_SCALE);
         cameraRequestTag.mInputWidth = bundle.getInt(CameraConstant.WaterMarkParamKeys.INPUT_WIDTH);
         cameraRequestTag.mWatermarkBolderX = bundle.getInt(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_X);
         cameraRequestTag.mWatermarkBolderY = bundle.getInt(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_Y);
-        cameraRequestTag.mWatermarkBolderBackUpX = bundle.getInt(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_BACKUP_X, -1);
-        cameraRequestTag.mWatermarkBolderBackUpY = bundle.getInt(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_BACKUP_Y, -1);
+        cameraRequestTag.mWatermarkBolderBackUpX = bundle
+                .getInt(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_BACKUP_X, -1);
+        cameraRequestTag.mWatermarkBolderBackUpY = bundle
+                .getInt(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_BACKUP_Y, -1);
         cameraRequestTag.mbWatermarkMakeupEnable = bundle.getBoolean(CameraConstant.WaterMarkParamKeys.MAKEUP_ENABLE);
         cameraRequestTag.mbWatermarkMakeupWidth = bundle.getInt(CameraConstant.WaterMarkParamKeys.MAKEUP_WIDTH);
         cameraRequestTag.mbWatermarkMakeupHeight = bundle.getInt(CameraConstant.WaterMarkParamKeys.MAKEUP_HEIGHT);
@@ -466,10 +507,12 @@ public abstract class BaseMode implements ModeInterface {
         Map<String, Range<Integer>> streamFpsRangesMap = CameraCharacteristicsHelper.getStreamFpsRangesMap(str);
         if (streamFpsRangesMap != null) {
             Size size = (Size) builder.get(ConfigureParameter.KEY_CONFIGURE_STREAM_SIZE);
-            Range<Integer> range = streamFpsRangesMap.get(((String) builder.get(ConfigureParameter.KEY_CONFIGURE_OPERATION_MODE)) + "_" + size.getWidth() + "_" + size.getHeight());
+            Range<Integer> range = streamFpsRangesMap
+                    .get(((String) builder.get(ConfigureParameter.KEY_CONFIGURE_OPERATION_MODE)) + "_" + size.getWidth()
+                            + "_" + size.getHeight());
             if (range != null) {
                 CameraUnitLog.e(TAG, "checkSetStreamFpsRange, set CONTROL_AE_TARGET_FPS_RANGE fps range to: " + range);
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, (CaptureRequest.Key) range);
+                builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, range);
                 return true;
             }
             return false;
@@ -477,18 +520,29 @@ public abstract class BaseMode implements ModeInterface {
         return false;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:38:0x011f A[Catch: all -> 0x01ed, TryCatch #0 {, blocks: (B:17:0x0030, B:19:0x0034, B:21:0x0092, B:32:0x00bc, B:35:0x00fc, B:36:0x011b, B:38:0x011f, B:40:0x0125, B:42:0x0129, B:66:0x01e7, B:43:0x0136, B:45:0x013a, B:46:0x0147, B:48:0x014d, B:50:0x0151, B:52:0x015f, B:53:0x0192, B:55:0x01a4, B:58:0x01ac, B:59:0x01b8, B:61:0x01ca, B:64:0x01d0, B:65:0x01dc, B:33:0x00d1, B:34:0x00e6, B:67:0x01eb), top: B:73:0x0030 }] */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:38:0x011f A[Catch: all ->
+     * 0x01ed, TryCatch #0 {, blocks: (B:17:0x0030, B:19:0x0034, B:21:0x0092,
+     * B:32:0x00bc, B:35:0x00fc, B:36:0x011b, B:38:0x011f, B:40:0x0125, B:42:0x0129,
+     * B:66:0x01e7, B:43:0x0136, B:45:0x013a, B:46:0x0147, B:48:0x014d, B:50:0x0151,
+     * B:52:0x015f, B:53:0x0192, B:55:0x01a4, B:58:0x01ac, B:59:0x01b8, B:61:0x01ca,
+     * B:64:0x01d0, B:65:0x01dc, B:33:0x00d1, B:34:0x00e6, B:67:0x01eb), top:
+     * B:73:0x0030 }]
+     */
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public void updateStageParameter(@androidx.annotation.NonNull com.oplus.ocs.camera.common.parameter.Parameter r7, java.lang.String r8, java.lang.String r9, @androidx.annotation.Nullable com.oplus.ocs.camera.common.util.CameraRequestTag r10) {
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public void updateStageParameter(@androidx.annotation.NonNull com.oplus.ocs.camera.common.parameter.Parameter r7,
+            java.lang.String r8, java.lang.String r9,
+            @androidx.annotation.Nullable com.oplus.ocs.camera.common.util.CameraRequestTag r10) {
         /*
-            Method dump skipped, instructions count: 497
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.updateStageParameter(com.oplus.ocs.camera.common.parameter.Parameter, java.lang.String, java.lang.String, com.oplus.ocs.camera.common.util.CameraRequestTag):void");
+         * Method dump skipped, instructions count: 497
+         * To view this dump add '--comments-level debug' option
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.updateStageParameter(com.oplus.ocs.camera.common.parameter.Parameter, java.lang.String, java.lang.String, com.oplus.ocs.camera.common.util.CameraRequestTag):void");
     }
 
     public boolean isSupportAlogRawHDR(CameraRequestTag cameraRequestTag) {
@@ -524,26 +578,48 @@ public abstract class BaseMode implements ModeInterface {
     @CallSuper
     public CameraDeviceInfoInterface createCameraDeviceInfo(String str) {
         CameraDeviceInfoImpl cameraDeviceInfoImpl = new CameraDeviceInfoImpl(getModeName(), str);
-        cameraDeviceInfoImpl.setCameraCharacteristicsWrapper(CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str));
+        cameraDeviceInfoImpl
+                .setCameraCharacteristicsWrapper(CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str));
         cameraDeviceInfoImpl.setPhysicalCameraTypeList(Collections.singletonList(str));
         cameraDeviceInfoImpl.setDefaultPreviewConfigSizes(CameraConfigHelper.getSupportDefaultPreviewSizes());
         updateAllParameterRanges(cameraDeviceInfoImpl, str);
         return cameraDeviceInfoImpl;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:105:0x036b A[Catch: all -> 0x0475, TryCatch #1 {, blocks: (B:4:0x0003, B:6:0x000b, B:7:0x0011, B:9:0x0030, B:10:0x003e, B:12:0x0042, B:14:0x004a, B:15:0x0050, B:17:0x0054, B:19:0x0062, B:21:0x006a, B:22:0x007a, B:24:0x0085, B:26:0x0093, B:28:0x009c, B:30:0x00aa, B:32:0x00ed, B:34:0x00fb, B:36:0x0101, B:38:0x010f, B:40:0x0115, B:42:0x0123, B:44:0x0136, B:129:0x03e7, B:131:0x03f1, B:134:0x03f6, B:136:0x0405, B:138:0x040b, B:140:0x040f, B:142:0x0414, B:144:0x041c, B:146:0x042e, B:148:0x043c, B:150:0x0442, B:152:0x044e, B:153:0x0473, B:135:0x03ff, B:45:0x0145, B:47:0x014d, B:49:0x0193, B:51:0x01a6, B:55:0x01c9, B:56:0x01cd, B:63:0x01d9, B:65:0x0295, B:67:0x02a6, B:69:0x02be, B:77:0x02db, B:79:0x02e5, B:83:0x02f6, B:85:0x0310, B:89:0x0321, B:91:0x0335, B:92:0x0343, B:94:0x0349, B:96:0x034f, B:98:0x0355, B:101:0x035c, B:103:0x0367, B:105:0x036b, B:107:0x0385, B:109:0x0389, B:111:0x03b0, B:113:0x03b4, B:114:0x03b6, B:116:0x03ba, B:118:0x03c0, B:124:0x03d3, B:119:0x03cb, B:123:0x03d1, B:102:0x0362, B:71:0x02cc, B:73:0x02d4, B:66:0x02a4, B:54:0x01c5, B:50:0x01a4, B:57:0x01ce, B:61:0x01d6, B:62:0x01d8, B:60:0x01d4), top: B:158:0x0003 }] */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:105:0x036b A[Catch: all ->
+     * 0x0475, TryCatch #1 {, blocks: (B:4:0x0003, B:6:0x000b, B:7:0x0011,
+     * B:9:0x0030, B:10:0x003e, B:12:0x0042, B:14:0x004a, B:15:0x0050, B:17:0x0054,
+     * B:19:0x0062, B:21:0x006a, B:22:0x007a, B:24:0x0085, B:26:0x0093, B:28:0x009c,
+     * B:30:0x00aa, B:32:0x00ed, B:34:0x00fb, B:36:0x0101, B:38:0x010f, B:40:0x0115,
+     * B:42:0x0123, B:44:0x0136, B:129:0x03e7, B:131:0x03f1, B:134:0x03f6,
+     * B:136:0x0405, B:138:0x040b, B:140:0x040f, B:142:0x0414, B:144:0x041c,
+     * B:146:0x042e, B:148:0x043c, B:150:0x0442, B:152:0x044e, B:153:0x0473,
+     * B:135:0x03ff, B:45:0x0145, B:47:0x014d, B:49:0x0193, B:51:0x01a6,
+     * B:55:0x01c9, B:56:0x01cd, B:63:0x01d9, B:65:0x0295, B:67:0x02a6, B:69:0x02be,
+     * B:77:0x02db, B:79:0x02e5, B:83:0x02f6, B:85:0x0310, B:89:0x0321, B:91:0x0335,
+     * B:92:0x0343, B:94:0x0349, B:96:0x034f, B:98:0x0355, B:101:0x035c,
+     * B:103:0x0367, B:105:0x036b, B:107:0x0385, B:109:0x0389, B:111:0x03b0,
+     * B:113:0x03b4, B:114:0x03b6, B:116:0x03ba, B:118:0x03c0, B:124:0x03d3,
+     * B:119:0x03cb, B:123:0x03d1, B:102:0x0362, B:71:0x02cc, B:73:0x02d4,
+     * B:66:0x02a4, B:54:0x01c5, B:50:0x01a4, B:57:0x01ce, B:61:0x01d6, B:62:0x01d8,
+     * B:60:0x01d4), top: B:158:0x0003 }]
+     */
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
     @androidx.annotation.CallSuper
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public com.oplus.ocs.camera.common.util.CameraRequestTag createRequestTag(java.lang.String r7, java.lang.Object r8, android.os.Handler r9, java.lang.String r10, com.oplus.ocs.camera.common.parameter.PreviewParameter.Builder r11) {
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public com.oplus.ocs.camera.common.util.CameraRequestTag createRequestTag(java.lang.String r7, java.lang.Object r8,
+            android.os.Handler r9, java.lang.String r10,
+            com.oplus.ocs.camera.common.parameter.PreviewParameter.Builder r11) {
         /*
-            Method dump skipped, instructions count: 1144
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.createRequestTag(java.lang.String, java.lang.Object, android.os.Handler, java.lang.String, com.oplus.ocs.camera.common.parameter.PreviewParameter$Builder):com.oplus.ocs.camera.common.util.CameraRequestTag");
+         * Method dump skipped, instructions count: 1144
+         * To view this dump add '--comments-level debug' option
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.createRequestTag(java.lang.String, java.lang.Object, android.os.Handler, java.lang.String, com.oplus.ocs.camera.common.parameter.PreviewParameter$Builder):com.oplus.ocs.camera.common.util.CameraRequestTag");
     }
 
     private int[] getCaptureFormatList(String str) {
@@ -552,7 +628,8 @@ public abstract class BaseMode implements ModeInterface {
         if (previewResult != null) {
             int[] iArr = (int[]) previewResult.get(ApsDecisionParameter.KEY_CAPTURE_FORMAT_LIST);
             CameraUnitLog.d(TAG, "getCaptureFormatList, formatList:" + Arrays.toString(iArr));
-            if (iArr == null || (array = Arrays.stream(iArr).filter(new IntPredicate() { // from class: com.oplus.ocs.camera.producer.mode.BaseMode$$ExternalSyntheticLambda1
+            if (iArr == null || (array = Arrays.stream(iArr).filter(new IntPredicate() { // from class:
+                                                                                         // com.oplus.ocs.camera.producer.mode.BaseMode$$ExternalSyntheticLambda1
                 @Override // java.util.function.IntPredicate
                 public final boolean test(int i) {
                     return BaseMode.lambda$getCaptureFormatList$0(i);
@@ -571,8 +648,10 @@ public abstract class BaseMode implements ModeInterface {
         return null;
     }
 
-    final void buildTargetSurface(String str, String str2, PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag) {
-        LinkedList<Pair<String, String>> useCaseValues = getUseCaseValues(getSurfaceUseCase(str, cameraRequestTag.mbFromMainMenu));
+    final void buildTargetSurface(String str, String str2, PreviewParameter.Builder builder,
+            CameraRequestTag cameraRequestTag) {
+        LinkedList<Pair<String, String>> useCaseValues = getUseCaseValues(
+                getSurfaceUseCase(str, cameraRequestTag.mbFromMainMenu));
         cameraRequestTag.mAddTargetSurfaces = new HashMap<>();
         cameraRequestTag.mRemoveTargetSurfaces = new HashMap<>();
         cameraRequestTag.mUselessTargetSurfaces = new HashMap<>();
@@ -584,7 +663,8 @@ public abstract class BaseMode implements ModeInterface {
             String str3 = (String) next.first;
             String surfaceUsageBySurfaceType = getSurfaceUsageBySurfaceType(str3);
             String str4 = "var_camera".equals(next.second) ? str : (String) next.second;
-            SurfaceKey surfaceKey = new SurfaceKey(str4, surfaceUsageBySurfaceType, getSurfaceFormatBySurfaceType(str3, str4, str));
+            SurfaceKey surfaceKey = new SurfaceKey(str4, surfaceUsageBySurfaceType,
+                    getSurfaceFormatBySurfaceType(str3, str4, str));
             if (needAddToTarget(str, str2, surfaceKey, builder)) {
                 cameraRequestTag.mAddTargetSurfaces.put(surfaceKey, null);
                 if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
@@ -620,7 +700,8 @@ public abstract class BaseMode implements ModeInterface {
         }
         if ("surface_key_picture".equals(surfaceKey.getUsage())) {
             while (i < cameraRequestTag.mRequestFormatList.length) {
-                if (cameraRequestTag.mRequestFormatList[i] == surfaceKey.getFormat() || cameraRequestTag.mDecisionHdrBrightenIndex == i) {
+                if (cameraRequestTag.mRequestFormatList[i] == surfaceKey.getFormat()
+                        || cameraRequestTag.mDecisionHdrBrightenIndex == i) {
                     cameraRequestTag.mCaptureTargetSurfacesList[i].put(surfaceKey, null);
                 }
                 i++;
@@ -635,14 +716,16 @@ public abstract class BaseMode implements ModeInterface {
             }
         } else if ("surface_key_tuning_raw".equals(surfaceKey.getUsage())) {
             while (i < cameraRequestTag.mRequestFormatList.length) {
-                if (cameraRequestTag.mRequestFormatList[i] == getRawFormat(str) || cameraRequestTag.mDecisionHdrBrightenIndex == i) {
+                if (cameraRequestTag.mRequestFormatList[i] == getRawFormat(str)
+                        || cameraRequestTag.mDecisionHdrBrightenIndex == i) {
                     cameraRequestTag.mCaptureTargetSurfacesList[i].put(surfaceKey, null);
                     cameraRequestTag.mbUseTuningDataList[i] = true;
                 }
                 i++;
             }
         } else {
-            Stream.of((Object[]) cameraRequestTag.mCaptureTargetSurfacesList).forEach(new Consumer() { // from class: com.oplus.ocs.camera.producer.mode.BaseMode$$ExternalSyntheticLambda0
+            Stream.of((Object[]) cameraRequestTag.mCaptureTargetSurfacesList).forEach(new Consumer() { // from class:
+                                                                                                       // com.oplus.ocs.camera.producer.mode.BaseMode$$ExternalSyntheticLambda0
                 @Override // java.util.function.Consumer
                 public final void accept(Object obj) {
                     ((HashMap) obj).put(SurfaceKey.this, null);
@@ -665,14 +748,18 @@ public abstract class BaseMode implements ModeInterface {
         Map<String, Map<String, String>> map;
         Map<String, String> map2;
         String str3;
-        Map<String, Map<String, Map<String, String>>> captureStreamNumberMap = CameraConfigHelper.getCaptureStreamNumberMap();
-        if (captureStreamNumberMap == null || captureStreamNumberMap.isEmpty() || (map = captureStreamNumberMap.get(getModeName())) == null || map.isEmpty() || (map2 = map.get(str)) == null || map2.isEmpty() || (str3 = map2.get(str2)) == null) {
+        Map<String, Map<String, Map<String, String>>> captureStreamNumberMap = CameraConfigHelper
+                .getCaptureStreamNumberMap();
+        if (captureStreamNumberMap == null || captureStreamNumberMap.isEmpty()
+                || (map = captureStreamNumberMap.get(getModeName())) == null || map.isEmpty()
+                || (map2 = map.get(str)) == null || map2.isEmpty() || (str3 = map2.get(str2)) == null) {
             return 1;
         }
         return Integer.parseInt(str3);
     }
 
-    private void updateCaptureRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str) {
+    private void updateCaptureRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag,
+            String str) {
         if (cameraRequestTag != null) {
             int[] iArr = (int[]) builder.get(PreviewParameter.KEY_PICTURE_EXIF_FLAG);
             if (iArr != null && iArr.length > 0) {
@@ -682,48 +769,61 @@ public abstract class BaseMode implements ModeInterface {
                 cameraRequestTag.mLocation = (Location) builder.get(CaptureRequest.JPEG_GPS_LOCATION);
             }
             if (builder.containsKey(PreviewParameter.KEY_FACE_RECTIFY_ENABLE)) {
-                cameraRequestTag.mbFaceRectifyOpen = ((Boolean) builder.get(PreviewParameter.KEY_FACE_RECTIFY_ENABLE)).booleanValue();
+                cameraRequestTag.mbFaceRectifyOpen = ((Boolean) builder.get(PreviewParameter.KEY_FACE_RECTIFY_ENABLE))
+                        .booleanValue();
             }
         }
         Integer num = (Integer) builder.get(CaptureRequest.JPEG_ORIENTATION);
         cameraRequestTag.mOrientation = num != null ? num.intValue() : 90;
         cameraRequestTag.mPicOrientation = cameraRequestTag.mOrientation;
-        cameraRequestTag.mbSuperTextOpen = builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE) != null ? ((Boolean) builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE)).booleanValue() : false;
+        cameraRequestTag.mbSuperTextOpen = builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE) != null
+                ? ((Boolean) builder.get(PreviewParameter.KEY_SUPER_TEXT_ENABLE)).booleanValue()
+                : false;
         if (cameraRequestTag.mbSuperTextOpen) {
             cameraRequestTag.mSuperTextVertices = (String) builder.get(PreviewParameter.KEY_SUPER_TEXT_VERTICES);
         }
         cameraRequestTag.mAppOpaqueObj = builder.get(PreviewParameter.KEY_REQUEST_TAG);
-        cameraRequestTag.mbUltraResolutionEnabled = "on".equals(builder.get(PreviewParameter.KEY_ULTRA_HIGH_RESOLUTION_ENABLE));
+        cameraRequestTag.mbUltraResolutionEnabled = "on"
+                .equals(builder.get(PreviewParameter.KEY_ULTRA_HIGH_RESOLUTION_ENABLE));
         if (builder.containCustomKey(PreviewParameter.KEY_CAPTURE_TIME)) {
             cameraRequestTag.mCaptureTime = ((Long) builder.get(PreviewParameter.KEY_CAPTURE_TIME)).longValue();
         }
         cameraRequestTag.mSingleBlurAlgoName = (String) builder.get(PreviewParameter.KEY_SINGLE_BLUR_ALGONAME);
         if (builder.get(PreviewParameter.KEY_SINGLE_PORTRAIT_EFFECT_MODE) != null) {
-            cameraRequestTag.mSinglePortraitEffectMode = ((Integer) builder.get(PreviewParameter.KEY_SINGLE_PORTRAIT_EFFECT_MODE)).intValue();
+            cameraRequestTag.mSinglePortraitEffectMode = ((Integer) builder
+                    .get(PreviewParameter.KEY_SINGLE_PORTRAIT_EFFECT_MODE)).intValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)) {
-            cameraRequestTag.mbScaleEnable = ((Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)).booleanValue();
+            cameraRequestTag.mbScaleEnable = ((Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE))
+                    .booleanValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_SINGLE_BLUR_LEVEL)) {
             cameraRequestTag.mBlurIndex = ((Integer) builder.get(PreviewParameter.KEY_SINGLE_BLUR_LEVEL)).intValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_REAR_SELF_CAPTURE_ENABLE)) {
-            cameraRequestTag.mRearSelfCaptureEnable = ((Integer) builder.get(PreviewParameter.KEY_REAR_SELF_CAPTURE_ENABLE)).intValue();
+            cameraRequestTag.mRearSelfCaptureEnable = ((Integer) builder
+                    .get(PreviewParameter.KEY_REAR_SELF_CAPTURE_ENABLE)).intValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_SINGLE_BLUR_SHOW)) {
             cameraRequestTag.mBlurShow = ((Float) builder.get(PreviewParameter.KEY_SINGLE_BLUR_SHOW)).floatValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_SHUTTER_BUTTON_CLICK_TIME)) {
-            cameraRequestTag.mShutterButtonClickTime = ((Long) builder.get(PreviewParameter.KEY_SHUTTER_BUTTON_CLICK_TIME)).longValue();
+            cameraRequestTag.mShutterButtonClickTime = ((Long) builder
+                    .get(PreviewParameter.KEY_SHUTTER_BUTTON_CLICK_TIME)).longValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_WATERMARK_CAPTURE_ENABLE)) {
-            cameraRequestTag.mbPhotoWaterMarkEnable = "on".equals(builder.get(PreviewParameter.KEY_WATERMARK_CAPTURE_ENABLE));
+            cameraRequestTag.mbPhotoWaterMarkEnable = "on"
+                    .equals(builder.get(PreviewParameter.KEY_WATERMARK_CAPTURE_ENABLE));
         }
-        if (cameraRequestTag.mbPhotoWaterMarkEnable && builder.containCustomKey(PreviewParameter.KEY_WATERMARK_PARAM) && cameraRequestTag.mSuperTextVertices == null) {
+        if (cameraRequestTag.mbPhotoWaterMarkEnable && builder.containCustomKey(PreviewParameter.KEY_WATERMARK_PARAM)
+                && cameraRequestTag.mSuperTextVertices == null) {
             Bundle bundle = (Bundle) builder.get(PreviewParameter.KEY_WATERMARK_PARAM);
             Size size = bundle.getSize("size");
-            cameraRequestTag.mApsWatermarkParam = new ApsWatermarkParam(bundle.getInt("refWidth"), size.getHeight(), size.getWidth(), bundle.getByteArray("buffer"), (Bitmap) bundle.getParcelable(CameraConstant.WaterMarkParamKeys.BITMAP));
-            cameraRequestTag.mbWatermarkMakeupEnable = bundle.getBoolean(CameraConstant.WaterMarkParamKeys.MAKEUP_ENABLE);
+            cameraRequestTag.mApsWatermarkParam = new ApsWatermarkParam(bundle.getInt("refWidth"), size.getHeight(),
+                    size.getWidth(), bundle.getByteArray("buffer"),
+                    (Bitmap) bundle.getParcelable(CameraConstant.WaterMarkParamKeys.BITMAP));
+            cameraRequestTag.mbWatermarkMakeupEnable = bundle
+                    .getBoolean(CameraConstant.WaterMarkParamKeys.MAKEUP_ENABLE);
             cameraRequestTag.mbWatermarkMakeupWidth = bundle.getInt(CameraConstant.WaterMarkParamKeys.MAKEUP_WIDTH);
             cameraRequestTag.mbWatermarkMakeupHeight = bundle.getInt(CameraConstant.WaterMarkParamKeys.MAKEUP_HEIGHT);
             cameraRequestTag.mbWatermarkMakeupStartX = bundle.getInt(CameraConstant.WaterMarkParamKeys.MAKEUP_START_X);
@@ -736,37 +836,52 @@ public abstract class BaseMode implements ModeInterface {
             setVideoWaterMarkParams(builder, str, cameraRequestTag);
         }
         if (builder.containCustomKey(PreviewParameter.KEY_SUPPORT_MAKEUP)) {
-            cameraRequestTag.mbSupportMakeup = ((Boolean) builder.get(PreviewParameter.KEY_SUPPORT_MAKEUP)).booleanValue();
+            cameraRequestTag.mbSupportMakeup = ((Boolean) builder.get(PreviewParameter.KEY_SUPPORT_MAKEUP))
+                    .booleanValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_BURST_SHOT_ENABLE)) {
             cameraRequestTag.mbBurstShot = "on".equals(builder.get(PreviewParameter.KEY_BURST_SHOT_ENABLE));
             cameraRequestTag.mBurstShotPath = (String) builder.get(PreviewParameter.KEY_BURST_SHOT_PATH);
-            cameraRequestTag.mBurstShotFlagId = ((Long) builder.get(PreviewParameter.KEY_BURST_SHOT_FLAG_ID)).longValue();
+            cameraRequestTag.mBurstShotFlagId = ((Long) builder.get(PreviewParameter.KEY_BURST_SHOT_FLAG_ID))
+                    .longValue();
         }
-        if (builder.containCustomKey(PreviewParameter.KEY_BLUR_EDIT_ENABLE) && builder.containCustomKey(PreviewParameter.KEY_BLUR_SUPPORT_VALUES) && builder.containCustomKey(PreviewParameter.KEY_BLUR_SUPPORT_APERTURES)) {
-            cameraRequestTag.mbBlurEditEnable = ((Boolean) builder.get(PreviewParameter.KEY_BLUR_EDIT_ENABLE)).booleanValue();
+        if (builder.containCustomKey(PreviewParameter.KEY_BLUR_EDIT_ENABLE)
+                && builder.containCustomKey(PreviewParameter.KEY_BLUR_SUPPORT_VALUES)
+                && builder.containCustomKey(PreviewParameter.KEY_BLUR_SUPPORT_APERTURES)) {
+            cameraRequestTag.mbBlurEditEnable = ((Boolean) builder.get(PreviewParameter.KEY_BLUR_EDIT_ENABLE))
+                    .booleanValue();
             cameraRequestTag.mBlurSupportValues = (float[]) builder.get(PreviewParameter.KEY_BLUR_SUPPORT_VALUES);
             cameraRequestTag.mBlurSupportApertures = (float[]) builder.get(PreviewParameter.KEY_BLUR_SUPPORT_APERTURES);
         }
         if (builder.containsKey(PreviewParameter.KEY_WATERMARK_EDIT_ENABLE)) {
-            cameraRequestTag.mbWatermarkEnable = ((Boolean) builder.get(PreviewParameter.KEY_WATERMARK_EDIT_ENABLE)).booleanValue();
+            cameraRequestTag.mbWatermarkEnable = ((Boolean) builder.get(PreviewParameter.KEY_WATERMARK_EDIT_ENABLE))
+                    .booleanValue();
         }
         if (builder.containsKey(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION)) {
-            cameraRequestTag.mTouchEVValue = ((Integer) builder.get(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION)).intValue();
+            cameraRequestTag.mTouchEVValue = ((Integer) builder.get(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION))
+                    .intValue();
         }
         if (builder.containsKey(PreviewParameter.KEY_IS_FROM_MAIN_MENU)) {
-            cameraRequestTag.mbFromMainMenu = ((Boolean) builder.get(PreviewParameter.KEY_IS_FROM_MAIN_MENU)).booleanValue();
+            cameraRequestTag.mbFromMainMenu = ((Boolean) builder.get(PreviewParameter.KEY_IS_FROM_MAIN_MENU))
+                    .booleanValue();
         }
         if (builder.containsKey(PreviewParameter.KEY_IS_FROM_SYSTEM_APP)) {
-            cameraRequestTag.mbFromSystemApp = ((Boolean) builder.get(PreviewParameter.KEY_IS_FROM_SYSTEM_APP)).booleanValue();
+            cameraRequestTag.mbFromSystemApp = ((Boolean) builder.get(PreviewParameter.KEY_IS_FROM_SYSTEM_APP))
+                    .booleanValue();
         }
         synchronized (this.mPreviewResultLock) {
             CameraPreviewCallbackAdapter.PreviewResult previewResult = this.mPreviewResult;
             if (previewResult != null) {
                 int intValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue();
-                if ((Util.isHdrOn(this.mPreviewResult) && !cameraRequestTag.mbBurstShot) || ((cameraRequestTag.mbInNightProcess && !cameraRequestTag.mbBurstShot && (!PlatformUtil.isMtkPlatform() || !cameraRequestTag.mbStarryProcess)) || ((cameraRequestTag.mbSupportBokehHDR && Util.isBokehHDR(this.mPreviewResult)) || 13 == intValue || 26 == intValue))) {
-                    cameraRequestTag.mCaptureEvList = (int[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
-                    cameraRequestTag.mCaptureEtList = (long[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_ET_LIST);
+                if ((Util.isHdrOn(this.mPreviewResult) && !cameraRequestTag.mbBurstShot)
+                        || ((cameraRequestTag.mbInNightProcess && !cameraRequestTag.mbBurstShot
+                                && (!PlatformUtil.isMtkPlatform() || !cameraRequestTag.mbStarryProcess))
+                                || ((cameraRequestTag.mbSupportBokehHDR && Util.isBokehHDR(this.mPreviewResult))
+                                        || 13 == intValue || 26 == intValue))) {
+                    cameraRequestTag.mCaptureEvList = (int[]) this.mPreviewResult
+                            .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
+                    cameraRequestTag.mCaptureEtList = (long[]) this.mPreviewResult
+                            .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_ET_LIST);
                 }
             }
         }
@@ -792,11 +907,14 @@ public abstract class BaseMode implements ModeInterface {
             return;
         }
         Range range = (Range) builder.get(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE);
-        builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.SENSOR_FRAME_DURATION, (CaptureRequest.Key) Long.valueOf(Math.max(CameraConstant.TIME_RATIO_S_TO_NS / (range == null ? 30 : ((Integer) range.getUpper()).intValue()), l.longValue())));
+        builder.set(CaptureRequest.SENSOR_FRAME_DURATION, Long.valueOf(Math.max(
+                CameraConstant.TIME_RATIO_S_TO_NS / (range == null ? 30 : ((Integer) range.getUpper()).intValue()),
+                l.longValue())));
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    public void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str, String str2) {
+    public void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str,
+            String str2) {
         if (cameraRequestTag == null) {
             return;
         }
@@ -813,12 +931,14 @@ public abstract class BaseMode implements ModeInterface {
             apsRequestTag.mThermalLevel = num != null ? num.intValue() : 0;
             apsRequestTag.mbPhotoWaterMarkEnable = cameraRequestTag.mbPhotoWaterMarkEnable;
         }
-        cameraRequestTag.mbUltraResolutionEnabled = "on".equals(builder.get(PreviewParameter.KEY_ULTRA_HIGH_RESOLUTION_ENABLE));
+        cameraRequestTag.mbUltraResolutionEnabled = "on"
+                .equals(builder.get(PreviewParameter.KEY_ULTRA_HIGH_RESOLUTION_ENABLE));
         cameraRequestTag.mbFaceBeautyOpen = "on".equals(builder.get(PreviewParameter.KEY_FACE_BEAUTY_ENABLE));
         cameraRequestTag.mNeonEnable = "on".equals(builder.get(PreviewParameter.KEY_PORTRAIT_NEON_ENABLE));
         SdkCameraDeviceConfig sdkCameraDeviceConfig = this.mConfigMap.get(str2);
         if (sdkCameraDeviceConfig != null) {
-            cameraRequestTag.mStreamerEnable = "on".equals((String) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.PORTRAIT_STREAMER_ENABLE));
+            cameraRequestTag.mStreamerEnable = "on".equals((String) sdkCameraDeviceConfig.getConfigureParameter()
+                    .get(ConfigureParameter.PORTRAIT_STREAMER_ENABLE));
         }
         Integer num2 = (Integer) builder.get(PreviewParameter.KEY_REAR_SELF_CAPTURE_ENABLE);
         if (num2 != null) {
@@ -828,7 +948,9 @@ public abstract class BaseMode implements ModeInterface {
         cameraRequestTag.mbGestureEnable = "on".equals(builder.get(PreviewParameter.KEY_GESTURE_ENABLE));
         cameraRequestTag.mbVideoRetentionOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_RETENTION_OPEN));
         long totalMemory = AlgoSwitchConfig.getTotalMemory();
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_PORTRAIT_REPAIR_MEMORY_4G_SUPPORT, true)).booleanValue() || CameraConstant.MEMORY_GB_4G <= totalMemory || !"front_main".equals(cameraRequestTag.mCameraType)) {
+        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_PORTRAIT_REPAIR_MEMORY_4G_SUPPORT, true))
+                .booleanValue() || CameraConstant.MEMORY_GB_4G <= totalMemory
+                || !"front_main".equals(cameraRequestTag.mCameraType)) {
             return;
         }
         cameraRequestTag.mbPortraitRepairOpen = false;
@@ -837,8 +959,10 @@ public abstract class BaseMode implements ModeInterface {
     /* JADX INFO: Access modifiers changed from: protected */
     public List<Size> getPictureSizes(String str, int i) {
         int i2;
-        CameraCharacteristicsWrapper cameraCharacteristicsWrapper = CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str);
-        StreamConfigurationMap streamConfigurationMap = (StreamConfigurationMap) cameraCharacteristicsWrapper.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+        CameraCharacteristicsWrapper cameraCharacteristicsWrapper = CameraCharacteristicsHelper
+                .getCameraCharacteristicsWrapper(str);
+        StreamConfigurationMap streamConfigurationMap = (StreamConfigurationMap) cameraCharacteristicsWrapper
+                .get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
         ArrayList arrayList = new ArrayList();
         arrayList.addAll(Arrays.asList(streamConfigurationMap.getOutputSizes(i)));
         if (32 == i) {
@@ -863,7 +987,8 @@ public abstract class BaseMode implements ModeInterface {
     public int getSensorNumberFromConfig(String str) {
         LinkedList<Pair<String, String>> linkedList;
         Map<String, LinkedList<Pair<String, String>>> sensorNumberMap = CameraConfigHelper.getSensorNumberMap();
-        if (sensorNumberMap == null || sensorNumberMap.isEmpty() || (linkedList = sensorNumberMap.get(getModeName())) == null || linkedList.isEmpty()) {
+        if (sensorNumberMap == null || sensorNumberMap.isEmpty()
+                || (linkedList = sensorNumberMap.get(getModeName())) == null || linkedList.isEmpty()) {
             return 1;
         }
         Iterator<Pair<String, String>> it = linkedList.iterator();
@@ -893,13 +1018,15 @@ public abstract class BaseMode implements ModeInterface {
                 int featureCategory = featureInterface.getFeatureCategory();
                 List<String> supportValues = featureInterface.getSupportValues();
                 if (supportValues == null) {
-                    CameraUnitLog.i(TAG, "updateAllParameterRange, featureName: " + str2 + ", cameraType: " + str + ", this feature not config in this camera type");
+                    CameraUnitLog.i(TAG, "updateAllParameterRange, featureName: " + str2 + ", cameraType: " + str
+                            + ", this feature not config in this camera type");
                 } else {
                     ArrayList arrayList = new ArrayList();
                     for (int i = 0; i < supportValues.size(); i++) {
                         arrayList.add(Util.getValue(valueType, supportValues.get(i)));
                     }
-                    CameraUnitLog.i(TAG, "updateAllParameterRange, featureName: " + str2 + ", parameterName: " + str2 + ", configValue: " + supportValues + ", after convert: " + arrayList);
+                    CameraUnitLog.i(TAG, "updateAllParameterRange, featureName: " + str2 + ", parameterName: " + str2
+                            + ", configValue: " + supportValues + ", after convert: " + arrayList);
                     if (1 == featureCategory) {
                         cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(str2, arrayList);
                     } else if (3 == featureCategory) {
@@ -922,7 +1049,8 @@ public abstract class BaseMode implements ModeInterface {
                 } else if (parameter.get(key) instanceof Range) {
                     hashMap.put(key.getName(), ((Range) parameter.get(key)).toString());
                 } else {
-                    CameraUnitLog.v(TAG, "getFeaturesFromConfig key: " + key.getName() + ", value: " + parameter.get(key));
+                    CameraUnitLog.v(TAG,
+                            "getFeaturesFromConfig key: " + key.getName() + ", value: " + parameter.get(key));
                 }
             }
         }
@@ -947,18 +1075,24 @@ public abstract class BaseMode implements ModeInterface {
         return useCaseValues;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:108:0x01f1  */
-    /* JADX WARN: Removed duplicated region for block: B:121:? A[RETURN, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:108:0x01f1 */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    private com.oplus.ocs.camera.common.surface.SurfaceWrapper getSurfaceWrapper(com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig r13, int r14, java.lang.String r15, java.lang.String r16, @androidx.annotation.NonNull android.util.Size r17, android.util.Size r18, boolean r19, java.lang.String r20) {
+     * JADX WARN: Removed duplicated region for block: B:121:? A[RETURN, SYNTHETIC]
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    private com.oplus.ocs.camera.common.surface.SurfaceWrapper getSurfaceWrapper(
+            com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig r13, int r14, java.lang.String r15,
+            java.lang.String r16, @androidx.annotation.NonNull android.util.Size r17, android.util.Size r18,
+            boolean r19, java.lang.String r20) {
         /*
-            Method dump skipped, instructions count: 644
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.getSurfaceWrapper(com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig, int, java.lang.String, java.lang.String, android.util.Size, android.util.Size, boolean, java.lang.String):com.oplus.ocs.camera.common.surface.SurfaceWrapper");
+         * Method dump skipped, instructions count: 644
+         * To view this dump add '--comments-level debug' option
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.getSurfaceWrapper(com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig, int, java.lang.String, java.lang.String, android.util.Size, android.util.Size, boolean, java.lang.String):com.oplus.ocs.camera.common.surface.SurfaceWrapper");
     }
 
     public String getSurfaceUsageBySurfaceType(String str) {
@@ -1165,18 +1299,27 @@ public abstract class BaseMode implements ModeInterface {
     public LinkedList<SurfaceWrapper> buildStreamSurface(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str) {
         LinkedList<SurfaceWrapper> linkedList = new LinkedList<>();
         SurfaceWrapper defaultPreviewSurface = sdkCameraDeviceConfig.getDefaultPreviewSurface();
-        String surfaceUseCase = getSurfaceUseCase(str, sdkCameraDeviceConfig.getConfigureParameter().containCustomKey(ConfigureParameter.KEY_IS_FROM_MAIN_MENU) ? ((Boolean) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.KEY_IS_FROM_MAIN_MENU)).booleanValue() : true);
+        String surfaceUseCase = getSurfaceUseCase(str,
+                sdkCameraDeviceConfig.getConfigureParameter().containCustomKey(ConfigureParameter.KEY_IS_FROM_MAIN_MENU)
+                        ? ((Boolean) sdkCameraDeviceConfig.getConfigureParameter()
+                                .get(ConfigureParameter.KEY_IS_FROM_MAIN_MENU)).booleanValue()
+                        : true);
         LinkedList<Pair<String, String>> useCaseValues = getUseCaseValues(surfaceUseCase);
-        CameraUnitLog.d(TAG, "buildStreamSurface, cameraType: " + str + ", caseName: " + surfaceUseCase + ", linkedList: " + useCaseValues + ", fistPreview: " + defaultPreviewSurface);
+        CameraUnitLog.d(TAG, "buildStreamSurface, cameraType: " + str + ", caseName: " + surfaceUseCase
+                + ", linkedList: " + useCaseValues + ", fistPreview: " + defaultPreviewSurface);
         Iterator<Pair<String, String>> it = useCaseValues.iterator();
         while (it.hasNext()) {
             Pair<String, String> next = it.next();
             String str2 = (String) next.first;
-            String cameraType = "var_camera".equals(next.second) ? defaultPreviewSurface.getCameraType() : (String) next.second;
+            String cameraType = "var_camera".equals(next.second) ? defaultPreviewSurface.getCameraType()
+                    : (String) next.second;
             Pair<Size, Size> surfaceSize = getSurfaceSize(sdkCameraDeviceConfig, str2, cameraType, str);
             int physicalId = getPhysicalId(str, cameraType, str2);
-            CameraUnitLog.d(TAG, "buildStreamSurface, surfaceSize: " + surfaceSize + " , configuredSurfaceType: " + str2 + " , cameraType: " + str + " , physicalId: " + physicalId);
-            SurfaceWrapper surfaceWrapper = getSurfaceWrapper(sdkCameraDeviceConfig, physicalId, str2, cameraType, (Size) surfaceSize.first, (Size) surfaceSize.second, isReuseAppSurface(surfaceUseCase, str2, cameraType) ^ true, str);
+            CameraUnitLog.d(TAG, "buildStreamSurface, surfaceSize: " + surfaceSize + " , configuredSurfaceType: " + str2
+                    + " , cameraType: " + str + " , physicalId: " + physicalId);
+            SurfaceWrapper surfaceWrapper = getSurfaceWrapper(sdkCameraDeviceConfig, physicalId, str2, cameraType,
+                    (Size) surfaceSize.first, (Size) surfaceSize.second,
+                    isReuseAppSurface(surfaceUseCase, str2, cameraType) ^ true, str);
             if (surfaceWrapper != null) {
                 linkedList.add(surfaceWrapper);
             }
@@ -1202,10 +1345,15 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     public int getSurfaceFormatBySurfaceType(String str, String str2, String str3) {
-        if ("preview".equals(str) || "capture".equals(str) || "video".equals(str) || "capture_yuv".equals(str) || "video_recorder".equals(str) || "reprocess_yuv".equals(str) || CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_CAPTURE_YUV_MFNR.equals(str) || "preview_in_preview".equals(str) || "preview_frame".equals(str) || CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_VIDEO_AI_DEPTH.equals(str)) {
+        if ("preview".equals(str) || "capture".equals(str) || "video".equals(str) || "capture_yuv".equals(str)
+                || "video_recorder".equals(str) || "reprocess_yuv".equals(str)
+                || CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_CAPTURE_YUV_MFNR.equals(str)
+                || "preview_in_preview".equals(str) || "preview_frame".equals(str)
+                || CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_VIDEO_AI_DEPTH.equals(str)) {
             return 35;
         }
-        if ("capture_raw".equals(str) || "reprocess_input".equals(str) || "raw_output".equals(str) || CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_CAPTURE_RAW_DOL.equals(str)) {
+        if ("capture_raw".equals(str) || "reprocess_input".equals(str) || "raw_output".equals(str)
+                || CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_CAPTURE_RAW_DOL.equals(str)) {
             return getRawFormat(str3);
         }
         if ("tuning_data_raw".equals(str) || "tuning_data_yuv".equals(str)) {
@@ -1216,55 +1364,164 @@ public abstract class BaseMode implements ModeInterface {
 
     /* JADX INFO: Access modifiers changed from: protected */
     public int getRawFormat(String str) {
-        return (!((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CAPTURE_WITH_RAW10, false)).booleanValue() || getModeName().equals("night_mode") || getModeName().equals("professional_mode") || getModeName().equals("long_exposure_mode") || getModeName().equals(CameraConstant.ModeName.TIME_LAPSE_PRO_MODE) || getModeName().equals(CameraConstant.ModeName.STREET_MODE) || getModeName().equals(CameraConstant.ModeName.STAR_VIDEO_MODE) || getModeName().equals(CameraConstant.ModeName.STAR_CAPTURE_MODE)) ? 32 : 37;
+        return (!((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CAPTURE_WITH_RAW10, false))
+                .booleanValue() || getModeName().equals("night_mode") || getModeName().equals("professional_mode")
+                || getModeName().equals("long_exposure_mode")
+                || getModeName().equals(CameraConstant.ModeName.TIME_LAPSE_PRO_MODE)
+                || getModeName().equals(CameraConstant.ModeName.STREET_MODE)
+                || getModeName().equals(CameraConstant.ModeName.STAR_VIDEO_MODE)
+                || getModeName().equals(CameraConstant.ModeName.STAR_CAPTURE_MODE)) ? 32 : 37;
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    /* JADX WARN: Code restructure failed: missing block: B:166:0x02bd, code lost:
-        if (r8 != false) goto L169;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:177:0x02ea, code lost:
-        if (2 == r12) goto L230;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:223:0x0389, code lost:
-        if (1 == r5[0]) goto L198;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:82:0x0176, code lost:
-        if (1 == r9[0]) goto L79;
-     */
-    /* JADX WARN: Removed duplicated region for block: B:196:0x032a A[Catch: all -> 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027, B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089, B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5, B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7, B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160, B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198, B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac, B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0, B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f, B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f, B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b, B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a, B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365, B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393, B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca, B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312, B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }] */
-    /* JADX WARN: Removed duplicated region for block: B:222:0x0385 A[Catch: all -> 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027, B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089, B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5, B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7, B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160, B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198, B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac, B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0, B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f, B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f, B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b, B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a, B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365, B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393, B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca, B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312, B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }] */
-    /* JADX WARN: Removed duplicated region for block: B:227:0x0393 A[Catch: all -> 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027, B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089, B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5, B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7, B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160, B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198, B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac, B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0, B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f, B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f, B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b, B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a, B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365, B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393, B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca, B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312, B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }] */
-    /* JADX WARN: Removed duplicated region for block: B:31:0x0091  */
-    /* JADX WARN: Removed duplicated region for block: B:34:0x0099 A[Catch: all -> 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027, B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089, B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5, B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7, B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160, B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198, B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac, B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0, B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f, B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f, B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b, B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a, B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365, B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393, B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca, B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312, B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }] */
-    /* JADX WARN: Removed duplicated region for block: B:68:0x0141 A[Catch: all -> 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027, B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089, B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5, B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7, B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160, B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198, B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac, B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0, B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f, B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f, B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b, B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a, B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365, B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393, B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca, B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312, B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }] */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public boolean needAddToTarget(java.lang.String r19, java.lang.String r20, @androidx.annotation.NonNull com.oplus.ocs.camera.common.surface.SurfaceKey r21, com.oplus.ocs.camera.common.parameter.PreviewParameter.Builder r22) {
+     * JADX WARN: Code restructure failed: missing block: B:166:0x02bd, code lost:
+     * if (r8 != false) goto L169;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:177:0x02ea, code lost:
+     * if (2 == r12) goto L230;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:223:0x0389, code lost:
+     * if (1 == r5[0]) goto L198;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:82:0x0176, code lost:
+     * if (1 == r9[0]) goto L79;
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:196:0x032a A[Catch: all ->
+     * 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027,
+     * B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089,
+     * B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5,
+     * B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7,
+     * B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160,
+     * B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198,
+     * B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac,
+     * B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0,
+     * B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f,
+     * B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f,
+     * B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b,
+     * B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a,
+     * B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365,
+     * B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393,
+     * B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca,
+     * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
+     * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:222:0x0385 A[Catch: all ->
+     * 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027,
+     * B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089,
+     * B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5,
+     * B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7,
+     * B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160,
+     * B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198,
+     * B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac,
+     * B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0,
+     * B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f,
+     * B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f,
+     * B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b,
+     * B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a,
+     * B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365,
+     * B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393,
+     * B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca,
+     * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
+     * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:227:0x0393 A[Catch: all ->
+     * 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027,
+     * B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089,
+     * B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5,
+     * B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7,
+     * B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160,
+     * B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198,
+     * B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac,
+     * B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0,
+     * B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f,
+     * B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f,
+     * B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b,
+     * B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a,
+     * B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365,
+     * B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393,
+     * B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca,
+     * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
+     * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
+     */
+    /* JADX WARN: Removed duplicated region for block: B:31:0x0091 */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:34:0x0099 A[Catch: all ->
+     * 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027,
+     * B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089,
+     * B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5,
+     * B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7,
+     * B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160,
+     * B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198,
+     * B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac,
+     * B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0,
+     * B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f,
+     * B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f,
+     * B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b,
+     * B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a,
+     * B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365,
+     * B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393,
+     * B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca,
+     * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
+     * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:68:0x0141 A[Catch: all ->
+     * 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027,
+     * B:14:0x003f, B:16:0x004d, B:18:0x005d, B:22:0x0072, B:24:0x0076, B:29:0x0089,
+     * B:249:0x0483, B:34:0x0099, B:36:0x00a1, B:38:0x00a5, B:41:0x00b5,
+     * B:43:0x00b9, B:46:0x00c9, B:48:0x00d9, B:51:0x00e7, B:53:0x00f3, B:55:0x00f7,
+     * B:57:0x0105, B:66:0x013d, B:68:0x0141, B:71:0x0153, B:74:0x015b, B:77:0x0160,
+     * B:79:0x0168, B:81:0x0174, B:85:0x017b, B:87:0x0187, B:90:0x018c, B:92:0x0198,
+     * B:59:0x0116, B:61:0x0126, B:64:0x0139, B:96:0x01a0, B:98:0x01ac,
+     * B:100:0x01be, B:103:0x01c8, B:105:0x01d4, B:107:0x01e0, B:111:0x01f0,
+     * B:114:0x01fe, B:116:0x0202, B:119:0x0214, B:121:0x0217, B:123:0x021f,
+     * B:125:0x022b, B:128:0x0231, B:130:0x023d, B:133:0x0243, B:135:0x024f,
+     * B:141:0x025b, B:145:0x0266, B:147:0x0270, B:150:0x0275, B:152:0x027b,
+     * B:154:0x0283, B:155:0x029b, B:157:0x02a7, B:194:0x0326, B:196:0x032a,
+     * B:201:0x033d, B:206:0x0349, B:210:0x0355, B:212:0x0359, B:216:0x0365,
+     * B:218:0x0369, B:220:0x0379, B:222:0x0385, B:241:0x03c9, B:227:0x0393,
+     * B:229:0x03a0, B:232:0x03a6, B:234:0x03b2, B:237:0x03ba, B:172:0x02ca,
+     * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
+     * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public boolean needAddToTarget(java.lang.String r19, java.lang.String r20,
+            @androidx.annotation.NonNull com.oplus.ocs.camera.common.surface.SurfaceKey r21,
+            com.oplus.ocs.camera.common.parameter.PreviewParameter.Builder r22) {
         /*
-            Method dump skipped, instructions count: 1234
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.needAddToTarget(java.lang.String, java.lang.String, com.oplus.ocs.camera.common.surface.SurfaceKey, com.oplus.ocs.camera.common.parameter.PreviewParameter$Builder):boolean");
+         * Method dump skipped, instructions count: 1234
+         * To view this dump add '--comments-level debug' option
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.needAddToTarget(java.lang.String, java.lang.String, com.oplus.ocs.camera.common.surface.SurfaceKey, com.oplus.ocs.camera.common.parameter.PreviewParameter$Builder):boolean");
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
-    public void setVideoWaterMarkParams(PreviewParameter.Builder builder, String str, CameraRequestTag cameraRequestTag) {
+    public void setVideoWaterMarkParams(PreviewParameter.Builder builder, String str,
+            CameraRequestTag cameraRequestTag) {
         Bundle bundle = (Bundle) builder.get(PreviewParameter.KEY_WATERMARK_PARAM);
         if (!isVideoWaterMarkOpen(str)) {
             if (2 == AlgoSwitchConfig.getApsVersion()) {
-                builder.set((Parameter.Key<Parameter.Key<byte[]>>) PreviewParameter.KEY_VIDEO_WATERMARK_ENABLE, (Parameter.Key<byte[]>) new byte[]{0});
-                builder.set((Parameter.Key<Parameter.Key<byte[]>>) PreviewParameter.KEY_VIDEO_WATERMARK_PATH, (Parameter.Key<byte[]>) "NULL".getBytes(StandardCharsets.UTF_8));
+                builder.set(PreviewParameter.KEY_VIDEO_WATERMARK_ENABLE, new byte[] { 0 });
+                builder.set(PreviewParameter.KEY_VIDEO_WATERMARK_PATH, "NULL".getBytes(StandardCharsets.UTF_8));
             }
         } else if (bundle != null) {
             int i = bundle.getInt("orientation", 0);
             if (isHalVideoWaterMark()) {
                 String string = bundle.getString("filePath");
-                builder.set((Parameter.Key<Parameter.Key<byte[]>>) PreviewParameter.KEY_VIDEO_WATERMARK_ENABLE, (Parameter.Key<byte[]>) new byte[]{1});
-                builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_VIDEO_WATERMARK_ORIENTATION, (Parameter.Key<int[]>) new int[]{i});
-                builder.set((Parameter.Key<Parameter.Key<byte[]>>) PreviewParameter.KEY_VIDEO_WATERMARK_PATH, (Parameter.Key<byte[]>) string.getBytes(StandardCharsets.UTF_8));
+                builder.set(PreviewParameter.KEY_VIDEO_WATERMARK_ENABLE, new byte[] { 1 });
+                builder.set(PreviewParameter.KEY_VIDEO_WATERMARK_ORIENTATION, new int[] { i });
+                builder.set(PreviewParameter.KEY_VIDEO_WATERMARK_PATH, string.getBytes(StandardCharsets.UTF_8));
                 return;
             }
             cameraRequestTag.mbVideoWaterMarkEnable = true;
@@ -1275,37 +1532,40 @@ public abstract class BaseMode implements ModeInterface {
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:5:0x000e  */
+    /* JADX WARN: Removed duplicated region for block: B:5:0x000e */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    private final boolean needTuningData(java.util.HashMap<com.oplus.ocs.camera.common.surface.SurfaceKey, android.view.Surface> r3) {
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    private final boolean needTuningData(
+            java.util.HashMap<com.oplus.ocs.camera.common.surface.SurfaceKey, android.view.Surface> r3) {
         /*
-            r2 = this;
-            java.util.Set r2 = r3.keySet()
-            java.util.Iterator r2 = r2.iterator()
-        L8:
-            boolean r3 = r2.hasNext()
-            if (r3 == 0) goto L2e
-            java.lang.Object r3 = r2.next()
-            com.oplus.ocs.camera.common.surface.SurfaceKey r3 = (com.oplus.ocs.camera.common.surface.SurfaceKey) r3
-            java.lang.String r0 = r3.getUsage()
-            java.lang.String r1 = "surface_key_tuning_raw"
-            boolean r0 = r1.equals(r0)
-            if (r0 != 0) goto L2c
-            java.lang.String r3 = r3.getUsage()
-            java.lang.String r0 = "surface_key_tuning_yuv"
-            boolean r3 = r0.equals(r3)
-            if (r3 == 0) goto L8
-        L2c:
-            r2 = 1
-            return r2
-        L2e:
-            r2 = 0
-            return r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.needTuningData(java.util.HashMap):boolean");
+         * r2 = this;
+         * java.util.Set r2 = r3.keySet()
+         * java.util.Iterator r2 = r2.iterator()
+         * L8:
+         * boolean r3 = r2.hasNext()
+         * if (r3 == 0) goto L2e
+         * java.lang.Object r3 = r2.next()
+         * com.oplus.ocs.camera.common.surface.SurfaceKey r3 =
+         * (com.oplus.ocs.camera.common.surface.SurfaceKey) r3
+         * java.lang.String r0 = r3.getUsage()
+         * java.lang.String r1 = "surface_key_tuning_raw"
+         * boolean r0 = r1.equals(r0)
+         * if (r0 != 0) goto L2c
+         * java.lang.String r3 = r3.getUsage()
+         * java.lang.String r0 = "surface_key_tuning_yuv"
+         * boolean r3 = r0.equals(r3)
+         * if (r3 == 0) goto L8
+         * L2c:
+         * r2 = 1
+         * return r2
+         * L2e:
+         * r2 = 0
+         * return r2
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.needTuningData(java.util.HashMap):boolean");
     }
 
     private boolean isVideoWaterMarkOpen(String str) {
@@ -1313,7 +1573,8 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     private boolean isHalVideoWaterMark() {
-        return ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_WATERMARK_HAL_SUPPORT, false)).booleanValue();
+        return ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_WATERMARK_HAL_SUPPORT, false))
+                .booleanValue();
     }
 
     protected int getPreviewImageReaderMaxImages() {
@@ -1327,7 +1588,14 @@ public abstract class BaseMode implements ModeInterface {
     /* JADX INFO: Access modifiers changed from: protected */
     public boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
         synchronized (this.mPreviewResultLock) {
-            if (((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAMERA_ID)).intValue() == cameraRequestTag.mRearFrontCameraId && ((this.mTagMap.get(cameraRequestTag.mCameraType) == null || TextUtils.equals((CharSequence) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_MODE), ApsDataConvert.getApsModeName(this.mTagMap.get(cameraRequestTag.mCameraType).mModeName, cameraRequestTag.mRearFrontCameraId))) && ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT)).intValue() > 0)) {
+            if (((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAMERA_ID))
+                    .intValue() == cameraRequestTag.mRearFrontCameraId
+                    && ((this.mTagMap.get(cameraRequestTag.mCameraType) == null || TextUtils.equals(
+                            (CharSequence) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_MODE),
+                            ApsDataConvert.getApsModeName(this.mTagMap.get(cameraRequestTag.mCameraType).mModeName,
+                                    cameraRequestTag.mRearFrontCameraId)))
+                            && ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT))
+                                    .intValue() > 0)) {
                 return true;
             }
             return false;
@@ -1349,7 +1617,8 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public int isAllowedToTakePicture(CameraPictureCallbackAdapter cameraPictureCallbackAdapter, Handler handler, CameraRequestTag cameraRequestTag) {
+    public int isAllowedToTakePicture(CameraPictureCallbackAdapter cameraPictureCallbackAdapter, Handler handler,
+            CameraRequestTag cameraRequestTag) {
         int i;
         boolean z;
         if (!checkPreviewResult(cameraRequestTag)) {
@@ -1364,14 +1633,20 @@ public abstract class BaseMode implements ModeInterface {
             z = false;
             i = 1;
         }
-        if (cameraRequestTag.mConsumerInterface.checkInputMemSize() && cameraRequestTag.mbBurstShot && "1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_BURST_CHECK_APS_MEMORY_SUPPORT))) {
+        if (cameraRequestTag.mConsumerInterface.checkInputMemSize() && cameraRequestTag.mbBurstShot
+                && "1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_BURST_CHECK_APS_MEMORY_SUPPORT))) {
             CameraUnitLog.w(TAG, "isAllowedToTakePicture, BURST_MEMORY_NOT_ENOUGH");
             z = false;
             i = 2;
         }
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_LOW_MEMORY_CHECK_INPUT_MEM_SUPPORT, false)).booleanValue()) {
-            CameraCharacteristicsWrapper cameraCharacteristicsWrapper = CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(cameraRequestTag.mCameraType);
-            if (!cameraRequestTag.mConsumerInterface.isVideoRecording() && PlatformUtil.isMtkPlatform() && 1 == ((Integer) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_MTK_LOW_MEMORY)).intValue() && cameraRequestTag.mConsumerInterface.checkInputMemSize()) {
+        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_LOW_MEMORY_CHECK_INPUT_MEM_SUPPORT,
+                false)).booleanValue()) {
+            CameraCharacteristicsWrapper cameraCharacteristicsWrapper = CameraCharacteristicsHelper
+                    .getCameraCharacteristicsWrapper(cameraRequestTag.mCameraType);
+            if (!cameraRequestTag.mConsumerInterface.isVideoRecording() && PlatformUtil.isMtkPlatform()
+                    && 1 == ((Integer) cameraCharacteristicsWrapper
+                            .get(CameraCharacteristicsWrapper.KEY_MTK_LOW_MEMORY)).intValue()
+                    && cameraRequestTag.mConsumerInterface.checkInputMemSize()) {
                 CameraUnitLog.v(TAG, "isAllowedToTakePicture, check inputMemSize fail!", true);
                 z = false;
                 i = 1;
@@ -1381,27 +1656,36 @@ public abstract class BaseMode implements ModeInterface {
             return 0;
         }
         CameraUnitLog.v(TAG, "isAllowedToTakePicture, code: " + i, true);
-        StatisticsManager.getInstance().reportFunctionalError(StatisticConstant.FunctionalErrorKeys.KEY_CAPTURE_FAILED, 2);
-        cameraPictureCallbackAdapter.onCaptureFailed((CaptureRequest) null, new CameraPictureCallbackAdapter.PictureResult.Builder().set(ApsOtherParameter.KEY_CAPTURE_FAIL_CODE, Integer.valueOf(i)).build());
+        StatisticsManager.getInstance().reportFunctionalError(StatisticConstant.FunctionalErrorKeys.KEY_CAPTURE_FAILED,
+                2);
+        cameraPictureCallbackAdapter.onCaptureFailed((CaptureRequest) null,
+                new CameraPictureCallbackAdapter.PictureResult.Builder()
+                        .set(ApsOtherParameter.KEY_CAPTURE_FAIL_CODE, Integer.valueOf(i)).build());
         return 2;
     }
 
     protected boolean isAiFlash(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        return previewResult != null && !PlatformUtil.isQualcommPlatform() && 29 == ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue() && 4 == ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT)).intValue();
+        return previewResult != null && !PlatformUtil.isQualcommPlatform()
+                && 29 == ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue()
+                && 4 == ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT)).intValue();
     }
 
-    protected CameraPreviewCallbackAdapter.PreviewResult selectTakePicturePreviewResult(PreviewParameter.Builder builder) {
+    protected CameraPreviewCallbackAdapter.PreviewResult selectTakePicturePreviewResult(
+            PreviewParameter.Builder builder) {
         synchronized (this.mPreviewResultLock) {
             if (builder.containsKey(PreviewParameter.KEY_TAKE_PICTURE_DECISION_TIMESTAMP)) {
                 long longValue = ((Long) builder.get(PreviewParameter.KEY_TAKE_PICTURE_DECISION_TIMESTAMP)).longValue();
                 builder.remove(PreviewParameter.KEY_TAKE_PICTURE_DECISION_TIMESTAMP);
-                CameraPreviewCallbackAdapter.PreviewResult previewResult = 0 != longValue ? this.mPreviewResultCache.get(Long.valueOf(longValue)) : null;
+                CameraPreviewCallbackAdapter.PreviewResult previewResult = 0 != longValue
+                        ? this.mPreviewResultCache.get(Long.valueOf(longValue))
+                        : null;
                 if (previewResult == null) {
                     CameraUnitLog.d(TAG, "selectTakePicturePreviewResult, can not find result from cache");
                     return this.mPreviewResult;
                 }
                 if (!isAiFlash(previewResult) && !isAiFlash(this.mPreviewResult)) {
-                    CameraUnitLog.i(TAG, "selectTakePicturePreviewResult, appUseResult : " + Arrays.toString((Object[]) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_ALGO_FLAG)));
+                    CameraUnitLog.i(TAG, "selectTakePicturePreviewResult, appUseResult : " + Arrays
+                            .toString((Object[]) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_ALGO_FLAG)));
                     return previewResult;
                 }
                 CameraUnitLog.d(TAG, "selectTakePicturePreviewResult, use latest preview result for AI flash");
@@ -1418,13 +1702,18 @@ public abstract class BaseMode implements ModeInterface {
         int intValue3;
         synchronized (this.mPreviewResultLock) {
             this.mPreviewResult = previewResult;
-            CameraUnitLog.i(TAG, "needStartPreview, mPreviewResult : " + Arrays.toString((Object[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_ALGO_FLAG)));
+            CameraUnitLog.i(TAG, "needStartPreview, mPreviewResult : "
+                    + Arrays.toString((Object[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_ALGO_FLAG)));
             if (previewResult != null && previewResult.getCaptureResult() != null) {
-                this.mPreviewResultCache.put(Long.valueOf(((Long) previewResult.getCaptureResult().get(CaptureResult.SENSOR_TIMESTAMP)).longValue()), previewResult);
+                this.mPreviewResultCache.put(Long.valueOf(
+                        ((Long) previewResult.getCaptureResult().get(CaptureResult.SENSOR_TIMESTAMP)).longValue()),
+                        previewResult);
             }
         }
         boolean z = false;
-        if (previewResult.containsKey(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE.getName()) && this.mApsDecisionFeatureType != (intValue3 = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue())) {
+        if (previewResult.containsKey(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE.getName())
+                && this.mApsDecisionFeatureType != (intValue3 = ((Integer) previewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue())) {
             this.mApsDecisionFeatureType = intValue3;
             z = true;
         }
@@ -1437,11 +1726,15 @@ public abstract class BaseMode implements ModeInterface {
                 }
             }
         }
-        if (previewResult.containsKey(ApsDecisionParameter.KEY_PREVIEW_AIS_STATE.getName()) && this.mAisState != (intValue2 = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_AIS_STATE)).intValue())) {
+        if (previewResult.containsKey(ApsDecisionParameter.KEY_PREVIEW_AIS_STATE.getName())
+                && this.mAisState != (intValue2 = ((Integer) previewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_AIS_STATE)).intValue())) {
             this.mAisState = intValue2;
             z = true;
         }
-        if (!previewResult.containsKey(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT.getName()) || this.mAsdMovingObject == (intValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT)).intValue())) {
+        if (!previewResult.containsKey(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT.getName())
+                || this.mAsdMovingObject == (intValue = ((Integer) previewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT)).intValue())) {
             return z;
         }
         this.mAsdMovingObject = intValue;
@@ -1453,10 +1746,12 @@ public abstract class BaseMode implements ModeInterface {
         HashMap hashMap = new HashMap();
         int i = 0;
         if (cameraRequestTag.mRequestFormatList == null) {
-            hashMap.put(Integer.valueOf(cameraRequestTag.mRequestFormat), Integer.valueOf(cameraRequestTag.mRequestNum));
+            hashMap.put(Integer.valueOf(cameraRequestTag.mRequestFormat),
+                    Integer.valueOf(cameraRequestTag.mRequestNum));
         } else {
             for (int i2 : cameraRequestTag.mRequestFormatList) {
-                hashMap.put(Integer.valueOf(i2), Integer.valueOf(((Integer) hashMap.getOrDefault(Integer.valueOf(i2), 0)).intValue() + 1));
+                hashMap.put(Integer.valueOf(i2),
+                        Integer.valueOf(((Integer) hashMap.getOrDefault(Integer.valueOf(i2), 0)).intValue() + 1));
             }
         }
         for (Map.Entry entry : hashMap.entrySet()) {
@@ -1464,7 +1759,8 @@ public abstract class BaseMode implements ModeInterface {
             int intValue2 = ((Integer) entry.getValue()).intValue();
             int baseMemory = getBaseMemory(cameraRequestTag, intValue);
             i += calculateMemorySize(intValue, intValue2, baseMemory);
-            CameraUnitLog.d(TAG, "checkMemoryState, format: " + intValue + ", num: " + intValue2 + ", baseMemory: " + baseMemory + ", totalNum:" + cameraRequestTag.mRequestNum + ", needMemory: " + i, true);
+            CameraUnitLog.d(TAG, "checkMemoryState, format: " + intValue + ", num: " + intValue2 + ", baseMemory: "
+                    + baseMemory + ", totalNum:" + cameraRequestTag.mRequestNum + ", needMemory: " + i, true);
         }
         return cameraRequestTag.mConsumerInterface.checkRuntimeState(i, getHalMemory());
     }
@@ -1500,7 +1796,7 @@ public abstract class BaseMode implements ModeInterface {
     protected long[] getFlexibleCapabilities(String str) {
         if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_SUPPORT_WCG2)) && isCaptureModeType()) {
             Size size = this.mTagMap.get(str).mPreviewSize;
-            long[] jArr = {0, 0, 0, size.getWidth(), size.getHeight(), 1, 0, 1};
+            long[] jArr = { 0, 0, 0, size.getWidth(), size.getHeight(), 1, 0, 1 };
             CameraUnitLog.d(TAG, "getFlexibleCapabilities, value: " + Arrays.toString(jArr));
             return jArr;
         }
@@ -1520,7 +1816,8 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag, ApsAdapterDecision.DecisionResult decisionResult) {
+    public boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag,
+            ApsAdapterDecision.DecisionResult decisionResult) {
         if (cameraRequestTag == null) {
             return false;
         }
@@ -1528,12 +1825,15 @@ public abstract class BaseMode implements ModeInterface {
             if (2 == i && this.mbCaptureNotMatchMeta) {
                 return false;
             }
-            if (CameraCharacteristicsHelper.isFrontCamera(cameraRequestTag.mCameraId) && (cameraRequestTag.mbFaceBeautyOpen || !cameraRequestTag.mMakeupType.equals("none"))) {
-                return !((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FRONT_NEED_MATCH_META, false)).booleanValue();
+            if (CameraCharacteristicsHelper.isFrontCamera(cameraRequestTag.mCameraId)
+                    && (cameraRequestTag.mbFaceBeautyOpen || !cameraRequestTag.mMakeupType.equals("none"))) {
+                return !((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FRONT_NEED_MATCH_META, false))
+                        .booleanValue();
             }
             AlgoSwitchConfig.PreviewConfig previewConfig = this.mPreviewAlgoConfig;
             if (previewConfig == null || !TextUtils.equals(previewConfig.mCameraMode, str)) {
-                AlgoSwitchConfig.PreviewConfig previewConfig2 = AlgoSwitchConfig.getPreviewConfig(str, cameraRequestTag.mRearFrontCameraId);
+                AlgoSwitchConfig.PreviewConfig previewConfig2 = AlgoSwitchConfig.getPreviewConfig(str,
+                        cameraRequestTag.mRearFrontCameraId);
                 this.mPreviewAlgoConfig = previewConfig2;
                 if (previewConfig2 == null) {
                     CameraUnitLog.e(TAG, "matchPreviewTimestamp, config is null");
@@ -1573,7 +1873,9 @@ public abstract class BaseMode implements ModeInterface {
         if ("tuning_data_yuv".equals(str)) {
             iArr = (int[]) cameraDeviceInfo.get(CameraCharacteristicsWrapper.KEY_MTK_TUNING_DATA_YUV_SIZE);
         } else {
-            iArr = "tuning_data_raw".equals(str) ? (int[]) cameraDeviceInfo.get(CameraCharacteristicsWrapper.KEY_MTK_TUNING_DATA_RAW_SIZE) : null;
+            iArr = "tuning_data_raw".equals(str)
+                    ? (int[]) cameraDeviceInfo.get(CameraCharacteristicsWrapper.KEY_MTK_TUNING_DATA_RAW_SIZE)
+                    : null;
         }
         if (iArr == null || iArr.length < 2) {
             return null;

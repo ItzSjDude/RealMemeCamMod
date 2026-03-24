@@ -30,6 +30,7 @@ import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 /* loaded from: classes.dex */
 public class ProfessionalMode extends BaseMode {
     private static final int EDGE_FILTER_PARAM_LENGTH = 2;
@@ -51,7 +52,8 @@ public class ProfessionalMode extends BaseMode {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
+    protected Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         ApsRequestTag apsRequestTag = this.mTagMap.get(str3);
         Size size = null;
         if (apsRequestTag == null) {
@@ -116,9 +118,11 @@ public class ProfessionalMode extends BaseMode {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
-        this.mbEdgeFilterSupported = AlgoSwitchConfig.getSupportPreviewAlgo("professional", this.mRearFrontCameraId, "preview", ParameterKeys.PREVIEW_ALGO_NAME_EDGE_FILTER);
+        this.mbEdgeFilterSupported = AlgoSwitchConfig.getSupportPreviewAlgo("professional", this.mRearFrontCameraId,
+                "preview", ParameterKeys.PREVIEW_ALGO_NAME_EDGE_FILTER);
         CameraUnitLog.v(TAG, "onConfigure, edge filter supported: " + this.mbEdgeFilterSupported);
     }
 
@@ -135,14 +139,18 @@ public class ProfessionalMode extends BaseMode {
         List<Integer> colorTemperatureValueList = CameraCharacteristicsHelper.getColorTemperatureValueList(str);
         Map<String, Object> previewParameterRangeMap = cameraDeviceInfoImpl.getPreviewParameterRangeMap();
         previewParameterRangeMap.put(PreviewParameter.KEY_COLOR_TEMPERATURE_RANGE.getName(), colorTemperatureValueList);
-        previewParameterRangeMap.put(PreviewParameter.KEY_ZOOM_RATIO.getName(), new ZoomHelper(str).getZoomRatioList(false, false, false));
+        previewParameterRangeMap.put(PreviewParameter.KEY_ZOOM_RATIO.getName(),
+                new ZoomHelper(str).getZoomRatioList(false, false, false));
         return cameraDeviceInfoImpl;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        if (str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE) || str.equals(Parameter.ParameterStage.START_PREVIEW)) {
+        if (str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)
+                || str.equals(Parameter.ParameterStage.START_PREVIEW)) {
             checkProfessionalAeMode(builder);
             checkExposureTime(builder, str);
             setFastCapture(builder, cameraRequestTag);
@@ -156,20 +164,25 @@ public class ProfessionalMode extends BaseMode {
             if ("none".equals(this.mRawValue)) {
                 return;
             }
-            builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.STATISTICS_LENS_SHADING_MAP_MODE, (CaptureRequest.Key) 1);
+            builder.set(CaptureRequest.STATISTICS_LENS_SHADING_MAP_MODE, 1);
         } else if (str.equals(Parameter.ParameterStage.START_PREVIEW)) {
             checkColorTemperature(builder);
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder) {
         CameraRequestTag createRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
         createRequestTag.mRawValue = this.mRawValue;
-        createRequestTag.mbSupportFocusPeaking = AlgoSwitchConfig.getSupportCameraFeature(ApsConstant.FEATURE_FOCUS_PEAKING, CameraCharacteristicsHelper.getCameraIdType(str).getCameraId());
-        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2) && "super_raw".equals(createRequestTag.mRawValue)) {
+        createRequestTag.mbSupportFocusPeaking = AlgoSwitchConfig.getSupportCameraFeature(
+                ApsConstant.FEATURE_FOCUS_PEAKING, CameraCharacteristicsHelper.getCameraIdType(str).getCameraId());
+        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)
+                && "super_raw".equals(createRequestTag.mRawValue)) {
             synchronized (this.mPreviewResultLock) {
-                createRequestTag.mCaptureEvList = (int[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
+                createRequestTag.mCaptureEvList = (int[]) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
                 createRequestTag.mbHdrTrigger = true;
             }
         }
@@ -177,26 +190,35 @@ public class ProfessionalMode extends BaseMode {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey, PreviewParameter.Builder builder) {
+    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
+            PreviewParameter.Builder builder) {
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
             if ("raw".equals(this.mRawValue)) {
-                if ((32 == surfaceKey.getFormat() || 35 == surfaceKey.getFormat()) && "surface_key_picture".equals(surfaceKey.getUsage())) {
+                if ((32 == surfaceKey.getFormat() || 35 == surfaceKey.getFormat())
+                        && "surface_key_picture".equals(surfaceKey.getUsage())) {
                     return true;
                 }
-            } else if ("super_raw".equals(this.mRawValue) && "surface_key_picture".equals(surfaceKey.getUsage()) && (32 == surfaceKey.getFormat() || 35 == surfaceKey.getFormat())) {
+            } else if ("super_raw".equals(this.mRawValue) && "surface_key_picture".equals(surfaceKey.getUsage())
+                    && (32 == surfaceKey.getFormat() || 35 == surfaceKey.getFormat())) {
                 return true;
             }
         }
         return super.needAddToTarget(str, str2, surfaceKey, builder);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameter(parameter, str, str2, cameraRequestTag);
-        if (!Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str) || cameraRequestTag == null || cameraRequestTag.mbNeedPreviewStream == null || !PlatformUtil.isMtkPlatform()) {
+        if (!Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str) || cameraRequestTag == null
+                || cameraRequestTag.mbNeedPreviewStream == null || !PlatformUtil.isMtkPlatform()) {
             return;
         }
-        if ((CameraRequestTag.RequestMode.CAPTURE.equals(cameraRequestTag.getRequestMode()) || (CameraRequestTag.RequestMode.CAPTURE_RAW.equals(cameraRequestTag.getRequestMode()) && "super_raw".equals(cameraRequestTag.mRawValue))) && 40000000 <= ((Long) parameter.get(CaptureRequest.SENSOR_EXPOSURE_TIME)).longValue()) {
+        if ((CameraRequestTag.RequestMode.CAPTURE.equals(cameraRequestTag.getRequestMode())
+                || (CameraRequestTag.RequestMode.CAPTURE_RAW.equals(cameraRequestTag.getRequestMode())
+                        && "super_raw".equals(cameraRequestTag.mRawValue)))
+                && 40000000 <= ((Long) parameter.get(CaptureRequest.SENSOR_EXPOSURE_TIME)).longValue()) {
             Arrays.fill(cameraRequestTag.mbNeedPreviewStream, false);
         }
     }
@@ -219,7 +241,7 @@ public class ProfessionalMode extends BaseMode {
         }
         if (Parameter.ParameterStage.START_PREVIEW.equals(str)) {
             if (40000000 < l.longValue()) {
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.SENSOR_EXPOSURE_TIME, (CaptureRequest.Key) 40000000L);
+                builder.set(CaptureRequest.SENSOR_EXPOSURE_TIME, 40000000L);
                 this.mCaptureExposureTime = l;
             } else if (40000000 > l.longValue()) {
                 this.mCaptureExposureTime = null;
@@ -231,20 +253,20 @@ public class ProfessionalMode extends BaseMode {
             }
         } else if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
             if (this.mCaptureExposureTime != null) {
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.SENSOR_EXPOSURE_TIME, (CaptureRequest.Key) this.mCaptureExposureTime);
+                builder.set(CaptureRequest.SENSOR_EXPOSURE_TIME, this.mCaptureExposureTime);
                 l = this.mCaptureExposureTime;
             }
             if (l.longValue() >= 40000000) {
                 builder.remove(PreviewParameter.KEY_FLASH_MODE);
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.FLASH_MODE, (CaptureRequest.Key) 0);
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_MODE, (CaptureRequest.Key) 0);
+                builder.set(CaptureRequest.FLASH_MODE, 0);
+                builder.set(CaptureRequest.CONTROL_AE_MODE, 0);
             }
         }
-        builder.set((Parameter.Key<Parameter.Key<Long>>) PreviewParameter.KEY_MULTI_FRAME_EXPOSURE_TIME, (Parameter.Key<Long>) l);
+        builder.set(PreviewParameter.KEY_MULTI_FRAME_EXPOSURE_TIME, l);
         if (l.longValue() < 40000000) {
-            builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_LONGSHOT_ENABLE, (Parameter.Key<int[]>) new int[]{0});
+            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[] { 0 });
         } else {
-            builder.set((Parameter.Key<Parameter.Key<int[]>>) PreviewParameter.KEY_LONGSHOT_ENABLE, (Parameter.Key<int[]>) new int[]{1});
+            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[] { 1 });
         }
     }
 
@@ -252,39 +274,45 @@ public class ProfessionalMode extends BaseMode {
         int[] iArr = (int[]) builder.get(PreviewParameter.KEY_COLOR_TEMPERATURE);
         if (iArr != null && iArr.length > 0 && -1 != iArr[0]) {
             if (PlatformUtil.isMtkPlatform()) {
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_MODE, (CaptureRequest.Key) 10);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 10);
                 return;
             } else {
-                builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_MODE, (CaptureRequest.Key) 0);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 0);
                 return;
             }
         }
-        builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AWB_MODE, (CaptureRequest.Key) 1);
+        builder.set(CaptureRequest.CONTROL_AWB_MODE, 1);
     }
 
     private void checkProfessionalAeMode(PreviewParameter.Builder builder) {
         Long l = (Long) builder.get(CaptureRequest.SENSOR_EXPOSURE_TIME);
         Integer num = (Integer) builder.get(CaptureRequest.SENSOR_SENSITIVITY);
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_MMCAMERA_PROFESSIONAL_AEMODE_CLOSED, false)).booleanValue() || PlatformUtil.isQualcommPlatform() ? !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue()) : !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue()))) {
+        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_MMCAMERA_PROFESSIONAL_AEMODE_CLOSED,
+                false)).booleanValue() || PlatformUtil.isQualcommPlatform()
+                        ? !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue())
+                        : !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue()))) {
             builder.remove(PreviewParameter.KEY_FLASH_MODE);
-            builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.FLASH_MODE, (CaptureRequest.Key) 0);
-            builder.set((CaptureRequest.Key<CaptureRequest.Key>) CaptureRequest.CONTROL_AE_MODE, (CaptureRequest.Key) 0);
+            builder.set(CaptureRequest.FLASH_MODE, 0);
+            builder.set(CaptureRequest.CONTROL_AE_MODE, 0);
             return;
         }
         builder.remove(CaptureRequest.FLASH_MODE);
         builder.remove(CaptureRequest.CONTROL_AE_MODE);
     }
 
-    private void updateFocusPeakingFeature(PreviewParameter.Builder builder, String str, CameraRequestTag cameraRequestTag) {
+    private void updateFocusPeakingFeature(PreviewParameter.Builder builder, String str,
+            CameraRequestTag cameraRequestTag) {
         if (cameraRequestTag == null) {
             CameraUnitLog.d(TAG, "updateFocusPeakingFeature, invalid camera request tag");
             return;
         }
         if (builder.containCustomKey(PreviewParameter.KEY_FOCUS_PEAKING_ENABLE)) {
             if (this.mbEdgeFilterSupported) {
-                cameraRequestTag.mbEdgeFilterEnable = ((Boolean) builder.get(PreviewParameter.KEY_FOCUS_PEAKING_ENABLE)).booleanValue();
+                cameraRequestTag.mbEdgeFilterEnable = ((Boolean) builder.get(PreviewParameter.KEY_FOCUS_PEAKING_ENABLE))
+                        .booleanValue();
             } else {
-                this.mbFocusPeakingEnabled = ((Boolean) builder.get(PreviewParameter.KEY_FOCUS_PEAKING_ENABLE)).booleanValue();
+                this.mbFocusPeakingEnabled = ((Boolean) builder.get(PreviewParameter.KEY_FOCUS_PEAKING_ENABLE))
+                        .booleanValue();
                 cameraRequestTag.mFocusPeakingFeature = getFeatureName(str);
             }
         }
@@ -321,7 +349,8 @@ public class ProfessionalMode extends BaseMode {
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
     public int delayCloseForCapturTime() {
         Long l = this.mCaptureExposureTime;
         if (l == null || 1000000000 > l.longValue()) {
@@ -332,6 +361,7 @@ public class ProfessionalMode extends BaseMode {
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     protected long getHalMemory() {
-        return ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_PROFESSIONAL, 0)).intValue();
+        return ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_PROFESSIONAL, 0))
+                .intValue();
     }
 }
