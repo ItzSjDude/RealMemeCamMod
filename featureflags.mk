@@ -21,7 +21,7 @@ ENABLE_DoubleExposure      := true
 
 # --- Feature Makefiles ---
 -include vendor/realmeme_cam_mod/features/ai_color_portrait/ai_color_portrait.mk
--include vendor/realmeme_cam_mod/features/StarryMode/starrymode.mk
+-include vendor/realmeme_cam_mod/features/starry_mode/starry_mode.mk
 -include vendor/realmeme_cam_mod/features/super_nightscape/super_nightscape.mk
 -include vendor/realmeme_cam_mod/features/dynamic_bokeh/dynamic_bokeh.mk
 -include vendor/realmeme_cam_mod/features/neon_portrait/neon_portrait.mk
