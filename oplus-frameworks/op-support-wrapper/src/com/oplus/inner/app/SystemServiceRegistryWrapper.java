@@ -3,7 +3,7 @@ package com.oplus.inner.app;
 import com.oplus.internal.reflect.RefClass;
 import com.oplus.internal.reflect.RefInt;
 import com.oplus.internal.reflect.RefObject;
-// import com.oplus.internal.reflect.RefStaticObject;
+import com.oplus.internal.reflect.RefStaticObject;
 import java.util.Map;
 
 /* loaded from: classes.dex */
