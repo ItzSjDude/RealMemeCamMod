@@ -35,7 +35,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-@SynthesizedClassMap({$$Lambda$jfAFzrp_Qomcd9APGXJBBzUbL6I.class, $$Lambda$JUIMjV2Bnk8D1hxuXJlpYUOlz50.class})
 /* loaded from: classes.dex */
 public class WifiManagerNative {
     private static final String COMPONENT_NAME = "android.net.wifi.WifiManager";

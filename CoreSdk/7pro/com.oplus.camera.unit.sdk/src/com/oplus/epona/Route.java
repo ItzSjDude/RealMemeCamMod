@@ -9,7 +9,6 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-@SynthesizedClassMap({$$Lambda$Route$TQYa_q1SoJ805NkwE96OtUT0sw.class})
 /* loaded from: classes.dex */
 public class Route {
     private final int mMaxRequests = 64;

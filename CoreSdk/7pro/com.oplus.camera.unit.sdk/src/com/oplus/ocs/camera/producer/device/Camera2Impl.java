@@ -73,7 +73,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 /* JADX INFO: Access modifiers changed from: package-private */
-@SynthesizedClassMap({$$Lambda$Camera2Impl$yFmEqBLRxAx21rTWeVC0ACVFBzw.class})
 @TargetApi(ApsConstant.FEATURE_TYPE_AI_HDR)
 /* loaded from: classes.dex */
 public class Camera2Impl implements Camera2Interface {

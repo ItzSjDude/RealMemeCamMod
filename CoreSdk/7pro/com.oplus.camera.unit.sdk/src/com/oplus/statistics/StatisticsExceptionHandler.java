@@ -10,7 +10,6 @@ import com.oplus.statistics.util.Supplier;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.Thread;
-@SynthesizedClassMap({$$Lambda$StatisticsExceptionHandler$Fl1FFkvWzL5nE4lYZozpBkm5190.class, $$Lambda$_72Yv9SLtr5HefYoZLqe3y7AOoE.class})
 /* loaded from: classes.dex */
 public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandler {
     private static final String TAG = "StatisticsExceptionHand";

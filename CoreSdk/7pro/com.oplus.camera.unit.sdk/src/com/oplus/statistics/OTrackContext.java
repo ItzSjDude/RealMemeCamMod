@@ -13,7 +13,6 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.HashMap;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$OTrackContext$QE2ylRr6YUhdcdCLn95X26kEC7U.class})
 /* loaded from: classes.dex */
 public class OTrackContext {
     private static final String TAG = "OTrackContext";

@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import com.android.tools.r8.annotations.SynthesizedClassMap;
 import com.oplus.statistics.record.ContentProviderRecorder;
 import java.nio.charset.StandardCharsets;
-@SynthesizedClassMap({$$Lambda$VersionUtil$SHtNVs1CLbs0RveSiiDjCxGcmTc.class})
 /* loaded from: classes.dex */
 public class VersionUtil {
     private static final String DCS_PKG_NAME = new String(Base64.decode(Constant.DCS_PKG, 0), StandardCharsets.UTF_8);

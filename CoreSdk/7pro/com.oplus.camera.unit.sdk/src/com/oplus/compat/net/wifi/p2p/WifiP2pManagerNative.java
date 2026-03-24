@@ -31,7 +31,6 @@ import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
-@SynthesizedClassMap({$$Lambda$ZNKnpChxh9lah7cAdFKvZuV5w14.class})
 /* loaded from: classes.dex */
 public class WifiP2pManagerNative {
     private static final String COMPONENT_NAME = "android.net.wifi.p2p.WifiP2pManager";

@@ -9,7 +9,6 @@ import com.oplus.statistics.data.CommonBean;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$ChattyEventTracker$d5Es5CdtJucoOvDn9cO7KceJDU.class, $$Lambda$ChattyEventTracker$BFLwbCfq3g5YXBHGPdq7WKH0.class, $$Lambda$ChattyEventTracker$9mtNvYvn6ctmxUrrNHaCuZ_rO_I.class})
 /* loaded from: classes.dex */
 public class ChattyEventTracker {
     private static final String CHATTY_EVENT_ID = "chatty_event";

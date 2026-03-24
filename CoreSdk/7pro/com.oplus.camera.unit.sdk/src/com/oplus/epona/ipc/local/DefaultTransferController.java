@@ -12,7 +12,6 @@ import com.oplus.epona.utils.Logger;
 import com.oplus.epona.utils.ProviderUtils;
 import java.util.HashMap;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$DefaultTransferController$iQaOQeA8ODA3YlGPUXg1M8DkhL4.class})
 /* loaded from: classes.dex */
 public class DefaultTransferController implements RemoteTransferController {
     private static final String TAG = "DefaultTransferController";

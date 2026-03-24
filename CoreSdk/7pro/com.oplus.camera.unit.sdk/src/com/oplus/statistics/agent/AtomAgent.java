@@ -9,7 +9,6 @@ import com.oplus.statistics.data.TrackEvent;
 import com.oplus.statistics.util.ApkInfoUtil;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
-@SynthesizedClassMap({$$Lambda$AtomAgent$_LsAf3yPVQFoRUsZXlJac4QjI.class})
 /* loaded from: classes.dex */
 public class AtomAgent {
     private static final String APP_ID = "appId";

@@ -12,7 +12,6 @@ import com.oplus.statistics.util.Supplier;
 import com.oplus.statistics.util.TimeInfoUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
-@SynthesizedClassMap({$$Lambda$k7x3uecw5Jm_i_TPQLD11HWygQE.class, $$Lambda$PageVisitAgent$ocsEXUiFdumMnTb_AdwyYl5cY.class, $$Lambda$PageVisitAgent$b0CCV7UQJdlyYwkqx0g6rBj2p0.class, $$Lambda$PageVisitAgent$HcNO8VfgnfUBNYbG3ZCDm07ZMxQ.class, $$Lambda$_72Yv9SLtr5HefYoZLqe3y7AOoE.class, $$Lambda$PageVisitAgent$3MQwPahKOX66wlHbXarpzFLbqjs.class})
 /* loaded from: classes.dex */
 public class PageVisitAgent {
     private static final int PAGE_VISIT_MAX_COUNT = 10;

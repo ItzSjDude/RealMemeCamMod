@@ -6,7 +6,6 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.HashMap;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$MemoryPreference$mOuKrGdA4u1D4plJvzAOrJOtrZ8.class, $$Lambda$MemoryPreference$VyZ1lUZkIzZvUDAeyF_Fr87iOI.class})
 /* loaded from: classes.dex */
 public class MemoryPreference {
     private static final String TAG = "MemoryPreference";

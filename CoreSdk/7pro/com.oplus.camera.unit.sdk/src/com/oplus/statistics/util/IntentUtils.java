@@ -3,7 +3,6 @@ package com.oplus.statistics.util;
 import android.content.Intent;
 import com.android.tools.r8.annotations.SynthesizedClassMap;
 import java.util.ArrayList;
-@SynthesizedClassMap({$$Lambda$IntentUtils$xlKR4hkzIE1koZBReqb2a0BSJBA.class, $$Lambda$IntentUtils$VCNqJ1LHaSPMLfNcnHsTUno6AA.class, $$Lambda$IntentUtils$x8O1kULUmfXNegsPSeJMwp9m9x0.class, $$Lambda$IntentUtils$slP5Hl4S53EJLpBVBtlAVuXn9ic.class, $$Lambda$IntentUtils$QPfO6jZuHzCG5ezK87NBqeqrojM.class})
 /* loaded from: classes.dex */
 public class IntentUtils {
     private static final String TAG = "IntentUtils";

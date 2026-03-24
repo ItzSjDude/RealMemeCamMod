@@ -11,7 +11,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import mirror.android.util.Singleton;
-@SynthesizedClassMap({$$Lambda$ActivityManagerProxy$65znQJcrmIqaGTlYU5LWE3smAg.class})
 /* loaded from: classes.dex */
 public class ActivityManagerProxy extends SystemServiceProxy<IActivityManager> {
     private Object mIActivityManagerSingleton;

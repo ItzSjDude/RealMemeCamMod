@@ -46,7 +46,6 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-@SynthesizedClassMap({$$Lambda$ConsumerImpl$dN8MHue1YWxC17PRTFgdY4KSXRs.class, $$Lambda$ConsumerImpl$0defoHES20ZfuD1ZcW01f9Qqbw.class, $$Lambda$ConsumerImpl$dTAARQZDb1LQkw1eTXU37nueKAg.class})
 /* loaded from: classes.dex */
 public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerInterface, ApsProcessorContract.IConsumer {
     private static final String FRONT_CAMERA_TAG = "front";

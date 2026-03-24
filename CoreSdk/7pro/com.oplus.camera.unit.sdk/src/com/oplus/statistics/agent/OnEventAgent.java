@@ -13,7 +13,6 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.TimeInfoUtil;
 import java.util.Map;
 import org.json.JSONObject;
-@SynthesizedClassMap({$$Lambda$_72Yv9SLtr5HefYoZLqe3y7AOoE.class})
 /* loaded from: classes.dex */
 public class OnEventAgent {
     private static final String TAG = "OnEventAgent";

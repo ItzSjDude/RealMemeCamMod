@@ -10,7 +10,6 @@ import com.oplus.statistics.util.Supplier;
 import java.util.List;
 import java.util.Map;
 import org.json.JSONArray;
-@SynthesizedClassMap({$$Lambda$vh215vJxAPnLx58S2Rzx0daxXKI.class})
 /* loaded from: classes.dex */
 public class CommonBatchBean extends CommonBean {
     private static final String MAP_LIST = "mapList";

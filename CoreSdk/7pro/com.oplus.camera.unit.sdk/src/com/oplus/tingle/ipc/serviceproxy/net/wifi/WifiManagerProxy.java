@@ -10,7 +10,6 @@ import com.oplus.tingle.ipc.serviceproxy.SystemServiceProxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-@SynthesizedClassMap({$$Lambda$WifiManagerProxy$SvlzNz5iI3jr2CnibK5sQT4Eyto.class})
 /* loaded from: classes.dex */
 public class WifiManagerProxy extends SystemServiceProxy<IWifiManager> {
     private WifiManager mWifiManager;

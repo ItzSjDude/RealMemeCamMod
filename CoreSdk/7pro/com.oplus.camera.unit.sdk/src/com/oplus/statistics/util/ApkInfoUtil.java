@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 import com.android.tools.r8.annotations.SynthesizedClassMap;
 import java.util.HashMap;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$ApkInfoUtil$GAcV2DGTJAz9yoqo59ZqwvQd1OI.class, $$Lambda$_72Yv9SLtr5HefYoZLqe3y7AOoE.class, $$Lambda$ApkInfoUtil$wGWTkggfRQgzbZS2FzLcwB6GiwE.class})
 /* loaded from: classes.dex */
 public class ApkInfoUtil {
     private static final String TAG = "ApkInfoUtil";

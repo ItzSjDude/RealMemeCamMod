@@ -17,7 +17,6 @@ import java.lang.reflect.Proxy;
 import mirror.android.app.ContextImpl;
 import mirror.android.app.SystemServiceRegistry;
 import mirror.android.os.ServiceManager;
-@SynthesizedClassMap({$$Lambda$CommonServiceProxy$u445S91reyr1i7OjEhfSqFIJw.class})
 /* loaded from: classes.dex */
 public class CommonServiceProxy extends SystemServiceProxy<IBinder> {
     private static final String CACHED_SERVICE_FETCHER = "CachedServiceFetcher";

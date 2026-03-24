@@ -44,7 +44,6 @@ import com.oplus.utils.reflect.RefObject;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-@SynthesizedClassMap({$$Lambda$dun2r02xgHguEDq4suUiVDO5LA.class, $$Lambda$swNKNoeLQNCK1VBDgMt0Xnc3qM.class})
 /* loaded from: classes.dex */
 public class PackageManagerNative {
     private static final String ACTION_GET_PACKAGE_INFO_AS_USER = "getPackageInfoAsUser";

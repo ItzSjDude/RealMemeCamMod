@@ -12,7 +12,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
-@SynthesizedClassMap({$$Lambda$WorkThread$VOfC_ZjVs4dE0vI9lL4k56FQIyY.class})
 /* loaded from: classes.dex */
 public class WorkThread extends HandlerThread {
     public static final int MSG_WHAT_CHATTY_EVENT = 1;

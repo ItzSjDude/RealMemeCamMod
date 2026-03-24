@@ -12,7 +12,6 @@ import com.oplus.statistics.data.TrackEvent;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$ContentProviderRecorder$AjCW4eKYALZWbAmDZTrYsMQWunE.class, $$Lambda$ContentProviderRecorder$uM1pAgWtc8ArlqYmSLq9v22yIxQ.class, $$Lambda$ContentProviderRecorder$oDukzV1BYAKW3aRbqdnjFyI8EX8.class, $$Lambda$ContentProviderRecorder$YrogJXXXOXOWINqWW66k3H1ytSY.class})
 /* loaded from: classes.dex */
 public class ContentProviderRecorder implements IRecorder {
     private static final String TAG = "ContentProviderRecorder";

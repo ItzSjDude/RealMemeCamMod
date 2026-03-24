@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import mirror.android.app.ActivityThread;
 import mirror.android.app.ContextImpl;
-@SynthesizedClassMap({$$Lambda$PackageManagerProxy$4J3VFV2QHTf8NvBCbGgqQ9Jmc.class})
 /* loaded from: classes.dex */
 public class PackageManagerProxy extends SystemServiceProxy<IPackageManager> {
     private static final String PACKAGE_MANAGER = "package";

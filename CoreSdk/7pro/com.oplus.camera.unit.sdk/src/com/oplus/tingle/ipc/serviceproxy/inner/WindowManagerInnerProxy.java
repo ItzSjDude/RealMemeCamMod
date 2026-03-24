@@ -13,7 +13,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import mirror.android.view.WindowManagerGlobal;
-@SynthesizedClassMap({$$Lambda$WindowManagerInnerProxy$XyqMKvXj4Ig_xH5eUc7GxD6AQI.class})
 /* loaded from: classes.dex */
 public class WindowManagerInnerProxy extends SystemServiceProxy<IWindowSession> {
     public WindowManagerInnerProxy() {

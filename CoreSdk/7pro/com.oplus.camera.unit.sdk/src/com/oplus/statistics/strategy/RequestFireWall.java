@@ -10,7 +10,6 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.LinkedList;
 import java.util.Queue;
-@SynthesizedClassMap({$$Lambda$RequestFireWall$BKn1sLvAXNwrCCpRDwmmvOMRotY.class})
 /* loaded from: classes.dex */
 public class RequestFireWall {
     private static final int CACHE_CAPACITY = 100;

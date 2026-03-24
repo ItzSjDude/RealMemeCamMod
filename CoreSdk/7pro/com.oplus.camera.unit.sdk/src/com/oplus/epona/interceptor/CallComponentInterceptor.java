@@ -9,7 +9,6 @@ import com.oplus.epona.Interceptor;
 import com.oplus.epona.Request;
 import com.oplus.epona.Response;
 import com.oplus.epona.utils.Logger;
-@SynthesizedClassMap({$$Lambda$CallComponentInterceptor$HaJXnDRGJuYEbcrwzxOpJHODCQM.class})
 /* loaded from: classes.dex */
 public class CallComponentInterceptor implements Interceptor {
     private static final String TAG = "CallComponentInterceptor";

@@ -13,7 +13,6 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.util.Map;
 import java.util.Objects;
-@SynthesizedClassMap({$$Lambda$TrackEvent$MeOSciLNnukralGlsxjc15Ip3NY.class})
 /* loaded from: classes.dex */
 public abstract class TrackEvent {
     protected static final String APP_ID = "appId";

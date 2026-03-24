@@ -65,7 +65,6 @@ public class IHwBinderNative {
         }
     }
 
-    @SynthesizedClassMap({$$Lambda$CVpLiM3vyCioFOVdeo5UPa62ueU.class})
     /* loaded from: classes.dex */
     public static abstract class DeathRecipientNative {
         private final Object mDeathRecipientWrapper;

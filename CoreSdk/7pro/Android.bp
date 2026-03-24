@@ -7,5 +7,6 @@ java_library {
     srcs: ["com.oplus.camera.unit.sdk/src/**/*.java"],
     installable: true,
     libs: ["framework", "oplus-framework"],
+    static_libs: ["androidx.annotation_annotation"],
     product_specific: true,
 }

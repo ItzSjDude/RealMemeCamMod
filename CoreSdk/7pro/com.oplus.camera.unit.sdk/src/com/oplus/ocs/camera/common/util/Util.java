@@ -48,7 +48,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
-@SynthesizedClassMap({$$Lambda$bdDB5qtJ9up3KI34bjHEph1ELg.class, $$Lambda$Util$nLzO2shkziW4k8DaZ81WDGTDiVM.class})
 /* loaded from: classes.dex */
 public class Util {
     private static final int ALIGN_64_BIT = 64;

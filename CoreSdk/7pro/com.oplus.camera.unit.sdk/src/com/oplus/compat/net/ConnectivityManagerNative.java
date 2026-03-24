@@ -24,7 +24,6 @@ import com.oplus.ocs.camera.common.util.ApsConstant;
 import com.oplus.ocs.camera.common.util.CameraConstant;
 import java.util.List;
 import java.util.Objects;
-@SynthesizedClassMap({$$Lambda$joSRBQKxVfP0_FdokrxParJLrzA.class, $$Lambda$UZDcM_MaeHNDCGYv2_yY0exC8Uk.class})
 /* loaded from: classes.dex */
 public class ConnectivityManagerNative {
     private static final String ACTION = "action";

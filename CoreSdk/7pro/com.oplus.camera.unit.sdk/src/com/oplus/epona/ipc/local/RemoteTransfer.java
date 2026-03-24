@@ -10,7 +10,6 @@ import com.oplus.epona.ITransferCallback;
 import com.oplus.epona.Request;
 import com.oplus.epona.Response;
 import com.oplus.epona.utils.Logger;
-@SynthesizedClassMap({$$Lambda$RemoteTransfer$TIvwbbPl8xdwXDrc8ucAqeagrKg.class})
 /* loaded from: classes.dex */
 public class RemoteTransfer extends IRemoteTransfer.Stub {
     public static final String APP_PLATFORM_PACKAGE_NAME = "com.oplus.appplatform";

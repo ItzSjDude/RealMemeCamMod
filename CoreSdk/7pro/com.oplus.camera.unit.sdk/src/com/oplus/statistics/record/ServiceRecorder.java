@@ -12,7 +12,6 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-@SynthesizedClassMap({$$Lambda$ServiceRecorder$FapDCEST8sBm0GmmU8QF2ihi2w.class, $$Lambda$ServiceRecorder$7K0A7ka4Xbc7jBqVtwpB0bZ4E.class})
 /* loaded from: classes.dex */
 public class ServiceRecorder implements IRecorder {
     private static final String DCS_PKG_NAME = new String(Base64.decode(Constant.DCS_PKG, 0), StandardCharsets.UTF_8);

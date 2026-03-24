@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import mirror.android.app.NotificationManager;
-@SynthesizedClassMap({$$Lambda$NotificationManagerProxy$b5UEZUMtjLjObGRbiElFpfnueoU.class})
 /* loaded from: classes.dex */
 public class NotificationManagerProxy extends SystemServiceProxy<INotificationManager> {
     public NotificationManagerProxy() {

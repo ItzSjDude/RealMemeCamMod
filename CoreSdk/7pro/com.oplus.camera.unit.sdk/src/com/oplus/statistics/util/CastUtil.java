@@ -3,7 +3,6 @@ package com.oplus.statistics.util;
 import com.android.tools.r8.annotations.SynthesizedClassMap;
 import java.util.Map;
 import org.json.JSONObject;
-@SynthesizedClassMap({$$Lambda$_72Yv9SLtr5HefYoZLqe3y7AOoE.class})
 /* loaded from: classes.dex */
 public class CastUtil {
     private static final String TAG = "CastUtil";

@@ -7,7 +7,6 @@ import com.oplus.statistics.record.ProxyRecorder;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
 import com.oplus.statistics.util.TimeInfoUtil;
-@SynthesizedClassMap({$$Lambda$AppStartAgent$cHZNOrHM8CpkXsAAaaOXxQrLhsc.class})
 /* loaded from: classes.dex */
 public class AppStartAgent {
     private static final String TAG = "AppStartAgent";

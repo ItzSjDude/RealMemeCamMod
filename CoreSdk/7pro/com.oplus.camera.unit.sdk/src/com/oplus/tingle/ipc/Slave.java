@@ -24,7 +24,6 @@ import com.oplus.tingle.ipc.utils.VersionUtils;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import mirror.android.pm.PackageInstaller;
-@SynthesizedClassMap({$$Lambda$Slave$mgHg_c2vKLlO_W5vEpkkgfXXiI.class})
 /* loaded from: classes.dex */
 public class Slave {
     private static final String TAG = "Slave";

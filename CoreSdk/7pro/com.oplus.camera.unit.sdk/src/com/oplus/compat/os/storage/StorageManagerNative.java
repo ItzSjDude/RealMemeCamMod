@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-@SynthesizedClassMap({$$Lambda$D6YHOXTP3MHWQuokNHCjcjamUU.class, $$Lambda$DglFd_ZrNnv1j1YRcnJPNRSsukY.class})
 /* loaded from: classes.dex */
 public class StorageManagerNative {
     private static final String COMPONENT_NAME = "android.os.storage.StorageManager";
