@@ -96,8 +96,8 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
             /* JADX WARN: Type inference failed for: r3v1, types: [com.google.oplus.protobuf.ByteString$ByteIterator] */
             @Override // java.util.Comparator
             public int compare(ByteString byteString, ByteString byteString2) {
-                ?? Iterator2 = byteString.iterator2();
-                ?? Iterator22 = byteString2.iterator2();
+                ByteString.ByteIterator Iterator2 = byteString.iterator2();
+                ByteString.ByteIterator Iterator22 = byteString2.iterator2();
                 while (Iterator2.hasNext() && Iterator22.hasNext()) {
                     int iCompare = Integer.compare(ByteString.toInt(Iterator2.nextByte()), ByteString.toInt(Iterator22.nextByte()));
                     if (iCompare != 0) {

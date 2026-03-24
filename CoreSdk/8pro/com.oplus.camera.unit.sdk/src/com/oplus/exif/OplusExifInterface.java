@@ -747,52 +747,25 @@ public class OplusExifInterface {
     /* JADX WARN: Type inference failed for: r0v2, types: [java.io.Closeable] */
     /* JADX WARN: Type inference failed for: r0v3 */
     public boolean rewriteExif(String str, Collection<OplusExifTag> collection) throws Throwable {
-        RandomAccessFile randomAccessFile;
-        File file;
-        BufferedInputStream bufferedInputStream;
-        ?? r0 = 0;
-        r0 = 0;
+        RandomAccessFile randomAccessFile = null;
+        BufferedInputStream bufferedInputStream = null;
         try {
-            try {
-                file = new File(str);
-                bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
-            } catch (Throwable th) {
-                th = th;
-                r0 = str;
-                randomAccessFile = null;
-            }
-            try {
-                try {
-                    long offsetToExifEndFromSOF = OplusExifParser.parse(bufferedInputStream, this).getOffsetToExifEndFromSOF();
-                    bufferedInputStream.close();
-                    randomAccessFile = new RandomAccessFile(file, "rw");
-                    try {
-                        if (randomAccessFile.length() < offsetToExifEndFromSOF) {
-                            throw new IOException("Filesize changed during operation");
-                        }
-                        boolean zRewriteExif = rewriteExif(randomAccessFile.getChannel().map(FileChannel.MapMode.READ_WRITE, 0L, offsetToExifEndFromSOF), collection);
-                        closeSilently(null);
-                        closeSilently(randomAccessFile);
-                        return zRewriteExif;
-                    } catch (IOException e) {
-                        throw e;
-                    } catch (Throwable th2) {
-                        th = th2;
-                        closeSilently(r0);
-                        closeSilently(randomAccessFile);
-                        throw th;
-                    }
-                } catch (OplusExifInvalidFormatException e2) {
-                    throw new IOException("Invalid exif format : ", e2);
-                }
-            } catch (IOException e3) {
-                throw e3;
-            }
-        } catch (IOException e4) {
-            throw e4;
-        } catch (Throwable th3) {
-            th = th3;
-            randomAccessFile = null;
+            File file = new File(str);
+            bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+            long offsetToExifEndFromSOF = OplusExifParser.parse(bufferedInputStream, this).getOffsetToExifEndFromSOF();
+            bufferedInputStream.close();
+            bufferedInputStream = null;
+            
+            randomAccessFile = new RandomAccessFile(file, "rw");
+            boolean zRewriteExif = rewriteExif(randomAccessFile.getChannel().map(FileChannel.MapMode.READ_WRITE, 0L, offsetToExifEndFromSOF), collection);
+            return zRewriteExif;
+        } catch (OplusExifInvalidFormatException e) {
+            throw new IOException("Invalid exif format : ", e);
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (bufferedInputStream != null) closeSilently(bufferedInputStream);
+            if (randomAccessFile != null) closeSilently(randomAccessFile);
         }
     }
 

@@ -5742,7 +5742,7 @@ final class MessageSchema<T> implements Schema<T> {
         if (this.mapFieldSchema.forMapMetadata(getMapFieldDefaultEntry(i2)).valueType.getJavaType() != WireFormat.JavaType.MESSAGE) {
             return true;
         }
-        ?? SchemaFor = 0;
+        Schema SchemaFor = null;
         for (Object obj : mapForMapData.values()) {
             SchemaFor = SchemaFor;
             if (SchemaFor == 0) {

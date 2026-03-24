@@ -164,14 +164,14 @@ abstract class ListFieldSchema {
         @Override // com.google.oplus.protobuf.ListFieldSchema
         <E> void mergeListsAt(Object obj, Object obj2, long j) {
             Internal.ProtobufList protobufList = getProtobufList(obj, j);
-            ?? protobufList2 = getProtobufList(obj2, j);
+            Internal.ProtobufList protobufList2 = getProtobufList(obj2, j);
             int size = protobufList.size();
             int size2 = protobufList2.size();
-            ?? r3 = protobufList;
+            Internal.ProtobufList r3 = protobufList;
             r3 = protobufList;
             if (size > 0 && size2 > 0) {
                 boolean zIsModifiable = protobufList.isModifiable();
-                ?? MutableCopyWithCapacity2 = protobufList;
+                Internal.ProtobufList MutableCopyWithCapacity2 = protobufList;
                 if (!zIsModifiable) {
                     MutableCopyWithCapacity2 = protobufList.mutableCopyWithCapacity2(size2 + size);
                 }

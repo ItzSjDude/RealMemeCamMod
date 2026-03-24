@@ -1,11 +1,9 @@
 package com.oplus.statistics;
 
-import com.android.tools.r8.annotations.SynthesizedClass;
 import com.oplus.statistics.util.Supplier;
 
 /* JADX INFO: compiled from: D8$$SyntheticClass */
 /* JADX INFO: loaded from: classes.dex */
-@SynthesizedClass(kind = "Lambda")
 public final /* synthetic */ class OplusTrack$$ExternalSyntheticLambda2 implements Supplier {
     public final /* synthetic */ Exception f$0;
 

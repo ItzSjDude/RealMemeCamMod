@@ -16247,7 +16247,7 @@ public final class DescriptorProtos {
             int i = 0;
             while (true) {
                 char c = 0;
-                ?? unknownField = 1048576;
+                int unknownField_mask = 1048576;
                 if (z) {
                     return;
                 }
@@ -16355,11 +16355,11 @@ public final class DescriptorProtos {
                                     this.rubyPackage_ = bytes10;
                                     break;
                                 case 7994:
-                                    int i3 = (i == true ? 1 : 0) & 1048576;
+                                    int i3 = i & 1048576;
                                     i = i;
                                     if (i3 == 0) {
                                         this.uninterpretedOption_ = new ArrayList();
-                                        i = (i == true ? 1 : 0) | 1048576;
+                                        i = i | 1048576;
                                     }
                                     this.uninterpretedOption_.add((UninterpretedOption) codedInputStream.readMessage(UninterpretedOption.PARSER, extensionRegistryLite));
                                     break;
@@ -16377,7 +16377,7 @@ public final class DescriptorProtos {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (((i == true ? 1 : 0) & unknownField) != 0) {
+                    if ((i & unknownField_mask) != 0) {
                         this.uninterpretedOption_ = Collections.unmodifiableList(this.uninterpretedOption_);
                     }
                     this.unknownFields = builderNewBuilder.build();
