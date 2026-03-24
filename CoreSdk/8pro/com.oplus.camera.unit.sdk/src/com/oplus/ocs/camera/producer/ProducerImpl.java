@@ -291,18 +291,82 @@ public class ProducerImpl implements CameraDeviceInterface, ProducerConsumerInte
      * if (r1[0] == 1) goto L72;
      */
     @Override // com.oplus.ocs.camera.appinterface.CameraDeviceInterface
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public void startPreview(java.util.Map<java.lang.String, android.view.Surface> r19,
-            com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter r20, android.os.Handler r21) {
-        /*
-         * Method dump skipped, instructions count: 456
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.ProducerImpl.startPreview(java.util.Map, com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter, android.os.Handler):void");
+    public void startPreview(Map<String, Surface> map, CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter,
+            Handler handler) {
+        if (this.mbStopPreviewAfterCapture) {
+            CameraUnitLog.d(TAG, "startPreview, intercept preview");
+            return;
+        }
+        CameraUnitLog.i(TAG, "startPreview, previewSurfaces: " + map + ", mCurrentMode: " + this.mCurrentMode);
+        CameraUnitLog.traceBeginSection("CameraUnitProducerImplStartPreview");
+        if (!Util.isSystemCamera() && (map == null || map.isEmpty())) {
+            throw new IllegalArgumentException("preview surface are not allowed null!");
+        }
+        Camera2DeviceInterface camera2DeviceInterface = this.mCamera2DeviceInterface;
+        Camera2DeviceInterface camera2DeviceInterface2 = this.mSubCamera2DeviceInterface;
+        this.mPreviewCallback = cameraPreviewCallbackAdapter;
+        this.mPreviewSurfaces = map;
+        if (camera2DeviceInterface == null || (this.mbManageMultiDevice && camera2DeviceInterface2 == null)
+                || this.mCurrentMode == null) {
+            CameraUnitLog.e(TAG, "startPreview, invalid state, mCamera2DeviceInterface: " + camera2DeviceInterface
+                    + ", mCurrentMode: " + this.mCurrentMode);
+            return;
+        }
+        if (this.mbManageMultiDevice) {
+            if (map == null || map.isEmpty()) {
+                throw new IllegalArgumentException("preview surface are not allowed null in multi device!");
+            }
+            for (Map.Entry<String, Surface> entry : map.entrySet()) {
+                Camera2DeviceInterface camera2DeviceInterface3 = "rear_main".equals(entry.getKey())
+                        ? camera2DeviceInterface
+                        : camera2DeviceInterface2;
+                PreviewParameter.Builder builder = "rear_main".equals(entry.getKey()) ? this.mAllStageParameterBuilder
+                        : this.mSubAllStageParameterBuilder;
+                CameraRequestTag createRequestTag = this.mCurrentMode.createRequestTag(entry.getKey(),
+                        cameraPreviewCallbackAdapter, handler, "start_preview", builder);
+                createRequestTag.mConsumerInterface = this.mConsumerInterface;
+                if (entry.getValue() != null) {
+                    createRequestTag.mAddTargetSurfaces.put(
+                            new SurfaceKey(camera2DeviceInterface3.getCameraType(), "surface_key_preview", 0),
+                            entry.getValue());
+                }
+                if (("front_main".equals(entry.getKey()) || "front_wide".equals(entry.getKey()))
+                        && "multi_camera_mode".equals(createRequestTag.mCaptureMode) && 1 == this.mCameraState
+                        && Util.isSystemCamera()) {
+                    return;
+                }
+                camera2DeviceInterface3.startPreview(createRequestTag,
+                        buildStageParameter("start_preview", entry.getKey(), builder, createRequestTag));
+            }
+        } else {
+            String cameraType = camera2DeviceInterface.getCameraType();
+            CameraRequestTag createRequestTag2 = this.mCurrentMode.createRequestTag(cameraType,
+                    cameraPreviewCallbackAdapter, handler, "start_preview", this.mAllStageParameterBuilder);
+            createRequestTag2.mConsumerInterface = this.mConsumerInterface;
+            Parameter buildStageParameter = buildStageParameter("start_preview", cameraType,
+                    this.mAllStageParameterBuilder, createRequestTag2);
+            CameraUnitLog.d(TAG, "startPreview, tag hashCode: " + createRequestTag2.hashCode());
+            if (map != null) {
+                for (Surface surface : map.values()) {
+                    createRequestTag2.mAddTargetSurfaces.put(new SurfaceKey(cameraType, "surface_key_preview", 35),
+                            surface);
+                }
+            }
+            int[] iArr = (int[]) buildStageParameter.get(PreviewParameter.KEY_TRIPOD_MODE);
+            createRequestTag2.mbTripodEnable = iArr != null && iArr[0] == 1;
+            checkFlashModeConflict(buildStageParameter, camera2DeviceInterface);
+            camera2DeviceInterface.startPreview(createRequestTag2, buildStageParameter);
+            CameraRequestTag cameraRequestTag = this.mCurrentCaptureRequestTag;
+            if (cameraRequestTag != null) {
+                cameraRequestTag.mbRepeatingRequestCapture = false;
+            }
+            CameraRequestTag cameraRequestTag2 = this.mCurrentPreviewRequestTag;
+            if (cameraRequestTag2 != null) {
+                cameraRequestTag2.mbLongExposureCaptureEnable = false;
+            }
+            this.mCurrentPreviewRequestTag = createRequestTag2;
+        }
+        CameraUnitLog.traceEndSection("CameraUnitProducerImplStartPreview");
     }
 
     private void checkFlashModeConflict(Parameter parameter, Camera2DeviceInterface camera2DeviceInterface) {

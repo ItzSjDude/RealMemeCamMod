@@ -19,6 +19,7 @@ import android.hardware.camera2.params.InputConfiguration;
 import android.hardware.camera2.params.MeteringRectangle;
 import android.hardware.camera2.params.OutputConfiguration;
 import android.hardware.camera2.params.SessionConfiguration;
+import android.media.Image;
 import android.media.ImageReader;
 import android.media.ImageWriter;
 import android.os.ConditionVariable;
@@ -861,133 +862,51 @@ public class Camera2Impl implements Camera2Interface {
         build.update(this.mPreviewBuilder, 1);
     }
 
-    /*
-     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
-     */
-    /*
-     * JADX WARN: Code restructure failed: missing block: B:21:0x0053, code lost:
-     * if (r6.equals("off") == false) goto L9;
-     */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    private void setFlashMode(java.lang.String r6, com.oplus.ocs.camera.producer.device.CaptureRequestProxy.Builder r7,
-            boolean r8) {
-        /*
-         * r5 = this;
-         * java.lang.StringBuilder r0 = new java.lang.StringBuilder
-         * r0.<init>()
-         * java.lang.String r1 = "setFlashMode, value: "
-         * r0.append(r1)
-         * r0.append(r6)
-         * java.lang.String r0 = r0.toString()
-         * java.lang.String r1 = "Camera2Impl"
-         * r2 = 1
-         * java.lang.Integer r3 = java.lang.Integer.valueOf(r2)
-         * com.oplus.ocs.camera.common.util.CameraUnitLog.d(r1, r0, r2)
-         * if (r6 == 0) goto L9f
-         * boolean r0 = r5.mbWaitingAeAfConverge
-         * if (r0 == 0) goto L23
-         * goto L9f
-         * L23:
-         * if (r8 == 0) goto L27
-         * r5.mFlashMode = r6
-         * L27:
-         * r6.hashCode()
-         * r5 = -1
-         * int r8 = r6.hashCode()
-         * r0 = 3
-         * r1 = 0
-         * r4 = 2
-         * switch(r8) {
-         * case 3551: goto L56;
-         * case 109935: goto L4d;
-         * case 3005871: goto L42;
-         * case 110547964: goto L37;
-         * default: goto L35;
-         * }
-         * L35:
-         * r2 = r5
-         * goto L60
-         * L37:
-         * java.lang.String r8 = "torch"
-         * boolean r6 = r6.equals(r8)
-         * if (r6 != 0) goto L40
-         * goto L35
-         * L40:
-         * r2 = r0
-         * goto L60
-         * L42:
-         * java.lang.String r8 = "auto"
-         * boolean r6 = r6.equals(r8)
-         * if (r6 != 0) goto L4b
-         * goto L35
-         * L4b:
-         * r2 = r4
-         * goto L60
-         * L4d:
-         * java.lang.String r8 = "off"
-         * boolean r6 = r6.equals(r8)
-         * if (r6 != 0) goto L60
-         * goto L35
-         * L56:
-         * java.lang.String r8 = "on"
-         * boolean r6 = r6.equals(r8)
-         * if (r6 != 0) goto L5f
-         * goto L35
-         * L5f:
-         * r2 = r1
-         * L60:
-         * switch(r2) {
-         * case 0: goto L91;
-         * case 1: goto L82;
-         * case 2: goto L73;
-         * case 3: goto L64;
-         * default: goto L63;
-         * }
-         * L63:
-         * goto L9f
-         * L64:
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.FLASH_MODE
-         * java.lang.Integer r6 = java.lang.Integer.valueOf(r4)
-         * r7.setParameter(r5, r6)
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.CONTROL_AE_MODE
-         * r7.setParameter(r5, r3)
-         * goto L9f
-         * L73:
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.FLASH_MODE
-         * r7.setParameter(r5, r3)
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.CONTROL_AE_MODE
-         * java.lang.Integer r6 = java.lang.Integer.valueOf(r4)
-         * r7.setParameter(r5, r6)
-         * goto L9f
-         * L82:
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.FLASH_MODE
-         * java.lang.Integer r6 = java.lang.Integer.valueOf(r1)
-         * r7.setParameter(r5, r6)
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.CONTROL_AE_MODE
-         * r7.setParameter(r5, r3)
-         * goto L9f
-         * L91:
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.FLASH_MODE
-         * r7.setParameter(r5, r3)
-         * android.hardware.camera2.CaptureRequest$Key r5 =
-         * android.hardware.camera2.CaptureRequest.CONTROL_AE_MODE
-         * java.lang.Integer r6 = java.lang.Integer.valueOf(r0)
-         * r7.setParameter(r5, r6)
-         * L9f:
-         * return
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.device.Camera2Impl.setFlashMode(java.lang.String, com.oplus.ocs.camera.producer.device.CaptureRequestProxy$Builder, boolean):void");
+    private void setFlashMode(String flashModeStr, CaptureRequestProxy.Builder builder, boolean updateField) {
+        CameraUnitLog.d(TAG, "setFlashMode, value: " + flashModeStr, true);
+        if (flashModeStr == null || this.mbWaitingAeAfConverge) {
+            return;
+        }
+        if (updateField) {
+            this.mFlashMode = flashModeStr;
+        }
+        int flashModeInt;
+        switch (flashModeStr) {
+            case "on":
+                flashModeInt = 0;
+                break;
+            case "off":
+                flashModeInt = 1;
+                break;
+            case "auto":
+                flashModeInt = 2;
+                break;
+            case "torch":
+                flashModeInt = 3;
+                break;
+            default:
+                return;
+        }
+        switch (flashModeInt) {
+            case 0: // "on" - FLASH_MODE=1(SINGLE), AE_MODE=3(ON_ALWAYS_FLASH)
+                builder.setParameter(CaptureRequest.FLASH_MODE, Integer.valueOf(1));
+                builder.setParameter(CaptureRequest.CONTROL_AE_MODE, Integer.valueOf(3));
+                break;
+            case 1: // "off" - FLASH_MODE=0(OFF), AE_MODE=1(ON)
+                builder.setParameter(CaptureRequest.FLASH_MODE, Integer.valueOf(0));
+                builder.setParameter(CaptureRequest.CONTROL_AE_MODE, Integer.valueOf(1));
+                break;
+            case 2: // "auto" - FLASH_MODE=1(SINGLE), AE_MODE=2(ON_AUTO_FLASH)
+                builder.setParameter(CaptureRequest.FLASH_MODE, Integer.valueOf(1));
+                builder.setParameter(CaptureRequest.CONTROL_AE_MODE, Integer.valueOf(2));
+                break;
+            case 3: // "torch" - FLASH_MODE=2(TORCH), AE_MODE=1(ON)
+                builder.setParameter(CaptureRequest.FLASH_MODE, Integer.valueOf(2));
+                builder.setParameter(CaptureRequest.CONTROL_AE_MODE, Integer.valueOf(1));
+                break;
+            default:
+                break;
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -1188,7 +1107,8 @@ public class Camera2Impl implements Camera2Interface {
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
-    public void videoSnapshot(@NonNull final CameraRequestTag cameraRequestTag, Parameter parameter, Handler handler) {
+    @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
+    public void videoSnapshot(CameraRequestTag cameraRequestTag, Parameter parameter, Handler handler) {
         CameraUnitLog.d(TAG, "videoSnapshot");
         this.mTakePictureRequestTag = cameraRequestTag;
         this.mTakePictureParameter = parameter;
@@ -1594,18 +1514,174 @@ public class Camera2Impl implements Camera2Interface {
      */
     /* JADX WARN: Removed duplicated region for block: B:383:0x08cf A[SYNTHETIC] */
     @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public void takePicture(@androidx.annotation.NonNull final com.oplus.ocs.camera.common.util.CameraRequestTag r29,
-            com.oplus.ocs.camera.common.parameter.Parameter r30, android.os.Handler r31) {
-        /*
-         * Method dump skipped, instructions count: 2410
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.device.Camera2Impl.takePicture(com.oplus.ocs.camera.common.util.CameraRequestTag, com.oplus.ocs.camera.common.parameter.Parameter, android.os.Handler):void");
+    public void takePicture(CameraRequestTag cameraRequestTag, Parameter parameter, Handler handler) {
+        CameraUnitLog.e(TAG, "takePicture start, mbBurstShot: " + cameraRequestTag.mbBurstShot + ", mRequestNum: "
+                + cameraRequestTag.mRequestNum + ", mOfflineNightExpTime: " + this.mOfflineNightExpTime);
+        this.mTakePictureParameter = parameter;
+        this.mTakePictureCallbackHandler = handler;
+        if (!checkAeAfState(cameraRequestTag, parameter, handler)) {
+            CameraUnitLog.d(TAG, "takePicture, checkAeAfState false, so returned, wait AeAf converged", true);
+            this.mbWaitingAeAfConverge = true;
+            StatisticsManager.getInstance().setDcsDelayProcessMsg(5, 3000L);
+            return;
+        }
+        this.mTakePictureRequestTag = cameraRequestTag;
+        if (needSetIZoomState(cameraRequestTag)) {
+            setIZoomEnable(true, handler);
+        }
+        if (needCaptureEVList(cameraRequestTag)) {
+            setCaptureEVList(cameraRequestTag);
+        }
+        try {
+            if (!cameraRequestTag.mConsumerInterface.linkSurfaceToConsumer(cameraRequestTag, "before_take_picture",
+                    35)) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (cameraRequestTag.mCallback instanceof CameraPictureCallbackAdapter) {
+                            ((CameraPictureCallbackAdapter) cameraRequestTag.mCallback).onCaptureFailed(null, null);
+                        }
+                    }
+                });
+                return;
+            }
+            boolean inNightProcess = cameraRequestTag.mbInNightProcess;
+            int templateType = cameraRequestTag.mCaptureIntent;
+            if (templateType < 0) {
+                if (PlatformUtil.isMtkPlatform() || cameraRequestTag.mbBurstShot || inNightProcess
+                        || isFlashRequired(cameraRequestTag) || !isEnableZsl(parameter)
+                        || !"none".equals(cameraRequestTag.mRawValue) || isAutoExposureTime(parameter)) {
+                    templateType = 2;
+                } else {
+                    templateType = 5;
+                }
+            }
+            if (cameraRequestTag.mbBurstShot && !isFlashRequired(cameraRequestTag) && isEnableZsl(parameter)
+                    && ((Boolean) CameraConfigHelper
+                            .getConfigValue(CameraConfigBase.KEY_REQUEST_TEMPLATE_ZERO_SHUTTER_LAG, false))
+                            .booleanValue()) {
+                templateType = 5;
+            }
+            if (parameter.containCustomKey(PreviewParameter.KEY_BURST_SHOT_ENABLE)) {
+                this.mbContinueShot = "on".equals(parameter.get(PreviewParameter.KEY_BURST_SHOT_ENABLE));
+            }
+            CaptureRequestProxy.Builder captureBuilder = cameraRequestTag.mCaptureBuild;
+            boolean mtkPlatform = PlatformUtil.isMtkPlatform();
+            if (captureBuilder == null) {
+                captureBuilder = new CaptureRequestProxy.Builder(this.mCameraDevice.createCaptureRequest(templateType));
+                updatePreviewBuilderTag(captureBuilder);
+                parameter.update(captureBuilder, 2);
+                if (cameraRequestTag.mCaptureTargetSurfacesList == null) {
+                    addCaptureSurface(cameraRequestTag, captureBuilder, cameraRequestTag.mAddTargetSurfaces);
+                }
+                updateMFSRKey(captureBuilder, cameraRequestTag);
+                if (mtkPlatform) {
+                    if (cameraRequestTag.mbAIShutter && 42 == cameraRequestTag.mApsDecisionFeatureType) {
+                        captureBuilder.setParameter(CaptureRequest.CONTROL_ENABLE_ZSL, false);
+                    }
+                    processMTKCaptureRequest(captureBuilder, cameraRequestTag, parameter);
+                }
+                this.mPictureCallback.setRequestTag(cameraRequestTag);
+                if (parameter.containCustomKey(PreviewParameter.KEY_FLASH_MODE)) {
+                    String flashMode = (String) parameter.get(PreviewParameter.KEY_FLASH_MODE);
+                    if (this.mbSupportTorchFlash && ("on".equals(flashMode)
+                            || ("auto".equals(flashMode) && isNeedAutoFlash(cameraRequestTag)))) {
+                        setFlashMode("torch", captureBuilder, false);
+                    } else {
+                        setFlashMode(flashMode, captureBuilder, true);
+                    }
+                } else {
+                    this.mFlashMode = null;
+                }
+                if (parameter.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO)) {
+                    setZoomRatio(captureBuilder, ((Float) parameter.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue(),
+                            parameter);
+                }
+                if (parameter.containCustomKey(PreviewParameter.KEY_NIGHT_MODE)) {
+                    captureBuilder.setParameter(CameraMetadataKey.KEY_NIGHT_MODE,
+                            parameter.get(PreviewParameter.KEY_NIGHT_MODE));
+                }
+                addDefaultParameter(captureBuilder, parameter);
+            }
+            if (mtkPlatform && cameraRequestTag.mbBurstShot) {
+                cameraRequestTag.mCaptureBuild = captureBuilder;
+            }
+            List<CaptureRequest> requestList = new ArrayList<>();
+            captureBuilder.setTag(cameraRequestTag);
+            if ((cameraRequestTag.mCallback instanceof CameraPictureCallbackAdapter) && !cameraRequestTag.mbBurstShot) {
+                ((CameraPictureCallbackAdapter) cameraRequestTag.mCallback).onCapturePrepared();
+            }
+            if (mtkPlatform) {
+                if (cameraRequestTag.mCaptureEvList != null
+                        && (!CameraCharacteristicsHelper.isFrontCamera(cameraRequestTag.mCameraId)
+                                || !cameraRequestTag.mbInNightProcess)) {
+                    captureBuilder.setParameter(CaptureRequest.CONTROL_AE_LOCK, true);
+                }
+            }
+            for (int i = 0; i < cameraRequestTag.mRequestNum; i++) {
+                if (cameraRequestTag.mCaptureTargetSurfacesList != null) {
+                    if (i > 0) {
+                        for (SurfaceKey key : cameraRequestTag.mCaptureTargetSurfacesList[i - 1].keySet()) {
+                            SurfaceWrapper wrapper = findWrapper(key.getUsage(), key.getCameraType(), key.getFormat());
+                            if (wrapper != null) {
+                                captureBuilder.removeTarget(wrapper.getSurface());
+                            }
+                        }
+                    }
+                    addCaptureSurface(cameraRequestTag, captureBuilder, cameraRequestTag.mCaptureTargetSurfacesList[i]);
+                }
+                if (mtkPlatform && !cameraRequestTag.mbStarryProcess && !cameraRequestTag.mbBurstShot
+                        && cameraRequestTag.mRequestNum > 1) {
+                    setPreCollectEnable(captureBuilder, cameraRequestTag, i);
+                }
+                if (cameraRequestTag.mCaptureEvList != null && cameraRequestTag.mCaptureEvList.length > 0) {
+                    captureBuilder.setParameter(CaptureRequest.CONTROL_AE_EXPOSURE_COMPENSATION,
+                            cameraRequestTag.mCaptureEvList[i]);
+                }
+                if (cameraRequestTag.mCaptureEtList != null && cameraRequestTag.mCaptureEtList.length > 0) {
+                    captureBuilder.setParameter(CaptureRequest.SENSOR_EXPOSURE_TIME,
+                            cameraRequestTag.mCaptureEtList[i]);
+                }
+                if (!"professional_mode".equals(cameraRequestTag.mCaptureMode)
+                        || !"1".equals(CameraConfigHelper.getConfigValue("com.oplus.expert.nzsl.support"))) {
+                    updatePreviewTarget(captureBuilder, cameraRequestTag, i);
+                }
+                CaptureRequest request = captureBuilder.build();
+                requestList.add(request);
+                if (cameraRequestTag.mbBurstShot) {
+                    this.mCaptureSession.capture(request, this.mPictureCallback, handler);
+                    if (mtkPlatform) {
+                        cameraRequestTag.mReceiveCshotNum++;
+                    }
+                }
+            }
+            if (this.mbWaitingTriggerAndStartAiFlash) {
+                this.mbWaitingTriggerAndStartAiFlash = false;
+            }
+            if (!cameraRequestTag.mbBurstShot) {
+                if (SdkConfig.META_DUMP) {
+                    CameraUnitLog.d(TAG, "takePicture, aps tag: " + cameraRequestTag);
+                    Util.dumpCaptureRequest(captureBuilder.build(), "capture");
+                }
+                CameraUnitLog.traceBegin("Camera2ImplTakePicture");
+                CameraUnitLog.e(TAG, "takePicture, captureBurst request to HAL, repeating: "
+                        + cameraRequestTag.mbRepeatingRequestCapture);
+                if (cameraRequestTag.mbRepeatingRequestCapture) {
+                    this.mCaptureSession.setRepeatingBurst(requestList, this.mPictureCallback, handler);
+                } else {
+                    this.mCaptureSession.captureBurst(requestList, this.mPictureCallback, handler);
+                }
+                CameraUnitLog.traceEnd("Camera2ImplTakePicture");
+            }
+            if (cameraRequestTag.mbStopPreviewAfterCapture) {
+                this.mCaptureSession.stopRepeating();
+            }
+            StatisticsManager.getInstance().setMultiFrameDenoise(cameraRequestTag.mRequestNum > 1);
+            StatisticsManager.getInstance().reportCapture();
+        } catch (Exception e) {
+            StatisticsManager.getInstance().reportFunctionalError("capture_failed", 8);
+            CameraUnitLog.e(TAG, "takePicture", e);
+        }
     }
 
     private void setPreCollectEnable(CaptureRequestProxy.Builder builder, CameraRequestTag cameraRequestTag, int i) {
@@ -1767,24 +1843,89 @@ public class Camera2Impl implements Camera2Interface {
      * com.oplus.ocs.camera.common.util.CameraUnitLog.traceEndSection(
      * "CameraUnitCamera2ImplReprocessImage");
      */
-    /*
-     * JADX WARN: Code restructure failed: missing block: B:78:0x01c7, code lost:
-     * return;
-     */
+
     @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public void reprocessImage(android.media.Image r10, android.hardware.camera2.TotalCaptureResult r11,
-            android.graphics.Rect r12, final com.oplus.ocs.camera.common.util.CameraRequestTag r13,
-            com.oplus.ocs.camera.common.parameter.Parameter r14, android.os.Handler r15) {
-        /*
-         * Method dump skipped, instructions count: 464
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.device.Camera2Impl.reprocessImage(android.media.Image, android.hardware.camera2.TotalCaptureResult, android.graphics.Rect, com.oplus.ocs.camera.common.util.CameraRequestTag, com.oplus.ocs.camera.common.parameter.Parameter, android.os.Handler):void");
+    public void reprocessImage(Image image, TotalCaptureResult totalCaptureResult, Rect rect,
+            CameraRequestTag cameraRequestTag, Parameter parameter, Handler handler) {
+        CameraUnitLog.traceBeginSection("CameraUnitCamera2ImplReprocessImage");
+        if (!cameraRequestTag.mConsumerInterface.linkSurfaceToConsumer(cameraRequestTag, "before_take_picture", 35)) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (cameraRequestTag.mCallback instanceof CameraPictureCallbackAdapter) {
+                        ((CameraPictureCallbackAdapter) cameraRequestTag.mCallback).onCaptureFailed(null, null);
+                    }
+                }
+            });
+            return;
+        }
+        try {
+            if (image != null) {
+                if (this.mImageWriter != null) {
+                    this.mImageWriter.close();
+                    this.mImageWriter = null;
+                }
+                if (this.mCaptureSession != null && this.mCaptureSession.isReprocessable()
+                        && this.mCaptureSession.getInputSurface() != null) {
+                    this.mImageWriter = ImageWriter.newInstance(this.mCaptureSession.getInputSurface(), 20);
+                    if (cameraRequestTag.mbTimeLapsePro || cameraRequestTag.mbStarVideoEnable
+                            || cameraRequestTag.mbStarVideoVerifyFrame) {
+                        for (int i = 0; i < image.getPlanes().length; i++) {
+                            java.nio.ByteBuffer buffer = image.getPlanes()[i].getBuffer();
+                            CameraUnitLog.v(TAG, "reprocessImage, plane index: " + i + ", buffer: " + buffer
+                                    + ", mark: " + buffer.mark());
+                        }
+                        java.nio.ByteBuffer buffer0 = image.getPlanes()[0].getBuffer();
+                        buffer0.position(0);
+                        buffer0.putInt(cameraRequestTag.mFrameFlag);
+                        buffer0.position(0);
+                    }
+                    this.mImageWriter.queueInputImage(image);
+                } else if (image != null) {
+                    image.close();
+                }
+            }
+            CameraUnitLog.d(TAG, "reprocessImage, tag.mRequestNum: " + cameraRequestTag.mRequestNum
+                    + ", tag.mTargetSurfaces: " + cameraRequestTag.mAddTargetSurfaces + ", tag: " + cameraRequestTag);
+            if (this.mCaptureSession != null) {
+                CaptureRequestProxy.Builder reprocessBuilder = new CaptureRequestProxy.Builder(
+                        this.mCameraDevice.createReprocessCaptureRequest(totalCaptureResult));
+                for (SurfaceKey key : cameraRequestTag.mAddTargetSurfaces.keySet()) {
+                    SurfaceWrapper wrapper = findWrapper(key.getUsage(), key.getCameraType(), key.getFormat());
+                    if (wrapper != null) {
+                        CameraUnitLog.d(TAG, "reprocessImage, add surface wrapper: " + wrapper);
+                        reprocessBuilder.addTarget(this.mOutputConfigurationMap.get(wrapper).getSurface());
+                    }
+                }
+                reprocessBuilder.setTag(cameraRequestTag);
+                if (parameter != null) {
+                    parameter.update(reprocessBuilder, 2);
+                    addDefaultParameter(reprocessBuilder, parameter);
+                }
+                if (rect != null && rect.width() > 0 && rect.height() > 0) {
+                    float zoomRatio = 1.0f;
+                    if (parameter != null && parameter.containCustomKey(PreviewParameter.KEY_ZOOM_RATIO)) {
+                        zoomRatio = ((Float) parameter.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue();
+                    }
+                    Rect zoomCropRegion = Util.getCropRegionForZoom(zoomRatio, this.mCameraType);
+                    Rect finalCropRegion = getZoomCropFormRegion(rect, zoomCropRegion);
+                    setZoomRatio(reprocessBuilder, zoomRatio, finalCropRegion);
+                    reprocessBuilder.setParameter(CameraMetadataKey.REPROCESS_SCALER_CROP_REGION, rect);
+                }
+                this.mPictureCallback.setRequestTag(cameraRequestTag);
+                this.mCaptureSession.capture(reprocessBuilder.build(), this.mPictureCallback, handler);
+            }
+        } catch (Exception e) {
+            CameraUnitLog.e(TAG, "reprocessImage, error: ", e);
+            if (this.mCameraPictureCallbackAdapter != null) {
+                this.mCameraPictureCallbackAdapter.onCaptureFailed(null, null);
+            }
+        } finally {
+            if (this.mImageWriter != null) {
+                this.mImageWriter.close();
+            }
+            CameraUnitLog.traceEndSection("CameraUnitCamera2ImplReprocessImage");
+        }
     }
 
     @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
@@ -2003,6 +2144,7 @@ public class Camera2Impl implements Camera2Interface {
         return Integer.parseInt(cameraDevice.getId());
     }
 
+    @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
     @Override // com.oplus.ocs.camera.producer.device.Camera2Interface
     @SuppressLint({ "MissingPermission" })
     public void openCameraDevice(int i, Handler handler) throws CameraAccessException, SecurityException {

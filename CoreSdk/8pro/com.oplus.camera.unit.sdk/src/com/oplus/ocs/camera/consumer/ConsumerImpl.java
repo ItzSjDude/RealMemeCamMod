@@ -51,8 +51,10 @@ import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 /* loaded from: classes.dex */
-public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerInterface, ApsProcessorContract.IConsumer {
+public class ConsumerImpl
+        implements ProducerConsumerInterfaceContract.ConsumerInterface, ApsProcessorContract.IConsumer {
     private static final String FRONT_CAMERA_TAG = "front";
     private static final String MAIN_CAMERA_TAG = "main";
     private static final String TAG = "ConsumerImpl";
@@ -107,17 +109,21 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
 
     @Override // com.oplus.ocs.camera.ProducerConsumerInterfaceContract.ConsumerInterface
     public boolean linkSurfaceToConsumer(@NonNull final CameraRequestTag cameraRequestTag, String str, int i) {
-        CameraUnitLog.i(TAG, "linkToObserver, target surfaces: " + cameraRequestTag.mAddTargetSurfaces + ", stage: " + str + ", format: " + i);
-        this.mbIsReprocessMode = CameraRequestTag.RequestMode.CAPTURE_REPROCESS.equals(cameraRequestTag.getRequestMode());
+        CameraUnitLog.i(TAG, "linkToObserver, target surfaces: " + cameraRequestTag.mAddTargetSurfaces + ", stage: "
+                + str + ", format: " + i);
+        this.mbIsReprocessMode = CameraRequestTag.RequestMode.CAPTURE_REPROCESS
+                .equals(cameraRequestTag.getRequestMode());
         if (Parameter.ParameterStage.START_PREVIEW.equals(str) && this.mProducerInterface.needApsProcessor()) {
             this.mProcessorContract.startPreview(cameraRequestTag);
         }
         for (final SurfaceKey surfaceKey : cameraRequestTag.mAddTargetSurfaces.keySet()) {
             if (Parameter.ParameterStage.START_PREVIEW.equals(str)) {
                 ImageReader imageReader = SurfacePool.getInstance().getImageReader(surfaceKey);
-                Handler handler = "surface_key_preview_frame".equals(surfaceKey.getUsage()) ? this.mPreviewFrameHandler : this.mPreviewImageHandler;
+                Handler handler = "surface_key_preview_frame".equals(surfaceKey.getUsage()) ? this.mPreviewFrameHandler
+                        : this.mPreviewImageHandler;
                 if (imageReader != null) {
-                    imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.1
+                    imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class:
+                                                                                                         // com.oplus.ocs.camera.consumer.ConsumerImpl.1
                         @Override // android.media.ImageReader.OnImageAvailableListener
                         public void onImageAvailable(ImageReader imageReader2) {
                             if ("surface_key_preview_frame".equals(surfaceKey.getUsage())) {
@@ -133,9 +139,13 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
             } else if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
                 this.mRequestSuperRawJpegNumber = 0;
                 this.mbFirstCaptureImageArrived = false;
-                if ("surface_key_picture".equals(surfaceKey.getUsage()) || "surface_key_reprocess_yuv".equals(surfaceKey.getUsage()) || "surface_key_picture_mfnr".equals(surfaceKey.getUsage()) || "surface_key_picture_dol".equals(surfaceKey.getUsage())) {
+                if ("surface_key_picture".equals(surfaceKey.getUsage())
+                        || "surface_key_reprocess_yuv".equals(surfaceKey.getUsage())
+                        || "surface_key_picture_mfnr".equals(surfaceKey.getUsage())
+                        || "surface_key_picture_dol".equals(surfaceKey.getUsage())) {
                     pictureProcess(surfaceKey, cameraRequestTag);
-                } else if ("surface_key_tuning_raw".equals(surfaceKey.getUsage()) || "surface_key_tuning_yuv".equals(surfaceKey.getUsage())) {
+                } else if ("surface_key_tuning_raw".equals(surfaceKey.getUsage())
+                        || "surface_key_tuning_yuv".equals(surfaceKey.getUsage())) {
                     tuningDataProcess(surfaceKey, cameraRequestTag);
                 } else if ("surface_key_preview".equals(surfaceKey.getUsage())) {
                     this.mProcessorContract.capture(false);
@@ -143,7 +153,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
             } else if (Parameter.ParameterStage.START_RECORDING.equals(str)) {
                 ImageReader imageReader2 = SurfacePool.getInstance().getImageReader(surfaceKey);
                 if (imageReader2 != null) {
-                    imageReader2.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.2
+                    imageReader2.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class:
+                                                                                                          // com.oplus.ocs.camera.consumer.ConsumerImpl.2
                         @Override // android.media.ImageReader.OnImageAvailableListener
                         public void onImageAvailable(ImageReader imageReader3) {
                             try {
@@ -166,7 +177,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     public void videoSnapshot(final ApsCameraRequestTag apsCameraRequestTag) {
         ApsProcessorContract.IProcessor iProcessor = this.mProcessorContract;
         if (iProcessor != null) {
-            iProcessor.videoSnapshot(new ApsAdapterListener.CaptureCallback() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.3
+            iProcessor.videoSnapshot(new ApsAdapterListener.CaptureCallback() { // from class:
+                                                                                // com.oplus.ocs.camera.consumer.ConsumerImpl.3
                 @Override // com.oplus.ocs.camera.consumer.apsAdapter.service.ApsAdapterListener.CaptureCallback
                 public void onApsCaptureStarted(long j) {
                     ConsumerImpl.this.mPictureAdapter.onApsCaptureStarted(apsCameraRequestTag);
@@ -174,24 +186,35 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 }
 
                 @Override // com.oplus.ocs.camera.consumer.apsAdapter.service.ApsAdapterListener.CaptureCallback
-                public void onApsCaptureCompleted(ApsResult apsResult, ApsTotalResult apsTotalResult, ApsCameraRequestTag apsCameraRequestTag2) {
+                public void onApsCaptureCompleted(ApsResult apsResult, ApsTotalResult apsTotalResult,
+                        ApsCameraRequestTag apsCameraRequestTag2) {
                     CameraRequestTag cameraRequestTag = (CameraRequestTag) apsCameraRequestTag2.mTag;
-                    ApsCaptureResult apsCaptureResult = new ApsCaptureResult(apsTotalResult, Integer.toString(cameraRequestTag.mCameraId));
+                    ApsCaptureResult apsCaptureResult = new ApsCaptureResult(apsTotalResult,
+                            Integer.toString(cameraRequestTag.mCameraId));
                     ApsResult.ImageBuffer imageBuffer = apsResult.getImageBuffer();
-                    if (imageBuffer != null && apsCaptureResult.mSensorTimestamp.longValue() != imageBuffer.getTimestamp()) {
-                        CameraUnitLog.w(ConsumerImpl.TAG, "onApsCaptureCompleted, meta timestamp is not match with buffer");
+                    if (imageBuffer != null
+                            && apsCaptureResult.mSensorTimestamp.longValue() != imageBuffer.getTimestamp()) {
+                        CameraUnitLog.w(ConsumerImpl.TAG,
+                                "onApsCaptureCompleted, meta timestamp is not match with buffer");
                         apsCaptureResult.mSensorTimestamp = Long.valueOf(imageBuffer.getTimestamp());
                     }
                     ConsumerImpl.this.mProcessorContract.addPictureMeta(cameraRequestTag, apsCaptureResult, true);
                     if (imageBuffer != null) {
                         ConsumerImpl.this.mProcessorContract.addPictureImage(imageBuffer, 0, cameraRequestTag);
                         if (imageBuffer.getSubHardwareBuffer() != null) {
-                            ConsumerImpl.this.mProcessorContract.addPictureMeta(cameraRequestTag, apsCaptureResult, true);
-                            ApsResult.ImageBuffer imageBuffer2 = new ApsResult.ImageBuffer((ImageReader) null, imageBuffer.getImage(), imageBuffer.getSubHardwareBuffer(), (HardwareBuffer) null, imageBuffer.getTimestamp());
+                            ConsumerImpl.this.mProcessorContract.addPictureMeta(cameraRequestTag, apsCaptureResult,
+                                    true);
+                            ApsResult.ImageBuffer imageBuffer2 = new ApsResult.ImageBuffer((ImageReader) null,
+                                    imageBuffer.getImage(), imageBuffer.getSubHardwareBuffer(), (HardwareBuffer) null,
+                                    imageBuffer.getTimestamp());
                             imageBuffer2.addRef();
                             ConsumerImpl.this.mProcessorContract.addPictureImage(imageBuffer2, 17, cameraRequestTag);
                         }
-                        ConsumerImpl.this.mPictureAdapter.onCaptureCompleted(null, new CameraPictureCallbackAdapter.PictureResult.Builder().setCaptureResult(apsTotalResult.getTotalResult()).setApsResult(apsResult).set(ApsOtherParameter.KEY_REQUEST_TAG, cameraRequestTag.mAppOpaqueObj).build());
+                        ConsumerImpl.this.mPictureAdapter.onCaptureCompleted(null,
+                                new CameraPictureCallbackAdapter.PictureResult.Builder()
+                                        .setCaptureResult(apsTotalResult.getTotalResult()).setApsResult(apsResult)
+                                        .set(ApsOtherParameter.KEY_REQUEST_TAG, cameraRequestTag.mAppOpaqueObj)
+                                        .build());
                         return;
                     }
                     CameraUnitLog.e(ConsumerImpl.TAG, "onApsCaptureCompleted, imageBuffer is null");
@@ -253,7 +276,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-        public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
+        public void onCaptureCompleted(@NonNull CaptureRequest captureRequest,
+                @NonNull TotalCaptureResult totalCaptureResult, String str) {
             CameraRequestTag cameraRequestTag = (CameraRequestTag) captureRequest.getTag();
             ConsumerImpl.this.onPreviewMetaArrived(captureRequest, totalCaptureResult, str);
             if (cameraRequestTag == null || this.mAppCallback != null) {
@@ -268,7 +292,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-        public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull CaptureResult captureResult) {
+        public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest,
+                @NonNull CaptureResult captureResult) {
             CameraRequestTag cameraRequestTag;
             if (this.mAppCallback == null && (cameraRequestTag = (CameraRequestTag) captureRequest.getTag()) != null) {
                 this.mAppCallback = (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback;
@@ -323,13 +348,16 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     @Override // com.oplus.ocs.camera.ProducerConsumerInterfaceContract.ConsumerInterface
     public CameraRecordingCallbackAdapter createCameraRecordingCallback() {
         if (this.mRecordingAdapter == null) {
-            this.mRecordingAdapter = new CameraRecordingCallbackAdapter() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.4
+            this.mRecordingAdapter = new CameraRecordingCallbackAdapter() { // from class:
+                                                                            // com.oplus.ocs.camera.consumer.ConsumerImpl.4
                 @Override // com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter
                 public void onRecordingResult(CameraRecordingCallbackAdapter.RecordingResult recordingResult) {
                     super.onRecordingResult(recordingResult);
                     ConsumerImpl.this.mRecordingResult = recordingResult;
                     ConsumerImpl.this.mRecordingState = recordingResult.getRecordingState();
-                    CameraUnitLog.i(ConsumerImpl.TAG, "onRecordingResult, mRecordingState: " + ConsumerImpl.this.mRecordingState + ", mbNeedApsProcessVideoFrame: " + ConsumerImpl.this.mbNeedApsProcessVideoFrame);
+                    CameraUnitLog.i(ConsumerImpl.TAG,
+                            "onRecordingResult, mRecordingState: " + ConsumerImpl.this.mRecordingState
+                                    + ", mbNeedApsProcessVideoFrame: " + ConsumerImpl.this.mbNeedApsProcessVideoFrame);
                     ConsumerImpl.this.mProcessorContract.setRecordingTag(recordingResult.getCameraRequestTag());
                     if (ConsumerImpl.this.isNeedApsProcessor() && ConsumerImpl.this.mbNeedApsProcessVideoFrame) {
                         ConsumerImpl.this.mProcessorContract.onRecordingResult(ConsumerImpl.this.mRecordingState);
@@ -338,7 +366,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                         ConsumerImpl.this.mbIsStopRecording = false;
                     } else if (4 == ConsumerImpl.this.mRecordingState) {
                         ConsumerImpl.this.mbIsStopRecording = true;
-                        if (ConsumerImpl.this.canNotStopVideoRecordingImmediately(recordingResult.getCameraRequestTag())) {
+                        if (ConsumerImpl.this
+                                .canNotStopVideoRecordingImmediately(recordingResult.getCameraRequestTag())) {
                             ConsumerImpl.this.mbWaitToStopVideo = true;
                         }
                     }
@@ -446,7 +475,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         if (isNeedApsProcessor() && this.mProducerInterface.needApsProcessor()) {
             Handler handler = this.mCaptureImageHandler;
             if (handler != null && this.mProcessorContract != null) {
-                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda2
+                handler.post(new Runnable() { // from class:
+                                              // com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda2
                     @Override // java.lang.Runnable
                     public final void run() {
                         ConsumerImpl.this.m6xa67fcac3();
@@ -461,7 +491,11 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: lambda$onSessionConfigured$0$com-oplus-ocs-camera-consumer-ConsumerImpl  reason: not valid java name */
+    /*
+     * renamed from:
+     * lambda$onSessionConfigured$0$com-oplus-ocs-camera-consumer-ConsumerImpl
+     * reason: not valid java name
+     */
     public /* synthetic */ void m6xa67fcac3() {
         this.mProcessorContract.onSessionConfigured(this.mApsTag);
         CameraUnitLog.d(TAG, "onSessionConfigured, post");
@@ -481,7 +515,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
     }
 
-    private void onHalPictureImageArrived(ImageReader imageReader, Image image, int i, CameraRequestTag cameraRequestTag, String str) {
+    private void onHalPictureImageArrived(ImageReader imageReader, Image image, int i,
+            CameraRequestTag cameraRequestTag, String str) {
         if (image.getFormat() == 32 && "raw".equals(cameraRequestTag.mRawValue)) {
             synchronized (this.mSaveResultToDngLock) {
                 setRawImage(image);
@@ -538,8 +573,10 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     @Override // com.oplus.ocs.camera.consumer.ApsProcessorContract.IConsumer
-    public void afterProcessImage(int i, ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo) {
-        CameraUnitLog.d(TAG, "afterProcessImage, processResult: " + i + ", imageItemInfo: " + imageItemInfo + ", metaItemInfo: " + metaItemInfo);
+    public void afterProcessImage(int i, ImageCategory.ImageItemInfo imageItemInfo,
+            ImageCategory.MetaItemInfo metaItemInfo) {
+        CameraUnitLog.d(TAG, "afterProcessImage, processResult: " + i + ", imageItemInfo: " + imageItemInfo
+                + ", metaItemInfo: " + metaItemInfo);
         this.mPictureAdapter.afterProcessImage(i, imageItemInfo, metaItemInfo);
         this.mProducerInterface.onAfterProcessImage();
     }
@@ -585,7 +622,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     /* JADX INFO: Access modifiers changed from: private */
-    public void onPreviewImageArrived(CameraRequestTag cameraRequestTag, @NonNull ImageReader imageReader, SurfaceKey surfaceKey) {
+    public void onPreviewImageArrived(CameraRequestTag cameraRequestTag, @NonNull ImageReader imageReader,
+            SurfaceKey surfaceKey) {
         Image acquireNextImage;
         String cameraType = surfaceKey.getCameraType();
         try {
@@ -599,11 +637,16 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
         boolean z = false;
         for (SurfaceKey surfaceKey2 : cameraRequestTag.mAddTargetSurfaces.keySet()) {
-            if ("surface_key_preview_frame".equals(surfaceKey2.getUsage()) && SurfacePool.getInstance().getImageReader(surfaceKey2) != null) {
+            if ("surface_key_preview_frame".equals(surfaceKey2.getUsage())
+                    && SurfacePool.getInstance().getImageReader(surfaceKey2) != null) {
                 z = true;
             }
         }
-        if (cameraRequestTag.mbSetPreviewFrameSurface && !z && ("rear_main".equals(cameraType) || "front_main".equals(cameraType) || "front_wide".equals(cameraType) || "rear_tele".equals(cameraType) || "rear_wide".equals(cameraType) || ((!"1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_REAR_LENS_GESTURE_RECOGNITION)) && "rear_sat".equals(cameraType)) || "rear_macro".equals(cameraType)))) {
+        if (cameraRequestTag.mbSetPreviewFrameSurface && !z && ("rear_main".equals(cameraType)
+                || "front_main".equals(cameraType) || "front_wide".equals(cameraType) || "rear_tele".equals(cameraType)
+                || "rear_wide".equals(cameraType)
+                || ((!"1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_REAR_LENS_GESTURE_RECOGNITION))
+                        && "rear_sat".equals(cameraType)) || "rear_macro".equals(cameraType)))) {
             CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter = (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback;
             synchronized (ContextHolder.getContext()) {
                 if (cameraPreviewCallbackAdapter != null) {
@@ -618,12 +661,17 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
         if (isPreviewImageNeedApsProcessor()) {
             if (SurfacePool.getInstance().getImageReader(surfaceKey) != null) {
-                this.mProcessorContract.addPreview(imageReader, acquireNextImage, ImageCategory.ItemInfoType.PREVIEW, cameraType, surfaceKey);
+                this.mProcessorContract.addPreview(imageReader, acquireNextImage, ImageCategory.ItemInfoType.PREVIEW,
+                        cameraType, surfaceKey);
             } else {
                 CameraUnitLog.e(TAG, "onPreviewImageArrived, imageReader already closed");
             }
         } else if (cameraRequestTag.mCallback != null) {
-            ((CameraPreviewCallbackAdapter) cameraRequestTag.mCallback).onPreviewReceived(new CameraPreviewCallbackAdapter.PreviewResult.Builder().setImageBuffer(new ApsResult.ImageBuffer(null, acquireNextImage, Util.getHardwareBuffer(acquireNextImage), acquireNextImage.getTimestamp())).set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_TYPE, cameraType).build());
+            ((CameraPreviewCallbackAdapter) cameraRequestTag.mCallback)
+                    .onPreviewReceived(new CameraPreviewCallbackAdapter.PreviewResult.Builder()
+                            .setImageBuffer(new ApsResult.ImageBuffer(null, acquireNextImage,
+                                    Util.getHardwareBuffer(acquireNextImage), acquireNextImage.getTimestamp()))
+                            .set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_TYPE, cameraType).build());
         } else {
             acquireNextImage.close();
             CameraUnitLog.v(TAG, "onPreviewImageArrived  image close, may wrong path!");
@@ -650,7 +698,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     /* JADX INFO: Access modifiers changed from: private */
-    public void onPreviewInPreviewFrameImageArrived(CameraRequestTag cameraRequestTag, @NonNull ImageReader imageReader) {
+    public void onPreviewInPreviewFrameImageArrived(CameraRequestTag cameraRequestTag,
+            @NonNull ImageReader imageReader) {
         try {
             Image acquireNextImage = imageReader.acquireNextImage();
             if (acquireNextImage == null) {
@@ -681,7 +730,10 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
             try {
                 if (isNeedPreviewMeta(null)) {
                     setRequestTagRecordingState((CameraRequestTag) captureRequest.getTag());
-                    this.mProcessorContract.addPreviewMeta(captureRequest, imageReader, acquireNextImage, (4 == this.mRecordingState || !this.mbNeedApsProcessVideoFrame) ? ImageCategory.ItemInfoType.PREVIEW : ImageCategory.ItemInfoType.VIDEO);
+                    this.mProcessorContract.addPreviewMeta(captureRequest, imageReader, acquireNextImage,
+                            (4 == this.mRecordingState || !this.mbNeedApsProcessVideoFrame)
+                                    ? ImageCategory.ItemInfoType.PREVIEW
+                                    : ImageCategory.ItemInfoType.VIDEO);
                     return;
                 }
                 acquireNextImage.close();
@@ -705,7 +757,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     /* JADX INFO: Access modifiers changed from: private */
-    public void onPreviewMetaArrived(CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
+    public void onPreviewMetaArrived(CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult,
+            String str) {
         synchronized (this.mRequestLock) {
             if (!this.mbFirstPreviewMetaArrived) {
                 CameraUnitLog.d(TAG, "onPreviewMetaArrived, mbFirstPreviewMetaArrived is false, so return");
@@ -715,12 +768,18 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
             detectFace(totalCaptureResult);
             if (isNeedPreviewMeta(totalCaptureResult)) {
                 setRequestTagRecordingState(cameraRequestTag);
-                this.mProcessorContract.addPreviewMeta(captureRequest, totalCaptureResult, (4 == this.mRecordingState || !this.mbNeedApsProcessVideoFrame) ? ImageCategory.ItemInfoType.PREVIEW : ImageCategory.ItemInfoType.VIDEO);
+                this.mProcessorContract.addPreviewMeta(captureRequest, totalCaptureResult,
+                        (4 == this.mRecordingState || !this.mbNeedApsProcessVideoFrame)
+                                ? ImageCategory.ItemInfoType.PREVIEW
+                                : ImageCategory.ItemInfoType.VIDEO);
                 return;
             }
-            CameraPreviewCallbackAdapter.PreviewResult.Builder builder = new CameraPreviewCallbackAdapter.PreviewResult.Builder().setCaptureResult(totalCaptureResult).set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_TYPE, str).set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_MODE, cameraRequestTag.mCaptureMode);
+            CameraPreviewCallbackAdapter.PreviewResult.Builder builder = new CameraPreviewCallbackAdapter.PreviewResult.Builder()
+                    .setCaptureResult(totalCaptureResult).set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_TYPE, str)
+                    .set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_MODE, cameraRequestTag.mCaptureMode);
             if (cameraRequestTag.mCallback instanceof CameraPreviewCallbackAdapter) {
-                notifyPreviewResult(cameraRequestTag.mUserCallbackHandler, (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback, captureRequest, builder.build());
+                notifyPreviewResult(cameraRequestTag.mUserCallbackHandler,
+                        (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback, captureRequest, builder.build());
             }
         }
     }
@@ -789,9 +848,11 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     @Override // com.oplus.ocs.camera.consumer.ApsProcessorContract.IConsumer
-    public void onReprocess(Image image, TotalCaptureResult totalCaptureResult, Rect rect, CameraRequestTag cameraRequestTag) {
+    public void onReprocess(Image image, TotalCaptureResult totalCaptureResult, Rect rect,
+            CameraRequestTag cameraRequestTag) {
         if ("super_raw".equals(cameraRequestTag.mRawValue)) {
-            this.mPictureAdapter.onImageReceived(Util.buildRawImage(cameraRequestTag, image, totalCaptureResult, this.mCaptureDate));
+            this.mPictureAdapter.onImageReceived(
+                    Util.buildRawImage(cameraRequestTag, image, totalCaptureResult, this.mCaptureDate));
         } else if (isNeedApsProcessor()) {
             this.mProducerInterface.onReprocess(image, totalCaptureResult, rect, cameraRequestTag);
         }
@@ -816,11 +877,15 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 this.mCurrentSensorMode = -1;
             }
         }
-        if (isNeedApsProcessor && cameraRequestTag != null && TextUtils.equals("0", this.mApsTag.mPreviewCallbackType)) {
-            final CameraPreviewCallbackAdapter.PreviewResult build = new CameraPreviewCallbackAdapter.PreviewResult.Builder().setCaptureResult(apsTotalResult.getTotalResult()).setApsResult(apsResult).setApsTotalResult(apsTotalResult).build();
+        if (isNeedApsProcessor && cameraRequestTag != null
+                && TextUtils.equals("0", this.mApsTag.mPreviewCallbackType)) {
+            final CameraPreviewCallbackAdapter.PreviewResult build = new CameraPreviewCallbackAdapter.PreviewResult.Builder()
+                    .setCaptureResult(apsTotalResult.getTotalResult()).setApsResult(apsResult)
+                    .setApsTotalResult(apsTotalResult).build();
             final CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter = (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback;
             if (getPreviewImageCallbackHandler() != null) {
-                getPreviewImageCallbackHandler().post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.6
+                getPreviewImageCallbackHandler().post(new Runnable() { // from class:
+                                                                       // com.oplus.ocs.camera.consumer.ConsumerImpl.6
                     @Override // java.lang.Runnable
                     public void run() {
                         CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter2 = cameraPreviewCallbackAdapter;
@@ -833,10 +898,12 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 cameraPreviewCallbackAdapter.onPreviewReceived(build);
             }
         }
-        this.mPreviewReceivedWorkHandler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda0
+        this.mPreviewReceivedWorkHandler.post(new Runnable() { // from class:
+                                                               // com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda0
             @Override // java.lang.Runnable
             public final void run() {
-                ConsumerImpl.this.m5x8c39f4ed(isNeedApsProcessor, apsTotalResult, cameraRequestTag, apsResult, currentRequest);
+                ConsumerImpl.this.m5x8c39f4ed(isNeedApsProcessor, apsTotalResult, cameraRequestTag, apsResult,
+                        currentRequest);
             }
         });
         CameraUnitLog.traceEndSection("onPreviewDataReceived");
@@ -848,8 +915,13 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: lambda$onPreviewReceived$1$com-oplus-ocs-camera-consumer-ConsumerImpl  reason: not valid java name */
-    public /* synthetic */ void m5x8c39f4ed(boolean z, ApsTotalResult apsTotalResult, CameraRequestTag cameraRequestTag, ApsResult apsResult, CaptureRequest captureRequest) {
+    /*
+     * renamed from:
+     * lambda$onPreviewReceived$1$com-oplus-ocs-camera-consumer-ConsumerImpl reason:
+     * not valid java name
+     */
+    public /* synthetic */ void m5x8c39f4ed(boolean z, ApsTotalResult apsTotalResult, CameraRequestTag cameraRequestTag,
+            ApsResult apsResult, CaptureRequest captureRequest) {
         Integer num = null;
         if (z) {
             this.mPreviewAdapter.notifyMetadataReceived(apsTotalResult);
@@ -868,12 +940,22 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 }
             } else if (cameraRequestTag != null) {
                 if (!this.mbFirstPreviewMetaReceived) {
-                    CameraUnitLog.traceBeginSection("CameraUnit.CameraStartupPerformance.receivedFirstPreviewMetaFromAPS");
+                    CameraUnitLog
+                            .traceBeginSection("CameraUnit.CameraStartupPerformance.receivedFirstPreviewMetaFromAPS");
                     this.mbFirstPreviewMetaReceived = true;
-                    CameraUnitLog.traceEndSection("CameraUnit.CameraStartupPerformance.receivedFirstPreviewMetaFromAPS");
+                    CameraUnitLog
+                            .traceEndSection("CameraUnit.CameraStartupPerformance.receivedFirstPreviewMetaFromAPS");
                     StatisticsManager.getInstance().cancelDelayProcessMsg(3);
                 }
-                notifyPreviewResult(cameraRequestTag.mUserCallbackHandler, (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback, captureRequest, new CameraPreviewCallbackAdapter.PreviewResult.Builder().setCaptureResult(apsTotalResult.getTotalResult()).setApsDecisionResult(apsResult.mDecisionResult != null ? apsResult.mDecisionResult : this.mPreviewDecisionResult).setApsTotalResult(apsTotalResult).set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_MODE, cameraRequestTag.mCaptureMode).build());
+                notifyPreviewResult(cameraRequestTag.mUserCallbackHandler,
+                        (CameraPreviewCallbackAdapter) cameraRequestTag.mCallback, captureRequest,
+                        new CameraPreviewCallbackAdapter.PreviewResult.Builder()
+                                .setCaptureResult(apsTotalResult.getTotalResult())
+                                .setApsDecisionResult(apsResult.mDecisionResult != null ? apsResult.mDecisionResult
+                                        : this.mPreviewDecisionResult)
+                                .setApsTotalResult(apsTotalResult)
+                                .set(ApsOtherParameter.KEY_CAMERA_RESULT_CAMERA_MODE, cameraRequestTag.mCaptureMode)
+                                .build());
             }
             this.mPreviewAdapter.setCurrentRequestDone(captureRequest);
             if (TextUtils.equals("0", this.mApsTag.mPreviewCallbackType)) {
@@ -925,12 +1007,14 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 CameraUnitLog.e(TAG, "onVideoReceived, tag: " + cameraRequestTag);
                 return;
             }
-            ((CameraPreviewCallbackAdapter) cameraRequestTag.mCallback).onVideoReceived(new CameraPreviewCallbackAdapter.PreviewResult.Builder().setApsResult(apsResult).build());
+            ((CameraPreviewCallbackAdapter) cameraRequestTag.mCallback).onVideoReceived(
+                    new CameraPreviewCallbackAdapter.PreviewResult.Builder().setApsResult(apsResult).build());
         }
     }
 
     @Override // com.oplus.ocs.camera.consumer.ApsProcessorContract.IConsumer
-    public void onFinishAddFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo, CameraRequestTag cameraRequestTag) {
+    public void onFinishAddFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo,
+            CameraRequestTag cameraRequestTag) {
         CameraUnitLog.e(TAG, "onFinishAddFrame");
         CameraUnitLog.traceBegin("CameraUnit.onFinishAddFrame");
         if (isNeedApsProcessor()) {
@@ -963,7 +1047,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     /* JADX INFO: Access modifiers changed from: private */
     public boolean canNotStopVideoRecordingImmediately(CameraRequestTag cameraRequestTag) {
         ApsRequestTag apsRequestTag;
-        if (cameraRequestTag == null || (apsRequestTag = this.mApsTag) == null || !"video_mode".equals(apsRequestTag.mModeName) || cameraRequestTag.mHyperLapseRate == 0) {
+        if (cameraRequestTag == null || (apsRequestTag = this.mApsTag) == null
+                || !"video_mode".equals(apsRequestTag.mModeName) || cameraRequestTag.mHyperLapseRate == 0) {
             return false;
         }
         return cameraRequestTag.mbSuperEisOn;
@@ -973,7 +1058,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         ApsRequestTag apsRequestTag;
         ApsRequestTag apsRequestTag2 = this.mApsTag;
         if (apsRequestTag2 == null || !apsRequestTag2.mbNeedSendVideoSnapShotImage) {
-            return isNeedApsProcessor() && (apsRequestTag = this.mApsTag) != null && apsRequestTag.mbPreviewProcessByAps;
+            return isNeedApsProcessor() && (apsRequestTag = this.mApsTag) != null
+                    && apsRequestTag.mbPreviewProcessByAps;
         }
         this.mApsTag.mbNeedSendVideoSnapShotImage = false;
         return true;
@@ -981,12 +1067,15 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
 
     /* JADX INFO: Access modifiers changed from: private */
     public boolean isNeedApsProcessor() {
-        return this.mProducerInterface != null ? AlgoSwitchConfig.getApsMode() != 0 && this.mProducerInterface.needApsProcessor() : AlgoSwitchConfig.getApsMode() != 0;
+        return this.mProducerInterface != null
+                ? AlgoSwitchConfig.getApsMode() != 0 && this.mProducerInterface.needApsProcessor()
+                : AlgoSwitchConfig.getApsMode() != 0;
     }
 
     private boolean isNeedPictureMeta() {
         ApsRequestTag apsRequestTag;
-        return (!isNeedApsProcessor() || (apsRequestTag = this.mApsTag) == null || "sticker_mode".equals(apsRequestTag.mModeName)) ? false : true;
+        return (!isNeedApsProcessor() || (apsRequestTag = this.mApsTag) == null
+                || "sticker_mode".equals(apsRequestTag.mModeName)) ? false : true;
     }
 
     private boolean isNeedPreviewMeta(CaptureResult captureResult) {
@@ -994,7 +1083,9 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         ApsRequestTag apsRequestTag;
         ApsRequestTag apsRequestTag2 = this.mApsTag;
         if (apsRequestTag2 == null || !apsRequestTag2.mbNeedSendVideoSnapShotMeta) {
-            return isNeedApsProcessor() && (producerInterface = this.mProducerInterface) != null && producerInterface.needApsProcessor() && (apsRequestTag = this.mApsTag) != null && !"slowvideo_mode".equals(apsRequestTag.mModeName) && this.mApsTag.mbPreviewProcessByAps;
+            return isNeedApsProcessor() && (producerInterface = this.mProducerInterface) != null
+                    && producerInterface.needApsProcessor() && (apsRequestTag = this.mApsTag) != null
+                    && !"slowvideo_mode".equals(apsRequestTag.mModeName) && this.mApsTag.mbPreviewProcessByAps;
         } else if (isOverheatSkipFrame(captureResult)) {
             return false;
         } else {
@@ -1004,10 +1095,12 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     private boolean isOverheatSkipFrame(CaptureResult captureResult) {
-        if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_THERMAL_PAUSE_VIDEO_PREVIEW_SUPPORT)) && captureResult != null) {
+        if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_THERMAL_PAUSE_VIDEO_PREVIEW_SUPPORT))
+                && captureResult != null) {
             try {
                 if (captureResult.get(ApsCameraMetadataKey.KEY_VIDEO_OVERHEAT_SKIP_FRAME) != null) {
-                    return 1 == ((Integer) captureResult.get(ApsCameraMetadataKey.KEY_VIDEO_OVERHEAT_SKIP_FRAME)).intValue();
+                    return 1 == ((Integer) captureResult.get(ApsCameraMetadataKey.KEY_VIDEO_OVERHEAT_SKIP_FRAME))
+                            .intValue();
                 }
                 return false;
             } catch (Exception e) {
@@ -1020,43 +1113,155 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     private void pictureProcess(final SurfaceKey surfaceKey, @NonNull final CameraRequestTag cameraRequestTag) {
         final ImageReader imageReader = SurfacePool.getInstance().getImageReader(surfaceKey);
         if (imageReader != null) {
-            imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda3
+            imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class:
+                                                                                                 // com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda3
                 @Override // android.media.ImageReader.OnImageAvailableListener
                 public final void onImageAvailable(ImageReader imageReader2) {
                     ConsumerImpl.this.m7xee08042b(imageReader, surfaceKey, cameraRequestTag, imageReader2);
                 }
             }, this.mCaptureImageHandler);
         }
-        this.mProcessorContract.capture(CameraRequestTag.RequestMode.CAPTURE_REPROCESS.equals(cameraRequestTag.getRequestMode()));
+        this.mProcessorContract
+                .capture(CameraRequestTag.RequestMode.CAPTURE_REPROCESS.equals(cameraRequestTag.getRequestMode()));
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
-    /* JADX WARN: Code restructure failed: missing block: B:121:0x018d, code lost:
-        if (com.oplus.ocs.camera.common.util.CameraConstant.CameraType.REAR_MONO_CAMERA_1.equals(r21.getCameraType()) == false) goto L55;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:29:0x0070, code lost:
-        if (r1 != 4) goto L15;
-     */
-    /* JADX WARN: Removed duplicated region for block: B:127:0x0199 A[Catch: IllegalStateException -> 0x01eb, TRY_LEAVE, TryCatch #0 {IllegalStateException -> 0x01eb, blocks: (B:3:0x0009, B:6:0x0032, B:7:0x003a, B:127:0x0199, B:33:0x007c, B:35:0x0080, B:37:0x0084, B:9:0x003e, B:12:0x0046, B:15:0x004f, B:18:0x0057, B:21:0x005f, B:40:0x008d, B:44:0x0099, B:69:0x00e1, B:71:0x00e6, B:77:0x00f2, B:90:0x0124, B:92:0x0128, B:96:0x0130, B:98:0x013a, B:80:0x0101, B:82:0x0109, B:84:0x010d, B:87:0x0119, B:103:0x0143, B:106:0x014e, B:109:0x0159, B:112:0x0164, B:115:0x016f, B:118:0x017b, B:120:0x0185, B:47:0x00a3, B:50:0x00ad, B:53:0x00b5, B:56:0x00bd, B:59:0x00c6, B:62:0x00d0, B:65:0x00d8), top: B:132:0x0009 }] */
-    /* JADX WARN: Removed duplicated region for block: B:134:? A[RETURN, SYNTHETIC] */
-    /* renamed from: lambda$pictureProcess$2$com-oplus-ocs-camera-consumer-ConsumerImpl  reason: not valid java name */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public /* synthetic */ void m7xee08042b(android.media.ImageReader r20, com.oplus.ocs.camera.common.surface.SurfaceKey r21, com.oplus.ocs.camera.common.util.CameraRequestTag r22, android.media.ImageReader r23) {
-        /*
-            Method dump skipped, instructions count: 574
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.consumer.ConsumerImpl.m7xee08042b(android.media.ImageReader, com.oplus.ocs.camera.common.surface.SurfaceKey, com.oplus.ocs.camera.common.util.CameraRequestTag, android.media.ImageReader):void");
+     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:121:0x018d, code lost:
+     * if (com.oplus.ocs.camera.common.util.CameraConstant.CameraType.
+     * REAR_MONO_CAMERA_1.equals(r21.getCameraType()) == false) goto L55;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:29:0x0070, code lost:
+     * if (r1 != 4) goto L15;
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:127:0x0199 A[Catch:
+     * IllegalStateException -> 0x01eb, TRY_LEAVE, TryCatch #0
+     * {IllegalStateException -> 0x01eb, blocks: (B:3:0x0009, B:6:0x0032,
+     * B:7:0x003a, B:127:0x0199, B:33:0x007c, B:35:0x0080, B:37:0x0084, B:9:0x003e,
+     * B:12:0x0046, B:15:0x004f, B:18:0x0057, B:21:0x005f, B:40:0x008d, B:44:0x0099,
+     * B:69:0x00e1, B:71:0x00e6, B:77:0x00f2, B:90:0x0124, B:92:0x0128, B:96:0x0130,
+     * B:98:0x013a, B:80:0x0101, B:82:0x0109, B:84:0x010d, B:87:0x0119,
+     * B:103:0x0143, B:106:0x014e, B:109:0x0159, B:112:0x0164, B:115:0x016f,
+     * B:118:0x017b, B:120:0x0185, B:47:0x00a3, B:50:0x00ad, B:53:0x00b5,
+     * B:56:0x00bd, B:59:0x00c6, B:62:0x00d0, B:65:0x00d8), top: B:132:0x0009 }]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:134:? A[RETURN, SYNTHETIC]
+     */
+    /*
+     * renamed from:
+     * lambda$pictureProcess$2$com-oplus-ocs-camera-consumer-ConsumerImpl reason:
+     * not valid java name
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public /* synthetic */ void m7xee08042b(ImageReader imageReader, SurfaceKey surfaceKey,
+            CameraRequestTag cameraRequestTag, ImageReader imageReader2) {
+        CameraUnitLog.d(TAG, "pictureProcess, PICTURE onImageAvailable");
+        try {
+            Image image = imageReader2.acquireNextImage();
+            Util.dealWithImageOverflow(imageReader, imageReader.getMaxImages());
+            int role = 0;
+            if (PlatformUtil.isQualcommPlatform()) {
+                String cameraType = surfaceKey.getCameraType();
+                switch (cameraType) {
+                    case "rear_wide":
+                        if ("rear_sat".equals(cameraRequestTag.mCameraType)
+                                || "rear_portrait".equals(cameraRequestTag.mCameraType)
+                                || "rear_second_portrait".equals(cameraRequestTag.mCameraType)) {
+                            role = 2;
+                        } else {
+                            role = 0;
+                        }
+                        break;
+                    case "rear_mono_1":
+                    case "rear_mono_2":
+                        role = 2;
+                        break;
+                    case "rear_tele":
+                        role = 3;
+                        break;
+                    case "front_main":
+                        role = 1;
+                        break;
+                    default:
+                        role = 0;
+                }
+            } else {
+                String cameraType = cameraRequestTag.mCameraType;
+                switch (cameraType) {
+                    case "front_main":
+                        role = 1;
+                        break;
+                    case "front_wide":
+                        role = 5;
+                        break;
+                    case "rear_portrait":
+                        role = 2;
+                        break;
+                    case "rear_second_portrait":
+                        role = 3;
+                        break;
+                    case "front_dual":
+                        role = 1;
+                        break;
+                    case "rear_portrait_mono_1":
+                    case "rear_portrait_mono_2":
+                        role = 2;
+                        break;
+                    case "rear_sat":
+                        int masterPipeline = cameraRequestTag.mMasterPipeline;
+                        if (masterPipeline == 0) {
+                            role = 2;
+                        } else if (masterPipeline == 2) {
+                            role = 3;
+                        } else {
+                            role = 0;
+                        }
+                        String surfaceCameraType = surfaceKey.getCameraType();
+                        if ("rear_main".equals(surfaceCameraType)) {
+                            role = 0;
+                        } else if ("rear_sat".equals(cameraRequestTag.mCameraType)
+                                && 2 == cameraRequestTag.mSupportCaptureZoomFeature) {
+                            if ("rear_wide".equals(surfaceCameraType)) {
+                                role = 2;
+                            } else if ("rear_tele".equals(surfaceCameraType)) {
+                                role = 3;
+                            }
+                        }
+                        if (cameraRequestTag.mbPortraitFullBody || cameraRequestTag.mbPortraitHalfBody) {
+                            if ("rear_wide".equals(surfaceCameraType)) {
+                                role = cameraRequestTag.mbPortraitFullBody ? 2 : 3;
+                            }
+                        }
+                        break;
+                    default:
+                        role = 0;
+                }
+            }
+            if (image != null) {
+                CameraUnitLog.e(TAG,
+                        "pictureProcess, role: " + role + ", format: " + image.getFormat() + ", timestamp: "
+                                + image.getTimestamp() + ", size: " + image.getWidth() + "x" + image.getHeight());
+                onHalPictureImageArrived(imageReader2, image, role, cameraRequestTag, surfaceKey.getUsage());
+            }
+        } catch (IllegalStateException e) {
+            CameraUnitLog.e(TAG, "pictureProcess", e);
+        }
     }
 
     private void tuningDataProcess(final SurfaceKey surfaceKey, @NonNull final CameraRequestTag cameraRequestTag) {
         ImageReader imageReader = SurfacePool.getInstance().getImageReader(surfaceKey);
         if (imageReader != null) {
-            imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.7
+            imageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() { // from class:
+                                                                                                 // com.oplus.ocs.camera.consumer.ConsumerImpl.7
                 @Override // android.media.ImageReader.OnImageAvailableListener
                 public void onImageAvailable(ImageReader imageReader2) {
                     Image image;
@@ -1068,20 +1273,33 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                         image = null;
                     }
                     if (image != null) {
-                        ApsResult.ImageBuffer imageBuffer = new ApsResult.ImageBuffer(imageReader2, image, Util.getHardwareBuffer(image), image.getTimestamp());
-                        CameraUnitLog.d(ConsumerImpl.TAG, "tuningDataProcess, format: " + image.getFormat() + ", timestamp: " + image.getTimestamp() + ", size: " + image.getWidth() + "x" + image.getHeight() + "surfaceKey.getCameraType： " + surfaceKey.getCameraType() + ", tag.mCameraType：" + cameraRequestTag.mCameraType + ", mSupportCaptureZoomFeature " + cameraRequestTag.mSupportCaptureZoomFeature);
+                        ApsResult.ImageBuffer imageBuffer = new ApsResult.ImageBuffer(imageReader2, image,
+                                Util.getHardwareBuffer(image), image.getTimestamp());
+                        CameraUnitLog.d(ConsumerImpl.TAG, "tuningDataProcess, format: " + image.getFormat()
+                                + ", timestamp: " + image.getTimestamp() + ", size: " + image.getWidth() + "x"
+                                + image.getHeight() + "surfaceKey.getCameraType： " + surfaceKey.getCameraType()
+                                + ", tag.mCameraType：" + cameraRequestTag.mCameraType + ", mSupportCaptureZoomFeature "
+                                + cameraRequestTag.mSupportCaptureZoomFeature);
                         ImageCategory.TuningItemInfo tuningItemInfo = new ImageCategory.TuningItemInfo();
                         tuningItemInfo.mTuningBuffer = imageBuffer;
                         if ("rear_wide".equals(surfaceKey.getCameraType())) {
-                            if (36 == cameraRequestTag.mApsDecisionSceneMode || 35 == cameraRequestTag.mApsDecisionSceneMode || 37 == cameraRequestTag.mApsDecisionSceneMode || 38 == cameraRequestTag.mApsDecisionSceneMode) {
+                            if (36 == cameraRequestTag.mApsDecisionSceneMode
+                                    || 35 == cameraRequestTag.mApsDecisionSceneMode
+                                    || 37 == cameraRequestTag.mApsDecisionSceneMode
+                                    || 38 == cameraRequestTag.mApsDecisionSceneMode) {
                                 tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 6);
-                            } else if ("rear_sat".equals(cameraRequestTag.mCameraType) && (48 == cameraRequestTag.mApsDecisionFeatureType || 49 == cameraRequestTag.mApsDecisionFeatureType || 2 == cameraRequestTag.mSupportCaptureZoomFeature || 50 == cameraRequestTag.mApsDecisionFeatureType)) {
+                            } else if ("rear_sat".equals(cameraRequestTag.mCameraType)
+                                    && (48 == cameraRequestTag.mApsDecisionFeatureType
+                                            || 49 == cameraRequestTag.mApsDecisionFeatureType
+                                            || 2 == cameraRequestTag.mSupportCaptureZoomFeature
+                                            || 50 == cameraRequestTag.mApsDecisionFeatureType)) {
                                 tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 6);
                             } else {
                                 tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 4);
                             }
                         } else if ("rear_tele".equals(surfaceKey.getCameraType())) {
-                            if ("rear_sat".equals(cameraRequestTag.mCameraType) && 2 == cameraRequestTag.mSupportCaptureZoomFeature) {
+                            if ("rear_sat".equals(cameraRequestTag.mCameraType)
+                                    && 2 == cameraRequestTag.mSupportCaptureZoomFeature) {
                                 tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 7);
                             } else {
                                 tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 4);
@@ -1089,19 +1307,30 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                         } else {
                             tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 4);
                         }
-                        tuningItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, Long.valueOf(imageBuffer.getTimestamp()));
-                        Size size = new Size(imageBuffer.getHardwareBuffer().getWidth(), imageBuffer.getHardwareBuffer().getHeight());
-                        Size tuningDataSurfaceSize = CameraCharacteristicsHelper.getTuningDataSurfaceSize(cameraRequestTag.mCameraType, "tuning_data_raw");
+                        tuningItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP,
+                                Long.valueOf(imageBuffer.getTimestamp()));
+                        Size size = new Size(imageBuffer.getHardwareBuffer().getWidth(),
+                                imageBuffer.getHardwareBuffer().getHeight());
+                        Size tuningDataSurfaceSize = CameraCharacteristicsHelper
+                                .getTuningDataSurfaceSize(cameraRequestTag.mCameraType, "tuning_data_raw");
                         if (PlatformUtil.isMtkPlatform()) {
                             boolean equals = "surface_key_tuning_raw".equals(surfaceKey.getUsage());
                             tuningItemInfo.setParameter(ParameterKeys.KEY_TUNING_SURFACE_USAGE, surfaceKey.getUsage());
-                            if (cameraRequestTag.mbDecisionRequestMixedFormat && !cameraRequestTag.mbBurstShot && !CameraCharacteristicsHelper.isFrontCamera(cameraRequestTag.mCameraId) && 4 == cameraRequestTag.mApsDecisionFeatureType && 3 == cameraRequestTag.mRequestNum) {
-                                CameraUnitLog.d(ConsumerImpl.TAG, "tuningDataProcess, raw sync process: " + equals + ", buffer size: " + size + ", tuningRawSurfaceSize: " + tuningDataSurfaceSize);
-                                tuningItemInfo.setParameter(ParameterKeys.KEY_RAW_SYNC_PROCESS_FLAG, Boolean.valueOf(equals));
+                            if (cameraRequestTag.mbDecisionRequestMixedFormat && !cameraRequestTag.mbBurstShot
+                                    && !CameraCharacteristicsHelper.isFrontCamera(cameraRequestTag.mCameraId)
+                                    && 4 == cameraRequestTag.mApsDecisionFeatureType
+                                    && 3 == cameraRequestTag.mRequestNum) {
+                                CameraUnitLog.d(ConsumerImpl.TAG,
+                                        "tuningDataProcess, raw sync process: " + equals + ", buffer size: " + size
+                                                + ", tuningRawSurfaceSize: " + tuningDataSurfaceSize);
+                                tuningItemInfo.setParameter(ParameterKeys.KEY_RAW_SYNC_PROCESS_FLAG,
+                                        Boolean.valueOf(equals));
                             }
                             if (equals) {
-                                CameraUnitLog.d(ConsumerImpl.TAG, "tuningDataProcess, set raw format hint: " + cameraRequestTag.mRawFormatHint);
-                                tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_FORMAT_HINT, Integer.valueOf(cameraRequestTag.mRawFormatHint));
+                                CameraUnitLog.d(ConsumerImpl.TAG,
+                                        "tuningDataProcess, set raw format hint: " + cameraRequestTag.mRawFormatHint);
+                                tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_FORMAT_HINT,
+                                        Integer.valueOf(cameraRequestTag.mRawFormatHint));
                             } else if (cameraRequestTag.mbPhoto10BitsEnable) {
                                 CameraUnitLog.d(ConsumerImpl.TAG, "tuningDataProcess, set private format hint");
                                 tuningItemInfo.setParameter(ParameterKeys.KEY_IMAGE_FORMAT_HINT, 34);
@@ -1140,7 +1369,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         if (image == null || (captureResult = this.mRawCaptureResult) == null) {
             return;
         }
-        this.mPictureAdapter.onImageReceived(Util.buildRawImage(cameraRequestTag, image, captureResult, this.mCaptureDate));
+        this.mPictureAdapter
+                .onImageReceived(Util.buildRawImage(cameraRequestTag, image, captureResult, this.mCaptureDate));
         Image image2 = this.mRawImage;
         if (image2 != null) {
             image2.close();
@@ -1195,7 +1425,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
     }
 
     @Override // com.oplus.ocs.camera.ProducerConsumerInterfaceContract.ConsumerInterface
-    public boolean notifyLastCaptureFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo) {
+    public boolean notifyLastCaptureFrame(ImageCategory.ImageItemInfo imageItemInfo,
+            ImageCategory.MetaItemInfo metaItemInfo) {
         return this.mProcessorContract.notifyLastCaptureFrame(imageItemInfo, metaItemInfo);
     }
 
@@ -1284,12 +1515,16 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 }
                 if (cameraRequestTag == null || !cameraRequestTag.mbBurstShot || isFirstFrame) {
                     final int i2 = this.innerShutterIndex;
-                    CameraUnitLog.v(ConsumerImpl.TAG, "onCaptureStarted, timestamp: " + j + ", idx: " + i2 + ", frameNumber: " + i);
-                    this.mCallbackHandler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.1
+                    CameraUnitLog.v(ConsumerImpl.TAG,
+                            "onCaptureStarted, timestamp: " + j + ", idx: " + i2 + ", frameNumber: " + i);
+                    this.mCallbackHandler.post(new Runnable() { // from class:
+                                                                // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.1
                         @Override // java.lang.Runnable
                         public void run() {
-                            InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onCaptureStarted(captureRequest, j, i2, i);
-                            InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onCaptureStarted(captureRequest, j);
+                            InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                                    .onCaptureStarted(captureRequest, j, i2, i);
+                            InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                                    .onCaptureStarted(captureRequest, j);
                         }
                     });
                 }
@@ -1297,21 +1532,25 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void onPictureCaptureProgressed(@NonNull final CaptureRequest captureRequest, @NonNull final CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        public void onPictureCaptureProgressed(@NonNull final CaptureRequest captureRequest,
+                @NonNull final CameraPictureCallbackAdapter.PictureResult pictureResult) {
             Handler handler = this.mCallbackHandler;
             if (handler == null || this.mCameraPictureCallbackAdapter == null) {
                 return;
             }
-            handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.2
+            handler.post(new Runnable() { // from class:
+                                          // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.2
                 @Override // java.lang.Runnable
                 public void run() {
-                    InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onPictureCaptureProgressed(captureRequest, pictureResult);
+                    InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                            .onPictureCaptureProgressed(captureRequest, pictureResult);
                 }
             });
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void onCaptureCompleted(CaptureRequest captureRequest, CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        public void onCaptureCompleted(CaptureRequest captureRequest,
+                CameraPictureCallbackAdapter.PictureResult pictureResult) {
             super.onCaptureCompleted(captureRequest, pictureResult);
             this.mCaptureRequest = captureRequest;
             CameraPictureCallbackAdapter cameraPictureCallbackAdapter = this.mCameraPictureCallbackAdapter;
@@ -1324,22 +1563,33 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void onCaptureCompleted(@NonNull final CaptureRequest captureRequest, @NonNull final TotalCaptureResult totalCaptureResult, String str) {
+        public void onCaptureCompleted(@NonNull final CaptureRequest captureRequest,
+                @NonNull final TotalCaptureResult totalCaptureResult, String str) {
             super.onCaptureCompleted(captureRequest, totalCaptureResult, str);
-            CameraUnitLog.d(ConsumerImpl.TAG, "onCaptureCompleted, TotalCaptureResult.UpscaleInputSize: " + Arrays.toString((int[]) totalCaptureResult.get(ApsCameraMetadataKey.KEY_UPSCALE_INPUT_SIZE)) + " TotalCaptureResult.UpscaleOutputSize: " + Arrays.toString((int[]) totalCaptureResult.get(ApsCameraMetadataKey.KEY_UPSCALE_OUTPUT_SIZE)));
+            CameraUnitLog.d(ConsumerImpl.TAG, "onCaptureCompleted, TotalCaptureResult.UpscaleInputSize: "
+                    + Arrays.toString((int[]) totalCaptureResult.get(ApsCameraMetadataKey.KEY_UPSCALE_INPUT_SIZE))
+                    + " TotalCaptureResult.UpscaleOutputSize: "
+                    + Arrays.toString((int[]) totalCaptureResult.get(ApsCameraMetadataKey.KEY_UPSCALE_OUTPUT_SIZE)));
             ConsumerImpl.this.onPictureMetaArrived(captureRequest, totalCaptureResult);
             ConsumerImpl.this.onPreviewMetaArrived(captureRequest, totalCaptureResult, str);
             final CameraRequestTag cameraRequestTag = (CameraRequestTag) captureRequest.getTag();
-            if (this.mCallbackHandler != null && this.mCameraPictureCallbackAdapter != null && captureRequest.hashCode() == ConsumerImpl.this.getFirstFrameHashCode()) {
-                this.mCallbackHandler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.3
+            if (this.mCallbackHandler != null && this.mCameraPictureCallbackAdapter != null
+                    && captureRequest.hashCode() == ConsumerImpl.this.getFirstFrameHashCode()) {
+                this.mCallbackHandler.post(new Runnable() { // from class:
+                                                            // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.3
                     @Override // java.lang.Runnable
                     public void run() {
-                        CameraPictureCallbackAdapter.PictureResult.Builder builder = new CameraPictureCallbackAdapter.PictureResult.Builder().set(ApsOtherParameter.KEY_CAPTURE_NIGHT_TOTAL_EXPTIME, Long.valueOf(ConsumerImpl.this.getNightCaptureTotalTime())).set(ApsOtherParameter.KEY_CAPTURE_FIRST_EXPOSURE_TIME, Long.valueOf(ConsumerImpl.this.getFirstExposureTime()));
+                        CameraPictureCallbackAdapter.PictureResult.Builder builder = new CameraPictureCallbackAdapter.PictureResult.Builder()
+                                .set(ApsOtherParameter.KEY_CAPTURE_NIGHT_TOTAL_EXPTIME,
+                                        Long.valueOf(ConsumerImpl.this.getNightCaptureTotalTime()))
+                                .set(ApsOtherParameter.KEY_CAPTURE_FIRST_EXPOSURE_TIME,
+                                        Long.valueOf(ConsumerImpl.this.getFirstExposureTime()));
                         if (cameraRequestTag != null) {
                             builder.set(ApsOtherParameter.KEY_REQUEST_TAG, cameraRequestTag.mAppOpaqueObj);
                         }
                         builder.setCaptureResult(totalCaptureResult);
-                        InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onCaptureFirstFrameArrived(captureRequest, builder.build());
+                        InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                                .onCaptureFirstFrameArrived(captureRequest, builder.build());
                     }
                 });
             }
@@ -1348,7 +1598,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void onCaptureFailed(final CaptureRequest captureRequest, final CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        public void onCaptureFailed(final CaptureRequest captureRequest,
+                final CameraPictureCallbackAdapter.PictureResult pictureResult) {
             super.onCaptureFailed(captureRequest, pictureResult);
             if (!ConsumerImpl.this.isApsFinishAddFrame()) {
                 ConsumerImpl.this.onCaptureFailed(captureRequest);
@@ -1356,10 +1607,12 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
                 if (handler == null || this.mCameraPictureCallbackAdapter == null) {
                     return;
                 }
-                handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.4
+                handler.post(new Runnable() { // from class:
+                                              // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.4
                     @Override // java.lang.Runnable
                     public void run() {
-                        InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onCaptureFailed(captureRequest, pictureResult);
+                        InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                                .onCaptureFailed(captureRequest, pictureResult);
                     }
                 });
                 return;
@@ -1377,17 +1630,21 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
             if (handler == null || this.mCameraPictureCallbackAdapter == null) {
                 return;
             }
-            handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.5
+            handler.post(new Runnable() { // from class:
+                                          // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.5
                 @Override // java.lang.Runnable
                 public void run() {
                     if (captureRequest != null) {
-                        CameraPictureCallbackAdapter.PictureResult.Builder captureResult = new CameraPictureCallbackAdapter.PictureResult.Builder().setCaptureResult(totalCaptureResult);
+                        CameraPictureCallbackAdapter.PictureResult.Builder captureResult = new CameraPictureCallbackAdapter.PictureResult.Builder()
+                                .setCaptureResult(totalCaptureResult);
                         ApsResult apsResult2 = apsResult;
                         if (apsResult2 != null) {
                             captureResult.setApsResult(apsResult2);
                         }
-                        captureResult.set(ApsOtherParameter.KEY_REQUEST_TAG, ((CameraRequestTag) captureRequest.getTag()).mAppOpaqueObj);
-                        InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onCaptureCompleted(captureRequest, captureResult.build());
+                        captureResult.set(ApsOtherParameter.KEY_REQUEST_TAG,
+                                ((CameraRequestTag) captureRequest.getTag()).mAppOpaqueObj);
+                        InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                                .onCaptureCompleted(captureRequest, captureResult.build());
                     }
                     InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onImageReceived(cameraImage);
                 }
@@ -1410,7 +1667,8 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
             if (handler == null || this.mCameraPictureCallbackAdapter == null) {
                 return;
             }
-            handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.6
+            handler.post(new Runnable() { // from class:
+                                          // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.6
                 @Override // java.lang.Runnable
                 public void run() {
                     InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onBurstShotStart(j);
@@ -1419,31 +1677,39 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void onBurstShotEnd(final ImageCategory.ImageItemInfo imageItemInfo, final ImageCategory.MetaItemInfo metaItemInfo) {
+        public void onBurstShotEnd(final ImageCategory.ImageItemInfo imageItemInfo,
+                final ImageCategory.MetaItemInfo metaItemInfo) {
             super.onBurstShotEnd(imageItemInfo, metaItemInfo);
             Handler handler = this.mCallbackHandler;
             if (handler == null || this.mCameraPictureCallbackAdapter == null) {
                 return;
             }
-            handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.7
+            handler.post(new Runnable() { // from class:
+                                          // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.7
                 @Override // java.lang.Runnable
                 public void run() {
-                    InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.onBurstShotEnd(new CameraPictureCallbackAdapter.PictureResult.Builder().setImageCategory(imageItemInfo, metaItemInfo).build());
+                    InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter
+                            .onBurstShotEnd(new CameraPictureCallbackAdapter.PictureResult.Builder()
+                                    .setImageCategory(imageItemInfo, metaItemInfo).build());
                 }
             });
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void afterProcessImage(final int i, final ImageCategory.ImageItemInfo imageItemInfo, final ImageCategory.MetaItemInfo metaItemInfo) {
+        public void afterProcessImage(final int i, final ImageCategory.ImageItemInfo imageItemInfo,
+                final ImageCategory.MetaItemInfo metaItemInfo) {
             super.afterProcessImage(i, imageItemInfo, metaItemInfo);
             Handler handler = this.mCallbackHandler;
             if (handler == null || this.mCameraPictureCallbackAdapter == null) {
                 return;
             }
-            handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.8
+            handler.post(new Runnable() { // from class:
+                                          // com.oplus.ocs.camera.consumer.ConsumerImpl.InnerCameraPictureCallbackAdapter.8
                 @Override // java.lang.Runnable
                 public void run() {
-                    InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.afterProcessImage(i, new CameraPictureCallbackAdapter.PictureResult.Builder().setImageCategory(imageItemInfo, metaItemInfo).build());
+                    InnerCameraPictureCallbackAdapter.this.mCameraPictureCallbackAdapter.afterProcessImage(i,
+                            new CameraPictureCallbackAdapter.PictureResult.Builder()
+                                    .setImageCategory(imageItemInfo, metaItemInfo).build());
                 }
             });
         }
@@ -1460,10 +1726,12 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
 
         @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-        public void onFinishAddFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo) {
+        public void onFinishAddFrame(ImageCategory.ImageItemInfo imageItemInfo,
+                ImageCategory.MetaItemInfo metaItemInfo) {
             CameraPictureCallbackAdapter cameraPictureCallbackAdapter = this.mCameraPictureCallbackAdapter;
             if (cameraPictureCallbackAdapter != null) {
-                cameraPictureCallbackAdapter.onFinishAddFrame(new CameraPictureCallbackAdapter.PictureResult.Builder().setImageCategory(imageItemInfo, metaItemInfo).build());
+                cameraPictureCallbackAdapter.onFinishAddFrame(new CameraPictureCallbackAdapter.PictureResult.Builder()
+                        .setImageCategory(imageItemInfo, metaItemInfo).build());
             } else {
                 CameraUnitLog.w(ConsumerImpl.TAG, "onFinishAddFrame, mCameraPictureCallbackAdapter is null");
             }
@@ -1480,19 +1748,16 @@ public class ConsumerImpl implements ProducerConsumerInterfaceContract.ConsumerI
         }
     }
 
-    private void notifyPreviewResult(Handler handler, final CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter, final CaptureRequest captureRequest, final CameraPreviewCallbackAdapter.PreviewResult previewResult) {
+    private void notifyPreviewResult(Handler handler, final CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter,
+            final CaptureRequest captureRequest, final CameraPreviewCallbackAdapter.PreviewResult previewResult) {
         this.mProducerInterface.onPreviewResultReceived(handler, previewResult);
         if (handler == null || cameraPreviewCallbackAdapter == null) {
-            CameraUnitLog.e(TAG, "notifyPreviewResult, params invalid, handler: " + handler + ", callback: " + cameraPreviewCallbackAdapter);
+            CameraUnitLog.e(TAG, "notifyPreviewResult, params invalid, handler: " + handler + ", callback: "
+                    + cameraPreviewCallbackAdapter);
             return;
         }
         synchronized (this.mRequestLock) {
-            handler.post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.ConsumerImpl$$ExternalSyntheticLambda1
-                @Override // java.lang.Runnable
-                public final void run() {
-                    CameraPreviewCallbackAdapter.this.onCaptureCompleted(captureRequest, previewResult);
-                }
-            });
+            handler.post(() -> cameraPreviewCallbackAdapter.onCaptureCompleted(captureRequest, previewResult));
         }
     }
 

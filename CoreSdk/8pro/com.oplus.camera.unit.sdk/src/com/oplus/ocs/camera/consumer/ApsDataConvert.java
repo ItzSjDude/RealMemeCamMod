@@ -3,7 +3,11 @@ package com.oplus.ocs.camera.consumer;
 import com.oplus.ocs.camera.common.statistics.StatisticConstant;
 import com.oplus.ocs.camera.common.util.ApsConstant;
 import com.oplus.ocs.camera.common.util.CameraConstant;
+import com.oplus.ocs.camera.common.util.Util;
 import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
+import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
+import com.oplus.ocs.camera.producer.info.CameraIdType;
+
 /* loaded from: classes.dex */
 public class ApsDataConvert {
     public static final String CAPTURE_MODE_AI_HIGH_PIXEL = "aiHighPixel";
@@ -293,7 +297,9 @@ public class ApsDataConvert {
             case 22:
                 return CAPTURE_MODE_BASIC_CAPTURE;
             case 23:
-                return AlgoSwitchConfig.getSupportCameraFeature(CAPTURE_MODE_PROFESSIONAL_FULL, i) ? CAPTURE_MODE_PROFESSIONAL_FULL : "professional";
+                return AlgoSwitchConfig.getSupportCameraFeature(CAPTURE_MODE_PROFESSIONAL_FULL, i)
+                        ? CAPTURE_MODE_PROFESSIONAL_FULL
+                        : "professional";
             case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
                 return ApsConstant.CAPTURE_MODE_HIGH_DEFINITION;
             case 27:
@@ -313,18 +319,20 @@ public class ApsDataConvert {
         }
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:78:0x0101, code lost:
-        if ("rear_sat".equals(r14) != false) goto L67;
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:78:0x0101, code lost:
+     * if ("rear_sat".equals(r14) != false) goto L67;
      */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
     public static java.lang.String getApsFeatureName(java.lang.String r12, java.lang.String r13, java.lang.String r14) {
         /*
-            Method dump skipped, instructions count: 548
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.consumer.ApsDataConvert.getApsFeatureName(java.lang.String, java.lang.String, java.lang.String):java.lang.String");
+         * Method dump skipped, instructions count: 548
+         * To view this dump add '--comments-level debug' option
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.oplus.ocs.camera.consumer.ApsDataConvert.getApsFeatureName(java.lang.String, java.lang.String, java.lang.String):java.lang.String");
     }
 }

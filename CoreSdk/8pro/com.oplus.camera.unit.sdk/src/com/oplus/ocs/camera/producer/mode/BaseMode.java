@@ -530,19 +530,31 @@ public abstract class BaseMode implements ModeInterface {
      * B:73:0x0030 }]
      */
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public void updateStageParameter(@androidx.annotation.NonNull com.oplus.ocs.camera.common.parameter.Parameter r7,
-            java.lang.String r8, java.lang.String r9,
-            @androidx.annotation.Nullable com.oplus.ocs.camera.common.util.CameraRequestTag r10) {
-        /*
-         * Method dump skipped, instructions count: 497
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.updateStageParameter(com.oplus.ocs.camera.common.parameter.Parameter, java.lang.String, java.lang.String, com.oplus.ocs.camera.common.util.CameraRequestTag):void");
+    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
+        synchronized (this.mPreviewResultLock) {
+            this.mbTenBitOpen = "on".equals(parameter.get(ConfigureParameter.PHOTO_10BIT_ENABLE));
+            if (this.mPreviewResult != null) {
+                this.mApsDecisionFeatureType = ((Integer) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue();
+                this.mAsdMovingObject = ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_ASD_SCENE))
+                        .intValue();
+                this.mAisState = ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_AIS_STATE))
+                        .intValue();
+            }
+            if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
+                if (parameter.containCustomKey(PreviewParameter.KEY_BRACKET_MODE)) {
+                    synchronized (this.mBracketLock) {
+                        this.mApsBracketMode = ((int[]) parameter.get(PreviewParameter.KEY_BRACKET_MODE))[0];
+                    }
+                } else {
+                    synchronized (this.mBracketLock) {
+                        this.mApsBracketMode = 0;
+                    }
+                }
+            }
+        }
+        updateStageParameterBuilder((PreviewParameter.Builder) parameter, str, str2, cameraRequestTag);
     }
 
     public boolean isSupportAlogRawHDR(CameraRequestTag cameraRequestTag) {
@@ -606,20 +618,36 @@ public abstract class BaseMode implements ModeInterface {
      * B:60:0x01d4), top: B:158:0x0003 }]
      */
     @Override // com.oplus.ocs.camera.producer.mode.ModeInterface
-    @androidx.annotation.CallSuper
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public com.oplus.ocs.camera.common.util.CameraRequestTag createRequestTag(java.lang.String r7, java.lang.Object r8,
-            android.os.Handler r9, java.lang.String r10,
-            com.oplus.ocs.camera.common.parameter.PreviewParameter.Builder r11) {
-        /*
-         * Method dump skipped, instructions count: 1144
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.createRequestTag(java.lang.String, java.lang.Object, android.os.Handler, java.lang.String, com.oplus.ocs.camera.common.parameter.PreviewParameter$Builder):com.oplus.ocs.camera.common.util.CameraRequestTag");
+    @CallSuper
+    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder) {
+        CameraRequestTag cameraRequestTag = new CameraRequestTag(obj, handler);
+        cameraRequestTag.mCameraId = Integer.parseInt(str);
+        cameraRequestTag.mCameraType = str2;
+        cameraRequestTag.mCaptureMode = getModeName();
+        cameraRequestTag.mbPiEnable = "on".equals(builder.get(PreviewParameter.KEY_AI_PHOTO));
+        cameraRequestTag.mbVisualizationEnable = "on"
+                .equals(builder.get(PreviewParameter.KEY_ALGO_VISUALIZATION_ENABLE));
+        cameraRequestTag.mbFrontMirror = "on".equals(builder.get(PreviewParameter.KEY_FRONT_MIRROR_ENABLE));
+        cameraRequestTag.mZoomRatio = ((Float) builder.get(PreviewParameter.KEY_ZOOM_RATIO)).floatValue();
+        cameraRequestTag.mCaptureStreamNumber = getSensorNum(str2);
+        cameraRequestTag.mPreviewStreamNumber = getSensorNum(str2);
+        cameraRequestTag.mbFaceBeautyOpen = !"none".equals(builder.get(PreviewParameter.KEY_FACE_BEAUTY_STATE));
+        cameraRequestTag.mMakeupType = (String) builder.get(PreviewParameter.KEY_MAKEUP_STATE);
+        cameraRequestTag.mbCaptureNotMatchMeta = this.mbTenBitOpen;
+        synchronized (this.mPreviewResultLock) {
+            if (this.mPreviewResult != null) {
+                cameraRequestTag.mDecisionHdrBrightenIndex = ((Integer) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_DECISION_HDR_BRIGHTEN_INDEX)).intValue();
+                cameraRequestTag.mApsAlgoFlags = (String[]) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_CAPTURE_ALGO_LIST);
+                cameraRequestTag.mRequestFormatList = getCaptureFormatList(str2);
+                cameraRequestTag.mRearFrontCameraId = this.mRearFrontCameraId;
+                cameraRequestTag.mbFaceRectifyOpen = ((Boolean) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_FACE_RECTIFY_ENABLE)).booleanValue();
+            }
+        }
+        return cameraRequestTag;
     }
 
     private int[] getCaptureFormatList(String str) {
@@ -1079,20 +1107,101 @@ public abstract class BaseMode implements ModeInterface {
     /*
      * JADX WARN: Removed duplicated region for block: B:121:? A[RETURN, SYNTHETIC]
      */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    private com.oplus.ocs.camera.common.surface.SurfaceWrapper getSurfaceWrapper(
-            com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig r13, int r14, java.lang.String r15,
-            java.lang.String r16, @androidx.annotation.NonNull android.util.Size r17, android.util.Size r18,
-            boolean r19, java.lang.String r20) {
-        /*
-         * Method dump skipped, instructions count: 644
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.getSurfaceWrapper(com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig, int, java.lang.String, java.lang.String, android.util.Size, android.util.Size, boolean, java.lang.String):com.oplus.ocs.camera.common.surface.SurfaceWrapper");
+    private SurfaceWrapper getSurfaceWrapper(SdkCameraDeviceConfig sdkCameraDeviceConfig, int i, String str,
+            String str2, Size size, Size size2, boolean z, String str3) {
+        String surfaceUsageBySurfaceType = getSurfaceUsageBySurfaceType(str);
+        int surfaceFormatBySurfaceType = getSurfaceFormatBySurfaceType(str, str2, str3);
+        SurfaceWrapper surfaceWrapper = null;
+        switch (str.hashCode()) {
+            case -2099251545: // reprocess_input
+                if (str.equals("reprocess_input"))
+                    return sSurfaceDecision.createReprocessSurface(i, surfaceUsageBySurfaceType, str2, size, size2,
+                            surfaceFormatBySurfaceType);
+                break;
+            case -1513135880: // raw_output
+            case 163290031: // capture_raw
+            case 163297377: // capture_yuv
+            case 369148211: // raw16_output
+            case 552585030: // capture
+            case 1246732337: // capture_raw_dol
+            case 1238491229: // tuning_data_raw
+            case 1238498575: // tuning_data_yuv
+            case 1267070711: // reprocess_yuv
+            case 2043358779: // capture_yuv_mfnr
+                if (str.equals("raw_output") || str.equals("capture_raw") || str.equals("capture_yuv")
+                        || str.equals("raw16_output") || str.equals("capture") || str.equals("capture_raw_dol")
+                        || str.equals("tuning_data_raw") || str.equals("tuning_data_yuv") || str.equals("reprocess_yuv")
+                        || str.equals("capture_yuv_mfnr")) {
+                    return sSurfaceDecision.createReaderSurface(i, surfaceUsageBySurfaceType, str2, size, size2,
+                            surfaceFormatBySurfaceType, getCaptureImageReaderMaxImages());
+                }
+                break;
+            case -318184504: // preview
+                if (str.equals("preview")) {
+                    surfaceWrapper = sdkCameraDeviceConfig.getPreviewSurface(str2);
+                    Long previewReaderUsage = getPreviewReaderUsage(str2);
+                    if (surfaceWrapper == null && z) {
+                        surfaceWrapper = sSurfaceDecision.createReaderSurface(i, surfaceUsageBySurfaceType, str2, size,
+                                size2, surfaceFormatBySurfaceType, getPreviewImageReaderMaxImages(), (Long) null,
+                                previewReaderUsage);
+                    } else if (surfaceWrapper != null && z) {
+                        surfaceWrapper = sSurfaceDecision.createReaderSurface(surfaceWrapper.getPhysicalCameraId(),
+                                surfaceUsageBySurfaceType, surfaceWrapper.getCameraType(),
+                                surfaceWrapper.getAppSurfaceSize(), surfaceWrapper.getHalSurfaceSize(),
+                                surfaceFormatBySurfaceType, getPreviewImageReaderMaxImages(), (Long) null,
+                                previewReaderUsage);
+                    }
+                    if (surfaceWrapper != null) {
+                        surfaceWrapper.setSurfaceUsage(surfaceUsageBySurfaceType);
+                    }
+                    return surfaceWrapper;
+                }
+                break;
+            case 112202875: // video
+                if (str.equals("video")) {
+                    Surface surface = sdkCameraDeviceConfig.getVideoSurface() != null
+                            ? sdkCameraDeviceConfig.getVideoSurface().getSurface()
+                            : null;
+                    if (surface == null) {
+                        SurfacePool.getInstance().createVideoSurface();
+                    } else {
+                        SurfacePool.getInstance().setVideoSurface(surface);
+                    }
+                    return sSurfaceDecision.createReaderSurface(i, surfaceUsageBySurfaceType, str2, size, size2,
+                            surfaceFormatBySurfaceType, getImageReaderMaxImages(str2), getVideoFrameReaderUsage(str2),
+                            (Long) null);
+                }
+                break;
+            case 1900115042: // video_recorder
+                if (str.equals("video_recorder")) {
+                    return sSurfaceDecision.createRecorderVideoSurface(i, surfaceUsageBySurfaceType, str2, size, size2,
+                            surfaceFormatBySurfaceType,
+                            sdkCameraDeviceConfig.getVideoSurface() != null
+                                    ? sdkCameraDeviceConfig.getVideoSurface().getSurface()
+                                    : null);
+                }
+                break;
+            case 1214408581: // preview_in_preview
+                if (str.equals("preview_in_preview")) {
+                    String modeName = getModeName();
+                    if ("photo_mode".equals(modeName) || "tilt_shift_mode".equals(modeName)) {
+                        return sSurfaceDecision.createReaderSurface(i, surfaceUsageBySurfaceType, str2, size, size2,
+                                surfaceFormatBySurfaceType, getPreviewImageReaderMaxImages());
+                    }
+                }
+                break;
+            case 694155830: // preview_frame
+                if (str.equals("preview_frame")) {
+                    surfaceWrapper = sSurfaceDecision.createReaderSurface(i, surfaceUsageBySurfaceType, str2, size,
+                            size2, surfaceFormatBySurfaceType, getPreviewImageReaderMaxImages());
+                    if (surfaceWrapper != null) {
+                        surfaceWrapper.setSurfaceUsage("surface_key_preview_frame");
+                    }
+                    return surfaceWrapper;
+                }
+                break;
+        }
+        return null;
     }
 
     public String getSurfaceUsageBySurfaceType(String str) {
@@ -1491,19 +1600,142 @@ public abstract class BaseMode implements ModeInterface {
      * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
      * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
      */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    public boolean needAddToTarget(java.lang.String r19, java.lang.String r20,
-            @androidx.annotation.NonNull com.oplus.ocs.camera.common.surface.SurfaceKey r21,
-            com.oplus.ocs.camera.common.parameter.PreviewParameter.Builder r22) {
-        /*
-         * Method dump skipped, instructions count: 1234
-         * To view this dump add '--comments-level debug' option
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.needAddToTarget(java.lang.String, java.lang.String, com.oplus.ocs.camera.common.surface.SurfaceKey, com.oplus.ocs.camera.common.parameter.PreviewParameter$Builder):boolean");
+    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
+            PreviewParameter.Builder builder) {
+        synchronized (this.mPreviewResultLock) {
+            String usage = surfaceKey.getUsage();
+            boolean isPreview = "surface_key_preview".equals(usage) || "surface_key_preview_frame".equals(usage);
+            boolean isBurstShot = "on".equals(builder.get(PreviewParameter.KEY_BURST_SHOT_ENABLE));
+
+            boolean isRawFormat = false;
+            if (this.mPreviewResult != null && !isBurstShot) {
+                int previewFormat = ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_REQUEST_FORMAT))
+                        .intValue();
+                isRawFormat = (32 == previewFormat || 34 == previewFormat || 36 == previewFormat);
+            }
+
+            boolean isMixedFormat = false;
+            if (this.mPreviewResult != null && !isBurstShot) {
+                isMixedFormat = ((Boolean) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_REQUEST_MIXED_FORMAT)).booleanValue();
+            }
+
+            if ("start_preview".equals(str2)) {
+                return isPreview;
+            }
+
+            if ("before_take_picture".equals(str2)) {
+                if (isPreview) {
+                    if (this.mPreviewResult != null) {
+                        return 5 != ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE))
+                                .intValue();
+                    }
+                    return true;
+                }
+
+                String usageStr = surfaceKey.getUsage();
+                if ("surface_key_picture".equals(usageStr) || "surface_key_picture_mfnr".equals(usageStr)) {
+                    int rawFormat = getRawFormat(str);
+                    boolean isRaw37 = rawFormat == 37;
+                    int[] captureFormatList = getCaptureFormatList(surfaceKey.getCameraType());
+                    boolean formatMatch = false;
+                    if (captureFormatList != null && captureFormatList.length > 0 && !isBurstShot) {
+                        for (int f : captureFormatList) {
+                            if (f == surfaceKey.getFormat()) {
+                                CameraUnitLog.d("BaseMode", "needAddToTarget match, format: " + f);
+                                formatMatch = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    int format = surfaceKey.getFormat();
+                    if (format != 32) {
+                        if (format == 37) {
+                            if (isRaw37 && (!isRawFormat || isMixedFormat)) {
+                                formatMatch = true;
+                            }
+                        } else if (format == 34 || format == 35) {
+                            if (!isRawFormat) {
+                                formatMatch = true;
+                            }
+                        }
+                    } else if (!isRaw37 && !isRawFormat || isMixedFormat) {
+                        formatMatch = true;
+                    }
+
+                    if (this.mPreviewResult != null) {
+                        int[] sensorMask = (int[]) this.mPreviewResult
+                                .get(ApsDecisionParameter.KEY_PREVIEW_SENSOR_MASK);
+                        boolean platformCondition = PlatformUtil.isQualcommPlatform() || !isRawFormat
+                                || (2 == this.mApsDecisionFeatureType && 37 == surfaceKey.getFormat());
+
+                        if ("rear_sat".equals(str) && sensorMask != null && platformCondition
+                                && sensorMask.length >= 3) {
+                            if (Util.getNightStateDecision(this.mPreviewResult) <= 0 || isBurstShot) {
+                                if ("rear_wide".equals(surfaceKey.getCameraType())) {
+                                    formatMatch = (1 == sensorMask[0]);
+                                } else if ("rear_main".equals(surfaceKey.getCameraType())) {
+                                    formatMatch = (1 == sensorMask[1]);
+                                } else if ("rear_tele".equals(surfaceKey.getCameraType())) {
+                                    formatMatch = (1 == sensorMask[2]);
+                                } else if ("rear_mono_1".equals(surfaceKey.getCameraType())) {
+                                    formatMatch = true;
+                                }
+                            }
+                        }
+                    }
+                    return formatMatch;
+                } else if ("surface_key_tuning_yuv".equals(usageStr)) {
+                    if (this.mPreviewResult != null) {
+                        if (((Boolean) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_REQUEST_MIXED_FORMAT))
+                                .booleanValue()
+                                && -1 != ((Integer) this.mPreviewResult
+                                        .get(ApsDecisionParameter.KEY_DECISION_HDR_BRIGHTEN_INDEX)).intValue()) {
+                            return true;
+                        }
+                        if (35 != ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE))
+                                .intValue()
+                                && 38 != ((Integer) this.mPreviewResult
+                                        .get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue()) {
+                            return !isRawFormat;
+                        }
+                        return true;
+                    }
+                } else if ("surface_key_tuning_raw".equals(usageStr)) {
+                    if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_MTK_SAT_FUSION_SUPPORT,
+                            false)).booleanValue() && "rear_sat".equals(str) && 2 != this.mApsDecisionFeatureType) {
+                        if (!"rear_wide".equals(surfaceKey.getCameraType())
+                                && !"rear_main".equals(surfaceKey.getCameraType())
+                                && "rear_tele".equals(surfaceKey.getCameraType())) {
+                            return true;
+                        }
+                    }
+                    if (2 == this.mApsDecisionFeatureType) {
+                        if ("rear_sat".equals(surfaceKey.getCameraType()))
+                            return true;
+                        if (this.mPreviewResult != null) {
+                            int[] mask = (int[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_SENSOR_MASK);
+                            if ("rear_sat".equals(str) && mask != null && mask.length >= 3
+                                    && Util.getNightStateDecision(this.mPreviewResult) <= 0) {
+                                if ("rear_wide".equals(surfaceKey.getCameraType()))
+                                    return 1 == mask[0];
+                                if ("rear_main".equals(surfaceKey.getCameraType()))
+                                    return 1 == mask[1];
+                                if ("rear_tele".equals(surfaceKey.getCameraType()))
+                                    return 1 == mask[2];
+                            }
+                        }
+                    } else if (!isRawFormat || isMixedFormat) {
+                        return true;
+                    }
+                }
+            }
+            if ("start_recording".equals(str2) && "surface_key_recording".equals(surfaceKey.getUsage())) {
+                return true;
+            }
+            return false;
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -1532,40 +1764,14 @@ public abstract class BaseMode implements ModeInterface {
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:5:0x000e */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     * To view partially-correct add '--show-bad-code' argument
-     */
-    private final boolean needTuningData(
-            java.util.HashMap<com.oplus.ocs.camera.common.surface.SurfaceKey, android.view.Surface> r3) {
-        /*
-         * r2 = this;
-         * java.util.Set r2 = r3.keySet()
-         * java.util.Iterator r2 = r2.iterator()
-         * L8:
-         * boolean r3 = r2.hasNext()
-         * if (r3 == 0) goto L2e
-         * java.lang.Object r3 = r2.next()
-         * com.oplus.ocs.camera.common.surface.SurfaceKey r3 =
-         * (com.oplus.ocs.camera.common.surface.SurfaceKey) r3
-         * java.lang.String r0 = r3.getUsage()
-         * java.lang.String r1 = "surface_key_tuning_raw"
-         * boolean r0 = r1.equals(r0)
-         * if (r0 != 0) goto L2c
-         * java.lang.String r3 = r3.getUsage()
-         * java.lang.String r0 = "surface_key_tuning_yuv"
-         * boolean r3 = r0.equals(r3)
-         * if (r3 == 0) goto L8
-         * L2c:
-         * r2 = 1
-         * return r2
-         * L2e:
-         * r2 = 0
-         * return r2
-         */
-        throw new UnsupportedOperationException(
-                "Method not decompiled: com.oplus.ocs.camera.producer.mode.BaseMode.needTuningData(java.util.HashMap):boolean");
+    private final boolean needTuningData(HashMap<SurfaceKey, Surface> hashMap) {
+        for (SurfaceKey surfaceKey : hashMap.keySet()) {
+            String usage = surfaceKey.getUsage();
+            if ("surface_key_tuning_raw".equals(usage) || "surface_key_tuning_yuv".equals(usage)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isVideoWaterMarkOpen(String str) {
