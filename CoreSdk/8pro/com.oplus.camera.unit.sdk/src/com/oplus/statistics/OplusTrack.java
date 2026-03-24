@@ -28,6 +28,7 @@ import com.oplus.statistics.util.VersionUtil;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
 /* loaded from: classes.dex */
 public class OplusTrack {
     private static final String CLIENT_START = "ClientStart";
@@ -129,11 +130,13 @@ public class OplusTrack {
         return onCommon(commonBean, 1);
     }
 
-    public static boolean onCommonBatch(@NonNull Context context, String str, String str2, List<Map<String, String>> list, int i) throws DataOverSizeException {
+    public static boolean onCommonBatch(@NonNull Context context, String str, String str2,
+            List<Map<String, String>> list, int i) throws DataOverSizeException {
         return onCommonBatch(context, "", str, str2, list, i);
     }
 
-    public static boolean onCommonBatch(@NonNull Context context, String str, String str2, String str3, List<Map<String, String>> list, int i) throws DataOverSizeException {
+    public static boolean onCommonBatch(@NonNull Context context, String str, String str2, String str3,
+            List<Map<String, String>> list, int i) throws DataOverSizeException {
         CommonBatchBean commonBatchBean = new CommonBatchBean(context);
         commonBatchBean.setAppId(str);
         commonBatchBean.setLogTag(str2);
@@ -150,7 +153,8 @@ public class OplusTrack {
         return onCommon(commonBean, i);
     }
 
-    public static boolean onCommon(@NonNull Context context, String str, String str2, Map<String, String> map, int i, int i2) {
+    public static boolean onCommon(@NonNull Context context, String str, String str2, Map<String, String> map, int i,
+            int i2) {
         CommonBean commonBean = new CommonBean(context);
         commonBean.setLogTag(str);
         commonBean.setEventID(str2);
@@ -159,7 +163,8 @@ public class OplusTrack {
         return onCommon(commonBean, i2);
     }
 
-    public static boolean onCommon(@NonNull Context context, String str, String str2, String str3, Map<String, String> map) {
+    public static boolean onCommon(@NonNull Context context, String str, String str2, String str3,
+            Map<String, String> map) {
         CommonBean commonBean = new CommonBean(context);
         commonBean.setAppId(str);
         commonBean.setLogTag(str2);
@@ -173,7 +178,8 @@ public class OplusTrack {
     }
 
     public static boolean onCommon(final CommonBean commonBean, final int i) {
-        if (!sFireWall.handleRequest(commonBean.getAppId() + "_" + commonBean.getLogTag() + "_" + commonBean.getEventID())) {
+        if (!sFireWall
+                .handleRequest(commonBean.getAppId() + "_" + commonBean.getLogTag() + "_" + commonBean.getEventID())) {
             ChattyEventTracker.getInstance().onChattyEvent(commonBean);
             return false;
         }
@@ -181,35 +187,38 @@ public class OplusTrack {
             LogUtil.v(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda27
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return OplusTrack.lambda$onCommon$1(CommonBean.this, i);
+                    return OplusTrack.lambda$onCommon$1(commonBean, i);
                 }
             });
             if ((i & 1) == 1) {
-                WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda28
+                WorkThread.execute(new Runnable() { // from class:
+                                                    // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda28
                     @Override // java.lang.Runnable
                     public final void run() {
-                        CommonAgent.recordCommon(r0.getContext(), CommonBean.this);
+                        CommonAgent.recordCommon(commonBean.getContext(), commonBean);
                     }
                 });
             }
             if ((i & 2) == 2) {
-                WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda29
+                WorkThread.execute(new Runnable() { // from class:
+                                                    // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda29
                     @Override // java.lang.Runnable
                     public final void run() {
-                        AtomAgent.recordAtomCommon(r0.getContext(), CommonBean.this);
+                        AtomAgent.recordAtomCommon(commonBean.getContext(), commonBean);
                     }
                 });
             }
             return true;
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
             return false;
         }
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static /* synthetic */ String lambda$onCommon$1(CommonBean commonBean, int i) {
-        return "onCommon logTag is " + commonBean.getLogTag() + ",eventID:" + commonBean.getEventID() + ",flagSendTo:" + i;
+        return "onCommon logTag is " + commonBean.getLogTag() + ",eventID:" + commonBean.getEventID() + ",flagSendTo:"
+                + i;
     }
 
     public static void onStaticDataUpdate(Context context, String str, String str2, Map<String, String> map) {
@@ -230,17 +239,18 @@ public class OplusTrack {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda12
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return OplusTrack.lambda$onStaticDataUpdate$4(PeriodDataBean.this);
+                    return OplusTrack.lambda$onStaticDataUpdate$4(periodDataBean);
                 }
             });
-            WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda13
+            WorkThread.execute(new Runnable() { // from class:
+                                                // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda13
                 @Override // java.lang.Runnable
                 public final void run() {
                     StaticPeriodDataRecord.updateData(context, periodDataBean);
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -254,7 +264,8 @@ public class OplusTrack {
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static /* synthetic */ String lambda$onSettingKeyUpdate$6(SettingKeyDataBean settingKeyDataBean) {
-        return "onSettingKeyUpdate logTag:" + settingKeyDataBean.getLogTag() + ", eventID:" + settingKeyDataBean.getEventID() + ", keys:" + settingKeyDataBean.getLogMap();
+        return "onSettingKeyUpdate logTag:" + settingKeyDataBean.getLogTag() + ", eventID:"
+                + settingKeyDataBean.getEventID() + ", keys:" + settingKeyDataBean.getLogMap();
     }
 
     public static void onSettingKeyUpdate(final Context context, final SettingKeyDataBean settingKeyDataBean) {
@@ -262,7 +273,7 @@ public class OplusTrack {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return OplusTrack.lambda$onSettingKeyUpdate$6(SettingKeyDataBean.this);
+                    return OplusTrack.lambda$onSettingKeyUpdate$6(settingKeyDataBean);
                 }
             });
             if (!TextUtils.isEmpty(settingKeyDataBean.getLogTag())) {
@@ -281,7 +292,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -328,7 +339,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -355,7 +366,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -382,7 +393,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -409,7 +420,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -419,7 +430,8 @@ public class OplusTrack {
     }
 
     @Deprecated
-    public static void onDynamicEvent(final Context context, final int i, final int i2, final Map<String, String> map, final Map<String, String> map2) {
+    public static void onDynamicEvent(final Context context, final int i, final int i2, final Map<String, String> map,
+            final Map<String, String> map2) {
         try {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda23
                 @Override // com.oplus.statistics.util.Supplier
@@ -434,17 +446,19 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static /* synthetic */ String lambda$onStaticEvent$14(int i, int i2, String str, String str2, String str3) {
-        return "onStaticEvent uploadMode:" + i + ",statId:" + i2 + ",setId:" + str + ",setValue:" + str2 + ",remark:" + str3;
+        return "onStaticEvent uploadMode:" + i + ",statId:" + i2 + ",setId:" + str + ",setValue:" + str2 + ",remark:"
+                + str3;
     }
 
     @Deprecated
-    public static void onStaticEvent(final Context context, final int i, final int i2, final String str, final String str2, final String str3, final Map<String, String> map) {
+    public static void onStaticEvent(final Context context, final int i, final int i2, final String str,
+            final String str2, final String str3, final Map<String, String> map) {
         try {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda8
                 @Override // com.oplus.statistics.util.Supplier
@@ -459,7 +473,7 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -468,7 +482,8 @@ public class OplusTrack {
         return "onKVEventStart eventID:" + str + ",eventTag:" + str2 + ",eventMap:" + map;
     }
 
-    public static void onKVEventStart(final Context context, final String str, final Map<String, String> map, final String str2) {
+    public static void onKVEventStart(final Context context, final String str, final Map<String, String> map,
+            final String str2) {
         try {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda24
                 @Override // com.oplus.statistics.util.Supplier
@@ -485,7 +500,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -511,7 +526,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -537,7 +552,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -563,7 +578,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -577,7 +592,7 @@ public class OplusTrack {
             });
             sPageVisitAgent.onPause(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -591,14 +606,15 @@ public class OplusTrack {
             });
             sPageVisitAgent.onResume(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
     public static synchronized void onError(Context context) {
         synchronized (OplusTrack.class) {
             try {
-                LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda22
+                LogUtil.d(TAG, new Supplier() { // from class:
+                                                // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda22
                     @Override // com.oplus.statistics.util.Supplier
                     public final Object get() {
                         return OplusTrack.lambda$onError$21();
@@ -632,7 +648,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -651,7 +667,7 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -696,7 +712,7 @@ public class OplusTrack {
         try {
             PreferenceHandler.setSsoID(context, (TextUtils.isEmpty(str) || str.equals("null")) ? "0" : "0");
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -710,7 +726,7 @@ public class OplusTrack {
             });
             PreferenceHandler.setSsoID(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
