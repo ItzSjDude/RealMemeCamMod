@@ -175,59 +175,15 @@ public class PackageManagerWrapper {
     }
 
     public static void clearCachedIconForActivity(PackageManager pm, ComponentName activityName) {
-        if (pm != null) {
-            try {
-                if (pm.mPackageManagerExt != null) {
-                    IUxIconPackageManagerExt uxIconPackageManagerExt = (IUxIconPackageManagerExt) pm.mPackageManagerExt.getUxIconPackageManagerExt();
-                    if (uxIconPackageManagerExt == null) {
-                        uxIconPackageManagerExt = IUxIconPackageManagerExt.DEFAULT;
-                    }
-                    uxIconPackageManagerExt.clearCachedIconForActivity(activityName);
-                }
-            } catch (Throwable e) {
-                Log.e(TAG, e.toString());
-            }
-        }
+        // commented out
     }
 
     public static Drawable getUxIconDrawable(PackageManager pm, Drawable src, boolean isForegroundDrawable) {
-        if (pm == null) {
-            return src;
-        }
-        try {
-            if (pm.mPackageManagerExt == null) {
-                return src;
-            }
-            IUxIconPackageManagerExt uxIconPackageManagerExt = (IUxIconPackageManagerExt) pm.mPackageManagerExt.getUxIconPackageManagerExt();
-            if (uxIconPackageManagerExt == null) {
-                uxIconPackageManagerExt = IUxIconPackageManagerExt.DEFAULT;
-            }
-            Drawable result = uxIconPackageManagerExt.getUxIconDrawable(src, isForegroundDrawable);
-            return result;
-        } catch (Throwable e) {
-            Log.e(TAG, e.toString());
-            return src;
-        }
+        return src;
     }
 
     public static Drawable getUxIconDrawable(PackageManager pm, String packageName, Drawable src, boolean isForegroundDrawable) {
-        if (pm == null) {
-            return src;
-        }
-        try {
-            if (pm.mPackageManagerExt == null) {
-                return src;
-            }
-            IUxIconPackageManagerExt uxIconPackageManagerExt = (IUxIconPackageManagerExt) pm.mPackageManagerExt.getUxIconPackageManagerExt();
-            if (uxIconPackageManagerExt == null) {
-                uxIconPackageManagerExt = IUxIconPackageManagerExt.DEFAULT;
-            }
-            Drawable result = uxIconPackageManagerExt.getUxIconDrawable(packageName, src, isForegroundDrawable);
-            return result;
-        } catch (Throwable e) {
-            Log.e(TAG, e.toString());
-            return src;
-        }
+        return src;
     }
 
     private static Object callMethodByReflect(Object object, String methodName, Class<?>[] paramTypes, Object[] args) throws NoSuchMethodException, SecurityException {
