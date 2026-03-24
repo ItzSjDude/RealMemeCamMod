@@ -24,12 +24,7 @@ public class StorageVolumeWrapper {
 
     public static int getReadOnlyType(StorageVolume storageVolume) {
         try {
-            IStorageVolumeExt baseStorageVolume = (IStorageVolumeExt) OplusMirrorStorageVolume.mStorageVolumeExt.get(storageVolume);
-            if (baseStorageVolume == null) {
-                return -1;
-            }
-            int result = baseStorageVolume.getReadOnlyType();
-            return result;
+            return -1;
         } catch (Throwable e) {
             Log.e(TAG, e.toString());
             return -1;
@@ -37,6 +32,6 @@ public class StorageVolumeWrapper {
     }
 
     public static int getFatVolumeId(StorageVolume storageVolume) {
-        return storageVolume.getFatVolumeId();
+        return 0;
     }
 }

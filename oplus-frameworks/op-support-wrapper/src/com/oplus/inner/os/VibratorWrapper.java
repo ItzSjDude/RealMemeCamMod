@@ -18,10 +18,10 @@ public class VibratorWrapper {
     public static final int STRONG_AMPLITUDE = 250;
     private static final String TAG = "VibratorWrapper";
     public static final int WEAK_AMPLITUDE = 100;
-    public static final long[] RAPID_MIDDLE_WAVEFORM_TIME = OplusVibratorConstant.RAPID_MIDDLE_WAVEFORM_TIME;
-    public static final int[] RAPID_MIDDLE_WAVEFORM_AMPLITUDE = OplusVibratorConstant.RAPID_MIDDLE_WAVEFORM_AMPLITUDE;
-    public static final long[] RAPID_STRONG_WAVEFORM_TIME = OplusVibratorConstant.RAPID_STRONG_WAVEFORM_TIME;
-    public static final int[] RAPID_STRONG_WAVEFORM_AMPLITUDE = OplusVibratorConstant.RAPID_STRONG_WAVEFORM_AMPLITUDE;
+    public static final long[] RAPID_MIDDLE_WAVEFORM_TIME = new long[0];
+    public static final int[] RAPID_MIDDLE_WAVEFORM_AMPLITUDE = new int[0];
+    public static final long[] RAPID_STRONG_WAVEFORM_TIME = new long[0];
+    public static final int[] RAPID_STRONG_WAVEFORM_AMPLITUDE = new int[0];
 
     private VibratorWrapper() {
     }

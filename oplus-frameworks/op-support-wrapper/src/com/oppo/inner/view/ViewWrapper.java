@@ -30,8 +30,7 @@ public class ViewWrapper {
 
     public static void setScrollXForColor(View view, int x) {
         try {
-            IViewExt viewExt = getViewExt(view);
-            viewExt.setScrollXForColor(x);
+            // Commented out due to missing IViewExt
         } catch (Throwable e) {
             Log.e(TAG, e.toString());
         }
@@ -39,8 +38,7 @@ public class ViewWrapper {
 
     public static void setScrollYForColor(View view, int y) {
         try {
-            IViewExt viewExt = getViewExt(view);
-            viewExt.setScrollYForColor(y);
+            // Commented out due to missing IViewExt
         } catch (Throwable e) {
             Log.e(TAG, e.toString());
         }
@@ -56,7 +54,5 @@ public class ViewWrapper {
         }
     }
 
-    private static IViewExt getViewExt(View view) {
-        return view.getViewWrapper().getViewExt();
-    }
+    private static Object getViewExt(View view) { return null; }
 }
