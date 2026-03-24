@@ -23,7 +23,8 @@ public class CameraMetadataNativeWrapper {
     private static final String KEY_NATIVE_GET_BUFFER_SIZE = "nativeGetNativeBufSize";
     private static final String TAG = "CameraMetadataNativeWrapper";
 
-    public static int copyBuf(Object obj, long address) throws NoSuchFieldException, NoSuchMethodException, SecurityException {
+    public static int copyBuf(Object obj, long address)
+            throws NoSuchFieldException, NoSuchMethodException, SecurityException {
         CameraMetadataNative cameraMetadataNative = getCameraMetadataNativeObj(obj);
         if (cameraMetadataNative == null) {
             return -1;
@@ -57,7 +58,8 @@ public class CameraMetadataNativeWrapper {
         }
     }
 
-    public static ConcurrentHashMap<CaptureResult.Key<?>, Integer> getVendorTagId(CaptureResult result) throws NoSuchMethodException, SecurityException {
+    public static ConcurrentHashMap<CaptureResult.Key<?>, Integer> getVendorTagId(CaptureResult result)
+            throws NoSuchMethodException, SecurityException {
         Object[] objArr;
         ConcurrentHashMap<CaptureResult.Key<?>, Integer> vendorKeyMap;
         if (result == null) {
@@ -84,7 +86,7 @@ public class CameraMetadataNativeWrapper {
             HashMap<CaptureResult.Key<?>, Integer> temp = new HashMap<>();
             for (CaptureResult.Key<?> key2 : vendorKeyMap2.keySet()) {
                 try {
-                    Object[] objArr = new Object[2];
+                    objArr = new Object[2];
                     objArr[0] = new String(key2.getName());
                     objArr[1] = new Long(key2.getVendorId());
                     int vendorTagId = ((Integer) getVendorTagFromKey.invoke(null, objArr)).intValue();

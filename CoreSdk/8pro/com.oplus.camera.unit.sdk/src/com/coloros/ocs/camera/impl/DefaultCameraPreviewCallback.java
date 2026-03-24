@@ -6,24 +6,28 @@ import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.view.Surface;
 import androidx.annotation.NonNull;
-import com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter;
-import com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter;
+
+// Imports removed to resolve ambiguity
 /* loaded from: classes.dex */
-public final class DefaultCameraPreviewCallback extends CameraPreviewCallbackAdapter {
+public final class DefaultCameraPreviewCallback extends com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter mCameraPreviewCallback;
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public DefaultCameraPreviewCallback(com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter) {
+    public DefaultCameraPreviewCallback(
+            com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter) {
         this.mCameraPreviewCallback = cameraPreviewCallbackAdapter;
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onCaptureCompleted(CaptureRequest captureRequest, CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        this.mCameraPreviewCallback.onCaptureCompleted(captureRequest, new CameraPreviewCallbackAdapter.PreviewResult(previewResult));
+    public void onCaptureCompleted(CaptureRequest captureRequest,
+            com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult previewResult) {
+        this.mCameraPreviewCallback.onCaptureCompleted(captureRequest,
+                new com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter.PreviewResult(previewResult));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
+    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest,
+            @NonNull TotalCaptureResult totalCaptureResult, String str) {
         this.mCameraPreviewCallback.onCaptureCompleted(captureRequest, totalCaptureResult, str);
     }
 
@@ -43,7 +47,8 @@ public final class DefaultCameraPreviewCallback extends CameraPreviewCallbackAda
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull CaptureResult captureResult) {
+    public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest,
+            @NonNull CaptureResult captureResult) {
         this.mCameraPreviewCallback.onPreviewCaptureProgressed(captureRequest, captureResult);
     }
 
