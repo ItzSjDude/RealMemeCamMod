@@ -16,8 +16,8 @@ java_library {
 }
 
 java_library {
-    name: "com.oplus.camera.unit.sdk.adapter_8pro",
-    stem: "com.oplus.camera.unit.sdk.adapter",
+    name: "com.oplus.camera.unit.sdk.adapter",
+    
     srcs: ["8pro/com.oplus.camera.unit.sdk.adapter/sources/**/*.java"],
     installable: true,
     libs: ["framework", "oplus-framework", "com.oplus.camera.unit.sdk_8pro"],
