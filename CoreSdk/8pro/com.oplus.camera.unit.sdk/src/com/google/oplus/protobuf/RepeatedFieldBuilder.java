@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 /* loaded from: classes.dex */
-public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> implements GeneratedMessage.BuilderParent {
+public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
+        implements GeneratedMessage.BuilderParent {
     private List<SingleFieldBuilder<MType, BType, IType>> builders;
     private BuilderExternalList<MType, BType, IType> externalBuilderList;
     private MessageExternalList<MType, BType, IType> externalMessageList;
@@ -75,23 +77,32 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
         ensureBuilders();
         SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = this.builders.get(i);
         if (singleFieldBuilder == null) {
-            SingleFieldBuilder<MType, BType, IType> singleFieldBuilder2 = new SingleFieldBuilder<>(this.messages.get(i), this, this.isClean);
+            SingleFieldBuilder<MType, BType, IType> singleFieldBuilder2 = new SingleFieldBuilder<>(this.messages.get(i),
+                    this, this.isClean);
             this.builders.set(i, singleFieldBuilder2);
             singleFieldBuilder = singleFieldBuilder2;
         }
         return singleFieldBuilder.getBuilder();
     }
 
-    /* JADX WARN: Type inference failed for: r1v4, types: [com.google.oplus.protobuf.MessageOrBuilder, IType extends com.google.oplus.protobuf.MessageOrBuilder] */
-    /* JADX WARN: Type inference failed for: r1v7, types: [com.google.oplus.protobuf.MessageOrBuilder, IType extends com.google.oplus.protobuf.MessageOrBuilder] */
+    /*
+     * JADX WARN: Type inference failed for: r1v4, types:
+     * [com.google.oplus.protobuf.MessageOrBuilder, IType extends
+     * com.google.oplus.protobuf.MessageOrBuilder]
+     */
+    /*
+     * JADX WARN: Type inference failed for: r1v7, types:
+     * [com.google.oplus.protobuf.MessageOrBuilder, IType extends
+     * com.google.oplus.protobuf.MessageOrBuilder]
+     */
     public IType getMessageOrBuilder(int i) {
         List<SingleFieldBuilder<MType, BType, IType>> list = this.builders;
         if (list == null) {
-            return this.messages.get(i);
+            return (IType) this.messages.get(i);
         }
         SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = list.get(i);
         if (singleFieldBuilder == null) {
-            return this.messages.get(i);
+            return (IType) this.messages.get(i);
         }
         return singleFieldBuilder.getMessageOrBuilder();
     }
@@ -166,7 +177,8 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
     public BType addBuilder(MType mtype) {
         ensureMutableMessageList();
         ensureBuilders();
-        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this, this.isClean);
+        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this,
+                this.isClean);
         this.messages.add(null);
         this.builders.add(singleFieldBuilder);
         onChanged();
@@ -177,7 +189,8 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
     public BType addBuilder(int i, MType mtype) {
         ensureMutableMessageList();
         ensureBuilders();
-        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this, this.isClean);
+        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this,
+                this.isClean);
         this.messages.add(i, null);
         this.builders.add(i, singleFieldBuilder);
         onChanged();
@@ -301,7 +314,8 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
 
     /* JADX INFO: Access modifiers changed from: private */
     /* loaded from: classes.dex */
-    public static class MessageExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<MType> implements List<MType> {
+    public static class MessageExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
+            extends AbstractList<MType> implements List<MType> {
         RepeatedFieldBuilder<MType, BType, IType> builder;
 
         MessageExternalList(RepeatedFieldBuilder<MType, BType, IType> repeatedFieldBuilder) {
@@ -325,7 +339,8 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
 
     /* JADX INFO: Access modifiers changed from: private */
     /* loaded from: classes.dex */
-    public static class BuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<BType> implements List<BType> {
+    public static class BuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
+            extends AbstractList<BType> implements List<BType> {
         RepeatedFieldBuilder<MType, BType, IType> builder;
 
         BuilderExternalList(RepeatedFieldBuilder<MType, BType, IType> repeatedFieldBuilder) {
@@ -349,7 +364,8 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
 
     /* JADX INFO: Access modifiers changed from: private */
     /* loaded from: classes.dex */
-    public static class MessageOrBuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<IType> implements List<IType> {
+    public static class MessageOrBuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
+            extends AbstractList<IType> implements List<IType> {
         RepeatedFieldBuilder<MType, BType, IType> builder;
 
         MessageOrBuilderExternalList(RepeatedFieldBuilder<MType, BType, IType> repeatedFieldBuilder) {

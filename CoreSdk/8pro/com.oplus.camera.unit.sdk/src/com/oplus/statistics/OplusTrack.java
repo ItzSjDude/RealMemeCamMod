@@ -625,7 +625,7 @@ public class OplusTrack {
                     sExceptionHandler.setStatisticsExceptionHandler();
                 }
             } catch (Exception e) {
-                LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+                LogUtil.e(TAG, () -> e.toString());
             }
         }
     }

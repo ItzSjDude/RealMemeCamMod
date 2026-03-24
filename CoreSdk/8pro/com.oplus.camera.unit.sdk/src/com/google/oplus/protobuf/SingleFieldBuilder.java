@@ -3,8 +3,10 @@ package com.google.oplus.protobuf;
 import com.google.oplus.protobuf.GeneratedMessage;
 import com.google.oplus.protobuf.GeneratedMessage.Builder;
 import com.google.oplus.protobuf.MessageOrBuilder;
+
 /* loaded from: classes.dex */
-public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> implements GeneratedMessage.BuilderParent {
+public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
+        implements GeneratedMessage.BuilderParent {
     private BType builder;
     private boolean isClean;
     private MType message;
@@ -42,11 +44,19 @@ public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends Ge
         return this.builder;
     }
 
-    /* JADX WARN: Type inference failed for: r0v0, types: [BType extends com.google.oplus.protobuf.GeneratedMessage$Builder, IType extends com.google.oplus.protobuf.MessageOrBuilder] */
-    /* JADX WARN: Type inference failed for: r1v1, types: [MType extends com.google.oplus.protobuf.GeneratedMessage, IType extends com.google.oplus.protobuf.MessageOrBuilder] */
+    /*
+     * JADX WARN: Type inference failed for: r0v0, types: [BType extends
+     * com.google.oplus.protobuf.GeneratedMessage$Builder, IType extends
+     * com.google.oplus.protobuf.MessageOrBuilder]
+     */
+    /*
+     * JADX WARN: Type inference failed for: r1v1, types: [MType extends
+     * com.google.oplus.protobuf.GeneratedMessage, IType extends
+     * com.google.oplus.protobuf.MessageOrBuilder]
+     */
     public IType getMessageOrBuilder() {
         BType btype = this.builder;
-        return btype != 0 ? btype : this.message;
+        return btype != null ? (IType) btype : (IType) this.message;
     }
 
     public SingleFieldBuilder<MType, BType, IType> setMessage(MType mtype) {

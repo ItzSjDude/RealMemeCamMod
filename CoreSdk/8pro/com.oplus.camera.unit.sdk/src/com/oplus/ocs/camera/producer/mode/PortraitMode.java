@@ -606,6 +606,7 @@ public class PortraitMode extends BaseMode {
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     public int getPhysicalId(String str, String str2, String str3) {
+        int r5 = -1;
         if (PlatformUtil.isMtkPlatform() && "preview".equals(str3) && "rear_wide".equals(str2)) {
             if (((Boolean) CameraConfigHelper
                     .getConfigValue(CameraConfigBase.KEY_PORTRAIT_MTK_REAR_WIDE_PLATFORM_DEPTH_NOT_SUPPORT, false))

@@ -1178,19 +1178,10 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
     public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newMessageScopedGeneratedExtension(
             final Message message, final int i, Class cls, Message message2) {
-        return new GeneratedExtension<>(new CachedDescriptorRetriever() { // from class:
-                                                                          // com.google.oplus.protobuf.GeneratedMessage.2
-            /*
-             * JADX WARN: 'super' call moved to the top of the method (can break code
-             * semantics)
-             */
-            {
-                super();
-            }
-
+        return new GeneratedExtension<>(new CachedDescriptorRetriever() {
             @Override // com.google.oplus.protobuf.GeneratedMessage.CachedDescriptorRetriever
             public Descriptors.FieldDescriptor loadDescriptor() {
-                return Message.this.getDescriptorForType().getExtensions().get(i);
+                return message.getDescriptorForType().getExtensions().get(i);
             }
         }, cls, message2, Extension.ExtensionType.IMMUTABLE);
     }
@@ -1224,19 +1215,10 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
     public static <ContainingType extends Message, Type> GeneratedExtension<ContainingType, Type> newMessageScopedGeneratedExtension(
             final Message message, final String str, Class cls, Message message2) {
-        return new GeneratedExtension<>(new CachedDescriptorRetriever() { // from class:
-                                                                          // com.google.oplus.protobuf.GeneratedMessage.3
-            /*
-             * JADX WARN: 'super' call moved to the top of the method (can break code
-             * semantics)
-             */
-            {
-                super();
-            }
-
+        return new GeneratedExtension<>(new CachedDescriptorRetriever() {
             @Override // com.google.oplus.protobuf.GeneratedMessage.CachedDescriptorRetriever
             protected Descriptors.FieldDescriptor loadDescriptor() {
-                return Message.this.getDescriptorForType().findFieldByName(str);
+                return message.getDescriptorForType().findFieldByName(str);
             }
         }, cls, message2, Extension.ExtensionType.MUTABLE);
     }

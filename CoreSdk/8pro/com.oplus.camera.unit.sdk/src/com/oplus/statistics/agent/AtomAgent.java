@@ -9,6 +9,7 @@ import com.oplus.statistics.data.TrackEvent;
 import com.oplus.statistics.util.ApkInfoUtil;
 import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.Supplier;
+
 /* loaded from: classes.dex */
 public class AtomAgent {
     private static final String APP_ID = "appId";
@@ -25,15 +26,17 @@ public class AtomAgent {
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static /* synthetic */ String lambda$addTaskForAtom$0(TrackEvent trackEvent, Context context) {
-        return "AtomAgent add Task error -- bean or context is null--" + trackEvent + CameraConstant.JSON_CONNECTOR_COMMA + context;
+        return "AtomAgent add Task error -- bean or context is null--" + trackEvent
+                + CameraConstant.JSON_CONNECTOR_COMMA + context;
     }
 
     private static void addTaskForAtom(final Context context, final TrackEvent trackEvent) {
         if (trackEvent == null || context == null) {
-            LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.agent.AtomAgent$$ExternalSyntheticLambda0
+            LogUtil.d(TAG, new Supplier() { // from class:
+                                            // com.oplus.statistics.agent.AtomAgent$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return AtomAgent.lambda$addTaskForAtom$0(TrackEvent.this, context);
+                    return AtomAgent.lambda$addTaskForAtom$0(trackEvent, context);
                 }
             });
             return;

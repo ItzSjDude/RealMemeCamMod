@@ -139,8 +139,8 @@ public class YTFetchLicenseHelper {
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();
-                                    } catch (IOException e2) {
-                                        e2.printStackTrace();
+                                    } catch (IOException e1) {
+                                        e1.printStackTrace();
                                     }
                                 }
                                 if (httpsURLConnection == null) {
@@ -148,9 +148,7 @@ public class YTFetchLicenseHelper {
                                 }
                                 httpsURLConnection.disconnect();
                             } catch (ProtocolException e3) {
-                                e = e3;
-                                bufferedReader = bufferedReader2;
-                                e.printStackTrace();
+                                e3.printStackTrace();
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();
@@ -163,9 +161,7 @@ public class YTFetchLicenseHelper {
                                 }
                                 httpsURLConnection.disconnect();
                             } catch (SocketTimeoutException e5) {
-                                e = e5;
-                                bufferedReader = bufferedReader2;
-                                e.printStackTrace();
+                                e5.printStackTrace();
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();
@@ -178,9 +174,7 @@ public class YTFetchLicenseHelper {
                                 }
                                 httpsURLConnection.disconnect();
                             } catch (IOException e7) {
-                                e = e7;
-                                bufferedReader = bufferedReader2;
-                                e.printStackTrace();
+                                e7.printStackTrace();
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();
@@ -193,9 +187,7 @@ public class YTFetchLicenseHelper {
                                 }
                                 httpsURLConnection.disconnect();
                             } catch (InvalidKeyException e9) {
-                                e = e9;
-                                bufferedReader = bufferedReader2;
-                                e.printStackTrace();
+                                e9.printStackTrace();
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();
@@ -208,9 +200,7 @@ public class YTFetchLicenseHelper {
                                 }
                                 httpsURLConnection.disconnect();
                             } catch (NoSuchAlgorithmException e11) {
-                                e = e11;
-                                bufferedReader = bufferedReader2;
-                                e.printStackTrace();
+                                e11.printStackTrace();
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();
@@ -223,9 +213,7 @@ public class YTFetchLicenseHelper {
                                 }
                                 httpsURLConnection.disconnect();
                             } catch (JSONException e13) {
-                                e = e13;
-                                bufferedReader = bufferedReader2;
-                                e.printStackTrace();
+                                e13.printStackTrace();
                                 if (bufferedReader != null) {
                                     try {
                                         bufferedReader.close();

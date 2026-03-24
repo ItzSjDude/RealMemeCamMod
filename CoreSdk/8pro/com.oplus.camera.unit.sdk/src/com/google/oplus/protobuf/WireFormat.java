@@ -1,6 +1,7 @@
 package com.google.oplus.protobuf;
 
 import java.io.IOException;
+
 /* loaded from: classes.dex */
 public final class WireFormat {
     static final int FIXED32_SIZE = 4;
@@ -51,7 +52,7 @@ public final class WireFormat {
         BYTE_STRING(ByteString.EMPTY),
         ENUM(null),
         MESSAGE(null);
-        
+
         private final Object defaultDefault;
 
         JavaType(Object obj) {
@@ -103,7 +104,7 @@ public final class WireFormat {
         SFIXED64(JavaType.LONG, 1),
         SINT32(JavaType.INT, 0),
         SINT64(JavaType.LONG, 0);
-        
+
         private final JavaType javaType;
         private final int wireType;
 
@@ -152,13 +153,12 @@ public final class WireFormat {
         };
 
         abstract Object readString(CodedInputStream codedInputStream) throws IOException;
-
-        /* synthetic */ Utf8Validation(AnonymousClass1 anonymousClass1) {
-            this();
-        }
     }
 
-    /* renamed from: com.google.oplus.protobuf.WireFormat$1  reason: invalid class name */
+    /*
+     * renamed from: com.google.oplus.protobuf.WireFormat$1 reason: invalid class
+     * name
+     */
     /* loaded from: classes.dex */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
@@ -242,7 +242,8 @@ public final class WireFormat {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static Object readPrimitiveField(CodedInputStream codedInputStream, FieldType fieldType, Utf8Validation utf8Validation) throws IOException {
+    public static Object readPrimitiveField(CodedInputStream codedInputStream, FieldType fieldType,
+            Utf8Validation utf8Validation) throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 return Double.valueOf(codedInputStream.readDouble());

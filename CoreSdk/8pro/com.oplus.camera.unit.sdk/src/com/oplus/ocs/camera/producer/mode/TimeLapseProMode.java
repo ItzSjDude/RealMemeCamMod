@@ -1,6 +1,7 @@
 package com.oplus.ocs.camera.producer.mode;
 
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.params.MeteringRectangle;
 import android.os.Handler;
 import android.util.Pair;
 import android.util.Size;

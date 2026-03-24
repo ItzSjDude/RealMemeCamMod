@@ -5,6 +5,7 @@ import com.google.oplus.protobuf.MessageLite;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+
 /* loaded from: classes.dex */
 public abstract class AbstractParser<MessageType extends MessageLite> implements Parser<MessageType> {
     private static final ExtensionRegistryLite EMPTY_REGISTRY = ExtensionRegistryLite.getEmptyRegistry();
@@ -20,18 +21,20 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
         if (messagetype == null || messagetype.isInitialized()) {
             return messagetype;
         }
-        throw newUninitializedMessageException(messagetype).asInvalidProtocolBufferException().setUnfinishedMessage(messagetype);
+        throw newUninitializedMessageException(messagetype).asInvalidProtocolBufferException()
+                .setUnfinishedMessage(messagetype);
     }
 
     @Override // com.google.oplus.protobuf.Parser
     public MessageType parsePartialFrom(CodedInputStream codedInputStream) throws InvalidProtocolBufferException {
-        return (MessageType) parsePartialFrom(codedInputStream, EMPTY_REGISTRY);
+        return parsePartialFrom(codedInputStream, EMPTY_REGISTRY);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
-        return (MessageType) checkMessageInitialized((MessageLite) parsePartialFrom(codedInputStream, extensionRegistryLite));
+    public MessageType parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
+        return checkMessageInitialized(parsePartialFrom(codedInputStream, extensionRegistryLite));
     }
 
     @Override // com.google.oplus.protobuf.Parser
@@ -40,10 +43,11 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parsePartialFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         try {
             CodedInputStream newCodedInput = byteString.newCodedInput();
-            MessageType messagetype = (MessageType) parsePartialFrom(newCodedInput, extensionRegistryLite);
+            MessageType messagetype = parsePartialFrom(newCodedInput, extensionRegistryLite);
             try {
                 newCodedInput.checkLastTagWas(0);
                 return messagetype;
@@ -61,8 +65,9 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
-        return checkMessageInitialized(parsePartialFrom(byteString, extensionRegistryLite));
+    public MessageType parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
+        return parsePartialFrom(byteString, extensionRegistryLite);
     }
 
     @Override // com.google.oplus.protobuf.Parser
@@ -72,13 +77,14 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
 
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         try {
             CodedInputStream newInstance = CodedInputStream.newInstance(byteBuffer);
-            MessageLite messageLite = (MessageLite) parsePartialFrom(newInstance, extensionRegistryLite);
+            MessageType messageLite = parsePartialFrom(newInstance, extensionRegistryLite);
             try {
                 newInstance.checkLastTagWas(0);
-                return (MessageType) checkMessageInitialized(messageLite);
+                return checkMessageInitialized(messageLite);
             } catch (InvalidProtocolBufferException e) {
                 throw e.setUnfinishedMessage(messageLite);
             }
@@ -93,10 +99,11 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parsePartialFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         try {
             CodedInputStream newInstance = CodedInputStream.newInstance(bArr, i, i2);
-            MessageType messagetype = (MessageType) parsePartialFrom(newInstance, extensionRegistryLite);
+            MessageType messagetype = parsePartialFrom(newInstance, extensionRegistryLite);
             try {
                 newInstance.checkLastTagWas(0);
                 return messagetype;
@@ -114,7 +121,8 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parsePartialFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return parsePartialFrom(bArr, 0, bArr.length, extensionRegistryLite);
     }
 
@@ -124,7 +132,8 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parseFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return checkMessageInitialized(parsePartialFrom(bArr, i, i2, extensionRegistryLite));
     }
 
@@ -134,7 +143,8 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return parseFrom(bArr, 0, bArr.length, extensionRegistryLite);
     }
 
@@ -144,9 +154,10 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parsePartialFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         CodedInputStream newInstance = CodedInputStream.newInstance(inputStream);
-        MessageType messagetype = (MessageType) parsePartialFrom(newInstance, extensionRegistryLite);
+        MessageType messagetype = parsePartialFrom(newInstance, extensionRegistryLite);
         try {
             newInstance.checkLastTagWas(0);
             return messagetype;
@@ -161,7 +172,8 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return checkMessageInitialized(parsePartialFrom(inputStream, extensionRegistryLite));
     }
 
@@ -171,13 +183,15 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parsePartialDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parsePartialDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         try {
             int read = inputStream.read();
             if (read == -1) {
                 return null;
             }
-            return parsePartialFrom((InputStream) new AbstractMessageLite.Builder.LimitedInputStream(inputStream, CodedInputStream.readRawVarint32(read, inputStream)), extensionRegistryLite);
+            return parsePartialFrom((InputStream) new AbstractMessageLite.Builder.LimitedInputStream(inputStream,
+                    CodedInputStream.readRawVarint32(read, inputStream)), extensionRegistryLite);
         } catch (IOException e) {
             throw new InvalidProtocolBufferException(e);
         }
@@ -189,7 +203,8 @@ public abstract class AbstractParser<MessageType extends MessageLite> implements
     }
 
     @Override // com.google.oplus.protobuf.Parser
-    public MessageType parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public MessageType parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return checkMessageInitialized(parsePartialDelimitedFrom(inputStream, extensionRegistryLite));
     }
 

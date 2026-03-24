@@ -349,25 +349,6 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             implements ExtendableMessageOrBuilder<MessageType, BuilderType> {
         protected FieldSet<ExtensionDescriptor> extensions = FieldSet.emptySet();
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageLite,
-                  // com.google.oplus.protobuf.MessageLiteOrBuilder,
-                  // com.google.oplus.protobuf.MessageOrBuilder
-        public /* bridge */ /* synthetic */ MessageLite getDefaultInstanceForType() {
-            return super.getDefaultInstanceForType();
-        }
-
-        @Override // com.google.oplus.protobuf.GeneratedMessageLite,
-                  // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
-        public /* bridge */ /* synthetic */ MessageLite.Builder newBuilderForType() {
-            return super.newBuilderForType();
-        }
-
-        @Override // com.google.oplus.protobuf.GeneratedMessageLite,
-                  // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
-        public /* bridge */ /* synthetic */ MessageLite.Builder toBuilder() {
-            return super.toBuilder();
-        }
-
         protected final void mergeExtensionFields(MessageType messagetype) {
             if (this.extensions.isImmutable()) {
                 this.extensions = this.extensions.m1clone();
@@ -504,7 +485,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             verifyExtensionContainingType(checkIsLite);
             Object field = this.extensions.getField(checkIsLite.descriptor);
             if (field == null) {
-                return checkIsLite.defaultValue;
+                return (Type) checkIsLite.defaultValue;
             }
             return (Type) checkIsLite.fromFieldSetType(field);
         }
@@ -715,7 +696,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
     public static <ContainingType extends MessageLite, Type> GeneratedExtension<ContainingType, Type> newRepeatedGeneratedExtension(
             ContainingType containingtype, MessageLite messageLite, Internal.EnumLiteMap<?> enumLiteMap, int i,
             WireFormat.FieldType fieldType, boolean z, Class cls) {
-        return new GeneratedExtension<>(containingtype, Collections.emptyList(), messageLite,
+        return new GeneratedExtension<ContainingType, Type>(containingtype, (Type) Collections.emptyList(), messageLite,
                 new ExtensionDescriptor(enumLiteMap, i, fieldType, true, z), cls);
     }
 
@@ -770,7 +751,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.FieldSet.FieldDescriptorLite
         public MessageLite.Builder internalMergeFrom(MessageLite.Builder builder, MessageLite messageLite) {
-            return ((Builder) builder).mergeFrom((Builder) ((GeneratedMessageLite) messageLite));
+            return ((Builder) builder).mergeFrom((GeneratedMessageLite) messageLite);
         }
 
         @Override // java.lang.Comparable
@@ -996,7 +977,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
      */
     protected static Internal.IntList mutableCopy(Internal.IntList intList) {
         int size = intList.size();
-        return intList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+        return intList.mutableCopyWithCapacity(size == 0 ? 10 : size * 2);
     }
 
     protected static Internal.LongList emptyLongList() {
@@ -1009,7 +990,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
      */
     protected static Internal.LongList mutableCopy(Internal.LongList longList) {
         int size = longList.size();
-        return longList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+        return longList.mutableCopyWithCapacity(size == 0 ? 10 : size * 2);
     }
 
     protected static Internal.FloatList emptyFloatList() {
@@ -1022,7 +1003,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
      */
     protected static Internal.FloatList mutableCopy(Internal.FloatList floatList) {
         int size = floatList.size();
-        return floatList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+        return floatList.mutableCopyWithCapacity(size == 0 ? 10 : size * 2);
     }
 
     protected static Internal.DoubleList emptyDoubleList() {
@@ -1035,7 +1016,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
      */
     protected static Internal.DoubleList mutableCopy(Internal.DoubleList doubleList) {
         int size = doubleList.size();
-        return doubleList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+        return doubleList.mutableCopyWithCapacity(size == 0 ? 10 : size * 2);
     }
 
     protected static Internal.BooleanList emptyBooleanList() {
@@ -1048,7 +1029,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
      */
     protected static Internal.BooleanList mutableCopy(Internal.BooleanList booleanList) {
         int size = booleanList.size();
-        return booleanList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+        return booleanList.mutableCopyWithCapacity(size == 0 ? 10 : size * 2);
     }
 
     protected static <E> Internal.ProtobufList<E> emptyProtobufList() {

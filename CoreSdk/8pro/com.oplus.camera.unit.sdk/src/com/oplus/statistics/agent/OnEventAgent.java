@@ -12,6 +12,7 @@ import com.oplus.statistics.util.LogUtil;
 import com.oplus.statistics.util.TimeInfoUtil;
 import java.util.Map;
 import org.json.JSONObject;
+
 /* loaded from: classes.dex */
 public class OnEventAgent {
     private static final String TAG = "OnEventAgent";
@@ -32,17 +33,20 @@ public class OnEventAgent {
         recordKVEvent(context, str, map, TimeInfoUtil.getFormatTime(), j);
     }
 
-    public static void onDynamicEvent(Context context, int i, int i2, Map<String, String> map, Map<String, String> map2) {
+    public static void onDynamicEvent(Context context, int i, int i2, Map<String, String> map,
+            Map<String, String> map2) {
         recordDynamicEvent(context, i, i2, TimeInfoUtil.getFormatTime(), map, map2);
     }
 
-    public static void onStaticEvent(Context context, int i, int i2, String str, String str2, String str3, Map<String, String> map) {
+    public static void onStaticEvent(Context context, int i, int i2, String str, String str2, String str3,
+            Map<String, String> map) {
         recordStaticLog(context, i, i2, TimeInfoUtil.getFormatTime(), str, str2, str3, map);
     }
 
     public static void onKVEventStart(Context context, String str, Map<String, String> map, String str2) {
         long currentTime = TimeInfoUtil.getCurrentTime();
-        PreferenceHandler.setKVEventStart(str, getKVEventObject(str, map, TimeInfoUtil.getFormatTime(currentTime), currentTime).toString(), str2);
+        PreferenceHandler.setKVEventStart(str,
+                getKVEventObject(str, map, TimeInfoUtil.getFormatTime(currentTime), currentTime).toString(), str2);
     }
 
     public static void onKVEventEnd(Context context, String str, String str2) {
@@ -65,7 +69,7 @@ public class OnEventAgent {
             }
             PreferenceHandler.setEventStart(context, str, str2, 0L);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OnEventAgent$$ExternalSyntheticLambda0(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -89,7 +93,7 @@ public class OnEventAgent {
             recordAppLog(context, "ekv", jSONObject);
             PreferenceHandler.setKVEventStart(str, "", str2);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OnEventAgent$$ExternalSyntheticLambda0(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
     }
 
@@ -97,11 +101,13 @@ public class OnEventAgent {
         ProxyRecorder.getInstance().addTrackEvent(context, new AppLogBean(context, str, jSONObject.toString()));
     }
 
-    public static void recordDynamicEvent(Context context, int i, int i2, String str, Map<String, String> map, Map<String, String> map2) {
+    public static void recordDynamicEvent(Context context, int i, int i2, String str, Map<String, String> map,
+            Map<String, String> map2) {
         recordDynamicEventLog(context, i, getDynamicEventObject(i2, str, map, map2));
     }
 
-    public static void recordStaticLog(Context context, int i, int i2, String str, String str2, String str3, String str4, Map<String, String> map) {
+    public static void recordStaticLog(Context context, int i, int i2, String str, String str2, String str3,
+            String str4, Map<String, String> map) {
         recordStaticLog(context, i, getStaticLogObject(i2, str, str2, str3, str4, map));
     }
 
@@ -126,7 +132,7 @@ public class OnEventAgent {
                 jSONObject.put(StatisticConstant.KEY_DURATION, j);
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OnEventAgent$$ExternalSyntheticLambda0(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
         return jSONObject;
     }
@@ -145,12 +151,13 @@ public class OnEventAgent {
                 }
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OnEventAgent$$ExternalSyntheticLambda0(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
         return jSONObject;
     }
 
-    public static JSONObject getDynamicEventObject(int i, String str, Map<String, String> map, Map<String, String> map2) {
+    public static JSONObject getDynamicEventObject(int i, String str, Map<String, String> map,
+            Map<String, String> map2) {
         JSONObject jSONObject = new JSONObject();
         try {
             jSONObject.put("statID", i);
@@ -158,12 +165,13 @@ public class OnEventAgent {
             getDynamicInfo(jSONObject, map);
             getKVEventInfo(jSONObject, map2);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OnEventAgent$$ExternalSyntheticLambda0(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
         return jSONObject;
     }
 
-    public static JSONObject getStaticLogObject(int i, String str, String str2, String str3, String str4, Map<String, String> map) {
+    public static JSONObject getStaticLogObject(int i, String str, String str2, String str3, String str4,
+            Map<String, String> map) {
         JSONObject jSONObject = new JSONObject();
         try {
             jSONObject.put("statID", i);
@@ -175,7 +183,7 @@ public class OnEventAgent {
             }
             getKVEventInfo(jSONObject, map);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OnEventAgent$$ExternalSyntheticLambda0(e));
+            LogUtil.e(TAG, () -> e.toString());
         }
         return jSONObject;
     }

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+
 /* loaded from: classes.dex */
 public class ApkInfoUtil {
     private static final String TAG = "ApkInfoUtil";
@@ -22,7 +23,7 @@ public class ApkInfoUtil {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).packageName;
         } catch (Exception e) {
-            LogUtil.e(TAG, new ApkInfoUtil$$ExternalSyntheticLambda1(e));
+            LogUtil.e(TAG, () -> e.toString());
             return "0";
         }
     }
@@ -30,9 +31,10 @@ public class ApkInfoUtil {
     public static String getAppName(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            return packageManager.getPackageInfo(context.getPackageName(), 0).applicationInfo.loadLabel(packageManager).toString();
+            return packageManager.getPackageInfo(context.getPackageName(), 0).applicationInfo.loadLabel(packageManager)
+                    .toString();
         } catch (Exception e) {
-            LogUtil.e(TAG, new ApkInfoUtil$$ExternalSyntheticLambda1(e));
+            LogUtil.e(TAG, () -> e.toString());
             return "0";
         }
     }
@@ -45,7 +47,8 @@ public class ApkInfoUtil {
                 return "0";
             }
             str = packageInfo.versionName;
-            LogUtil.i(TAG, new Supplier() { // from class: com.oplus.statistics.util.ApkInfoUtil$$ExternalSyntheticLambda2
+            LogUtil.i(TAG, new Supplier() { // from class:
+                                            // com.oplus.statistics.util.ApkInfoUtil$$ExternalSyntheticLambda2
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
                     return ApkInfoUtil.lambda$getVersionName$0(packageInfo);
@@ -53,7 +56,7 @@ public class ApkInfoUtil {
             });
             return str;
         } catch (Exception e) {
-            LogUtil.e(TAG, new ApkInfoUtil$$ExternalSyntheticLambda1(e));
+            LogUtil.e(TAG, () -> e.toString());
             return str;
         }
     }
@@ -67,7 +70,7 @@ public class ApkInfoUtil {
         try {
             return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
         } catch (Exception e) {
-            LogUtil.e(TAG, new ApkInfoUtil$$ExternalSyntheticLambda1(e));
+            LogUtil.e(TAG, () -> e.toString());
             return 0;
         }
     }
@@ -76,7 +79,7 @@ public class ApkInfoUtil {
         try {
             return context.getPackageManager().getPackageInfo(str, 0).versionCode;
         } catch (Exception e) {
-            LogUtil.e(TAG, new ApkInfoUtil$$ExternalSyntheticLambda1(e));
+            LogUtil.e(TAG, () -> e.toString());
             return 0;
         }
     }
@@ -89,9 +92,12 @@ public class ApkInfoUtil {
         if (TextUtils.isEmpty(str)) {
             String str2 = null;
             try {
-                str2 = String.valueOf(context.getPackageManager().getApplicationInfo(getPackageName(context), 128).metaData.get("AppCode"));
+                str2 = String
+                        .valueOf(context.getPackageManager().getApplicationInfo(getPackageName(context), 128).metaData
+                                .get("AppCode"));
                 if (TextUtils.isEmpty(str2)) {
-                    LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.util.ApkInfoUtil$$ExternalSyntheticLambda0
+                    LogUtil.e(TAG, new Supplier() { // from class:
+                                                    // com.oplus.statistics.util.ApkInfoUtil$$ExternalSyntheticLambda0
                         @Override // com.oplus.statistics.util.Supplier
                         public final Object get() {
                             return ApkInfoUtil.lambda$getAppCode$1();

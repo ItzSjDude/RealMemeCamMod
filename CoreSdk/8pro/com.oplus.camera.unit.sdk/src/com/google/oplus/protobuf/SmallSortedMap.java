@@ -25,24 +25,12 @@ public class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V
     private Map<K, V> overflowEntries;
     private Map<K, V> overflowEntriesDescending;
 
-    /* JADX WARN: Multi-variable type inference failed */
-    @Override // java.util.AbstractMap, java.util.Map
-    public /* bridge */ /* synthetic */ Object put(Object obj, Object obj2) {
-        return put((K) obj, (V) obj2);
-    }
-
     /* JADX INFO: Access modifiers changed from: package-private */
     public static <FieldDescriptorType extends FieldSet.FieldDescriptorLite<FieldDescriptorType>> SmallSortedMap<FieldDescriptorType, Object> newFieldMap(
             int i) {
         return (SmallSortedMap<FieldDescriptorType, Object>) new SmallSortedMap<FieldDescriptorType, Object>(i) { // from
                                                                                                                   // class:
                                                                                                                   // com.google.oplus.protobuf.SmallSortedMap.1
-            @Override // com.google.oplus.protobuf.SmallSortedMap, java.util.AbstractMap,
-                      // java.util.Map
-            public /* bridge */ /* synthetic */ Object put(Object obj, Object obj2) {
-                return super.put((FieldDescriptorType) obj, obj2);
-            }
-
             @Override // com.google.oplus.protobuf.SmallSortedMap
             public void makeImmutable() {
                 if (!isImmutable()) {
@@ -173,10 +161,6 @@ public class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V
     public void clear() {
         checkMutable();
         if (!this.entryList.isEmpty()) {
-            this.entryList.clear();
-        }
-        if (this.overflowEntries.isEmpty()) {
-            return;
         }
         this.overflowEntries.clear();
     }
