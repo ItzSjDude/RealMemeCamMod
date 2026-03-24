@@ -75,7 +75,7 @@ public final class LongArrayList extends AbstractProtobufList<Long> implements I
 
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
     /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Long> mutableCopyWithCapacity2(int i) {
+    public Internal.ProtobufList<Long> mutableCopyWithCapacity(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }

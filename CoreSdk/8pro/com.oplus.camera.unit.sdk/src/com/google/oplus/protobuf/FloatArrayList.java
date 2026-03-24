@@ -75,7 +75,7 @@ public final class FloatArrayList extends AbstractProtobufList<Float> implements
 
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
     /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Float> mutableCopyWithCapacity2(int i) {
+    public Internal.ProtobufList<Float> mutableCopyWithCapacity(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }

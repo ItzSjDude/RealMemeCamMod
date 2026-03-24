@@ -991,48 +991,46 @@ public abstract class GeneratedMessage extends AbstractMessage implements Serial
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(Extension<MessageType, List<Type>> extension, int i) {
-            return (Type) getExtension((ExtensionLite<MessageType, List<Object>>) extension, i);
+            return (Type) getExtension((ExtensionLite) extension, i);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessage.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, int i) {
-            return (Type) getExtension((ExtensionLite<MessageType, List<Object>>) generatedExtension, i);
+            return (Type) getExtension((ExtensionLite) generatedExtension, i);
         }
 
         public final <Type> BuilderType setExtension(Extension<MessageType, Type> extension, Type type) {
-            return setExtension(extension, (Extension<MessageType, Type>) type);
+            return setExtension((ExtensionLite<MessageType, Type>) extension, type);
         }
 
         public <Type> BuilderType setExtension(GeneratedExtension<MessageType, Type> generatedExtension, Type type) {
-            return setExtension((ExtensionLite<MessageType, GeneratedExtension<MessageType, Type>>) generatedExtension,
-                    (GeneratedExtension<MessageType, Type>) type);
+            return setExtension((ExtensionLite<MessageType, Type>) generatedExtension, type);
         }
 
         public final <Type> BuilderType setExtension(Extension<MessageType, List<Type>> extension, int i, Type type) {
-            return setExtension((ExtensionLite<MessageType, List<int>>) extension, i, (int) type);
+            return setExtension((ExtensionLite<MessageType, List<Type>>) extension, i, type);
         }
 
-        public <Type> BuilderType setExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, int i, Type type) {
-            return setExtension((ExtensionLite<MessageType, List<int>>) generatedExtension, i, (int) type);
+        public <Type> BuilderType setExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension, int i,
+                Type type) {
+            return setExtension((ExtensionLite<MessageType, List<Type>>) generatedExtension, i, type);
         }
 
         public final <Type> BuilderType addExtension(Extension<MessageType, List<Type>> extension, Type type) {
-            return addExtension(extension, (Extension<MessageType, List<Type>>) type);
+            return addExtension((ExtensionLite<MessageType, List<Type>>) extension, type);
         }
 
         public <Type> BuilderType addExtension(GeneratedExtension<MessageType, List<Type>> generatedExtension,
                 Type type) {
-            return addExtension(
-                    (ExtensionLite<MessageType, List<GeneratedExtension<MessageType, List<Type>>>>) generatedExtension,
-                    (GeneratedExtension<MessageType, List<Type>>) type);
+            return addExtension((ExtensionLite<MessageType, List<Type>>) generatedExtension, type);
         }
 
         public final <Type> BuilderType clearExtension(Extension<MessageType, ?> extension) {
-            return clearExtension((ExtensionLite) extension);
+            return clearExtension((ExtensionLite<MessageType, ?>) extension);
         }
 
         public <Type> BuilderType clearExtension(GeneratedExtension<MessageType, ?> generatedExtension) {
-            return clearExtension((ExtensionLite) generatedExtension);
+            return clearExtension((ExtensionLite<MessageType, ?>) generatedExtension);
         }
 
         protected boolean extensionsAreInitialized() {

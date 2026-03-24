@@ -4,6 +4,7 @@ import android.util.Log;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 /* loaded from: classes.dex */
 public class RefMethod<T> extends BaseRef<T> {
     private static final String TAG = "RefMethod";
@@ -60,7 +61,8 @@ public class RefMethod<T> extends BaseRef<T> {
         Method method = null;
         try {
             if (field.isAnnotationPresent(MethodName.class)) {
-                Method method2 = getMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(), ((MethodName) field.getAnnotation(MethodName.class)).name());
+                Method method2 = getMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(),
+                        ((MethodName) field.getAnnotation(MethodName.class)).name());
                 method2.setAccessible(true);
                 return method2;
             }
@@ -98,11 +100,13 @@ public class RefMethod<T> extends BaseRef<T> {
                     }
                 }
                 try {
-                    method = getMethod(cls, field, clsArr, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                    method = getMethod(cls, field, clsArr,
+                            ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                 } catch (Exception e3) {
                     Log.e(TAG, e3.getMessage());
                     if (z) {
-                        method = getMethod(cls, field, clsArr2, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                        method = getMethod(cls, field, clsArr2,
+                                ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                     }
                 }
                 Class<?>[] clsArr3 = new Class[params.length];
@@ -118,7 +122,8 @@ public class RefMethod<T> extends BaseRef<T> {
                     clsArr3[i] = protoType2;
                     i++;
                 }
-                Method method3 = getMethod(cls, field, clsArr3, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                Method method3 = getMethod(cls, field, clsArr3,
+                        ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                 method3.setAccessible(true);
                 return method3;
             }
@@ -131,18 +136,15 @@ public class RefMethod<T> extends BaseRef<T> {
                         method4.setAccessible(true);
                         return method4;
                     } catch (Exception e5) {
-                        e = e5;
-                        method = method4;
-                        Log.e(TAG, e.getMessage());
-                        return method;
+                        Log.e(TAG, e5.getMessage());
+                        return method4;
                     }
                 }
                 i++;
             }
             return null;
         } catch (Exception e6) {
-            e = e6;
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, e6.getMessage());
             return method;
         }
     }

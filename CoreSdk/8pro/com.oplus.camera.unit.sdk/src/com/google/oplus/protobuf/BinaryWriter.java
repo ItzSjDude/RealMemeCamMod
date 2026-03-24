@@ -13,6 +13,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+
 /* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: classes.dex */
 public abstract class BinaryWriter extends ByteOutput implements Writer {
@@ -616,7 +617,10 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.BinaryWriter$1  reason: invalid class name */
+    /*
+     * renamed from: com.google.oplus.protobuf.BinaryWriter$1 reason: invalid class
+     * name
+     */
     /* loaded from: classes.dex */
     public static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
@@ -695,7 +699,8 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    static final void writeMapEntryField(Writer writer, int i, WireFormat.FieldType fieldType, Object obj) throws IOException {
+    static final void writeMapEntryField(Writer writer, int i, WireFormat.FieldType fieldType, Object obj)
+            throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 writer.writeBool(i, ((Boolean) obj).booleanValue());
@@ -2253,7 +2258,8 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) {
             if (i < 0 || i + i2 > bArr.length) {
-                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             requireSpace(i2);
             this.pos -= i2;
@@ -2263,7 +2269,8 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) {
             if (i < 0 || i + i2 > bArr.length) {
-                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             if (spaceLeft() < i2) {
                 this.totalDoneBytes += i2;
@@ -2545,13 +2552,14 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint32ThreeBytes(int i) {
             int i2 = this.pos - 3;
             this.pos = i2;
-            this.buffer.putInt(i2, (((i & 127) | 128) << 8) | ((2080768 & i) << 10) | (((i & 16256) | OplusExifTag.EXIF_TAG_AI_ID_PHOTO) << 9));
+            this.buffer.putInt(i2, (((i & 127) | 128) << 8) | ((2080768 & i) << 10) | (((i & 16256) | 16384) << 9));
         }
 
         private void writeVarint32FourBytes(int i) {
             int i2 = this.pos - 4;
             this.pos = i2;
-            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2) | (((i & 16256) | OplusExifTag.EXIF_TAG_AI_ID_PHOTO) << 1));
+            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2)
+                    | (((i & 16256) | 16384) << 1));
         }
 
         private void writeVarint32FiveBytes(int i) {
@@ -2561,7 +2569,8 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
             byteBuffer.put(i2, (byte) (i >>> 28));
             int i3 = this.pos - 4;
             this.pos = i3;
-            this.buffer.putInt(i3 + 1, (i & 127) | 128 | ((((i >>> 21) & 127) | 128) << 24) | ((((i >>> 14) & 127) | 128) << 16) | ((((i >>> 7) & 127) | 128) << 8));
+            this.buffer.putInt(i3 + 1, (i & 127) | 128 | ((((i >>> 21) & 127) | 128) << 24)
+                    | ((((i >>> 14) & 127) | 128) << 16) | ((((i >>> 7) & 127) | 128) << 8));
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2621,31 +2630,50 @@ public abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint64FiveBytes(long j) {
             int i = this.pos - 5;
             this.pos = i;
-            this.buffer.putLong(i - 2, (((j & 127) | 128) << 24) | ((34091302912L & j) << 28) | (((266338304 & j) | 268435456) << 27) | (((2080768 & j) | 2097152) << 26) | (((16256 & j) | 16384) << 25));
+            this.buffer.putLong(i - 2,
+                    (((j & 127) | 128) << 24) | ((34091302912L & j) << 28) | (((266338304 & j) | 268435456) << 27)
+                            | (((2080768 & j) | 2097152) << 26) | (((16256 & j) | 16384) << 25));
         }
 
         private void writeVarint64SixBytes(long j) {
             int i = this.pos - 6;
             this.pos = i;
-            this.buffer.putLong(i - 1, (((j & 127) | 128) << 16) | ((4363686772736L & j) << 21) | (((34091302912L & j) | 34359738368L) << 20) | (((266338304 & j) | 268435456) << 19) | (((2080768 & j) | 2097152) << 18) | (((16256 & j) | 16384) << 17));
+            this.buffer.putLong(i - 1,
+                    (((j & 127) | 128) << 16) | ((4363686772736L & j) << 21)
+                            | (((34091302912L & j) | 34359738368L) << 20) | (((266338304 & j) | 268435456) << 19)
+                            | (((2080768 & j) | 2097152) << 18) | (((16256 & j) | 16384) << 17));
         }
 
         private void writeVarint64SevenBytes(long j) {
             int i = this.pos - 7;
             this.pos = i;
-            this.buffer.putLong(i, (((j & 127) | 128) << 8) | ((558551906910208L & j) << 14) | (((4363686772736L & j) | 4398046511104L) << 13) | (((34091302912L & j) | 34359738368L) << 12) | (((266338304 & j) | 268435456) << 11) | (((2080768 & j) | 2097152) << 10) | (((16256 & j) | 16384) << 9));
+            this.buffer.putLong(i,
+                    (((j & 127) | 128) << 8) | ((558551906910208L & j) << 14)
+                            | (((4363686772736L & j) | 4398046511104L) << 13)
+                            | (((34091302912L & j) | 34359738368L) << 12) | (((266338304 & j) | 268435456) << 11)
+                            | (((2080768 & j) | 2097152) << 10) | (((16256 & j) | 16384) << 9));
         }
 
         private void writeVarint64EightBytes(long j) {
             int i = this.pos - 8;
             this.pos = i;
-            this.buffer.putLong(i + 1, (j & 127) | 128 | ((71494644084506624L & j) << 7) | (((558551906910208L & j) | 562949953421312L) << 6) | (((4363686772736L & j) | 4398046511104L) << 5) | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3) | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
+            this.buffer.putLong(i + 1,
+                    (j & 127) | 128 | ((71494644084506624L & j) << 7)
+                            | (((558551906910208L & j) | 562949953421312L) << 6)
+                            | (((4363686772736L & j) | 4398046511104L) << 5)
+                            | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3)
+                            | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
         }
 
         private void writeVarint64EightBytesWithSign(long j) {
             int i = this.pos - 8;
             this.pos = i;
-            this.buffer.putLong(i + 1, (j & 127) | 128 | (((71494644084506624L & j) | 72057594037927936L) << 7) | (((558551906910208L & j) | 562949953421312L) << 6) | (((4363686772736L & j) | 4398046511104L) << 5) | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3) | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
+            this.buffer.putLong(i + 1,
+                    (j & 127) | 128 | (((71494644084506624L & j) | 72057594037927936L) << 7)
+                            | (((558551906910208L & j) | 562949953421312L) << 6)
+                            | (((4363686772736L & j) | 4398046511104L) << 5)
+                            | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3)
+                            | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
         }
 
         private void writeVarint64NineBytes(long j) {

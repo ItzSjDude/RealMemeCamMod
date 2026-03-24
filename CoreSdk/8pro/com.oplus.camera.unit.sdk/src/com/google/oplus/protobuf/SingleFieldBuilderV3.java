@@ -3,8 +3,10 @@ package com.google.oplus.protobuf;
 import com.google.oplus.protobuf.AbstractMessage;
 import com.google.oplus.protobuf.AbstractMessage.Builder;
 import com.google.oplus.protobuf.MessageOrBuilder;
+
 /* loaded from: classes.dex */
-public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder> implements AbstractMessage.BuilderParent {
+public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends AbstractMessage.Builder, IType extends MessageOrBuilder>
+        implements AbstractMessage.BuilderParent {
     private BType builder;
     private boolean isClean;
     private MType message;
@@ -42,11 +44,19 @@ public class SingleFieldBuilderV3<MType extends AbstractMessage, BType extends A
         return this.builder;
     }
 
-    /* JADX WARN: Type inference failed for: r0v0, types: [BType extends com.google.oplus.protobuf.AbstractMessage$Builder, IType extends com.google.oplus.protobuf.MessageOrBuilder] */
-    /* JADX WARN: Type inference failed for: r1v1, types: [MType extends com.google.oplus.protobuf.AbstractMessage, IType extends com.google.oplus.protobuf.MessageOrBuilder] */
+    /*
+     * JADX WARN: Type inference failed for: r0v0, types: [BType extends
+     * com.google.oplus.protobuf.AbstractMessage$Builder, IType extends
+     * com.google.oplus.protobuf.MessageOrBuilder]
+     */
+    /*
+     * JADX WARN: Type inference failed for: r1v1, types: [MType extends
+     * com.google.oplus.protobuf.AbstractMessage, IType extends
+     * com.google.oplus.protobuf.MessageOrBuilder]
+     */
     public IType getMessageOrBuilder() {
         BType btype = this.builder;
-        return btype != 0 ? btype : this.message;
+        return btype != null ? (IType) btype : (IType) this.message;
     }
 
     public SingleFieldBuilderV3<MType, BType, IType> setMessage(MType mtype) {

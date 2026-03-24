@@ -106,10 +106,10 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
             /* JADX WARN: Type inference failed for: r3v1, types: [com.google.oplus.protobuf.ByteString$ByteIterator] */
             @Override // java.util.Comparator
             public int compare(ByteString byteString, ByteString byteString2) {
-                ByteIterator iterator2 = (ByteIterator) byteString.iterator2();
-                ByteIterator iterator22 = (ByteIterator) byteString2.iterator2();
-                while (iterator2.hasNext() && iterator22.hasNext()) {
-                    int compare = Integer.compare(ByteString.toInt(iterator2.nextByte()), ByteString.toInt(iterator22.nextByte()));
+                ByteIterator iterator = (ByteIterator) byteString.iterator();
+                ByteIterator iterator2 = (ByteIterator) byteString2.iterator();
+                while (iterator.hasNext() && iterator2.hasNext()) {
+                    int compare = Integer.compare(ByteString.toInt(iterator.nextByte()), ByteString.toInt(iterator2.nextByte()));
                     if (compare != 0) {
                         return compare;
                     }
@@ -145,7 +145,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
 
     @Override // java.lang.Iterable
     /* renamed from: iterator */
-    public Iterator<Byte> iterator2() {
+    public Iterator<Byte> iterator() {
         return new AbstractByteIterator() { // from class: com.google.oplus.protobuf.ByteString.1
             private final int limit;
             private int position = 0;
@@ -351,7 +351,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         return bArr;
     }
 
-    final void writeTo(OutputStream outputStream, int i, int i2) throws IOException {
+    public final void writeTo(OutputStream outputStream, int i, int i2) throws IOException {
         checkRange(i, i + i2, size());
         if (i2 > 0) {
             writeToInternal(outputStream, i, i2);
@@ -382,22 +382,22 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         public abstract boolean equalsRange(ByteString byteString, int i, int i2);
 
         @Override // com.google.oplus.protobuf.ByteString
-        protected final int getTreeDepth() {
+        public final int getTreeDepth() {
             return 0;
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        protected final boolean isBalanced() {
+        public final boolean isBalanced() {
             return true;
         }
 
         @Override // com.google.oplus.protobuf.ByteString, java.lang.Iterable
         public /* bridge */ /* synthetic */ Iterator<Byte> iterator() {
-            return super.iterator2();
+            return super.iterator();
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        void writeToReverse(ByteOutput byteOutput) throws IOException {
+        public void writeToReverse(ByteOutput byteOutput) throws IOException {
             writeTo(byteOutput);
         }
     }
@@ -622,7 +622,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        byte internalByteAt(int i) {
+        public byte internalByteAt(int i) {
             return this.bytes[i];
         }
 
@@ -641,7 +641,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        protected void copyToInternal(byte[] bArr, int i, int i2, int i3) {
+        public void copyToInternal(byte[] bArr, int i, int i2, int i3) {
             System.arraycopy(this.bytes, i, bArr, i2, i3);
         }
 
@@ -666,12 +666,12 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        final void writeToInternal(OutputStream outputStream, int i, int i2) throws IOException {
+        public final void writeToInternal(OutputStream outputStream, int i, int i2) throws IOException {
             outputStream.write(this.bytes, getOffsetIntoBytes() + i, i2);
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        final void writeTo(ByteOutput byteOutput) throws IOException {
+        public final void writeTo(ByteOutput byteOutput) throws IOException {
             byteOutput.writeLazy(this.bytes, getOffsetIntoBytes(), size());
         }
 
@@ -687,7 +687,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        protected final int partialIsValidUtf8(int i, int i2, int i3) {
+        public final int partialIsValidUtf8(int i, int i2, int i3) {
             int offsetIntoBytes = getOffsetIntoBytes() + i2;
             return Utf8.partialIsValidUtf8(i, this.bytes, offsetIntoBytes, i3 + offsetIntoBytes);
         }
@@ -745,7 +745,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString
-        protected final int partialHash(int i, int i2, int i3) {
+        public final int partialHash(int i, int i2, int i3) {
             return Internal.partialHash(i, this.bytes, getOffsetIntoBytes() + i2, i3);
         }
 
@@ -781,7 +781,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString.LiteralByteString, com.google.oplus.protobuf.ByteString
-        byte internalByteAt(int i) {
+        public byte internalByteAt(int i) {
             return this.bytes[this.bytesOffset + i];
         }
 
@@ -796,7 +796,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         }
 
         @Override // com.google.oplus.protobuf.ByteString.LiteralByteString, com.google.oplus.protobuf.ByteString
-        protected void copyToInternal(byte[] bArr, int i, int i2, int i3) {
+        public void copyToInternal(byte[] bArr, int i, int i2, int i3) {
             System.arraycopy(this.bytes, getOffsetIntoBytes() + i, bArr, i2, i3);
         }
 

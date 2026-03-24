@@ -5,6 +5,7 @@ import com.google.oplus.protobuf.WireFormat;
 import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.Map;
+
 /* loaded from: classes.dex */
 public class MapEntryLite<K, V> {
     private static final int KEY_FIELD_NUMBER = 1;
@@ -49,23 +50,29 @@ public class MapEntryLite<K, V> {
         return this.value;
     }
 
-    public static <K, V> MapEntryLite<K, V> newDefaultInstance(WireFormat.FieldType fieldType, K k, WireFormat.FieldType fieldType2, V v) {
+    public static <K, V> MapEntryLite<K, V> newDefaultInstance(WireFormat.FieldType fieldType, K k,
+            WireFormat.FieldType fieldType2, V v) {
         return new MapEntryLite<>(fieldType, k, fieldType2, v);
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static <K, V> void writeTo(CodedOutputStream codedOutputStream, Metadata<K, V> metadata, K k, V v) throws IOException {
+    public static <K, V> void writeTo(CodedOutputStream codedOutputStream, Metadata<K, V> metadata, K k, V v)
+            throws IOException {
         FieldSet.writeElement(codedOutputStream, metadata.keyType, 1, k);
         FieldSet.writeElement(codedOutputStream, metadata.valueType, 2, v);
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static <K, V> int computeSerializedSize(Metadata<K, V> metadata, K k, V v) {
-        return FieldSet.computeElementSize(metadata.keyType, 1, k) + FieldSet.computeElementSize(metadata.valueType, 2, v);
+        return FieldSet.computeElementSize(metadata.keyType, 1, k)
+                + FieldSet.computeElementSize(metadata.valueType, 2, v);
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.MapEntryLite$1  reason: invalid class name */
+    /*
+     * renamed from: com.google.oplus.protobuf.MapEntryLite$1 reason: invalid class
+     * name
+     */
     /* loaded from: classes.dex */
     public static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
@@ -88,7 +95,8 @@ public class MapEntryLite<K, V> {
         }
     }
 
-    static <T> T parseField(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, WireFormat.FieldType fieldType, T t) throws IOException {
+    static <T> T parseField(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+            WireFormat.FieldType fieldType, T t) throws IOException {
         int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()];
         if (i == 1) {
             MessageLite.Builder builder = ((MessageLite) t).toBuilder();
@@ -111,15 +119,18 @@ public class MapEntryLite<K, V> {
     }
 
     public int computeMessageSize(int i, K k, V v) {
-        return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(computeSerializedSize(this.metadata, k, v));
+        return CodedOutputStream.computeTagSize(i)
+                + CodedOutputStream.computeLengthDelimitedFieldSize(computeSerializedSize(this.metadata, k, v));
     }
 
-    public Map.Entry<K, V> parseEntry(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public Map.Entry<K, V> parseEntry(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return parseEntry(byteString.newCodedInput(), this.metadata, extensionRegistryLite);
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static <K, V> Map.Entry<K, V> parseEntry(CodedInputStream codedInputStream, Metadata<K, V> metadata, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static <K, V> Map.Entry<K, V> parseEntry(CodedInputStream codedInputStream, Metadata<K, V> metadata,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
         Object obj = metadata.defaultKey;
         Object obj2 = metadata.defaultValue;
         while (true) {
@@ -134,11 +145,12 @@ public class MapEntryLite<K, V> {
                 break;
             }
         }
-        return new AbstractMap.SimpleImmutableEntry(obj, obj2);
+        return new AbstractMap.SimpleImmutableEntry<>((K) obj, (V) obj2);
     }
 
     /* JADX WARN: Multi-variable type inference failed */
-    public void parseInto(MapFieldLite<K, V> mapFieldLite, CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public void parseInto(MapFieldLite<K, V> mapFieldLite, CodedInputStream codedInputStream,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
         int pushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
         Object obj = this.metadata.defaultKey;
         Object obj2 = this.metadata.defaultValue;
@@ -156,7 +168,7 @@ public class MapEntryLite<K, V> {
         }
         codedInputStream.checkLastTagWas(0);
         codedInputStream.popLimit(pushLimit);
-        mapFieldLite.put(obj, obj2);
+        mapFieldLite.put((K) obj, (V) obj2);
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */

@@ -321,11 +321,11 @@ public final class ProtobufFeatureConfig {
                                 }
                             } else {
                                 String readStringRequireUtf8 = codedInputStream.readStringRequireUtf8();
-                                boolean z3 = (z2 ? 1 : 0) & true;
+                                boolean z3 = z2;
                                 z2 = z2;
                                 if (!z3) {
                                     this.strPool_ = new LazyStringArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    z2 = true;
                                 }
                                 this.strPool_.add(readStringRequireUtf8);
                             }
@@ -337,7 +337,7 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if ((z2 ? 1 : 0) & true) {
+                    if (z2) {
                         this.strPool_ = this.strPool_.getUnmodifiableView();
                     }
                     this.unknownFields = newBuilder.build();

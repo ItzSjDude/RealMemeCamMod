@@ -75,7 +75,7 @@ public final class DoubleArrayList extends AbstractProtobufList<Double> implemen
 
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
     /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Double> mutableCopyWithCapacity2(int i) {
+    public Internal.ProtobufList<Double> mutableCopyWithCapacity(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }

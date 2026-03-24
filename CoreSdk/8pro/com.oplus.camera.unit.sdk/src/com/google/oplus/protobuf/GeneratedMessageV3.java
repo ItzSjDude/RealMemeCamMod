@@ -1121,7 +1121,7 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
             ensureExtensionsIsMutable();
             this.extensions.clearField(checkNotLite.getDescriptor());
             onChanged();
-            return this;
+            return (BuilderType) (Object) this;
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableMessageOrBuilder
@@ -1169,42 +1169,43 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
         }
 
         public final <Type> BuilderType setExtension(Extension<MessageType, Type> extension, Type type) {
-            return setExtension(extension, (Extension<MessageType, Type>) type);
+            return setExtension((ExtensionLite<MessageType, Type>) extension, type);
         }
 
         public <Type> BuilderType setExtension(
                 GeneratedMessage.GeneratedExtension<MessageType, Type> generatedExtension, Type type) {
             return setExtension(
-                    (ExtensionLite<MessageType, GeneratedMessage.GeneratedExtension<MessageType, Type>>) generatedExtension,
-                    (GeneratedMessage.GeneratedExtension<MessageType, Type>) type);
+                    (ExtensionLite<MessageType, Type>) generatedExtension,
+                    type);
         }
 
         public final <Type> BuilderType setExtension(Extension<MessageType, List<Type>> extension, int i, Type type) {
-            return setExtension((ExtensionLite<MessageType, List<int>>) extension, i, (int) type);
+            return setExtension((ExtensionLite<MessageType, List<Type>>) extension, i, type);
         }
 
-        public <Type> BuilderType setExtension(GeneratedMessage.GeneratedExtension<MessageType, List<Type>> generatedExtension, int i, Type type) {
-            return setExtension((ExtensionLite<MessageType, List<int>>) generatedExtension, i, (int) type);
+        public <Type> BuilderType setExtension(
+                GeneratedMessage.GeneratedExtension<MessageType, List<Type>> generatedExtension, int i, Type type) {
+            return setExtension((ExtensionLite<MessageType, List<Type>>) generatedExtension, i, type);
         }
 
         public final <Type> BuilderType addExtension(Extension<MessageType, List<Type>> extension, Type type) {
-            return addExtension(extension, (Extension<MessageType, List<Type>>) type);
+            return addExtension((ExtensionLite<MessageType, List<Type>>) extension, type);
         }
 
         public <Type> BuilderType addExtension(
                 GeneratedMessage.GeneratedExtension<MessageType, List<Type>> generatedExtension, Type type) {
             return addExtension(
-                    (ExtensionLite<MessageType, List<GeneratedMessage.GeneratedExtension<MessageType, List<Type>>>>) generatedExtension,
-                    (GeneratedMessage.GeneratedExtension<MessageType, List<Type>>) type);
+                    (ExtensionLite<MessageType, List<Type>>) generatedExtension,
+                    type);
         }
 
         public final <Type> BuilderType clearExtension(Extension<MessageType, ?> extension) {
-            return clearExtension((ExtensionLite) extension);
+            return clearExtension((ExtensionLite<MessageType, ?>) extension);
         }
 
         public <Type> BuilderType clearExtension(
                 GeneratedMessage.GeneratedExtension<MessageType, ?> generatedExtension) {
-            return clearExtension((ExtensionLite) generatedExtension);
+            return clearExtension((ExtensionLite<MessageType, ?>) generatedExtension);
         }
 
         /* JADX INFO: Access modifiers changed from: protected */
@@ -1366,7 +1367,7 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
                 ensureExtensionsIsMutable();
                 this.extensions.setField(fieldDescriptor, obj);
                 onChanged();
-                return this;
+                return (BuilderType) (Object) this;
             }
             return (BuilderType) super.setField(fieldDescriptor, obj);
         }
@@ -1379,7 +1380,7 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
                 ensureExtensionsIsMutable();
                 this.extensions.clearField(fieldDescriptor);
                 onChanged();
-                return this;
+                return (BuilderType) (Object) this;
             }
             return (BuilderType) super.clearField(fieldDescriptor);
         }
@@ -1392,7 +1393,7 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
                 ensureExtensionsIsMutable();
                 this.extensions.setRepeatedField(fieldDescriptor, i, obj);
                 onChanged();
-                return this;
+                return (BuilderType) (Object) this;
             }
             return (BuilderType) super.setRepeatedField(fieldDescriptor, i, obj);
         }
@@ -1405,7 +1406,7 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
                 ensureExtensionsIsMutable();
                 this.extensions.addRepeatedField(fieldDescriptor, obj);
                 onChanged();
-                return this;
+                return (BuilderType) (Object) this;
             }
             return (BuilderType) super.addRepeatedField(fieldDescriptor, obj);
         }

@@ -4,9 +4,11 @@ import com.google.oplus.protobuf.Internal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.RandomAccess;
+
 /* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: classes.dex */
-public final class IntArrayList extends AbstractProtobufList<Integer> implements Internal.IntList, RandomAccess, PrimitiveNonBoxingCollection {
+public final class IntArrayList extends AbstractProtobufList<Integer>
+        implements Internal.IntList, RandomAccess, PrimitiveNonBoxingCollection {
     private static final IntArrayList EMPTY_LIST;
     private int[] array;
     private int size;
@@ -43,7 +45,8 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         this.modCount++;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.Collection, java.util.List
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -64,7 +67,8 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.Collection, java.util.List
     public int hashCode() {
         int i = 1;
         for (int i2 = 0; i2 < this.size; i2++) {
@@ -73,9 +77,10 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         return i;
     }
 
-    @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+    @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+              // com.google.oplus.protobuf.Internal.BooleanList
     /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Integer> mutableCopyWithCapacity2(int i) {
+    public Internal.ProtobufList<Integer> mutableCopyWithCapacity(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }
@@ -118,7 +123,8 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         return this.size;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public Integer set(int i, Integer num) {
         return Integer.valueOf(setInt(i, num.intValue()));
     }
@@ -133,13 +139,15 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         return i3;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.AbstractCollection, java.util.Collection, java.util.List
     public boolean add(Integer num) {
         addInt(num.intValue());
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public void add(int i, Integer num) {
         addInt(i, num.intValue());
     }
@@ -180,7 +188,8 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         this.modCount++;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection,
+              // java.util.Collection, java.util.List
     public boolean addAll(Collection<? extends Integer> collection) {
         ensureIsMutable();
         Internal.checkNotNull(collection);
@@ -207,15 +216,15 @@ public final class IntArrayList extends AbstractProtobufList<Integer> implements
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public Integer remove(int i) {
-        int i2;
         ensureIsMutable();
         ensureIndexInRange(i);
         int[] iArr = this.array;
         int i3 = iArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(iArr, i + 1, iArr, i, (i2 - i) - 1);
+            System.arraycopy(iArr, i + 1, iArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

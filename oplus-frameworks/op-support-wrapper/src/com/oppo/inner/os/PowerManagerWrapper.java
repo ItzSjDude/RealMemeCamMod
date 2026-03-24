@@ -49,7 +49,7 @@ public class PowerManagerWrapper {
         }
     }
 
-    public static boolean getDisplayAodStatus(PowerManager powerManager) throws NoSuchMethodException, SecurityException {
+    public static boolean getDisplayAodStatus(PowerManager powerManager) {
         Object obj = callMethodByReflect(powerManager, "getDisplayAodStatus");
         if (obj != null) {
             boolean result = ((Boolean) obj).booleanValue();
@@ -93,7 +93,7 @@ public class PowerManagerWrapper {
         return (int[]) callMethodByReflect(powerManager, "getWakeLockedUids");
     }
 
-    private static Object callMethodByReflect(Object object, String methodName) throws NoSuchMethodException, SecurityException {
+    private static Object callMethodByReflect(Object object, String methodName) {
         Class clazz = object.getClass();
         try {
             Method method = clazz.getDeclaredMethod(methodName, new Class[0]);

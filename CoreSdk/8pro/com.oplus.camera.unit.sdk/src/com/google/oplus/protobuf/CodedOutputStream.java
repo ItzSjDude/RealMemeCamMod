@@ -8,6 +8,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /* loaded from: classes.dex */
 public abstract class CodedOutputStream extends ByteOutput {
     public static final int DEFAULT_BUFFER_SIZE = 4096;
@@ -517,8 +518,10 @@ public abstract class CodedOutputStream extends ByteOutput {
         }
     }
 
-    final void inefficientWriteStringNoTag(String str, Utf8.UnpairedSurrogateException unpairedSurrogateException) throws IOException {
-        logger.log(Level.WARNING, "Converting ill-formed UTF-16. Your Protocol Buffer will not round trip correctly!", (Throwable) unpairedSurrogateException);
+    final void inefficientWriteStringNoTag(String str, Utf8.UnpairedSurrogateException unpairedSurrogateException)
+            throws IOException {
+        logger.log(Level.WARNING, "Converting ill-formed UTF-16. Your Protocol Buffer will not round trip correctly!",
+                (Throwable) unpairedSurrogateException);
         byte[] bytes = str.getBytes(Internal.UTF_8);
         try {
             writeUInt32NoTag(bytes.length);
@@ -625,7 +628,9 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
             int i3 = i + i2;
             if ((i | i2 | (bArr.length - i3)) < 0) {
-                throw new IllegalArgumentException(String.format("Array range is invalid. Buffer.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new IllegalArgumentException(
+                        String.format("Array range is invalid. Buffer.length=%d, offset=%d, length=%d",
+                                Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             this.buffer = bArr;
             this.offset = i;
@@ -734,7 +739,7 @@ public abstract class CodedOutputStream extends ByteOutput {
         }
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
-        final void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
+        public final void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
             writeTag(i, 2);
             writeUInt32NoTag(((AbstractMessageLite) messageLite).getSerializedSize(schema));
             schema.writeTo(messageLite, this.wrapper);
@@ -768,7 +773,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             schema.writeTo(messageLite, this.wrapper);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public final void write(byte b) throws IOException {
             try {
                 byte[] bArr = this.buffer;
@@ -776,7 +782,8 @@ public abstract class CodedOutputStream extends ByteOutput {
                 this.position = i + 1;
                 bArr[i] = b;
             } catch (IndexOutOfBoundsException e) {
-                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
+                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                        Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
             }
         }
 
@@ -800,7 +807,8 @@ public abstract class CodedOutputStream extends ByteOutput {
                         bArr[i2] = (byte) ((i & 127) | 128);
                         i >>>= 7;
                     } catch (IndexOutOfBoundsException e) {
-                        throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
+                        throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                                Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
                     }
                 }
                 byte[] bArr2 = this.buffer;
@@ -874,7 +882,8 @@ public abstract class CodedOutputStream extends ByteOutput {
                 this.position = i5 + 1;
                 bArr[i5] = (byte) ((i >> 24) & 255);
             } catch (IndexOutOfBoundsException e) {
-                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
+                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                        Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
             }
         }
 
@@ -902,7 +911,8 @@ public abstract class CodedOutputStream extends ByteOutput {
                     bArr3[i3] = (byte) ((((int) j) & 127) | 128);
                     j >>>= 7;
                 } catch (IndexOutOfBoundsException e) {
-                    throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
+                    throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                            Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
                 }
             }
             byte[] bArr4 = this.buffer;
@@ -933,37 +943,44 @@ public abstract class CodedOutputStream extends ByteOutput {
                 this.position = i8 + 1;
                 bArr[i8] = (byte) (((int) (j >> 56)) & 255);
             } catch (IndexOutOfBoundsException e) {
-                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
+                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                        Integer.valueOf(this.position), Integer.valueOf(this.limit), 1), e);
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public final void write(byte[] bArr, int i, int i2) throws IOException {
             try {
                 System.arraycopy(bArr, i, this.buffer, this.position, i2);
                 this.position += i2;
             } catch (IndexOutOfBoundsException e) {
-                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), Integer.valueOf(i2)), e);
+                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                        Integer.valueOf(this.position), Integer.valueOf(this.limit), Integer.valueOf(i2)), e);
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public final void writeLazy(byte[] bArr, int i, int i2) throws IOException {
             write(bArr, i, i2);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public final void write(ByteBuffer byteBuffer) throws IOException {
             int remaining = byteBuffer.remaining();
             try {
                 byteBuffer.get(this.buffer, this.position, remaining);
                 this.position += remaining;
             } catch (IndexOutOfBoundsException e) {
-                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Integer.valueOf(this.position), Integer.valueOf(this.limit), Integer.valueOf(remaining)), e);
+                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                        Integer.valueOf(this.position), Integer.valueOf(this.limit), Integer.valueOf(remaining)), e);
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public final void writeLazy(ByteBuffer byteBuffer) throws IOException {
             write(byteBuffer);
         }
@@ -1016,7 +1033,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             this.initialPosition = byteBuffer.position();
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream.ArrayEncoder, com.google.oplus.protobuf.CodedOutputStream
+        @Override // com.google.oplus.protobuf.CodedOutputStream.ArrayEncoder,
+                  // com.google.oplus.protobuf.CodedOutputStream
         public void flush() {
             this.byteBuffer.position(this.initialPosition + getTotalBytesWritten());
         }
@@ -1114,7 +1132,7 @@ public abstract class CodedOutputStream extends ByteOutput {
         }
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
-        void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
+        public void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
             writeTag(i, 2);
             writeMessageNoTag(messageLite, schema);
         }
@@ -1147,7 +1165,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             schema.writeTo(messageLite, this.wrapper);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte b) throws IOException {
             try {
                 this.buffer.put(b);
@@ -1232,7 +1251,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) throws IOException {
             try {
                 this.buffer.put(bArr, i, i2);
@@ -1243,12 +1263,14 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) throws IOException {
             write(bArr, i, i2);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) throws IOException {
             try {
                 this.buffer.put(byteBuffer);
@@ -1257,7 +1279,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) throws IOException {
             write(byteBuffer);
         }
@@ -1419,7 +1442,7 @@ public abstract class CodedOutputStream extends ByteOutput {
         }
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
-        void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
+        public void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
             writeTag(i, 2);
             writeMessageNoTag(messageLite, schema);
         }
@@ -1452,11 +1475,13 @@ public abstract class CodedOutputStream extends ByteOutput {
             schema.writeTo(messageLite, this.wrapper);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte b) throws IOException {
             long j = this.position;
             if (j >= this.limit) {
-                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Long.valueOf(this.position), Long.valueOf(this.limit), 1));
+                throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Long.valueOf(this.position),
+                        Long.valueOf(this.limit), 1));
             }
             this.position = 1 + j;
             UnsafeUtil.putByte(j, b);
@@ -1511,7 +1536,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             while (true) {
                 long j3 = this.position;
                 if (j3 >= this.limit) {
-                    throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Long.valueOf(this.position), Long.valueOf(this.limit), 1));
+                    throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                            Long.valueOf(this.position), Long.valueOf(this.limit), 1));
                 }
                 if ((i & (-128)) == 0) {
                     this.position = 1 + j3;
@@ -1547,7 +1573,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             while (true) {
                 long j4 = this.position;
                 if (j4 >= this.limit) {
-                    throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Long.valueOf(this.position), Long.valueOf(this.limit), 1));
+                    throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d",
+                            Long.valueOf(this.position), Long.valueOf(this.limit), 1));
                 }
                 if ((j & (-128)) == 0) {
                     this.position = 1 + j4;
@@ -1566,7 +1593,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             this.position += 8;
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) throws IOException {
             if (bArr != null && i >= 0 && i2 >= 0 && bArr.length - i2 >= i) {
                 long j = i2;
@@ -1580,15 +1608,18 @@ public abstract class CodedOutputStream extends ByteOutput {
             if (bArr == null) {
                 throw new NullPointerException("value");
             }
-            throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Long.valueOf(this.position), Long.valueOf(this.limit), Integer.valueOf(i2)));
+            throw new OutOfSpaceException(String.format("Pos: %d, limit: %d, len: %d", Long.valueOf(this.position),
+                    Long.valueOf(this.limit), Integer.valueOf(i2)));
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) throws IOException {
             write(bArr, i, i2);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) throws IOException {
             try {
                 int remaining = byteBuffer.remaining();
@@ -1600,7 +1631,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) throws IOException {
             write(byteBuffer);
         }
@@ -1680,7 +1712,8 @@ public abstract class CodedOutputStream extends ByteOutput {
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
         public final int spaceLeft() {
-            throw new UnsupportedOperationException("spaceLeft() can only be called on CodedOutputStreams that are writing to a flat array or ByteBuffer.");
+            throw new UnsupportedOperationException(
+                    "spaceLeft() can only be called on CodedOutputStreams that are writing to a flat array or ByteBuffer.");
         }
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
@@ -1928,7 +1961,7 @@ public abstract class CodedOutputStream extends ByteOutput {
         }
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
-        void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
+        public void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
             writeTag(i, 2);
             writeMessageNoTag(messageLite, schema);
         }
@@ -1961,7 +1994,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             schema.writeTo(messageLite, this.wrapper);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte b) throws IOException {
             if (this.position == this.limit) {
                 doFlush();
@@ -2050,21 +2084,24 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) throws IOException {
             flush();
             this.out.write(bArr, i, i2);
             this.totalBytesWritten += i2;
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) throws IOException {
             flush();
             this.out.writeLazy(bArr, i, i2);
             this.totalBytesWritten += i2;
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) throws IOException {
             flush();
             int remaining = byteBuffer.remaining();
@@ -2072,7 +2109,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             this.totalBytesWritten += remaining;
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) throws IOException {
             flush();
             int remaining = byteBuffer.remaining();
@@ -2212,7 +2250,7 @@ public abstract class CodedOutputStream extends ByteOutput {
         }
 
         @Override // com.google.oplus.protobuf.CodedOutputStream
-        void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
+        public void writeMessage(int i, MessageLite messageLite, Schema schema) throws IOException {
             writeTag(i, 2);
             writeMessageNoTag(messageLite, schema);
         }
@@ -2245,7 +2283,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             schema.writeTo(messageLite, this.wrapper);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte b) throws IOException {
             if (this.position == this.limit) {
                 doFlush();
@@ -2340,7 +2379,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             }
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) throws IOException {
             if (this.limit - this.position >= i2) {
                 System.arraycopy(bArr, i, this.buffer, this.position, i2);
@@ -2364,12 +2404,14 @@ public abstract class CodedOutputStream extends ByteOutput {
             this.totalBytesWritten += i5;
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) throws IOException {
             write(bArr, i, i2);
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void write(ByteBuffer byteBuffer) throws IOException {
             int remaining = byteBuffer.remaining();
             if (this.limit - this.position >= remaining) {
@@ -2395,7 +2437,8 @@ public abstract class CodedOutputStream extends ByteOutput {
             this.totalBytesWritten += i2;
         }
 
-        @Override // com.google.oplus.protobuf.CodedOutputStream, com.google.oplus.protobuf.ByteOutput
+        @Override // com.google.oplus.protobuf.CodedOutputStream,
+                  // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(ByteBuffer byteBuffer) throws IOException {
             write(byteBuffer);
         }

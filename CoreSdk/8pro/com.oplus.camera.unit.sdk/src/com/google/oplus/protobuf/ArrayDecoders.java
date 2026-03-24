@@ -5,6 +5,7 @@ import com.google.oplus.protobuf.Internal;
 import com.google.oplus.protobuf.WireFormat;
 import java.io.IOException;
 import java.util.List;
+
 /* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: classes.dex */
 public final class ArrayDecoders {
@@ -117,7 +118,9 @@ public final class ArrayDecoders {
 
     /* JADX INFO: Access modifiers changed from: package-private */
     public static long decodeFixed64(byte[] bArr, int i) {
-        return ((bArr[i + 7] & 255) << 56) | (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16) | ((bArr[i + 3] & 255) << 24) | ((bArr[i + 4] & 255) << 32) | ((bArr[i + 5] & 255) << 40) | ((bArr[i + 6] & 255) << 48);
+        return ((bArr[i + 7] & 255) << 56) | (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16)
+                | ((bArr[i + 3] & 255) << 24) | ((bArr[i + 4] & 255) << 32) | ((bArr[i + 5] & 255) << 40)
+                | ((bArr[i + 6] & 255) << 48);
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
@@ -146,7 +149,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeStringRequireUtf8(byte[] bArr, int i, Registers registers) throws InvalidProtocolBufferException {
+    public static int decodeStringRequireUtf8(byte[] bArr, int i, Registers registers)
+            throws InvalidProtocolBufferException {
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1;
         if (i2 >= 0) {
@@ -179,7 +183,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeMessageField(Schema schema, byte[] bArr, int i, int i2, Registers registers) throws IOException {
+    public static int decodeMessageField(Schema schema, byte[] bArr, int i, int i2, Registers registers)
+            throws IOException {
         int i3 = i + 1;
         int i4 = bArr[i];
         if (i4 < 0) {
@@ -199,7 +204,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeGroupField(Schema schema, byte[] bArr, int i, int i2, int i3, Registers registers) throws IOException {
+    public static int decodeGroupField(Schema schema, byte[] bArr, int i, int i2, int i3, Registers registers)
+            throws IOException {
         MessageSchema messageSchema = (MessageSchema) schema;
         Object newInstance = messageSchema.newInstance();
         int parseProto2Message = messageSchema.parseProto2Message(newInstance, bArr, i, i2, i3, registers);
@@ -209,7 +215,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeVarint32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeVarint32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i2, registers);
         intArrayList.addInt(registers.int1);
@@ -225,7 +232,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeVarint64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeVarint64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int decodeVarint64 = decodeVarint64(bArr, i2, registers);
         longArrayList.addLong(registers.long1);
@@ -241,7 +249,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeFixed32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeFixed32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         intArrayList.addInt(decodeFixed32(bArr, i2));
         int i4 = i2 + 4;
@@ -257,7 +266,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeFixed64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeFixed64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         longArrayList.addLong(decodeFixed64(bArr, i2));
         int i4 = i2 + 8;
@@ -273,7 +283,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeFloatList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeFloatList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         FloatArrayList floatArrayList = (FloatArrayList) protobufList;
         floatArrayList.addFloat(decodeFloat(bArr, i2));
         int i4 = i2 + 4;
@@ -289,7 +300,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeDoubleList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeDoubleList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         DoubleArrayList doubleArrayList = (DoubleArrayList) protobufList;
         doubleArrayList.addDouble(decodeDouble(bArr, i2));
         int i4 = i2 + 8;
@@ -305,7 +317,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeBoolList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeBoolList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         BooleanArrayList booleanArrayList = (BooleanArrayList) protobufList;
         int decodeVarint64 = decodeVarint64(bArr, i2, registers);
         booleanArrayList.addBoolean(registers.long1 != 0);
@@ -321,7 +334,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeSInt32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeSInt32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i2, registers);
         intArrayList.addInt(CodedInputStream.decodeZigZag32(registers.int1));
@@ -337,7 +351,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeSInt64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    public static int decodeSInt64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int decodeVarint64 = decodeVarint64(bArr, i2, registers);
         longArrayList.addLong(CodedInputStream.decodeZigZag64(registers.long1));
@@ -353,7 +368,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedVarint32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedVarint32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -368,7 +384,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedVarint64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedVarint64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -383,7 +400,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedFixed32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedFixed32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -398,7 +416,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedFixed64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedFixed64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -413,7 +432,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedFloatList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedFloatList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         FloatArrayList floatArrayList = (FloatArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -428,7 +448,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedDoubleList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedDoubleList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         DoubleArrayList doubleArrayList = (DoubleArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -443,7 +464,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedBoolList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedBoolList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         BooleanArrayList booleanArrayList = (BooleanArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -458,7 +480,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedSInt32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedSInt32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -473,7 +496,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodePackedSInt64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodePackedSInt64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList,
+            Registers registers) throws IOException {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int decodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + decodeVarint32;
@@ -488,236 +512,281 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* JADX WARN: Removed duplicated region for block: B:10:0x001d  */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:8:0x001a -> B:9:0x001b). Please submit an issue!!! */
+    /* JADX WARN: Removed duplicated region for block: B:10:0x001d */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public static int decodeStringList(int r4, byte[] r5, int r6, int r7, com.google.oplus.protobuf.Internal.ProtobufList<?> r8, com.google.oplus.protobuf.ArrayDecoders.Registers r9) throws com.google.oplus.protobuf.InvalidProtocolBufferException {
+     * JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:8:0x001a ->
+     * B:9:0x001b). Please submit an issue!!!
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public static int decodeStringList(int r4, byte[] r5, int r6, int r7,
+            com.google.oplus.protobuf.Internal.ProtobufList<?> r8, com.google.oplus.protobuf.ArrayDecoders.Registers r9)
+            throws com.google.oplus.protobuf.InvalidProtocolBufferException {
         /*
-            int r6 = decodeVarint32(r5, r6, r9)
-            int r0 = r9.int1
-            if (r0 < 0) goto L45
-            java.lang.String r1 = ""
-            if (r0 != 0) goto L10
-            r8.add(r1)
-            goto L1b
-        L10:
-            java.lang.String r2 = new java.lang.String
-            java.nio.charset.Charset r3 = com.google.oplus.protobuf.Internal.UTF_8
-            r2.<init>(r5, r6, r0, r3)
-            r8.add(r2)
-        L1a:
-            int r6 = r6 + r0
-        L1b:
-            if (r6 >= r7) goto L44
-            int r0 = decodeVarint32(r5, r6, r9)
-            int r2 = r9.int1
-            if (r4 == r2) goto L26
-            goto L44
-        L26:
-            int r6 = decodeVarint32(r5, r0, r9)
-            int r0 = r9.int1
-            if (r0 < 0) goto L3f
-            if (r0 != 0) goto L34
-            r8.add(r1)
-            goto L1b
-        L34:
-            java.lang.String r2 = new java.lang.String
-            java.nio.charset.Charset r3 = com.google.oplus.protobuf.Internal.UTF_8
-            r2.<init>(r5, r6, r0, r3)
-            r8.add(r2)
-            goto L1a
-        L3f:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r4 = com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
-            throw r4
-        L44:
-            return r6
-        L45:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r4 = com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
-            throw r4
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.ArrayDecoders.decodeStringList(int, byte[], int, int, com.google.oplus.protobuf.Internal$ProtobufList, com.google.oplus.protobuf.ArrayDecoders$Registers):int");
+         * int r6 = decodeVarint32(r5, r6, r9)
+         * int r0 = r9.int1
+         * if (r0 < 0) goto L45
+         * java.lang.String r1 = ""
+         * if (r0 != 0) goto L10
+         * r8.add(r1)
+         * goto L1b
+         * L10:
+         * java.lang.String r2 = new java.lang.String
+         * java.nio.charset.Charset r3 = com.google.oplus.protobuf.Internal.UTF_8
+         * r2.<init>(r5, r6, r0, r3)
+         * r8.add(r2)
+         * L1a:
+         * int r6 = r6 + r0
+         * L1b:
+         * if (r6 >= r7) goto L44
+         * int r0 = decodeVarint32(r5, r6, r9)
+         * int r2 = r9.int1
+         * if (r4 == r2) goto L26
+         * goto L44
+         * L26:
+         * int r6 = decodeVarint32(r5, r0, r9)
+         * int r0 = r9.int1
+         * if (r0 < 0) goto L3f
+         * if (r0 != 0) goto L34
+         * r8.add(r1)
+         * goto L1b
+         * L34:
+         * java.lang.String r2 = new java.lang.String
+         * java.nio.charset.Charset r3 = com.google.oplus.protobuf.Internal.UTF_8
+         * r2.<init>(r5, r6, r0, r3)
+         * r8.add(r2)
+         * goto L1a
+         * L3f:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r4 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
+         * throw r4
+         * L44:
+         * return r6
+         * L45:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r4 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
+         * throw r4
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.google.oplus.protobuf.ArrayDecoders.decodeStringList(int, byte[], int, int, com.google.oplus.protobuf.Internal$ProtobufList, com.google.oplus.protobuf.ArrayDecoders$Registers):int");
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* JADX WARN: Removed duplicated region for block: B:12:0x0025  */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:10:0x0022 -> B:11:0x0023). Please submit an issue!!! */
+    /* JADX WARN: Removed duplicated region for block: B:12:0x0025 */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public static int decodeStringListRequireUtf8(int r5, byte[] r6, int r7, int r8, com.google.oplus.protobuf.Internal.ProtobufList<?> r9, com.google.oplus.protobuf.ArrayDecoders.Registers r10) throws com.google.oplus.protobuf.InvalidProtocolBufferException {
+     * JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:10:0x0022 ->
+     * B:11:0x0023). Please submit an issue!!!
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public static int decodeStringListRequireUtf8(int r5, byte[] r6, int r7, int r8,
+            com.google.oplus.protobuf.Internal.ProtobufList<?> r9,
+            com.google.oplus.protobuf.ArrayDecoders.Registers r10)
+            throws com.google.oplus.protobuf.InvalidProtocolBufferException {
         /*
-            int r7 = decodeVarint32(r6, r7, r10)
-            int r0 = r10.int1
-            if (r0 < 0) goto L5f
-            java.lang.String r1 = ""
-            if (r0 != 0) goto L10
-            r9.add(r1)
-            goto L23
-        L10:
-            int r2 = r7 + r0
-            boolean r3 = com.google.oplus.protobuf.Utf8.isValidUtf8(r6, r7, r2)
-            if (r3 == 0) goto L5a
-            java.lang.String r3 = new java.lang.String
-            java.nio.charset.Charset r4 = com.google.oplus.protobuf.Internal.UTF_8
-            r3.<init>(r6, r7, r0, r4)
-            r9.add(r3)
-        L22:
-            r7 = r2
-        L23:
-            if (r7 >= r8) goto L59
-            int r0 = decodeVarint32(r6, r7, r10)
-            int r2 = r10.int1
-            if (r5 == r2) goto L2e
-            goto L59
-        L2e:
-            int r7 = decodeVarint32(r6, r0, r10)
-            int r0 = r10.int1
-            if (r0 < 0) goto L54
-            if (r0 != 0) goto L3c
-            r9.add(r1)
-            goto L23
-        L3c:
-            int r2 = r7 + r0
-            boolean r3 = com.google.oplus.protobuf.Utf8.isValidUtf8(r6, r7, r2)
-            if (r3 == 0) goto L4f
-            java.lang.String r3 = new java.lang.String
-            java.nio.charset.Charset r4 = com.google.oplus.protobuf.Internal.UTF_8
-            r3.<init>(r6, r7, r0, r4)
-            r9.add(r3)
-            goto L22
-        L4f:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r5 = com.google.oplus.protobuf.InvalidProtocolBufferException.invalidUtf8()
-            throw r5
-        L54:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r5 = com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
-            throw r5
-        L59:
-            return r7
-        L5a:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r5 = com.google.oplus.protobuf.InvalidProtocolBufferException.invalidUtf8()
-            throw r5
-        L5f:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r5 = com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
-            throw r5
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.ArrayDecoders.decodeStringListRequireUtf8(int, byte[], int, int, com.google.oplus.protobuf.Internal$ProtobufList, com.google.oplus.protobuf.ArrayDecoders$Registers):int");
+         * int r7 = decodeVarint32(r6, r7, r10)
+         * int r0 = r10.int1
+         * if (r0 < 0) goto L5f
+         * java.lang.String r1 = ""
+         * if (r0 != 0) goto L10
+         * r9.add(r1)
+         * goto L23
+         * L10:
+         * int r2 = r7 + r0
+         * boolean r3 = com.google.oplus.protobuf.Utf8.isValidUtf8(r6, r7, r2)
+         * if (r3 == 0) goto L5a
+         * java.lang.String r3 = new java.lang.String
+         * java.nio.charset.Charset r4 = com.google.oplus.protobuf.Internal.UTF_8
+         * r3.<init>(r6, r7, r0, r4)
+         * r9.add(r3)
+         * L22:
+         * r7 = r2
+         * L23:
+         * if (r7 >= r8) goto L59
+         * int r0 = decodeVarint32(r6, r7, r10)
+         * int r2 = r10.int1
+         * if (r5 == r2) goto L2e
+         * goto L59
+         * L2e:
+         * int r7 = decodeVarint32(r6, r0, r10)
+         * int r0 = r10.int1
+         * if (r0 < 0) goto L54
+         * if (r0 != 0) goto L3c
+         * r9.add(r1)
+         * goto L23
+         * L3c:
+         * int r2 = r7 + r0
+         * boolean r3 = com.google.oplus.protobuf.Utf8.isValidUtf8(r6, r7, r2)
+         * if (r3 == 0) goto L4f
+         * java.lang.String r3 = new java.lang.String
+         * java.nio.charset.Charset r4 = com.google.oplus.protobuf.Internal.UTF_8
+         * r3.<init>(r6, r7, r0, r4)
+         * r9.add(r3)
+         * goto L22
+         * L4f:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r5 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.invalidUtf8()
+         * throw r5
+         * L54:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r5 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
+         * throw r5
+         * L59:
+         * return r7
+         * L5a:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r5 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.invalidUtf8()
+         * throw r5
+         * L5f:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r5 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
+         * throw r5
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.google.oplus.protobuf.ArrayDecoders.decodeStringListRequireUtf8(int, byte[], int, int, com.google.oplus.protobuf.Internal$ProtobufList, com.google.oplus.protobuf.ArrayDecoders$Registers):int");
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* JADX WARN: Removed duplicated region for block: B:11:0x001e  */
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:9:0x001b -> B:10:0x001c). Please submit an issue!!! */
+    /* JADX WARN: Removed duplicated region for block: B:11:0x001e */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
-    */
-    public static int decodeBytesList(int r2, byte[] r3, int r4, int r5, com.google.oplus.protobuf.Internal.ProtobufList<?> r6, com.google.oplus.protobuf.ArrayDecoders.Registers r7) throws com.google.oplus.protobuf.InvalidProtocolBufferException {
+     * JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:9:0x001b ->
+     * B:10:0x001c). Please submit an issue!!!
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     * To view partially-correct add '--show-bad-code' argument
+     */
+    public static int decodeBytesList(int r2, byte[] r3, int r4, int r5,
+            com.google.oplus.protobuf.Internal.ProtobufList<?> r6, com.google.oplus.protobuf.ArrayDecoders.Registers r7)
+            throws com.google.oplus.protobuf.InvalidProtocolBufferException {
         /*
-            int r4 = decodeVarint32(r3, r4, r7)
-            int r0 = r7.int1
-            if (r0 < 0) goto L53
-            int r1 = r3.length
-            int r1 = r1 - r4
-            if (r0 > r1) goto L4e
-            if (r0 != 0) goto L14
-            com.google.oplus.protobuf.ByteString r0 = com.google.oplus.protobuf.ByteString.EMPTY
-            r6.add(r0)
-            goto L1c
-        L14:
-            com.google.oplus.protobuf.ByteString r1 = com.google.oplus.protobuf.ByteString.copyFrom(r3, r4, r0)
-            r6.add(r1)
-        L1b:
-            int r4 = r4 + r0
-        L1c:
-            if (r4 >= r5) goto L4d
-            int r0 = decodeVarint32(r3, r4, r7)
-            int r1 = r7.int1
-            if (r2 == r1) goto L27
-            goto L4d
-        L27:
-            int r4 = decodeVarint32(r3, r0, r7)
-            int r0 = r7.int1
-            if (r0 < 0) goto L48
-            int r1 = r3.length
-            int r1 = r1 - r4
-            if (r0 > r1) goto L43
-            if (r0 != 0) goto L3b
-            com.google.oplus.protobuf.ByteString r0 = com.google.oplus.protobuf.ByteString.EMPTY
-            r6.add(r0)
-            goto L1c
-        L3b:
-            com.google.oplus.protobuf.ByteString r1 = com.google.oplus.protobuf.ByteString.copyFrom(r3, r4, r0)
-            r6.add(r1)
-            goto L1b
-        L43:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r2 = com.google.oplus.protobuf.InvalidProtocolBufferException.truncatedMessage()
-            throw r2
-        L48:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r2 = com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
-            throw r2
-        L4d:
-            return r4
-        L4e:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r2 = com.google.oplus.protobuf.InvalidProtocolBufferException.truncatedMessage()
-            throw r2
-        L53:
-            com.google.oplus.protobuf.InvalidProtocolBufferException r2 = com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
-            throw r2
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.ArrayDecoders.decodeBytesList(int, byte[], int, int, com.google.oplus.protobuf.Internal$ProtobufList, com.google.oplus.protobuf.ArrayDecoders$Registers):int");
+         * int r4 = decodeVarint32(r3, r4, r7)
+         * int r0 = r7.int1
+         * if (r0 < 0) goto L53
+         * int r1 = r3.length
+         * int r1 = r1 - r4
+         * if (r0 > r1) goto L4e
+         * if (r0 != 0) goto L14
+         * com.google.oplus.protobuf.ByteString r0 =
+         * com.google.oplus.protobuf.ByteString.EMPTY
+         * r6.add(r0)
+         * goto L1c
+         * L14:
+         * com.google.oplus.protobuf.ByteString r1 =
+         * com.google.oplus.protobuf.ByteString.copyFrom(r3, r4, r0)
+         * r6.add(r1)
+         * L1b:
+         * int r4 = r4 + r0
+         * L1c:
+         * if (r4 >= r5) goto L4d
+         * int r0 = decodeVarint32(r3, r4, r7)
+         * int r1 = r7.int1
+         * if (r2 == r1) goto L27
+         * goto L4d
+         * L27:
+         * int r4 = decodeVarint32(r3, r0, r7)
+         * int r0 = r7.int1
+         * if (r0 < 0) goto L48
+         * int r1 = r3.length
+         * int r1 = r1 - r4
+         * if (r0 > r1) goto L43
+         * if (r0 != 0) goto L3b
+         * com.google.oplus.protobuf.ByteString r0 =
+         * com.google.oplus.protobuf.ByteString.EMPTY
+         * r6.add(r0)
+         * goto L1c
+         * L3b:
+         * com.google.oplus.protobuf.ByteString r1 =
+         * com.google.oplus.protobuf.ByteString.copyFrom(r3, r4, r0)
+         * r6.add(r1)
+         * goto L1b
+         * L43:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r2 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.truncatedMessage()
+         * throw r2
+         * L48:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r2 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
+         * throw r2
+         * L4d:
+         * return r4
+         * L4e:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r2 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.truncatedMessage()
+         * throw r2
+         * L53:
+         * com.google.oplus.protobuf.InvalidProtocolBufferException r2 =
+         * com.google.oplus.protobuf.InvalidProtocolBufferException.negativeSize()
+         * throw r2
+         */
+        throw new UnsupportedOperationException(
+                "Method not decompiled: com.google.oplus.protobuf.ArrayDecoders.decodeBytesList(int, byte[], int, int, com.google.oplus.protobuf.Internal$ProtobufList, com.google.oplus.protobuf.ArrayDecoders$Registers):int");
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeMessageList(Schema<?> schema, int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodeMessageList(Schema<?> schema, int i, byte[] bArr, int i2, int i3,
+            Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
         int decodeMessageField = decodeMessageField(schema, bArr, i2, i3, registers);
-        protobufList.add(registers.object1);
+        ((Internal.ProtobufList<Object>) protobufList).add(registers.object1);
         while (decodeMessageField < i3) {
             int decodeVarint32 = decodeVarint32(bArr, decodeMessageField, registers);
             if (i != registers.int1) {
                 break;
             }
             decodeMessageField = decodeMessageField(schema, bArr, decodeVarint32, i3, registers);
-            protobufList.add(registers.object1);
+            ((Internal.ProtobufList<Object>) protobufList).add(registers.object1);
         }
         return decodeMessageField;
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeGroupList(Schema schema, int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    public static int decodeGroupList(Schema schema, int i, byte[] bArr, int i2, int i3,
+            Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
         int i4 = (i & (-8)) | 4;
         int decodeGroupField = decodeGroupField(schema, bArr, i2, i3, i4, registers);
-        protobufList.add(registers.object1);
+        ((Internal.ProtobufList<Object>) protobufList).add(registers.object1);
         while (decodeGroupField < i3) {
             int decodeVarint32 = decodeVarint32(bArr, decodeGroupField, registers);
             if (i != registers.int1) {
                 break;
             }
             decodeGroupField = decodeGroupField(schema, bArr, decodeVarint32, i3, i4, registers);
-            protobufList.add(registers.object1);
+            ((Internal.ProtobufList<Object>) protobufList).add(registers.object1);
         }
         return decodeGroupField;
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeExtensionOrUnknownField(int i, byte[] bArr, int i2, int i3, Object obj, MessageLite messageLite, UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers) throws IOException {
-        GeneratedMessageLite.GeneratedExtension findLiteExtensionByNumber = registers.extensionRegistry.findLiteExtensionByNumber(messageLite, i >>> 3);
+    public static int decodeExtensionOrUnknownField(int i, byte[] bArr, int i2, int i3, Object obj,
+            MessageLite messageLite, UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema,
+            Registers registers) throws IOException {
+        GeneratedMessageLite.GeneratedExtension findLiteExtensionByNumber = registers.extensionRegistry
+                .findLiteExtensionByNumber(messageLite, i >>> 3);
         if (findLiteExtensionByNumber == null) {
             return decodeUnknownField(i, bArr, i2, i3, MessageSchema.getMutableUnknownFields(obj), registers);
         }
         GeneratedMessageLite.ExtendableMessage extendableMessage = (GeneratedMessageLite.ExtendableMessage) obj;
         extendableMessage.ensureExtensionsAreMutable();
-        return decodeExtension(i, bArr, i2, i3, extendableMessage, findLiteExtensionByNumber, unknownFieldSchema, registers);
+        return decodeExtension(i, bArr, i2, i3, extendableMessage, findLiteExtensionByNumber, unknownFieldSchema,
+                registers);
     }
 
-    static int decodeExtension(int i, byte[] bArr, int i2, int i3, GeneratedMessageLite.ExtendableMessage<?, ?> extendableMessage, GeneratedMessageLite.GeneratedExtension<?, ?> generatedExtension, UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers) throws IOException {
+    static int decodeExtension(int i, byte[] bArr, int i2, int i3,
+            GeneratedMessageLite.ExtendableMessage<?, ?> extendableMessage,
+            GeneratedMessageLite.GeneratedExtension<?, ?> generatedExtension,
+            UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers)
+            throws IOException {
         Object field;
+        Object r2 = null;
         FieldSet<GeneratedMessageLite.ExtensionDescriptor> fieldSet = extendableMessage.extensions;
         int i4 = i >>> 3;
         if (generatedExtension.descriptor.isRepeated() && generatedExtension.descriptor.isPacked()) {
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension.getLiteType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension
+                    .getLiteType().ordinal()]) {
                 case 1:
                     DoubleArrayList doubleArrayList = new DoubleArrayList();
                     int decodePackedDoubleList = decodePackedDoubleList(bArr, i2, doubleArrayList, registers);
@@ -771,14 +840,19 @@ public final class ArrayDecoders {
                     IntArrayList intArrayList4 = new IntArrayList();
                     int decodePackedVarint32List2 = decodePackedVarint32List(bArr, i2, intArrayList4, registers);
                     UnknownFieldSetLite unknownFieldSetLite = extendableMessage.unknownFields;
-                    UnknownFieldSetLite unknownFieldSetLite2 = (UnknownFieldSetLite) SchemaUtil.filterUnknownEnumList(i4, (List<Integer>) intArrayList4, generatedExtension.descriptor.getEnumType(), unknownFieldSetLite != UnknownFieldSetLite.getDefaultInstance() ? unknownFieldSetLite : null, (UnknownFieldSchema<UT, Object>) unknownFieldSchema);
+                    UnknownFieldSetLite unknownFieldSetLite2 = (UnknownFieldSetLite) SchemaUtil.filterUnknownEnumList(
+                            i4, (List<Integer>) intArrayList4, generatedExtension.descriptor.getEnumType(),
+                            unknownFieldSetLite != UnknownFieldSetLite.getDefaultInstance() ? unknownFieldSetLite
+                                    : null,
+                            unknownFieldSchema);
                     if (unknownFieldSetLite2 != null) {
                         extendableMessage.unknownFields = unknownFieldSetLite2;
                     }
                     fieldSet.setField(generatedExtension.descriptor, intArrayList4);
                     return decodePackedVarint32List2;
                 default:
-                    throw new IllegalStateException("Type cannot be packed: " + generatedExtension.descriptor.getLiteType());
+                    throw new IllegalStateException(
+                            "Type cannot be packed: " + generatedExtension.descriptor.getLiteType());
             }
         }
         if (generatedExtension.getLiteType() == WireFormat.FieldType.ENUM) {
@@ -794,7 +868,8 @@ public final class ArrayDecoders {
             }
             r2 = Integer.valueOf(registers.int1);
         } else {
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension.getLiteType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension
+                    .getLiteType().ordinal()]) {
                 case 1:
                     r2 = Double.valueOf(decodeDouble(bArr, i2));
                     i2 += 8;
@@ -846,11 +921,17 @@ public final class ArrayDecoders {
                     r2 = registers.object1;
                     break;
                 case 17:
-                    i2 = decodeGroupField(Protobuf.getInstance().schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()), bArr, i2, i3, (i4 << 3) | 4, registers);
+                    i2 = decodeGroupField(
+                            Protobuf.getInstance()
+                                    .schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()),
+                            bArr, i2, i3, (i4 << 3) | 4, registers);
                     r2 = registers.object1;
                     break;
                 case 18:
-                    i2 = decodeMessageField(Protobuf.getInstance().schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()), bArr, i2, i3, registers);
+                    i2 = decodeMessageField(
+                            Protobuf.getInstance()
+                                    .schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()),
+                            bArr, i2, i3, registers);
                     r2 = registers.object1;
                     break;
             }
@@ -858,7 +939,8 @@ public final class ArrayDecoders {
         if (generatedExtension.isRepeated()) {
             fieldSet.addRepeatedField(generatedExtension.descriptor, r2);
         } else {
-            int i5 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension.getLiteType().ordinal()];
+            int i5 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension
+                    .getLiteType().ordinal()];
             if ((i5 == 17 || i5 == 18) && (field = fieldSet.getField(generatedExtension.descriptor)) != null) {
                 r2 = Internal.mergeMessage(field, r2);
             }
@@ -868,7 +950,10 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.ArrayDecoders$1  reason: invalid class name */
+    /*
+     * renamed from: com.google.oplus.protobuf.ArrayDecoders$1 reason: invalid class
+     * name
+     */
     /* loaded from: classes.dex */
     public static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
@@ -952,7 +1037,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int decodeUnknownField(int i, byte[] bArr, int i2, int i3, UnknownFieldSetLite unknownFieldSetLite, Registers registers) throws InvalidProtocolBufferException {
+    public static int decodeUnknownField(int i, byte[] bArr, int i2, int i3, UnknownFieldSetLite unknownFieldSetLite,
+            Registers registers) throws InvalidProtocolBufferException {
         if (WireFormat.getTagFieldNumber(i) == 0) {
             throw InvalidProtocolBufferException.invalidTag();
         }
@@ -1012,7 +1098,8 @@ public final class ArrayDecoders {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static int skipField(int i, byte[] bArr, int i2, int i3, Registers registers) throws InvalidProtocolBufferException {
+    public static int skipField(int i, byte[] bArr, int i2, int i3, Registers registers)
+            throws InvalidProtocolBufferException {
         if (WireFormat.getTagFieldNumber(i) == 0) {
             throw InvalidProtocolBufferException.invalidTag();
         }

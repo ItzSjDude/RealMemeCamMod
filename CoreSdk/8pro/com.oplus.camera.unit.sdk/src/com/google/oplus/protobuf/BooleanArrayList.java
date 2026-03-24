@@ -75,7 +75,7 @@ public final class BooleanArrayList extends AbstractProtobufList<Boolean> implem
 
     @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
     /* renamed from: mutableCopyWithCapacity */
-    public Internal.ProtobufList<Boolean> mutableCopyWithCapacity2(int i) {
+    public Internal.ProtobufList<Boolean> mutableCopyWithCapacity(int i) {
         if (i < this.size) {
             throw new IllegalArgumentException();
         }

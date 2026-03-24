@@ -11,8 +11,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 /* loaded from: classes.dex */
-public abstract class AbstractMessageLite<MessageType extends AbstractMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>> implements MessageLite {
+public abstract class AbstractMessageLite<MessageType extends AbstractMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>>
+        implements MessageLite {
     protected int memoizedHashCode = 0;
 
     /* loaded from: classes.dex */
@@ -46,7 +48,8 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
 
     @Override // com.google.oplus.protobuf.MessageLite
     public void writeTo(OutputStream outputStream) throws IOException {
-        CodedOutputStream newInstance = CodedOutputStream.newInstance(outputStream, CodedOutputStream.computePreferredBufferSize(getSerializedSize()));
+        CodedOutputStream newInstance = CodedOutputStream.newInstance(outputStream,
+                CodedOutputStream.computePreferredBufferSize(getSerializedSize()));
         writeTo(newInstance);
         newInstance.flush();
     }
@@ -54,7 +57,8 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
     @Override // com.google.oplus.protobuf.MessageLite
     public void writeDelimitedTo(OutputStream outputStream) throws IOException {
         int serializedSize = getSerializedSize();
-        CodedOutputStream newInstance = CodedOutputStream.newInstance(outputStream, CodedOutputStream.computePreferredBufferSize(CodedOutputStream.computeRawVarint32Size(serializedSize) + serializedSize));
+        CodedOutputStream newInstance = CodedOutputStream.newInstance(outputStream, CodedOutputStream
+                .computePreferredBufferSize(CodedOutputStream.computeRawVarint32Size(serializedSize) + serializedSize));
         newInstance.writeRawVarint32(serializedSize);
         writeTo(newInstance);
         newInstance.flush();
@@ -105,28 +109,33 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
     }
 
     /* loaded from: classes.dex */
-    public static abstract class Builder<MessageType extends AbstractMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>> implements MessageLite.Builder {
-        @Override // 
+    public static abstract class Builder<MessageType extends AbstractMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>>
+            implements MessageLite.Builder {
+        @Override //
         /* renamed from: clone */
         public abstract BuilderType clone();
 
         protected abstract BuilderType internalMergeFrom(MessageType messagetype);
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        public abstract BuilderType mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException;
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
+        public abstract BuilderType mergeFrom(CodedInputStream codedInputStream,
+                ExtensionRegistryLite extensionRegistryLite) throws IOException;
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(CodedInputStream codedInputStream) throws IOException {
             return mergeFrom(codedInputStream, ExtensionRegistryLite.getEmptyRegistry());
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(ByteString byteString) throws InvalidProtocolBufferException {
             try {
                 CodedInputStream newCodedInput = byteString.newCodedInput();
                 mergeFrom(newCodedInput);
                 newCodedInput.checkLastTagWas(0);
-                return this;
+                return (BuilderType) this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
             } catch (IOException e2) {
@@ -134,13 +143,15 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
             }
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
+                throws InvalidProtocolBufferException {
             try {
                 CodedInputStream newCodedInput = byteString.newCodedInput();
                 mergeFrom(newCodedInput, extensionRegistryLite);
                 newCodedInput.checkLastTagWas(0);
-                return this;
+                return (BuilderType) this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
             } catch (IOException e2) {
@@ -148,18 +159,20 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
             }
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(byte[] bArr) throws InvalidProtocolBufferException {
             return mergeFrom(bArr, 0, bArr.length);
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
             try {
                 CodedInputStream newInstance = CodedInputStream.newInstance(bArr, i, i2);
                 mergeFrom(newInstance);
                 newInstance.checkLastTagWas(0);
-                return this;
+                return (BuilderType) this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
             } catch (IOException e2) {
@@ -167,18 +180,22 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
             }
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
+                throws InvalidProtocolBufferException {
             return mergeFrom(bArr, 0, bArr.length, extensionRegistryLite);
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(byte[] bArr, int i, int i2, ExtensionRegistryLite extensionRegistryLite)
+                throws InvalidProtocolBufferException {
             try {
                 CodedInputStream newInstance = CodedInputStream.newInstance(bArr, i, i2);
                 mergeFrom(newInstance, extensionRegistryLite);
                 newInstance.checkLastTagWas(0);
-                return this;
+                return (BuilderType) this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
             } catch (IOException e2) {
@@ -186,20 +203,23 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
             }
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public BuilderType mergeFrom(InputStream inputStream) throws IOException {
             CodedInputStream newInstance = CodedInputStream.newInstance(inputStream);
             mergeFrom(newInstance);
             newInstance.checkLastTagWas(0);
-            return this;
+            return (BuilderType) this;
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        public BuilderType mergeFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
+        public BuilderType mergeFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             CodedInputStream newInstance = CodedInputStream.newInstance(inputStream);
             mergeFrom(newInstance, extensionRegistryLite);
             newInstance.checkLastTagWas(0);
-            return this;
+            return (BuilderType) this;
         }
 
         /* JADX INFO: Access modifiers changed from: package-private */
@@ -253,17 +273,21 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
             }
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        public boolean mergeDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
+        public boolean mergeDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int read = inputStream.read();
             if (read == -1) {
                 return false;
             }
-            mergeFrom((InputStream) new LimitedInputStream(inputStream, CodedInputStream.readRawVarint32(read, inputStream)), extensionRegistryLite);
+            mergeFrom((InputStream) new LimitedInputStream(inputStream,
+                    CodedInputStream.readRawVarint32(read, inputStream)), extensionRegistryLite);
             return true;
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public boolean mergeDelimitedFrom(InputStream inputStream) throws IOException {
             return mergeDelimitedFrom(inputStream, ExtensionRegistryLite.getEmptyRegistry());
         }
@@ -274,11 +298,12 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
             if (!getDefaultInstanceForType().getClass().isInstance(messageLite)) {
                 throw new IllegalArgumentException("mergeFrom(MessageLite) can only merge messages of the same type.");
             }
-            return (BuilderType) internalMergeFrom((AbstractMessageLite) messageLite);
+            return internalMergeFrom((MessageType) messageLite);
         }
 
         private String getReadingExceptionMessage(String str) {
-            return "Reading " + getClass().getName() + " from a " + str + " threw an IOException (should never happen).";
+            return "Reading " + getClass().getName() + " from a " + str
+                    + " threw an IOException (should never happen).";
         }
 
         private static <T> void addAllCheckingNulls(Iterable<T> iterable, List<? super T> list) {

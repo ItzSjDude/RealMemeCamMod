@@ -10,6 +10,7 @@ import com.google.oplus.protobuf.UnknownFieldSet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+
 /* loaded from: classes.dex */
 public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
     public static final int BOOL_VALUE_FIELD_NUMBER = 4;
@@ -23,9 +24,11 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
     private Object kind_;
     private byte memoizedIsInitialized;
     private static final Value DEFAULT_INSTANCE = new Value();
-    private static final Parser<Value> PARSER = new AbstractParser<Value>() { // from class: com.google.oplus.protobuf.Value.1
+    private static final Parser<Value> PARSER = new AbstractParser<Value>() { // from class:
+                                                                              // com.google.oplus.protobuf.Value.1
         @Override // com.google.oplus.protobuf.Parser
-        public Value parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        public Value parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+                throws InvalidProtocolBufferException {
             return new Value(codedInputStream, extensionRegistryLite);
         }
     };
@@ -47,12 +50,14 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return new Value();
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.MessageOrBuilder
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.MessageOrBuilder
     public final UnknownFieldSet getUnknownFields() {
         return this.unknownFields;
     }
 
-    private Value(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    private Value(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         this();
         extensionRegistryLite.getClass();
         UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
@@ -76,7 +81,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
                         } else if (readTag != 32) {
                             if (readTag == 42) {
                                 Struct.Builder builder = this.kindCase_ == 5 ? ((Struct) this.kind_).toBuilder() : null;
-                                MessageLite readMessage = codedInputStream.readMessage(Struct.parser(), extensionRegistryLite);
+                                MessageLite readMessage = codedInputStream.readMessage(Struct.parser(),
+                                        extensionRegistryLite);
                                 this.kind_ = readMessage;
                                 if (builder != null) {
                                     builder.mergeFrom((Struct) readMessage);
@@ -84,15 +90,18 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
                                 }
                                 this.kindCase_ = 5;
                             } else if (readTag == 50) {
-                                ListValue.Builder builder2 = this.kindCase_ == 6 ? ((ListValue) this.kind_).toBuilder() : null;
-                                MessageLite readMessage2 = codedInputStream.readMessage(ListValue.parser(), extensionRegistryLite);
+                                ListValue.Builder builder2 = this.kindCase_ == 6 ? ((ListValue) this.kind_).toBuilder()
+                                        : null;
+                                MessageLite readMessage2 = codedInputStream.readMessage(ListValue.parser(),
+                                        extensionRegistryLite);
                                 this.kind_ = readMessage2;
                                 if (builder2 != null) {
                                     builder2.mergeFrom((ListValue) readMessage2);
                                     this.kind_ = builder2.buildPartial();
                                 }
                                 this.kindCase_ = 6;
-                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite, readTag)) {
+                            } else if (!parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite,
+                                    readTag)) {
                             }
                         } else {
                             this.kind_ = Boolean.valueOf(codedInputStream.readBool());
@@ -118,7 +127,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
     protected GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-        return StructProto.internal_static_google_protobuf_Value_fieldAccessorTable.ensureFieldAccessorsInitialized(Value.class, Builder.class);
+        return StructProto.internal_static_google_protobuf_Value_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(Value.class, Builder.class);
     }
 
     /* loaded from: classes.dex */
@@ -130,7 +140,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         STRUCT_VALUE(5),
         LIST_VALUE(6),
         KIND_NOT_SET(0);
-        
+
         private final int value;
 
         KindCase(int i) {
@@ -216,7 +226,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
     @Override // com.google.oplus.protobuf.ValueOrBuilder
     public String getStringValue() {
-        String str = this.kindCase_ == 3 ? this.kind_ : "";
+        Object str = this.kindCase_ == 3 ? this.kind_ : "";
         if (str instanceof String) {
             return (String) str;
         }
@@ -229,7 +239,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
     @Override // com.google.oplus.protobuf.ValueOrBuilder
     public ByteString getStringValueBytes() {
-        String str = this.kindCase_ == 3 ? this.kind_ : "";
+        Object str = this.kindCase_ == 3 ? this.kind_ : "";
         if (str instanceof String) {
             ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) str);
             if (this.kindCase_ == 3) {
@@ -295,7 +305,9 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return ListValue.getDefaultInstance();
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLiteOrBuilder
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.AbstractMessage,
+              // com.google.oplus.protobuf.MessageLiteOrBuilder
     public final boolean isInitialized() {
         byte b = this.memoizedIsInitialized;
         if (b == 1) {
@@ -308,7 +320,9 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.AbstractMessage,
+              // com.google.oplus.protobuf.MessageLite
     public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
         if (this.kindCase_ == 1) {
             codedOutputStream.writeEnum(1, ((Integer) this.kind_).intValue());
@@ -331,13 +345,17 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         this.unknownFields.writeTo(codedOutputStream);
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.AbstractMessage,
+              // com.google.oplus.protobuf.MessageLite
     public int getSerializedSize() {
         int i = this.memoizedSize;
         if (i != -1) {
             return i;
         }
-        int computeEnumSize = this.kindCase_ == 1 ? 0 + CodedOutputStream.computeEnumSize(1, ((Integer) this.kind_).intValue()) : 0;
+        int computeEnumSize = this.kindCase_ == 1
+                ? 0 + CodedOutputStream.computeEnumSize(1, ((Integer) this.kind_).intValue())
+                : 0;
         if (this.kindCase_ == 2) {
             computeEnumSize += CodedOutputStream.computeDoubleSize(2, ((Double) this.kind_).doubleValue());
         }
@@ -467,7 +485,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return PARSER.parseFrom(byteBuffer);
     }
 
-    public static Value parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public static Value parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return PARSER.parseFrom(byteBuffer, extensionRegistryLite);
     }
 
@@ -475,7 +494,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return PARSER.parseFrom(byteString);
     }
 
-    public static Value parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public static Value parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return PARSER.parseFrom(byteString, extensionRegistryLite);
     }
 
@@ -483,7 +503,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return PARSER.parseFrom(bArr);
     }
 
-    public static Value parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public static Value parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return PARSER.parseFrom(bArr, extensionRegistryLite);
     }
 
@@ -491,7 +512,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return (Value) GeneratedMessageV3.parseWithIOException(PARSER, inputStream);
     }
 
-    public static Value parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static Value parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return (Value) GeneratedMessageV3.parseWithIOException(PARSER, inputStream, extensionRegistryLite);
     }
 
@@ -499,7 +521,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return (Value) GeneratedMessageV3.parseDelimitedWithIOException(PARSER, inputStream);
     }
 
-    public static Value parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static Value parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return (Value) GeneratedMessageV3.parseDelimitedWithIOException(PARSER, inputStream, extensionRegistryLite);
     }
 
@@ -507,7 +530,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return (Value) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream);
     }
 
-    public static Value parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static Value parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return (Value) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
     }
 
@@ -542,7 +566,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         private SingleFieldBuilderV3<ListValue, ListValue.Builder, ListValueOrBuilder> listValueBuilder_;
         private SingleFieldBuilderV3<Struct, Struct.Builder, StructOrBuilder> structValueBuilder_;
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.MessageLiteOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.MessageLiteOrBuilder
         public final boolean isInitialized() {
             return true;
         }
@@ -553,7 +578,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder
         protected GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-            return StructProto.internal_static_google_protobuf_Value_fieldAccessorTable.ensureFieldAccessorsInitialized(Value.class, Builder.class);
+            return StructProto.internal_static_google_protobuf_Value_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(Value.class, Builder.class);
         }
 
         private Builder() {
@@ -571,7 +597,10 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             boolean z = GeneratedMessageV3.alwaysUseFieldBuilders;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             super.clear();
             this.kindCase_ = 0;
@@ -579,17 +608,21 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             return this;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder, com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder,
+                  // com.google.oplus.protobuf.MessageOrBuilder
         public Descriptors.Descriptor getDescriptorForType() {
             return StructProto.internal_static_google_protobuf_Value_descriptor;
         }
 
-        @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.MessageLiteOrBuilder,
+                  // com.google.oplus.protobuf.MessageOrBuilder
         public Value getDefaultInstanceForType() {
             return Value.getDefaultInstance();
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Value build() {
             Value buildPartial = buildPartial();
             if (buildPartial.isInitialized()) {
@@ -598,7 +631,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             throw newUninitializedMessageException((Message) buildPartial);
         }
 
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Value buildPartial() {
             Value value = new Value(this);
             if (this.kindCase_ == 1) {
@@ -634,38 +668,47 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             return value;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* renamed from: clone */
         public Builder clone() {
             return (Builder) super.clone();
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.setField(fieldDescriptor, obj);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             return (Builder) super.clearField(fieldDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             return (Builder) super.clearOneof(oneofDescriptor);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.addRepeatedField(fieldDescriptor, obj);
         }
 
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(Message message) {
             if (message instanceof Value) {
                 return mergeFrom((Value) message);
@@ -678,7 +721,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             if (value == Value.getDefaultInstance()) {
                 return this;
             }
-            switch (AnonymousClass2.$SwitchMap$com$google$oplus$protobuf$Value$KindCase[value.getKindCase().ordinal()]) {
+            switch (AnonymousClass2.$SwitchMap$com$google$oplus$protobuf$Value$KindCase[value.getKindCase()
+                    .ordinal()]) {
                 case 1:
                     setNullValueValue(value.getNullValueValue());
                     break;
@@ -705,42 +749,56 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             return this;
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /* JADX WARN: Removed duplicated region for block: B:16:0x0023 */
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.AbstractMessageLite.Builder,
+                  // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
-        */
-        public com.google.oplus.protobuf.Value.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3, com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
+         * Code decompiled incorrectly, please refer to instructions dump.
+         * To view partially-correct add '--show-bad-code' argument
+         */
+        public com.google.oplus.protobuf.Value.Builder mergeFrom(com.google.oplus.protobuf.CodedInputStream r3,
+                com.google.oplus.protobuf.ExtensionRegistryLite r4) throws java.io.IOException {
             /*
-                r2 = this;
-                r0 = 0
-                com.google.oplus.protobuf.Parser r1 = com.google.oplus.protobuf.Value.access$500()     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                java.lang.Object r3 = r1.parsePartialFrom(r3, r4)     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                com.google.oplus.protobuf.Value r3 = (com.google.oplus.protobuf.Value) r3     // Catch: java.lang.Throwable -> L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
-                if (r3 == 0) goto L10
-                r2.mergeFrom(r3)
-            L10:
-                return r2
-            L11:
-                r3 = move-exception
-                goto L21
-            L13:
-                r3 = move-exception
-                com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage()     // Catch: java.lang.Throwable -> L11
-                com.google.oplus.protobuf.Value r4 = (com.google.oplus.protobuf.Value) r4     // Catch: java.lang.Throwable -> L11
-                java.io.IOException r3 = r3.unwrapIOException()     // Catch: java.lang.Throwable -> L1f
-                throw r3     // Catch: java.lang.Throwable -> L1f
-            L1f:
-                r3 = move-exception
-                r0 = r4
-            L21:
-                if (r0 == 0) goto L26
-                r2.mergeFrom(r0)
-            L26:
-                throw r3
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.google.oplus.protobuf.Value.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.Value$Builder");
+             * r2 = this;
+             * r0 = 0
+             * com.google.oplus.protobuf.Parser r1 =
+             * com.google.oplus.protobuf.Value.access$500() // Catch: java.lang.Throwable ->
+             * L11 com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
+             * java.lang.Object r3 = r1.parsePartialFrom(r3, r4) // Catch:
+             * java.lang.Throwable -> L11
+             * com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
+             * com.google.oplus.protobuf.Value r3 = (com.google.oplus.protobuf.Value) r3 //
+             * Catch: java.lang.Throwable -> L11
+             * com.google.oplus.protobuf.InvalidProtocolBufferException -> L13
+             * if (r3 == 0) goto L10
+             * r2.mergeFrom(r3)
+             * L10:
+             * return r2
+             * L11:
+             * r3 = move-exception
+             * goto L21
+             * L13:
+             * r3 = move-exception
+             * com.google.oplus.protobuf.MessageLite r4 = r3.getUnfinishedMessage() //
+             * Catch: java.lang.Throwable -> L11
+             * com.google.oplus.protobuf.Value r4 = (com.google.oplus.protobuf.Value) r4 //
+             * Catch: java.lang.Throwable -> L11
+             * java.io.IOException r3 = r3.unwrapIOException() // Catch: java.lang.Throwable
+             * -> L1f
+             * throw r3 // Catch: java.lang.Throwable -> L1f
+             * L1f:
+             * r3 = move-exception
+             * r0 = r4
+             * L21:
+             * if (r0 == 0) goto L26
+             * r2.mergeFrom(r0)
+             * L26:
+             * throw r3
+             */
+            throw new UnsupportedOperationException(
+                    "Method not decompiled: com.google.oplus.protobuf.Value.Builder.mergeFrom(com.google.oplus.protobuf.CodedInputStream, com.google.oplus.protobuf.ExtensionRegistryLite):com.google.oplus.protobuf.Value$Builder");
         }
 
         @Override // com.google.oplus.protobuf.ValueOrBuilder
@@ -837,7 +895,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
         @Override // com.google.oplus.protobuf.ValueOrBuilder
         public String getStringValue() {
-            String str = this.kindCase_ == 3 ? this.kind_ : "";
+            Object str = this.kindCase_ == 3 ? this.kind_ : "";
             if (!(str instanceof String)) {
                 String stringUtf8 = ((ByteString) str).toStringUtf8();
                 if (this.kindCase_ == 3) {
@@ -850,7 +908,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
         @Override // com.google.oplus.protobuf.ValueOrBuilder
         public ByteString getStringValueBytes() {
-            String str = this.kindCase_ == 3 ? this.kind_ : "";
+            Object str = this.kindCase_ == 3 ? this.kind_ : "";
             if (str instanceof String) {
                 ByteString copyFromUtf8 = ByteString.copyFromUtf8((String) str);
                 if (this.kindCase_ == 3) {
@@ -1020,7 +1078,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
                 if (this.kindCase_ != 5) {
                     this.kind_ = Struct.getDefaultInstance();
                 }
-                this.structValueBuilder_ = new SingleFieldBuilderV3<>((Struct) this.kind_, getParentForChildren(), isClean());
+                this.structValueBuilder_ = new SingleFieldBuilderV3<>((Struct) this.kind_, getParentForChildren(),
+                        isClean());
                 this.kind_ = null;
             }
             this.kindCase_ = 5;
@@ -1132,7 +1191,8 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
                 if (this.kindCase_ != 6) {
                     this.kind_ = ListValue.getDefaultInstance();
                 }
-                this.listValueBuilder_ = new SingleFieldBuilderV3<>((ListValue) this.kind_, getParentForChildren(), isClean());
+                this.listValueBuilder_ = new SingleFieldBuilderV3<>((ListValue) this.kind_, getParentForChildren(),
+                        isClean());
                 this.kind_ = null;
             }
             this.kindCase_ = 6;
@@ -1140,19 +1200,22 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
             return this.listValueBuilder_;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.setUnknownFields(unknownFieldSet);
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.mergeUnknownFields(unknownFieldSet);
         }
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.Value$2  reason: invalid class name */
+    /* renamed from: com.google.oplus.protobuf.Value$2 reason: invalid class name */
     /* loaded from: classes.dex */
     public static /* synthetic */ class AnonymousClass2 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Value$KindCase;
@@ -1199,12 +1262,14 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
         return PARSER;
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Parser<Value> getParserForType() {
         return PARSER;
     }
 
-    @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
+    @Override // com.google.oplus.protobuf.MessageLiteOrBuilder,
+              // com.google.oplus.protobuf.MessageOrBuilder
     public Value getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
     }

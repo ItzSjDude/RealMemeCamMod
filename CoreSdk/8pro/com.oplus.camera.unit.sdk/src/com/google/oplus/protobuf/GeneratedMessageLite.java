@@ -131,7 +131,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
     @Override // com.google.oplus.protobuf.MessageLiteOrBuilder
     public final boolean isInitialized() {
         Boolean bool = Boolean.TRUE;
-        return isInitialized(this, true);
+        return isInitialized((MessageType) this, true);
     }
 
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
@@ -246,7 +246,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
                   // com.google.oplus.protobuf.Message.Builder
         public final BuilderType clear() {
             this.instance = (MessageType) this.instance.dynamicMethod(MethodToInvoke.NEW_MUTABLE_INSTANCE);
-            return this;
+            return (BuilderType) this;
         }
 
         @Override // com.google.oplus.protobuf.AbstractMessageLite.Builder
@@ -279,17 +279,17 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
         }
 
         protected BuilderType internalMergeFrom(MessageType messagetype) {
-            return mergeFrom((Builder<MessageType, BuilderType>) messagetype);
+            return mergeFrom(messagetype);
         }
 
         public BuilderType mergeFrom(MessageType messagetype) {
             copyOnWrite();
             mergeFromInstance(this.instance, messagetype);
-            return this;
+            return (BuilderType) this;
         }
 
         private void mergeFromInstance(MessageType messagetype, MessageType messagetype2) {
-            Protobuf.getInstance().schemaFor( messagetype).mergeFrom(messagetype, messagetype2);
+            Protobuf.getInstance().schemaFor(messagetype).mergeFrom(messagetype, messagetype2);
         }
 
         @Override // com.google.oplus.protobuf.MessageLiteOrBuilder,
@@ -307,7 +307,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             try {
                 Protobuf.getInstance().schemaFor(this.instance).mergeFrom(this.instance, bArr, i, i + i2,
                         new ArrayDecoders.Registers(extensionRegistryLite));
-                return this;
+                return (BuilderType) this;
             } catch (InvalidProtocolBufferException e) {
                 throw e;
             } catch (IOException e2) {
@@ -333,7 +333,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             try {
                 Protobuf.getInstance().schemaFor(this.instance).mergeFrom(this.instance,
                         CodedInputStreamReader.forCodedInput(codedInputStream), extensionRegistryLite);
-                return this;
+                return (BuilderType) this;
             } catch (RuntimeException e) {
                 if (e.getCause() instanceof IOException) {
                     throw ((IOException) e.getCause());
@@ -674,7 +674,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             verifyExtensionContainingType(checkIsLite);
             copyOnWrite();
             ensureExtensionsAreMutable().setField(checkIsLite.descriptor, checkIsLite.toFieldSetType(type));
-            return this;
+            return (BuilderType) this;
         }
 
         public final <Type> BuilderType setExtension(ExtensionLite<MessageType, List<Type>> extensionLite, int i,
@@ -684,7 +684,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             copyOnWrite();
             ensureExtensionsAreMutable().setRepeatedField(checkIsLite.descriptor, i,
                     checkIsLite.singularToFieldSetType(type));
-            return this;
+            return (BuilderType) this;
         }
 
         public final <Type> BuilderType addExtension(ExtensionLite<MessageType, List<Type>> extensionLite, Type type) {
@@ -693,7 +693,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             copyOnWrite();
             ensureExtensionsAreMutable().addRepeatedField(checkIsLite.descriptor,
                     checkIsLite.singularToFieldSetType(type));
-            return this;
+            return (BuilderType) this;
         }
 
         public final BuilderType clearExtension(ExtensionLite<MessageType, ?> extensionLite) {
@@ -701,7 +701,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             verifyExtensionContainingType(checkIsLite);
             copyOnWrite();
             ensureExtensionsAreMutable().clearField(checkIsLite.descriptor);
-            return this;
+            return (BuilderType) this;
         }
     }
 

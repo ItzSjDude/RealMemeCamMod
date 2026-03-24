@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.RandomAccess;
 import java.util.Set;
+
 /* loaded from: classes.dex */
 public final class Internal {
     private static final int DEFAULT_BUFFER_SIZE = 4096;
@@ -27,9 +28,10 @@ public final class Internal {
 
         boolean getBoolean(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Boolean> mutableCopyWithCapacity2(int i);
+        ProtobufList<Boolean> mutableCopyWithCapacity(int i);
 
         boolean setBoolean(int i, boolean z);
     }
@@ -40,9 +42,10 @@ public final class Internal {
 
         double getDouble(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Double> mutableCopyWithCapacity2(int i);
+        ProtobufList<Double> mutableCopyWithCapacity(int i);
 
         double setDouble(int i, double d);
     }
@@ -68,9 +71,10 @@ public final class Internal {
 
         float getFloat(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Float> mutableCopyWithCapacity2(int i);
+        ProtobufList<Float> mutableCopyWithCapacity(int i);
 
         float setFloat(int i, float f);
     }
@@ -81,9 +85,10 @@ public final class Internal {
 
         int getInt(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Integer> mutableCopyWithCapacity2(int i);
+        ProtobufList<Integer> mutableCopyWithCapacity(int i);
 
         int setInt(int i, int i2);
     }
@@ -94,9 +99,10 @@ public final class Internal {
 
         long getLong(int i);
 
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* renamed from: mutableCopyWithCapacity */
-        ProtobufList<Long> mutableCopyWithCapacity2(int i);
+        ProtobufList<Long> mutableCopyWithCapacity(int i);
 
         long setLong(int i, long j);
     }
@@ -264,7 +270,8 @@ public final class Internal {
 
     public static int hashCodeByteBuffer(ByteBuffer byteBuffer) {
         if (byteBuffer.hasArray()) {
-            int partialHash = partialHash(byteBuffer.capacity(), byteBuffer.array(), byteBuffer.arrayOffset(), byteBuffer.capacity());
+            int partialHash = partialHash(byteBuffer.capacity(), byteBuffer.array(), byteBuffer.arrayOffset(),
+                    byteBuffer.capacity());
             if (partialHash == 0) {
                 return 1;
             }
@@ -338,18 +345,23 @@ public final class Internal {
             B doForward(A a);
         }
 
-        public static <T extends EnumLite> Converter<Integer, T> newEnumConverter(final EnumLiteMap<T> enumLiteMap, final T t) {
-            return (Converter<Integer, T>) new Converter<Integer, T>() { // from class: com.google.oplus.protobuf.Internal.MapAdapter.1
-                /* JADX WARN: Incorrect return type in method signature: (Ljava/lang/Integer;)TT; */
+        public static <T extends EnumLite> Converter<Integer, T> newEnumConverter(final EnumLiteMap<T> enumLiteMap,
+                final T t) {
+            return (Converter<Integer, T>) new Converter<Integer, T>() { // from class:
+                                                                         // com.google.oplus.protobuf.Internal.MapAdapter.1
+                /*
+                 * JADX WARN: Incorrect return type in method signature:
+                 * (Ljava/lang/Integer;)TT;
+                 */
                 @Override // com.google.oplus.protobuf.Internal.MapAdapter.Converter
-                public EnumLite doForward(Integer num) {
-                    EnumLite findValueByNumber = EnumLiteMap.this.findValueByNumber(num.intValue());
+                public T doForward(Integer num) {
+                    T findValueByNumber = enumLiteMap.findValueByNumber(num.intValue());
                     return findValueByNumber == null ? t : findValueByNumber;
                 }
 
                 /* JADX WARN: Incorrect types in method signature: (TT;)Ljava/lang/Integer; */
                 @Override // com.google.oplus.protobuf.Internal.MapAdapter.Converter
-                public Integer doBackward(EnumLite enumLite) {
+                public Integer doBackward(T enumLite) {
                     return Integer.valueOf(enumLite.getNumber());
                 }
             };
@@ -391,7 +403,8 @@ public final class Internal {
                 this.realSet = set;
             }
 
-            @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, java.util.Set
+            @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable,
+                      // java.util.Set
             public Iterator<Map.Entry<K, V>> iterator() {
                 return new IteratorAdapter(this.realSet.iterator());
             }
@@ -448,7 +461,7 @@ public final class Internal {
             /* JADX WARN: Multi-variable type inference failed */
             @Override // java.util.Map.Entry
             public V setValue(V v) {
-                Object value = this.realEntry.setValue(MapAdapter.this.valueConverter.doBackward(v));
+                RealValue value = this.realEntry.setValue(MapAdapter.this.valueConverter.doBackward(v));
                 if (value == null) {
                     return null;
                 }

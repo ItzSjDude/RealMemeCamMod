@@ -1040,8 +1040,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
             for (int i = 0; i < ((FieldSet) fieldSet).fields.getNumArrayEntries(); i++) {
                 mergeFromField(((FieldSet) fieldSet).fields.getArrayEntryAt(i));
             }
-            for (Map.Entry entry : ((FieldSet) fieldSet).fields.getOverflowEntries()) {
-                mergeFromField((Map.Entry<T, Object>) entry);
+            for (Map.Entry<T, Object> entry : ((FieldSet<T>) fieldSet).fields.getOverflowEntries()) {
+                mergeFromField(entry);
             }
         }
 

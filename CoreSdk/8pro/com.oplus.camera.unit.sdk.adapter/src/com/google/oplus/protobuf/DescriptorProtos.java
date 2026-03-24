@@ -2641,13 +2641,13 @@ public final class DescriptorProtos {
                 if (repeatedFieldBuilderV34 != null) {
                     fileDescriptorProto.extension_ = repeatedFieldBuilderV34.build();
                 } else {
-                    if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+                    if ((this.bitField0_ & 256) != 0) {
                         this.extension_ = Collections.unmodifiableList(this.extension_);
                         this.bitField0_ &= -257;
                     }
                     fileDescriptorProto.extension_ = this.extension_;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+                if ((i & 512) != 0) {
                     SingleFieldBuilderV3<FileOptions, FileOptions.Builder, FileOptionsOrBuilder> singleFieldBuilderV3 = this.optionsBuilder_;
                     if (singleFieldBuilderV3 == null) {
                         fileDescriptorProto.options_ = this.options_;
@@ -2656,7 +2656,7 @@ public final class DescriptorProtos {
                     }
                     i2 |= 4;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+                if ((i & 1024) != 0) {
                     SingleFieldBuilderV3<SourceCodeInfo, SourceCodeInfo.Builder, SourceCodeInfoOrBuilder> singleFieldBuilderV32 = this.sourceCodeInfoBuilder_;
                     if (singleFieldBuilderV32 == null) {
                         fileDescriptorProto.sourceCodeInfo_ = this.sourceCodeInfo_;
@@ -2665,7 +2665,7 @@ public final class DescriptorProtos {
                     }
                     i2 |= 8;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+                if ((i & 2048) != 0) {
                     i2 |= 16;
                 }
                 fileDescriptorProto.syntax_ = this.syntax_;
@@ -2867,7 +2867,7 @@ public final class DescriptorProtos {
                     mergeSourceCodeInfo(fileDescriptorProto.getSourceCodeInfo());
                 }
                 if (fileDescriptorProto.hasSyntax()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                    this.bitField0_ |= 2048;
                     this.syntax_ = fileDescriptorProto.syntax_;
                     onChanged();
                 }
@@ -3797,9 +3797,9 @@ public final class DescriptorProtos {
             }
 
             private void ensureExtensionIsMutable() {
-                if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) == 0) {
+                if ((this.bitField0_ & 256) == 0) {
                     this.extension_ = new ArrayList(this.extension_);
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                    this.bitField0_ |= 256;
                 }
             }
 
@@ -3978,7 +3978,7 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<FieldDescriptorProto, FieldDescriptorProto.Builder, FieldDescriptorProtoOrBuilder> getExtensionFieldBuilder() {
                 if (this.extensionBuilder_ == null) {
                     this.extensionBuilder_ = new RepeatedFieldBuilderV3<>(this.extension_,
-                            (this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0, getParentForChildren(),
+                            (this.bitField0_ & 256) != 0, getParentForChildren(),
                             isClean());
                     this.extension_ = null;
                 }
@@ -3987,7 +3987,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
             public boolean hasOptions() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0;
+                return (this.bitField0_ & 512) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
@@ -4009,7 +4009,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.setMessage(fileOptions);
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 return this;
             }
 
@@ -4021,7 +4021,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.setMessage(builder.build());
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 return this;
             }
 
@@ -4029,7 +4029,7 @@ public final class DescriptorProtos {
                 FileOptions fileOptions2;
                 SingleFieldBuilderV3<FileOptions, FileOptions.Builder, FileOptionsOrBuilder> singleFieldBuilderV3 = this.optionsBuilder_;
                 if (singleFieldBuilderV3 == null) {
-                    if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0 && (fileOptions2 = this.options_) != null
+                    if ((this.bitField0_ & 512) != 0 && (fileOptions2 = this.options_) != null
                             && fileOptions2 != FileOptions.getDefaultInstance()) {
                         this.options_ = FileOptions.newBuilder(this.options_).mergeFrom(fileOptions).buildPartial();
                     } else {
@@ -4039,7 +4039,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.mergeFrom(fileOptions);
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 return this;
             }
 
@@ -4056,7 +4056,7 @@ public final class DescriptorProtos {
             }
 
             public FileOptions.Builder getOptionsBuilder() {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 onChanged();
                 return getOptionsFieldBuilder().getBuilder();
             }
@@ -4081,7 +4081,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
             public boolean hasSourceCodeInfo() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0;
+                return (this.bitField0_ & 1024) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
@@ -4103,7 +4103,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.setMessage(sourceCodeInfo);
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                this.bitField0_ |= 1024;
                 return this;
             }
 
@@ -4115,7 +4115,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.setMessage(builder.build());
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                this.bitField0_ |= 1024;
                 return this;
             }
 
@@ -4123,7 +4123,7 @@ public final class DescriptorProtos {
                 SourceCodeInfo sourceCodeInfo2;
                 SingleFieldBuilderV3<SourceCodeInfo, SourceCodeInfo.Builder, SourceCodeInfoOrBuilder> singleFieldBuilderV3 = this.sourceCodeInfoBuilder_;
                 if (singleFieldBuilderV3 == null) {
-                    if ((this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0
+                    if ((this.bitField0_ & 1024) != 0
                             && (sourceCodeInfo2 = this.sourceCodeInfo_) != null
                             && sourceCodeInfo2 != SourceCodeInfo.getDefaultInstance()) {
                         this.sourceCodeInfo_ = SourceCodeInfo.newBuilder(this.sourceCodeInfo_).mergeFrom(sourceCodeInfo)
@@ -4135,7 +4135,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.mergeFrom(sourceCodeInfo);
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                this.bitField0_ |= 1024;
                 return this;
             }
 
@@ -4152,7 +4152,7 @@ public final class DescriptorProtos {
             }
 
             public SourceCodeInfo.Builder getSourceCodeInfoBuilder() {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                this.bitField0_ |= 1024;
                 onChanged();
                 return getSourceCodeInfoFieldBuilder().getBuilder();
             }
@@ -4178,7 +4178,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
             public boolean hasSyntax() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+                return (this.bitField0_ & 2048) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
@@ -4208,7 +4208,7 @@ public final class DescriptorProtos {
 
             public Builder setSyntax(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.syntax_ = str;
                 onChanged();
                 return this;
@@ -4223,7 +4223,7 @@ public final class DescriptorProtos {
 
             public Builder setSyntaxBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.syntax_ = byteString;
                 onChanged();
                 return this;
@@ -6585,13 +6585,13 @@ public final class DescriptorProtos {
                 if (repeatedFieldBuilderV37 != null) {
                     descriptorProto.reservedRange_ = repeatedFieldBuilderV37.build();
                 } else {
-                    if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+                    if ((this.bitField0_ & 256) != 0) {
                         this.reservedRange_ = Collections.unmodifiableList(this.reservedRange_);
                         this.bitField0_ &= -257;
                     }
                     descriptorProto.reservedRange_ = this.reservedRange_;
                 }
-                if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+                if ((this.bitField0_ & 512) != 0) {
                     this.reservedName_ = this.reservedName_.getUnmodifiableView();
                     this.bitField0_ &= -513;
                 }
@@ -8210,9 +8210,9 @@ public final class DescriptorProtos {
             }
 
             private void ensureReservedRangeIsMutable() {
-                if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) == 0) {
+                if ((this.bitField0_ & 256) == 0) {
                     this.reservedRange_ = new ArrayList(this.reservedRange_);
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                    this.bitField0_ |= 256;
                 }
             }
 
@@ -8391,7 +8391,7 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<ReservedRange, ReservedRange.Builder, ReservedRangeOrBuilder> getReservedRangeFieldBuilder() {
                 if (this.reservedRangeBuilder_ == null) {
                     this.reservedRangeBuilder_ = new RepeatedFieldBuilderV3<>(this.reservedRange_,
-                            (this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0, getParentForChildren(),
+                            (this.bitField0_ & 256) != 0, getParentForChildren(),
                             isClean());
                     this.reservedRange_ = null;
                 }
@@ -8399,9 +8399,9 @@ public final class DescriptorProtos {
             }
 
             private void ensureReservedNameIsMutable() {
-                if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) == 0) {
+                if ((this.bitField0_ & 512) == 0) {
                     this.reservedName_ = new LazyStringArrayList(this.reservedName_);
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                    this.bitField0_ |= 512;
                 }
             }
 
@@ -9427,7 +9427,7 @@ public final class DescriptorProtos {
                                 this.defaultValue_ = readBytes4;
                                 continue;
                             case 66:
-                                FieldOptions.Builder builder = (this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0
+                                FieldOptions.Builder builder = (this.bitField0_ & 512) != 0
                                         ? this.options_.toBuilder()
                                         : null;
                                 FieldOptions fieldOptions = (FieldOptions) codedInputStream
@@ -9437,7 +9437,7 @@ public final class DescriptorProtos {
                                     builder.mergeFrom(fieldOptions);
                                     this.options_ = builder.buildPartial();
                                 }
-                                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                                this.bitField0_ |= 512;
                                 continue;
                             case 72:
                                 this.bitField0_ |= 128;
@@ -9445,11 +9445,11 @@ public final class DescriptorProtos {
                                 continue;
                             case 82:
                                 ByteString readBytes5 = codedInputStream.readBytes();
-                                this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                                this.bitField0_ |= 256;
                                 this.jsonName_ = readBytes5;
                                 continue;
                             case 136:
-                                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                                this.bitField0_ |= 1024;
                                 this.proto3Optional_ = codedInputStream.readBool();
                                 continue;
                             default:
@@ -9856,7 +9856,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
         public boolean hasJsonName() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0;
+            return (this.bitField0_ & 256) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
@@ -9886,7 +9886,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
         public boolean hasOptions() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0;
+            return (this.bitField0_ & 512) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
@@ -9903,7 +9903,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
         public boolean hasProto3Optional() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0;
+            return (this.bitField0_ & 1024) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
@@ -9955,16 +9955,16 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 64) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 7, this.defaultValue_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+            if ((this.bitField0_ & 512) != 0) {
                 codedOutputStream.writeMessage(8, getOptions());
             }
             if ((this.bitField0_ & 128) != 0) {
                 codedOutputStream.writeInt32(9, this.oneofIndex_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+            if ((this.bitField0_ & 256) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 10, this.jsonName_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+            if ((this.bitField0_ & 1024) != 0) {
                 codedOutputStream.writeBool(17, this.proto3Optional_);
             }
             this.unknownFields.writeTo(codedOutputStream);
@@ -9998,16 +9998,16 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 64) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(7, this.defaultValue_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+            if ((this.bitField0_ & 512) != 0) {
                 computeStringSize += CodedOutputStream.computeMessageSize(8, getOptions());
             }
             if ((this.bitField0_ & 128) != 0) {
                 computeStringSize += CodedOutputStream.computeInt32Size(9, this.oneofIndex_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+            if ((this.bitField0_ & 256) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(10, this.jsonName_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+            if ((this.bitField0_ & 1024) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(17, this.proto3Optional_);
             }
             int serializedSize = computeStringSize + this.unknownFields.getSerializedSize();
@@ -10345,22 +10345,22 @@ public final class DescriptorProtos {
                     fieldDescriptorProto.oneofIndex_ = this.oneofIndex_;
                     i2 |= 128;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_PROFESSION;
+                if ((i & 256) != 0) {
+                    i2 |= 256;
                 }
                 fieldDescriptorProto.jsonName_ = this.jsonName_;
-                if ((i & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+                if ((i & 512) != 0) {
                     SingleFieldBuilderV3<FieldOptions, FieldOptions.Builder, FieldOptionsOrBuilder> singleFieldBuilderV3 = this.optionsBuilder_;
                     if (singleFieldBuilderV3 == null) {
                         fieldDescriptorProto.options_ = this.options_;
                     } else {
                         fieldDescriptorProto.options_ = singleFieldBuilderV3.build();
                     }
-                    i2 |= OplusExifTag.EXIF_TAG_STICKER;
+                    i2 |= 512;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+                if ((i & 1024) != 0) {
                     fieldDescriptorProto.proto3Optional_ = this.proto3Optional_;
-                    i2 |= OplusExifTag.EXIF_TAG_FILTER;
+                    i2 |= 1024;
                 }
                 fieldDescriptorProto.bitField0_ = i2;
                 onBuilt();
@@ -10453,7 +10453,7 @@ public final class DescriptorProtos {
                     setOneofIndex(fieldDescriptorProto.getOneofIndex());
                 }
                 if (fieldDescriptorProto.hasJsonName()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                    this.bitField0_ |= 256;
                     this.jsonName_ = fieldDescriptorProto.jsonName_;
                     onChanged();
                 }
@@ -10845,7 +10845,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
             public boolean hasJsonName() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0;
+                return (this.bitField0_ & 256) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
@@ -10875,7 +10875,7 @@ public final class DescriptorProtos {
 
             public Builder setJsonName(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                this.bitField0_ |= 256;
                 this.jsonName_ = str;
                 onChanged();
                 return this;
@@ -10890,7 +10890,7 @@ public final class DescriptorProtos {
 
             public Builder setJsonNameBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                this.bitField0_ |= 256;
                 this.jsonName_ = byteString;
                 onChanged();
                 return this;
@@ -10898,7 +10898,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
             public boolean hasOptions() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0;
+                return (this.bitField0_ & 512) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
@@ -10920,7 +10920,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.setMessage(fieldOptions);
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 return this;
             }
 
@@ -10932,7 +10932,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.setMessage(builder.build());
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 return this;
             }
 
@@ -10940,7 +10940,7 @@ public final class DescriptorProtos {
                 FieldOptions fieldOptions2;
                 SingleFieldBuilderV3<FieldOptions, FieldOptions.Builder, FieldOptionsOrBuilder> singleFieldBuilderV3 = this.optionsBuilder_;
                 if (singleFieldBuilderV3 == null) {
-                    if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0
+                    if ((this.bitField0_ & 512) != 0
                             && (fieldOptions2 = this.options_) != null
                             && fieldOptions2 != FieldOptions.getDefaultInstance()) {
                         this.options_ = FieldOptions.newBuilder(this.options_).mergeFrom(fieldOptions).buildPartial();
@@ -10951,7 +10951,7 @@ public final class DescriptorProtos {
                 } else {
                     singleFieldBuilderV3.mergeFrom(fieldOptions);
                 }
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 return this;
             }
 
@@ -10968,7 +10968,7 @@ public final class DescriptorProtos {
             }
 
             public FieldOptions.Builder getOptionsBuilder() {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 onChanged();
                 return getOptionsFieldBuilder().getBuilder();
             }
@@ -10993,7 +10993,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
             public boolean hasProto3Optional() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0;
+                return (this.bitField0_ & 1024) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FieldDescriptorProtoOrBuilder
@@ -11002,7 +11002,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setProto3Optional(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                this.bitField0_ |= 1024;
                 this.proto3Optional_ = z;
                 onChanged();
                 return this;
@@ -16801,11 +16801,11 @@ public final class DescriptorProtos {
                                     this.ccGenericServices_ = codedInputStream.readBool();
                                     continue;
                                 case 136:
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                                    this.bitField0_ |= 256;
                                     this.javaGenericServices_ = codedInputStream.readBool();
                                     continue;
                                 case 144:
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                                    this.bitField0_ |= 512;
                                     this.pyGenericServices_ = codedInputStream.readBool();
                                     continue;
                                 case 160:
@@ -16813,7 +16813,7 @@ public final class DescriptorProtos {
                                     this.javaGenerateEqualsAndHash_ = codedInputStream.readBool();
                                     continue;
                                 case 184:
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                                    this.bitField0_ |= 2048;
                                     this.deprecated_ = codedInputStream.readBool();
                                     continue;
                                 case 216:
@@ -16826,17 +16826,17 @@ public final class DescriptorProtos {
                                     continue;
                                 case 290:
                                     ByteString readBytes4 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                                    this.bitField0_ |= 8192;
                                     this.objcClassPrefix_ = readBytes4;
                                     continue;
                                 case 298:
                                     ByteString readBytes5 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                                    this.bitField0_ |= 16384;
                                     this.csharpNamespace_ = readBytes5;
                                     continue;
                                 case 314:
                                     ByteString readBytes6 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                                    this.bitField0_ |= 32768;
                                     this.swiftPrefix_ = readBytes6;
                                     continue;
                                 case 322:
@@ -16850,7 +16850,7 @@ public final class DescriptorProtos {
                                     this.phpNamespace_ = readBytes8;
                                     continue;
                                 case 336:
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                                    this.bitField0_ |= 1024;
                                     this.phpGenericServices_ = codedInputStream.readBool();
                                     continue;
                                 case 354:
@@ -17126,7 +17126,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasJavaGenericServices() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0;
+            return (this.bitField0_ & 256) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17136,7 +17136,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasPyGenericServices() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0;
+            return (this.bitField0_ & 512) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17146,7 +17146,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasPhpGenericServices() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0;
+            return (this.bitField0_ & 1024) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17156,7 +17156,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasDeprecated() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+            return (this.bitField0_ & 2048) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17176,7 +17176,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasObjcClassPrefix() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0;
+            return (this.bitField0_ & 8192) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17206,7 +17206,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasCsharpNamespace() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0;
+            return (this.bitField0_ & 16384) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17236,7 +17236,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasSwiftPrefix() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0;
+            return (this.bitField0_ & 32768) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17458,16 +17458,16 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 128) != 0) {
                 codedOutputStream.writeBool(16, this.ccGenericServices_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+            if ((this.bitField0_ & 256) != 0) {
                 codedOutputStream.writeBool(17, this.javaGenericServices_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+            if ((this.bitField0_ & 512) != 0) {
                 codedOutputStream.writeBool(18, this.pyGenericServices_);
             }
             if ((this.bitField0_ & 8) != 0) {
                 codedOutputStream.writeBool(20, this.javaGenerateEqualsAndHash_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+            if ((this.bitField0_ & 2048) != 0) {
                 codedOutputStream.writeBool(23, this.deprecated_);
             }
             if ((this.bitField0_ & 16) != 0) {
@@ -17476,13 +17476,13 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 4096) != 0) {
                 codedOutputStream.writeBool(31, this.ccEnableArenas_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
+            if ((this.bitField0_ & 8192) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 36, this.objcClassPrefix_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
+            if ((this.bitField0_ & 16384) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 37, this.csharpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
+            if ((this.bitField0_ & 32768) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 39, this.swiftPrefix_);
             }
             if ((this.bitField0_ & 65536) != 0) {
@@ -17491,7 +17491,7 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 131072) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 41, this.phpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+            if ((this.bitField0_ & 1024) != 0) {
                 codedOutputStream.writeBool(42, this.phpGenericServices_);
             }
             if ((this.bitField0_ & 262144) != 0) {
@@ -17533,16 +17533,16 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 128) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(16, this.ccGenericServices_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+            if ((this.bitField0_ & 256) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(17, this.javaGenericServices_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+            if ((this.bitField0_ & 512) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(18, this.pyGenericServices_);
             }
             if ((this.bitField0_ & 8) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(20, this.javaGenerateEqualsAndHash_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+            if ((this.bitField0_ & 2048) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(23, this.deprecated_);
             }
             if ((this.bitField0_ & 16) != 0) {
@@ -17551,13 +17551,13 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 4096) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(31, this.ccEnableArenas_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
+            if ((this.bitField0_ & 8192) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(36, this.objcClassPrefix_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
+            if ((this.bitField0_ & 16384) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(37, this.csharpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
+            if ((this.bitField0_ & 32768) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(39, this.swiftPrefix_);
             }
             if ((this.bitField0_ & 65536) != 0) {
@@ -17566,7 +17566,7 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 131072) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(41, this.phpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+            if ((this.bitField0_ & 1024) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(42, this.phpGenericServices_);
             }
             if ((this.bitField0_ & 262144) != 0) {
@@ -18068,36 +18068,36 @@ public final class DescriptorProtos {
                     fileOptions.ccGenericServices_ = this.ccGenericServices_;
                     i2 |= 128;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_PROFESSION) != 0) {
+                if ((i & 256) != 0) {
                     fileOptions.javaGenericServices_ = this.javaGenericServices_;
-                    i2 |= OplusExifTag.EXIF_TAG_PROFESSION;
+                    i2 |= 256;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_STICKER) != 0) {
+                if ((i & 512) != 0) {
                     fileOptions.pyGenericServices_ = this.pyGenericServices_;
-                    i2 |= OplusExifTag.EXIF_TAG_STICKER;
+                    i2 |= 512;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_FILTER) != 0) {
+                if ((i & 1024) != 0) {
                     fileOptions.phpGenericServices_ = this.phpGenericServices_;
-                    i2 |= OplusExifTag.EXIF_TAG_FILTER;
+                    i2 |= 1024;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+                if ((i & 2048) != 0) {
                     fileOptions.deprecated_ = this.deprecated_;
-                    i2 |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                    i2 |= 2048;
                 }
                 if ((i & 4096) != 0) {
                     i2 |= 4096;
                 }
                 fileOptions.ccEnableArenas_ = this.ccEnableArenas_;
-                if ((i & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                if ((i & 8192) != 0) {
+                    i2 |= 8192;
                 }
                 fileOptions.objcClassPrefix_ = this.objcClassPrefix_;
-                if ((i & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                if ((i & 16384) != 0) {
+                    i2 |= 16384;
                 }
                 fileOptions.csharpNamespace_ = this.csharpNamespace_;
-                if ((i & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                if ((i & 32768) != 0) {
+                    i2 |= 32768;
                 }
                 fileOptions.swiftPrefix_ = this.swiftPrefix_;
                 if ((i & 65536) != 0) {
@@ -18265,17 +18265,17 @@ public final class DescriptorProtos {
                     setCcEnableArenas(fileOptions.getCcEnableArenas());
                 }
                 if (fileOptions.hasObjcClassPrefix()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                    this.bitField0_ |= 8192;
                     this.objcClassPrefix_ = fileOptions.objcClassPrefix_;
                     onChanged();
                 }
                 if (fileOptions.hasCsharpNamespace()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                    this.bitField0_ |= 16384;
                     this.csharpNamespace_ = fileOptions.csharpNamespace_;
                     onChanged();
                 }
                 if (fileOptions.hasSwiftPrefix()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                    this.bitField0_ |= 32768;
                     this.swiftPrefix_ = fileOptions.swiftPrefix_;
                     onChanged();
                 }
@@ -18685,7 +18685,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasJavaGenericServices() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_PROFESSION) != 0;
+                return (this.bitField0_ & 256) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18694,7 +18694,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setJavaGenericServices(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_PROFESSION;
+                this.bitField0_ |= 256;
                 this.javaGenericServices_ = z;
                 onChanged();
                 return this;
@@ -18709,7 +18709,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasPyGenericServices() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_STICKER) != 0;
+                return (this.bitField0_ & 512) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18718,7 +18718,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setPyGenericServices(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_STICKER;
+                this.bitField0_ |= 512;
                 this.pyGenericServices_ = z;
                 onChanged();
                 return this;
@@ -18733,7 +18733,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasPhpGenericServices() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_FILTER) != 0;
+                return (this.bitField0_ & 1024) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18742,7 +18742,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setPhpGenericServices(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_FILTER;
+                this.bitField0_ |= 1024;
                 this.phpGenericServices_ = z;
                 onChanged();
                 return this;
@@ -18757,7 +18757,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasDeprecated() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+                return (this.bitField0_ & 2048) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18766,7 +18766,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setDeprecated(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.deprecated_ = z;
                 onChanged();
                 return this;
@@ -18805,7 +18805,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasObjcClassPrefix() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0;
+                return (this.bitField0_ & 8192) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18835,7 +18835,7 @@ public final class DescriptorProtos {
 
             public Builder setObjcClassPrefix(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                this.bitField0_ |= 8192;
                 this.objcClassPrefix_ = str;
                 onChanged();
                 return this;
@@ -18850,7 +18850,7 @@ public final class DescriptorProtos {
 
             public Builder setObjcClassPrefixBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                this.bitField0_ |= 8192;
                 this.objcClassPrefix_ = byteString;
                 onChanged();
                 return this;
@@ -18858,7 +18858,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasCsharpNamespace() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0;
+                return (this.bitField0_ & 16384) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18888,7 +18888,7 @@ public final class DescriptorProtos {
 
             public Builder setCsharpNamespace(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                this.bitField0_ |= 16384;
                 this.csharpNamespace_ = str;
                 onChanged();
                 return this;
@@ -18903,7 +18903,7 @@ public final class DescriptorProtos {
 
             public Builder setCsharpNamespaceBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                this.bitField0_ |= 16384;
                 this.csharpNamespace_ = byteString;
                 onChanged();
                 return this;
@@ -18911,7 +18911,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasSwiftPrefix() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0;
+                return (this.bitField0_ & 32768) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18941,7 +18941,7 @@ public final class DescriptorProtos {
 
             public Builder setSwiftPrefix(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                this.bitField0_ |= 32768;
                 this.swiftPrefix_ = str;
                 onChanged();
                 return this;
@@ -18956,7 +18956,7 @@ public final class DescriptorProtos {
 
             public Builder setSwiftPrefixBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                this.bitField0_ |= 32768;
                 this.swiftPrefix_ = byteString;
                 onChanged();
                 return this;

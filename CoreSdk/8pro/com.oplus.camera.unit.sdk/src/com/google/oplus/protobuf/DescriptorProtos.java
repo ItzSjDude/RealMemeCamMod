@@ -1644,7 +1644,7 @@ public final class DescriptorProtos {
             extensionRegistryLite.getClass();
             UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
-            boolean z2 = false;
+            int mutable_bitField0_ = 0;
             while (!z) {
                 try {
                     try {
@@ -1664,50 +1664,40 @@ public final class DescriptorProtos {
                                 continue;
                             case 26:
                                 ByteString readBytes3 = codedInputStream.readBytes();
-                                boolean z3 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z3) {
+                                if ((mutable_bitField0_ & 1) == 0) {
                                     this.dependency_ = new LazyStringArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 1;
                                 }
                                 this.dependency_.add(readBytes3);
                                 continue;
                             case 34:
-                                boolean z4 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z4) {
+                                if ((mutable_bitField0_ & 2) == 0) {
                                     this.messageType_ = new ArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 2;
                                 }
                                 this.messageType_.add(
                                         codedInputStream.readMessage(DescriptorProto.PARSER, extensionRegistryLite));
                                 continue;
                             case 42:
-                                boolean z5 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z5) {
+                                if ((mutable_bitField0_ & 4) == 0) {
                                     this.enumType_ = new ArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 4;
                                 }
                                 this.enumType_.add(codedInputStream.readMessage(EnumDescriptorProto.PARSER,
                                         extensionRegistryLite));
                                 continue;
                             case 50:
-                                boolean z6 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z6) {
+                                if ((mutable_bitField0_ & 8) == 0) {
                                     this.service_ = new ArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 8;
                                 }
                                 this.service_.add(codedInputStream.readMessage(ServiceDescriptorProto.PARSER,
                                         extensionRegistryLite));
                                 continue;
                             case 58:
-                                boolean z7 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z7) {
+                                if ((mutable_bitField0_ & 16) == 0) {
                                     this.extension_ = new ArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 16;
                                 }
                                 this.extension_.add(codedInputStream.readMessage(FieldDescriptorProto.PARSER,
                                         extensionRegistryLite));
@@ -1738,24 +1728,17 @@ public final class DescriptorProtos {
                                 this.bitField0_ |= 8;
                                 continue;
                             case 80:
-                                boolean z8 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z8) {
+                                if ((mutable_bitField0_ & 32) == 0) {
                                     this.publicDependency_ = newIntList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 32;
                                 }
                                 this.publicDependency_.addInt(codedInputStream.readInt32());
                                 continue;
                             case 82:
                                 int pushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
-                                boolean z9 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z9) {
-                                    z2 = z2;
-                                    if (codedInputStream.getBytesUntilLimit() > 0) {
-                                        this.publicDependency_ = newIntList();
-                                        z2 = (z2 ? 1 : 0) | true;
-                                    }
+                                if ((mutable_bitField0_ & 32) == 0 && codedInputStream.getBytesUntilLimit() > 0) {
+                                    this.publicDependency_ = newIntList();
+                                    mutable_bitField0_ |= 32;
                                 }
                                 while (codedInputStream.getBytesUntilLimit() > 0) {
                                     this.publicDependency_.addInt(codedInputStream.readInt32());
@@ -1763,24 +1746,17 @@ public final class DescriptorProtos {
                                 codedInputStream.popLimit(pushLimit);
                                 continue;
                             case 88:
-                                boolean z10 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z10) {
+                                if ((mutable_bitField0_ & 64) == 0) {
                                     this.weakDependency_ = newIntList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    mutable_bitField0_ |= 64;
                                 }
                                 this.weakDependency_.addInt(codedInputStream.readInt32());
                                 continue;
                             case 90:
                                 int pushLimit2 = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
-                                boolean z11 = (z2 ? 1 : 0) & true;
-                                z2 = z2;
-                                if (!z11) {
-                                    z2 = z2;
-                                    if (codedInputStream.getBytesUntilLimit() > 0) {
-                                        this.weakDependency_ = newIntList();
-                                        z2 = (z2 ? 1 : 0) | true;
-                                    }
+                                if ((mutable_bitField0_ & 64) == 0 && codedInputStream.getBytesUntilLimit() > 0) {
+                                    this.weakDependency_ = newIntList();
+                                    mutable_bitField0_ |= 64;
                                 }
                                 while (codedInputStream.getBytesUntilLimit() > 0) {
                                     this.weakDependency_.addInt(codedInputStream.readInt32());
@@ -1806,25 +1782,25 @@ public final class DescriptorProtos {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 1) != 0) {
                         this.dependency_ = this.dependency_.getUnmodifiableView();
                     }
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 2) != 0) {
                         this.messageType_ = Collections.unmodifiableList(this.messageType_);
                     }
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 4) != 0) {
                         this.enumType_ = Collections.unmodifiableList(this.enumType_);
                     }
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 8) != 0) {
                         this.service_ = Collections.unmodifiableList(this.service_);
                     }
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 16) != 0) {
                         this.extension_ = Collections.unmodifiableList(this.extension_);
                     }
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 32) != 0) {
                         this.publicDependency_.makeImmutable();
                     }
-                    if ((z2 ? 1 : 0) & true) {
+                    if ((mutable_bitField0_ & 64) != 0) {
                         this.weakDependency_.makeImmutable();
                     }
                     this.unknownFields = newBuilder.build();
@@ -2666,7 +2642,7 @@ public final class DescriptorProtos {
                     }
                     i2 |= 8;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+                if ((i & 2048) != 0) {
                     i2 |= 16;
                 }
                 fileDescriptorProto.syntax_ = this.syntax_;
@@ -2868,7 +2844,7 @@ public final class DescriptorProtos {
                     mergeSourceCodeInfo(fileDescriptorProto.getSourceCodeInfo());
                 }
                 if (fileDescriptorProto.hasSyntax()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                    this.bitField0_ |= 2048;
                     this.syntax_ = fileDescriptorProto.syntax_;
                     onChanged();
                 }
@@ -4177,7 +4153,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
             public boolean hasSyntax() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+                return (this.bitField0_ & 2048) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
@@ -4207,7 +4183,7 @@ public final class DescriptorProtos {
 
             public Builder setSyntax(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.syntax_ = str;
                 onChanged();
                 return this;
@@ -4222,7 +4198,7 @@ public final class DescriptorProtos {
 
             public Builder setSyntaxBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.syntax_ = byteString;
                 onChanged();
                 return this;
@@ -8784,14 +8760,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_ExtensionRangeOptions_descriptor;
@@ -16708,8 +16683,8 @@ public final class DescriptorProtos {
             UnknownFieldSet.Builder newBuilder = UnknownFieldSet.newBuilder();
             boolean z = false;
             int i = 0;
+            final int MUTABLE_BIT = 1048576;
             while (true) {
-                int r3 = 1048576;
                 if (z) {
                     return;
                 }
@@ -16765,7 +16740,7 @@ public final class DescriptorProtos {
                                     this.javaGenerateEqualsAndHash_ = codedInputStream.readBool();
                                     continue;
                                 case 184:
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                                    this.bitField0_ |= 2048;
                                     this.deprecated_ = codedInputStream.readBool();
                                     continue;
                                 case 216:
@@ -16778,17 +16753,17 @@ public final class DescriptorProtos {
                                     continue;
                                 case 290:
                                     ByteString readBytes4 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                                    this.bitField0_ |= 8192;
                                     this.objcClassPrefix_ = readBytes4;
                                     continue;
                                 case 298:
                                     ByteString readBytes5 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                                    this.bitField0_ |= 16384;
                                     this.csharpNamespace_ = readBytes5;
                                     continue;
                                 case 314:
                                     ByteString readBytes6 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                                    this.bitField0_ |= 32768;
                                     this.swiftPrefix_ = readBytes6;
                                     continue;
                                 case 322:
@@ -16816,17 +16791,18 @@ public final class DescriptorProtos {
                                     this.rubyPackage_ = readBytes10;
                                     continue;
                                 case 7994:
-                                    if ((i & 1048576) == 0) {
+                                    if ((i & MUTABLE_BIT) == 0) {
                                         this.uninterpretedOption_ = new ArrayList();
-                                        i |= 1048576;
+                                        i |= MUTABLE_BIT;
                                     }
                                     this.uninterpretedOption_.add(codedInputStream
                                             .readMessage(UninterpretedOption.PARSER, extensionRegistryLite));
                                     continue;
                                 default:
-                                    r3 = parseUnknownField(codedInputStream, newBuilder, extensionRegistryLite,
+                                    boolean parseOk = parseUnknownField(codedInputStream, newBuilder,
+                                            extensionRegistryLite,
                                             readTag);
-                                    if (r3 == 0) {
+                                    if (!parseOk) {
                                         break;
                                     } else {
                                         continue;
@@ -16840,7 +16816,7 @@ public final class DescriptorProtos {
                         throw e2.setUnfinishedMessage(this);
                     }
                 } finally {
-                    if ((i & r3) != 0) {
+                    if ((i & MUTABLE_BIT) != 0) {
                         this.uninterpretedOption_ = Collections.unmodifiableList(this.uninterpretedOption_);
                     }
                     this.unknownFields = newBuilder.build();
@@ -17109,7 +17085,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasDeprecated() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+            return (this.bitField0_ & 2048) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17129,7 +17105,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasObjcClassPrefix() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0;
+            return (this.bitField0_ & 8192) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17159,7 +17135,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasCsharpNamespace() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0;
+            return (this.bitField0_ & 16384) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17189,7 +17165,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasSwiftPrefix() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0;
+            return (this.bitField0_ & 32768) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -17420,7 +17396,7 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 8) != 0) {
                 codedOutputStream.writeBool(20, this.javaGenerateEqualsAndHash_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+            if ((this.bitField0_ & 2048) != 0) {
                 codedOutputStream.writeBool(23, this.deprecated_);
             }
             if ((this.bitField0_ & 16) != 0) {
@@ -17429,13 +17405,13 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 4096) != 0) {
                 codedOutputStream.writeBool(31, this.ccEnableArenas_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
+            if ((this.bitField0_ & 8192) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 36, this.objcClassPrefix_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
+            if ((this.bitField0_ & 16384) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 37, this.csharpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
+            if ((this.bitField0_ & 32768) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 39, this.swiftPrefix_);
             }
             if ((this.bitField0_ & 65536) != 0) {
@@ -17495,7 +17471,7 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 8) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(20, this.javaGenerateEqualsAndHash_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+            if ((this.bitField0_ & 2048) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(23, this.deprecated_);
             }
             if ((this.bitField0_ & 16) != 0) {
@@ -17504,13 +17480,13 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 4096) != 0) {
                 computeStringSize += CodedOutputStream.computeBoolSize(31, this.ccEnableArenas_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
+            if ((this.bitField0_ & 8192) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(36, this.objcClassPrefix_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
+            if ((this.bitField0_ & 16384) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(37, this.csharpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
+            if ((this.bitField0_ & 32768) != 0) {
                 computeStringSize += GeneratedMessageV3.computeStringSize(39, this.swiftPrefix_);
             }
             if ((this.bitField0_ & 65536) != 0) {
@@ -17851,14 +17827,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_FileOptions_descriptor;
@@ -18021,24 +17996,24 @@ public final class DescriptorProtos {
                     fileOptions.phpGenericServices_ = this.phpGenericServices_;
                     i2 |= 1024;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+                if ((i & 2048) != 0) {
                     fileOptions.deprecated_ = this.deprecated_;
-                    i2 |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                    i2 |= 2048;
                 }
                 if ((i & 4096) != 0) {
                     i2 |= 4096;
                 }
                 fileOptions.ccEnableArenas_ = this.ccEnableArenas_;
-                if ((i & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                if ((i & 8192) != 0) {
+                    i2 |= 8192;
                 }
                 fileOptions.objcClassPrefix_ = this.objcClassPrefix_;
-                if ((i & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                if ((i & 16384) != 0) {
+                    i2 |= 16384;
                 }
                 fileOptions.csharpNamespace_ = this.csharpNamespace_;
-                if ((i & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                if ((i & 32768) != 0) {
+                    i2 |= 32768;
                 }
                 fileOptions.swiftPrefix_ = this.swiftPrefix_;
                 if ((i & 65536) != 0) {
@@ -18175,17 +18150,17 @@ public final class DescriptorProtos {
                     setCcEnableArenas(fileOptions.getCcEnableArenas());
                 }
                 if (fileOptions.hasObjcClassPrefix()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                    this.bitField0_ |= 8192;
                     this.objcClassPrefix_ = fileOptions.objcClassPrefix_;
                     onChanged();
                 }
                 if (fileOptions.hasCsharpNamespace()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                    this.bitField0_ |= 16384;
                     this.csharpNamespace_ = fileOptions.csharpNamespace_;
                     onChanged();
                 }
                 if (fileOptions.hasSwiftPrefix()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                    this.bitField0_ |= 32768;
                     this.swiftPrefix_ = fileOptions.swiftPrefix_;
                     onChanged();
                 }
@@ -18667,7 +18642,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasDeprecated() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+                return (this.bitField0_ & 2048) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18676,7 +18651,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setDeprecated(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.deprecated_ = z;
                 onChanged();
                 return this;
@@ -18715,7 +18690,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasObjcClassPrefix() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0;
+                return (this.bitField0_ & 8192) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18745,7 +18720,7 @@ public final class DescriptorProtos {
 
             public Builder setObjcClassPrefix(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                this.bitField0_ |= 8192;
                 this.objcClassPrefix_ = str;
                 onChanged();
                 return this;
@@ -18760,7 +18735,7 @@ public final class DescriptorProtos {
 
             public Builder setObjcClassPrefixBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                this.bitField0_ |= 8192;
                 this.objcClassPrefix_ = byteString;
                 onChanged();
                 return this;
@@ -18768,7 +18743,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasCsharpNamespace() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0;
+                return (this.bitField0_ & 16384) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18798,7 +18773,7 @@ public final class DescriptorProtos {
 
             public Builder setCsharpNamespace(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                this.bitField0_ |= 16384;
                 this.csharpNamespace_ = str;
                 onChanged();
                 return this;
@@ -18813,7 +18788,7 @@ public final class DescriptorProtos {
 
             public Builder setCsharpNamespaceBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                this.bitField0_ |= 16384;
                 this.csharpNamespace_ = byteString;
                 onChanged();
                 return this;
@@ -18821,7 +18796,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasSwiftPrefix() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0;
+                return (this.bitField0_ & 32768) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18851,7 +18826,7 @@ public final class DescriptorProtos {
 
             public Builder setSwiftPrefix(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                this.bitField0_ |= 32768;
                 this.swiftPrefix_ = str;
                 onChanged();
                 return this;
@@ -18866,7 +18841,7 @@ public final class DescriptorProtos {
 
             public Builder setSwiftPrefixBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                this.bitField0_ |= 32768;
                 this.swiftPrefix_ = byteString;
                 onChanged();
                 return this;
@@ -19710,14 +19685,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_MessageOptions_descriptor;
@@ -20939,14 +20913,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
             private boolean weak_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_FieldOptions_descriptor;
@@ -21112,19 +21085,19 @@ public final class DescriptorProtos {
             }
 
             /* JADX WARN: Can't rename method to resolve collision */
-    // Removed stray Override
+            // Removed stray Override
             // Pruned bridge method
 
             /* JADX WARN: Can't rename method to resolve collision */
-    // Removed stray Override
+            // Removed stray Override
             // Pruned bridge method
 
             /* JADX WARN: Can't rename method to resolve collision */
-    // Removed stray Override
+            // Removed stray Override
             // Pruned bridge method
 
             /* JADX WARN: Can't rename method to resolve collision */
-    // Removed stray Override
+            // Removed stray Override
             // Pruned bridge method
 
             @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
@@ -21914,14 +21887,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_OneofOptions_descriptor;
@@ -22732,14 +22704,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_EnumOptions_descriptor;
@@ -23591,14 +23562,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_EnumValueOptions_descriptor;
@@ -24415,14 +24385,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_ServiceOptions_descriptor;
@@ -25350,14 +25319,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-    // Removed stray Override
-    // Pruned bridge method
+            // Removed stray Override
+            // Pruned bridge method
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-    // Pruned bridge method
+            // Pruned bridge method
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_MethodOptions_descriptor;
