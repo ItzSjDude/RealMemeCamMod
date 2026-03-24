@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /* JADX INFO: Access modifiers changed from: package-private */
 /* loaded from: classes.dex */
 public final class FieldSet<T extends FieldDescriptorLite<T>> {
@@ -131,7 +132,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
     }
 
     /* JADX INFO: Access modifiers changed from: private */
-    public static <T extends FieldDescriptorLite<T>> SmallSortedMap<T, Object> cloneAllFieldsMap(SmallSortedMap<T, Object> smallSortedMap, boolean z) {
+    public static <T extends FieldDescriptorLite<T>> SmallSortedMap<T, Object> cloneAllFieldsMap(
+            SmallSortedMap<T, Object> smallSortedMap, boolean z) {
         SmallSortedMap<T, Object> newFieldMap = SmallSortedMap.newFieldMap(16);
         for (int i = 0; i < smallSortedMap.getNumArrayEntries(); i++) {
             cloneFieldEntry(newFieldMap, smallSortedMap.getArrayEntryAt(i), z);
@@ -142,7 +144,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
         return newFieldMap;
     }
 
-    private static <T extends FieldDescriptorLite<T>> void cloneFieldEntry(Map<T, Object> map, Map.Entry<T, Object> entry, boolean z) {
+    private static <T extends FieldDescriptorLite<T>> void cloneFieldEntry(Map<T, Object> map,
+            Map.Entry<T, Object> entry, boolean z) {
         T key = entry.getKey();
         Object value = entry.getValue();
         if (value instanceof LazyField) {
@@ -260,14 +263,17 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
 
     private void verifyType(T t, Object obj) {
         if (!isValidType(t.getLiteType(), obj)) {
-            throw new IllegalArgumentException(String.format("Wrong object type used with protocol message reflection.\nField number: %d, field java type: %s, value type: %s\n", Integer.valueOf(t.getNumber()), t.getLiteType().getJavaType(), obj.getClass().getName()));
+            throw new IllegalArgumentException(String.format(
+                    "Wrong object type used with protocol message reflection.\nField number: %d, field java type: %s, value type: %s\n",
+                    Integer.valueOf(t.getNumber()), t.getLiteType().getJavaType(), obj.getClass().getName()));
         }
     }
 
     /* JADX INFO: Access modifiers changed from: private */
     public static boolean isValidType(WireFormat.FieldType fieldType, Object obj) {
         Internal.checkNotNull(obj);
-        switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$JavaType[fieldType.getJavaType().ordinal()]) {
+        switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$JavaType[fieldType.getJavaType()
+                .ordinal()]) {
             case 1:
                 return obj instanceof Integer;
             case 2:
@@ -310,7 +316,7 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
         T key = entry.getKey();
         if (key.getLiteJavaType() == WireFormat.JavaType.MESSAGE) {
             if (key.isRepeated()) {
-                for (MessageLite messageLite : (List) entry.getValue()) {
+                for (MessageLite messageLite : (List<MessageLite>) entry.getValue()) {
                     if (!messageLite.isInitialized()) {
                         return false;
                     }
@@ -380,13 +386,15 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
                 this.fields.put((SmallSortedMap<T, Object>) key, (T) cloneIfMutable(value));
                 return;
             }
-            this.fields.put((SmallSortedMap<T, Object>) key, (T) key.internalMergeFrom(((MessageLite) field2).toBuilder(), (MessageLite) value).build());
+            this.fields.put((SmallSortedMap<T, Object>) key,
+                    (T) key.internalMergeFrom(((MessageLite) field2).toBuilder(), (MessageLite) value).build());
         } else {
             this.fields.put((SmallSortedMap<T, Object>) key, (T) cloneIfMutable(value));
         }
     }
 
-    public static Object readPrimitiveField(CodedInputStream codedInputStream, WireFormat.FieldType fieldType, boolean z) throws IOException {
+    public static Object readPrimitiveField(CodedInputStream codedInputStream, WireFormat.FieldType fieldType,
+            boolean z) throws IOException {
         if (z) {
             return WireFormat.readPrimitiveField(codedInputStream, fieldType, WireFormat.Utf8Validation.STRICT);
         }
@@ -426,7 +434,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    public static void writeElement(CodedOutputStream codedOutputStream, WireFormat.FieldType fieldType, int i, Object obj) throws IOException {
+    public static void writeElement(CodedOutputStream codedOutputStream, WireFormat.FieldType fieldType, int i,
+            Object obj) throws IOException {
         if (fieldType == WireFormat.FieldType.GROUP) {
             codedOutputStream.writeGroup(i, (MessageLite) obj);
             return;
@@ -436,7 +445,9 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
-    /* renamed from: com.google.oplus.protobuf.FieldSet$1  reason: invalid class name */
+    /*
+     * renamed from: com.google.oplus.protobuf.FieldSet$1 reason: invalid class name
+     */
     /* loaded from: classes.dex */
     public static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
@@ -558,7 +569,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
         }
     }
 
-    static void writeElementNoTag(CodedOutputStream codedOutputStream, WireFormat.FieldType fieldType, Object obj) throws IOException {
+    static void writeElementNoTag(CodedOutputStream codedOutputStream, WireFormat.FieldType fieldType, Object obj)
+            throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 codedOutputStream.writeDoubleNoTag(((Double) obj).doubleValue());
@@ -634,7 +646,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
         }
     }
 
-    public static void writeField(FieldDescriptorLite<?> fieldDescriptorLite, Object obj, CodedOutputStream codedOutputStream) throws IOException {
+    public static void writeField(FieldDescriptorLite<?> fieldDescriptorLite, Object obj,
+            CodedOutputStream codedOutputStream) throws IOException {
         WireFormat.FieldType liteType = fieldDescriptorLite.getLiteType();
         int number = fieldDescriptorLite.getNumber();
         if (fieldDescriptorLite.isRepeated()) {
@@ -689,7 +702,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
         Object value = entry.getValue();
         if (key.getLiteJavaType() == WireFormat.JavaType.MESSAGE && !key.isRepeated() && !key.isPacked()) {
             if (value instanceof LazyField) {
-                return CodedOutputStream.computeLazyFieldMessageSetExtensionSize(entry.getKey().getNumber(), (LazyField) value);
+                return CodedOutputStream.computeLazyFieldMessageSetExtensionSize(entry.getKey().getNumber(),
+                        (LazyField) value);
             }
             return CodedOutputStream.computeMessageSetExtensionSize(entry.getKey().getNumber(), (MessageLite) value);
         }
@@ -814,7 +828,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
             return fieldSet;
         }
 
-        private static <T extends FieldDescriptorLite<T>> void replaceBuilders(SmallSortedMap<T, Object> smallSortedMap) {
+        private static <T extends FieldDescriptorLite<T>> void replaceBuilders(
+                SmallSortedMap<T, Object> smallSortedMap) {
             for (int i = 0; i < smallSortedMap.getNumArrayEntries(); i++) {
                 replaceBuilders(smallSortedMap.getArrayEntryAt(i));
             }
@@ -831,7 +846,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
             if (obj != null && t.getLiteJavaType() == WireFormat.JavaType.MESSAGE) {
                 if (t.isRepeated()) {
                     if (!(obj instanceof List)) {
-                        throw new IllegalStateException("Repeated field should contains a List but actually contains type: " + obj.getClass());
+                        throw new IllegalStateException(
+                                "Repeated field should contains a List but actually contains type: " + obj.getClass());
                     }
                     List list = (List) obj;
                     for (int i = 0; i < list.size(); i++) {
@@ -999,7 +1015,9 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
                 return;
             }
             if (t.getLiteType().getJavaType() != WireFormat.JavaType.MESSAGE || !(obj instanceof MessageLite.Builder)) {
-                throw new IllegalArgumentException(String.format("Wrong object type used with protocol message reflection.\nField number: %d, field java type: %s, value type: %s\n", Integer.valueOf(t.getNumber()), t.getLiteType().getJavaType(), obj.getClass().getName()));
+                throw new IllegalArgumentException(String.format(
+                        "Wrong object type used with protocol message reflection.\nField number: %d, field java type: %s, value type: %s\n",
+                        Integer.valueOf(t.getNumber()), t.getLiteType().getJavaType(), obj.getClass().getName()));
             }
         }
 
@@ -1022,8 +1040,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
             for (int i = 0; i < ((FieldSet) fieldSet).fields.getNumArrayEntries(); i++) {
                 mergeFromField(((FieldSet) fieldSet).fields.getArrayEntryAt(i));
             }
-            for (Map.Entry<T, Object> entry : ((FieldSet) fieldSet).fields.getOverflowEntries()) {
-                mergeFromField(entry);
+            for (Map.Entry entry : ((FieldSet) fieldSet).fields.getOverflowEntries()) {
+                mergeFromField((Map.Entry<T, Object>) entry);
             }
         }
 
@@ -1051,7 +1069,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
                 } else if (field2 instanceof MessageLite.Builder) {
                     key.internalMergeFrom((MessageLite.Builder) field2, (MessageLite) value);
                 } else {
-                    this.fields.put((SmallSortedMap<T, Object>) key, (T) key.internalMergeFrom(((MessageLite) field2).toBuilder(), (MessageLite) value).build());
+                    this.fields.put((SmallSortedMap<T, Object>) key,
+                            (T) key.internalMergeFrom(((MessageLite) field2).toBuilder(), (MessageLite) value).build());
                 }
             }
         }

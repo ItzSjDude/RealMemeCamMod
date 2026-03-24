@@ -15,7 +15,7 @@ public final class Protobuf {
     }
 
     public <T> void writeTo(T t, Writer writer) throws IOException {
-        schemaFor((Protobuf) t).writeTo(t, writer);
+        schemaFor(t).writeTo(t, writer);
     }
 
     public <T> void mergeFrom(T t, Reader reader) throws IOException {
@@ -23,15 +23,15 @@ public final class Protobuf {
     }
 
     public <T> void mergeFrom(T t, Reader reader, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        schemaFor((Protobuf) t).mergeFrom(t, reader, extensionRegistryLite);
+        schemaFor(t).mergeFrom(t, reader, extensionRegistryLite);
     }
 
     public <T> void makeImmutable(T t) {
-        schemaFor((Protobuf) t).makeImmutable(t);
+        schemaFor(t).makeImmutable(t);
     }
 
     <T> boolean isInitialized(T t) {
-        return schemaFor((Protobuf) t).isInitialized(t);
+        return schemaFor(t).isInitialized(t);
     }
 
     public <T> Schema<T> schemaFor(Class<T> cls) {

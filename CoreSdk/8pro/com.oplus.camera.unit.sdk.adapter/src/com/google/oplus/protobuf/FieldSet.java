@@ -310,7 +310,7 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
         T key = entry.getKey();
         if (key.getLiteJavaType() == WireFormat.JavaType.MESSAGE) {
             if (key.isRepeated()) {
-                for (MessageLite messageLite : (List) entry.getValue()) {
+                for (MessageLite messageLite : (List<MessageLite>) entry.getValue()) {
                     if (!messageLite.isInitialized()) {
                         return false;
                     }
@@ -344,7 +344,7 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
             mergeFromField(fieldSet.fields.getArrayEntryAt(i));
         }
         for (Map.Entry<T, Object> entry : fieldSet.fields.getOverflowEntries()) {
-            mergeFromField(entry);
+            mergeFromField((Map.Entry<T, Object>) entry);
         }
     }
 
@@ -1022,8 +1022,8 @@ public final class FieldSet<T extends FieldDescriptorLite<T>> {
             for (int i = 0; i < ((FieldSet) fieldSet).fields.getNumArrayEntries(); i++) {
                 mergeFromField(((FieldSet) fieldSet).fields.getArrayEntryAt(i));
             }
-            for (Map.Entry<T, Object> entry : ((FieldSet) fieldSet).fields.getOverflowEntries()) {
-                mergeFromField(entry);
+            for (Map.Entry entry : ((FieldSet) fieldSet).fields.getOverflowEntries()) {
+                mergeFromField((Map.Entry<T, Object>) entry);
             }
         }
 

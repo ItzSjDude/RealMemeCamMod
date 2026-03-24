@@ -107,7 +107,7 @@ public abstract class GeneratedMessageV3 extends AbstractMessage implements Seri
     }
 
     protected void mergeFromAndMakeImmutableInternal(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
-        Schema schemaFor = Protobuf.getInstance().schemaFor((Protobuf) this);
+        Schema schemaFor = Protobuf.getInstance().schemaFor(this);
         try {
             schemaFor.mergeFrom(this, CodedInputStreamReader.forCodedInput(codedInputStream), extensionRegistryLite);
             schemaFor.makeImmutable(this);
