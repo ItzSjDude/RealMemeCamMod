@@ -18,25 +18,10 @@ public class ResourcesWrapper {
     }
 
     public static boolean getThemeChanged(Resources res) {
-        try {
-            if (res.mResourcesExt == null) {
-                return false;
-            }
-            boolean result = res.mResourcesExt.getThemeChanged();
-            return result;
-        } catch (Throwable e) {
-            Log.e(TAG, e.toString());
-            return false;
-        }
+        return false;
     }
 
     public static void setIsThemeChanged(Resources res, boolean changed) {
-        try {
-            if (res.mResourcesExt != null) {
-                res.mResourcesExt.setIsThemeChanged(changed);
-            }
-        } catch (Throwable e) {
-            Log.e(TAG, e.toString());
-        }
+        // commented out
     }
 }
