@@ -21,6 +21,7 @@ PRODUCT_PACKAGES += \
     oplus-framework \
     RomUpdateProviderShim \
     OplusCamera \
+    OplusPhotos \
     libarcsoft_hdr_denoise_api \
     libarcsoft_dualcam_refocus_uw \
     libstfaceunlockocl \

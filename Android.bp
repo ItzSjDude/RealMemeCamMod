@@ -1016,3 +1016,14 @@ java_library {
 
 
 
+
+android_app_import {
+    name: "OplusPhotos",
+    apk: "prebuilt_apps/OplusPhotos.apk",
+    prefer: true,
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    product_specific: true,
+}
