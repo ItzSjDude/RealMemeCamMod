@@ -22,12 +22,17 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.HttpsURLConnection;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 /* loaded from: classes.dex */
 public class YTFetchLicenseHelper {
     private static String TAG = "YTCommon_FetchLicense";
 
-    public FetchLicenseResult fetchLicenseOnline(Context context, String str, String str2, String str3, YTDeviceInfo yTDeviceInfo) {
-        C1FetchThreadRunnable c1FetchThreadRunnable = new C1FetchThreadRunnable(str2, str3, yTDeviceInfo == null ? "ANDROID" : yTDeviceInfo.platform, yTDeviceInfo == null ? "" : yTDeviceInfo.device_id, yTDeviceInfo != null ? yTDeviceInfo.device_info_encrypted : "", context.getPackageName(), str);
+    public FetchLicenseResult fetchLicenseOnline(Context context, String str, String str2, String str3,
+            YTDeviceInfo yTDeviceInfo) {
+        C1FetchThreadRunnable c1FetchThreadRunnable = new C1FetchThreadRunnable(str2, str3,
+                yTDeviceInfo == null ? "ANDROID" : yTDeviceInfo.platform,
+                yTDeviceInfo == null ? "" : yTDeviceInfo.device_id,
+                yTDeviceInfo != null ? yTDeviceInfo.device_info_encrypted : "", context.getPackageName(), str);
         Thread thread = new Thread(c1FetchThreadRunnable);
         try {
             thread.start();
@@ -38,7 +43,11 @@ public class YTFetchLicenseHelper {
         return c1FetchThreadRunnable.result;
     }
 
-    /* renamed from: com.tencent.youtu.xsdk.YTFetchLicenseHelper$1FetchThreadRunnable  reason: invalid class name */
+    /*
+     * renamed from:
+     * com.tencent.youtu.xsdk.YTFetchLicenseHelper$1FetchThreadRunnable reason:
+     * invalid class name
+     */
     /* loaded from: classes.dex */
     class C1FetchThreadRunnable implements Runnable {
         FetchLicenseResult result;
@@ -50,7 +59,8 @@ public class YTFetchLicenseHelper {
         final /* synthetic */ String val$var8;
         final /* synthetic */ String val$var9;
 
-        C1FetchThreadRunnable(String str, String str2, String str3, String str4, String str5, String str6, String str7) {
+        C1FetchThreadRunnable(String str, String str2, String str3, String str4, String str5, String str6,
+                String str7) {
             this.val$appid = str;
             this.val$secret_key = str2;
             this.val$var7 = str3;
@@ -71,7 +81,9 @@ public class YTFetchLicenseHelper {
                     long currentTimeMillis = System.currentTimeMillis() / 1000;
                     Mac mac = Mac.getInstance("HmacSHA256");
                     mac.init(new SecretKeySpec(this.val$secret_key.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-                    String encodeToString = Base64.encodeToString(mac.doFinal((this.val$appid + "-" + currentTimeMillis).getBytes(StandardCharsets.UTF_8)), 2);
+                    String encodeToString = Base64.encodeToString(
+                            mac.doFinal((this.val$appid + "-" + currentTimeMillis).getBytes(StandardCharsets.UTF_8)),
+                            2);
                     JSONObject jSONObject = new JSONObject();
                     jSONObject.put("app_id", this.val$appid);
                     jSONObject.put("auth_string", encodeToString);
@@ -98,7 +110,8 @@ public class YTFetchLicenseHelper {
                         dataOutputStream.close();
                         this.result.http_status = httpsURLConnection.getResponseCode();
                         if (this.result.http_status == 200) {
-                            BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream(), StandardCharsets.UTF_8));
+                            BufferedReader bufferedReader2 = new BufferedReader(
+                                    new InputStreamReader(httpsURLConnection.getInputStream(), StandardCharsets.UTF_8));
                             try {
                                 StringBuilder sb = new StringBuilder();
                                 while (true) {
@@ -271,31 +284,25 @@ public class YTFetchLicenseHelper {
                     th = th2;
                 }
             } catch (MalformedURLException e24) {
-                e = e24;
                 httpsURLConnection = null;
             } catch (ProtocolException e25) {
-                e = e25;
                 httpsURLConnection = null;
             } catch (SocketTimeoutException e26) {
-                e = e26;
                 httpsURLConnection = null;
             } catch (IOException e27) {
-                e = e27;
                 httpsURLConnection = null;
             } catch (InvalidKeyException e28) {
-                e = e28;
                 httpsURLConnection = null;
             } catch (NoSuchAlgorithmException e29) {
-                e = e29;
                 httpsURLConnection = null;
             } catch (JSONException e30) {
-                e = e30;
                 httpsURLConnection = null;
             } catch (Throwable th3) {
-                th = th3;
                 httpsURLConnection = null;
             }
-            httpsURLConnection.disconnect();
+            if (httpsURLConnection != null) {
+                httpsURLConnection.disconnect();
+            }
         }
     }
 
