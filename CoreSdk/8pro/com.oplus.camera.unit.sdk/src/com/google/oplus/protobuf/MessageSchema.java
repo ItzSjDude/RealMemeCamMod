@@ -4418,7 +4418,7 @@ final class MessageSchema<T> implements Schema<T> {
         if (iDecodeVarint322 != i4) {
             throw InvalidProtocolBufferException.parseFailure();
         }
-        ((Map<Object, Object>) map).put(obj, obj2);
+        map.put(obj, obj2);
         return i4;
     }
 
@@ -4582,7 +4582,7 @@ final class MessageSchema<T> implements Schema<T> {
                         : i;
             case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
                 return i5 == 3 ? ArrayDecoders.decodeGroupList(getMessageFieldSchema(i6), i3, bArr, i, i2,
-                        (Internal.ProtobufList<Object>) protobufListMutableCopyWithCapacity2, registers) : i;
+                        protobufListMutableCopyWithCapacity2, registers) : i;
             default:
                 return i;
         }
@@ -5383,7 +5383,7 @@ final class MessageSchema<T> implements Schema<T> {
                             i11 = i24;
                             iDecodeUnknownField = ArrayDecoders.decodeMessageList(
                                     messageSchema2.getMessageFieldSchema(i28), i30, bArr, i25, i2,
-                                    (Internal.ProtobufList<Object>) protobufListMutableCopyWithCapacity2, registers);
+                                    protobufListMutableCopyWithCapacity2, registers);
                             t6 = t;
                             i18 = i2;
                             i21 = i30;

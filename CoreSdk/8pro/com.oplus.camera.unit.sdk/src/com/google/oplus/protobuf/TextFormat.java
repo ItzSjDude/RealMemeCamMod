@@ -102,8 +102,7 @@ public final class TextFormat {
     }
 
     @Deprecated
-    public static void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable)
-            throws IOException {
+    public static void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable) throws IOException {
         printer().printField(fieldDescriptor, obj, appendable);
     }
 
@@ -113,14 +112,12 @@ public final class TextFormat {
     }
 
     @Deprecated
-    public static void printUnicodeFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj,
-            Appendable appendable) throws IOException {
+    public static void printUnicodeFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable) throws IOException {
         printer().escapingNonAscii(false).printFieldValue(fieldDescriptor, obj, appendable);
     }
 
     @Deprecated
-    public static void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable)
-            throws IOException {
+    public static void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable) throws IOException {
         printer().printFieldValue(fieldDescriptor, obj, appendable);
     }
 
@@ -199,8 +196,7 @@ public final class TextFormat {
         }
 
         private void print(MessageOrBuilder messageOrBuilder, TextGenerator textGenerator) throws IOException {
-            if (messageOrBuilder.getDescriptorForType().getFullName().equals("google.protobuf.Any")
-                    && printAny(messageOrBuilder, textGenerator)) {
+            if (messageOrBuilder.getDescriptorForType().getFullName().equals("google.protobuf.Any") && printAny(messageOrBuilder, textGenerator)) {
                 return;
             }
             printMessage(messageOrBuilder, textGenerator);
@@ -210,10 +206,7 @@ public final class TextFormat {
             Descriptors.Descriptor descriptorForType = messageOrBuilder.getDescriptorForType();
             Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = descriptorForType.findFieldByNumber(1);
             Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber2 = descriptorForType.findFieldByNumber(2);
-            if (fieldDescriptorFindFieldByNumber != null
-                    && fieldDescriptorFindFieldByNumber.getType() == Descriptors.FieldDescriptor.Type.STRING
-                    && fieldDescriptorFindFieldByNumber2 != null
-                    && fieldDescriptorFindFieldByNumber2.getType() == Descriptors.FieldDescriptor.Type.BYTES) {
+            if (fieldDescriptorFindFieldByNumber != null && fieldDescriptorFindFieldByNumber.getType() == Descriptors.FieldDescriptor.Type.STRING && fieldDescriptorFindFieldByNumber2 != null && fieldDescriptorFindFieldByNumber2.getType() == Descriptors.FieldDescriptor.Type.BYTES) {
                 String str = (String) messageOrBuilder.getField(fieldDescriptorFindFieldByNumber);
                 if (str.isEmpty()) {
                     return false;
@@ -224,8 +217,7 @@ public final class TextFormat {
                     if (descriptorForTypeUrl == null) {
                         return false;
                     }
-                    DynamicMessage.Builder builderNewBuilderForType = DynamicMessage
-                            .getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
+                    DynamicMessage.Builder builderNewBuilderForType = DynamicMessage.getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
                     builderNewBuilderForType.mergeFrom((ByteString) field);
                     textGenerator.print("[");
                     textGenerator.print(str);
@@ -253,13 +245,11 @@ public final class TextFormat {
             }
         }
 
-        public void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable)
-                throws IOException {
+        public void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable) throws IOException {
             printField(fieldDescriptor, obj, TextFormat.multiLineOutput(appendable));
         }
 
-        private void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, TextGenerator textGenerator)
-                throws IOException {
+        private void printField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, TextGenerator textGenerator) throws IOException {
             if (fieldDescriptor.isMapField()) {
                 ArrayList arrayList = new ArrayList();
                 Iterator it = ((List) obj).iterator();
@@ -297,8 +287,7 @@ public final class TextFormat {
                 this.fieldType = extractFieldType(fieldDescriptor);
             }
 
-            private static Descriptors.FieldDescriptor.JavaType extractFieldType(
-                    Descriptors.FieldDescriptor fieldDescriptor) {
+            private static Descriptors.FieldDescriptor.JavaType extractFieldType(Descriptors.FieldDescriptor fieldDescriptor) {
                 return fieldDescriptor.getMessageType().getFields().get(0).getJavaType();
             }
 
@@ -315,27 +304,22 @@ public final class TextFormat {
                 return mapEntry != null ? mapEntry : this.entry;
             }
 
-            /*
-             * JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I
-             */
+            /* JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I */
             @Override // java.lang.Comparable
             public int compareTo(MapEntryAdapter mapEntryAdapter) {
                 if (getKey() == null || mapEntryAdapter.getKey() == null) {
                     TextFormat.logger.info("Invalid key for map field.");
                     return -1;
                 }
-                int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[this.fieldType
-                        .ordinal()];
+                int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[this.fieldType.ordinal()];
                 if (i == 1) {
-                    return Boolean.compare(((Boolean) getKey()).booleanValue(),
-                            ((Boolean) mapEntryAdapter.getKey()).booleanValue());
+                    return Boolean.compare(((Boolean) getKey()).booleanValue(), ((Boolean) mapEntryAdapter.getKey()).booleanValue());
                 }
                 if (i == 2) {
                     return Long.compare(((Long) getKey()).longValue(), ((Long) mapEntryAdapter.getKey()).longValue());
                 }
                 if (i == 3) {
-                    return Integer.compare(((Integer) getKey()).intValue(),
-                            ((Integer) mapEntryAdapter.getKey()).intValue());
+                    return Integer.compare(((Integer) getKey()).intValue(), ((Integer) mapEntryAdapter.getKey()).intValue());
                 }
                 if (i != 4) {
                     return 0;
@@ -355,16 +339,13 @@ public final class TextFormat {
             }
         }
 
-        public void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable)
-                throws IOException {
+        public void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, Appendable appendable) throws IOException {
             printFieldValue(fieldDescriptor, obj, TextFormat.multiLineOutput(appendable));
         }
 
-        private void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj,
-                TextGenerator textGenerator) throws IOException {
+        private void printFieldValue(Descriptors.FieldDescriptor fieldDescriptor, Object obj, TextGenerator textGenerator) throws IOException {
             String strReplace;
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor
-                    .getType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor.getType().ordinal()]) {
                 case 1:
                 case 2:
                 case 3:
@@ -515,14 +496,10 @@ public final class TextFormat {
             printUnknownFields(messageOrBuilder.getUnknownFields(), textGenerator);
         }
 
-        private void printSingleField(Descriptors.FieldDescriptor fieldDescriptor, Object obj,
-                TextGenerator textGenerator) throws IOException {
+        private void printSingleField(Descriptors.FieldDescriptor fieldDescriptor, Object obj, TextGenerator textGenerator) throws IOException {
             if (fieldDescriptor.isExtension()) {
                 textGenerator.print("[");
-                if (fieldDescriptor.getContainingType().getOptions().getMessageSetWireFormat()
-                        && fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.MESSAGE
-                        && fieldDescriptor.isOptional()
-                        && fieldDescriptor.getExtensionScope() == fieldDescriptor.getMessageType()) {
+                if (fieldDescriptor.getContainingType().getOptions().getMessageSetWireFormat() && fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.MESSAGE && fieldDescriptor.isOptional() && fieldDescriptor.getExtensionScope() == fieldDescriptor.getMessageType()) {
                     textGenerator.print(fieldDescriptor.getMessageType().getFullName());
                 } else {
                     textGenerator.print(fieldDescriptor.getFullName());
@@ -549,8 +526,7 @@ public final class TextFormat {
         }
 
         /* JADX INFO: Access modifiers changed from: private */
-        public static void printUnknownFields(UnknownFieldSet unknownFieldSet, TextGenerator textGenerator)
-                throws IOException {
+        public static void printUnknownFields(UnknownFieldSet unknownFieldSet, TextGenerator textGenerator) throws IOException {
             for (Map.Entry<Integer, UnknownFieldSet.Field> entry : unknownFieldSet.asMap().entrySet()) {
                 int iIntValue = entry.getKey().intValue();
                 UnknownFieldSet.Field value = entry.getValue();
@@ -571,8 +547,7 @@ public final class TextFormat {
             }
         }
 
-        private static void printUnknownField(int i, int i2, List<?> list, TextGenerator textGenerator)
-                throws IOException {
+        private static void printUnknownField(int i, int i2, List<?> list, TextGenerator textGenerator) throws IOException {
             for (Object obj : list) {
                 textGenerator.print(String.valueOf(i));
                 textGenerator.print(": ");
@@ -582,10 +557,7 @@ public final class TextFormat {
         }
     }
 
-    /*
-     * JADX INFO: renamed from: com.google.oplus.protobuf.TextFormat$1, reason:
-     * invalid class name
-     */
+    /* JADX INFO: renamed from: com.google.oplus.protobuf.TextFormat$1, reason: invalid class name */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
@@ -598,88 +570,71 @@ public final class TextFormat {
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT32
-                        .ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT32.ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED32
-                        .ordinal()] = 3;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED32.ordinal()] = 3;
             } catch (NoSuchFieldError unused3) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.INT64
-                        .ordinal()] = 4;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.INT64.ordinal()] = 4;
             } catch (NoSuchFieldError unused4) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT64
-                        .ordinal()] = 5;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT64.ordinal()] = 5;
             } catch (NoSuchFieldError unused5) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED64
-                        .ordinal()] = 6;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED64.ordinal()] = 6;
             } catch (NoSuchFieldError unused6) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.BOOL
-                        .ordinal()] = 7;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.BOOL.ordinal()] = 7;
             } catch (NoSuchFieldError unused7) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FLOAT
-                        .ordinal()] = 8;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FLOAT.ordinal()] = 8;
             } catch (NoSuchFieldError unused8) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.DOUBLE
-                        .ordinal()] = 9;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.DOUBLE.ordinal()] = 9;
             } catch (NoSuchFieldError unused9) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT32
-                        .ordinal()] = 10;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT32.ordinal()] = 10;
             } catch (NoSuchFieldError unused10) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED32
-                        .ordinal()] = 11;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED32.ordinal()] = 11;
             } catch (NoSuchFieldError unused11) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT64
-                        .ordinal()] = 12;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT64.ordinal()] = 12;
             } catch (NoSuchFieldError unused12) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED64
-                        .ordinal()] = 13;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED64.ordinal()] = 13;
             } catch (NoSuchFieldError unused13) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.STRING
-                        .ordinal()] = 14;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.STRING.ordinal()] = 14;
             } catch (NoSuchFieldError unused14) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.BYTES
-                        .ordinal()] = 15;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.BYTES.ordinal()] = 15;
             } catch (NoSuchFieldError unused15) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.ENUM
-                        .ordinal()] = 16;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.ENUM.ordinal()] = 16;
             } catch (NoSuchFieldError unused16) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.MESSAGE
-                        .ordinal()] = 17;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.MESSAGE.ordinal()] = 17;
             } catch (NoSuchFieldError unused17) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.GROUP
-                        .ordinal()] = 18;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.GROUP.ordinal()] = 18;
             } catch (NoSuchFieldError unused18) {
             }
             int[] iArr2 = new int[Descriptors.FieldDescriptor.JavaType.values().length];
@@ -689,18 +644,15 @@ public final class TextFormat {
             } catch (NoSuchFieldError unused19) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.LONG
-                        .ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.LONG.ordinal()] = 2;
             } catch (NoSuchFieldError unused20) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.INT
-                        .ordinal()] = 3;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.INT.ordinal()] = 3;
             } catch (NoSuchFieldError unused21) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.STRING
-                        .ordinal()] = 4;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[Descriptors.FieldDescriptor.JavaType.STRING.ordinal()] = 4;
             } catch (NoSuchFieldError unused22) {
             }
         }
@@ -736,13 +688,7 @@ public final class TextFormat {
         private final Appendable output;
         private final boolean singleLineMode;
 
-        /*
-         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-         * 0x0000: CONSTRUCTOR (r1v0 java.lang.Appendable), (r2v0 boolean)
-         * A[MD:(java.lang.Appendable, boolean):void (m)] (LINE:817) call:
-         * com.google.oplus.protobuf.TextFormat.TextGenerator.<init>(java.lang.
-         * Appendable, boolean):void type: THIS
-         */
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 java.lang.Appendable), (r2v0 boolean) A[MD:(java.lang.Appendable, boolean):void (m)] (LINE:817) call: com.google.oplus.protobuf.TextFormat.TextGenerator.<init>(java.lang.Appendable, boolean):void type: THIS */
         /* synthetic */ TextGenerator(Appendable appendable, boolean z, AnonymousClass1 anonymousClass1) {
             this(appendable, z);
         }
@@ -927,296 +873,231 @@ public final class TextFormat {
             } catch (NumberFormatException e) {
                 throw integerParseException(e);
             }
-            } catch (TextFormat.ParseException unused) {
+        }
+
+        public int consumeUInt32() throws ParseException {
+            try {
+                int uInt32 = TextFormat.parseUInt32(this.currentToken);
+                nextToken();
+                return uInt32;
+            } catch (NumberFormatException e) {
+                throw integerParseException(e);
+            }
+        }
+
+        public long consumeInt64() throws ParseException {
+            try {
+                long int64 = TextFormat.parseInt64(this.currentToken);
+                nextToken();
+                return int64;
+            } catch (NumberFormatException e) {
+                throw integerParseException(e);
+            }
+        }
+
+        public boolean tryConsumeInt64() {
+            try {
+                consumeInt64();
+                return true;
+            } catch (ParseException unused) {
                 return false;
             }
         }
 
-    public int consumeInt32() throws TextFormat.ParseException {
-        try {
-            String consumeIdentifier = consumeIdentifier();
-            return (int) TextFormat.parseInteger(consumeIdentifier, true, true);
-        } catch (NumberFormatException e) {
-            throw integerParseException(e);
-        }
-    }
-
-    public int consumeUInt32() throws TextFormat.ParseException {
-        try {
-            String consumeIdentifier = consumeIdentifier();
-            return (int) TextFormat.parseInteger(consumeIdentifier, false, true);
-        } catch (NumberFormatException e) {
-            throw integerParseException(e);
-        }
-    }
-
-    public long consumeInt64() throws TextFormat.ParseException {
-        try {
-            String consumeIdentifier = consumeIdentifier();
-            return TextFormat.parseInteger(consumeIdentifier, true, false);
-        } catch (NumberFormatException e) {
-            throw integerParseException(e);
-        }
-    }
-
-    public boolean tryConsumeInt64() {
-        try {
-            consumeInt64();
-            return true;
-        } catch (TextFormat.ParseException unused) {
-            return false;
-        }
-    }
-
-    public long consumeUInt64() throws TextFormat.ParseException {
-        try {
-            String consumeIdentifier = consumeIdentifier();
-            return TextFormat.parseInteger(consumeIdentifier, false, false);
-        } catch (NumberFormatException e) {
-            throw integerParseException(e);
-        }
-    }
-
-    public boolean tryConsumeUInt64() {
-        try {
-            consumeUInt64();
-            return true;
-        } catch (TextFormat.ParseException unused) {
-            return false;
-        }
-    }
-
-    public double consumeDouble() throws TextFormat.ParseException {
-        if (lookingAtIdentifier()) {
-            String consumeIdentifier = consumeIdentifier();
-            if (consumeIdentifier.equalsIgnoreCase("inf") || consumeIdentifier.equalsIgnoreCase("infinity")) {
-                return consumeIdentifier.startsWith("-") ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+        public long consumeUInt64() throws ParseException {
+            try {
+                long uInt64 = TextFormat.parseUInt64(this.currentToken);
+                nextToken();
+                return uInt64;
+            } catch (NumberFormatException e) {
+                throw integerParseException(e);
             }
-            if (consumeIdentifier.equalsIgnoreCase("nan")) {
+        }
+
+        public boolean tryConsumeUInt64() {
+            try {
+                consumeUInt64();
+                return true;
+            } catch (ParseException unused) {
+                return false;
+            }
+        }
+
+        public double consumeDouble() throws ParseException {
+            if (DOUBLE_INFINITY.matcher(this.currentToken).matches()) {
+                boolean zStartsWith = this.currentToken.startsWith("-");
+                nextToken();
+                return zStartsWith ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
+            }
+            if (this.currentToken.equalsIgnoreCase("nan")) {
+                nextToken();
                 return Double.NaN;
             }
-        }
-        try {
-            return Double.parseDouble(consumeString());
-        } catch (NumberFormatException e) {
-            throw floatParseException(e);
-        }
-    }
-
-    public boolean tryConsumeDouble() {
-        try {
-            consumeDouble();
-            return true;
-        } catch (TextFormat.ParseException unused) {
-            return false;
-        }
-    }
-
-    public float consumeFloat() throws TextFormat.ParseException {
-        if (lookingAtIdentifier()) {
-            String consumeIdentifier = consumeIdentifier();
-            if (consumeIdentifier.equalsIgnoreCase("inf") || consumeIdentifier.equalsIgnoreCase("infinity")) {
-                return consumeIdentifier.startsWith("-") ? Float.NEGATIVE_INFINITY : Float.POSITIVE_INFINITY;
+            try {
+                double d = Double.parseDouble(this.currentToken);
+                nextToken();
+                return d;
+            } catch (NumberFormatException e) {
+                throw floatParseException(e);
             }
-            if (consumeIdentifier.equalsIgnoreCase("nan")) {
+        }
+
+        public boolean tryConsumeDouble() {
+            try {
+                consumeDouble();
+                return true;
+            } catch (ParseException unused) {
+                return false;
+            }
+        }
+
+        public float consumeFloat() throws ParseException {
+            if (FLOAT_INFINITY.matcher(this.currentToken).matches()) {
+                boolean zStartsWith = this.currentToken.startsWith("-");
+                nextToken();
+                return zStartsWith ? Float.NEGATIVE_INFINITY : Float.POSITIVE_INFINITY;
+            }
+            if (FLOAT_NAN.matcher(this.currentToken).matches()) {
+                nextToken();
                 return Float.NaN;
             }
-        }
-        try {
-            return Float.parseFloat(consumeString());
-        } catch (NumberFormatException e) {
-            throw floatParseException(e);
-        }
-    }
-
-    public boolean tryConsumeFloat() {
-        try {
-            consumeFloat();
-            return true;
-        } catch (TextFormat.ParseException unused) {
-            return false;
-        }
-    }
-
-    public boolean consumeBoolean() throws TextFormat.ParseException {
-        String consumeIdentifier = consumeIdentifier();
-        if (consumeIdentifier.equalsIgnoreCase("true") || consumeIdentifier.equalsIgnoreCase("t")
-                || consumeIdentifier.equals("1")) {
-            return true;
-        }
-        if (consumeIdentifier.equalsIgnoreCase("false") || consumeIdentifier.equalsIgnoreCase("f")
-                || consumeIdentifier.equals("0")) {
-            return false;
-        }
-        throw parseException("Expected \"true\" or \"false\".");
-    }
-
-    public String consumeString() throws TextFormat.ParseException {
-        return consumeByteString().toStringUtf8();
-    }
-
-    public boolean tryConsumeString() {
-        try {
-            consumeString();
-            return true;
-        } catch (TextFormat.ParseException unused) {
-            return false;
-        }
-    }
-
-    public ByteString consumeByteString() throws TextFormat.ParseException {
-        ArrayList arrayList = new ArrayList();
-        consumeByteString(arrayList);
-        while (true) {
-            if (this.currentToken.startsWith("'") || this.currentToken.startsWith("\"")) {
-                consumeByteString(arrayList);
-            } else {
-                return ByteString.copyFrom(arrayList);
+            try {
+                float f = Float.parseFloat(this.currentToken);
+                nextToken();
+                return f;
+            } catch (NumberFormatException e) {
+                throw floatParseException(e);
             }
         }
-    }
 
-    private void consumeByteString(List<ByteString> list) throws TextFormat.ParseException {
-        char c = this.currentToken.length() > 0 ? this.currentToken.charAt(0) : (char) 0;
-        if (c != '\"' && c != '\'') {
-            throw parseException("Expected string.");
+        public boolean tryConsumeFloat() {
+            try {
+                consumeFloat();
+                return true;
+            } catch (ParseException unused) {
+                return false;
+            }
         }
-        if (this.currentToken.length() < 2 || this.currentToken.charAt(this.currentToken.length() - 1) != c) {
+
+        public boolean consumeBoolean() throws ParseException {
+            if (this.currentToken.equals("true") || this.currentToken.equals("True") || this.currentToken.equals("t") || this.currentToken.equals("1")) {
+                nextToken();
+                return true;
+            }
+            if (this.currentToken.equals("false") || this.currentToken.equals("False") || this.currentToken.equals("f") || this.currentToken.equals("0")) {
+                nextToken();
+                return false;
+            }
+            throw parseException("Expected \"true\" or \"false\". Found \"" + this.currentToken + "\".");
+        }
+
+        public String consumeString() throws ParseException {
+            return consumeByteString().toStringUtf8();
+        }
+
+        public boolean tryConsumeString() {
+            try {
+                consumeString();
+                return true;
+            } catch (ParseException unused) {
+                return false;
+            }
+        }
+
+        public ByteString consumeByteString() throws ParseException {
+            ArrayList arrayList = new ArrayList();
+            consumeByteString(arrayList);
+            while (true) {
+                if (this.currentToken.startsWith("'") || this.currentToken.startsWith("\"")) {
+                    consumeByteString(arrayList);
+                } else {
+                    return ByteString.copyFrom(arrayList);
+                }
+            }
+        }
+
+        private void consumeByteString(List<ByteString> list) throws ParseException {
+            char cCharAt = this.currentToken.length() > 0 ? this.currentToken.charAt(0) : (char) 0;
+            if (cCharAt != '\"' && cCharAt != '\'') {
+                throw parseException("Expected string.");
+            }
+            if (this.currentToken.length() >= 2) {
+                String str = this.currentToken;
+                if (str.charAt(str.length() - 1) == cCharAt) {
+                    try {
+                        String str2 = this.currentToken;
+                        ByteString byteStringUnescapeBytes = TextFormat.unescapeBytes(str2.substring(1, str2.length() - 1));
+                        nextToken();
+                        list.add(byteStringUnescapeBytes);
+                        return;
+                    } catch (InvalidEscapeSequenceException e) {
+                        throw parseException(e.getMessage());
+                    }
+                }
+            }
             throw parseException("String missing ending quote.");
         }
-        try {
-            ByteString unescapeBytes = TextFormat
-                    .unescapeBytes(this.currentToken.substring(1, this.currentToken.length() - 1));
-            nextToken();
-            list.add(unescapeBytes);
-        } catch (TextFormat.InvalidEscapeSequenceException e) {
-            throw parseException(e.getMessage());
+
+        public ParseException parseException(String str) {
+            return new ParseException(this.line + 1, this.column + 1, str);
+        }
+
+        public ParseException parseExceptionPreviousToken(String str) {
+            return new ParseException(this.previousLine + 1, this.previousColumn + 1, str);
+        }
+
+        private ParseException integerParseException(NumberFormatException numberFormatException) {
+            return parseException("Couldn't parse integer: " + numberFormatException.getMessage());
+        }
+
+        private ParseException floatParseException(NumberFormatException numberFormatException) {
+            return parseException("Couldn't parse number: " + numberFormatException.getMessage());
+        }
+
+        public UnknownFieldParseException unknownFieldParseExceptionPreviousToken(String str, String str2) {
+            return new UnknownFieldParseException(this.previousLine + 1, this.previousColumn + 1, str, str2);
         }
     }
 
-    public TextFormat.ParseException parseException(String str) {
-        return new TextFormat.ParseException(this.line + 1, this.column + 1, str);
-    }
+    public static class ParseException extends IOException {
+        private static final long serialVersionUID = 3196188060225107702L;
+        private final int column;
+        private final int line;
 
-    public TextFormat.ParseException parseExceptionPreviousToken(String str) {
-        return new TextFormat.ParseException(this.previousLine + 1, this.previousColumn + 1, str);
-    }
-
-    private TextFormat.ParseException integerParseException(NumberFormatException numberFormatException) {
-        return parseException("Couldn't parse integer: " + numberFormatException.getMessage());
-    }
-
-    private TextFormat.ParseException floatParseException(NumberFormatException numberFormatException) {
-        return parseException("Couldn't parse number: " + numberFormatException.getMessage());
-    }
-
-    public TextFormat.UnknownFieldParseException unknownFieldParseExceptionPreviousToken(String str, String str2) {
-        return new TextFormat.UnknownFieldParseException(this.previousLine + 1, this.previousColumn + 1, str, str2);
-    }
-
-    public boolean lookingAtIdentifier() {
-        if (this.currentToken.length() == 0) {
-            return false;
+        public ParseException(String str) {
+            this(-1, -1, str);
         }
-        char c = this.currentToken.charAt(0);
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
-    }
 
-    private void skipField(Tokenizer tokenizer) throws TextFormat.ParseException {
-        if (tokenizer.tryConsume("[")) {
-            do {
-                tokenizer.consumeIdentifier();
-            } while (tokenizer.tryConsume("."));
-            tokenizer.consume("]");
-        } else {
-            tokenizer.consumeIdentifier();
+        public ParseException(int i, int i2, String str) {
+            super(Integer.toString(i) + ":" + i2 + ": " + str);
+            this.line = i;
+            this.column = i2;
         }
-        if (tokenizer.tryConsume(":") && !tokenizer.lookingAt("<") && !tokenizer.lookingAt("{")) {
-            skipFieldValue(tokenizer);
-        } else {
-            skipFieldMessage(tokenizer);
+
+        public int getLine() {
+            return this.line;
         }
-        if (tokenizer.tryConsume(";")) {
-            return;
+
+        public int getColumn() {
+            return this.column;
         }
-        tokenizer.tryConsume(",");
     }
 
-    private void skipFieldMessage(Tokenizer tokenizer) throws TextFormat.ParseException {
-        String str;
-        if (tokenizer.tryConsume("<")) {
-            str = ">";
-        } else {
-            tokenizer.consume("{");
-            str = "}";
+    public static class UnknownFieldParseException extends ParseException {
+        private final String unknownField;
+
+        public UnknownFieldParseException(String str) {
+            this(-1, -1, "", str);
         }
-        while (!tokenizer.lookingAt(">") && !tokenizer.lookingAt("}")) {
-            skipField(tokenizer);
+
+        public UnknownFieldParseException(int i, int i2, String str, String str2) {
+            super(i, i2, str2);
+            this.unknownField = str;
         }
-        tokenizer.consume(str);
-    }
 
-    private void skipFieldValue(Tokenizer tokenizer) throws TextFormat.ParseException {
-        if (tokenizer.tryConsumeString()) {
-            while (tokenizer.tryConsumeString()) {
-            }
-            return;
+        public String getUnknownField() {
+            return this.unknownField;
         }
-        if (tokenizer.tryConsumeIdentifier() || tokenizer.tryConsumeInt64() || tokenizer.tryConsumeUInt64()
-                || tokenizer.tryConsumeDouble() || tokenizer.tryConsumeFloat()) {
-            return;
-        }
-        throw tokenizer.parseException("Invalid field value: " + tokenizer.currentToken);
-    }
-}
-
-public static class ParseException extends IOException {
-    private static final long serialVersionUID = 3196188060225107702L;
-    private final int column;
-    private final int line;
-
-    public ParseException(String str) {
-        this(-1, -1, str);
-    }
-
-    public ParseException(int i, int i2, String str) {
-        super(TextFormat.ParseException.getMessage(i, i2, str));
-        this.line = i;
-        this.column = i2;
-    }
-
-    private static String getMessage(int i, int i2, String str) {
-        if (i < 0 || i2 < 0) {
-            return str;
-        }
-        return i + ":" + i2 + ": " + str;
-    }
-
-    public int getLine() {
-        return this.line;
-    }
-
-    public int getColumn() {
-        return this.column;
-    }
-}
-
-public static class UnknownFieldParseException extends TextFormat.ParseException {
-    private final String unknownField;
-
-    public UnknownFieldParseException(String str) {
-        this(-1, -1, "", str);
-    }
-
-    public UnknownFieldParseException(int i, int i2, String str, String str2) {
-        super(i, i2, str2);
-        this.unknownField = str;
-    }
-
-    public String getUnknownField() {
-        return this.unknownField;
-    }
-
     }
 
     public static Parser getParser() {
@@ -1227,40 +1108,37 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
         PARSER.merge(readable, builder);
     }
 
-    public static void merge(CharSequence charSequence, Message.Builder builder) throws TextFormat.ParseException {
-        Parser.newBuilder().build().merge(charSequence, builder);
+    public static void merge(CharSequence charSequence, Message.Builder builder) throws ParseException {
+        PARSER.merge(charSequence, builder);
     }
 
-    public static <T extends Message> T parse(CharSequence charSequence, Class<T> cls)
-            throws TextFormat.ParseException {
-        Message.Builder builder = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
-        merge(charSequence, builder);
-        return (T) builder.build();
+    public static <T extends Message> T parse(CharSequence charSequence, Class<T> cls) throws ParseException {
+        Message.Builder builderNewBuilderForType = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
+        merge(charSequence, builderNewBuilderForType);
+        return (T) builderNewBuilderForType.build();
     }
 
-    public static void merge(Readable readable, ExtensionRegistry extensionRegistry, Message.Builder builder)
-            throws IOException {
+    public static void merge(Readable readable, ExtensionRegistry extensionRegistry, Message.Builder builder) throws IOException {
         PARSER.merge(readable, extensionRegistry, builder);
     }
 
-    public static void merge(CharSequence charSequence, ExtensionRegistry extensionRegistry, Message.Builder builder)
-            throws TextFormat.ParseException {
-        Parser.newBuilder().build().merge(charSequence, extensionRegistry, builder);
+    public static void merge(CharSequence charSequence, ExtensionRegistry extensionRegistry, Message.Builder builder) throws ParseException {
+        PARSER.merge(charSequence, extensionRegistry, builder);
     }
 
-    public static <T extends Message> T parse(CharSequence charSequence, ExtensionRegistry extensionRegistry,
-            Class<T> cls) throws TextFormat.ParseException {
-        Message.Builder builder = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
-        merge(charSequence, extensionRegistry, builder);
-        return (T) builder.build();
+    public static <T extends Message> T parse(CharSequence charSequence, ExtensionRegistry extensionRegistry, Class<T> cls) throws ParseException {
+        Message.Builder builderNewBuilderForType = ((Message) Internal.getDefaultInstance(cls)).newBuilderForType();
+        merge(charSequence, extensionRegistry, builderNewBuilderForType);
+        return (T) builderNewBuilderForType.build();
     }
 
     public static class Parser {
+        private static final int BUFFER_SIZE = 4096;
         private final boolean allowUnknownEnumValues;
         private final boolean allowUnknownExtensions;
         private final boolean allowUnknownFields;
         private TextFormatParseInfoTree.Builder parseInfoTreeBuilder;
-        private final TextFormat.Parser.SingularOverwritePolicy singularOverwritePolicy;
+        private final SingularOverwritePolicy singularOverwritePolicy;
         private final TypeRegistry typeRegistry;
 
         public enum SingularOverwritePolicy {
@@ -1268,15 +1146,19 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
             FORBID_SINGULAR_OVERWRITES
         }
 
-        /* synthetic */ Parser(TypeRegistry typeRegistry, boolean z, boolean z2, boolean z3,
-                TextFormat.Parser.SingularOverwritePolicy singularOverwritePolicy,
-                TextFormatParseInfoTree.Builder builder, AnonymousClass1 anonymousClass1) {
+        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
+          (r1v0 com.google.oplus.protobuf.TypeRegistry)
+          (r2v0 boolean)
+          (r3v0 boolean)
+          (r4v0 boolean)
+          (r5v0 com.google.oplus.protobuf.TextFormat$Parser$SingularOverwritePolicy)
+          (r6v0 com.google.oplus.protobuf.TextFormatParseInfoTree$Builder)
+         A[MD:(com.google.oplus.protobuf.TypeRegistry, boolean, boolean, boolean, com.google.oplus.protobuf.TextFormat$Parser$SingularOverwritePolicy, com.google.oplus.protobuf.TextFormatParseInfoTree$Builder):void (m)] (LINE:1523) call: com.google.oplus.protobuf.TextFormat.Parser.<init>(com.google.oplus.protobuf.TypeRegistry, boolean, boolean, boolean, com.google.oplus.protobuf.TextFormat$Parser$SingularOverwritePolicy, com.google.oplus.protobuf.TextFormatParseInfoTree$Builder):void type: THIS */
+        /* synthetic */ Parser(TypeRegistry typeRegistry, boolean z, boolean z2, boolean z3, SingularOverwritePolicy singularOverwritePolicy, TextFormatParseInfoTree.Builder builder, AnonymousClass1 anonymousClass1) {
             this(typeRegistry, z, z2, z3, singularOverwritePolicy, builder);
         }
 
-        private Parser(TypeRegistry typeRegistry, boolean z, boolean z2, boolean z3,
-                TextFormat.Parser.SingularOverwritePolicy singularOverwritePolicy,
-                TextFormatParseInfoTree.Builder builder) {
+        private Parser(TypeRegistry typeRegistry, boolean z, boolean z2, boolean z3, SingularOverwritePolicy singularOverwritePolicy, TextFormatParseInfoTree.Builder builder) {
             this.typeRegistry = typeRegistry;
             this.allowUnknownFields = z;
             this.allowUnknownEnumValues = z2;
@@ -1290,12 +1172,12 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
         }
 
         public static class Builder {
-            private boolean allowUnknownExtensions;
-            private boolean allowUnknownFields;
-            private TextFormatParseInfoTree.Builder parseInfoTreeBuilder;
+            private boolean allowUnknownFields = false;
             private boolean allowUnknownEnumValues = false;
+            private boolean allowUnknownExtensions = false;
             private SingularOverwritePolicy singularOverwritePolicy = SingularOverwritePolicy.ALLOW_SINGULAR_OVERWRITES;
-            private TypeRegistry typeRegistry = TypeRegistry.getEmptyRegistry();
+            private TextFormatParseInfoTree.Builder parseInfoTreeBuilder = null;
+            private TypeRegistry typeRegistry = TypeRegistry.getEmptyTypeRegistry();
 
             public Builder setTypeRegistry(TypeRegistry typeRegistry) {
                 this.typeRegistry = typeRegistry;
@@ -1323,13 +1205,7 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
             }
 
             public Parser build() {
-                return new Parser(this.typeRegistry, this.allowUnknownFields, this.allowUnknownEnumValues,
-                        this.allowUnknownExtensions, this.singularOverwritePolicy, this.parseInfoTreeBuilder, null);
-            }
-
-            public Builder setAllowUnknownEnumValues(boolean z) {
-                this.allowUnknownEnumValues = z;
-                return this;
+                return new Parser(this.typeRegistry, this.allowUnknownFields, this.allowUnknownEnumValues, this.allowUnknownExtensions, this.singularOverwritePolicy, this.parseInfoTreeBuilder, null);
             }
         }
 
@@ -1337,12 +1213,11 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
             merge(readable, ExtensionRegistry.getEmptyRegistry(), builder);
         }
 
-        public void merge(CharSequence charSequence, Message.Builder builder) throws TextFormat.ParseException {
+        public void merge(CharSequence charSequence, Message.Builder builder) throws ParseException {
             merge(charSequence, ExtensionRegistry.getEmptyRegistry(), builder);
         }
 
-        public void merge(Readable readable, ExtensionRegistry extensionRegistry, Message.Builder builder)
-                throws IOException {
+        public void merge(Readable readable, ExtensionRegistry extensionRegistry, Message.Builder builder) throws IOException {
             merge(toStringBuilder(readable), extensionRegistry, builder);
         }
 
@@ -1374,14 +1249,14 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
             }
         }
 
-        private void checkUnknownFields(List<TextFormat.Parser.UnknownField> list) throws TextFormat.ParseException {
+        private void checkUnknownFields(List<UnknownField> list) throws ParseException {
             int i;
             boolean z;
             if (list.isEmpty()) {
                 return;
             }
             StringBuilder sb = new StringBuilder("Input contains unknown fields and/or extensions:");
-            for (TextFormat.Parser.UnknownField unknownField : list) {
+            for (UnknownField unknownField : list) {
                 sb.append('\n');
                 sb.append(unknownField.message);
             }
@@ -1390,14 +1265,14 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                 return;
             }
             if (this.allowUnknownExtensions) {
-                Iterator<TextFormat.Parser.UnknownField> it = list.iterator();
+                Iterator<UnknownField> it = list.iterator();
                 i = 0;
                 while (true) {
                     if (!it.hasNext()) {
                         z = true;
                         break;
                     } else {
-                        if (it.next().type == TextFormat.Parser.UnknownField.Type.FIELD) {
+                        if (it.next().type == UnknownField.Type.FIELD) {
                             z = false;
                             break;
                         }
@@ -1412,12 +1287,10 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                 i = 0;
             }
             String[] strArrSplit = list.get(i).message.split(":");
-            throw new TextFormat.ParseException(Integer.parseInt(strArrSplit[0]), Integer.parseInt(strArrSplit[1]),
-                    sb.toString());
+            throw new ParseException(Integer.parseInt(strArrSplit[0]), Integer.parseInt(strArrSplit[1]), sb.toString());
         }
 
-        public void merge(CharSequence charSequence, ExtensionRegistry extensionRegistry, Message.Builder builder)
-                throws TextFormat.ParseException {
+        public void merge(CharSequence charSequence, ExtensionRegistry extensionRegistry, Message.Builder builder) throws ParseException {
             Tokenizer tokenizer = new Tokenizer(charSequence, null);
             MessageReflection.BuilderAdapter builderAdapter = new MessageReflection.BuilderAdapter(builder);
             ArrayList arrayList = new ArrayList();
@@ -1427,145 +1300,110 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
             checkUnknownFields(arrayList);
         }
 
-        private void mergeField(Tokenizer tokenizer, ExtensionRegistry extensionRegistry,
-                MessageReflection.MergeTarget mergeTarget, List<TextFormat.Parser.UnknownField> list)
-                throws TextFormat.ParseException {
+        private void mergeField(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, List<UnknownField> list) throws ParseException {
             mergeField(tokenizer, extensionRegistry, mergeTarget, this.parseInfoTreeBuilder, list);
         }
 
-        private void mergeField(Tokenizer tokenizer, ExtensionRegistry extensionRegistry,
-                MessageReflection.MergeTarget mergeTarget, TextFormatParseInfoTree.Builder builder,
-                List<TextFormat.Parser.UnknownField> list) throws TextFormat.ParseException {
-            Descriptors.FieldDescriptor fieldDescriptor;
+        private void mergeField(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, TextFormatParseInfoTree.Builder builder, List<UnknownField> list) throws ParseException {
+            Descriptors.FieldDescriptor fieldDescriptorFindFieldByName;
             ExtensionRegistry.ExtensionInfo extensionInfo;
-            int previousLine = tokenizer.getPreviousLine();
-            int previousColumn = tokenizer.getPreviousColumn();
+            int line = tokenizer.getLine();
+            int column = tokenizer.getColumn();
             Descriptors.Descriptor descriptorForType = mergeTarget.getDescriptorForType();
-            ExtensionRegistry.ExtensionInfo extensionInfo2 = null;
             if ("google.protobuf.Any".equals(descriptorForType.getFullName()) && tokenizer.tryConsume("[")) {
                 mergeAnyFieldValue(tokenizer, extensionRegistry, mergeTarget, builder, list, descriptorForType);
                 return;
             }
+            Descriptors.FieldDescriptor fieldDescriptor = null;
             if (tokenizer.tryConsume("[")) {
                 StringBuilder sb = new StringBuilder(tokenizer.consumeIdentifier());
                 while (tokenizer.tryConsume(".")) {
                     sb.append('.');
                     sb.append(tokenizer.consumeIdentifier());
                 }
-                String sb2 = sb.toString();
-                ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByName = mergeTarget
-                        .findExtensionByName(extensionRegistry, sb2);
+                ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByName = mergeTarget.findExtensionByName(extensionRegistry, sb.toString());
                 if (extensionInfoFindExtensionByName == null) {
-                    list.add(new TextFormat.Parser.UnknownField(
-                            (tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t"
-                                    + descriptorForType.getFullName() + ".[" + ((Object) sb) + "]",
-                            TextFormat.Parser.UnknownField.Type.EXTENSION));
+                    list.add(new UnknownField((tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t" + descriptorForType.getFullName() + ".[" + ((Object) sb) + "]", UnknownField.Type.EXTENSION));
                 } else {
                     if (extensionInfoFindExtensionByName.descriptor.getContainingType() != descriptorForType) {
-                        throw tokenizer.parseExceptionPreviousToken("Extension \"" + ((Object) sb)
-                                + "\" does not extend message type \"" + descriptorForType.getFullName() + "\".");
+                        throw tokenizer.parseExceptionPreviousToken("Extension \"" + ((Object) sb) + "\" does not extend message type \"" + descriptorForType.getFullName() + "\".");
                     }
-                    extensionInfo2 = extensionInfoFindExtensionByName;
+                    fieldDescriptor = extensionInfoFindExtensionByName.descriptor;
                 }
                 tokenizer.consume("]");
-                extensionInfo = extensionInfo2;
-                fieldDescriptor = extensionInfo2 != null ? extensionInfo2.descriptor : null;
+                extensionInfo = extensionInfoFindExtensionByName;
+                fieldDescriptorFindFieldByName = fieldDescriptor;
             } else {
                 String strConsumeIdentifier = tokenizer.consumeIdentifier();
-                Descriptors.FieldDescriptor findFieldByName = descriptorForType.findFieldByName(strConsumeIdentifier);
-                if (findFieldByName == null
-                        && (findFieldByName = descriptorForType
-                                .findFieldByName(strConsumeIdentifier.toLowerCase(Locale.US))) != null
-                        && findFieldByName.getType() != Descriptors.FieldDescriptor.Type.GROUP) {
-                    findFieldByName = null;
+                fieldDescriptorFindFieldByName = descriptorForType.findFieldByName(strConsumeIdentifier);
+                if (fieldDescriptorFindFieldByName == null && (fieldDescriptorFindFieldByName = descriptorForType.findFieldByName(strConsumeIdentifier.toLowerCase(Locale.US))) != null && fieldDescriptorFindFieldByName.getType() != Descriptors.FieldDescriptor.Type.GROUP) {
+                    fieldDescriptorFindFieldByName = null;
                 }
-                if (findFieldByName != null && findFieldByName.getType() == Descriptors.FieldDescriptor.Type.GROUP
-                        && !findFieldByName.getMessageType().getName().equals(strConsumeIdentifier)) {
-                    findFieldByName = null;
+                if (fieldDescriptorFindFieldByName != null && fieldDescriptorFindFieldByName.getType() == Descriptors.FieldDescriptor.Type.GROUP && !fieldDescriptorFindFieldByName.getMessageType().getName().equals(strConsumeIdentifier)) {
+                    fieldDescriptorFindFieldByName = null;
                 }
-                if (findFieldByName == null) {
-                    list.add(new TextFormat.Parser.UnknownField(
-                            (tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t"
-                                    + descriptorForType.getFullName() + "." + strConsumeIdentifier,
-                            TextFormat.Parser.UnknownField.Type.FIELD));
+                if (fieldDescriptorFindFieldByName == null) {
+                    list.add(new UnknownField((tokenizer.getPreviousLine() + 1) + ":" + (tokenizer.getPreviousColumn() + 1) + ":\t" + descriptorForType.getFullName() + "." + strConsumeIdentifier, UnknownField.Type.FIELD));
                 }
-                fieldDescriptor = findFieldByName;
                 extensionInfo = null;
             }
-            if (fieldDescriptor == null) {
+            if (fieldDescriptorFindFieldByName == null) {
                 if (tokenizer.tryConsume(":") && !tokenizer.lookingAt("{") && !tokenizer.lookingAt("<")) {
-                    tokenizer.skipFieldValue(tokenizer);
+                    skipFieldValue(tokenizer);
                     return;
                 } else {
-                    tokenizer.skipFieldMessage(tokenizer);
+                    skipFieldMessage(tokenizer);
                     return;
                 }
             }
-            if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+            if (fieldDescriptorFindFieldByName.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
                 tokenizer.tryConsume(":");
                 if (builder != null) {
-                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo,
-                            builder.getBuilderForSubMessageField(fieldDescriptor), list);
+                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptorFindFieldByName, extensionInfo, builder.getBuilderForSubMessageField(fieldDescriptorFindFieldByName), list);
                 } else {
-                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo,
-                            builder, list);
+                    consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptorFindFieldByName, extensionInfo, builder, list);
                 }
             } else {
                 tokenizer.consume(":");
-                consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo, builder,
-                        list);
+                consumeFieldValues(tokenizer, extensionRegistry, mergeTarget, fieldDescriptorFindFieldByName, extensionInfo, builder, list);
             }
             if (builder != null) {
-                builder.setLocation(fieldDescriptor, new TextFormatParseLocation(previousLine, previousColumn));
+                builder.setLocation(fieldDescriptorFindFieldByName, TextFormatParseLocation.create(line, column));
             }
             if (tokenizer.tryConsume(";")) {
                 return;
             }
-            tokenizer.tryConsume(",");
+            tokenizer.tryConsume(CameraConstant.JSON_CONNECTOR_COMMA);
         }
 
-        private void consumeFieldValues(Tokenizer tokenizer, ExtensionRegistry extensionRegistry,
-                MessageReflection.MergeTarget mergeTarget, Descriptors.FieldDescriptor fieldDescriptor,
-                ExtensionRegistry.ExtensionInfo extensionInfo, TextFormatParseInfoTree.Builder builder,
-                List<TextFormat.Parser.UnknownField> list) throws TextFormat.ParseException {
+        private void consumeFieldValues(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, Descriptors.FieldDescriptor fieldDescriptor, ExtensionRegistry.ExtensionInfo extensionInfo, TextFormatParseInfoTree.Builder builder, List<UnknownField> list) throws ParseException {
             if (fieldDescriptor.isRepeated() && tokenizer.tryConsume("[")) {
                 if (tokenizer.tryConsume("]")) {
                     return;
                 }
                 while (true) {
-                    consumeFieldValue(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo,
-                            builder, list);
+                    consumeFieldValue(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo, builder, list);
                     if (tokenizer.tryConsume("]")) {
                         return;
                     } else {
-                        tokenizer.consume(",");
+                        tokenizer.consume(CameraConstant.JSON_CONNECTOR_COMMA);
                     }
                 }
             } else {
-                consumeFieldValue(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo, builder,
-                        list);
+                consumeFieldValue(tokenizer, extensionRegistry, mergeTarget, fieldDescriptor, extensionInfo, builder, list);
             }
         }
 
-        private void consumeFieldValue(Tokenizer tokenizer, ExtensionRegistry extensionRegistry,
-                MessageReflection.MergeTarget mergeTarget, Descriptors.FieldDescriptor fieldDescriptor,
-                ExtensionRegistry.ExtensionInfo extensionInfo, TextFormatParseInfoTree.Builder builder,
-                List<TextFormat.Parser.UnknownField> list) throws TextFormat.ParseException {
+        private void consumeFieldValue(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, Descriptors.FieldDescriptor fieldDescriptor, ExtensionRegistry.ExtensionInfo extensionInfo, TextFormatParseInfoTree.Builder builder, List<UnknownField> list) throws ParseException {
             String str;
             Object objFinish;
-            if (this.singularOverwritePolicy == TextFormat.Parser.SingularOverwritePolicy.FORBID_SINGULAR_OVERWRITES
-                    && !fieldDescriptor.isRepeated()) {
+            if (this.singularOverwritePolicy == SingularOverwritePolicy.FORBID_SINGULAR_OVERWRITES && !fieldDescriptor.isRepeated()) {
                 if (mergeTarget.hasField(fieldDescriptor)) {
-                    throw tokenizer.parseExceptionPreviousToken(
-                            "Non-repeated field \"" + fieldDescriptor.getFullName() + "\" cannot be overwritten.");
+                    throw tokenizer.parseExceptionPreviousToken("Non-repeated field \"" + fieldDescriptor.getFullName() + "\" cannot be overwritten.");
                 }
-                if (fieldDescriptor.getContainingOneof() != null
-                        && mergeTarget.hasOneof(fieldDescriptor.getContainingOneof())) {
+                if (fieldDescriptor.getContainingOneof() != null && mergeTarget.hasOneof(fieldDescriptor.getContainingOneof())) {
                     Descriptors.OneofDescriptor containingOneof = fieldDescriptor.getContainingOneof();
-                    throw tokenizer.parseExceptionPreviousToken(
-                            "Field \"" + fieldDescriptor.getFullName() + "\" is specified along with field \""
-                                    + mergeTarget.getOneofFieldDescriptor(containingOneof).getFullName()
-                                    + "\", another member of oneof \"" + containingOneof.getName() + "\".");
+                    throw tokenizer.parseExceptionPreviousToken("Field \"" + fieldDescriptor.getFullName() + "\" is specified along with field \"" + mergeTarget.getOneofFieldDescriptor(containingOneof).getFullName() + "\", another member of oneof \"" + containingOneof.getName() + "\".");
                 }
             }
             Object objValueOf = null;
@@ -1577,19 +1415,13 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                     str = "}";
                 }
                 String str2 = str;
-                if (fieldDescriptor.getMessageType().getFullName().equals("google.protobuf.Any")
-                        && tokenizer.tryConsume("[")) {
-                    MessageReflection.MergeTarget mergeTargetNewMergeTargetForField = mergeTarget
-                            .newMergeTargetForField(fieldDescriptor,
-                                    DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType()));
-                    mergeAnyFieldValue(tokenizer, extensionRegistry, mergeTargetNewMergeTargetForField, builder, list,
-                            fieldDescriptor.getMessageType());
+                if (fieldDescriptor.getMessageType().getFullName().equals("google.protobuf.Any") && tokenizer.tryConsume("[")) {
+                    MessageReflection.MergeTarget mergeTargetNewMergeTargetForField = mergeTarget.newMergeTargetForField(fieldDescriptor, DynamicMessage.getDefaultInstance(fieldDescriptor.getMessageType()));
+                    mergeAnyFieldValue(tokenizer, extensionRegistry, mergeTargetNewMergeTargetForField, builder, list, fieldDescriptor.getMessageType());
                     objFinish = mergeTargetNewMergeTargetForField.finish();
                     tokenizer.consume(str2);
                 } else {
-                    MessageReflection.MergeTarget mergeTargetNewMergeTargetForField2 = mergeTarget
-                            .newMergeTargetForField(fieldDescriptor,
-                                    extensionInfo != null ? extensionInfo.defaultInstance : null);
+                    MessageReflection.MergeTarget mergeTargetNewMergeTargetForField2 = mergeTarget.newMergeTargetForField(fieldDescriptor, extensionInfo != null ? extensionInfo.defaultInstance : null);
                     while (!tokenizer.tryConsume(str2)) {
                         if (tokenizer.atEnd()) {
                             throw tokenizer.parseException("Expected \"" + str2 + "\".");
@@ -1600,8 +1432,7 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                 }
                 objValueOf = objFinish;
             } else {
-                switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor
-                        .getType().ordinal()]) {
+                switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor.getType().ordinal()]) {
                     case 1:
                     case 2:
                     case 3:
@@ -1641,21 +1472,18 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                             int iConsumeInt32 = tokenizer.consumeInt32();
                             objValueOf = enumType.findValueByNumber(iConsumeInt32);
                             if (objValueOf == null) {
-                                String str3 = "Enum type \"" + enumType.getFullName() + "\" has no value with number "
-                                        + iConsumeInt32 + '.';
+                                String str3 = "Enum type \"" + enumType.getFullName() + "\" has no value with number " + iConsumeInt32 + '.';
                                 if (this.allowUnknownEnumValues) {
                                     TextFormat.logger.warning(str3);
                                     return;
                                 }
-                                throw tokenizer.parseExceptionPreviousToken("Enum type \"" + enumType.getFullName()
-                                        + "\" has no value with number " + iConsumeInt32 + '.');
+                                throw tokenizer.parseExceptionPreviousToken("Enum type \"" + enumType.getFullName() + "\" has no value with number " + iConsumeInt32 + '.');
                             }
                         } else {
                             String strConsumeIdentifier = tokenizer.consumeIdentifier();
                             objValueOf = enumType.findValueByName(strConsumeIdentifier);
                             if (objValueOf == null) {
-                                String str4 = "Enum type \"" + enumType.getFullName() + "\" has no value named \""
-                                        + strConsumeIdentifier + "\".";
+                                String str4 = "Enum type \"" + enumType.getFullName() + "\" has no value named \"" + strConsumeIdentifier + "\".";
                                 if (this.allowUnknownEnumValues) {
                                     TextFormat.logger.warning(str4);
                                     return;
@@ -1675,9 +1503,7 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
             }
         }
 
-        private void mergeAnyFieldValue(Tokenizer tokenizer, ExtensionRegistry extensionRegistry,
-                MessageReflection.MergeTarget mergeTarget, TextFormatParseInfoTree.Builder builder,
-                List<UnknownField> list, Descriptors.Descriptor descriptor) throws ParseException {
+        private void mergeAnyFieldValue(Tokenizer tokenizer, ExtensionRegistry extensionRegistry, MessageReflection.MergeTarget mergeTarget, TextFormatParseInfoTree.Builder builder, List<UnknownField> list, Descriptors.Descriptor descriptor) throws ParseException {
             String str;
             StringBuilder sb = new StringBuilder();
             while (true) {
@@ -1703,19 +1529,15 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                     try {
                         Descriptors.Descriptor descriptorForTypeUrl = this.typeRegistry.getDescriptorForTypeUrl(string);
                         if (descriptorForTypeUrl == null) {
-                            throw tokenizer.parseException("Unable to parse Any of type: " + string
-                                    + ". Please make sure that the TypeRegistry contains the descriptors for the given types.");
+                            throw tokenizer.parseException("Unable to parse Any of type: " + string + ". Please make sure that the TypeRegistry contains the descriptors for the given types.");
                         }
-                        DynamicMessage.Builder builderNewBuilderForType = DynamicMessage
-                                .getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
-                        MessageReflection.BuilderAdapter builderAdapter = new MessageReflection.BuilderAdapter(
-                                builderNewBuilderForType);
+                        DynamicMessage.Builder builderNewBuilderForType = DynamicMessage.getDefaultInstance(descriptorForTypeUrl).newBuilderForType();
+                        MessageReflection.BuilderAdapter builderAdapter = new MessageReflection.BuilderAdapter(builderNewBuilderForType);
                         while (!tokenizer.tryConsume(str2)) {
                             mergeField(tokenizer, extensionRegistry, builderAdapter, builder, list);
                         }
                         mergeTarget.setField(descriptor.findFieldByName("type_url"), sb.toString());
-                        mergeTarget.setField(descriptor.findFieldByName("value"),
-                                builderNewBuilderForType.build().toByteString());
+                        mergeTarget.setField(descriptor.findFieldByName("value"), builderNewBuilderForType.build().toByteString());
                         return;
                     } catch (InvalidProtocolBufferException unused) {
                         throw tokenizer.parseException("Invalid valid type URL. Found: " + string);
@@ -1764,8 +1586,7 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                 }
                 return;
             }
-            if (tokenizer.tryConsumeIdentifier() || tokenizer.tryConsumeInt64() || tokenizer.tryConsumeUInt64()
-                    || tokenizer.tryConsumeDouble() || tokenizer.tryConsumeFloat()) {
+            if (tokenizer.tryConsumeIdentifier() || tokenizer.tryConsumeInt64() || tokenizer.tryConsumeUInt64() || tokenizer.tryConsumeDouble() || tokenizer.tryConsumeFloat()) {
                 return;
             }
             throw tokenizer.parseException("Invalid field value: " + tokenizer.currentToken);
@@ -1822,8 +1643,7 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                                 int i8 = i4 + 1;
                                 i3 = i8 + 7;
                                 if (i3 >= byteStringCopyFromUtf8.size()) {
-                                    throw new InvalidEscapeSequenceException(
-                                            "Invalid escape sequence: '\\U' with too few hex chars");
+                                    throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U' with too few hex chars");
                                 }
                                 int iDigitValue2 = 0;
                                 int i9 = i8;
@@ -1832,28 +1652,19 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                                     if (i9 < i10) {
                                         byte bByteAt3 = byteStringCopyFromUtf8.byteAt(i9);
                                         if (!isHex(bByteAt3)) {
-                                            throw new InvalidEscapeSequenceException(
-                                                    "Invalid escape sequence: '\\U' with too few hex chars");
+                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U' with too few hex chars");
                                         }
                                         iDigitValue2 = (iDigitValue2 << 4) | digitValue(bByteAt3);
                                         i9++;
                                     } else {
                                         if (!Character.isValidCodePoint(iDigitValue2)) {
-                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U"
-                                                    + byteStringCopyFromUtf8.substring(i8, i10).toStringUtf8()
-                                                    + "' is not a valid code point value");
+                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U" + byteStringCopyFromUtf8.substring(i8, i10).toStringUtf8() + "' is not a valid code point value");
                                         }
                                         Character.UnicodeBlock unicodeBlockOf = Character.UnicodeBlock.of(iDigitValue2);
-                                        if (unicodeBlockOf.equals(Character.UnicodeBlock.LOW_SURROGATES)
-                                                || unicodeBlockOf.equals(Character.UnicodeBlock.HIGH_SURROGATES)
-                                                || unicodeBlockOf
-                                                        .equals(Character.UnicodeBlock.HIGH_PRIVATE_USE_SURROGATES)) {
-                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U"
-                                                    + byteStringCopyFromUtf8.substring(i8, i10).toStringUtf8()
-                                                    + "' refers to a surrogate code unit");
+                                        if (unicodeBlockOf.equals(Character.UnicodeBlock.LOW_SURROGATES) || unicodeBlockOf.equals(Character.UnicodeBlock.HIGH_SURROGATES) || unicodeBlockOf.equals(Character.UnicodeBlock.HIGH_PRIVATE_USE_SURROGATES)) {
+                                            throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\U" + byteStringCopyFromUtf8.substring(i8, i10).toStringUtf8() + "' refers to a surrogate code unit");
                                         }
-                                        byte[] bytes = new String(new int[] { iDigitValue2 }, 0, 1)
-                                                .getBytes(StandardCharsets.UTF_8);
+                                        byte[] bytes = new String(new int[]{iDigitValue2}, 0, 1).getBytes(StandardCharsets.UTF_8);
                                         System.arraycopy(bytes, 0, bArr, i5, bytes.length);
                                         length = bytes.length;
                                     }
@@ -1875,17 +1686,14 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                                 if (i4 < byteStringCopyFromUtf8.size() && isHex(byteStringCopyFromUtf8.byteAt(i4))) {
                                     int iDigitValue3 = digitValue(byteStringCopyFromUtf8.byteAt(i4));
                                     int i11 = i4 + 1;
-                                    if (i11 < byteStringCopyFromUtf8.size()
-                                            && isHex(byteStringCopyFromUtf8.byteAt(i11))) {
-                                        iDigitValue3 = (iDigitValue3 * 16)
-                                                + digitValue(byteStringCopyFromUtf8.byteAt(i11));
+                                    if (i11 < byteStringCopyFromUtf8.size() && isHex(byteStringCopyFromUtf8.byteAt(i11))) {
+                                        iDigitValue3 = (iDigitValue3 * 16) + digitValue(byteStringCopyFromUtf8.byteAt(i11));
                                         i4 = i11;
                                     }
                                     i = i5 + 1;
                                     bArr[i5] = (byte) iDigitValue3;
                                 } else {
-                                    throw new InvalidEscapeSequenceException(
-                                            "Invalid escape sequence: '\\x' with no digits");
+                                    throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\x' with no digits");
                                 }
                             } else if (bByteAt2 == 97) {
                                 i2 = i5 + 1;
@@ -1902,39 +1710,29 @@ public static class UnknownFieldParseException extends TextFormat.ParseException
                                     case 117:
                                         int i12 = i4 + 1;
                                         i3 = i12 + 3;
-                                        if (i3 < byteStringCopyFromUtf8.size()
-                                                && isHex(byteStringCopyFromUtf8.byteAt(i12))) {
+                                        if (i3 < byteStringCopyFromUtf8.size() && isHex(byteStringCopyFromUtf8.byteAt(i12))) {
                                             int i13 = i12 + 1;
                                             if (isHex(byteStringCopyFromUtf8.byteAt(i13))) {
                                                 int i14 = i12 + 2;
-                                                if (isHex(byteStringCopyFromUtf8.byteAt(i14))
-                                                        && isHex(byteStringCopyFromUtf8.byteAt(i3))) {
-                                                    char cDigitValue = (char) ((digitValue(
-                                                            byteStringCopyFromUtf8.byteAt(i12)) << 12)
-                                                            | (digitValue(byteStringCopyFromUtf8.byteAt(i13)) << 8)
-                                                            | (digitValue(byteStringCopyFromUtf8.byteAt(i14)) << 4)
-                                                            | digitValue(byteStringCopyFromUtf8.byteAt(i3)));
+                                                if (isHex(byteStringCopyFromUtf8.byteAt(i14)) && isHex(byteStringCopyFromUtf8.byteAt(i3))) {
+                                                    char cDigitValue = (char) ((digitValue(byteStringCopyFromUtf8.byteAt(i12)) << 12) | (digitValue(byteStringCopyFromUtf8.byteAt(i13)) << 8) | (digitValue(byteStringCopyFromUtf8.byteAt(i14)) << 4) | digitValue(byteStringCopyFromUtf8.byteAt(i3)));
                                                     if (Character.isSurrogate(cDigitValue)) {
-                                                        throw new InvalidEscapeSequenceException(
-                                                                "Invalid escape sequence: '\\u' refers to a surrogate");
+                                                        throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\u' refers to a surrogate");
                                                     }
-                                                    byte[] bytes2 = Character.toString(cDigitValue)
-                                                            .getBytes(StandardCharsets.UTF_8);
+                                                    byte[] bytes2 = Character.toString(cDigitValue).getBytes(StandardCharsets.UTF_8);
                                                     System.arraycopy(bytes2, 0, bArr, i5, bytes2.length);
                                                     length = bytes2.length;
                                                     break;
                                                 }
                                             }
                                         }
-                                        throw new InvalidEscapeSequenceException(
-                                                "Invalid escape sequence: '\\u' with too few hex chars");
+                                        throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\u' with too few hex chars");
                                     case 118:
                                         i2 = i5 + 1;
                                         bArr[i5] = 11;
                                         break;
                                     default:
-                                        throw new InvalidEscapeSequenceException(
-                                                "Invalid escape sequence: '\\" + ((char) bByteAt2) + '\'');
+                                        throw new InvalidEscapeSequenceException("Invalid escape sequence: '\\" + ((char) bByteAt2) + '\'');
                                 }
                             }
                             i5 += length;

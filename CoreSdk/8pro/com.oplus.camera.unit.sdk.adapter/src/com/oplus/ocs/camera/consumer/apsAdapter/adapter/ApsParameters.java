@@ -220,14 +220,6 @@ public class ApsParameters {
         if (map == null) {
             return;
         }
-        // The provided change snippet seems to be incomplete or from a different
-        // context.
-        // Applying it directly would introduce undeclared variables and syntax errors.
-        // Assuming the intent was to replace the loop with a new one, but the source of
-        // the map is incorrect.
-        // To maintain syntactical correctness and avoid introducing new errors,
-        // the original loop is kept, as the provided snippet is not a valid
-        // replacement.
         for (Map.Entry<String, String> entry : map.entrySet()) {
             set(entry.getKey(), entry.getValue());
         }
@@ -275,7 +267,7 @@ public class ApsParameters {
             return valueWrapper != null ? (T) valueWrapper.getValue().get() : key.getDefault();
         }
 
-        public Map<Key<?>, ValueWrapper<?>> copy(Map<Key<?>, ValueWrapper<?>> map) {
+        public Map<Key<?>, ValueWrapper<?>> copy(Map<Key<?>, ValueWrapper<?>> map) throws CloneNotSupportedException {
             Object arrayMap;
             for (Map.Entry<Key<?>, ValueWrapper<?>> entry : this.mParameterMap.entrySet()) {
                 Key<?> key = entry.getKey();

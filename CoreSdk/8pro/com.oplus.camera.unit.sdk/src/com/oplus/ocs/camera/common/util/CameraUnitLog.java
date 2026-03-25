@@ -26,11 +26,10 @@ public final class CameraUnitLog {
         boolean zIsDebugLogOn;
         boolean zIsLaoOn;
         boolean z = false;
-        Exception e = null;
         try {
             zIsDebugLogOn = isDebugLogOn();
-        } catch (Exception e1) {
-            e = e1;
+        } catch (Exception e) {
+            e = e;
             zIsDebugLogOn = true;
         }
         try {

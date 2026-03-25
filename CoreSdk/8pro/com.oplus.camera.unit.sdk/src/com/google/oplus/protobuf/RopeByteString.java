@@ -17,10 +17,7 @@ import java.util.NoSuchElementException;
 
 /* JADX INFO: loaded from: classes.dex */
 final class RopeByteString extends ByteString {
-    static final int[] minLengthByDepth = { 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584,
-            4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040, 1346269, 2178309,
-            3524578, 5702887, 9227465, 14930352, 24157817, 39088169, 63245986, 102334155, 165580141, 267914296,
-            433494437, 701408733, 1134903170, 1836311903, Integer.MAX_VALUE };
+    static final int[] minLengthByDepth = {1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, 514229, 832040, 1346269, 2178309, 3524578, 5702887, 9227465, 14930352, 24157817, 39088169, 63245986, 102334155, 165580141, 267914296, 433494437, 701408733, 1134903170, 1836311903, Reader.READ_DONE};
     private static final long serialVersionUID = 1;
     private final ByteString left;
     private final int leftLength;
@@ -53,8 +50,7 @@ final class RopeByteString extends ByteString {
             if (ropeByteString.right.size() + byteString2.size() < 128) {
                 return new RopeByteString(ropeByteString.left, concatenateBytes(ropeByteString.right, byteString2));
             }
-            if (ropeByteString.left.getTreeDepth() > ropeByteString.right.getTreeDepth()
-                    && ropeByteString.getTreeDepth() > byteString2.getTreeDepth()) {
+            if (ropeByteString.left.getTreeDepth() > ropeByteString.right.getTreeDepth() && ropeByteString.getTreeDepth() > byteString2.getTreeDepth()) {
                 return new RopeByteString(ropeByteString.left, new RopeByteString(ropeByteString.right, byteString2));
             }
         }
@@ -79,7 +75,7 @@ final class RopeByteString extends ByteString {
 
     static int minLength(int i) {
         int[] iArr = minLengthByDepth;
-        return i >= iArr.length ? Integer.MAX_VALUE : iArr[i];
+        return i >= iArr.length ? Reader.READ_DONE : iArr[i];
     }
 
     @Override // com.google.oplus.protobuf.ByteString
@@ -102,16 +98,11 @@ final class RopeByteString extends ByteString {
         return this.totalLength;
     }
 
-    /*
-     * JADX DEBUG: Method merged with bridge method: iterator()Ljava/util/Iterator;
-     */
-    /*
-     * JADX DEBUG: Return type fixed from
-     * 'com.google.oplus.protobuf.ByteString$ByteIterator' to match base method
-     */
+    /* JADX DEBUG: Method merged with bridge method: iterator()Ljava/util/Iterator; */
+    /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.ByteString$ByteIterator' to match base method */
     @Override // com.google.oplus.protobuf.ByteString, java.lang.Iterable
     /* JADX INFO: renamed from: iterator */
-    public ByteString.ByteIterator iterator() {
+    public Iterator<Byte> iterator2() {
         return new ByteString.AbstractByteIterator() { // from class: com.google.oplus.protobuf.RopeByteString.1
             ByteString.ByteIterator current = nextPiece();
             final PieceIterator pieces;
@@ -120,10 +111,7 @@ final class RopeByteString extends ByteString {
                 this.pieces = new PieceIterator(RopeByteString.this);
             }
 
-            /*
-             * JADX WARN: Type inference failed for: r1v4, types:
-             * [com.google.oplus.protobuf.ByteString$ByteIterator]
-             */
+            /* JADX WARN: Type inference failed for: r1v4, types: [com.google.oplus.protobuf.ByteString$ByteIterator] */
             private ByteString.ByteIterator nextPiece() {
                 if (this.pieces.hasNext()) {
                     return this.pieces.next().iterator();
@@ -302,14 +290,8 @@ final class RopeByteString extends ByteString {
         return false;
     }
 
-    /*
-     * JADX DEBUG: Failed to insert an additional move for type inference into block
-     * B:26:0x001b
-     */
-    /*
-     * JADX DEBUG: Failed to insert an additional move for type inference into block
-     * B:28:0x001b
-     */
+    /* JADX DEBUG: Failed to insert an additional move for type inference into block B:26:0x001b */
+    /* JADX DEBUG: Failed to insert an additional move for type inference into block B:28:0x001b */
     private boolean equalsFragments(ByteString byteString) {
         boolean zEqualsRange;
         PieceIterator pieceIterator = new PieceIterator(this);
@@ -407,8 +389,7 @@ final class RopeByteString extends ByteString {
                 doBalance(ropeByteString.left);
                 doBalance(ropeByteString.right);
             } else {
-                throw new IllegalArgumentException(
-                        "Has a new type of ByteString been created? Found " + byteString.getClass());
+                throw new IllegalArgumentException("Has a new type of ByteString been created? Found " + byteString.getClass());
             }
         }
 
@@ -430,8 +411,7 @@ final class RopeByteString extends ByteString {
             }
             RopeByteString ropeByteString = new RopeByteString(byteStringPop, byteString);
             while (!this.prefixesStack.isEmpty()) {
-                if (this.prefixesStack.peek().size() >= RopeByteString
-                        .minLength(getDepthBinForLength(ropeByteString.size()) + 1)) {
+                if (this.prefixesStack.peek().size() >= RopeByteString.minLength(getDepthBinForLength(ropeByteString.size()) + 1)) {
                     break;
                 } else {
                     ropeByteString = new RopeByteString(this.prefixesStack.pop(), ropeByteString);
@@ -480,7 +460,7 @@ final class RopeByteString extends ByteString {
                     return null;
                 }
                 leafByLeft = getLeafByLeft(this.breadCrumbs.pop().right);
-            } while (leafByLeft.size() == 0);
+            } while (leafByLeft.isEmpty());
             return leafByLeft;
         }
 

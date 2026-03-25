@@ -841,8 +841,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -2013,8 +2013,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -2909,8 +2909,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -3806,8 +3806,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -4545,8 +4545,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -5465,8 +5465,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -6413,8 +6413,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -7212,8 +7212,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -8017,8 +8017,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*
@@ -8827,8 +8827,8 @@ public final class ProtobufFeatureConfig {
                       // com.google.oplus.protobuf.AbstractMessage.Builder,
                       // com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder clone() {
-                return (Builder) super.clone();
+            public Builder mo0clone() {
+                return (Builder) super.mo0clone();
             }
 
             /*

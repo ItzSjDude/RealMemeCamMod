@@ -74,9 +74,8 @@ final class UnsafeUtil {
 
     static <T> T allocateInstance(Class<T> cls) {
         try {
-            java.lang.reflect.Method allocateInstance = UNSAFE.getClass().getMethod("allocateInstance", Class.class);
-            return (T) allocateInstance.invoke(UNSAFE, cls);
-        } catch (Exception e) {
+            return (T) UNSAFE.allocateInstance(cls);
+        } catch (InstantiationException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -257,8 +256,7 @@ final class UnsafeUtil {
 
     static Unsafe getUnsafe() {
         try {
-            return (Unsafe) AccessController.doPrivileged(new PrivilegedExceptionAction<Unsafe>() { // from class:
-                                                                                                    // com.google.oplus.protobuf.UnsafeUtil.1
+            return (Unsafe) AccessController.doPrivileged(new PrivilegedExceptionAction<Unsafe>() { // from class: com.google.oplus.protobuf.UnsafeUtil.1
                 /* JADX DEBUG: Method merged with bridge method: run()Ljava/lang/Object; */
                 @Override // java.security.PrivilegedExceptionAction
                 public Unsafe run() throws Exception {
@@ -526,15 +524,7 @@ final class UnsafeUtil {
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public Object getStaticObject(java.lang.reflect.Field field) {
-            try {
-                Object base = this.unsafe.getClass().getMethod("staticFieldBase", java.lang.reflect.Field.class)
-                        .invoke(this.unsafe, field);
-                long offset = (long) this.unsafe.getClass()
-                        .getMethod("staticFieldOffset", java.lang.reflect.Field.class).invoke(this.unsafe, field);
-                return getObject(base, offset);
-            } catch (Exception e) {
-                return null;
-            }
+            return getObject(this.unsafe.staticFieldBase(field), this.unsafe.staticFieldOffset(field));
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
@@ -653,24 +643,12 @@ final class UnsafeUtil {
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public void copyMemory(long j, byte[] bArr, long j2, long j3) {
-            try {
-                this.unsafe.getClass()
-                        .getMethod("copyMemory", Object.class, Long.TYPE, Object.class, Long.TYPE, Long.TYPE)
-                        .invoke(this.unsafe, null, j, bArr, UnsafeUtil.BYTE_ARRAY_BASE_OFFSET + j2, j3);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            this.unsafe.copyMemory((Object) null, j, bArr, UnsafeUtil.BYTE_ARRAY_BASE_OFFSET + j2, j3);
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public void copyMemory(byte[] bArr, long j, long j2, long j3) {
-            try {
-                this.unsafe.getClass()
-                        .getMethod("copyMemory", Object.class, Long.TYPE, Object.class, Long.TYPE, Long.TYPE)
-                        .invoke(this.unsafe, bArr, UnsafeUtil.BYTE_ARRAY_BASE_OFFSET + j, null, j2, j3);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            this.unsafe.copyMemory(bArr, UnsafeUtil.BYTE_ARRAY_BASE_OFFSET + j, (Object) null, j2, j3);
         }
     }
 
@@ -695,8 +673,7 @@ final class UnsafeUtil {
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public byte getByte(Object obj, long j) {
-            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getByteBigEndian(obj, j)
-                    : UnsafeUtil.getByteLittleEndian(obj, j);
+            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getByteBigEndian(obj, j) : UnsafeUtil.getByteLittleEndian(obj, j);
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
@@ -710,8 +687,7 @@ final class UnsafeUtil {
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public boolean getBoolean(Object obj, long j) {
-            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getBooleanBigEndian(obj, j)
-                    : UnsafeUtil.getBooleanLittleEndian(obj, j);
+            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getBooleanBigEndian(obj, j) : UnsafeUtil.getBooleanLittleEndian(obj, j);
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
@@ -811,8 +787,7 @@ final class UnsafeUtil {
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public byte getByte(Object obj, long j) {
-            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getByteBigEndian(obj, j)
-                    : UnsafeUtil.getByteLittleEndian(obj, j);
+            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getByteBigEndian(obj, j) : UnsafeUtil.getByteLittleEndian(obj, j);
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
@@ -826,8 +801,7 @@ final class UnsafeUtil {
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public boolean getBoolean(Object obj, long j) {
-            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getBooleanBigEndian(obj, j)
-                    : UnsafeUtil.getBooleanLittleEndian(obj, j);
+            return UnsafeUtil.IS_BIG_ENDIAN ? UnsafeUtil.getBooleanBigEndian(obj, j) : UnsafeUtil.getBooleanLittleEndian(obj, j);
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
@@ -947,7 +921,6 @@ final class UnsafeUtil {
 
     /* JADX INFO: Access modifiers changed from: private */
     public static void logMissingMethod(Throwable th) {
-        Logger.getLogger(UnsafeUtil.class.getName()).log(Level.WARNING,
-                "platform method missing - proto runtime falling back to safer methods: " + th);
+        Logger.getLogger(UnsafeUtil.class.getName()).log(Level.WARNING, "platform method missing - proto runtime falling back to safer methods: " + th);
     }
 }

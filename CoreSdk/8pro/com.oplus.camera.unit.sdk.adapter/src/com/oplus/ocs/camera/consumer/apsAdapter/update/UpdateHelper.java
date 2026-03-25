@@ -24,34 +24,17 @@ public class UpdateHelper {
         return str2;
     }
 
+    /* JADX DEBUG: Another duplicated slice has different insns count: {[IF]}, finally: {[IF, INVOKE, MOVE_EXCEPTION, INVOKE, MOVE_EXCEPTION] complete} */
+    /* JADX WARN: Removed duplicated region for block: B:59:0x0127 A[Catch: all -> 0x001f, TRY_LEAVE, TryCatch #7 {all -> 0x001f, blocks: (B:10:0x0019, B:59:0x0127, B:57:0x0124, B:56:0x0121, B:53:0x011c), top: B:84:0x0019, outer: #6, inners: #0 }] */
+    /* JADX WARN: Removed duplicated region for block: B:68:0x0138 A[Catch: Exception -> 0x0013, TRY_LEAVE, TryCatch #6 {Exception -> 0x0013, blocks: (B:4:0x000d, B:68:0x0138, B:66:0x0135, B:65:0x0132, B:62:0x012d, B:10:0x0019, B:59:0x0127, B:57:0x0124, B:56:0x0121), top: B:83:0x000d, inners: #1, #7 }] */
+    /* JADX WARN: Removed duplicated region for block: B:72:0x011c A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
-     * JADX DEBUG: Another duplicated slice has different insns count: {[IF]},
-     * finally: {[IF, INVOKE, MOVE_EXCEPTION, INVOKE, MOVE_EXCEPTION] complete}
-     */
-    /*
-     * JADX WARN: Removed duplicated region for block: B:59:0x0127 A[Catch: all ->
-     * 0x001f, TRY_LEAVE, TryCatch #7 {all -> 0x001f, blocks: (B:10:0x0019,
-     * B:59:0x0127, B:57:0x0124, B:56:0x0121, B:53:0x011c), top: B:84:0x0019, outer:
-     * #6, inners: #0 }]
-     */
-    /*
-     * JADX WARN: Removed duplicated region for block: B:68:0x0138 A[Catch:
-     * Exception -> 0x0013, TRY_LEAVE, TryCatch #6 {Exception -> 0x0013, blocks:
-     * (B:4:0x000d, B:68:0x0138, B:66:0x0135, B:65:0x0132, B:62:0x012d, B:10:0x0019,
-     * B:59:0x0127, B:57:0x0124, B:56:0x0121), top: B:83:0x000d, inners: #1, #7 }]
-     */
-    /*
-     * JADX WARN: Removed duplicated region for block: B:72:0x011c
-     * A[EXC_TOP_SPLITTER, SYNTHETIC]
-     */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     */
+        Code decompiled incorrectly, please refer to instructions dump.
+    */
     public static String getValidConfigData(Context context, String str) {
         FileInputStream fileInputStream;
         String rusUpdatePath = getRusUpdatePath(context, str);
         FileInputStream fileInputStream2 = null;
-        Throwable th = null;
         String str2 = "";
         if (rusUpdatePath != null) {
             try {
@@ -101,25 +84,19 @@ public class UpdateHelper {
                 try {
                     try {
                         if (isNewConfigFormat(str4) && isNewConfigFormat(str5)) {
-                            if (new JSONObject(str4).getDouble(CONFIG_FILE_VERSION) > new JSONObject(str5)
-                                    .getDouble(CONFIG_FILE_VERSION)) {
-                                ApsAdapterLog.d(TAG,
-                                        "getValidConfigData, use rus config with new version,  path: " + rusUpdatePath);
+                            if (new JSONObject(str4).getDouble(CONFIG_FILE_VERSION) > new JSONObject(str5).getDouble(CONFIG_FILE_VERSION)) {
+                                ApsAdapterLog.d(TAG, "getValidConfigData, use rus config with new version,  path: " + rusUpdatePath);
                             } else {
-                                ApsAdapterLog.d(TAG,
-                                        "getValidConfigData, use ota config with new version, path: " + str);
+                                ApsAdapterLog.d(TAG, "getValidConfigData, use ota config with new version, path: " + str);
                                 str4 = str5;
                             }
                         } else if (!isNewConfigFormat(str4) && isNewConfigFormat(str5)) {
                             ApsAdapterLog.d(TAG, "getValidConfigData, use ota config with new format, path: " + str);
                             str4 = str5;
                         } else if (isNewConfigFormat(str4) && !isNewConfigFormat(str5)) {
-                            ApsAdapterLog.d(TAG,
-                                    "getValidConfigData, use rus config with new format, path: " + rusUpdatePath);
+                            ApsAdapterLog.d(TAG, "getValidConfigData, use rus config with new format, path: " + rusUpdatePath);
                         } else {
-                            ApsAdapterLog.d(TAG,
-                                    "getValidConfigData, rus and ota are both old format, choose rus, path: "
-                                            + rusUpdatePath);
+                            ApsAdapterLog.d(TAG, "getValidConfigData, rus and ota are both old format, choose rus, path: " + rusUpdatePath);
                         }
                         str2 = str4;
                         if (fileInputStream2 != null) {

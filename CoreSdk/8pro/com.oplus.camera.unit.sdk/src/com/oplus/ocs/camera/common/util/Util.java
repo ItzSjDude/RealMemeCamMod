@@ -253,11 +253,10 @@ public class Util {
      */
     public static CameraImage buildRawImage(CameraRequestTag cameraRequestTag, Image image, CaptureResult captureResult,
             long j) throws Exception {
-        ByteArrayOutputStream byteArrayOutputStream = null;
-        Exception e = null;
+        ByteArrayOutputStream byteArrayOutputStream;
         CameraUnitLog.v(TAG, "buildRawImage, rawImg: " + image + ", captureResult: " + captureResult + ", cameraType: "
                 + cameraRequestTag.mCameraType);
-        ByteArrayOutputStream byteArrayOutputStream2 = null;
+        ByteArrayOutputStream byteArrayOutputStream2 = 0;
         if (image != null) {
             try {
                 if (32 == image.getFormat()) {
@@ -312,13 +311,14 @@ public class Util {
                                 return null;
                             }
                         } catch (Throwable th) {
-                            byteArrayOutputStream2 = null;
+                            th = th;
+                            byteArrayOutputStream2 = dngDescription;
                             Throwable th2 = th;
                             if (image != null) {
                                 image.close();
                             }
                             dngCreator.close();
-                            if (byteArrayOutputStream2 != null) {
+                            if (byteArrayOutputStream2 == 0) {
                                 try {
                                     byteArrayOutputStream2.close();
                                     throw new Exception(th2);
@@ -338,7 +338,7 @@ public class Util {
                         if (image != null) {
                         }
                         dngCreator.close();
-                        if (byteArrayOutputStream2 != null) {
+                        if (byteArrayOutputStream2 == 0) {
                         }
                     }
                 }

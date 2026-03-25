@@ -27,11 +27,7 @@ import com.oplus.statistics.util.Supplier;
 import com.oplus.statistics.util.VersionUtil;
 import java.util.List;
 import java.util.Map;
-import com.oplus.statistics.DataOverSizeException;
 import java.util.regex.Pattern;
-import com.oplus.statistics.OTrackConfig;
-import com.oplus.statistics.OTrackContext;
-import com.oplus.statistics.OTrackConfig.Builder;
 
 /* JADX INFO: loaded from: classes.dex */
 public class OplusTrack {
@@ -48,82 +44,52 @@ public class OplusTrack {
     private static final long FIREWALL_LIMIT_TIME = 120000;
     private static final RequestFireWall sFireWall = new RequestFireWall.Builder(120, FIREWALL_LIMIT_TIME).build();
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "EventID is null!"
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "EventID is null!" */
     static /* synthetic */ String lambda$formatCheck$27() {
         return "EventID is null!";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "EventID format error!"
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "EventID format error!" */
     static /* synthetic */ String lambda$formatCheck$28() {
         return "EventID format error!";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "EventTag format error!"
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "EventTag format error!" */
     static /* synthetic */ String lambda$formatCheck$29() {
         return "EventTag format error!";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "EventCount format error!"
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "EventCount format error!" */
     static /* synthetic */ String lambda$formatCheck$30() {
         return "EventCount format error!";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "AppCode is empty."
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "AppCode is empty." */
     static /* synthetic */ String lambda$init$0() {
         return "AppCode is empty.";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "onError..."
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onError..." */
     static /* synthetic */ String lambda$onError$21() {
         return "onError...";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "onPause..."
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onPause..." */
     static /* synthetic */ String lambda$onPause$19() {
         return "onPause...";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "onResume..."
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onResume..." */
     static /* synthetic */ String lambda$onResume$20() {
         return "onResume...";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "Send data failed! logTag is null."
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "Send data failed! logTag is null." */
     static /* synthetic */ String lambda$onSettingKeyUpdate$7() {
         return "Send data failed! logTag is null.";
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * 0x0000: CONST_STR "removeSsoID"
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "removeSsoID" */
     static /* synthetic */ String lambda$removeSsoID$26() {
         return "removeSsoID";
     }
@@ -164,13 +130,11 @@ public class OplusTrack {
         return onCommon(commonBean, 1);
     }
 
-    public static boolean onCommonBatch(@NonNull Context context, String str, String str2,
-            List<Map<String, String>> list, int i) throws DataOverSizeException {
+    public static boolean onCommonBatch(@NonNull Context context, String str, String str2, List<Map<String, String>> list, int i) throws DataOverSizeException {
         return onCommonBatch(context, "", str, str2, list, i);
     }
 
-    public static boolean onCommonBatch(@NonNull Context context, String str, String str2, String str3,
-            List<Map<String, String>> list, int i) throws DataOverSizeException {
+    public static boolean onCommonBatch(@NonNull Context context, String str, String str2, String str3, List<Map<String, String>> list, int i) throws DataOverSizeException {
         CommonBatchBean commonBatchBean = new CommonBatchBean(context);
         commonBatchBean.setAppId(str);
         commonBatchBean.setLogTag(str2);
@@ -187,8 +151,7 @@ public class OplusTrack {
         return onCommon(commonBean, i);
     }
 
-    public static boolean onCommon(@NonNull Context context, String str, String str2, Map<String, String> map, int i,
-            int i2) {
+    public static boolean onCommon(@NonNull Context context, String str, String str2, Map<String, String> map, int i, int i2) {
         CommonBean commonBean = new CommonBean(context);
         commonBean.setLogTag(str);
         commonBean.setEventID(str2);
@@ -197,8 +160,7 @@ public class OplusTrack {
         return onCommon(commonBean, i2);
     }
 
-    public static boolean onCommon(@NonNull Context context, String str, String str2, String str3,
-            Map<String, String> map) {
+    public static boolean onCommon(@NonNull Context context, String str, String str2, String str3, Map<String, String> map) {
         CommonBean commonBean = new CommonBean(context);
         commonBean.setAppId(str);
         commonBean.setLogTag(str2);
@@ -212,8 +174,7 @@ public class OplusTrack {
     }
 
     public static boolean onCommon(final CommonBean commonBean, final int i) {
-        if (!sFireWall
-                .handleRequest(commonBean.getAppId() + "_" + commonBean.getLogTag() + "_" + commonBean.getEventID())) {
+        if (!sFireWall.handleRequest(commonBean.getAppId() + "_" + commonBean.getLogTag() + "_" + commonBean.getEventID())) {
             ChattyEventTracker.getInstance().onChattyEvent(commonBean);
             return false;
         }
@@ -225,8 +186,7 @@ public class OplusTrack {
                 }
             });
             if ((i & 1) == 1) {
-                WorkThread.execute(new Runnable() { // from class:
-                                                    // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda28
+                WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda28
                     @Override // java.lang.Runnable
                     public final void run() {
                         CommonBean commonBean2 = commonBean;
@@ -235,8 +195,7 @@ public class OplusTrack {
                 });
             }
             if ((i & 2) == 2) {
-                WorkThread.execute(new Runnable() { // from class:
-                                                    // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda29
+                WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda29
                     @Override // java.lang.Runnable
                     public final void run() {
                         CommonBean commonBean2 = commonBean;
@@ -246,31 +205,21 @@ public class OplusTrack {
             }
             return true;
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
             return false;
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT
-     * ("onCommon logTag is ")
-     * (wrap:java.lang.String:0x000a: INVOKE (r2v0
-     * com.oplus.statistics.data.CommonBean) VIRTUAL call:
-     * com.oplus.statistics.data.CommonBean.getLogTag():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED])
-     * (",eventID:")
-     * (wrap:java.lang.String:0x0016: INVOKE (r2v0
-     * com.oplus.statistics.data.CommonBean) VIRTUAL call:
-     * com.oplus.statistics.data.CommonBean.getEventID():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED] (LINE:260))
-     * (",flagSendTo:")
-     * (r3v0 int)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("onCommon logTag is ")
+      (wrap:java.lang.String:0x000a: INVOKE (r2v0 com.oplus.statistics.data.CommonBean) VIRTUAL call: com.oplus.statistics.data.CommonBean.getLogTag():java.lang.String A[MD:():java.lang.String (m), WRAPPED])
+      (",eventID:")
+      (wrap:java.lang.String:0x0016: INVOKE (r2v0 com.oplus.statistics.data.CommonBean) VIRTUAL call: com.oplus.statistics.data.CommonBean.getEventID():java.lang.String A[MD:():java.lang.String (m), WRAPPED] (LINE:260))
+      (",flagSendTo:")
+      (r3v0 int)
+     A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onCommon$1(CommonBean commonBean, int i) {
-        return "onCommon logTag is " + commonBean.getLogTag() + ",eventID:" + commonBean.getEventID() + ",flagSendTo:"
-                + i;
+        return "onCommon logTag is " + commonBean.getLogTag() + ",eventID:" + commonBean.getEventID() + ",flagSendTo:" + i;
     }
 
     public static void onStaticDataUpdate(Context context, String str, String str2, Map<String, String> map) {
@@ -281,21 +230,12 @@ public class OplusTrack {
         onStaticDataUpdate(context, periodDataBean);
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT
-     * ("onStaticDataUpdate logTag:")
-     * (wrap:java.lang.String:0x000a: INVOKE (r2v0
-     * com.oplus.statistics.data.PeriodDataBean) VIRTUAL call:
-     * com.oplus.statistics.data.PeriodDataBean.getLogTag():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED])
-     * (", eventID:")
-     * (wrap:java.lang.String:0x0016: INVOKE (r2v0
-     * com.oplus.statistics.data.PeriodDataBean) VIRTUAL call:
-     * com.oplus.statistics.data.PeriodDataBean.getEventID():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED] (LINE:299))
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("onStaticDataUpdate logTag:")
+      (wrap:java.lang.String:0x000a: INVOKE (r2v0 com.oplus.statistics.data.PeriodDataBean) VIRTUAL call: com.oplus.statistics.data.PeriodDataBean.getLogTag():java.lang.String A[MD:():java.lang.String (m), WRAPPED])
+      (", eventID:")
+      (wrap:java.lang.String:0x0016: INVOKE (r2v0 com.oplus.statistics.data.PeriodDataBean) VIRTUAL call: com.oplus.statistics.data.PeriodDataBean.getEventID():java.lang.String A[MD:():java.lang.String (m), WRAPPED] (LINE:299))
+     A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onStaticDataUpdate$4(PeriodDataBean periodDataBean) {
         return "onStaticDataUpdate logTag:" + periodDataBean.getLogTag() + ", eventID:" + periodDataBean.getEventID();
     }
@@ -308,15 +248,14 @@ public class OplusTrack {
                     return OplusTrack.lambda$onStaticDataUpdate$4(periodDataBean);
                 }
             });
-            WorkThread.execute(new Runnable() { // from class:
-                                                // com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda13
+            WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda13
                 @Override // java.lang.Runnable
                 public final void run() {
                     StaticPeriodDataRecord.updateData(context, periodDataBean);
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -328,29 +267,16 @@ public class OplusTrack {
         onSettingKeyUpdate(context, settingKeyDataBean);
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT
-     * ("onSettingKeyUpdate logTag:")
-     * (wrap:java.lang.String:0x000a: INVOKE (r2v0
-     * com.oplus.statistics.data.SettingKeyDataBean) VIRTUAL call:
-     * com.oplus.statistics.data.SettingKeyDataBean.getLogTag():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED])
-     * (", eventID:")
-     * (wrap:java.lang.String:0x0016: INVOKE (r2v0
-     * com.oplus.statistics.data.SettingKeyDataBean) VIRTUAL call:
-     * com.oplus.statistics.data.SettingKeyDataBean.getEventID():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED] (LINE:327))
-     * (", keys:")
-     * (wrap:java.lang.String:0x0022: INVOKE (r2v0
-     * com.oplus.statistics.data.SettingKeyDataBean) VIRTUAL call:
-     * com.oplus.statistics.data.SettingKeyDataBean.getLogMap():java.lang.String
-     * A[MD:():java.lang.String (m), WRAPPED])
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("onSettingKeyUpdate logTag:")
+      (wrap:java.lang.String:0x000a: INVOKE (r2v0 com.oplus.statistics.data.SettingKeyDataBean) VIRTUAL call: com.oplus.statistics.data.SettingKeyDataBean.getLogTag():java.lang.String A[MD:():java.lang.String (m), WRAPPED])
+      (", eventID:")
+      (wrap:java.lang.String:0x0016: INVOKE (r2v0 com.oplus.statistics.data.SettingKeyDataBean) VIRTUAL call: com.oplus.statistics.data.SettingKeyDataBean.getEventID():java.lang.String A[MD:():java.lang.String (m), WRAPPED] (LINE:327))
+      (", keys:")
+      (wrap:java.lang.String:0x0022: INVOKE (r2v0 com.oplus.statistics.data.SettingKeyDataBean) VIRTUAL call: com.oplus.statistics.data.SettingKeyDataBean.getLogMap():java.lang.String A[MD:():java.lang.String (m), WRAPPED])
+     A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onSettingKeyUpdate$6(SettingKeyDataBean settingKeyDataBean) {
-        return "onSettingKeyUpdate logTag:" + settingKeyDataBean.getLogTag() + ", eventID:"
-                + settingKeyDataBean.getEventID() + ", keys:" + settingKeyDataBean.getLogMap();
+        return "onSettingKeyUpdate logTag:" + settingKeyDataBean.getLogTag() + ", eventID:" + settingKeyDataBean.getEventID() + ", keys:" + settingKeyDataBean.getLogMap();
     }
 
     public static void onSettingKeyUpdate(final Context context, final SettingKeyDataBean settingKeyDataBean) {
@@ -377,7 +303,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -385,11 +311,7 @@ public class OplusTrack {
         return VersionUtil.isSupportPeriodData(context);
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onSpecialAppStart appCode:"), (r2v0 int)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onSpecialAppStart appCode:"), (r2v0 int) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onSpecialAppStart$8(int i) {
         return "onSpecialAppStart appCode:" + i;
     }
@@ -405,12 +327,7 @@ public class OplusTrack {
         return onCommon(context, CLIENT_START, CLIENT_START, null);
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onEventStart eventID:"), (r2v0 java.lang.String),
-     * (",eventTag:"), (r3v0 java.lang.String) A[MD:():java.lang.String (c),
-     * SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onEventStart eventID:"), (r2v0 java.lang.String), (",eventTag:"), (r3v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onEventStart$9(String str, String str2) {
         return "onEventStart eventID:" + str + ",eventTag:" + str2;
     }
@@ -433,15 +350,11 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onEventStart eventID:"), (r2v0 java.lang.String)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onEventStart eventID:"), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onEventStart$10(String str) {
         return "onEventStart eventID:" + str;
     }
@@ -464,15 +377,11 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onEventEnd eventID:"), (r2v0 java.lang.String), (",eventTag:"),
-     * (r3v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onEventEnd eventID:"), (r2v0 java.lang.String), (",eventTag:"), (r3v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onEventEnd$11(String str, String str2) {
         return "onEventEnd eventID:" + str + ",eventTag:" + str2;
     }
@@ -495,15 +404,11 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onEventEnd eventID:"), (r2v0 java.lang.String)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onEventEnd eventID:"), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onEventEnd$12(String str) {
         return "onEventEnd eventID:" + str;
     }
@@ -526,22 +431,17 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onDynamicEvent uploadMode:"), (r2v0 int), (",statId:"), (r3v0
-     * int) A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onDynamicEvent uploadMode:"), (r2v0 int), (",statId:"), (r3v0 int) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onDynamicEvent$13(int i, int i2) {
         return "onDynamicEvent uploadMode:" + i + ",statId:" + i2;
     }
 
     @Deprecated
-    public static void onDynamicEvent(final Context context, final int i, final int i2, final Map<String, String> map,
-            final Map<String, String> map2) {
+    public static void onDynamicEvent(final Context context, final int i, final int i2, final Map<String, String> map, final Map<String, String> map2) {
         try {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda23
                 @Override // com.oplus.statistics.util.Supplier
@@ -556,33 +456,28 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT
-     * ("onStaticEvent uploadMode:")
-     * (r2v0 int)
-     * (",statId:")
-     * (r3v0 int)
-     * (",setId:")
-     * (r4v0 java.lang.String)
-     * (",setValue:")
-     * (r5v0 java.lang.String)
-     * (",remark:")
-     * (r6v0 java.lang.String)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("onStaticEvent uploadMode:")
+      (r2v0 int)
+      (",statId:")
+      (r3v0 int)
+      (",setId:")
+      (r4v0 java.lang.String)
+      (",setValue:")
+      (r5v0 java.lang.String)
+      (",remark:")
+      (r6v0 java.lang.String)
+     A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onStaticEvent$14(int i, int i2, String str, String str2, String str3) {
-        return "onStaticEvent uploadMode:" + i + ",statId:" + i2 + ",setId:" + str + ",setValue:" + str2 + ",remark:"
-                + str3;
+        return "onStaticEvent uploadMode:" + i + ",statId:" + i2 + ",setId:" + str + ",setValue:" + str2 + ",remark:" + str3;
     }
 
     @Deprecated
-    public static void onStaticEvent(final Context context, final int i, final int i2, final String str,
-            final String str2, final String str3, final Map<String, String> map) {
+    public static void onStaticEvent(final Context context, final int i, final int i2, final String str, final String str2, final String str3, final Map<String, String> map) {
         try {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda8
                 @Override // com.oplus.statistics.util.Supplier
@@ -597,27 +492,23 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT
-     * ("onKVEventStart eventID:")
-     * (r2v0 java.lang.String)
-     * (",eventTag:")
-     * (r3v0 java.lang.String)
-     * (",eventMap:")
-     * (r4v0 java.util.Map)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("onKVEventStart eventID:")
+      (r2v0 java.lang.String)
+      (",eventTag:")
+      (r3v0 java.lang.String)
+      (",eventMap:")
+      (r4v0 java.util.Map)
+     A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onKVEventStart$15(String str, String str2, Map map) {
         return "onKVEventStart eventID:" + str + ",eventTag:" + str2 + ",eventMap:" + map;
     }
 
-    public static void onKVEventStart(final Context context, final String str, final Map<String, String> map,
-            final String str2) {
+    public static void onKVEventStart(final Context context, final String str, final Map<String, String> map, final String str2) {
         try {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda24
                 @Override // com.oplus.statistics.util.Supplier
@@ -634,16 +525,11 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onKVEventEnd eventID:"), (r2v0 java.lang.String),
-     * (",eventTag:"), (r3v0 java.lang.String) A[MD:():java.lang.String (c),
-     * SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onKVEventEnd eventID:"), (r2v0 java.lang.String), (",eventTag:"), (r3v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onKVEventEnd$16(String str, String str2) {
         return "onKVEventEnd eventID:" + str + ",eventTag:" + str2;
     }
@@ -665,15 +551,11 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onKVEventStart eventID:"), (r2v0 java.lang.String)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onKVEventStart eventID:"), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onKVEventStart$17(String str) {
         return "onKVEventStart eventID:" + str;
     }
@@ -695,15 +577,11 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onKVEventEnd eventID:"), (r2v0 java.lang.String)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onKVEventEnd eventID:"), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onKVEventEnd$18(String str) {
         return "onKVEventEnd eventID:" + str;
     }
@@ -725,7 +603,7 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -739,7 +617,7 @@ public class OplusTrack {
             });
             sPageVisitAgent.onPause(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -753,7 +631,7 @@ public class OplusTrack {
             });
             sPageVisitAgent.onResume(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -770,7 +648,7 @@ public class OplusTrack {
                 sExceptionHandler.setStatisticsExceptionHandler();
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -792,21 +670,16 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT
-     * ("packageName:")
-     * (wrap:java.lang.String:0x000a: INVOKE (r2v0 android.content.Context) VIRTUAL
-     * call: android.content.Context.getPackageName():java.lang.String
-     * A[MD:():java.lang.String (c), WRAPPED])
-     * (",isDebug:")
-     * (r3v0 boolean)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT 
+      ("packageName:")
+      (wrap:java.lang.String:0x000a: INVOKE (r2v0 android.content.Context) VIRTUAL call: android.content.Context.getPackageName():java.lang.String A[MD:():java.lang.String (c), WRAPPED])
+      (",isDebug:")
+      (r3v0 boolean)
+     A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$onDebug$22(Context context, boolean z) {
         return "packageName:" + context.getPackageName() + ",isDebug:" + z;
     }
@@ -821,24 +694,16 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("onDebug (no context) sdk and dcs isDebug:"), (r2v0 boolean)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onDebug (no context) sdk and dcs isDebug:"), (r2v0 boolean) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$setDebug$23(boolean z) {
         return "onDebug (no context) sdk and dcs isDebug:" + z;
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("setSession timeout is "), (r2v0 int) A[MD:():java.lang.String
-     * (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("setSession timeout is "), (r2v0 int) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$setSessionTimeOut$24(int i) {
         return "setSession timeout is " + i;
     }
@@ -854,35 +719,30 @@ public class OplusTrack {
             try {
                 PreferenceHandler.setSessionTimeout(context, i);
             } catch (Exception e) {
-                LogUtil.e(TAG, () -> e.toString());
+                LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
             }
         }
     }
 
-    /*
-     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
-     * STR_CONCAT ("setSsoid ssoid is "), (r2v0 java.lang.String)
-     * A[MD:():java.lang.String (c), SYNTHETIC]
-     */
+    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("setSsoid ssoid is "), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
     static /* synthetic */ String lambda$setSsoID$25(String str) {
         return "setSsoid ssoid is " + str;
     }
 
-    public static void setSsoID(Context context, String str) {
+    public static void setSsoID(Context context, final String str) {
         LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda11
             @Override // com.oplus.statistics.util.Supplier
             public final Object get() {
                 return OplusTrack.lambda$setSsoID$25(str);
             }
         });
-        if (TextUtils.isEmpty(str) || "null".equals(str)) {
+        if (TextUtils.isEmpty(str) || str.equals("null")) {
             str = "0";
         }
-        final String effectivelyFinalStr = str;
         try {
-            PreferenceHandler.setSsoID(context, effectivelyFinalStr);
+            PreferenceHandler.setSsoID(context, str);
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 
@@ -896,7 +756,7 @@ public class OplusTrack {
             });
             PreferenceHandler.setSsoID(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, () -> e.toString());
+            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
         }
     }
 

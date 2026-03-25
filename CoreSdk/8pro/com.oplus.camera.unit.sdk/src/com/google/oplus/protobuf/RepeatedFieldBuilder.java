@@ -11,8 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /* JADX INFO: loaded from: classes.dex */
-public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
-        implements GeneratedMessage.BuilderParent {
+public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> implements GeneratedMessage.BuilderParent {
     private List<SingleFieldBuilder<MType, BType, IType>> builders;
     private BuilderExternalList<MType, BType, IType> externalBuilderList;
     private MessageExternalList<MType, BType, IType> externalMessageList;
@@ -78,8 +77,7 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
         ensureBuilders();
         SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = this.builders.get(i);
         if (singleFieldBuilder == null) {
-            SingleFieldBuilder<MType, BType, IType> singleFieldBuilder2 = new SingleFieldBuilder<>(this.messages.get(i),
-                    this, this.isClean);
+            SingleFieldBuilder<MType, BType, IType> singleFieldBuilder2 = new SingleFieldBuilder<>(this.messages.get(i), this, this.isClean);
             this.builders.set(i, singleFieldBuilder2);
             singleFieldBuilder = singleFieldBuilder2;
         }
@@ -170,8 +168,7 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
     public BType addBuilder(MType mtype) {
         ensureMutableMessageList();
         ensureBuilders();
-        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this,
-                this.isClean);
+        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this, this.isClean);
         this.messages.add(null);
         this.builders.add(singleFieldBuilder);
         onChanged();
@@ -182,8 +179,7 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
     public BType addBuilder(int i, MType mtype) {
         ensureMutableMessageList();
         ensureBuilders();
-        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this,
-                this.isClean);
+        SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = new SingleFieldBuilder<>(mtype, this, this.isClean);
         this.messages.add(i, null);
         this.builders.add(i, singleFieldBuilder);
         onChanged();
@@ -305,8 +301,7 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
         }
     }
 
-    private static class MessageExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
-            extends AbstractList<MType> implements List<MType> {
+    private static class MessageExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<MType> implements List<MType> {
         RepeatedFieldBuilder<MType, BType, IType> builder;
 
         MessageExternalList(RepeatedFieldBuilder<MType, BType, IType> repeatedFieldBuilder) {
@@ -329,8 +324,7 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
         }
     }
 
-    private static class BuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
-            extends AbstractList<BType> implements List<BType> {
+    private static class BuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<BType> implements List<BType> {
         RepeatedFieldBuilder<MType, BType, IType> builder;
 
         BuilderExternalList(RepeatedFieldBuilder<MType, BType, IType> repeatedFieldBuilder) {
@@ -353,8 +347,7 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
         }
     }
 
-    private static class MessageOrBuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
-            extends AbstractList<IType> implements List<IType> {
+    private static class MessageOrBuilderExternalList<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> extends AbstractList<IType> implements List<IType> {
         RepeatedFieldBuilder<MType, BType, IType> builder;
 
         MessageOrBuilderExternalList(RepeatedFieldBuilder<MType, BType, IType> repeatedFieldBuilder) {

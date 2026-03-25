@@ -20,15 +20,12 @@ public class OperationModeDecision {
     private static final String TAG = "OperationModeDecision";
     private static final int VEX_VALUE = 16;
 
-    public static void updateOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            CameraSessionEntity cameraSessionEntity, @NonNull Map<String, FeatureInterface> map) {
+    public static void updateOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig, CameraSessionEntity cameraSessionEntity, @NonNull Map<String, FeatureInterface> map) {
         String modeName = sdkCameraDeviceConfig.getModeName();
         String str = CameraConfigHelper.getModeOperationModeMap().get(modeName);
         String strCalculateOperationMode = parserFeatureOperationMode(sdkCameraDeviceConfig, map);
-        CameraUnitLog.d(TAG, "updateOperationMode, modeName: " + modeName + ", modeOperationMode: " + str
-                + ", featureOperationMode: " + strCalculateOperationMode);
-        if (strCalculateOperationMode == null || (!strCalculateOperationMode.startsWith(MODE_OPERATION_BEGINNING)
-                && 1 != Integer.parseInt(strCalculateOperationMode, 16))) {
+        CameraUnitLog.d(TAG, "updateOperationMode, modeName: " + modeName + ", modeOperationMode: " + str + ", featureOperationMode: " + strCalculateOperationMode);
+        if (strCalculateOperationMode == null || (!strCalculateOperationMode.startsWith(MODE_OPERATION_BEGINNING) && 1 != Integer.parseInt(strCalculateOperationMode, 16))) {
             strCalculateOperationMode = calculateOperationMode(str, strCalculateOperationMode);
         }
         CameraUnitLog.i(TAG, "updateOperationMode, the last Value, modeOperationMode: " + strCalculateOperationMode);
@@ -37,8 +34,7 @@ public class OperationModeDecision {
         }
     }
 
-    public static boolean isFeatureConfigLegal(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            Map<String, FeatureInterface> map) {
+    public static boolean isFeatureConfigLegal(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig, Map<String, FeatureInterface> map) {
         FeatureInterface featureInterface;
         Parameter configureParameter = sdkCameraDeviceConfig.getConfigureParameter();
         if (configureParameter.getCustomKeys() == null) {
@@ -49,9 +45,8 @@ public class OperationModeDecision {
         for (Parameter.Key<?> key : configureParameter.getCustomKeys()) {
             String name = key.getName();
             if (name != null && map != null && (featureInterface = getFeatureInterface(map, name)) != null) {
-                String str = (String) configureParameter.get(key);
-                if (ConfigureParameter.VIDEO_FPS.getName().equals(key.getName())
-                        && configureParameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS) != null) {
+                String str = configureParameter.get(key);
+                if (ConfigureParameter.VIDEO_FPS.getName().equals(key.getName()) && configureParameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS) != null) {
                     Range range = (Range) configureParameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
                     if (30 >= ((Integer) range.getUpper()).intValue()) {
                         str = "video_30fps";
@@ -66,13 +61,9 @@ public class OperationModeDecision {
                     }
                 }
                 boolean zIsFeatureValueLegal = featureInterface.isFeatureValueLegal(name, str);
-                boolean zIsFeatureConflictLegal = featureInterface.isFeatureConflictLegal(sdkCameraDeviceConfig, name,
-                        str);
+                boolean zIsFeatureConflictLegal = featureInterface.isFeatureConflictLegal(sdkCameraDeviceConfig, name, str);
                 if (!zIsFeatureValueLegal || !zIsFeatureConflictLegal) {
-                    CameraUnitLog.e(TAG,
-                            "isFeatureConfigLegal, featureName: " + name + " isValueLegal: " + zIsFeatureValueLegal
-                                    + ", isFeatureConflictLegal: " + zIsFeatureConflictLegal
-                                    + ", so don't set operation mode value");
+                    CameraUnitLog.e(TAG, "isFeatureConfigLegal, featureName: " + name + " isValueLegal: " + zIsFeatureValueLegal + ", isFeatureConflictLegal: " + zIsFeatureConflictLegal + ", so don't set operation mode value");
                     return false;
                 }
             }
@@ -80,8 +71,7 @@ public class OperationModeDecision {
         return true;
     }
 
-    private static String parserFeatureOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            Map<String, FeatureInterface> map) {
+    private static String parserFeatureOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig, Map<String, FeatureInterface> map) {
         Set<String> setKeySet = null;
         if (sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys() == null || map == null) {
             return null;
@@ -93,24 +83,21 @@ public class OperationModeDecision {
         String featureOperationPriority = parseFeatureOperationPriority(setKeySet, sdkCameraDeviceConfig, map);
         if (featureOperationPriority == null) {
             Iterator<Parameter.Key<?>> it = sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys().iterator();
-            while (it.hasNext() && (featureOperationPriority = getFeatureOperationMode(sdkCameraDeviceConfig, it.next(),
-                    map)) == null) {
+            while (it.hasNext() && (featureOperationPriority = getFeatureOperationMode(sdkCameraDeviceConfig, it.next(), map)) == null) {
             }
         }
         CameraUnitLog.d(TAG, "parserFeatureOperationMode, featureOperationMode: " + featureOperationPriority);
         return featureOperationPriority;
     }
 
-    private static String parseFeatureOperationPriority(Set<String> set, SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            Map<String, FeatureInterface> map) {
+    private static String parseFeatureOperationPriority(Set<String> set, SdkCameraDeviceConfig sdkCameraDeviceConfig, Map<String, FeatureInterface> map) {
         String featureOperationMode;
         if (set == null) {
             return null;
         }
         for (String str : set) {
             for (Parameter.Key<?> key : sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys()) {
-                if (str.equals(key.getName())
-                        && (featureOperationMode = getFeatureOperationMode(sdkCameraDeviceConfig, key, map)) != null) {
+                if (str.equals(key.getName()) && (featureOperationMode = getFeatureOperationMode(sdkCameraDeviceConfig, key, map)) != null) {
                     return featureOperationMode;
                 }
             }
@@ -118,24 +105,19 @@ public class OperationModeDecision {
         return null;
     }
 
-    private static String getFeatureOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig, Parameter.Key<?> key,
-            Map<String, FeatureInterface> map) {
+    private static String getFeatureOperationMode(SdkCameraDeviceConfig sdkCameraDeviceConfig, Parameter.Key<?> key, Map<String, FeatureInterface> map) {
         FeatureInterface featureInterface;
         String name = key.getName();
         if (name == null || (featureInterface = getFeatureInterface(map, name)) == null) {
             return null;
         }
-        String operationMode = featureInterface
-                .getOperationMode(sdkCameraDeviceConfig.getConfigureParameter().get(key));
+        String operationMode = featureInterface.getOperationMode(sdkCameraDeviceConfig.getConfigureParameter().get(key));
         CameraUnitLog.v(TAG, "getFeatureOperationMode, mappingName: " + name + ", configKeyMode: " + operationMode);
         return operationMode;
     }
 
     private static String calculateOperationMode(String str, String str2) {
-        return (str == null || str.isEmpty()) ? str2
-                : (str2 == null || str2.isEmpty()) ? str
-                        : Integer.toHexString(
-                                Integer.valueOf(str, 16).intValue() | Integer.valueOf(str2, 16).intValue());
+        return (str == null || str.isEmpty()) ? str2 : (str2 == null || str2.isEmpty()) ? str : Integer.toHexString(Integer.valueOf(str, 16).intValue() | Integer.valueOf(str2, 16).intValue());
     }
 
     private static FeatureInterface getFeatureInterface(@NonNull Map<String, FeatureInterface> map, String str) {

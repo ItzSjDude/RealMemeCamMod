@@ -51,34 +51,25 @@ class OplusExifParser {
     private static final Charset US_ASCII = Charset.forName("US-ASCII");
     private static final short TAG_EXIF_IFD = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_EXIF_IFD);
     private static final short TAG_GPS_IFD = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_GPS_IFD);
-    private static final short TAG_INTEROPERABILITY_IFD = OplusExifInterface
-            .getTrueTagKey(OplusExifInterface.TAG_INTEROPERABILITY_IFD);
-    private static final short TAG_JPEG_INTERCHANGE_FORMAT = OplusExifInterface
-            .getTrueTagKey(OplusExifInterface.TAG_JPEG_INTERCHANGE_FORMAT);
-    private static final short TAG_JPEG_INTERCHANGE_FORMAT_LENGTH = OplusExifInterface
-            .getTrueTagKey(OplusExifInterface.TAG_JPEG_INTERCHANGE_FORMAT_LENGTH);
-    private static final short TAG_STRIP_OFFSETS = OplusExifInterface
-            .getTrueTagKey(OplusExifInterface.TAG_STRIP_OFFSETS);
-    private static final short TAG_STRIP_BYTE_COUNTS = OplusExifInterface
-            .getTrueTagKey(OplusExifInterface.TAG_STRIP_BYTE_COUNTS);
+    private static final short TAG_INTEROPERABILITY_IFD = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_INTEROPERABILITY_IFD);
+    private static final short TAG_JPEG_INTERCHANGE_FORMAT = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_JPEG_INTERCHANGE_FORMAT);
+    private static final short TAG_JPEG_INTERCHANGE_FORMAT_LENGTH = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_JPEG_INTERCHANGE_FORMAT_LENGTH);
+    private static final short TAG_STRIP_OFFSETS = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_STRIP_OFFSETS);
+    private static final short TAG_STRIP_BYTE_COUNTS = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_STRIP_BYTE_COUNTS);
     private int mIfdStartOffset = 0;
     private int mNumOfTagInIfd = 0;
     private int mOffsetToApp1EndFromSOF = 0;
     private final TreeMap<Integer, Object> mCorrespondingEvent = new TreeMap<>();
 
     private boolean isIfdRequested(int i) {
-        return i != 0
-                ? i != 1 ? i != 2 ? i != 3 ? i == 4 && (this.mOptions & 8) != 0 : (this.mOptions & 16) != 0
-                        : (this.mOptions & 4) != 0 : (this.mOptions & 2) != 0
-                : (this.mOptions & 1) != 0;
+        return i != 0 ? i != 1 ? i != 2 ? i != 3 ? i == 4 && (this.mOptions & 8) != 0 : (this.mOptions & 16) != 0 : (this.mOptions & 4) != 0 : (this.mOptions & 2) != 0 : (this.mOptions & 1) != 0;
     }
 
     private boolean isThumbnailRequested() {
         return (this.mOptions & 32) != 0;
     }
 
-    private OplusExifParser(InputStream inputStream, int i, OplusExifInterface oplusExifInterface)
-            throws OplusExifInvalidFormatException, IOException {
+    private OplusExifParser(InputStream inputStream, int i, OplusExifInterface oplusExifInterface) throws OplusExifInvalidFormatException, IOException {
         this.mContainExifData = false;
         if (inputStream == null) {
             throw new IOException("Null argument inputStream to ExifParser");
@@ -108,13 +99,11 @@ class OplusExifParser {
         }
     }
 
-    protected static OplusExifParser parse(InputStream inputStream, int i, OplusExifInterface oplusExifInterface)
-            throws OplusExifInvalidFormatException, IOException {
+    protected static OplusExifParser parse(InputStream inputStream, int i, OplusExifInterface oplusExifInterface) throws OplusExifInvalidFormatException, IOException {
         return new OplusExifParser(inputStream, i, oplusExifInterface);
     }
 
-    protected static OplusExifParser parse(InputStream inputStream, OplusExifInterface oplusExifInterface)
-            throws OplusExifInvalidFormatException, IOException {
+    protected static OplusExifParser parse(InputStream inputStream, OplusExifInterface oplusExifInterface) throws OplusExifInvalidFormatException, IOException {
         return new OplusExifParser(inputStream, 63, oplusExifInterface);
     }
 
@@ -142,10 +131,7 @@ class OplusExifParser {
                     registerIfd(1, unsignedLong);
                 }
             } else {
-                int iIntValue = this.mCorrespondingEvent.size() > 0
-                        ? this.mCorrespondingEvent.firstEntry().getKey().intValue()
-                                - this.mTiffStream.getReadByteCount()
-                        : 4;
+                int iIntValue = this.mCorrespondingEvent.size() > 0 ? this.mCorrespondingEvent.firstEntry().getKey().intValue() - this.mTiffStream.getReadByteCount() : 4;
                 if (iIntValue < 4) {
                     Log.w(TAG, "Invalid size of link to next IFD: " + iIntValue);
                 } else {
@@ -194,8 +180,7 @@ class OplusExifParser {
                     }
                 }
             } catch (IOException unused) {
-                Log.w(TAG, "Failed to skip to data at: " + entryPollFirstEntry.getKey() + " for "
-                        + value.getClass().getName() + ", the file may be broken.");
+                Log.w(TAG, "Failed to skip to data at: " + entryPollFirstEntry.getKey() + " for " + value.getClass().getName() + ", the file may be broken.");
             }
         }
         return 5;
@@ -286,8 +271,7 @@ class OplusExifParser {
 
     protected void registerForTagValue(OplusExifTag oplusExifTag) {
         if (oplusExifTag.getOffset() >= this.mTiffStream.getReadByteCount()) {
-            this.mCorrespondingEvent.put(Integer.valueOf(oplusExifTag.getOffset()),
-                    new ExifTagEvent(oplusExifTag, true));
+            this.mCorrespondingEvent.put(Integer.valueOf(oplusExifTag.getOffset()), new ExifTagEvent(oplusExifTag, true));
         }
     }
 
@@ -334,7 +318,7 @@ class OplusExifParser {
             oplusExifTag.setHasDefinedCount(false);
             readFullTagValue(oplusExifTag);
             oplusExifTag.setHasDefinedCount(zHasDefinedCount);
-            this.mTiffStream.skip(4 - oplusExifTag.getDataSize());
+            this.mTiffStream.skip(4 - r1);
             oplusExifTag.setOffset(this.mTiffStream.getReadByteCount() - 4);
         }
         return oplusExifTag;
@@ -374,8 +358,7 @@ class OplusExifParser {
             }
             return;
         }
-        if (tagId == TAG_JPEG_INTERCHANGE_FORMAT_LENGTH
-                && checkAllowed(ifd, OplusExifInterface.TAG_JPEG_INTERCHANGE_FORMAT_LENGTH)) {
+        if (tagId == TAG_JPEG_INTERCHANGE_FORMAT_LENGTH && checkAllowed(ifd, OplusExifInterface.TAG_JPEG_INTERCHANGE_FORMAT_LENGTH)) {
             if (isThumbnailRequested()) {
                 this.mJpegSizeTag = oplusExifTag;
                 return;
@@ -390,14 +373,12 @@ class OplusExifParser {
                     }
                     return;
                 }
-                this.mCorrespondingEvent.put(Integer.valueOf(oplusExifTag.getOffset()),
-                        new ExifTagEvent(oplusExifTag, false));
+                this.mCorrespondingEvent.put(Integer.valueOf(oplusExifTag.getOffset()), new ExifTagEvent(oplusExifTag, false));
                 return;
             }
             return;
         }
-        if (tagId == TAG_STRIP_BYTE_COUNTS && checkAllowed(ifd, OplusExifInterface.TAG_STRIP_BYTE_COUNTS)
-                && isThumbnailRequested() && oplusExifTag.hasValue()) {
+        if (tagId == TAG_STRIP_BYTE_COUNTS && checkAllowed(ifd, OplusExifInterface.TAG_STRIP_BYTE_COUNTS) && isThumbnailRequested() && oplusExifTag.hasValue()) {
             this.mStripSizeTag = oplusExifTag;
         }
     }
@@ -415,24 +396,19 @@ class OplusExifParser {
             short dataType = oplusExifTag.getDataType();
             if (dataType == 2 || dataType == 7 || dataType == 1) {
                 int componentCount = oplusExifTag.getComponentCount();
-                if (this.mCorrespondingEvent.size() > 0 && this.mCorrespondingEvent.firstEntry().getKey()
-                        .intValue() < this.mTiffStream.getReadByteCount() + componentCount) {
+                if (this.mCorrespondingEvent.size() > 0 && this.mCorrespondingEvent.firstEntry().getKey().intValue() < this.mTiffStream.getReadByteCount() + componentCount) {
                     Object value = this.mCorrespondingEvent.firstEntry().getValue();
                     if (value instanceof ImageEvent) {
                         Log.w(TAG, "Thumbnail overlaps value for tag: \n" + oplusExifTag.toString());
                         Log.w(TAG, "Invalid thumbnail offset: " + this.mCorrespondingEvent.pollFirstEntry().getKey());
                     } else {
                         if (value instanceof IfdEvent) {
-                            Log.w(TAG, "Ifd " + ((IfdEvent) value).ifd + " overlaps value for tag: \n"
-                                    + oplusExifTag.toString());
+                            Log.w(TAG, "Ifd " + ((IfdEvent) value).ifd + " overlaps value for tag: \n" + oplusExifTag.toString());
                         } else if (value instanceof ExifTagEvent) {
-                            Log.w(TAG, "Tag value for tag: \n" + ((ExifTagEvent) value).tag.toString()
-                                    + " overlaps value for tag: \n" + oplusExifTag.toString());
+                            Log.w(TAG, "Tag value for tag: \n" + ((ExifTagEvent) value).tag.toString() + " overlaps value for tag: \n" + oplusExifTag.toString());
                         }
-                        int iIntValue = this.mCorrespondingEvent.firstEntry().getKey().intValue()
-                                - this.mTiffStream.getReadByteCount();
-                        Log.w(TAG, "Invalid size of tag: \n" + oplusExifTag.toString() + " setting count to: "
-                                + iIntValue);
+                        int iIntValue = this.mCorrespondingEvent.firstEntry().getKey().intValue() - this.mTiffStream.getReadByteCount();
+                        Log.w(TAG, "Invalid size of tag: \n" + oplusExifTag.toString() + " setting count to: " + iIntValue);
                         oplusExifTag.forceSetComponentCount(iIntValue);
                     }
                 }
@@ -518,8 +494,7 @@ class OplusExifParser {
         if (oplusCountedDataInputStream.readShort() != -40) {
             throw new OplusExifInvalidFormatException("Invalid JPEG format");
         }
-        for (short s = oplusCountedDataInputStream.readShort(); s != -39
-                && !OplusJpegHeader.isSofMarker(s); s = oplusCountedDataInputStream.readShort()) {
+        for (short s = oplusCountedDataInputStream.readShort(); s != -39 && !OplusJpegHeader.isSofMarker(s); s = oplusCountedDataInputStream.readShort()) {
             int unsignedShort = oplusCountedDataInputStream.readUnsignedShort();
             if (s == -31 && unsignedShort >= 8) {
                 int i = oplusCountedDataInputStream.readInt();
