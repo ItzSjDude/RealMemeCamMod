@@ -45,8 +45,9 @@ final class Protobuf {
         return schema2 != null ? schema2 : schemaCreateSchema;
     }
 
+    @SuppressWarnings("unchecked")
     public <T> Schema<T> schemaFor(T t) {
-        return schemaFor((Class) t.getClass());
+        return schemaFor((Class<T>) t.getClass());
     }
 
     public Schema<?> registerSchema(Class<?> cls, Schema<?> schema) {

@@ -1,11 +1,5 @@
 package com.google.oplus.protobuf;
 
-import com.google.oplus.protobuf.Internal;
-import com.google.oplus.protobuf.MapEntryLite;
-import com.google.oplus.protobuf.Utf8;
-import com.google.oplus.protobuf.WireFormat;
-import com.google.oplus.protobuf.Writer;
-import com.oplus.exif.OplusExifTag;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -72,7 +66,14 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
 
     abstract void writeVarint64(long j);
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.BufferAllocator), (r2v0 int) A[MD:(com.google.oplus.protobuf.BufferAllocator, int):void (m)] (LINE:69) call: com.google.oplus.protobuf.BinaryWriter.<init>(com.google.oplus.protobuf.BufferAllocator, int):void type: THIS */
+    /*
+     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+     * 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.BufferAllocator), (r2v0
+     * int) A[MD:(com.google.oplus.protobuf.BufferAllocator, int):void (m)]
+     * (LINE:69) call:
+     * com.google.oplus.protobuf.BinaryWriter.<init>(com.google.oplus.protobuf.
+     * BufferAllocator, int):void type: THIS
+     */
     /* synthetic */ BinaryWriter(BufferAllocator bufferAllocator, int i, AnonymousClass1 anonymousClass1) {
         this(bufferAllocator, i);
     }
@@ -616,7 +617,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.BinaryWriter$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.BinaryWriter$1, reason:
+     * invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -694,7 +698,8 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
     }
 
-    static final void writeMapEntryField(Writer writer, int i, WireFormat.FieldType fieldType, Object obj) throws IOException {
+    static final void writeMapEntryField(Writer writer, int i, WireFormat.FieldType fieldType, Object obj)
+            throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 writer.writeBool(i, ((Boolean) obj).booleanValue());
@@ -800,9 +805,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
     }
 
     @Override // com.google.oplus.protobuf.Writer
-    public final void writeMessageList(int i, List<?> list, Schema schema) throws IOException {
+    @SuppressWarnings("unchecked")
+    public final void writeMessageList(int i, List<?> list, Schema<?> schema) throws IOException {
         for (int size = list.size() - 1; size >= 0; size--) {
-            writeMessage(i, list.get(size), schema);
+            writeMessage(i, list.get(size), (Schema<Object>) schema);
         }
     }
 
@@ -814,9 +820,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
     }
 
     @Override // com.google.oplus.protobuf.Writer
-    public final void writeGroupList(int i, List<?> list, Schema schema) throws IOException {
+    @SuppressWarnings("unchecked")
+    public final void writeGroupList(int i, List<?> list, Schema<?> schema) throws IOException {
         for (int size = list.size() - 1; size >= 0; size--) {
-            writeGroup(i, list.get(size), schema);
+            writeGroup(i, list.get(size), (Schema<Object>) schema);
         }
     }
 
@@ -1002,9 +1009,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeMessage(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeMessage(int i, Object obj, Schema<?> schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
             writeVarint32(totalBytesWritten2);
@@ -1019,9 +1027,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeGroup(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeGroup(int i, Object obj, Schema<?> schema) throws IOException {
             writeTag(i, 4);
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             writeTag(i, 3);
         }
 
@@ -1660,9 +1669,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeMessage(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeMessage(int i, Object obj, Schema<?> schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
             writeVarint32(totalBytesWritten2);
@@ -1677,9 +1687,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeGroup(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeGroup(int i, Object obj, Schema<?> schema) throws IOException {
             writeTag(i, 4);
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             writeTag(i, 3);
         }
 
@@ -2159,13 +2170,13 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         /* JADX DEBUG: Move duplicate insns, count: 1 to block B:3:0x000d */
-        /* JADX WARN: Removed duplicated region for block: B:17:0x0048  */
-        /* JADX WARN: Removed duplicated region for block: B:22:0x0073  */
-        /* JADX WARN: Removed duplicated region for block: B:29:0x00b5  */
+        /* JADX WARN: Removed duplicated region for block: B:17:0x0048 */
+        /* JADX WARN: Removed duplicated region for block: B:22:0x0073 */
+        /* JADX WARN: Removed duplicated region for block: B:29:0x00b5 */
         @Override // com.google.oplus.protobuf.BinaryWriter
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         void writeString(String str) {
             char cCharAt;
             requireSpace(str.length());
@@ -2263,7 +2274,8 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         @Override // com.google.oplus.protobuf.ByteOutput
         public void write(byte[] bArr, int i, int i2) {
             if (i < 0 || i + i2 > bArr.length) {
-                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             requireSpace(i2);
             this.pos -= (long) i2;
@@ -2273,7 +2285,8 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         @Override // com.google.oplus.protobuf.ByteOutput
         public void writeLazy(byte[] bArr, int i, int i2) {
             if (i < 0 || i + i2 > bArr.length) {
-                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("value.length=%d, offset=%d, length=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             if (spaceLeft() < i2) {
                 this.totalDoneBytes += i2;
@@ -2463,9 +2476,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeMessage(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeMessage(int i, Object obj, Schema<?> schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
             writeVarint32(totalBytesWritten2);
@@ -2480,9 +2494,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeGroup(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeGroup(int i, Object obj, Schema<?> schema) throws IOException {
             writeTag(i, 4);
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             writeTag(i, 3);
         }
 
@@ -2566,7 +2581,8 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint32FourBytes(int i) {
             int i2 = this.pos - 4;
             this.pos = i2;
-            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2) | (((i & 16256) | 16384) << 1));
+            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2)
+                    | (((i & 16256) | 16384) << 1));
         }
 
         private void writeVarint32FiveBytes(int i) {
@@ -2576,7 +2592,8 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
             byteBuffer.put(i2, (byte) (i >>> 28));
             int i3 = this.pos - 4;
             this.pos = i3;
-            this.buffer.putInt(i3 + 1, (i & 127) | 128 | ((((i >>> 21) & 127) | 128) << 24) | ((((i >>> 14) & 127) | 128) << 16) | ((((i >>> 7) & 127) | 128) << 8));
+            this.buffer.putInt(i3 + 1, (i & 127) | 128 | ((((i >>> 21) & 127) | 128) << 24)
+                    | ((((i >>> 14) & 127) | 128) << 16) | ((((i >>> 7) & 127) | 128) << 8));
         }
 
         @Override // com.google.oplus.protobuf.BinaryWriter
@@ -2634,31 +2651,50 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint64FiveBytes(long j) {
             int i = this.pos - 5;
             this.pos = i;
-            this.buffer.putLong(i - 2, (((j & 127) | 128) << 24) | ((34091302912L & j) << 28) | (((266338304 & j) | 268435456) << 27) | (((2080768 & j) | 2097152) << 26) | (((16256 & j) | 16384) << 25));
+            this.buffer.putLong(i - 2,
+                    (((j & 127) | 128) << 24) | ((34091302912L & j) << 28) | (((266338304 & j) | 268435456) << 27)
+                            | (((2080768 & j) | 2097152) << 26) | (((16256 & j) | 16384) << 25));
         }
 
         private void writeVarint64SixBytes(long j) {
             int i = this.pos - 6;
             this.pos = i;
-            this.buffer.putLong(i - 1, (((j & 127) | 128) << 16) | ((4363686772736L & j) << 21) | (((34091302912L & j) | 34359738368L) << 20) | (((266338304 & j) | 268435456) << 19) | (((2080768 & j) | 2097152) << 18) | (((16256 & j) | 16384) << 17));
+            this.buffer.putLong(i - 1,
+                    (((j & 127) | 128) << 16) | ((4363686772736L & j) << 21)
+                            | (((34091302912L & j) | 34359738368L) << 20) | (((266338304 & j) | 268435456) << 19)
+                            | (((2080768 & j) | 2097152) << 18) | (((16256 & j) | 16384) << 17));
         }
 
         private void writeVarint64SevenBytes(long j) {
             int i = this.pos - 7;
             this.pos = i;
-            this.buffer.putLong(i, (((j & 127) | 128) << 8) | ((558551906910208L & j) << 14) | (((4363686772736L & j) | 4398046511104L) << 13) | (((34091302912L & j) | 34359738368L) << 12) | (((266338304 & j) | 268435456) << 11) | (((2080768 & j) | 2097152) << 10) | (((16256 & j) | 16384) << 9));
+            this.buffer.putLong(i,
+                    (((j & 127) | 128) << 8) | ((558551906910208L & j) << 14)
+                            | (((4363686772736L & j) | 4398046511104L) << 13)
+                            | (((34091302912L & j) | 34359738368L) << 12) | (((266338304 & j) | 268435456) << 11)
+                            | (((2080768 & j) | 2097152) << 10) | (((16256 & j) | 16384) << 9));
         }
 
         private void writeVarint64EightBytes(long j) {
             int i = this.pos - 8;
             this.pos = i;
-            this.buffer.putLong(i + 1, (j & 127) | 128 | ((71494644084506624L & j) << 7) | (((558551906910208L & j) | 562949953421312L) << 6) | (((4363686772736L & j) | 4398046511104L) << 5) | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3) | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
+            this.buffer.putLong(i + 1,
+                    (j & 127) | 128 | ((71494644084506624L & j) << 7)
+                            | (((558551906910208L & j) | 562949953421312L) << 6)
+                            | (((4363686772736L & j) | 4398046511104L) << 5)
+                            | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3)
+                            | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
         }
 
         private void writeVarint64EightBytesWithSign(long j) {
             int i = this.pos - 8;
             this.pos = i;
-            this.buffer.putLong(i + 1, (j & 127) | 128 | (((71494644084506624L & j) | 72057594037927936L) << 7) | (((558551906910208L & j) | 562949953421312L) << 6) | (((4363686772736L & j) | 4398046511104L) << 5) | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3) | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
+            this.buffer.putLong(i + 1,
+                    (j & 127) | 128 | (((71494644084506624L & j) | 72057594037927936L) << 7)
+                            | (((558551906910208L & j) | 562949953421312L) << 6)
+                            | (((4363686772736L & j) | 4398046511104L) << 5)
+                            | (((34091302912L & j) | 34359738368L) << 4) | (((266338304 & j) | 268435456) << 3)
+                            | (((2080768 & j) | 2097152) << 2) | (((16256 & j) | 16384) << 1));
         }
 
         private void writeVarint64NineBytes(long j) {
@@ -3002,9 +3038,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeMessage(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeMessage(int i, Object obj, Schema<?> schema) throws IOException {
             int totalBytesWritten = getTotalBytesWritten();
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             int totalBytesWritten2 = getTotalBytesWritten() - totalBytesWritten;
             requireSpace(10);
             writeVarint32(totalBytesWritten2);
@@ -3019,9 +3056,10 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         @Override // com.google.oplus.protobuf.Writer
-        public void writeGroup(int i, Object obj, Schema schema) throws IOException {
+        @SuppressWarnings("unchecked")
+        public void writeGroup(int i, Object obj, Schema<?> schema) throws IOException {
             writeTag(i, 4);
-            schema.writeTo(obj, this);
+            ((Schema<Object>) schema).writeTo(obj, this);
             writeTag(i, 3);
         }
 
@@ -3419,13 +3457,13 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         }
 
         /* JADX DEBUG: Move duplicate insns, count: 1 to block B:3:0x000d */
-        /* JADX WARN: Removed duplicated region for block: B:17:0x0044  */
-        /* JADX WARN: Removed duplicated region for block: B:22:0x006b  */
-        /* JADX WARN: Removed duplicated region for block: B:29:0x00a7  */
+        /* JADX WARN: Removed duplicated region for block: B:17:0x0044 */
+        /* JADX WARN: Removed duplicated region for block: B:22:0x006b */
+        /* JADX WARN: Removed duplicated region for block: B:29:0x00a7 */
         @Override // com.google.oplus.protobuf.BinaryWriter
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         void writeString(String str) {
             char cCharAt;
             requireSpace(str.length());

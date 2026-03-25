@@ -124,8 +124,8 @@ public class MapEntryLite<K, V> {
 
     static <K, V> Map.Entry<K, V> parseEntry(CodedInputStream codedInputStream, Metadata<K, V> metadata,
             ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        Object field = metadata.defaultKey;
-        Object field2 = metadata.defaultValue;
+        K field = metadata.defaultKey;
+        V field2 = metadata.defaultValue;
         while (true) {
             int tag = codedInputStream.readTag();
             if (tag == 0) {
@@ -139,7 +139,7 @@ public class MapEntryLite<K, V> {
                 break;
             }
         }
-        return new AbstractMap.SimpleImmutableEntry(field, field2);
+        return new AbstractMap.SimpleImmutableEntry<>(field, field2);
     }
 
     /*
@@ -150,8 +150,8 @@ public class MapEntryLite<K, V> {
     public void parseInto(MapFieldLite<K, V> mapFieldLite, CodedInputStream codedInputStream,
             ExtensionRegistryLite extensionRegistryLite) throws IOException {
         int iPushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
-        Object field = this.metadata.defaultKey;
-        Object field2 = this.metadata.defaultValue;
+        K field = this.metadata.defaultKey;
+        V field2 = this.metadata.defaultValue;
         while (true) {
             int tag = codedInputStream.readTag();
             if (tag == 0) {

@@ -1,6 +1,5 @@
 package com.google.oplus.protobuf;
 
-import com.google.oplus.protobuf.MessageLite;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +11,6 @@ import java.util.List;
 
 /* JADX INFO: loaded from: classes.dex */
 public abstract class CodedInputStream {
-    private static final int DEFAULT_BUFFER_SIZE = 4096;
-    private static final int DEFAULT_SIZE_LIMIT = Integer.MAX_VALUE;
     private static volatile int defaultRecursionLimit = 100;
     int recursionDepth;
     int recursionLimit;
@@ -63,17 +60,21 @@ public abstract class CodedInputStream {
 
     public abstract float readFloat() throws IOException;
 
-    public abstract <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException;
+    public abstract <T extends MessageLite> T readGroup(int i, Parser<T> parser,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException;
 
-    public abstract void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException;
+    public abstract void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException;
 
     public abstract int readInt32() throws IOException;
 
     public abstract long readInt64() throws IOException;
 
-    public abstract <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException;
+    public abstract <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException;
 
-    public abstract void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException;
+    public abstract void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException;
 
     public abstract byte readRawByte() throws IOException;
 
@@ -185,7 +186,8 @@ public abstract class CodedInputStream {
 
     static CodedInputStream newInstance(ByteBuffer byteBuffer, boolean z) {
         if (byteBuffer.hasArray()) {
-            return newInstance(byteBuffer.array(), byteBuffer.arrayOffset() + byteBuffer.position(), byteBuffer.remaining(), z);
+            return newInstance(byteBuffer.array(), byteBuffer.arrayOffset() + byteBuffer.position(),
+                    byteBuffer.remaining(), z);
         }
         if (byteBuffer.isDirect() && UnsafeDirectNioDecoder.isSupported()) {
             return new UnsafeDirectNioDecoder(byteBuffer, z);
@@ -499,7 +501,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             builder.mergeFrom(this, extensionRegistryLite);
@@ -508,7 +511,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             T partialFrom = parser.parsePartialFrom(this, extensionRegistryLite);
@@ -524,7 +528,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -539,7 +544,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -638,14 +644,15 @@ public abstract class CodedInputStream {
             return decodeZigZag64(readRawVarint64());
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:33:0x0068, code lost:
-        
-            if (r2[r3] < 0) goto L34;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:33:0x0068, code lost:
+         * 
+         * if (r2[r3] < 0) goto L34;
          */
         @Override // com.google.oplus.protobuf.CodedInputStream
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         public int readRawVarint32() throws IOException {
             int i;
             int i2 = this.pos;
@@ -732,18 +739,19 @@ public abstract class CodedInputStream {
             throw InvalidProtocolBufferException.malformedVarint();
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:39:0x00b4, code lost:
-        
-            if (r2[r0] < 0) goto L40;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:39:0x00b4, code lost:
+         * 
+         * if (r2[r0] < 0) goto L40;
          */
         @Override // com.google.oplus.protobuf.CodedInputStream
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         public long readRawVarint64() throws IOException {
-            long j;
-            long j2;
-            long j3;
+            long j = 0;
+            long j2 = 0;
+            long j3 = 0;
             int i;
             int i2 = this.pos;
             int i3 = this.limit;
@@ -837,7 +845,8 @@ public abstract class CodedInputStream {
             }
             byte[] bArr = this.buffer;
             this.pos = i + 4;
-            return (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16) | ((bArr[i + 3] & 255) << 24);
+            return (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16)
+                    | ((bArr[i + 3] & 255) << 24);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -848,7 +857,10 @@ public abstract class CodedInputStream {
             }
             byte[] bArr = this.buffer;
             this.pos = i + 8;
-            return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8) | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24) | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40) | ((((long) bArr[i + 6]) & 255) << 48);
+            return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8)
+                    | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24)
+                    | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40)
+                    | ((((long) bArr[i + 6]) & 255) << 48);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -1192,7 +1204,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             builder.mergeFrom(this, extensionRegistryLite);
@@ -1201,7 +1214,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             T partialFrom = parser.parsePartialFrom(this, extensionRegistryLite);
@@ -1217,7 +1231,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -1232,7 +1247,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -1334,14 +1350,15 @@ public abstract class CodedInputStream {
             return decodeZigZag64(readRawVarint64());
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:33:0x0083, code lost:
-        
-            if (com.google.oplus.protobuf.UnsafeUtil.getByte(r4) < 0) goto L34;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:33:0x0083, code lost:
+         * 
+         * if (com.google.oplus.protobuf.UnsafeUtil.getByte(r4) < 0) goto L34;
          */
         @Override // com.google.oplus.protobuf.CodedInputStream
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         public int readRawVarint32() throws IOException {
             int i;
             long j = this.pos;
@@ -1470,7 +1487,8 @@ public abstract class CodedInputStream {
                                             j10 = j8 ^ (((long) UnsafeUtil.getByte(j7)) << 49);
                                             if (j10 >= 0) {
                                                 j7 = j9 + 1;
-                                                j = (j10 ^ (((long) UnsafeUtil.getByte(j9)) << 56)) ^ 71499008037633920L;
+                                                j = (j10 ^ (((long) UnsafeUtil.getByte(j9)) << 56))
+                                                        ^ 71499008037633920L;
                                                 if (j < 0) {
                                                     long j11 = 1 + j7;
                                                     if (UnsafeUtil.getByte(j7) >= 0) {
@@ -1525,7 +1543,8 @@ public abstract class CodedInputStream {
                 throw InvalidProtocolBufferException.truncatedMessage();
             }
             this.pos = 4 + j;
-            return (UnsafeUtil.getByte(j) & 255) | ((UnsafeUtil.getByte(1 + j) & 255) << 8) | ((UnsafeUtil.getByte(2 + j) & 255) << 16) | ((UnsafeUtil.getByte(j + 3) & 255) << 24);
+            return (UnsafeUtil.getByte(j) & 255) | ((UnsafeUtil.getByte(1 + j) & 255) << 8)
+                    | ((UnsafeUtil.getByte(2 + j) & 255) << 16) | ((UnsafeUtil.getByte(j + 3) & 255) << 24);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -1535,7 +1554,13 @@ public abstract class CodedInputStream {
                 throw InvalidProtocolBufferException.truncatedMessage();
             }
             this.pos = 8 + j;
-            return ((((long) UnsafeUtil.getByte(j + 7)) & 255) << 56) | (((long) UnsafeUtil.getByte(j)) & 255) | ((((long) UnsafeUtil.getByte(1 + j)) & 255) << 8) | ((((long) UnsafeUtil.getByte(2 + j)) & 255) << 16) | ((((long) UnsafeUtil.getByte(3 + j)) & 255) << 24) | ((((long) UnsafeUtil.getByte(4 + j)) & 255) << 32) | ((((long) UnsafeUtil.getByte(5 + j)) & 255) << 40) | ((((long) UnsafeUtil.getByte(6 + j)) & 255) << 48);
+            return ((((long) UnsafeUtil.getByte(j + 7)) & 255) << 56) | (((long) UnsafeUtil.getByte(j)) & 255)
+                    | ((((long) UnsafeUtil.getByte(1 + j)) & 255) << 8)
+                    | ((((long) UnsafeUtil.getByte(2 + j)) & 255) << 16)
+                    | ((((long) UnsafeUtil.getByte(3 + j)) & 255) << 24)
+                    | ((((long) UnsafeUtil.getByte(4 + j)) & 255) << 32)
+                    | ((((long) UnsafeUtil.getByte(5 + j)) & 255) << 40)
+                    | ((((long) UnsafeUtil.getByte(6 + j)) & 255) << 48);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -1661,7 +1686,8 @@ public abstract class CodedInputStream {
                     byteBuffer.limit(bufferPos(j2));
                     return this.buffer.slice();
                 } catch (IllegalArgumentException e) {
-                    InvalidProtocolBufferException invalidProtocolBufferExceptionTruncatedMessage = InvalidProtocolBufferException.truncatedMessage();
+                    InvalidProtocolBufferException invalidProtocolBufferExceptionTruncatedMessage = InvalidProtocolBufferException
+                            .truncatedMessage();
                     invalidProtocolBufferExceptionTruncatedMessage.initCause(e);
                     throw invalidProtocolBufferExceptionTruncatedMessage;
                 }
@@ -1862,14 +1888,16 @@ public abstract class CodedInputStream {
                 if (this.byteArrayStream == null) {
                     this.byteArrayStream = new ByteArrayOutputStream();
                 }
-                this.byteArrayStream.write(StreamDecoder.this.buffer, this.lastPos, StreamDecoder.this.pos - this.lastPos);
+                this.byteArrayStream.write(StreamDecoder.this.buffer, this.lastPos,
+                        StreamDecoder.this.pos - this.lastPos);
                 this.lastPos = 0;
             }
 
             ByteBuffer getSkippedData() {
                 ByteArrayOutputStream byteArrayOutputStream = this.byteArrayStream;
                 if (byteArrayOutputStream == null) {
-                    return ByteBuffer.wrap(StreamDecoder.this.buffer, this.lastPos, StreamDecoder.this.pos - this.lastPos);
+                    return ByteBuffer.wrap(StreamDecoder.this.buffer, this.lastPos,
+                            StreamDecoder.this.pos - this.lastPos);
                 }
                 byteArrayOutputStream.write(StreamDecoder.this.buffer, this.lastPos, StreamDecoder.this.pos);
                 return ByteBuffer.wrap(this.byteArrayStream.toByteArray());
@@ -1966,7 +1994,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             builder.mergeFrom(this, extensionRegistryLite);
@@ -1975,7 +2004,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             T partialFrom = parser.parsePartialFrom(this, extensionRegistryLite);
@@ -1991,7 +2021,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -2006,7 +2037,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -2096,14 +2128,15 @@ public abstract class CodedInputStream {
             return decodeZigZag64(readRawVarint64());
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:33:0x0068, code lost:
-        
-            if (r2[r3] < 0) goto L34;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:33:0x0068, code lost:
+         * 
+         * if (r2[r3] < 0) goto L34;
          */
         @Override // com.google.oplus.protobuf.CodedInputStream
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         public int readRawVarint32() throws IOException {
             int i;
             int i2 = this.pos;
@@ -2190,14 +2223,15 @@ public abstract class CodedInputStream {
             throw InvalidProtocolBufferException.malformedVarint();
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:39:0x00b4, code lost:
-        
-            if (r2[r0] < 0) goto L40;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:39:0x00b4, code lost:
+         * 
+         * if (r2[r0] < 0) goto L40;
          */
         @Override // com.google.oplus.protobuf.CodedInputStream
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         public long readRawVarint64() throws IOException {
             long j;
             long j2;
@@ -2296,7 +2330,8 @@ public abstract class CodedInputStream {
             }
             byte[] bArr = this.buffer;
             this.pos = i + 4;
-            return (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16) | ((bArr[i + 3] & 255) << 24);
+            return (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16)
+                    | ((bArr[i + 3] & 255) << 24);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -2308,7 +2343,10 @@ public abstract class CodedInputStream {
             }
             byte[] bArr = this.buffer;
             this.pos = i + 8;
-            return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8) | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24) | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40) | ((((long) bArr[i + 6]) & 255) << 48);
+            return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8)
+                    | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24)
+                    | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40)
+                    | ((((long) bArr[i + 6]) & 255) << 48);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -2382,7 +2420,8 @@ public abstract class CodedInputStream {
 
         private boolean tryRefillBuffer(int i) throws IOException {
             if (this.pos + i <= this.bufferSize) {
-                throw new IllegalStateException("refillBuffer() called when " + i + " bytes were already available in buffer");
+                throw new IllegalStateException(
+                        "refillBuffer() called when " + i + " bytes were already available in buffer");
             }
             int i2 = this.sizeLimit;
             int i3 = this.totalBytesRetired;
@@ -2408,9 +2447,11 @@ public abstract class CodedInputStream {
             InputStream inputStream = this.input;
             byte[] bArr2 = this.buffer;
             int i7 = this.bufferSize;
-            int i8 = read(inputStream, bArr2, i7, Math.min(bArr2.length - i7, (this.sizeLimit - this.totalBytesRetired) - this.bufferSize));
+            int i8 = read(inputStream, bArr2, i7,
+                    Math.min(bArr2.length - i7, (this.sizeLimit - this.totalBytesRetired) - this.bufferSize));
             if (i8 == 0 || i8 < -1 || i8 > this.buffer.length) {
-                throw new IllegalStateException(this.input.getClass() + "#read(byte[]) returned invalid result: " + i8 + "\nThe InputStream implementation is buggy.");
+                throw new IllegalStateException(this.input.getClass() + "#read(byte[]) returned invalid result: " + i8
+                        + "\nThe InputStream implementation is buggy.");
             }
             if (i8 <= 0) {
                 return false;
@@ -2579,7 +2620,8 @@ public abstract class CodedInputStream {
                         long j = i - i6;
                         long jSkip = skip(this.input, j);
                         if (jSkip < 0 || jSkip > j) {
-                            throw new IllegalStateException(this.input.getClass() + "#skip returned invalid result: " + jSkip + "\nThe InputStream implementation is buggy.");
+                            throw new IllegalStateException(this.input.getClass() + "#skip returned invalid result: "
+                                    + jSkip + "\nThe InputStream implementation is buggy.");
                         }
                         if (jSkip == 0) {
                             break;
@@ -2869,7 +2911,8 @@ public abstract class CodedInputStream {
                 long j2 = this.currentByteBufferLimit;
                 long j3 = this.currentByteBufferPos;
                 if (j <= j2 - j3) {
-                    String strDecodeUtf8 = Utf8.decodeUtf8(this.currentByteBuffer, (int) (j3 - this.currentByteBufferStartPos), rawVarint32);
+                    String strDecodeUtf8 = Utf8.decodeUtf8(this.currentByteBuffer,
+                            (int) (j3 - this.currentByteBufferStartPos), rawVarint32);
                     this.currentByteBufferPos += j;
                     return strDecodeUtf8;
                 }
@@ -2889,7 +2932,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readGroup(int i, MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             builder.mergeFrom(this, extensionRegistryLite);
@@ -2898,7 +2942,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readGroup(int i, Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             checkRecursionLimit();
             this.recursionDepth++;
             T partialFrom = parser.parsePartialFrom(this, extensionRegistryLite);
@@ -2914,7 +2959,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public void readMessage(MessageLite.Builder builder, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -2929,7 +2975,8 @@ public abstract class CodedInputStream {
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
-        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T extends MessageLite> T readMessage(Parser<T> parser, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int rawVarint32 = readRawVarint32();
             checkRecursionLimit();
             int iPushLimit = pushLimit(rawVarint32);
@@ -3059,14 +3106,15 @@ public abstract class CodedInputStream {
             return decodeZigZag64(readRawVarint64());
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:33:0x0088, code lost:
-        
-            if (com.google.oplus.protobuf.UnsafeUtil.getByte(r4) < 0) goto L34;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:33:0x0088, code lost:
+         * 
+         * if (com.google.oplus.protobuf.UnsafeUtil.getByte(r4) < 0) goto L34;
          */
         @Override // com.google.oplus.protobuf.CodedInputStream
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         public int readRawVarint32() throws IOException {
             int i;
             long j = this.currentByteBufferPos;
@@ -3167,7 +3215,8 @@ public abstract class CodedInputStream {
                                             j10 = j8 ^ (((long) UnsafeUtil.getByte(j7)) << 49);
                                             if (j10 >= 0) {
                                                 j7 = j9 + 1;
-                                                j = (j10 ^ (((long) UnsafeUtil.getByte(j9)) << 56)) ^ 71499008037633920L;
+                                                j = (j10 ^ (((long) UnsafeUtil.getByte(j9)) << 56))
+                                                        ^ 71499008037633920L;
                                                 if (j < 0) {
                                                     long j11 = 1 + j7;
                                                     if (UnsafeUtil.getByte(j7) >= 0) {
@@ -3220,9 +3269,11 @@ public abstract class CodedInputStream {
             if (currentRemaining() >= 4) {
                 long j = this.currentByteBufferPos;
                 this.currentByteBufferPos = 4 + j;
-                return (UnsafeUtil.getByte(j) & 255) | ((UnsafeUtil.getByte(1 + j) & 255) << 8) | ((UnsafeUtil.getByte(2 + j) & 255) << 16) | ((UnsafeUtil.getByte(j + 3) & 255) << 24);
+                return (UnsafeUtil.getByte(j) & 255) | ((UnsafeUtil.getByte(1 + j) & 255) << 8)
+                        | ((UnsafeUtil.getByte(2 + j) & 255) << 16) | ((UnsafeUtil.getByte(j + 3) & 255) << 24);
             }
-            return ((readRawByte() & 255) << 24) | (readRawByte() & 255) | ((readRawByte() & 255) << 8) | ((readRawByte() & 255) << 16);
+            return ((readRawByte() & 255) << 24) | (readRawByte() & 255) | ((readRawByte() & 255) << 8)
+                    | ((readRawByte() & 255) << 16);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -3230,9 +3281,18 @@ public abstract class CodedInputStream {
             if (currentRemaining() >= 8) {
                 long j = this.currentByteBufferPos;
                 this.currentByteBufferPos = 8 + j;
-                return (((long) UnsafeUtil.getByte(j)) & 255) | ((((long) UnsafeUtil.getByte(1 + j)) & 255) << 8) | ((((long) UnsafeUtil.getByte(2 + j)) & 255) << 16) | ((((long) UnsafeUtil.getByte(3 + j)) & 255) << 24) | ((((long) UnsafeUtil.getByte(4 + j)) & 255) << 32) | ((((long) UnsafeUtil.getByte(5 + j)) & 255) << 40) | ((((long) UnsafeUtil.getByte(6 + j)) & 255) << 48) | ((((long) UnsafeUtil.getByte(j + 7)) & 255) << 56);
+                return (((long) UnsafeUtil.getByte(j)) & 255) | ((((long) UnsafeUtil.getByte(1 + j)) & 255) << 8)
+                        | ((((long) UnsafeUtil.getByte(2 + j)) & 255) << 16)
+                        | ((((long) UnsafeUtil.getByte(3 + j)) & 255) << 24)
+                        | ((((long) UnsafeUtil.getByte(4 + j)) & 255) << 32)
+                        | ((((long) UnsafeUtil.getByte(5 + j)) & 255) << 40)
+                        | ((((long) UnsafeUtil.getByte(6 + j)) & 255) << 48)
+                        | ((((long) UnsafeUtil.getByte(j + 7)) & 255) << 56);
             }
-            return ((((long) readRawByte()) & 255) << 56) | (((long) readRawByte()) & 255) | ((((long) readRawByte()) & 255) << 8) | ((((long) readRawByte()) & 255) << 16) | ((((long) readRawByte()) & 255) << 24) | ((((long) readRawByte()) & 255) << 32) | ((((long) readRawByte()) & 255) << 40) | ((((long) readRawByte()) & 255) << 48);
+            return ((((long) readRawByte()) & 255) << 56) | (((long) readRawByte()) & 255)
+                    | ((((long) readRawByte()) & 255) << 8) | ((((long) readRawByte()) & 255) << 16)
+                    | ((((long) readRawByte()) & 255) << 24) | ((((long) readRawByte()) & 255) << 32)
+                    | ((((long) readRawByte()) & 255) << 40) | ((((long) readRawByte()) & 255) << 48);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -3242,7 +3302,8 @@ public abstract class CodedInputStream {
 
         @Override // com.google.oplus.protobuf.CodedInputStream
         public void resetSizeCounter() {
-            this.startOffset = (int) ((((long) this.totalBytesRead) + this.currentByteBufferPos) - this.currentByteBufferStartPos);
+            this.startOffset = (int) ((((long) this.totalBytesRead) + this.currentByteBufferPos)
+                    - this.currentByteBufferStartPos);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -3291,12 +3352,14 @@ public abstract class CodedInputStream {
 
         @Override // com.google.oplus.protobuf.CodedInputStream
         public boolean isAtEnd() throws IOException {
-            return (((long) this.totalBytesRead) + this.currentByteBufferPos) - this.currentByteBufferStartPos == ((long) this.totalBufferSize);
+            return (((long) this.totalBytesRead) + this.currentByteBufferPos)
+                    - this.currentByteBufferStartPos == ((long) this.totalBufferSize);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
         public int getTotalBytesRead() {
-            return (int) ((((long) (this.totalBytesRead - this.startOffset)) + this.currentByteBufferPos) - this.currentByteBufferStartPos);
+            return (int) ((((long) (this.totalBytesRead - this.startOffset)) + this.currentByteBufferPos)
+                    - this.currentByteBufferStartPos);
         }
 
         @Override // com.google.oplus.protobuf.CodedInputStream
@@ -3359,7 +3422,8 @@ public abstract class CodedInputStream {
 
         @Override // com.google.oplus.protobuf.CodedInputStream
         public void skipRawBytes(int i) throws IOException {
-            if (i < 0 || i > (((long) (this.totalBufferSize - this.totalBytesRead)) - this.currentByteBufferPos) + this.currentByteBufferStartPos) {
+            if (i < 0 || i > (((long) (this.totalBufferSize - this.totalBytesRead)) - this.currentByteBufferPos)
+                    + this.currentByteBufferStartPos) {
                 if (i < 0) {
                     throw InvalidProtocolBufferException.negativeSize();
                 }
@@ -3385,7 +3449,8 @@ public abstract class CodedInputStream {
         }
 
         private int remaining() {
-            return (int) ((((long) (this.totalBufferSize - this.totalBytesRead)) - this.currentByteBufferPos) + this.currentByteBufferStartPos);
+            return (int) ((((long) (this.totalBufferSize - this.totalBytesRead)) - this.currentByteBufferPos)
+                    + this.currentByteBufferStartPos);
         }
 
         private long currentRemaining() {

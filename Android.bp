@@ -998,6 +998,17 @@ android_app_import {
 }
 
 // --- Created Oplus Framework Java Library ---
+java_import {
+    name: "framework",
+    jars: ["8pro/rmx3081l1/system/system/framework/framework.jar"],
+}
+
+java_import {
+    name: "oplus-framework-prebuilt",
+    jars: ["8pro/rmx3081l1/system/system/framework/oplus-framework.jar"],
+}
+
+// --- Modified Oplus Framework Java Library to staticly include prebuilt if needed ---
 java_library {
     name: "oplus-framework",
     srcs: [
@@ -1008,15 +1019,11 @@ java_library {
     aidl: {
         local_include_dirs: ["oplus-frameworks/opcore-fwk/src"],
     },
+    static_libs: ["oplus-framework-prebuilt"],
+    libs: ["framework"],
     installable: true,
     compile_dex: true,
 }
-
-
-
-
-
-
 
 android_app_import {
     name: "OplusPhotos",

@@ -29,7 +29,7 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
 
     @Override // com.google.oplus.protobuf.ExtensionSchema
     public FieldSet<Descriptors.FieldDescriptor> getExtensions(Object obj) {
-        return (FieldSet) UnsafeUtil.getObject(obj, EXTENSION_FIELD_OFFSET);
+        return (FieldSet<Descriptors.FieldDescriptor>) UnsafeUtil.getObject(obj, EXTENSION_FIELD_OFFSET);
     }
 
     @Override // com.google.oplus.protobuf.ExtensionSchema
@@ -37,7 +37,10 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
         UnsafeUtil.putObject(obj, EXTENSION_FIELD_OFFSET, fieldSet);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: com.google.oplus.protobuf.ExtensionSchemaFull */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type:
+     * com.google.oplus.protobuf.ExtensionSchemaFull
+     */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.ExtensionSchema
     FieldSet<Descriptors.FieldDescriptor> getMutableExtensions(Object obj) {
@@ -45,7 +48,7 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
         if (!extensions.isImmutable()) {
             return extensions;
         }
-        FieldSet fieldSetM1clone = extensions.m1clone();
+        FieldSet<Descriptors.FieldDescriptor> fieldSetM1clone = extensions.m1clone();
         setExtensions(obj, fieldSetM1clone);
         return fieldSetM1clone;
     }
@@ -55,102 +58,108 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
         getExtensions(obj).makeImmutable();
     }
 
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
+    /*
+     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+     */
     @Override // com.google.oplus.protobuf.ExtensionSchema
-    <UT, UB> UB parseExtension(Reader reader, Object obj, ExtensionRegistryLite extensionRegistryLite, FieldSet<Descriptors.FieldDescriptor> fieldSet, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) throws IOException {
+    <UT, UB> UB parseExtension(Reader reader, Object obj, ExtensionRegistryLite extensionRegistryLite,
+            FieldSet<Descriptors.FieldDescriptor> fieldSet, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema)
+            throws IOException {
         Object field;
         ArrayList arrayList;
         ArrayList arrayList2;
         ExtensionRegistry.ExtensionInfo extensionInfo = (ExtensionRegistry.ExtensionInfo) obj;
         int number = extensionInfo.descriptor.getNumber();
         if (extensionInfo.descriptor.isRepeated() && extensionInfo.descriptor.isPacked()) {
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[extensionInfo.descriptor.getLiteType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[extensionInfo.descriptor
+                    .getLiteType().ordinal()]) {
                 case 1:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Double>();
                     reader.readDoubleList(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 2:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Float>();
                     reader.readFloatList(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 3:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Long>();
                     reader.readInt64List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 4:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Long>();
                     reader.readUInt64List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 5:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Integer>();
                     reader.readInt32List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 6:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Long>();
                     reader.readFixed64List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 7:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Integer>();
                     reader.readFixed32List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 8:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Boolean>();
                     reader.readBoolList(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 9:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Integer>();
                     reader.readUInt32List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 10:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Integer>();
                     reader.readSFixed32List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 11:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Long>();
                     reader.readSFixed64List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 12:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Integer>();
                     reader.readSInt32List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 13:
-                    arrayList = new ArrayList();
+                    arrayList = new ArrayList<Long>();
                     reader.readSInt64List(arrayList);
                     arrayList2 = arrayList;
                     fieldSet.setField(extensionInfo.descriptor, arrayList2);
                     break;
                 case 14:
-                    ArrayList arrayList3 = new ArrayList();
+                    ArrayList<Integer> arrayList3 = new ArrayList<Integer>();
                     reader.readEnumList(arrayList3);
-                    arrayList2 = new ArrayList();
+                    arrayList2 = new ArrayList<Descriptors.EnumValueDescriptor>();
                     Iterator<Integer> it = arrayList3.iterator();
                     while (it.hasNext()) {
                         int iIntValue = it.next().intValue();
-                        Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber = extensionInfo.descriptor.getEnumType().findValueByNumber(iIntValue);
+                        Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber = extensionInfo.descriptor
+                                .getEnumType().findValueByNumber(iIntValue);
                         if (enumValueDescriptorFindValueByNumber != null) {
                             arrayList2.add(enumValueDescriptorFindValueByNumber);
                         } else {
@@ -171,7 +180,8 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
                     return (UB) SchemaUtil.storeUnknownEnum(number, int32, ub, unknownFieldSchema);
                 }
             } else {
-                switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[extensionInfo.descriptor.getLiteType().ordinal()]) {
+                switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[extensionInfo.descriptor
+                        .getLiteType().ordinal()]) {
                     case 1:
                         objValueOf = Double.valueOf(reader.readDouble());
                         break;
@@ -223,14 +233,16 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
                         objValueOf = reader.readGroup(extensionInfo.defaultInstance.getClass(), extensionRegistryLite);
                         break;
                     case 18:
-                        objValueOf = reader.readMessage(extensionInfo.defaultInstance.getClass(), extensionRegistryLite);
+                        objValueOf = reader.readMessage(extensionInfo.defaultInstance.getClass(),
+                                extensionRegistryLite);
                         break;
                 }
             }
             if (extensionInfo.descriptor.isRepeated()) {
                 fieldSet.addRepeatedField(extensionInfo.descriptor, objValueOf);
             } else {
-                int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[extensionInfo.descriptor.getLiteType().ordinal()];
+                int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[extensionInfo.descriptor
+                        .getLiteType().ordinal()];
                 if ((i == 17 || i == 18) && (field = fieldSet.getField(extensionInfo.descriptor)) != null) {
                     objValueOf = Internal.mergeMessage(field, objValueOf);
                 }
@@ -240,7 +252,10 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
         return ub;
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.ExtensionSchemaFull$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.ExtensionSchemaFull$1,
+     * reason: invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -331,70 +346,87 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
     void serializeExtension(Writer writer, Map.Entry<?, ?> entry) throws IOException {
         Descriptors.FieldDescriptor fieldDescriptor = (Descriptors.FieldDescriptor) entry.getKey();
         if (fieldDescriptor.isRepeated()) {
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldDescriptor.getLiteType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldDescriptor
+                    .getLiteType().ordinal()]) {
                 case 1:
-                    SchemaUtil.writeDoubleList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeDoubleList(fieldDescriptor.getNumber(), (List<Double>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 2:
-                    SchemaUtil.writeFloatList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeFloatList(fieldDescriptor.getNumber(), (List<Float>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 3:
-                    SchemaUtil.writeInt64List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeInt64List(fieldDescriptor.getNumber(), (List<Long>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 4:
-                    SchemaUtil.writeUInt64List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeUInt64List(fieldDescriptor.getNumber(), (List<Long>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 5:
-                    SchemaUtil.writeInt32List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeInt32List(fieldDescriptor.getNumber(), (List<Integer>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 6:
-                    SchemaUtil.writeFixed64List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeFixed64List(fieldDescriptor.getNumber(), (List<Long>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 7:
-                    SchemaUtil.writeFixed32List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeFixed32List(fieldDescriptor.getNumber(), (List<Integer>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 8:
-                    SchemaUtil.writeBoolList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeBoolList(fieldDescriptor.getNumber(), (List<Boolean>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 9:
-                    SchemaUtil.writeUInt32List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeUInt32List(fieldDescriptor.getNumber(), (List<Integer>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 10:
-                    SchemaUtil.writeSFixed32List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeSFixed32List(fieldDescriptor.getNumber(), (List<Integer>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 11:
-                    SchemaUtil.writeSFixed64List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeSFixed64List(fieldDescriptor.getNumber(), (List<Long>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 12:
-                    SchemaUtil.writeSInt32List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeSInt32List(fieldDescriptor.getNumber(), (List<Integer>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 13:
-                    SchemaUtil.writeSInt64List(fieldDescriptor.getNumber(), (List) entry.getValue(), writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeSInt64List(fieldDescriptor.getNumber(), (List<Long>) entry.getValue(), writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 14:
-                    List list = (List) entry.getValue();
-                    ArrayList arrayList = new ArrayList();
-                    Iterator it = list.iterator();
+                    List<Descriptors.EnumValueDescriptor> list = (List<Descriptors.EnumValueDescriptor>) entry
+                            .getValue();
+                    ArrayList<Integer> arrayList = new ArrayList<Integer>();
+                    Iterator<Descriptors.EnumValueDescriptor> it = list.iterator();
                     while (it.hasNext()) {
-                        arrayList.add(Integer.valueOf(((Descriptors.EnumValueDescriptor) it.next()).getNumber()));
+                        arrayList.add(Integer.valueOf(it.next().getNumber()));
                     }
-                    SchemaUtil.writeInt32List(fieldDescriptor.getNumber(), arrayList, writer, fieldDescriptor.isPacked());
+                    SchemaUtil.writeInt32List(fieldDescriptor.getNumber(), arrayList, writer,
+                            fieldDescriptor.isPacked());
                     break;
                 case 15:
-                    SchemaUtil.writeBytesList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer);
+                    SchemaUtil.writeBytesList(fieldDescriptor.getNumber(), (List<ByteString>) entry.getValue(), writer);
                     break;
                 case 16:
-                    SchemaUtil.writeStringList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer);
+                    SchemaUtil.writeStringList(fieldDescriptor.getNumber(), (List<String>) entry.getValue(), writer);
                     break;
                 case 17:
-                    SchemaUtil.writeGroupList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer);
+                    SchemaUtil.writeGroupList(fieldDescriptor.getNumber(), (List<?>) entry.getValue(), writer);
                     break;
                 case 18:
-                    SchemaUtil.writeMessageList(fieldDescriptor.getNumber(), (List) entry.getValue(), writer);
+                    SchemaUtil.writeMessageList(fieldDescriptor.getNumber(), (List<?>) entry.getValue(), writer);
                     break;
             }
         }
-        switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldDescriptor.getLiteType().ordinal()]) {
+        switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldDescriptor.getLiteType()
+                .ordinal()]) {
             case 1:
                 writer.writeDouble(fieldDescriptor.getNumber(), ((Double) entry.getValue()).doubleValue());
                 break;
@@ -435,7 +467,8 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
                 writer.writeSInt64(fieldDescriptor.getNumber(), ((Long) entry.getValue()).longValue());
                 break;
             case 14:
-                writer.writeInt32(fieldDescriptor.getNumber(), ((Descriptors.EnumValueDescriptor) entry.getValue()).getNumber());
+                writer.writeInt32(fieldDescriptor.getNumber(),
+                        ((Descriptors.EnumValueDescriptor) entry.getValue()).getNumber());
                 break;
             case 15:
                 writer.writeBytes(fieldDescriptor.getNumber(), (ByteString) entry.getValue());
@@ -454,25 +487,31 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
 
     @Override // com.google.oplus.protobuf.ExtensionSchema
     Object findExtensionByNumber(ExtensionRegistryLite extensionRegistryLite, MessageLite messageLite, int i) {
-        return ((ExtensionRegistry) extensionRegistryLite).findExtensionByNumber(((Message) messageLite).getDescriptorForType(), i);
+        return ((ExtensionRegistry) extensionRegistryLite)
+                .findExtensionByNumber(((Message) messageLite).getDescriptorForType(), i);
     }
 
     @Override // com.google.oplus.protobuf.ExtensionSchema
-    void parseLengthPrefixedMessageSetItem(Reader reader, Object obj, ExtensionRegistryLite extensionRegistryLite, FieldSet<Descriptors.FieldDescriptor> fieldSet) throws IOException {
+    void parseLengthPrefixedMessageSetItem(Reader reader, Object obj, ExtensionRegistryLite extensionRegistryLite,
+            FieldSet<Descriptors.FieldDescriptor> fieldSet) throws IOException {
         ExtensionRegistry.ExtensionInfo extensionInfo = (ExtensionRegistry.ExtensionInfo) obj;
         if (ExtensionRegistryLite.isEagerlyParseMessageSets()) {
-            fieldSet.setField(extensionInfo.descriptor, reader.readMessage(extensionInfo.defaultInstance.getClass(), extensionRegistryLite));
+            fieldSet.setField(extensionInfo.descriptor,
+                    reader.readMessage(extensionInfo.defaultInstance.getClass(), extensionRegistryLite));
         } else {
-            fieldSet.setField(extensionInfo.descriptor, new LazyField(extensionInfo.defaultInstance, extensionRegistryLite, reader.readBytes()));
+            fieldSet.setField(extensionInfo.descriptor,
+                    new LazyField(extensionInfo.defaultInstance, extensionRegistryLite, reader.readBytes()));
         }
     }
 
     @Override // com.google.oplus.protobuf.ExtensionSchema
-    void parseMessageSetItem(ByteString byteString, Object obj, ExtensionRegistryLite extensionRegistryLite, FieldSet<Descriptors.FieldDescriptor> fieldSet) throws IOException {
+    void parseMessageSetItem(ByteString byteString, Object obj, ExtensionRegistryLite extensionRegistryLite,
+            FieldSet<Descriptors.FieldDescriptor> fieldSet) throws IOException {
         ExtensionRegistry.ExtensionInfo extensionInfo = (ExtensionRegistry.ExtensionInfo) obj;
         Message messageBuildPartial = extensionInfo.defaultInstance.newBuilderForType().buildPartial();
         if (ExtensionRegistryLite.isEagerlyParseMessageSets()) {
-            BinaryReader binaryReaderNewInstance = BinaryReader.newInstance(ByteBuffer.wrap(byteString.toByteArray()), true);
+            BinaryReader binaryReaderNewInstance = BinaryReader.newInstance(ByteBuffer.wrap(byteString.toByteArray()),
+                    true);
             Protobuf.getInstance().mergeFrom(messageBuildPartial, binaryReaderNewInstance, extensionRegistryLite);
             fieldSet.setField(extensionInfo.descriptor, messageBuildPartial);
             if (binaryReaderNewInstance.getFieldNumber() != Integer.MAX_VALUE) {
@@ -480,6 +519,7 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
             }
             return;
         }
-        fieldSet.setField(extensionInfo.descriptor, new LazyField(extensionInfo.defaultInstance, extensionRegistryLite, byteString));
+        fieldSet.setField(extensionInfo.descriptor,
+                new LazyField(extensionInfo.defaultInstance, extensionRegistryLite, byteString));
     }
 }

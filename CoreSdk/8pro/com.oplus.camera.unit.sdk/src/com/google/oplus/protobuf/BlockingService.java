@@ -1,10 +1,9 @@
 package com.google.oplus.protobuf;
 
-import com.google.oplus.protobuf.Descriptors;
-
 /* JADX INFO: loaded from: classes.dex */
 public interface BlockingService {
-    Message callBlockingMethod(Descriptors.MethodDescriptor methodDescriptor, RpcController rpcController, Message message) throws ServiceException;
+    Message callBlockingMethod(Descriptors.MethodDescriptor methodDescriptor, RpcController rpcController,
+            Message message) throws ServiceException;
 
     Descriptors.ServiceDescriptor getDescriptorForType();
 

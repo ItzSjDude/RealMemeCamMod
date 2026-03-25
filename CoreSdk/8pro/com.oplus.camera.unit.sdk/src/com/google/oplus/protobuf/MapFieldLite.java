@@ -9,7 +9,7 @@ import java.util.Set;
 
 /* JADX INFO: loaded from: classes.dex */
 public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
-    private static final MapFieldLite EMPTY_MAP_FIELD;
+    private static final MapFieldLite<?, ?> EMPTY_MAP_FIELD;
     private boolean isMutable;
 
     private MapFieldLite() {
@@ -22,13 +22,13 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
     }
 
     static {
-        MapFieldLite mapFieldLite = new MapFieldLite();
+        MapFieldLite<?, ?> mapFieldLite = new MapFieldLite<>();
         EMPTY_MAP_FIELD = mapFieldLite;
         mapFieldLite.makeImmutable();
     }
 
     public static <K, V> MapFieldLite<K, V> emptyMapField() {
-        return EMPTY_MAP_FIELD;
+        return (MapFieldLite<K, V>) EMPTY_MAP_FIELD;
     }
 
     public void mergeFrom(MapFieldLite<K, V> mapFieldLite) {
@@ -39,12 +39,14 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
         putAll(mapFieldLite);
     }
 
-    @Override // java.util.LinkedHashMap, java.util.HashMap, java.util.AbstractMap, java.util.Map
+    @Override // java.util.LinkedHashMap, java.util.HashMap, java.util.AbstractMap,
+              // java.util.Map
     public Set<Map.Entry<K, V>> entrySet() {
         return isEmpty() ? Collections.emptySet() : super.entrySet();
     }
 
-    @Override // java.util.LinkedHashMap, java.util.HashMap, java.util.AbstractMap, java.util.Map
+    @Override // java.util.LinkedHashMap, java.util.HashMap, java.util.AbstractMap,
+              // java.util.Map
     public void clear() {
         ensureMutable();
         super.clear();
@@ -106,7 +108,7 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
 
     @Override // java.util.AbstractMap, java.util.Map
     public boolean equals(Object obj) {
-        return (obj instanceof Map) && equals((Map) this, (Map) obj);
+        return (obj instanceof Map) && equals((Map<K, V>) this, (Map<K, V>) obj);
     }
 
     private static int calculateHashCodeForObject(Object obj) {
@@ -122,7 +124,8 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
     static <K, V> int calculateHashCodeForMap(Map<K, V> map) {
         int iCalculateHashCodeForObject = 0;
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            iCalculateHashCodeForObject += calculateHashCodeForObject(entry.getValue()) ^ calculateHashCodeForObject(entry.getKey());
+            iCalculateHashCodeForObject += calculateHashCodeForObject(entry.getValue())
+                    ^ calculateHashCodeForObject(entry.getKey());
         }
         return iCalculateHashCodeForObject;
     }
@@ -140,12 +143,15 @@ public final class MapFieldLite<K, V> extends LinkedHashMap<K, V> {
         return Arrays.copyOf(bArr, bArr.length);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r0v0, resolved type: java.security.AuthProvider */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r0v0, resolved type:
+     * java.security.AuthProvider
+     */
     /* JADX WARN: Multi-variable type inference failed */
     static <K, V> Map<K, V> copy(Map<K, V> map) {
-        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        LinkedHashMap<K, V> linkedHashMap = new LinkedHashMap<>();
         for (Map.Entry<K, V> entry : map.entrySet()) {
-            linkedHashMap.put(entry.getKey(), copy(entry.getValue()));
+            linkedHashMap.put(entry.getKey(), (V) copy(entry.getValue()));
         }
         return linkedHashMap;
     }

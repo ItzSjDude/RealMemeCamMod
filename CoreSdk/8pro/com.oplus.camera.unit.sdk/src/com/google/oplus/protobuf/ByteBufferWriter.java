@@ -36,7 +36,8 @@ final class ByteBufferWriter {
         int iPosition = byteBuffer.position();
         try {
             if (byteBuffer.hasArray()) {
-                outputStream.write(byteBuffer.array(), byteBuffer.arrayOffset() + byteBuffer.position(), byteBuffer.remaining());
+                outputStream.write(byteBuffer.array(), byteBuffer.arrayOffset() + byteBuffer.position(),
+                        byteBuffer.remaining());
             } else if (!writeToChannel(byteBuffer, outputStream)) {
                 byte[] orCreateBuffer = getOrCreateBuffer(byteBuffer.remaining());
                 while (byteBuffer.hasRemaining()) {
@@ -51,11 +52,11 @@ final class ByteBufferWriter {
     }
 
     private static byte[] getOrCreateBuffer(int i) {
-        int iMax = Math.max(i, 1024);
+        int iMax = Math.max(i, MIN_CACHED_BUFFER_SIZE);
         byte[] buffer = getBuffer();
         if (buffer == null || needToReallocate(iMax, buffer.length)) {
             buffer = new byte[iMax];
-            if (iMax <= 16384) {
+            if (iMax <= MAX_CACHED_BUFFER_SIZE) {
                 setBuffer(buffer);
             }
         }

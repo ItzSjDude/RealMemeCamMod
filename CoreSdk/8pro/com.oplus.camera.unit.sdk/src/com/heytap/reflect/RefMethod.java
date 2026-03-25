@@ -12,7 +12,8 @@ public class RefMethod<T> {
 
     public RefMethod(Class<?> cls, Field field) throws NoSuchMethodException {
         if (field.isAnnotationPresent(MethodName.class)) {
-            setMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(), ((MethodName) field.getAnnotation(MethodName.class)).name());
+            setMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(),
+                    ((MethodName) field.getAnnotation(MethodName.class)).name());
             this.mMethod.setAccessible(true);
         } else {
             int i = 0;
@@ -79,12 +80,15 @@ public class RefMethod<T> {
         }
     }
 
-    public T callWithException(Object obj, Object... objArr) throws Throwable {
+    public T callWithException(Object obj, Object... objArr) throws Exception {
         try {
             return (T) this.mMethod.invoke(obj, objArr);
         } catch (InvocationTargetException e) {
-            if (e.getCause() != null) {
-                throw e.getCause();
+            Throwable cause = e.getCause();
+            if (cause instanceof Exception) {
+                throw (Exception) cause;
+            } else if (cause != null) {
+                throw new Exception(cause);
             }
             throw e;
         }

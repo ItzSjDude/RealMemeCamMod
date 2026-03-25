@@ -119,18 +119,18 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
 
     @Override // java.util.AbstractMap, java.util.Map
     public boolean containsKey(Object obj) {
-        Comparable comparable = (Comparable) obj;
-        return binarySearchInArray((K) comparable) >= 0 || this.overflowEntries.containsKey(comparable);
+        K k = (K) obj;
+        return binarySearchInArray(k) >= 0 || this.overflowEntries.containsKey(k);
     }
 
     @Override // java.util.AbstractMap, java.util.Map
     public V get(Object obj) {
-        Comparable comparable = (Comparable) obj;
-        int iBinarySearchInArray = binarySearchInArray((K) comparable);
+        K k = (K) obj;
+        int iBinarySearchInArray = binarySearchInArray(k);
         if (iBinarySearchInArray >= 0) {
             return this.entryList.get(iBinarySearchInArray).getValue();
         }
-        return this.overflowEntries.get(comparable);
+        return this.overflowEntries.get(k);
     }
 
     /*
@@ -174,15 +174,15 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
     @Override // java.util.AbstractMap, java.util.Map
     public V remove(Object obj) {
         checkMutable();
-        Comparable comparable = (Comparable) obj;
-        int iBinarySearchInArray = binarySearchInArray((K) comparable);
+        K k = (K) obj;
+        int iBinarySearchInArray = binarySearchInArray(k);
         if (iBinarySearchInArray >= 0) {
             return removeArrayEntryAt(iBinarySearchInArray);
         }
         if (this.overflowEntries.isEmpty()) {
             return null;
         }
-        return this.overflowEntries.remove(comparable);
+        return this.overflowEntries.remove(k);
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -249,11 +249,11 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
     private SortedMap<K, V> getOverflowEntriesMutable() {
         checkMutable();
         if (this.overflowEntries.isEmpty() && !(this.overflowEntries instanceof TreeMap)) {
-            TreeMap treeMap = new TreeMap();
+            TreeMap<K, V> treeMap = new TreeMap<>();
             this.overflowEntries = treeMap;
             this.overflowEntriesDescending = treeMap.descendingMap();
         }
-        return (SortedMap) this.overflowEntries;
+        return (SortedMap<K, V>) this.overflowEntries;
     }
 
     private void ensureEntryArrayMutable() {
@@ -261,7 +261,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
         if (!this.entryList.isEmpty() || (this.entryList instanceof ArrayList)) {
             return;
         }
-        this.entryList = new ArrayList(this.maxArraySize);
+        this.entryList = new ArrayList<>(this.maxArraySize);
     }
 
     private class Entry implements Map.Entry<K, V>, Comparable<SmallSortedMap<K, V>.Entry> {
@@ -312,7 +312,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
             if (!(obj instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry entry = (Map.Entry) obj;
+            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) obj;
             return equals(this.key, entry.getKey()) && equals(this.value, entry.getValue());
         }
 
@@ -353,7 +353,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
 
         @Override // java.util.AbstractCollection, java.util.Collection, java.util.Set
         public boolean contains(Object obj) {
-            Map.Entry entry = (Map.Entry) obj;
+            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) obj;
             Object obj2 = SmallSortedMap.this.get(entry.getKey());
             Object value = entry.getValue();
             return obj2 == value || (obj2 != null && obj2.equals(value));
@@ -371,7 +371,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
 
         @Override // java.util.AbstractCollection, java.util.Collection, java.util.Set
         public boolean remove(Object obj) {
-            Map.Entry entry = (Map.Entry) obj;
+            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) obj;
             if (!contains(entry)) {
                 return false;
             }
@@ -422,7 +422,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
             int i = this.pos + 1;
             this.pos = i;
             if (i < SmallSortedMap.this.entryList.size()) {
-                return (Map.Entry) SmallSortedMap.this.entryList.get(this.pos);
+                return SmallSortedMap.this.entryList.get(this.pos);
             }
             return getOverflowIterator().next();
         }
@@ -470,10 +470,10 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
         @Override // java.util.Iterator
         public Map.Entry<K, V> next() {
             if (!getOverflowIterator().hasNext()) {
-                List list = SmallSortedMap.this.entryList;
+                List<SmallSortedMap<K, V>.Entry> list = SmallSortedMap.this.entryList;
                 int i = this.pos - 1;
                 this.pos = i;
-                return (Map.Entry) list.get(i);
+                return list.get(i);
             }
             return getOverflowIterator().next();
         }
@@ -533,7 +533,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
         if (!(obj instanceof SmallSortedMap)) {
             return super.equals(obj);
         }
-        SmallSortedMap smallSortedMap = (SmallSortedMap) obj;
+        SmallSortedMap<?, ?> smallSortedMap = (SmallSortedMap<?, ?>) obj;
         int size = size();
         if (size != smallSortedMap.size()) {
             return false;

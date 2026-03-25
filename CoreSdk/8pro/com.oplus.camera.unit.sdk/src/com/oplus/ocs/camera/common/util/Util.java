@@ -252,7 +252,7 @@ public class Util {
      * Code decompiled incorrectly, please refer to instructions dump.
      */
     public static CameraImage buildRawImage(CameraRequestTag cameraRequestTag, Image image, CaptureResult captureResult,
-            long j) throws Throwable {
+            long j) throws Exception {
         ByteArrayOutputStream byteArrayOutputStream;
         CameraUnitLog.v(TAG, "buildRawImage, rawImg: " + image + ", captureResult: " + captureResult + ", cameraType: "
                 + cameraRequestTag.mCameraType);
@@ -321,13 +321,13 @@ public class Util {
                             if (byteArrayOutputStream2 == 0) {
                                 try {
                                     byteArrayOutputStream2.close();
-                                    throw th2;
+                                    throw new Exception(th2);
                                 } catch (IOException e4) {
                                     e4.printStackTrace();
-                                    throw th2;
+                                    throw new Exception(th2);
                                 }
                             }
-                            throw th2;
+                            throw new Exception(th2);
                         }
                     } catch (IOException e5) {
                         e = e5;

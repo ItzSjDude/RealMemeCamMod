@@ -509,7 +509,8 @@ public final class Internal {
                     return true;
                 }
                 if (obj instanceof Map.Entry) {
-                    return getKey().equals(((Map.Entry) obj).getKey()) && getValue().equals(getValue());
+                    Map.Entry<?, ?> other = (Map.Entry<?, ?>) obj;
+                    return getKey().equals(other.getKey()) && getValue().equals(other.getValue());
                 }
                 return false;
             }

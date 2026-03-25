@@ -28,8 +28,10 @@ final class SchemaUtil {
 
     public static void requireGeneratedMessage(Class<?> cls) {
         Class<?> cls2;
-        if (!GeneratedMessageLite.class.isAssignableFrom(cls) && (cls2 = GENERATED_MESSAGE_CLASS) != null && !cls2.isAssignableFrom(cls)) {
-            throw new IllegalArgumentException("Message classes must extend GeneratedMessageV3 or GeneratedMessageLite");
+        if (!GeneratedMessageLite.class.isAssignableFrom(cls) && (cls2 = GENERATED_MESSAGE_CLASS) != null
+                && !cls2.isAssignableFrom(cls)) {
+            throw new IllegalArgumentException(
+                    "Message classes must extend GeneratedMessageV3 or GeneratedMessageLite");
         }
     }
 
@@ -325,7 +327,8 @@ final class SchemaUtil {
         }
         int iComputeSizeInt64ListNoTag = computeSizeInt64ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeInt64ListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeInt64ListNoTag);
         }
         return iComputeSizeInt64ListNoTag + (list.size() * CodedOutputStream.computeTagSize(i));
     }
@@ -361,7 +364,8 @@ final class SchemaUtil {
         }
         int iComputeSizeUInt64ListNoTag = computeSizeUInt64ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeUInt64ListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeUInt64ListNoTag);
         }
         return iComputeSizeUInt64ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
@@ -397,7 +401,8 @@ final class SchemaUtil {
         }
         int iComputeSizeSInt64ListNoTag = computeSizeSInt64ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeSInt64ListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeSInt64ListNoTag);
         }
         return iComputeSizeSInt64ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
@@ -433,7 +438,8 @@ final class SchemaUtil {
         }
         int iComputeSizeEnumListNoTag = computeSizeEnumListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeEnumListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeEnumListNoTag);
         }
         return iComputeSizeEnumListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
@@ -469,7 +475,8 @@ final class SchemaUtil {
         }
         int iComputeSizeInt32ListNoTag = computeSizeInt32ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeInt32ListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeInt32ListNoTag);
         }
         return iComputeSizeInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
@@ -505,7 +512,8 @@ final class SchemaUtil {
         }
         int iComputeSizeUInt32ListNoTag = computeSizeUInt32ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeUInt32ListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeUInt32ListNoTag);
         }
         return iComputeSizeUInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
@@ -541,7 +549,8 @@ final class SchemaUtil {
         }
         int iComputeSizeSInt32ListNoTag = computeSizeSInt32ListNoTag(list);
         if (z) {
-            return CodedOutputStream.computeTagSize(i) + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeSInt32ListNoTag);
+            return CodedOutputStream.computeTagSize(i)
+                    + CodedOutputStream.computeLengthDelimitedFieldSize(iComputeSizeSInt32ListNoTag);
         }
         return iComputeSizeSInt32ListNoTag + (size * CodedOutputStream.computeTagSize(i));
     }
@@ -712,7 +721,8 @@ final class SchemaUtil {
         if (fieldInfoArr.length == 0) {
             return false;
         }
-        return shouldUseTableSwitch(fieldInfoArr[0].getFieldNumber(), fieldInfoArr[fieldInfoArr.length - 1].getFieldNumber(), fieldInfoArr.length);
+        return shouldUseTableSwitch(fieldInfoArr[0].getFieldNumber(),
+                fieldInfoArr[fieldInfoArr.length - 1].getFieldNumber(), fieldInfoArr.length);
     }
 
     public static UnknownFieldSchema<?, ?> proto2UnknownFieldSetSchema() {
@@ -733,7 +743,8 @@ final class SchemaUtil {
             if (unknownFieldSetSchemaClass == null) {
                 return null;
             }
-            return (UnknownFieldSchema) unknownFieldSetSchemaClass.getConstructor(Boolean.TYPE).newInstance(Boolean.valueOf(z));
+            return (UnknownFieldSchema) unknownFieldSetSchemaClass.getConstructor(Boolean.TYPE)
+                    .newInstance(Boolean.valueOf(z));
         } catch (Throwable unused) {
             return null;
         }
@@ -757,9 +768,11 @@ final class SchemaUtil {
 
     static Object getMapDefaultEntry(Class<?> cls, String str) {
         try {
-            java.lang.reflect.Field[] declaredFields = Class.forName(cls.getName() + "$" + toCamelCase(str, true) + "DefaultEntryHolder").getDeclaredFields();
+            java.lang.reflect.Field[] declaredFields = Class
+                    .forName(cls.getName() + "$" + toCamelCase(str, true) + "DefaultEntryHolder").getDeclaredFields();
             if (declaredFields.length != 1) {
-                throw new IllegalStateException("Unable to look up map field default entry holder class for " + str + " in " + cls.getName());
+                throw new IllegalStateException(
+                        "Unable to look up map field default entry holder class for " + str + " in " + cls.getName());
             }
             return UnsafeUtil.getStaticObject(declaredFields[0]);
         } catch (Throwable th) {
@@ -800,8 +813,9 @@ final class SchemaUtil {
         UnsafeUtil.putObject(t, j, mapFieldSchema.mergeFrom(UnsafeUtil.getObject(t, j), UnsafeUtil.getObject(t2, j)));
     }
 
-    static <T, FT extends FieldSet.FieldDescriptorLite<FT>> void mergeExtensions(ExtensionSchema<FT> extensionSchema, T t, T t2) {
-        FieldSet<T> extensions = extensionSchema.getExtensions(t2);
+    static <T, FT extends FieldSet.FieldDescriptorLite<FT>> void mergeExtensions(ExtensionSchema<FT> extensionSchema,
+            T t, T t2) {
+        FieldSet<FT> extensions = extensionSchema.getExtensions(t2);
         if (extensions.isEmpty()) {
             return;
         }
@@ -809,10 +823,12 @@ final class SchemaUtil {
     }
 
     static <T, UT, UB> void mergeUnknownFields(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, T t2) {
-        unknownFieldSchema.setToMessage(t, unknownFieldSchema.merge(unknownFieldSchema.getFromMessage(t), unknownFieldSchema.getFromMessage(t2)));
+        unknownFieldSchema.setToMessage(t,
+                unknownFieldSchema.merge(unknownFieldSchema.getFromMessage(t), unknownFieldSchema.getFromMessage(t2)));
     }
 
-    static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumLiteMap<?> enumLiteMap, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+    static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumLiteMap<?> enumLiteMap, UB ub,
+            UnknownFieldSchema<UT, UB> unknownFieldSchema) {
         if (enumLiteMap == null) {
             return ub;
         }
@@ -827,7 +843,7 @@ final class SchemaUtil {
                     }
                     i2++;
                 } else {
-                    ub = (UB) storeUnknownEnum(i, iIntValue, ub, unknownFieldSchema);
+                    ub = storeUnknownEnum(i, iIntValue, ub, unknownFieldSchema);
                 }
             }
             if (i2 != size) {
@@ -838,7 +854,7 @@ final class SchemaUtil {
             while (it.hasNext()) {
                 int iIntValue2 = it.next().intValue();
                 if (enumLiteMap.findValueByNumber(iIntValue2) == null) {
-                    ub = (UB) storeUnknownEnum(i, iIntValue2, ub, unknownFieldSchema);
+                    ub = storeUnknownEnum(i, iIntValue2, ub, unknownFieldSchema);
                     it.remove();
                 }
             }
@@ -846,7 +862,8 @@ final class SchemaUtil {
         return ub;
     }
 
-    static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumVerifier enumVerifier, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+    static <UT, UB> UB filterUnknownEnumList(int i, List<Integer> list, Internal.EnumVerifier enumVerifier, UB ub,
+            UnknownFieldSchema<UT, UB> unknownFieldSchema) {
         if (enumVerifier == null) {
             return ub;
         }
@@ -861,7 +878,7 @@ final class SchemaUtil {
                     }
                     i2++;
                 } else {
-                    ub = (UB) storeUnknownEnum(i, iIntValue, ub, unknownFieldSchema);
+                    ub = storeUnknownEnum(i, iIntValue, ub, unknownFieldSchema);
                 }
             }
             if (i2 != size) {
@@ -872,7 +889,7 @@ final class SchemaUtil {
             while (it.hasNext()) {
                 int iIntValue2 = it.next().intValue();
                 if (!enumVerifier.isInRange(iIntValue2)) {
-                    ub = (UB) storeUnknownEnum(i, iIntValue2, ub, unknownFieldSchema);
+                    ub = storeUnknownEnum(i, iIntValue2, ub, unknownFieldSchema);
                     it.remove();
                 }
             }

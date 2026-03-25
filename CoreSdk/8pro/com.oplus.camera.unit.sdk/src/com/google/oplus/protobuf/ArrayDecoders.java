@@ -602,7 +602,7 @@ final class ArrayDecoders {
     }
 
     static int decodeMessageList(Schema<?> schema, int i, byte[] bArr, int i2, int i3,
-            Internal.ProtobufList protobufList, Registers registers) throws IOException {
+            Internal.ProtobufList<Object> protobufList, Registers registers) throws IOException {
         int iDecodeMessageField = decodeMessageField(schema, bArr, i2, i3, registers);
         protobufList.add(registers.object1);
         while (iDecodeMessageField < i3) {
@@ -616,8 +616,8 @@ final class ArrayDecoders {
         return iDecodeMessageField;
     }
 
-    static int decodeGroupList(Schema schema, int i, byte[] bArr, int i2, int i3, Internal.ProtobufList protobufList,
-            Registers registers) throws IOException {
+    static int decodeGroupList(Schema schema, int i, byte[] bArr, int i2, int i3,
+            Internal.ProtobufList<Object> protobufList, Registers registers) throws IOException {
         int i4 = (i & (-8)) | 4;
         int iDecodeGroupField = decodeGroupField(schema, bArr, i2, i3, i4, registers);
         protobufList.add(registers.object1);

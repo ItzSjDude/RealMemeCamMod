@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /* JADX INFO: loaded from: classes.dex */
 public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>>
         extends AbstractMessageLite<MessageType, BuilderType> {
-    private static Map<Object, GeneratedMessageLite<?, ?>> defaultInstanceMap = new ConcurrentHashMap();
+    private static Map<Object, GeneratedMessageLite<?, ?>> defaultInstanceMap = new ConcurrentHashMap<>();
     protected UnknownFieldSetLite unknownFields = UnknownFieldSetLite.getDefaultInstance();
     protected int memoizedSerializedSize = -1;
 
@@ -694,10 +694,10 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             }
 
             private ExtensionWriter(boolean z) {
-                Iterator it = ExtendableMessage.this.extensions.iterator();
+                Iterator<Map.Entry<ExtensionDescriptor, Object>> it = ExtendableMessage.this.extensions.iterator();
                 this.iter = it;
                 if (it.hasNext()) {
-                    this.next = (Map.Entry) it.next();
+                    this.next = it.next();
                 }
                 this.messageSetWireFormat = z;
             }
@@ -798,8 +798,8 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             if (!fieldSet.isImmutable()) {
                 return fieldSet;
             }
-            FieldSet fieldSetClone = fieldSet.m1clone();
-            ((ExtendableMessage) this.instance).extensions = fieldSetClone;
+            FieldSet<ExtensionDescriptor> fieldSetClone = fieldSet.m1clone();
+            ((ExtendableMessage<MessageType, BuilderType>) this.instance).extensions = fieldSetClone;
             return fieldSetClone;
         }
 
@@ -818,7 +818,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
             if (this.isBuilt) {
                 return (MessageType) this.instance;
             }
-            ((ExtendableMessage) this.instance).extensions.makeImmutable();
+            ((ExtendableMessage<MessageType, BuilderType>) this.instance).extensions.makeImmutable();
             return (MessageType) super.buildPartial();
         }
 
@@ -831,22 +831,22 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
 
         @Override // com.google.oplus.protobuf.GeneratedMessageLite.ExtendableMessageOrBuilder
         public final <Type> boolean hasExtension(ExtensionLite<MessageType, Type> extensionLite) {
-            return ((ExtendableMessage) this.instance).hasExtension(extensionLite);
+            return ((ExtendableMessage<MessageType, BuilderType>) this.instance).hasExtension(extensionLite);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessageLite.ExtendableMessageOrBuilder
         public final <Type> int getExtensionCount(ExtensionLite<MessageType, List<Type>> extensionLite) {
-            return ((ExtendableMessage) this.instance).getExtensionCount(extensionLite);
+            return ((ExtendableMessage<MessageType, BuilderType>) this.instance).getExtensionCount(extensionLite);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessageLite.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(ExtensionLite<MessageType, Type> extensionLite) {
-            return (Type) ((ExtendableMessage) this.instance).getExtension(extensionLite);
+            return (Type) ((ExtendableMessage<MessageType, BuilderType>) this.instance).getExtension(extensionLite);
         }
 
         @Override // com.google.oplus.protobuf.GeneratedMessageLite.ExtendableMessageOrBuilder
         public final <Type> Type getExtension(ExtensionLite<MessageType, List<Type>> extensionLite, int i) {
-            return (Type) ((ExtendableMessage) this.instance).getExtension(extensionLite, i);
+            return (Type) ((ExtendableMessage<MessageType, BuilderType>) this.instance).getExtension(extensionLite, i);
         }
 
         public final <Type> BuilderType setExtension(ExtensionLite<MessageType, Type> extensionLite, Type type) {
@@ -957,7 +957,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.FieldSet.FieldDescriptorLite
         public MessageLite.Builder internalMergeFrom(MessageLite.Builder builder, MessageLite messageLite) {
-            return ((Builder) builder).mergeFrom((GeneratedMessageLite) messageLite);
+            return ((Builder<?, ?>) builder).mergeFrom((GeneratedMessageLite<?, ?>) messageLite);
         }
 
         /*
@@ -1035,8 +1035,8 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
                 if (this.descriptor.getLiteJavaType() != WireFormat.JavaType.ENUM) {
                     return obj;
                 }
-                ArrayList arrayList = new ArrayList();
-                Iterator it = ((List) obj).iterator();
+                ArrayList<Object> arrayList = new ArrayList<>();
+                Iterator<?> it = ((List<?>) obj).iterator();
                 while (it.hasNext()) {
                     arrayList.add(singularFromFieldSetType(it.next()));
                 }
@@ -1056,8 +1056,8 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
                 if (this.descriptor.getLiteJavaType() != WireFormat.JavaType.ENUM) {
                     return obj;
                 }
-                ArrayList arrayList = new ArrayList();
-                Iterator it = ((List) obj).iterator();
+                ArrayList<Object> arrayList = new ArrayList<>();
+                Iterator<?> it = ((List<?>) obj).iterator();
                 while (it.hasNext()) {
                     arrayList.add(singularToFieldSetType(it.next()));
                 }
@@ -1156,7 +1156,7 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
         if (!extensionLite.isLite()) {
             throw new IllegalArgumentException("Expected a lite extension.");
         }
-        return (GeneratedExtension) extensionLite;
+        return (GeneratedExtension<MessageType, T>) extensionLite;
     }
 
     protected static final <T extends GeneratedMessageLite<T, ?>> boolean isInitialized(T t, boolean z) {

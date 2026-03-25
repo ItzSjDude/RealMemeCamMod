@@ -47,7 +47,9 @@ public class ExtensionRegistryLite {
             synchronized (ExtensionRegistryLite.class) {
                 extensionRegistryLiteCreateEmpty = emptyRegistry;
                 if (extensionRegistryLiteCreateEmpty == null) {
-                    extensionRegistryLiteCreateEmpty = doFullRuntimeInheritanceCheck ? ExtensionRegistryFactory.createEmpty() : EMPTY_REGISTRY_LITE;
+                    extensionRegistryLiteCreateEmpty = doFullRuntimeInheritanceCheck
+                            ? ExtensionRegistryFactory.createEmpty()
+                            : EMPTY_REGISTRY_LITE;
                     emptyRegistry = extensionRegistryLiteCreateEmpty;
                 }
             }
@@ -59,12 +61,15 @@ public class ExtensionRegistryLite {
         return new ExtensionRegistryLite(this);
     }
 
-    public <ContainingType extends MessageLite> GeneratedMessageLite.GeneratedExtension<ContainingType, ?> findLiteExtensionByNumber(ContainingType containingtype, int i) {
-        return (GeneratedMessageLite.GeneratedExtension) this.extensionsByNumber.get(new ObjectIntPair(containingtype, i));
+    public <ContainingType extends MessageLite> GeneratedMessageLite.GeneratedExtension<ContainingType, ?> findLiteExtensionByNumber(
+            ContainingType containingtype, int i) {
+        return (GeneratedMessageLite.GeneratedExtension<ContainingType, ?>) this.extensionsByNumber
+                .get(new ObjectIntPair(containingtype, i));
     }
 
     public final void add(GeneratedMessageLite.GeneratedExtension<?, ?> generatedExtension) {
-        this.extensionsByNumber.put(new ObjectIntPair(generatedExtension.getContainingTypeDefaultInstance(), generatedExtension.getNumber()), generatedExtension);
+        this.extensionsByNumber.put(new ObjectIntPair(generatedExtension.getContainingTypeDefaultInstance(),
+                generatedExtension.getNumber()), generatedExtension);
     }
 
     public final void add(ExtensionLite<?, ?> extensionLite) {
@@ -75,13 +80,14 @@ public class ExtensionRegistryLite {
             try {
                 getClass().getMethod("add", ExtensionClassHolder.INSTANCE).invoke(this, extensionLite);
             } catch (Exception e) {
-                throw new IllegalArgumentException(String.format("Could not invoke ExtensionRegistry#add for %s", extensionLite), e);
+                throw new IllegalArgumentException(
+                        String.format("Could not invoke ExtensionRegistry#add for %s", extensionLite), e);
             }
         }
     }
 
     ExtensionRegistryLite() {
-        this.extensionsByNumber = new HashMap();
+        this.extensionsByNumber = new HashMap<>();
     }
 
     ExtensionRegistryLite(ExtensionRegistryLite extensionRegistryLite) {

@@ -63,7 +63,8 @@ public class LazyField extends LazyFieldLite {
         @Override // java.util.Map.Entry
         public Object setValue(Object obj) {
             if (!(obj instanceof MessageLite)) {
-                throw new IllegalArgumentException("LazyField now only used for MessageSet, and the value of MessageSet must be an instance of MessageLite");
+                throw new IllegalArgumentException(
+                        "LazyField now only used for MessageSet, and the value of MessageSet must be an instance of MessageLite");
             }
             return this.entry.getValue().setValue((MessageLite) obj);
         }
@@ -85,7 +86,8 @@ public class LazyField extends LazyFieldLite {
         @Override // java.util.Iterator
         public Map.Entry<K, Object> next() {
             Map.Entry<K, Object> next = this.iterator.next();
-            return next.getValue() instanceof LazyField ? new LazyEntry(next) : next;
+            return next.getValue() instanceof LazyField ? new LazyEntry<>((Map.Entry<K, LazyField>) (Map.Entry) next)
+                    : next;
         }
 
         @Override // java.util.Iterator

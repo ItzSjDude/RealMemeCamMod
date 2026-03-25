@@ -50,13 +50,13 @@ interface Writer {
     void writeGroup(int i, Object obj) throws IOException;
 
     @Deprecated
-    void writeGroup(int i, Object obj, Schema schema) throws IOException;
+    void writeGroup(int i, Object obj, Schema<?> schema) throws IOException;
 
     @Deprecated
     void writeGroupList(int i, List<?> list) throws IOException;
 
     @Deprecated
-    void writeGroupList(int i, List<?> list, Schema schema) throws IOException;
+    void writeGroupList(int i, List<?> list, Schema<?> schema) throws IOException;
 
     void writeInt32(int i, int i2) throws IOException;
 
@@ -70,11 +70,11 @@ interface Writer {
 
     void writeMessage(int i, Object obj) throws IOException;
 
-    void writeMessage(int i, Object obj, Schema schema) throws IOException;
+    void writeMessage(int i, Object obj, Schema<?> schema) throws IOException;
 
     void writeMessageList(int i, List<?> list) throws IOException;
 
-    void writeMessageList(int i, List<?> list, Schema schema) throws IOException;
+    void writeMessageList(int i, List<?> list, Schema<?> schema) throws IOException;
 
     void writeMessageSetItem(int i, Object obj) throws IOException;
 

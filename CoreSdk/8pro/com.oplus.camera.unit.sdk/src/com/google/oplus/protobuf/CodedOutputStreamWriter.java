@@ -1,8 +1,5 @@
 package com.google.oplus.protobuf;
 
-import com.google.oplus.protobuf.MapEntryLite;
-import com.google.oplus.protobuf.WireFormat;
-import com.google.oplus.protobuf.Writer;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -121,8 +118,9 @@ final class CodedOutputStreamWriter implements Writer {
     }
 
     @Override // com.google.oplus.protobuf.Writer
-    public void writeMessage(int i, Object obj, Schema schema) throws IOException {
-        this.output.writeMessage(i, (MessageLite) obj, schema);
+    @SuppressWarnings("unchecked")
+    public void writeMessage(int i, Object obj, Schema<?> schema) throws IOException {
+        this.output.writeMessage(i, obj, (Schema<Object>) schema);
     }
 
     @Override // com.google.oplus.protobuf.Writer
@@ -131,8 +129,9 @@ final class CodedOutputStreamWriter implements Writer {
     }
 
     @Override // com.google.oplus.protobuf.Writer
-    public void writeGroup(int i, Object obj, Schema schema) throws IOException {
-        this.output.writeGroup(i, (MessageLite) obj, schema);
+    @SuppressWarnings("unchecked")
+    public void writeGroup(int i, Object obj, Schema<?> schema) throws IOException {
+        this.output.writeGroup(i, obj, (Schema<Object>) schema);
     }
 
     @Override // com.google.oplus.protobuf.Writer
@@ -502,9 +501,10 @@ final class CodedOutputStreamWriter implements Writer {
     }
 
     @Override // com.google.oplus.protobuf.Writer
-    public void writeMessageList(int i, List<?> list, Schema schema) throws IOException {
+    @SuppressWarnings("unchecked")
+    public void writeMessageList(int i, List<?> list, Schema<?> schema) throws IOException {
         for (int i2 = 0; i2 < list.size(); i2++) {
-            writeMessage(i, list.get(i2), schema);
+            writeMessage(i, list.get(i2), (Schema<Object>) schema);
         }
     }
 
@@ -516,9 +516,10 @@ final class CodedOutputStreamWriter implements Writer {
     }
 
     @Override // com.google.oplus.protobuf.Writer
-    public void writeGroupList(int i, List<?> list, Schema schema) throws IOException {
+    @SuppressWarnings("unchecked")
+    public void writeGroupList(int i, List<?> list, Schema<?> schema) throws IOException {
         for (int i2 = 0; i2 < list.size(); i2++) {
-            writeGroup(i, list.get(i2), schema);
+            writeGroup(i, list.get(i2), (Schema<Object>) schema);
         }
     }
 
@@ -603,11 +604,11 @@ final class CodedOutputStreamWriter implements Writer {
             case 1:
                 V v = map.get(Boolean.FALSE);
                 if (v != null) {
-                    writeDeterministicBooleanMapEntry(i, false, v, (MapEntryLite.Metadata) metadata);
+                    writeDeterministicBooleanMapEntry(i, false, v, (MapEntryLite.Metadata<Boolean, V>) metadata);
                 }
                 V v2 = map.get(Boolean.TRUE);
                 if (v2 != null) {
-                    writeDeterministicBooleanMapEntry(i, true, v2, (MapEntryLite.Metadata) metadata);
+                    writeDeterministicBooleanMapEntry(i, true, v2, (MapEntryLite.Metadata<Boolean, V>) metadata);
                     return;
                 }
                 return;
@@ -616,17 +617,17 @@ final class CodedOutputStreamWriter implements Writer {
             case 4:
             case 5:
             case 6:
-                writeDeterministicIntegerMap(i, (MapEntryLite.Metadata) metadata, (Map) map);
+                writeDeterministicIntegerMap(i, (MapEntryLite.Metadata<Integer, V>) metadata, (Map<Integer, V>) map);
                 return;
             case 7:
             case 8:
             case 9:
             case 10:
             case 11:
-                writeDeterministicLongMap(i, (MapEntryLite.Metadata) metadata, (Map) map);
+                writeDeterministicLongMap(i, (MapEntryLite.Metadata<Long, V>) metadata, (Map<Long, V>) map);
                 return;
             case 12:
-                writeDeterministicStringMap(i, (MapEntryLite.Metadata) metadata, (Map) map);
+                writeDeterministicStringMap(i, (MapEntryLite.Metadata<String, V>) metadata, (Map<String, V>) map);
                 return;
             default:
                 throw new IllegalArgumentException("does not support key type: " + metadata.keyType);

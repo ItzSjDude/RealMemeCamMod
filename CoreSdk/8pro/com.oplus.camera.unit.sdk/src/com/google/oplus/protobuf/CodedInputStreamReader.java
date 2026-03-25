@@ -135,7 +135,8 @@ final class CodedInputStreamReader implements Reader {
     }
 
     @Override // com.google.oplus.protobuf.Reader
-    public <T> T readMessageBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public <T> T readMessageBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         requireWireType(2);
         return (T) readMessage(schema, extensionRegistryLite);
     }
@@ -147,7 +148,8 @@ final class CodedInputStreamReader implements Reader {
     }
 
     @Override // com.google.oplus.protobuf.Reader
-    public <T> T readGroupBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public <T> T readGroupBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         requireWireType(3);
         return (T) readGroup(schema, extensionRegistryLite);
     }
@@ -700,14 +702,19 @@ final class CodedInputStreamReader implements Reader {
     }
 
     @Override // com.google.oplus.protobuf.Reader
-    public <T> void readMessageList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        readMessageList(list, Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
+    public <T> void readMessageList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
+        readMessageList(list, Protobuf.getInstance().schemaFor(cls), extensionRegistryLite);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r3v0, resolved type: java.util.List<T> */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r3v0, resolved type:
+     * java.util.List<T>
+     */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Reader
-    public <T> void readMessageList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public <T> void readMessageList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         int tag;
         if (WireFormat.getTagWireType(this.tag) != 2) {
             throw InvalidProtocolBufferException.invalidWireType();
@@ -725,14 +732,19 @@ final class CodedInputStreamReader implements Reader {
     }
 
     @Override // com.google.oplus.protobuf.Reader
-    public <T> void readGroupList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        readGroupList(list, Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
+    public <T> void readGroupList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
+        readGroupList(list, Protobuf.getInstance().schemaFor(cls), extensionRegistryLite);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r3v0, resolved type: java.util.List<T> */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r3v0, resolved type:
+     * java.util.List<T>
+     */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Reader
-    public <T> void readGroupList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public <T> void readGroupList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         int tag;
         if (WireFormat.getTagWireType(this.tag) != 3) {
             throw InvalidProtocolBufferException.invalidWireType();
@@ -1094,21 +1106,27 @@ final class CodedInputStreamReader implements Reader {
         }
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r8v0, resolved type: java.util.Map<K, V> */
-    /* JADX WARN: Code restructure failed: missing block: B:24:0x005c, code lost:
-    
-        r8.put(r2, r3);
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r8v0, resolved type:
+     * java.util.Map<K, V>
      */
-    /* JADX WARN: Code restructure failed: missing block: B:26:0x0064, code lost:
-    
-        return;
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:24:0x005c, code lost:
+     * 
+     * r8.put(r2, r3);
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:26:0x0064, code lost:
+     * 
+     * return;
      */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.Reader
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    public <K, V> void readMap(Map<K, V> map, MapEntryLite.Metadata<K, V> metadata, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    public <K, V> void readMap(Map<K, V> map, MapEntryLite.Metadata<K, V> metadata,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
         requireWireType(2);
         int iPushLimit = this.input.pushLimit(this.input.readUInt32());
         Object field = metadata.defaultKey;
@@ -1140,7 +1158,10 @@ final class CodedInputStreamReader implements Reader {
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.CodedInputStreamReader$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.CodedInputStreamReader$1,
+     * reason: invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -1218,7 +1239,8 @@ final class CodedInputStreamReader implements Reader {
         }
     }
 
-    private Object readField(WireFormat.FieldType fieldType, Class<?> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    private Object readField(WireFormat.FieldType fieldType, Class<?> cls, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 return Boolean.valueOf(readBool());

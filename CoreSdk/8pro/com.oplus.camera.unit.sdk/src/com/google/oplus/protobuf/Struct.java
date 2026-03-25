@@ -16,10 +16,16 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
     private MapField<String, Value> fields_;
     private byte memoizedIsInitialized;
     private static final Struct DEFAULT_INSTANCE = new Struct();
-    private static final Parser<Struct> PARSER = new AbstractParser<Struct>() { // from class: com.google.oplus.protobuf.Struct.1
-        /* JADX DEBUG: Method merged with bridge method: parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object; */
+    private static final Parser<Struct> PARSER = new AbstractParser<Struct>() { // from class:
+                                                                                // com.google.oplus.protobuf.Struct.1
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * parsePartialFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/
+         * oplus/protobuf/ExtensionRegistryLite;)Ljava/lang/Object;
+         */
         @Override // com.google.oplus.protobuf.Parser
-        public Struct parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+        public Struct parsePartialFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+                throws InvalidProtocolBufferException {
             return new Struct(codedInputStream, extensionRegistryLite);
         }
     };
@@ -38,14 +44,19 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return new Struct();
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.MessageOrBuilder
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.MessageOrBuilder
     public final UnknownFieldSet getUnknownFields() {
         return this.unknownFields;
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r4v2, resolved type: java.util.Map<java.lang.String, com.google.oplus.protobuf.Value> */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r4v2, resolved type:
+     * java.util.Map<java.lang.String, com.google.oplus.protobuf.Value>
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    private Struct(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    private Struct(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         this();
         extensionRegistryLite.getClass();
         UnknownFieldSet.Builder builderNewBuilder = UnknownFieldSet.newBuilder();
@@ -61,9 +72,11 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
                                 this.fields_ = MapField.newMapField(FieldsDefaultEntryHolder.defaultEntry);
                                 z2 |= true;
                             }
-                            MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(FieldsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
+                            MapEntry<String, Value> mapEntry = (MapEntry) codedInputStream.readMessage(
+                                    FieldsDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistryLite);
                             this.fields_.getMutableMap().put(mapEntry.getKey(), mapEntry.getValue());
-                        } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
+                        } else if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite,
+                                tag)) {
                         }
                     }
                     z = true;
@@ -93,11 +106,14 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
 
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
     protected GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-        return StructProto.internal_static_google_protobuf_Struct_fieldAccessorTable.ensureFieldAccessorsInitialized(Struct.class, Builder.class);
+        return StructProto.internal_static_google_protobuf_Struct_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(Struct.class, Builder.class);
     }
 
     private static final class FieldsDefaultEntryHolder {
-        static final MapEntry<String, Value> defaultEntry = MapEntry.newDefaultInstance(StructProto.internal_static_google_protobuf_Struct_FieldsEntry_descriptor, WireFormat.FieldType.STRING, "", WireFormat.FieldType.MESSAGE, Value.getDefaultInstance());
+        static final MapEntry<String, Value> defaultEntry = MapEntry.newDefaultInstance(
+                StructProto.internal_static_google_protobuf_Struct_FieldsEntry_descriptor, WireFormat.FieldType.STRING,
+                "", WireFormat.FieldType.MESSAGE, Value.getDefaultInstance());
 
         private FieldsDefaultEntryHolder() {
         }
@@ -154,7 +170,9 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return map.get(str);
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLiteOrBuilder
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.AbstractMessage,
+              // com.google.oplus.protobuf.MessageLiteOrBuilder
     public final boolean isInitialized() {
         byte b = this.memoizedIsInitialized;
         if (b == 1) {
@@ -167,13 +185,18 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return true;
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.AbstractMessage,
+              // com.google.oplus.protobuf.MessageLite
     public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-        GeneratedMessageV3.serializeStringMapTo(codedOutputStream, internalGetFields(), FieldsDefaultEntryHolder.defaultEntry, 1);
+        GeneratedMessageV3.serializeStringMapTo(codedOutputStream, internalGetFields(),
+                FieldsDefaultEntryHolder.defaultEntry, 1);
         this.unknownFields.writeTo(codedOutputStream);
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.AbstractMessage,
+              // com.google.oplus.protobuf.MessageLite
     public int getSerializedSize() {
         int i = this.memoizedSize;
         if (i != -1) {
@@ -181,7 +204,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         }
         int iComputeMessageSize = 0;
         for (Map.Entry<String, Value> entry : internalGetFields().getMap().entrySet()) {
-            iComputeMessageSize += CodedOutputStream.computeMessageSize(1, FieldsDefaultEntryHolder.defaultEntry.newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
+            iComputeMessageSize += CodedOutputStream.computeMessageSize(1, FieldsDefaultEntryHolder.defaultEntry
+                    .newBuilderForType().setKey(entry.getKey()).setValue(entry.getValue()).build());
         }
         int serializedSize = iComputeMessageSize + this.unknownFields.getSerializedSize();
         this.memoizedSize = serializedSize;
@@ -197,7 +221,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
             return super.equals(obj);
         }
         Struct struct = (Struct) obj;
-        return internalGetFields().equals(struct.internalGetFields()) && this.unknownFields.equals(struct.unknownFields);
+        return internalGetFields().equals(struct.internalGetFields())
+                && this.unknownFields.equals(struct.unknownFields);
     }
 
     @Override // com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.Message
@@ -218,7 +243,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return PARSER.parseFrom(byteBuffer);
     }
 
-    public static Struct parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public static Struct parseFrom(ByteBuffer byteBuffer, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return PARSER.parseFrom(byteBuffer, extensionRegistryLite);
     }
 
@@ -226,7 +252,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return PARSER.parseFrom(byteString);
     }
 
-    public static Struct parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public static Struct parseFrom(ByteString byteString, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return PARSER.parseFrom(byteString, extensionRegistryLite);
     }
 
@@ -234,7 +261,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return PARSER.parseFrom(bArr);
     }
 
-    public static Struct parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite) throws InvalidProtocolBufferException {
+    public static Struct parseFrom(byte[] bArr, ExtensionRegistryLite extensionRegistryLite)
+            throws InvalidProtocolBufferException {
         return PARSER.parseFrom(bArr, extensionRegistryLite);
     }
 
@@ -242,7 +270,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return (Struct) GeneratedMessageV3.parseWithIOException(PARSER, inputStream);
     }
 
-    public static Struct parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static Struct parseFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return (Struct) GeneratedMessageV3.parseWithIOException(PARSER, inputStream, extensionRegistryLite);
     }
 
@@ -250,7 +279,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return (Struct) GeneratedMessageV3.parseDelimitedWithIOException(PARSER, inputStream);
     }
 
-    public static Struct parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static Struct parseDelimitedFrom(InputStream inputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return (Struct) GeneratedMessageV3.parseDelimitedWithIOException(PARSER, inputStream, extensionRegistryLite);
     }
 
@@ -258,12 +288,19 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return (Struct) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream);
     }
 
-    public static Struct parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    public static Struct parseFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite)
+            throws IOException {
         return (Struct) GeneratedMessageV3.parseWithIOException(PARSER, codedInputStream, extensionRegistryLite);
     }
 
-    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder; */
-    /* JADX DEBUG: Method merged with bridge method: newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * newBuilderForType()Lcom/google/oplus/protobuf/Message$Builder;
+     */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * newBuilderForType()Lcom/google/oplus/protobuf/MessageLite$Builder;
+     */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder newBuilderForType() {
         return newBuilder();
@@ -277,14 +314,24 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(struct);
     }
 
-    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/Message$Builder; */
-    /* JADX DEBUG: Method merged with bridge method: toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * toBuilder()Lcom/google/oplus/protobuf/Message$Builder;
+     */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * toBuilder()Lcom/google/oplus/protobuf/MessageLite$Builder;
+     */
     @Override // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Builder toBuilder() {
         return this == DEFAULT_INSTANCE ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    /* JADX DEBUG: Method merged with bridge method: newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent;)Lcom/google/oplus/protobuf/Message$Builder; */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * newBuilderForType(Lcom/google/oplus/protobuf/GeneratedMessageV3$BuilderParent
+     * ;)Lcom/google/oplus/protobuf/Message$Builder;
+     */
     /* JADX INFO: Access modifiers changed from: protected */
     @Override // com.google.oplus.protobuf.GeneratedMessageV3
     public Builder newBuilderForType(GeneratedMessageV3.BuilderParent builderParent) {
@@ -295,7 +342,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         private int bitField0_;
         private MapField<String, Value> fields_;
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.MessageLiteOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.MessageLiteOrBuilder
         public final boolean isInitialized() {
             return true;
         }
@@ -322,7 +370,8 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder
         protected GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-            return StructProto.internal_static_google_protobuf_Struct_fieldAccessorTable.ensureFieldAccessorsInitialized(Struct.class, Builder.class);
+            return StructProto.internal_static_google_protobuf_Struct_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(Struct.class, Builder.class);
         }
 
         private Builder() {
@@ -338,32 +387,63 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
             boolean z = GeneratedMessageV3.alwaysUseFieldBuilders;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/Message$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clear()Lcom/google/oplus/protobuf/MessageLite$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clear()Lcom/google/oplus/protobuf/AbstractMessage$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clear()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clear()Lcom/google/oplus/protobuf/Message$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clear()Lcom/google/oplus/protobuf/MessageLite$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder clear() {
             super.clear();
             internalGetMutableFields().clear();
             return this;
         }
 
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder, com.google.oplus.protobuf.MessageOrBuilder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder,
+                  // com.google.oplus.protobuf.MessageOrBuilder
         public Descriptors.Descriptor getDescriptorForType() {
             return StructProto.internal_static_google_protobuf_Struct_descriptor;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
-        /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
-        @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite;
+         */
+        @Override // com.google.oplus.protobuf.MessageLiteOrBuilder,
+                  // com.google.oplus.protobuf.MessageOrBuilder
         public Struct getDefaultInstanceForType() {
             return Struct.getDefaultInstance();
         }
 
-        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/Message; */
-        /* JADX DEBUG: Method merged with bridge method: build()Lcom/google/oplus/protobuf/MessageLite; */
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * build()Lcom/google/oplus/protobuf/Message;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * build()Lcom/google/oplus/protobuf/MessageLite;
+         */
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Struct build() {
             Struct structBuildPartial = buildPartial();
             if (structBuildPartial.isInitialized()) {
@@ -372,9 +452,16 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
             throw newUninitializedMessageException((Message) structBuildPartial);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/Message; */
-        /* JADX DEBUG: Method merged with bridge method: buildPartial()Lcom/google/oplus/protobuf/MessageLite; */
-        @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * buildPartial()Lcom/google/oplus/protobuf/Message;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * buildPartial()Lcom/google/oplus/protobuf/MessageLite;
+         */
+        @Override // com.google.oplus.protobuf.MessageLite.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Struct buildPartial() {
             Struct struct = new Struct(this);
             struct.fields_ = internalGetFields();
@@ -383,57 +470,133 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
             return struct;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/Message$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clone()Lcom/google/oplus/protobuf/MessageLite$Builder; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clone()Lcom/google/oplus/protobuf/AbstractMessage$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clone()Lcom/google/oplus/protobuf/AbstractMessageLite$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clone()Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clone()Lcom/google/oplus/protobuf/Message$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clone()Lcom/google/oplus/protobuf/MessageLite$Builder;
+         */
         /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* JADX INFO: renamed from: clone */
         public Builder clone() {
             return (Builder) super.clone();
         }
 
-        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/
+         * Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/
+         * Object;)Lcom/google/oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.setField(fieldDescriptor, obj);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/
+         * google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clearField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;)Lcom/
+         * google/oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder clearField(Descriptors.FieldDescriptor fieldDescriptor) {
             return (Builder) super.clearField(fieldDescriptor);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/
+         * google/oplus/protobuf/AbstractMessage$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/
+         * google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * clearOneof(Lcom/google/oplus/protobuf/Descriptors$OneofDescriptor;)Lcom/
+         * google/oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder clearOneof(Descriptors.OneofDescriptor oneofDescriptor) {
             return (Builder) super.clearOneof(oneofDescriptor);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;
+         * ILjava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * setRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;
+         * ILjava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder setRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, int i, Object obj) {
             return (Builder) super.setRepeatedField(fieldDescriptor, i, obj);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava
+         * /lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * addRepeatedField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava
+         * /lang/Object;)Lcom/google/oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder addRepeatedField(Descriptors.FieldDescriptor fieldDescriptor, Object obj) {
             return (Builder) super.addRepeatedField(fieldDescriptor, obj);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/
+         * AbstractMessage$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/
+         * Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public Builder mergeFrom(Message message) {
             if (message instanceof Struct) {
                 return mergeFrom((Struct) message);
@@ -452,13 +615,33 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
             return this;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/AbstractMessageLite$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
-        /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/
+         * protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/
+         * AbstractMessage$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/
+         * protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/
+         * AbstractMessageLite$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/
+         * protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/
+         * protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/
+         * MessageLite$Builder;
+         */
+        /* JADX WARN: Removed duplicated region for block: B:16:0x0023 */
         @Override
-        public Builder mergeFrom(CodedInputStream input, ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+        public Builder mergeFrom(CodedInputStream input, ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
             Struct parsedMessage = null;
             try {
                 parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
@@ -568,17 +751,40 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
             return this;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/
+         * oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * setUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/
+         * oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public final Builder setUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.setUnknownFields(unknownFieldSet);
         }
 
-        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
-        /* JADX DEBUG: Method merged with bridge method: mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/oplus/protobuf/Message$Builder; */
-        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.Message.Builder
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/
+         * oplus/protobuf/AbstractMessage$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/
+         * oplus/protobuf/GeneratedMessageV3$Builder;
+         */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mergeUnknownFields(Lcom/google/oplus/protobuf/UnknownFieldSet;)Lcom/google/
+         * oplus/protobuf/Message$Builder;
+         */
+        @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder,
+                  // com.google.oplus.protobuf.AbstractMessage.Builder,
+                  // com.google.oplus.protobuf.Message.Builder
         public final Builder mergeUnknownFields(UnknownFieldSet unknownFieldSet) {
             return (Builder) super.mergeUnknownFields(unknownFieldSet);
         }
@@ -592,14 +798,22 @@ public final class Struct extends GeneratedMessageV3 implements StructOrBuilder 
         return PARSER;
     }
 
-    @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
+    @Override // com.google.oplus.protobuf.GeneratedMessageV3,
+              // com.google.oplus.protobuf.MessageLite, com.google.oplus.protobuf.Message
     public Parser<Struct> getParserForType() {
         return PARSER;
     }
 
-    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message; */
-    /* JADX DEBUG: Method merged with bridge method: getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite; */
-    @Override // com.google.oplus.protobuf.MessageLiteOrBuilder, com.google.oplus.protobuf.MessageOrBuilder
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * getDefaultInstanceForType()Lcom/google/oplus/protobuf/Message;
+     */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * getDefaultInstanceForType()Lcom/google/oplus/protobuf/MessageLite;
+     */
+    @Override // com.google.oplus.protobuf.MessageLiteOrBuilder,
+              // com.google.oplus.protobuf.MessageOrBuilder
     public Struct getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
     }

@@ -723,7 +723,7 @@ public class OplusExifInterface {
     /* JADX WARN: Type inference failed for: r0v1 */
     /* JADX WARN: Type inference failed for: r0v2, types: [java.io.Closeable] */
     /* JADX WARN: Type inference failed for: r0v3 */
-    public boolean rewriteExif(String str, Collection<OplusExifTag> collection) throws Throwable {
+    public boolean rewriteExif(String str, Collection<OplusExifTag> collection) throws Exception {
         RandomAccessFile randomAccessFile = null;
         BufferedInputStream bufferedInputStream = null;
         try {
@@ -763,7 +763,7 @@ public class OplusExifInterface {
         }
     }
 
-    public void forceRewriteExif(String str, Collection<OplusExifTag> collection) throws Throwable {
+    public void forceRewriteExif(String str, Collection<OplusExifTag> collection) throws Exception {
         if (collection == null || rewriteExif(str, collection)) {
             return;
         }
@@ -786,7 +786,7 @@ public class OplusExifInterface {
         }
     }
 
-    public void forceRewriteExif(String str) throws Throwable {
+    public void forceRewriteExif(String str) throws Exception {
         forceRewriteExif(str, getAllTags());
     }
 

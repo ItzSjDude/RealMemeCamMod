@@ -83,10 +83,11 @@ public final class CameraConfigure {
                 sVendorTagMap.put(strArrSplit2[0], "");
             }
         }
-        CameraUnitLog.d(TAG, "getVendorTagMap, size: " + strArrSplit.length + ", cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
+        CameraUnitLog.d(TAG, "getVendorTagMap, size: " + strArrSplit.length + ", cost time: "
+                + (System.currentTimeMillis() - jCurrentTimeMillis));
     }
 
-    private static void parseFromProtobuf(Context context) throws Throwable {
+    private static void parseFromProtobuf(Context context) throws Exception {
         CameraUnitLog.traceBeginSection("parseFromProtobuf");
         long jCurrentTimeMillis = System.currentTimeMillis();
         int configParseVersion = ProtobufConfigureHelper.getConfigParseVersion();
@@ -97,15 +98,19 @@ public final class CameraConfigure {
             decodeConfigFileVersion2(context);
         }
         sbInit = true;
-        CameraUnitLog.e(TAG, "initialize, configParseVersion: " + ProtobufConfigureHelper.getConfigParseVersion() + ", cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
+        CameraUnitLog.e(TAG, "initialize, configParseVersion: " + ProtobufConfigureHelper.getConfigParseVersion()
+                + ", cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
         CameraUnitLog.traceEndSection("parseFromProtobuf");
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:35:0x003f A[EXC_TOP_SPLITTER, SYNTHETIC] */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    private static void decodeConfigFileVersion1() throws Throwable {
+     * JADX WARN: Removed duplicated region for block: B:35:0x003f
+     * A[EXC_TOP_SPLITTER, SYNTHETIC]
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    private static void decodeConfigFileVersion1() throws Exception {
         FileInputStream fileInputStream;
         Throwable th;
         IOException e;
@@ -160,23 +165,40 @@ public final class CameraConfigure {
         FEATURE_CONFIG_CONDITION.open();
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:24:0x007c A[Catch: all -> 0x00c4, IOException -> 0x00c6, TryCatch #1 {all -> 0x00c4, blocks: (B:3:0x0005, B:5:0x000c, B:7:0x0029, B:9:0x0030, B:22:0x0075, B:24:0x007c, B:26:0x008c, B:32:0x00a7, B:33:0x00ab, B:12:0x004b, B:47:0x00c7), top: B:64:0x0005 }] */
-    /* JADX WARN: Removed duplicated region for block: B:62:0x00e3 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:66:0x00ce A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:68:0x00b8 A[EXC_TOP_SPLITTER, SYNTHETIC] */
-    /* JADX WARN: Removed duplicated region for block: B:8:0x002f  */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    private static void decodeConfigFileVersion2(Context context) throws Throwable {
+     * JADX WARN: Removed duplicated region for block: B:24:0x007c A[Catch: all ->
+     * 0x00c4, IOException -> 0x00c6, TryCatch #1 {all -> 0x00c4, blocks:
+     * (B:3:0x0005, B:5:0x000c, B:7:0x0029, B:9:0x0030, B:22:0x0075, B:24:0x007c,
+     * B:26:0x008c, B:32:0x00a7, B:33:0x00ab, B:12:0x004b, B:47:0x00c7), top:
+     * B:64:0x0005 }]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:62:0x00e3
+     * A[EXC_TOP_SPLITTER, SYNTHETIC]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:66:0x00ce
+     * A[EXC_TOP_SPLITTER, SYNTHETIC]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:68:0x00b8
+     * A[EXC_TOP_SPLITTER, SYNTHETIC]
+     */
+    /* JADX WARN: Removed duplicated region for block: B:8:0x002f */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    private static void decodeConfigFileVersion2(Context context) throws Exception {
         int intFormStream;
         int i;
         FileInputStream fileInputStream = null;
         try {
             try {
-                FileInputStream fileInputStream2 = new FileInputStream("/odm/etc/camera/config/oplus_camera_feature_config");
+                FileInputStream fileInputStream2 = new FileInputStream(
+                        "/odm/etc/camera/config/oplus_camera_feature_config");
                 if (context != null) {
-                    String str = context.getFilesDir().getAbsolutePath() + "/odm/etc/camera/config/oplus_camera_feature_config";
+                    String str = context.getFilesDir().getAbsolutePath()
+                            + "/odm/etc/camera/config/oplus_camera_feature_config";
                     FileInputStream fileInputStream3 = Util.isFileExist(str) ? new FileInputStream(str) : null;
                     int intFormStream2 = readIntFormStream(fileInputStream2);
                     CameraUnitLog.e(TAG, "decodeConfigFileVersion2, odmFileVersion:" + intFormStream2);
@@ -193,7 +215,9 @@ public final class CameraConfigure {
                                     int intFormStream5 = readIntFormStream(fileInputStream);
                                     byte[] bArr = new byte[intFormStream5];
                                     if (fileInputStream.read(bArr) != intFormStream5) {
-                                        CameraUnitLog.e(TAG, "decodeConfigFileVersion2, content length is not correct, tag: " + intFormStream4);
+                                        CameraUnitLog.e(TAG,
+                                                "decodeConfigFileVersion2, content length is not correct, tag: "
+                                                        + intFormStream4);
                                     }
                                     if (intFormStream4 == 1) {
                                         generateVendorTagMap(bArr);
@@ -297,7 +321,8 @@ public final class CameraConfigure {
 
     @Nullable
     public static String getProjectSupportFeatureValue(String str) {
-        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist() || 1 == ProtobufConfigureHelper.getConfigParseVersion()) {
+        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()
+                || 1 == ProtobufConfigureHelper.getConfigParseVersion()) {
             return null;
         }
         PROJECT_FEATURES_READY_CONDITION.block();
@@ -306,7 +331,8 @@ public final class CameraConfigure {
 
     @Nullable
     public static boolean setProjectSupportFeatureValueRus(String str, String str2) {
-        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist() || 1 == ProtobufConfigureHelper.getConfigParseVersion()) {
+        if (!ProtobufConfigureHelper.isFeatureConfigureFileExist()
+                || 1 == ProtobufConfigureHelper.getConfigParseVersion()) {
             return false;
         }
         PROJECT_FEATURES_READY_CONDITION.block();
@@ -335,7 +361,8 @@ public final class CameraConfigure {
     private static void initCameraFeatureTable(ProtobufFeatureConfig.FeatureTable featureTable) {
         ProtobufFeatureConfig.CameraFeatureTable cameraFeatureTable = featureTable.getCameraFeatureTable();
         if (cameraFeatureTable != null) {
-            for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : cameraFeatureTable.getModeFeatureTablesMap().entrySet()) {
+            for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : cameraFeatureTable
+                    .getModeFeatureTablesMap().entrySet()) {
                 String key = entry.getKey();
                 Map<String, Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>>> map = sFeatureTable;
                 Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map2 = map.get(key);
@@ -344,20 +371,24 @@ public final class CameraConfigure {
                     map.put(key, map2);
                 }
                 CameraUnitLog.d(TAG, "initCameraFeatureTable, modeName: " + key + ", modeTableSize: " + map2.size());
-                for (Map.Entry<Integer, ProtobufFeatureConfig.CameraTypeFeatureTable> entry2 : entry.getValue().getCameraTypeFeatureTablesMap().entrySet()) {
+                for (Map.Entry<Integer, ProtobufFeatureConfig.CameraTypeFeatureTable> entry2 : entry.getValue()
+                        .getCameraTypeFeatureTablesMap().entrySet()) {
                     String strPool = featureTable.getStrPool(entry2.getKey().intValue());
-                    map2.put(strPool, initCameraTypeFeatureTable(entry2.getValue(), featureTable.getStrPoolList(), key, strPool));
+                    map2.put(strPool,
+                            initCameraTypeFeatureTable(entry2.getValue(), featureTable.getStrPoolList(), key, strPool));
                 }
             }
         }
     }
 
     private static void initCameraGroupFeatureTable(ProtobufFeatureConfig.FeatureTable featureTable) {
-        ProtobufFeatureConfig.CameraGroupFeatureTable cameraGroupFeatureTable = featureTable.getCameraGroupFeatureTable();
+        ProtobufFeatureConfig.CameraGroupFeatureTable cameraGroupFeatureTable = featureTable
+                .getCameraGroupFeatureTable();
         if (cameraGroupFeatureTable == null) {
             return;
         }
-        for (Map.Entry<String, ProtobufFeatureConfig.ModeGroupFeatureTable> entry : cameraGroupFeatureTable.getModeGroupFeatureTablesMap().entrySet()) {
+        for (Map.Entry<String, ProtobufFeatureConfig.ModeGroupFeatureTable> entry : cameraGroupFeatureTable
+                .getModeGroupFeatureTablesMap().entrySet()) {
             String key = entry.getKey();
             ProtobufFeatureConfig.ModeGroupFeatureTable value = entry.getValue();
             Map<String, Map<String, List<Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>>>> map = sGroupFeatureTable;
@@ -366,14 +397,16 @@ public final class CameraConfigure {
                 map2 = new HashMap<>();
                 map.put(key, map2);
             }
-            for (Map.Entry<Integer, ProtobufFeatureConfig.CameraTypeFeatureTableList> entry2 : value.getCameraTypeFeatureTablesMap().entrySet()) {
+            for (Map.Entry<Integer, ProtobufFeatureConfig.CameraTypeFeatureTableList> entry2 : value
+                    .getCameraTypeFeatureTablesMap().entrySet()) {
                 String strPool = featureTable.getStrPool(entry2.getKey().intValue());
                 List<Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> arrayList = map2.get(strPool);
                 if (arrayList == null) {
                     arrayList = new ArrayList<>();
                     map2.put(strPool, arrayList);
                 }
-                Iterator<ProtobufFeatureConfig.CameraTypeFeatureTable> it = entry2.getValue().getCameraTypeFeatureTableListList().iterator();
+                Iterator<ProtobufFeatureConfig.CameraTypeFeatureTable> it = entry2.getValue()
+                        .getCameraTypeFeatureTableListList().iterator();
                 while (it.hasNext()) {
                     arrayList.add(initCameraTypeFeatureTable(it.next(), featureTable.getStrPoolList(), key, strPool));
                 }
@@ -381,7 +414,9 @@ public final class CameraConfigure {
         }
     }
 
-    private static Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> initCameraTypeFeatureTable(ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable, List<String> list, String str, String str2) {
+    private static Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> initCameraTypeFeatureTable(
+            ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable, List<String> list, String str,
+            String str2) {
         HashMap map = new HashMap();
         HashMap map2 = new HashMap();
         for (ProtobufFeatureConfig.Feature feature : cameraTypeFeatureTable.getFeatureListList()) {
@@ -394,8 +429,11 @@ public final class CameraConfigure {
             }
         }
         for (Map.Entry entry : map2.entrySet()) {
-            ProtobufFeatureInfoInterface protobufFeatureInfoInterface = (ProtobufFeatureInfoInterface) map.get(entry.getKey());
-            Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> mapInitConflictMap = initConflictMap(((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list, protobufFeatureInfoInterface.getFeatureKey(), str, str2);
+            ProtobufFeatureInfoInterface protobufFeatureInfoInterface = (ProtobufFeatureInfoInterface) map
+                    .get(entry.getKey());
+            Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> mapInitConflictMap = initConflictMap(
+                    ((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list,
+                    protobufFeatureInfoInterface.getFeatureKey(), str, str2);
             if (protobufFeatureInfoInterface instanceof ProtobufFeatureInfoImpl) {
                 ((ProtobufFeatureInfoImpl) protobufFeatureInfoInterface).setConflictMap(mapInitConflictMap);
             }
@@ -415,7 +453,8 @@ public final class CameraConfigure {
         if (protobufFeatureConfigureImpl != null) {
             return protobufFeatureConfigureImpl;
         }
-        ProtobufFeatureConfigureImpl protobufFeatureConfigureImplCreate = ProtobufFeatureConfigureImpl.create(str, str2);
+        ProtobufFeatureConfigureImpl protobufFeatureConfigureImplCreate = ProtobufFeatureConfigureImpl.create(str,
+                str2);
         addFeature(str, str2, protobufFeatureConfigureImplCreate);
         map2.put(str2, protobufFeatureConfigureImplCreate);
         return protobufFeatureConfigureImplCreate;
@@ -435,7 +474,8 @@ public final class CameraConfigure {
         }
         if (!VENDOR_TAG.equalsIgnoreCase(str)) {
             if (map4 != null && map4.containsKey("common")) {
-                for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry : map4.get("common").entrySet()) {
+                for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry : map4.get("common")
+                        .entrySet()) {
                     if (!map3.containsKey(entry.getKey())) {
                         map3.put(entry.getKey(), entry.getValue());
                     }
@@ -445,14 +485,16 @@ public final class CameraConfigure {
             if (map5.containsKey("common")) {
                 Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map6 = map5.get("common");
                 if (map6.containsKey(str2)) {
-                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry2 : map6.get(str2).entrySet()) {
+                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry2 : map6.get(str2)
+                            .entrySet()) {
                         if (!map3.containsKey(entry2.getKey())) {
                             map3.put(entry2.getKey(), entry2.getValue());
                         }
                     }
                 }
                 if (map6.containsKey("common")) {
-                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry3 : map6.get("common").entrySet()) {
+                    for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> entry3 : map6.get("common")
+                            .entrySet()) {
                         if (!map3.containsKey(entry3.getKey())) {
                             map3.put(entry3.getKey(), entry3.getValue());
                         }
@@ -464,7 +506,8 @@ public final class CameraConfigure {
     }
 
     @Nullable
-    private static ProtobufFeatureInfoImpl<?> initFeatureInfo(ProtobufFeatureConfig.Feature feature, List<String> list, String str) {
+    private static ProtobufFeatureInfoImpl<?> initFeatureInfo(ProtobufFeatureConfig.Feature feature, List<String> list,
+            String str) {
         String str2 = list.get(feature.getFeatureNameIndex());
         String str3 = list.get(feature.getFeatureKeyNameIndex());
         String str4 = list.get(feature.getFeatureValueRangeIndex());
@@ -477,17 +520,21 @@ public final class CameraConfigure {
         if (cameraFeatureKeyInitFeatureKey == null) {
             return null;
         }
-        return new ProtobufFeatureInfoImpl<>(str2, str4, str5, lowerCase, str6, groupConflict, cameraFeatureKeyInitFeatureKey);
+        return new ProtobufFeatureInfoImpl<>(str2, str4, str5, lowerCase, str6, groupConflict,
+                cameraFeatureKeyInitFeatureKey);
     }
 
     @NonNull
-    private static Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> initConflictMap(Map<Integer, ProtobufFeatureConfig.ConflictFeatureList> map, List<String> list, CameraFeatureKey<?> cameraFeatureKey, String str, String str2) {
+    private static Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> initConflictMap(
+            Map<Integer, ProtobufFeatureConfig.ConflictFeatureList> map, List<String> list,
+            CameraFeatureKey<?> cameraFeatureKey, String str, String str2) {
         if (map.isEmpty()) {
             return Collections.EMPTY_MAP;
         }
         LinkedHashMap linkedHashMap = new LinkedHashMap(map.size());
         for (Map.Entry<Integer, ProtobufFeatureConfig.ConflictFeatureList> entry : map.entrySet()) {
-            ConflictTargetValue conflictTargetValue = ValueFactory.getConflictTargetValue(list.get(entry.getKey().intValue()), cameraFeatureKey.getType());
+            ConflictTargetValue conflictTargetValue = ValueFactory
+                    .getConflictTargetValue(list.get(entry.getKey().intValue()), cameraFeatureKey.getType());
             ProtobufFeatureConfig.ConflictFeatureList value = entry.getValue();
             ArrayList arrayList = new ArrayList(value.getConflictFeaturesCount());
             for (ProtobufFeatureConfig.ConflictFeature conflictFeature : value.getConflictFeaturesList()) {
@@ -498,7 +545,8 @@ public final class CameraConfigure {
                 if (cameraFeatureKey2 != null) {
                     arrayList.add(new ConflictFeature(cameraFeatureKey2, str4, str5, cameraFeatureKey2.getType()));
                 } else {
-                    CameraUnitLog.e(TAG, "Conflict feature not config: " + str + FeatureImpl.DELIMITER + str2 + FeatureImpl.DELIMITER + str3);
+                    CameraUnitLog.e(TAG, "Conflict feature not config: " + str + FeatureImpl.DELIMITER + str2
+                            + FeatureImpl.DELIMITER + str3);
                 }
             }
             linkedHashMap.put(conflictTargetValue, arrayList);

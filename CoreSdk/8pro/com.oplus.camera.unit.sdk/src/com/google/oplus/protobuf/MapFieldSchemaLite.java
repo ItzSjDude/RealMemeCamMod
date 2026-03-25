@@ -62,8 +62,8 @@ class MapFieldSchemaLite implements MapFieldSchema {
     }
 
     private static <K, V> int getSerializedSizeLite(int i, Object obj, Object obj2) {
-        MapFieldLite mapFieldLite = (MapFieldLite) obj;
-        MapEntryLite mapEntryLite = (MapEntryLite) obj2;
+        MapFieldLite<K, V> mapFieldLite = (MapFieldLite) obj;
+        MapEntryLite<K, V> mapEntryLite = (MapEntryLite) obj2;
         int iComputeMessageSize = 0;
         if (mapFieldLite.isEmpty()) {
             return 0;

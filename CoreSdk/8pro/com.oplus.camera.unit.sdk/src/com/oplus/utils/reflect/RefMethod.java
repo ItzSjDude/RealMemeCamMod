@@ -163,19 +163,21 @@ public class RefMethod<T> extends BaseRef<T> {
     public T callWithDefault(Object obj, T t, Object... objArr) {
         try {
             return callWithException(obj, objArr);
-        } catch (Throwable th) {
-            Log.e(TAG, th.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
             return t != null ? t : this.getDefaultValue();
         }
     }
 
-    public T callWithException(Object obj, Object... objArr) throws Throwable {
+    public T callWithException(Object obj, Object... objArr) throws Exception {
         try {
             return (T) this.mMethod.invoke(checkStub(obj), objArr);
         } catch (InvocationTargetException e) {
             Throwable cause = e.getCause();
-            if (cause != null) {
-                throw cause;
+            if (cause instanceof Exception) {
+                throw (Exception) cause;
+            } else if (cause != null) {
+                throw new Exception(cause);
             }
             throw e;
         }

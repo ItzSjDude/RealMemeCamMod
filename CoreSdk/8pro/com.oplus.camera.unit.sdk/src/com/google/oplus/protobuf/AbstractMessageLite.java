@@ -97,11 +97,11 @@ public abstract class AbstractMessageLite<MessageType extends AbstractMessageLit
 
     @Deprecated
     protected static <T> void addAll(Iterable<T> iterable, Collection<? super T> collection) {
-        Builder.addAll((Iterable) iterable, (List) collection);
+        Builder.addAll(iterable, (List<? super T>) collection);
     }
 
     protected static <T> void addAll(Iterable<T> iterable, List<? super T> list) {
-        Builder.addAll((Iterable) iterable, (List) list);
+        Builder.addAll(iterable, list);
     }
 
     public static abstract class Builder<MessageType extends AbstractMessageLite<MessageType, BuilderType>, BuilderType extends Builder<MessageType, BuilderType>>

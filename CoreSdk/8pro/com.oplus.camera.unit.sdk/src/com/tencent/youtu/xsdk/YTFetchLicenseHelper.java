@@ -27,8 +27,12 @@ import org.json.JSONObject;
 public class YTFetchLicenseHelper {
     private static String TAG = "YTCommon_FetchLicense";
 
-    public FetchLicenseResult fetchLicenseOnline(Context context, String str, String str2, String str3, YTDeviceInfo yTDeviceInfo) {
-        C1FetchThreadRunnable c1FetchThreadRunnable = new C1FetchThreadRunnable(str2, str3, yTDeviceInfo == null ? "ANDROID" : yTDeviceInfo.platform, yTDeviceInfo == null ? "" : yTDeviceInfo.device_id, yTDeviceInfo != null ? yTDeviceInfo.device_info_encrypted : "", context.getPackageName(), str);
+    public FetchLicenseResult fetchLicenseOnline(Context context, String str, String str2, String str3,
+            YTDeviceInfo yTDeviceInfo) {
+        C1FetchThreadRunnable c1FetchThreadRunnable = new C1FetchThreadRunnable(str2, str3,
+                yTDeviceInfo == null ? "ANDROID" : yTDeviceInfo.platform,
+                yTDeviceInfo == null ? "" : yTDeviceInfo.device_id,
+                yTDeviceInfo != null ? yTDeviceInfo.device_info_encrypted : "", context.getPackageName(), str);
         Thread thread = new Thread(c1FetchThreadRunnable);
         try {
             thread.start();
@@ -39,7 +43,11 @@ public class YTFetchLicenseHelper {
         return c1FetchThreadRunnable.result;
     }
 
-    /* JADX INFO: renamed from: com.tencent.youtu.xsdk.YTFetchLicenseHelper$1FetchThreadRunnable, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from:
+     * com.tencent.youtu.xsdk.YTFetchLicenseHelper$1FetchThreadRunnable, reason:
+     * invalid class name
+     */
     class C1FetchThreadRunnable implements Runnable {
         FetchLicenseResult result;
         final /* synthetic */ String val$appid;
@@ -51,7 +59,8 @@ public class YTFetchLicenseHelper {
         final /* synthetic */ String val$var9;
 
         /* JADX DEBUG: Incorrect args count in method signature: ()V */
-        C1FetchThreadRunnable(String str, String str2, String str3, String str4, String str5, String str6, String str7) {
+        C1FetchThreadRunnable(String str, String str2, String str3, String str4, String str5, String str6,
+                String str7) {
             this.val$appid = str;
             this.val$secret_key = str2;
             this.val$var7 = str3;
@@ -65,7 +74,7 @@ public class YTFetchLicenseHelper {
 
         /* JADX DEBUG: Don't trust debug lines info. Repeating lines: [120=9, 122=9] */
         @Override // java.lang.Runnable
-        public void run() throws Throwable {
+        public void run() {
             HttpsURLConnection httpsURLConnection;
             StringBuilder sb;
             BufferedReader bufferedReader = null;
@@ -75,7 +84,8 @@ public class YTFetchLicenseHelper {
                     String str = this.val$appid + "-" + jCurrentTimeMillis;
                     Mac mac = Mac.getInstance("HmacSHA256");
                     mac.init(new SecretKeySpec(this.val$secret_key.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-                    String strEncodeToString = Base64.encodeToString(mac.doFinal(str.getBytes(StandardCharsets.UTF_8)), 2);
+                    String strEncodeToString = Base64.encodeToString(mac.doFinal(str.getBytes(StandardCharsets.UTF_8)),
+                            2);
                     JSONObject jSONObject = new JSONObject();
                     jSONObject.put("app_id", this.val$appid);
                     jSONObject.put("auth_string", strEncodeToString);
@@ -145,7 +155,8 @@ public class YTFetchLicenseHelper {
                 httpsURLConnection = null;
             }
             if (this.result.http_status == 200) {
-                BufferedReader bufferedReader2 = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream(), StandardCharsets.UTF_8));
+                BufferedReader bufferedReader2 = new BufferedReader(
+                        new InputStreamReader(httpsURLConnection.getInputStream(), StandardCharsets.UTF_8));
                 try {
                     sb = new StringBuilder();
                 } catch (MalformedURLException e15) {
@@ -257,10 +268,10 @@ public class YTFetchLicenseHelper {
                         }
                     }
                     if (httpsURLConnection == null) {
-                        throw th;
+                        throw new RuntimeException(th);
                     }
                     httpsURLConnection.disconnect();
-                    throw th;
+                    throw new RuntimeException(th);
                 }
                 while (true) {
                     String line = bufferedReader2.readLine();

@@ -69,7 +69,7 @@ public class MapField<K, V> implements MutabilityOracle {
     }
 
     private MapField(MapEntry<K, V> mapEntry, StorageMode storageMode, Map<K, V> map) {
-        this(new ImmutableMessageConverter(mapEntry), storageMode, map);
+        this(new ImmutableMessageConverter<>(mapEntry), storageMode, map);
     }
 
     public static <K, V> MapField<K, V> emptyMapField(MapEntry<K, V> mapEntry) {
@@ -77,7 +77,7 @@ public class MapField<K, V> implements MutabilityOracle {
     }
 
     public static <K, V> MapField<K, V> newMapField(MapEntry<K, V> mapEntry) {
-        return new MapField<>(mapEntry, StorageMode.MAP, new LinkedHashMap());
+        return new MapField<>(mapEntry, StorageMode.MAP, new LinkedHashMap<>());
     }
 
     private Message convertKeyAndValueToMessage(K k, V v) {
@@ -89,7 +89,7 @@ public class MapField<K, V> implements MutabilityOracle {
     }
 
     private List<Message> convertMapToList(MutatabilityAwareMap<K, V> mutatabilityAwareMap) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Message> arrayList = new ArrayList<>();
         for (Map.Entry<K, V> entry : mutatabilityAwareMap.entrySet()) {
             arrayList.add(convertKeyAndValueToMessage(entry.getKey(), entry.getValue()));
         }
@@ -97,7 +97,7 @@ public class MapField<K, V> implements MutabilityOracle {
     }
 
     private MutatabilityAwareMap<K, V> convertListToMap(List<Message> list) {
-        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        LinkedHashMap<K, V> linkedHashMap = new LinkedHashMap<>();
         Iterator<Message> it = list.iterator();
         while (it.hasNext()) {
             convertMessageToKeyAndValue(it.next(), linkedHashMap);
@@ -129,7 +129,7 @@ public class MapField<K, V> implements MutabilityOracle {
     }
 
     public void mergeFrom(MapField<K, V> mapField) {
-        getMutableMap().putAll(MapFieldLite.copy((Map) mapField.getMap()));
+        getMutableMap().putAll(MapFieldLite.copy(mapField.getMap()));
     }
 
     public void clear() {
@@ -139,7 +139,7 @@ public class MapField<K, V> implements MutabilityOracle {
 
     public boolean equals(Object obj) {
         if (obj instanceof MapField) {
-            return MapFieldLite.equals((Map) getMap(), (Map) ((MapField) obj).getMap());
+            return MapFieldLite.equals(getMap(), ((MapField<K, V>) obj).getMap());
         }
         return false;
     }
@@ -149,7 +149,7 @@ public class MapField<K, V> implements MutabilityOracle {
     }
 
     public MapField<K, V> copy() {
-        return new MapField<>(this.converter, StorageMode.MAP, MapFieldLite.copy((Map) getMap()));
+        return new MapField<>(this.converter, StorageMode.MAP, MapFieldLite.copy(getMap()));
     }
 
     List<Message> getList() {
@@ -260,17 +260,17 @@ public class MapField<K, V> implements MutabilityOracle {
 
         @Override // java.util.Map
         public Set<K> keySet() {
-            return new MutatabilityAwareSet(this.mutabilityOracle, this.delegate.keySet());
+            return new MutatabilityAwareSet<>(this.mutabilityOracle, this.delegate.keySet());
         }
 
         @Override // java.util.Map
         public Collection<V> values() {
-            return new MutatabilityAwareCollection(this.mutabilityOracle, this.delegate.values());
+            return new MutatabilityAwareCollection<>(this.mutabilityOracle, this.delegate.values());
         }
 
         @Override // java.util.Map
         public Set<Map.Entry<K, V>> entrySet() {
-            return new MutatabilityAwareSet(this.mutabilityOracle, this.delegate.entrySet());
+            return new MutatabilityAwareSet<>(this.mutabilityOracle, this.delegate.entrySet());
         }
 
         @Override // java.util.Map
@@ -313,7 +313,7 @@ public class MapField<K, V> implements MutabilityOracle {
 
             @Override // java.util.Collection, java.lang.Iterable
             public Iterator<E> iterator() {
-                return new MutatabilityAwareIterator(this.mutabilityOracle, this.delegate.iterator());
+                return new MutatabilityAwareIterator<>(this.mutabilityOracle, this.delegate.iterator());
             }
 
             @Override // java.util.Collection
@@ -406,7 +406,7 @@ public class MapField<K, V> implements MutabilityOracle {
 
             @Override // java.util.Set, java.util.Collection, java.lang.Iterable
             public Iterator<E> iterator() {
-                return new MutatabilityAwareIterator(this.mutabilityOracle, this.delegate.iterator());
+                return new MutatabilityAwareIterator<>(this.mutabilityOracle, this.delegate.iterator());
             }
 
             @Override // java.util.Set, java.util.Collection

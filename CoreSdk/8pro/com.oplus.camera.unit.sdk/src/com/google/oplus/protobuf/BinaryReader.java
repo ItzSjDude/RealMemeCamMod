@@ -20,7 +20,11 @@ abstract class BinaryReader implements Reader {
         return false;
     }
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR  A[MD:():void (m)] (LINE:52) call: com.google.oplus.protobuf.BinaryReader.<init>():void type: THIS */
+    /*
+     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+     * 0x0000: CONSTRUCTOR A[MD:():void (m)] (LINE:52) call:
+     * com.google.oplus.protobuf.BinaryReader.<init>():void type: THIS
+     */
     /* synthetic */ BinaryReader(AnonymousClass1 anonymousClass1) {
         this();
     }
@@ -188,11 +192,12 @@ abstract class BinaryReader implements Reader {
         @Override // com.google.oplus.protobuf.Reader
         public <T> T readMessage(Class<T> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
             requireWireType(2);
-            return (T) readMessage(Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
+            return (T) readMessage(Protobuf.getInstance().schemaFor(cls), extensionRegistryLite);
         }
 
         @Override // com.google.oplus.protobuf.Reader
-        public <T> T readMessageBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T> T readMessageBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             requireWireType(2);
             return (T) readMessage(schema, extensionRegistryLite);
         }
@@ -219,11 +224,12 @@ abstract class BinaryReader implements Reader {
         @Override // com.google.oplus.protobuf.Reader
         public <T> T readGroup(Class<T> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
             requireWireType(3);
-            return (T) readGroup(Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
+            return (T) readGroup(Protobuf.getInstance().schemaFor(cls), extensionRegistryLite);
         }
 
         @Override // com.google.oplus.protobuf.Reader
-        public <T> T readGroupBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T> T readGroupBySchemaWithCheck(Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             requireWireType(3);
             return (T) readGroup(schema, extensionRegistryLite);
         }
@@ -770,14 +776,19 @@ abstract class BinaryReader implements Reader {
         }
 
         @Override // com.google.oplus.protobuf.Reader
-        public <T> void readMessageList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T> void readMessageList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             readMessageList(list, Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
         }
 
-        /* JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type: java.util.List<T> */
+        /*
+         * JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type:
+         * java.util.List<T>
+         */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.Reader
-        public <T> void readMessageList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T> void readMessageList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int i;
             if (WireFormat.getTagWireType(this.tag) != 2) {
                 throw InvalidProtocolBufferException.invalidWireType();
@@ -795,14 +806,19 @@ abstract class BinaryReader implements Reader {
         }
 
         @Override // com.google.oplus.protobuf.Reader
-        public <T> void readGroupList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T> void readGroupList(List<T> list, Class<T> cls, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             readGroupList(list, Protobuf.getInstance().schemaFor((Class) cls), extensionRegistryLite);
         }
 
-        /* JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type: java.util.List<T> */
+        /*
+         * JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type:
+         * java.util.List<T>
+         */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.Reader
-        public <T> void readGroupList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <T> void readGroupList(List<T> list, Schema<T> schema, ExtensionRegistryLite extensionRegistryLite)
+                throws IOException {
             int i;
             if (WireFormat.getTagWireType(this.tag) != 3) {
                 throw InvalidProtocolBufferException.invalidWireType();
@@ -1146,10 +1162,14 @@ abstract class BinaryReader implements Reader {
             this.pos = i;
         }
 
-        /* JADX DEBUG: Multi-variable search result rejected for r8v0, resolved type: java.util.Map<K, V> */
+        /*
+         * JADX DEBUG: Multi-variable search result rejected for r8v0, resolved type:
+         * java.util.Map<K, V>
+         */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.Reader
-        public <K, V> void readMap(Map<K, V> map, MapEntryLite.Metadata<K, V> metadata, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        public <K, V> void readMap(Map<K, V> map, MapEntryLite.Metadata<K, V> metadata,
+                ExtensionRegistryLite extensionRegistryLite) throws IOException {
             requireWireType(2);
             int varint32 = readVarint32();
             requireBytes(varint32);
@@ -1185,7 +1205,8 @@ abstract class BinaryReader implements Reader {
             }
         }
 
-        private Object readField(WireFormat.FieldType fieldType, Class<?> cls, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        private Object readField(WireFormat.FieldType fieldType, Class<?> cls,
+                ExtensionRegistryLite extensionRegistryLite) throws IOException {
             switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
                 case 1:
                     return Boolean.valueOf(readBool());
@@ -1407,14 +1428,18 @@ abstract class BinaryReader implements Reader {
             int i = this.pos;
             byte[] bArr = this.buffer;
             this.pos = i + 4;
-            return (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16) | ((bArr[i + 3] & 255) << 24);
+            return (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16)
+                    | ((bArr[i + 3] & 255) << 24);
         }
 
         private long readLittleEndian64_NoCheck() {
             int i = this.pos;
             byte[] bArr = this.buffer;
             this.pos = i + 8;
-            return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8) | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24) | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40) | ((((long) bArr[i + 6]) & 255) << 48);
+            return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8)
+                    | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24)
+                    | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40)
+                    | ((((long) bArr[i + 6]) & 255) << 48);
         }
 
         private void skipVarint() throws IOException {
@@ -1495,7 +1520,10 @@ abstract class BinaryReader implements Reader {
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.BinaryReader$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.BinaryReader$1, reason:
+     * invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 

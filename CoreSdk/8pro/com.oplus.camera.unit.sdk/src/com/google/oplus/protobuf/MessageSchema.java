@@ -65,7 +65,10 @@ final class MessageSchema<T> implements Schema<T> {
         return (i & FIELD_TYPE_MASK) >>> 20;
     }
 
-    private MessageSchema(int[] iArr, Object[] objArr, int i, int i2, MessageLite messageLite, boolean z, boolean z2, int[] iArr2, int i3, int i4, NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema, UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema, MapFieldSchema mapFieldSchema) {
+    private MessageSchema(int[] iArr, Object[] objArr, int i, int i2, MessageLite messageLite, boolean z, boolean z2,
+            int[] iArr2, int i3, int i4, NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema,
+            UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema,
+            MapFieldSchema mapFieldSchema) {
         this.buffer = iArr;
         this.objects = objArr;
         this.minFieldNumber = i;
@@ -85,25 +88,32 @@ final class MessageSchema<T> implements Schema<T> {
         this.mapFieldSchema = mapFieldSchema;
     }
 
-    static <T> MessageSchema<T> newSchema(Class<T> cls, MessageInfo messageInfo, NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema, UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema, MapFieldSchema mapFieldSchema) {
+    static <T> MessageSchema<T> newSchema(Class<T> cls, MessageInfo messageInfo, NewInstanceSchema newInstanceSchema,
+            ListFieldSchema listFieldSchema, UnknownFieldSchema<?, ?> unknownFieldSchema,
+            ExtensionSchema<?> extensionSchema, MapFieldSchema mapFieldSchema) {
         if (messageInfo instanceof RawMessageInfo) {
-            return newSchemaForRawMessageInfo((RawMessageInfo) messageInfo, newInstanceSchema, listFieldSchema, unknownFieldSchema, extensionSchema, mapFieldSchema);
+            return newSchemaForRawMessageInfo((RawMessageInfo) messageInfo, newInstanceSchema, listFieldSchema,
+                    unknownFieldSchema, extensionSchema, mapFieldSchema);
         }
-        return newSchemaForMessageInfo((StructuralMessageInfo) messageInfo, newInstanceSchema, listFieldSchema, unknownFieldSchema, extensionSchema, mapFieldSchema);
+        return newSchemaForMessageInfo((StructuralMessageInfo) messageInfo, newInstanceSchema, listFieldSchema,
+                unknownFieldSchema, extensionSchema, mapFieldSchema);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:122:0x024e  */
-    /* JADX WARN: Removed duplicated region for block: B:123:0x0251  */
-    /* JADX WARN: Removed duplicated region for block: B:126:0x0269  */
-    /* JADX WARN: Removed duplicated region for block: B:127:0x026c  */
-    /* JADX WARN: Removed duplicated region for block: B:161:0x031a  */
-    /* JADX WARN: Removed duplicated region for block: B:162:0x031d  */
-    /* JADX WARN: Removed duplicated region for block: B:164:0x0320  */
-    /* JADX WARN: Removed duplicated region for block: B:179:0x036d  */
+    /* JADX WARN: Removed duplicated region for block: B:122:0x024e */
+    /* JADX WARN: Removed duplicated region for block: B:123:0x0251 */
+    /* JADX WARN: Removed duplicated region for block: B:126:0x0269 */
+    /* JADX WARN: Removed duplicated region for block: B:127:0x026c */
+    /* JADX WARN: Removed duplicated region for block: B:161:0x031a */
+    /* JADX WARN: Removed duplicated region for block: B:162:0x031d */
+    /* JADX WARN: Removed duplicated region for block: B:164:0x0320 */
+    /* JADX WARN: Removed duplicated region for block: B:179:0x036d */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    static <T> MessageSchema<T> newSchemaForRawMessageInfo(RawMessageInfo rawMessageInfo, NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema, UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema, MapFieldSchema mapFieldSchema) {
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    static <T> MessageSchema<T> newSchemaForRawMessageInfo(RawMessageInfo rawMessageInfo,
+            NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema,
+            UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema,
+            MapFieldSchema mapFieldSchema) {
         int i;
         int iCharAt;
         int iCharAt2;
@@ -598,7 +608,8 @@ final class MessageSchema<T> implements Schema<T> {
             int i86 = i58 + 1;
             iArr2[i58] = iCharAt10;
             int i87 = i86 + 1;
-            iArr2[i86] = ((iCharAt11 & 256) != 0 ? REQUIRED_MASK : 0) | ((iCharAt11 & 512) != 0 ? ENFORCE_UTF8_MASK : 0) | (i67 << 20) | iObjectFieldOffset;
+            iArr2[i86] = ((iCharAt11 & 256) != 0 ? REQUIRED_MASK : 0) | ((iCharAt11 & 512) != 0 ? ENFORCE_UTF8_MASK : 0)
+                    | (i67 << 20) | iObjectFieldOffset;
             i58 = i87 + 1;
             iArr2[i87] = (i19 << 20) | iObjectFieldOffset2;
             z3 = z2;
@@ -611,7 +622,9 @@ final class MessageSchema<T> implements Schema<T> {
             iCharAt2 = i16;
             c = 55296;
         }
-        return new MessageSchema<>(iArr2, objArr, iCharAt, iCharAt2, rawMessageInfo.getDefaultInstance(), z3, false, iArr, iCharAt5, i54, newInstanceSchema, listFieldSchema, unknownFieldSchema, extensionSchema, mapFieldSchema);
+        return new MessageSchema<>(iArr2, objArr, iCharAt, iCharAt2, rawMessageInfo.getDefaultInstance(), z3, false,
+                iArr, iCharAt5, i54, newInstanceSchema, listFieldSchema, unknownFieldSchema, extensionSchema,
+                mapFieldSchema);
     }
 
     private static java.lang.reflect.Field reflectField(Class<?> cls, String str) {
@@ -624,11 +637,15 @@ final class MessageSchema<T> implements Schema<T> {
                     return field;
                 }
             }
-            throw new RuntimeException("Field " + str + " for " + cls.getName() + " not found. Known fields are " + Arrays.toString(declaredFields));
+            throw new RuntimeException("Field " + str + " for " + cls.getName() + " not found. Known fields are "
+                    + Arrays.toString(declaredFields));
         }
     }
 
-    static <T> MessageSchema<T> newSchemaForMessageInfo(StructuralMessageInfo structuralMessageInfo, NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema, UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema, MapFieldSchema mapFieldSchema) {
+    static <T> MessageSchema<T> newSchemaForMessageInfo(StructuralMessageInfo structuralMessageInfo,
+            NewInstanceSchema newInstanceSchema, ListFieldSchema listFieldSchema,
+            UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema,
+            MapFieldSchema mapFieldSchema) {
         int fieldNumber;
         int fieldNumber2;
         int i;
@@ -698,17 +715,19 @@ final class MessageSchema<T> implements Schema<T> {
         System.arraycopy(checkInitialized, 0, iArr4, 0, checkInitialized.length);
         System.arraycopy(iArr2, 0, iArr4, checkInitialized.length, iArr2.length);
         System.arraycopy(iArr3, 0, iArr4, checkInitialized.length + iArr2.length, iArr3.length);
-        return new MessageSchema<>(iArr, objArr, fieldNumber, fieldNumber2, structuralMessageInfo.getDefaultInstance(), z, true, iArr4, checkInitialized.length, checkInitialized.length + iArr2.length, newInstanceSchema, listFieldSchema, unknownFieldSchema, extensionSchema, mapFieldSchema);
+        return new MessageSchema<>(iArr, objArr, fieldNumber, fieldNumber2, structuralMessageInfo.getDefaultInstance(),
+                z, true, iArr4, checkInitialized.length, checkInitialized.length + iArr2.length, newInstanceSchema,
+                listFieldSchema, unknownFieldSchema, extensionSchema, mapFieldSchema);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:21:0x007a  */
-    /* JADX WARN: Removed duplicated region for block: B:22:0x007d  */
-    /* JADX WARN: Removed duplicated region for block: B:25:0x0084  */
-    /* JADX WARN: Removed duplicated region for block: B:28:0x009e  */
-    /* JADX WARN: Removed duplicated region for block: B:34:0x00be  */
+    /* JADX WARN: Removed duplicated region for block: B:21:0x007a */
+    /* JADX WARN: Removed duplicated region for block: B:22:0x007d */
+    /* JADX WARN: Removed duplicated region for block: B:25:0x0084 */
+    /* JADX WARN: Removed duplicated region for block: B:28:0x009e */
+    /* JADX WARN: Removed duplicated region for block: B:34:0x00be */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     private static void storeFieldData(FieldInfo fieldInfo, int[] iArr, int i, Object[] objArr) {
         int iObjectFieldOffset;
         int iId;
@@ -726,7 +745,8 @@ final class MessageSchema<T> implements Schema<T> {
             iId = type.id();
             if (!type.isList() && !type.isMap()) {
                 java.lang.reflect.Field presenceField = fieldInfo.getPresenceField();
-                iObjectFieldOffset2 = presenceField == null ? 1048575 : (int) UnsafeUtil.objectFieldOffset(presenceField);
+                iObjectFieldOffset2 = presenceField == null ? 1048575
+                        : (int) UnsafeUtil.objectFieldOffset(presenceField);
                 iNumberOfTrailingZeros = Integer.numberOfTrailingZeros(fieldInfo.getPresenceMask());
             } else if (fieldInfo.getCachedSizeField() == null) {
                 iObjectFieldOffset2 = 0;
@@ -735,7 +755,8 @@ final class MessageSchema<T> implements Schema<T> {
                 jObjectFieldOffset = UnsafeUtil.objectFieldOffset(fieldInfo.getCachedSizeField());
             }
             iArr[i] = fieldInfo.getFieldNumber();
-            iArr[i + 1] = (fieldInfo.isRequired() ? REQUIRED_MASK : 0) | (!fieldInfo.isEnforceUtf8() ? ENFORCE_UTF8_MASK : 0) | (iId << 20) | iObjectFieldOffset;
+            iArr[i + 1] = (fieldInfo.isRequired() ? REQUIRED_MASK : 0)
+                    | (!fieldInfo.isEnforceUtf8() ? ENFORCE_UTF8_MASK : 0) | (iId << 20) | iObjectFieldOffset;
             iArr[i + 2] = iObjectFieldOffset2 | (iNumberOfTrailingZeros << 20);
             Class<?> messageFieldClass = fieldInfo.getMessageFieldClass();
             if (fieldInfo.getMapDefaultEntry() != null) {
@@ -768,7 +789,8 @@ final class MessageSchema<T> implements Schema<T> {
         iArr[i] = fieldInfo.getFieldNumber();
         if (!fieldInfo.isEnforceUtf8()) {
         }
-        iArr[i + 1] = (fieldInfo.isRequired() ? REQUIRED_MASK : 0) | (!fieldInfo.isEnforceUtf8() ? ENFORCE_UTF8_MASK : 0) | (iId << 20) | iObjectFieldOffset;
+        iArr[i + 1] = (fieldInfo.isRequired() ? REQUIRED_MASK : 0)
+                | (!fieldInfo.isEnforceUtf8() ? ENFORCE_UTF8_MASK : 0) | (iId << 20) | iObjectFieldOffset;
         iArr[i + 2] = iObjectFieldOffset2 | (iNumberOfTrailingZeros << 20);
         Class<?> messageFieldClass2 = fieldInfo.getMessageFieldClass();
         if (fieldInfo.getMapDefaultEntry() != null) {
@@ -802,22 +824,26 @@ final class MessageSchema<T> implements Schema<T> {
         long jOffset = offset(iTypeAndOffsetAt);
         switch (type(iTypeAndOffsetAt)) {
             case 0:
-                if (arePresentForEquals(t, t2, i) && Double.doubleToLongBits(UnsafeUtil.getDouble(t, jOffset)) == Double.doubleToLongBits(UnsafeUtil.getDouble(t2, jOffset))) {
+                if (arePresentForEquals(t, t2, i) && Double.doubleToLongBits(UnsafeUtil.getDouble(t, jOffset)) == Double
+                        .doubleToLongBits(UnsafeUtil.getDouble(t2, jOffset))) {
                     break;
                 }
                 break;
             case 1:
-                if (arePresentForEquals(t, t2, i) && Float.floatToIntBits(UnsafeUtil.getFloat(t, jOffset)) == Float.floatToIntBits(UnsafeUtil.getFloat(t2, jOffset))) {
+                if (arePresentForEquals(t, t2, i) && Float.floatToIntBits(UnsafeUtil.getFloat(t, jOffset)) == Float
+                        .floatToIntBits(UnsafeUtil.getFloat(t2, jOffset))) {
                     break;
                 }
                 break;
             case 2:
-                if (arePresentForEquals(t, t2, i) && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
+                if (arePresentForEquals(t, t2, i)
+                        && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
                     break;
                 }
                 break;
             case 3:
-                if (arePresentForEquals(t, t2, i) && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
+                if (arePresentForEquals(t, t2, i)
+                        && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
                     break;
                 }
                 break;
@@ -827,7 +853,8 @@ final class MessageSchema<T> implements Schema<T> {
                 }
                 break;
             case 5:
-                if (arePresentForEquals(t, t2, i) && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
+                if (arePresentForEquals(t, t2, i)
+                        && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
                     break;
                 }
                 break;
@@ -837,22 +864,26 @@ final class MessageSchema<T> implements Schema<T> {
                 }
                 break;
             case 7:
-                if (arePresentForEquals(t, t2, i) && UnsafeUtil.getBoolean(t, jOffset) == UnsafeUtil.getBoolean(t2, jOffset)) {
+                if (arePresentForEquals(t, t2, i)
+                        && UnsafeUtil.getBoolean(t, jOffset) == UnsafeUtil.getBoolean(t2, jOffset)) {
                     break;
                 }
                 break;
             case 8:
-                if (arePresentForEquals(t, t2, i) && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
+                if (arePresentForEquals(t, t2, i)
+                        && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
                     break;
                 }
                 break;
             case 9:
-                if (arePresentForEquals(t, t2, i) && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
+                if (arePresentForEquals(t, t2, i)
+                        && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
                     break;
                 }
                 break;
             case 10:
-                if (arePresentForEquals(t, t2, i) && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
+                if (arePresentForEquals(t, t2, i)
+                        && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
                     break;
                 }
                 break;
@@ -872,7 +903,8 @@ final class MessageSchema<T> implements Schema<T> {
                 }
                 break;
             case 14:
-                if (arePresentForEquals(t, t2, i) && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
+                if (arePresentForEquals(t, t2, i)
+                        && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
                     break;
                 }
                 break;
@@ -882,12 +914,14 @@ final class MessageSchema<T> implements Schema<T> {
                 }
                 break;
             case 16:
-                if (arePresentForEquals(t, t2, i) && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
+                if (arePresentForEquals(t, t2, i)
+                        && UnsafeUtil.getLong(t, jOffset) == UnsafeUtil.getLong(t2, jOffset)) {
                     break;
                 }
                 break;
             case 17:
-                if (arePresentForEquals(t, t2, i) && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
+                if (arePresentForEquals(t, t2, i)
+                        && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
                     break;
                 }
                 break;
@@ -909,7 +943,8 @@ final class MessageSchema<T> implements Schema<T> {
             case 66:
             case 67:
             case 68:
-                if (isOneofCaseEqual(t, t2, i) && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
+                if (isOneofCaseEqual(t, t2, i)
+                        && SchemaUtil.safeEquals(UnsafeUtil.getObject(t, jOffset), UnsafeUtil.getObject(t2, jOffset))) {
                     break;
                 }
                 break;
@@ -1424,8 +1459,14 @@ final class MessageSchema<T> implements Schema<T> {
         return this.proto3 ? getSerializedSizeProto3(t) : getSerializedSizeProto2(t);
     }
 
-    /* JADX DEBUG: Type inference failed for r2v1. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
+    /*
+     * JADX DEBUG: Type inference failed for r2v1. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /*
+     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+     */
     private int getSerializedSizeProto2(T t) {
         int i;
         int i2;
@@ -1456,7 +1497,8 @@ final class MessageSchema<T> implements Schema<T> {
                     i4 = i8;
                 }
             } else {
-                i = (!this.useCachedSizeField || iType < FieldType.DOUBLE_LIST_PACKED.id() || iType > FieldType.SINT64_LIST_PACKED.id()) ? 0 : this.buffer[i5 + 2] & i3;
+                i = (!this.useCachedSizeField || iType < FieldType.DOUBLE_LIST_PACKED.id()
+                        || iType > FieldType.SINT64_LIST_PACKED.id()) ? 0 : this.buffer[i5 + 2] & i3;
                 i2 = 0;
             }
             long jOffset = offset(iTypeAndOffsetAt);
@@ -1522,13 +1564,15 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 9:
                     if ((i7 & i2) != 0) {
-                        iComputeBoolSize = SchemaUtil.computeSizeMessage(iNumberAt, unsafe.getObject(t, jOffset), getMessageFieldSchema(i5));
+                        iComputeBoolSize = SchemaUtil.computeSizeMessage(iNumberAt, unsafe.getObject(t, jOffset),
+                                getMessageFieldSchema(i5));
                         i6 += iComputeBoolSize;
                     }
                     break;
                 case 10:
                     if ((i7 & i2) != 0) {
-                        iComputeBoolSize = CodedOutputStream.computeBytesSize(iNumberAt, (ByteString) unsafe.getObject(t, jOffset));
+                        iComputeBoolSize = CodedOutputStream.computeBytesSize(iNumberAt,
+                                (ByteString) unsafe.getObject(t, jOffset));
                         i6 += iComputeBoolSize;
                     }
                     break;
@@ -1570,264 +1614,311 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 17:
                     if ((i7 & i2) != 0) {
-                        iComputeBoolSize = CodedOutputStream.computeGroupSize(iNumberAt, (MessageLite) unsafe.getObject(t, jOffset), getMessageFieldSchema(i5));
+                        iComputeBoolSize = CodedOutputStream.computeGroupSize(iNumberAt,
+                                (MessageLite) unsafe.getObject(t, jOffset), (Schema) getMessageFieldSchema(i5));
                         i6 += iComputeBoolSize;
                     }
                     break;
                 case 18:
-                    iComputeBoolSize = SchemaUtil.computeSizeFixed64List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeBoolSize = SchemaUtil.computeSizeFixed64List(iNumberAt, listAt(t, jOffset),
+                            false);
                     i6 += iComputeBoolSize;
                     break;
                 case 19:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed32List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed32List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 20:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeInt64List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeInt64List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 21:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeUInt64List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeUInt64List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 22:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeInt32List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeInt32List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 23:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed64List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed64List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed32List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed32List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case StatisticConstant.FunctionalErrorValues.CF_SENSOR_MODE_SWITCH_TIMEOUT /* 25 */:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeBoolList(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeBoolList(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 26:
-                    iComputeBoolSize = SchemaUtil.computeSizeStringList(iNumberAt, (List) unsafe.getObject(t, jOffset));
+                    iComputeBoolSize = SchemaUtil.computeSizeStringList(iNumberAt, listAt(t, jOffset));
                     i6 += iComputeBoolSize;
                     break;
                 case 27:
-                    iComputeBoolSize = SchemaUtil.computeSizeMessageList(iNumberAt, (List) unsafe.getObject(t, jOffset), getMessageFieldSchema(i5));
+                    iComputeBoolSize = SchemaUtil.computeSizeMessageList(iNumberAt, listAt(t, jOffset),
+                            getMessageFieldSchema(i5));
                     i6 += iComputeBoolSize;
                     break;
                 case 28:
-                    iComputeBoolSize = SchemaUtil.computeSizeByteStringList(iNumberAt, (List) unsafe.getObject(t, jOffset));
+                    iComputeBoolSize = SchemaUtil.computeSizeByteStringList(iNumberAt,
+                            listAt(t, jOffset));
                     i6 += iComputeBoolSize;
                     break;
                 case ApsConstant.FEATURE_TYPE_AI_HDR /* 29 */:
-                    iComputeBoolSize = SchemaUtil.computeSizeUInt32List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeBoolSize = SchemaUtil.computeSizeUInt32List(iNumberAt, listAt(t, jOffset),
+                            false);
                     i6 += iComputeBoolSize;
                     break;
                 case 30:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeEnumList(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeEnumList(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 31:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed32List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed32List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 32:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed64List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeFixed64List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 33:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeSInt32List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeSInt32List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 34:
                     z = false;
-                    iComputeSizeFixed32List = SchemaUtil.computeSizeSInt64List(iNumberAt, (List) unsafe.getObject(t, jOffset), false);
+                    iComputeSizeFixed32List = SchemaUtil.computeSizeSInt64List(iNumberAt,
+                            listAt(t, jOffset), false);
                     i6 += iComputeSizeFixed32List;
                     break;
                 case 35:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 36:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 37:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeInt64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeInt64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case ApsConstant.APS_SCENE_BOKEH_AINR_CHDR /* 38 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeUInt64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeUInt64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case DescriptorProtos.FileOptions.SWIFT_PREFIX_FIELD_NUMBER /* 39 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeInt32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeInt32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 40:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 41:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 42:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeBoolListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeBoolListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_CHDR_MFNR /* 43 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeUInt32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeUInt32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeEnumListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeEnumListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 45:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case 46:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeSInt32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeSInt32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW /* 48 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeSInt64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeSInt64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeSFixed32Size = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i6 += iComputeSFixed32Size;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                    iComputeBoolSize = SchemaUtil.computeSizeGroupList(iNumberAt, (List) unsafe.getObject(t, jOffset), getMessageFieldSchema(i5));
+                    iComputeBoolSize = SchemaUtil.computeSizeGroupList(iNumberAt, listAt(t, jOffset),
+                            getMessageFieldSchema(i5));
                     i6 += iComputeBoolSize;
                     break;
                 case 50:
-                    iComputeBoolSize = this.mapFieldSchema.getSerializedSize(iNumberAt, unsafe.getObject(t, jOffset), getMapFieldDefaultEntry(i5));
+                    iComputeBoolSize = this.mapFieldSchema.getSerializedSize(iNumberAt, unsafe.getObject(t, jOffset),
+                            getMapFieldDefaultEntry(i5));
                     i6 += iComputeBoolSize;
                     break;
                 case 51:
@@ -1891,13 +1982,15 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 60:
                     if (isOneofPresent(t, iNumberAt, i5)) {
-                        iComputeBoolSize = SchemaUtil.computeSizeMessage(iNumberAt, unsafe.getObject(t, jOffset), getMessageFieldSchema(i5));
+                        iComputeBoolSize = SchemaUtil.computeSizeMessage(iNumberAt, unsafe.getObject(t, jOffset),
+                                getMessageFieldSchema(i5));
                         i6 += iComputeBoolSize;
                     }
                     break;
                 case 61:
                     if (isOneofPresent(t, iNumberAt, i5)) {
-                        iComputeBoolSize = CodedOutputStream.computeBytesSize(iNumberAt, (ByteString) unsafe.getObject(t, jOffset));
+                        iComputeBoolSize = CodedOutputStream.computeBytesSize(iNumberAt,
+                                (ByteString) unsafe.getObject(t, jOffset));
                         i6 += iComputeBoolSize;
                     }
                     break;
@@ -1939,7 +2032,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 68:
                     if (isOneofPresent(t, iNumberAt, i5)) {
-                        iComputeBoolSize = CodedOutputStream.computeGroupSize(iNumberAt, (MessageLite) unsafe.getObject(t, jOffset), getMessageFieldSchema(i5));
+                        iComputeBoolSize = CodedOutputStream.computeGroupSize(iNumberAt,
+                                (MessageLite) unsafe.getObject(t, jOffset), (Schema) getMessageFieldSchema(i5));
                         i6 += iComputeBoolSize;
                     }
                     break;
@@ -1948,10 +2042,16 @@ final class MessageSchema<T> implements Schema<T> {
             i3 = 1048575;
         }
         int unknownFieldsSerializedSize = i6 + getUnknownFieldsSerializedSize(this.unknownFieldSchema, t);
-        return this.hasExtensions ? unknownFieldsSerializedSize + this.extensionSchema.getExtensions(t).getSerializedSize() : unknownFieldsSerializedSize;
+        return this.hasExtensions
+                ? unknownFieldsSerializedSize + this.extensionSchema.getExtensions(t).getSerializedSize()
+                : unknownFieldsSerializedSize;
     }
 
-    /* JADX DEBUG: Type inference failed for r2v1. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
+    /*
+     * JADX DEBUG: Type inference failed for r2v1. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
     private int getSerializedSizeProto3(T t) {
         int iComputeDoubleSize;
         int iComputeSizeFixed64ListNoTag;
@@ -1964,7 +2064,8 @@ final class MessageSchema<T> implements Schema<T> {
             int iType = type(iTypeAndOffsetAt);
             int iNumberAt = numberAt(i2);
             long jOffset = offset(iTypeAndOffsetAt);
-            int i3 = (iType < FieldType.DOUBLE_LIST_PACKED.id() || iType > FieldType.SINT64_LIST_PACKED.id()) ? 0 : this.buffer[i2 + 2] & 1048575;
+            int i3 = (iType < FieldType.DOUBLE_LIST_PACKED.id() || iType > FieldType.SINT64_LIST_PACKED.id()) ? 0
+                    : this.buffer[i2 + 2] & 1048575;
             switch (iType) {
                 case 0:
                     if (isFieldPresent(t, i2)) {
@@ -1980,19 +2081,22 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 2:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeInt64Size(iNumberAt, UnsafeUtil.getLong(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeInt64Size(iNumberAt,
+                                UnsafeUtil.getLong(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 3:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeUInt64Size(iNumberAt, UnsafeUtil.getLong(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeUInt64Size(iNumberAt,
+                                UnsafeUtil.getLong(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 4:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeInt32Size(iNumberAt, UnsafeUtil.getInt(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeInt32Size(iNumberAt,
+                                UnsafeUtil.getInt(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
@@ -2027,25 +2131,29 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 9:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = SchemaUtil.computeSizeMessage(iNumberAt, UnsafeUtil.getObject(t, jOffset), getMessageFieldSchema(i2));
+                        iComputeDoubleSize = SchemaUtil.computeSizeMessage(iNumberAt, UnsafeUtil.getObject(t, jOffset),
+                                getMessageFieldSchema(i2));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 10:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeBytesSize(iNumberAt, (ByteString) UnsafeUtil.getObject(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeBytesSize(iNumberAt,
+                                (ByteString) UnsafeUtil.getObject(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 11:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeUInt32Size(iNumberAt, UnsafeUtil.getInt(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeUInt32Size(iNumberAt,
+                                UnsafeUtil.getInt(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 12:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeEnumSize(iNumberAt, UnsafeUtil.getInt(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeEnumSize(iNumberAt,
+                                UnsafeUtil.getInt(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
@@ -2063,19 +2171,22 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 15:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeSInt32Size(iNumberAt, UnsafeUtil.getInt(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeSInt32Size(iNumberAt,
+                                UnsafeUtil.getInt(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 16:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeSInt64Size(iNumberAt, UnsafeUtil.getLong(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeSInt64Size(iNumberAt,
+                                UnsafeUtil.getLong(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 17:
                     if (isFieldPresent(t, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeGroupSize(iNumberAt, (MessageLite) UnsafeUtil.getObject(t, jOffset), getMessageFieldSchema(i2));
+                        iComputeDoubleSize = CodedOutputStream.computeGroupSize(iNumberAt,
+                                (MessageLite) UnsafeUtil.getObject(t, jOffset), (Schema) getMessageFieldSchema(i2));
                         i += iComputeDoubleSize;
                     }
                     break;
@@ -2116,7 +2227,8 @@ final class MessageSchema<T> implements Schema<T> {
                     i += iComputeDoubleSize;
                     break;
                 case 27:
-                    iComputeDoubleSize = SchemaUtil.computeSizeMessageList(iNumberAt, listAt(t, jOffset), getMessageFieldSchema(i2));
+                    iComputeDoubleSize = SchemaUtil.computeSizeMessageList(iNumberAt, listAt(t, jOffset),
+                            getMessageFieldSchema(i2));
                     i += iComputeDoubleSize;
                     break;
                 case 28:
@@ -2148,179 +2260,209 @@ final class MessageSchema<T> implements Schema<T> {
                     i += iComputeDoubleSize;
                     break;
                 case 35:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 36:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 37:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeInt64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeInt64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case ApsConstant.APS_SCENE_BOKEH_AINR_CHDR /* 38 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeUInt64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeUInt64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case DescriptorProtos.FileOptions.SWIFT_PREFIX_FIELD_NUMBER /* 39 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeInt32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeInt32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 40:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 41:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 42:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeBoolListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeBoolListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_CHDR_MFNR /* 43 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeUInt32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeUInt32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeEnumListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeEnumListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 45:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 46:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeFixed64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeFixed64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeSInt32ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeSInt32ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW /* 48 */:
-                    iComputeSizeFixed64ListNoTag = SchemaUtil.computeSizeSInt64ListNoTag((List) unsafe.getObject(t, jOffset));
+                    iComputeSizeFixed64ListNoTag = SchemaUtil
+                            .computeSizeSInt64ListNoTag(listAt(t, jOffset));
                     if (iComputeSizeFixed64ListNoTag > 0) {
                         if (this.useCachedSizeField) {
                             unsafe.putInt(t, i3, iComputeSizeFixed64ListNoTag);
                         }
                         iComputeTagSize = CodedOutputStream.computeTagSize(iNumberAt);
-                        iComputeUInt32SizeNoTag = CodedOutputStream.computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
+                        iComputeUInt32SizeNoTag = CodedOutputStream
+                                .computeUInt32SizeNoTag(iComputeSizeFixed64ListNoTag);
                         iComputeDoubleSize = iComputeTagSize + iComputeUInt32SizeNoTag + iComputeSizeFixed64ListNoTag;
                         i += iComputeDoubleSize;
                     }
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                    iComputeDoubleSize = SchemaUtil.computeSizeGroupList(iNumberAt, listAt(t, jOffset), getMessageFieldSchema(i2));
+                    iComputeDoubleSize = SchemaUtil.computeSizeGroupList(iNumberAt, listAt(t, jOffset),
+                            getMessageFieldSchema(i2));
                     i += iComputeDoubleSize;
                     break;
                 case 50:
-                    iComputeDoubleSize = this.mapFieldSchema.getSerializedSize(iNumberAt, UnsafeUtil.getObject(t, jOffset), getMapFieldDefaultEntry(i2));
+                    iComputeDoubleSize = this.mapFieldSchema.getSerializedSize(iNumberAt,
+                            UnsafeUtil.getObject(t, jOffset), getMapFieldDefaultEntry(i2));
                     i += iComputeDoubleSize;
                     break;
                 case 51:
@@ -2384,13 +2526,15 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 60:
                     if (isOneofPresent(t, iNumberAt, i2)) {
-                        iComputeDoubleSize = SchemaUtil.computeSizeMessage(iNumberAt, UnsafeUtil.getObject(t, jOffset), getMessageFieldSchema(i2));
+                        iComputeDoubleSize = SchemaUtil.computeSizeMessage(iNumberAt, UnsafeUtil.getObject(t, jOffset),
+                                getMessageFieldSchema(i2));
                         i += iComputeDoubleSize;
                     }
                     break;
                 case 61:
                     if (isOneofPresent(t, iNumberAt, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeBytesSize(iNumberAt, (ByteString) UnsafeUtil.getObject(t, jOffset));
+                        iComputeDoubleSize = CodedOutputStream.computeBytesSize(iNumberAt,
+                                (ByteString) UnsafeUtil.getObject(t, jOffset));
                         i += iComputeDoubleSize;
                     }
                     break;
@@ -2432,7 +2576,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 68:
                     if (isOneofPresent(t, iNumberAt, i2)) {
-                        iComputeDoubleSize = CodedOutputStream.computeGroupSize(iNumberAt, (MessageLite) UnsafeUtil.getObject(t, jOffset), getMessageFieldSchema(i2));
+                        iComputeDoubleSize = CodedOutputStream.computeGroupSize(iNumberAt,
+                                (MessageLite) UnsafeUtil.getObject(t, jOffset), (Schema) getMessageFieldSchema(i2));
                         i += iComputeDoubleSize;
                     }
                     break;
@@ -2445,8 +2590,8 @@ final class MessageSchema<T> implements Schema<T> {
         return unknownFieldSchema.getSerializedSize(unknownFieldSchema.getFromMessage(t));
     }
 
-    private static List<?> listAt(Object obj, long j) {
-        return (List) UnsafeUtil.getObject(obj, j);
+    private static <E> List<E> listAt(Object obj, long j) {
+        return (List<E>) UnsafeUtil.getObject(obj, j);
     }
 
     @Override // com.google.oplus.protobuf.Schema
@@ -2460,17 +2605,21 @@ final class MessageSchema<T> implements Schema<T> {
         }
     }
 
-    /* JADX DEBUG: Type inference failed for r3v3. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX WARN: Removed duplicated region for block: B:7:0x0021  */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * JADX DEBUG: Type inference failed for r3v3. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x0021 */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     private void writeFieldsInAscendingOrderProto2(T t, Writer writer) throws IOException {
-        Iterator it;
-        Map.Entry<?, ?> entry;
+        Iterator<?> it = null;
+        Map.Entry<?, ?> entry = null;
         int i;
         if (this.hasExtensions) {
-            FieldSet<T> extensions = this.extensionSchema.getExtensions(t);
+            FieldSet<?> extensions = this.extensionSchema.getExtensions(t);
             if (extensions.isEmpty()) {
                 it = null;
                 entry = null;
@@ -2518,7 +2667,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeFloat(iNumberAt, floatAt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2527,7 +2676,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeInt64(iNumberAt, unsafe.getLong(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2536,7 +2685,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeUInt64(iNumberAt, unsafe.getLong(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2545,7 +2694,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeInt32(iNumberAt, unsafe.getInt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2554,7 +2703,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeFixed64(iNumberAt, unsafe.getLong(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2563,7 +2712,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeFixed32(iNumberAt, unsafe.getInt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2572,7 +2721,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeBool(iNumberAt, booleanAt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2581,7 +2730,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writeString(iNumberAt, unsafe.getObject(t, jOffset), writer);
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2590,7 +2739,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeMessage(iNumberAt, unsafe.getObject(t, jOffset), getMessageFieldSchema(i4));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2599,7 +2748,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeBytes(iNumberAt, (ByteString) unsafe.getObject(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2608,7 +2757,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeUInt32(iNumberAt, unsafe.getInt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2617,7 +2766,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeEnum(iNumberAt, unsafe.getInt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2626,7 +2775,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeSFixed32(iNumberAt, unsafe.getInt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2635,7 +2784,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeSFixed64(iNumberAt, unsafe.getLong(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2644,7 +2793,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeSInt32(iNumberAt, unsafe.getInt(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2653,7 +2802,7 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeSInt64(iNumberAt, unsafe.getLong(t, jOffset));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
@@ -2662,148 +2811,108 @@ final class MessageSchema<T> implements Schema<T> {
                     if ((i & i5) != 0) {
                         writer.writeGroup(iNumberAt, unsafe.getObject(t, jOffset), getMessageFieldSchema(i4));
                     } else {
-                        continue;
+                        break;
                     }
                     i4 += 3;
                     i2 = 1048575;
                     break;
                 case 18:
-                    SchemaUtil.writeDoubleList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeDoubleList(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 19:
-                    SchemaUtil.writeFloatList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeFloatList(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 20:
-                    SchemaUtil.writeInt64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeInt64List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 21:
-                    SchemaUtil.writeUInt64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeUInt64List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 22:
-                    SchemaUtil.writeInt32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeInt32List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 23:
-                    SchemaUtil.writeFixed64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeFixed64List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
-                    SchemaUtil.writeFixed32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeFixed32List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case StatisticConstant.FunctionalErrorValues.CF_SENSOR_MODE_SWITCH_TIMEOUT /* 25 */:
-                    SchemaUtil.writeBoolList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeBoolList(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 26:
-                    SchemaUtil.writeStringList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer);
+                    SchemaUtil.writeStringList(numberAt(i4), listAt(t, jOffset), writer);
                     break;
                 case 27:
-                    SchemaUtil.writeMessageList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, getMessageFieldSchema(i4));
+                    SchemaUtil.writeMessageList(numberAt(i4), listAt(t, jOffset), writer,
+                            getMessageFieldSchema(i4));
                     break;
                 case 28:
-                    SchemaUtil.writeBytesList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer);
+                    SchemaUtil.writeBytesList(numberAt(i4), listAt(t, jOffset), writer);
                     break;
                 case ApsConstant.FEATURE_TYPE_AI_HDR /* 29 */:
-                    SchemaUtil.writeUInt32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeUInt32List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 30:
-                    SchemaUtil.writeEnumList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeEnumList(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 31:
-                    SchemaUtil.writeSFixed32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeSFixed32List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 32:
-                    SchemaUtil.writeSFixed64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeSFixed64List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 33:
-                    SchemaUtil.writeSInt32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeSInt32List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 34:
-                    SchemaUtil.writeSInt64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, false);
-                    continue;
-                    i4 += 3;
-                    i2 = 1048575;
+                    SchemaUtil.writeSInt64List(numberAt(i4), listAt(t, jOffset), writer, false);
                     break;
                 case 35:
-                    SchemaUtil.writeDoubleList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeDoubleList(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 36:
-                    SchemaUtil.writeFloatList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeFloatList(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 37:
-                    SchemaUtil.writeInt64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeInt64List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case ApsConstant.APS_SCENE_BOKEH_AINR_CHDR /* 38 */:
-                    SchemaUtil.writeUInt64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeUInt64List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case DescriptorProtos.FileOptions.SWIFT_PREFIX_FIELD_NUMBER /* 39 */:
-                    SchemaUtil.writeInt32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeInt32List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 40:
-                    SchemaUtil.writeFixed64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeFixed64List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 41:
-                    SchemaUtil.writeFixed32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeFixed32List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 42:
-                    SchemaUtil.writeBoolList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeBoolList(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_CHDR_MFNR /* 43 */:
-                    SchemaUtil.writeUInt32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeUInt32List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
-                    SchemaUtil.writeEnumList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeEnumList(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 45:
-                    SchemaUtil.writeSFixed32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeSFixed32List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case 46:
-                    SchemaUtil.writeSFixed64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeSFixed64List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
-                    SchemaUtil.writeSInt32List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeSInt32List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW /* 48 */:
-                    SchemaUtil.writeSInt64List(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, true);
+                    SchemaUtil.writeSInt64List(numberAt(i4), listAt(t, jOffset), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                    SchemaUtil.writeGroupList(numberAt(i4), (List) unsafe.getObject(t, jOffset), writer, getMessageFieldSchema(i4));
+                    SchemaUtil.writeGroupList(numberAt(i4), listAt(t, jOffset), writer,
+                            getMessageFieldSchema(i4));
                     break;
                 case 50:
                     writeMapHelper(writer, iNumberAt, unsafe.getObject(t, jOffset), i4);
@@ -2909,16 +3018,20 @@ final class MessageSchema<T> implements Schema<T> {
         writeUnknownInMessageTo(this.unknownFieldSchema, t, writer);
     }
 
-    /* JADX DEBUG: Type inference failed for r0v3. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX WARN: Removed duplicated region for block: B:7:0x001c  */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * JADX DEBUG: Type inference failed for r0v3. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x001c */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     private void writeFieldsInAscendingOrderProto3(T t, Writer writer) throws IOException {
-        Iterator it;
-        Map.Entry<?, ?> entry;
+        Iterator<?> it = null;
+        Map.Entry<?, ?> entry = null;
         if (this.hasExtensions) {
-            FieldSet<T> extensions = this.extensionSchema.getExtensions(t);
+            FieldSet<?> extensions = this.extensionSchema.getExtensions(t);
             if (extensions.isEmpty()) {
                 it = null;
                 entry = null;
@@ -2983,7 +3096,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 9:
                     if (isFieldPresent(t, i)) {
-                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(i));
+                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(i));
                     }
                     break;
                 case 10:
@@ -3023,104 +3137,137 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 17:
                     if (isFieldPresent(t, i)) {
-                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(i));
+                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(i));
                     }
                     break;
                 case 18:
-                    SchemaUtil.writeDoubleList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeDoubleList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 19:
-                    SchemaUtil.writeFloatList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeFloatList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 20:
-                    SchemaUtil.writeInt64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeInt64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 21:
-                    SchemaUtil.writeUInt64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeUInt64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 22:
-                    SchemaUtil.writeInt32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeInt32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 23:
-                    SchemaUtil.writeFixed64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeFixed64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
-                    SchemaUtil.writeFixed32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeFixed32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case StatisticConstant.FunctionalErrorValues.CF_SENSOR_MODE_SWITCH_TIMEOUT /* 25 */:
-                    SchemaUtil.writeBoolList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeBoolList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 26:
-                    SchemaUtil.writeStringList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer);
+                    SchemaUtil.writeStringList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer);
                     break;
                 case 27:
-                    SchemaUtil.writeMessageList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, getMessageFieldSchema(i));
+                    SchemaUtil.writeMessageList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, getMessageFieldSchema(i));
                     break;
                 case 28:
-                    SchemaUtil.writeBytesList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer);
+                    SchemaUtil.writeBytesList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer);
                     break;
                 case ApsConstant.FEATURE_TYPE_AI_HDR /* 29 */:
-                    SchemaUtil.writeUInt32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeUInt32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 30:
-                    SchemaUtil.writeEnumList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeEnumList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 31:
-                    SchemaUtil.writeSFixed32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSFixed32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 32:
-                    SchemaUtil.writeSFixed64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSFixed64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 33:
-                    SchemaUtil.writeSInt32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSInt32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 34:
-                    SchemaUtil.writeSInt64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSInt64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 35:
-                    SchemaUtil.writeDoubleList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeDoubleList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 36:
-                    SchemaUtil.writeFloatList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeFloatList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 37:
-                    SchemaUtil.writeInt64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeInt64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case ApsConstant.APS_SCENE_BOKEH_AINR_CHDR /* 38 */:
-                    SchemaUtil.writeUInt64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeUInt64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case DescriptorProtos.FileOptions.SWIFT_PREFIX_FIELD_NUMBER /* 39 */:
-                    SchemaUtil.writeInt32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeInt32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 40:
-                    SchemaUtil.writeFixed64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeFixed64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 41:
-                    SchemaUtil.writeFixed32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeFixed32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 42:
-                    SchemaUtil.writeBoolList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeBoolList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_CHDR_MFNR /* 43 */:
-                    SchemaUtil.writeUInt32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeUInt32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
-                    SchemaUtil.writeEnumList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeEnumList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 45:
-                    SchemaUtil.writeSFixed32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSFixed32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 46:
-                    SchemaUtil.writeSFixed64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSFixed64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
-                    SchemaUtil.writeSInt32List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSInt32List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW /* 48 */:
-                    SchemaUtil.writeSInt64List(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSInt64List(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                    SchemaUtil.writeGroupList(numberAt(i), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, getMessageFieldSchema(i));
+                    SchemaUtil.writeGroupList(numberAt(i), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, getMessageFieldSchema(i));
                     break;
                 case 50:
                     writeMapHelper(writer, iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), i);
@@ -3172,7 +3319,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 60:
                     if (isOneofPresent(t, iNumberAt, i)) {
-                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(i));
+                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(i));
                     }
                     break;
                 case 61:
@@ -3212,7 +3360,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 68:
                     if (isOneofPresent(t, iNumberAt, i)) {
-                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(i));
+                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(i));
                     }
                     break;
             }
@@ -3224,17 +3373,21 @@ final class MessageSchema<T> implements Schema<T> {
         writeUnknownInMessageTo(this.unknownFieldSchema, t, writer);
     }
 
-    /* JADX DEBUG: Type inference failed for r0v0. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX WARN: Removed duplicated region for block: B:7:0x0021  */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * JADX DEBUG: Type inference failed for r0v0. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x0021 */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     private void writeFieldsInDescendingOrder(T t, Writer writer) throws IOException {
-        Iterator itDescendingIterator;
-        Map.Entry<?, ?> entry;
+        Iterator<?> itDescendingIterator = null;
+        Map.Entry<?, ?> entry = null;
         writeUnknownInMessageTo(this.unknownFieldSchema, t, writer);
         if (this.hasExtensions) {
-            FieldSet<T> extensions = this.extensionSchema.getExtensions(t);
+            FieldSet<?> extensions = this.extensionSchema.getExtensions(t);
             if (extensions.isEmpty()) {
                 itDescendingIterator = null;
                 entry = null;
@@ -3298,7 +3451,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 9:
                     if (isFieldPresent(t, length)) {
-                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(length));
+                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(length));
                     }
                     break;
                 case 10:
@@ -3338,104 +3492,139 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 17:
                     if (isFieldPresent(t, length)) {
-                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(length));
+                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(length));
                     }
                     break;
                 case 18:
-                    SchemaUtil.writeDoubleList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeDoubleList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 19:
-                    SchemaUtil.writeFloatList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeFloatList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 20:
-                    SchemaUtil.writeInt64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeInt64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 21:
-                    SchemaUtil.writeUInt64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeUInt64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 22:
-                    SchemaUtil.writeInt32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeInt32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 23:
-                    SchemaUtil.writeFixed64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeFixed64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
-                    SchemaUtil.writeFixed32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeFixed32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case StatisticConstant.FunctionalErrorValues.CF_SENSOR_MODE_SWITCH_TIMEOUT /* 25 */:
-                    SchemaUtil.writeBoolList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeBoolList(numberAt(length), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 26:
-                    SchemaUtil.writeStringList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer);
+                    SchemaUtil.writeStringList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer);
                     break;
                 case 27:
-                    SchemaUtil.writeMessageList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, getMessageFieldSchema(length));
+                    SchemaUtil.writeMessageList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer,
+                            getMessageFieldSchema(length));
                     break;
                 case 28:
-                    SchemaUtil.writeBytesList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer);
+                    SchemaUtil.writeBytesList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer);
                     break;
                 case ApsConstant.FEATURE_TYPE_AI_HDR /* 29 */:
-                    SchemaUtil.writeUInt32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeUInt32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 30:
-                    SchemaUtil.writeEnumList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeEnumList(numberAt(length), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, false);
                     break;
                 case 31:
-                    SchemaUtil.writeSFixed32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSFixed32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 32:
-                    SchemaUtil.writeSFixed64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSFixed64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 33:
-                    SchemaUtil.writeSInt32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSInt32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 34:
-                    SchemaUtil.writeSInt64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, false);
+                    SchemaUtil.writeSInt64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, false);
                     break;
                 case 35:
-                    SchemaUtil.writeDoubleList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeDoubleList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case 36:
-                    SchemaUtil.writeFloatList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeFloatList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case 37:
-                    SchemaUtil.writeInt64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeInt64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case ApsConstant.APS_SCENE_BOKEH_AINR_CHDR /* 38 */:
-                    SchemaUtil.writeUInt64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeUInt64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case DescriptorProtos.FileOptions.SWIFT_PREFIX_FIELD_NUMBER /* 39 */:
-                    SchemaUtil.writeInt32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeInt32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case 40:
-                    SchemaUtil.writeFixed64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeFixed64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case 41:
-                    SchemaUtil.writeFixed32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeFixed32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case 42:
-                    SchemaUtil.writeBoolList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeBoolList(numberAt(length), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_CHDR_MFNR /* 43 */:
-                    SchemaUtil.writeUInt32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeUInt32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
-                    SchemaUtil.writeEnumList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeEnumList(numberAt(length), listAt(t, offset(iTypeAndOffsetAt)),
+                            writer, true);
                     break;
                 case 45:
-                    SchemaUtil.writeSFixed32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSFixed32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case 46:
-                    SchemaUtil.writeSFixed64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSFixed64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
-                    SchemaUtil.writeSInt32List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSInt32List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW /* 48 */:
-                    SchemaUtil.writeSInt64List(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, true);
+                    SchemaUtil.writeSInt64List(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer, true);
                     break;
                 case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                    SchemaUtil.writeGroupList(numberAt(length), (List) UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), writer, getMessageFieldSchema(length));
+                    SchemaUtil.writeGroupList(numberAt(length),
+                            listAt(t, offset(iTypeAndOffsetAt)), writer,
+                            getMessageFieldSchema(length));
                     break;
                 case 50:
                     writeMapHelper(writer, iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), length);
@@ -3487,7 +3676,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 60:
                     if (isOneofPresent(t, iNumberAt, length)) {
-                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(length));
+                        writer.writeMessage(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(length));
                     }
                     break;
                 case 61:
@@ -3527,7 +3717,8 @@ final class MessageSchema<T> implements Schema<T> {
                     break;
                 case 68:
                     if (isOneofPresent(t, iNumberAt, length)) {
-                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), getMessageFieldSchema(length));
+                        writer.writeGroup(iNumberAt, UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                getMessageFieldSchema(length));
                     }
                     break;
             }
@@ -3540,62 +3731,96 @@ final class MessageSchema<T> implements Schema<T> {
 
     private <K, V> void writeMapHelper(Writer writer, int i, Object obj, int i2) throws IOException {
         if (obj != null) {
-            writer.writeMap(i, this.mapFieldSchema.forMapMetadata(getMapFieldDefaultEntry(i2)), this.mapFieldSchema.forMapData(obj));
+            writer.writeMap(i,
+                    (MapEntryLite.Metadata<K, V>) this.mapFieldSchema.forMapMetadata(getMapFieldDefaultEntry(i2)),
+                    (Map<K, V>) this.mapFieldSchema.forMapData(obj));
         }
     }
 
-    private <UT, UB> void writeUnknownInMessageTo(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, Writer writer) throws IOException {
+    private <UT, UB> void writeUnknownInMessageTo(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, Writer writer)
+            throws IOException {
         unknownFieldSchema.writeTo(unknownFieldSchema.getFromMessage(t), writer);
     }
 
-    /* JADX DEBUG: Type inference failed for r1v0. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX DEBUG: Type inference failed for r2v0. Raw type applied. Possible types: com.google.oplus.protobuf.ExtensionSchema<?>, com.google.oplus.protobuf.ExtensionSchema<ET extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<ET>> */
+    /*
+     * JADX DEBUG: Type inference failed for r1v0. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /*
+     * JADX DEBUG: Type inference failed for r2v0. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.ExtensionSchema<?>,
+     * com.google.oplus.protobuf.ExtensionSchema<ET extends
+     * com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<ET>>
+     */
     @Override // com.google.oplus.protobuf.Schema
     public void mergeFrom(T t, Reader reader, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         extensionRegistryLite.getClass();
         mergeFromHelper(this.unknownFieldSchema, this.extensionSchema, t, reader, extensionRegistryLite);
     }
 
-    /* JADX DEBUG: Another duplicated slice has different insns count: {[IGET]}, finally: {[IGET, IGET, AGET, INVOKE, ARITH, INVOKE, IF, IF, IGET] complete} */
-    /* JADX DEBUG: Don't trust debug lines info. Repeating lines: [4334=6, 4335=6, 4336=6, 4339=6] */
-    /* JADX DEBUG: Multi-variable search result rejected for r17v0, resolved type: com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX DEBUG: Multi-variable search result rejected for r5v0, resolved type: com.google.oplus.protobuf.FieldSet<T extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>> */
-    /* JADX WARN: Code restructure failed: missing block: B:32:0x0075, code lost:
-    
-        r0 = r16.checkInitializedCount;
+    /*
+     * JADX DEBUG: Another duplicated slice has different insns count: {[IGET]},
+     * finally: {[IGET, IGET, AGET, INVOKE, ARITH, INVOKE, IF, IF, IGET] complete}
      */
-    /* JADX WARN: Code restructure failed: missing block: B:34:0x0079, code lost:
-    
-        if (r0 >= r16.repeatedFieldOffsetStart) goto L357;
+    /*
+     * JADX DEBUG: Don't trust debug lines info. Repeating lines: [4334=6, 4335=6,
+     * 4336=6, 4339=6]
      */
-    /* JADX WARN: Code restructure failed: missing block: B:35:0x007b, code lost:
-    
-        r13 = filterMapUnknownEnumValues(r19, r16.intArray[r0], r13, r17);
-        r0 = r0 + 1;
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r17v0, resolved type:
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
      */
-    /* JADX WARN: Code restructure failed: missing block: B:361:?, code lost:
-    
-        return;
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r5v0, resolved type:
+     * com.google.oplus.protobuf.FieldSet<T extends
+     * com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<T>>
      */
-    /* JADX WARN: Code restructure failed: missing block: B:36:0x0086, code lost:
-    
-        if (r13 == null) goto L361;
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:32:0x0075, code lost:
+     * 
+     * r0 = r16.checkInitializedCount;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:37:0x0088, code lost:
-    
-        r17.setBuilderToMessage(r19, r13);
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:34:0x0079, code lost:
+     * 
+     * if (r0 >= r16.repeatedFieldOffsetStart) goto L357;
      */
-    /* JADX WARN: Code restructure failed: missing block: B:38:0x008b, code lost:
-    
-        return;
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:35:0x007b, code lost:
+     * 
+     * r13 = filterMapUnknownEnumValues(r19, r16.intArray[r0], r13, r17);
+     * r0 = r0 + 1;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:361:?, code lost:
+     * 
+     * return;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:36:0x0086, code lost:
+     * 
+     * if (r13 == null) goto L361;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:37:0x0088, code lost:
+     * 
+     * r17.setBuilderToMessage(r19, r13);
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:38:0x008b, code lost:
+     * 
+     * return;
      */
     /* JADX WARN: Multi-variable type inference failed */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    private <UT, UB, ET extends FieldSet.FieldDescriptorLite<ET>> void mergeFromHelper(UnknownFieldSchema<UT, UB> unknownFieldSchema, ExtensionSchema<ET> extensionSchema, T t, Reader reader, ExtensionRegistryLite extensionRegistryLite) throws IOException {
-        Object objFilterMapUnknownEnumValues = null;
-        Object mutableExtensions = null;
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    private <UT, UB, ET extends FieldSet.FieldDescriptorLite<ET>> void mergeFromHelper(
+            UnknownFieldSchema<UT, UB> unknownFieldSchema, ExtensionSchema<ET> extensionSchema, T t, Reader reader,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
+        UB objFilterMapUnknownEnumValues = null;
+        FieldSet<ET> mutableExtensions = null;
         while (true) {
             try {
                 int fieldNumber = reader.getFieldNumber();
@@ -3642,9 +3867,16 @@ final class MessageSchema<T> implements Schema<T> {
                                 break;
                             case 9:
                                 if (isFieldPresent(t, iPositionForFieldNumber)) {
-                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Internal.mergeMessage(UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), reader.readMessageBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite)));
+                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                            Internal.mergeMessage(UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                                    reader.readMessageBySchemaWithCheck(
+                                                            getMessageFieldSchema(iPositionForFieldNumber),
+                                                            extensionRegistryLite)));
                                 } else {
-                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), reader.readMessageBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite));
+                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                            reader.readMessageBySchemaWithCheck(
+                                                    getMessageFieldSchema(iPositionForFieldNumber),
+                                                    extensionRegistryLite));
                                     setFieldPresent(t, iPositionForFieldNumber);
                                 }
                                 break;
@@ -3663,7 +3895,8 @@ final class MessageSchema<T> implements Schema<T> {
                                     UnsafeUtil.putInt(t, offset(iTypeAndOffsetAt), i);
                                     setFieldPresent(t, iPositionForFieldNumber);
                                 } else {
-                                    objFilterMapUnknownEnumValues = SchemaUtil.storeUnknownEnum(fieldNumber, i, objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                    objFilterMapUnknownEnumValues = SchemaUtil.storeUnknownEnum(fieldNumber, i,
+                                            objFilterMapUnknownEnumValues, unknownFieldSchema);
                                 }
                                 break;
                             case 13:
@@ -3684,9 +3917,14 @@ final class MessageSchema<T> implements Schema<T> {
                                 break;
                             case 17:
                                 if (isFieldPresent(t, iPositionForFieldNumber)) {
-                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Internal.mergeMessage(UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), reader.readGroupBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite)));
+                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                            Internal.mergeMessage(UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                                    reader.readGroupBySchemaWithCheck(
+                                                            getMessageFieldSchema(iPositionForFieldNumber),
+                                                            extensionRegistryLite)));
                                 } else {
-                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), reader.readGroupBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite));
+                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), reader.readGroupBySchemaWithCheck(
+                                            getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite));
                                     setFieldPresent(t, iPositionForFieldNumber);
                                 }
                                 break;
@@ -3718,7 +3956,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 readStringList(t, iTypeAndOffsetAt, reader);
                                 break;
                             case 27:
-                                readMessageList(t, iTypeAndOffsetAt, reader, getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite);
+                                readMessageList(t, iTypeAndOffsetAt, reader,
+                                        (Schema) getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite);
                                 break;
                             case 28:
                                 reader.readBytesList(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
@@ -3727,15 +3966,20 @@ final class MessageSchema<T> implements Schema<T> {
                                 reader.readUInt32List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case 30:
-                                List<Integer> listMutableListAt = this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt));
+                                List<Integer> listMutableListAt = this.listFieldSchema.mutableListAt(t,
+                                        offset(iTypeAndOffsetAt));
                                 reader.readEnumList(listMutableListAt);
-                                objFilterMapUnknownEnumValues = SchemaUtil.filterUnknownEnumList(fieldNumber, listMutableListAt, getEnumFieldVerifier(iPositionForFieldNumber), objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                objFilterMapUnknownEnumValues = SchemaUtil.filterUnknownEnumList(fieldNumber,
+                                        listMutableListAt, getEnumFieldVerifier(iPositionForFieldNumber),
+                                        objFilterMapUnknownEnumValues, unknownFieldSchema);
                                 break;
                             case 31:
-                                reader.readSFixed32List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
+                                reader.readSFixed32List(
+                                        this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case 32:
-                                reader.readSFixed64List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
+                                reader.readSFixed64List(
+                                        this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case 33:
                                 reader.readSInt32List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
@@ -3771,15 +4015,20 @@ final class MessageSchema<T> implements Schema<T> {
                                 reader.readUInt32List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
-                                List<Integer> listMutableListAt2 = this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt));
+                                List<Integer> listMutableListAt2 = this.listFieldSchema.mutableListAt(t,
+                                        offset(iTypeAndOffsetAt));
                                 reader.readEnumList(listMutableListAt2);
-                                objFilterMapUnknownEnumValues = SchemaUtil.filterUnknownEnumList(fieldNumber, listMutableListAt2, getEnumFieldVerifier(iPositionForFieldNumber), objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                objFilterMapUnknownEnumValues = SchemaUtil.filterUnknownEnumList(fieldNumber,
+                                        listMutableListAt2, getEnumFieldVerifier(iPositionForFieldNumber),
+                                        objFilterMapUnknownEnumValues, unknownFieldSchema);
                                 break;
                             case 45:
-                                reader.readSFixed32List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
+                                reader.readSFixed32List(
+                                        this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case 46:
-                                reader.readSFixed64List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
+                                reader.readSFixed64List(
+                                        this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
                                 reader.readSInt32List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
@@ -3788,10 +4037,12 @@ final class MessageSchema<T> implements Schema<T> {
                                 reader.readSInt64List(this.listFieldSchema.mutableListAt(t, offset(iTypeAndOffsetAt)));
                                 break;
                             case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                                readGroupList(t, offset(iTypeAndOffsetAt), reader, getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite);
+                                readGroupList(t, offset(iTypeAndOffsetAt), reader,
+                                        (Schema) getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite);
                                 break;
                             case 50:
-                                mergeMap(t, iPositionForFieldNumber, getMapFieldDefaultEntry(iPositionForFieldNumber), extensionRegistryLite, reader);
+                                mergeMap(t, iPositionForFieldNumber, getMapFieldDefaultEntry(iPositionForFieldNumber),
+                                        extensionRegistryLite, reader);
                                 break;
                             case 51:
                                 UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Double.valueOf(reader.readDouble()));
@@ -3818,7 +4069,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
                                 break;
                             case 57:
-                                UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Integer.valueOf(reader.readFixed32()));
+                                UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                        Integer.valueOf(reader.readFixed32()));
                                 setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
                                 break;
                             case 58:
@@ -3831,9 +4083,16 @@ final class MessageSchema<T> implements Schema<T> {
                                 break;
                             case 60:
                                 if (isOneofPresent(t, fieldNumber, iPositionForFieldNumber)) {
-                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Internal.mergeMessage(UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)), reader.readMessageBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite)));
+                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                            Internal.mergeMessage(UnsafeUtil.getObject(t, offset(iTypeAndOffsetAt)),
+                                                    reader.readMessageBySchemaWithCheck(
+                                                            getMessageFieldSchema(iPositionForFieldNumber),
+                                                            extensionRegistryLite)));
                                 } else {
-                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), reader.readMessageBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite));
+                                    UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                            reader.readMessageBySchemaWithCheck(
+                                                    getMessageFieldSchema(iPositionForFieldNumber),
+                                                    extensionRegistryLite));
                                     setFieldPresent(t, iPositionForFieldNumber);
                                 }
                                 setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
@@ -3848,16 +4107,19 @@ final class MessageSchema<T> implements Schema<T> {
                                 break;
                             case 63:
                                 int i2 = reader.readEnum();
-                                Internal.EnumVerifier enumFieldVerifier2 = getEnumFieldVerifier(iPositionForFieldNumber);
+                                Internal.EnumVerifier enumFieldVerifier2 = getEnumFieldVerifier(
+                                        iPositionForFieldNumber);
                                 if (enumFieldVerifier2 == null || enumFieldVerifier2.isInRange(i2)) {
                                     UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Integer.valueOf(i2));
                                     setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
                                 } else {
-                                    objFilterMapUnknownEnumValues = SchemaUtil.storeUnknownEnum(fieldNumber, i2, objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                    objFilterMapUnknownEnumValues = SchemaUtil.storeUnknownEnum(fieldNumber, i2,
+                                            objFilterMapUnknownEnumValues, unknownFieldSchema);
                                 }
                                 break;
                             case 64:
-                                UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), Integer.valueOf(reader.readSFixed32()));
+                                UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt),
+                                        Integer.valueOf(reader.readSFixed32()));
                                 setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
                                 break;
                             case 65:
@@ -3873,7 +4135,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
                                 break;
                             case 68:
-                                UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), reader.readGroupBySchemaWithCheck(getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite));
+                                UnsafeUtil.putObject(t, offset(iTypeAndOffsetAt), reader.readGroupBySchemaWithCheck(
+                                        getMessageFieldSchema(iPositionForFieldNumber), extensionRegistryLite));
                                 setOneofPresent(t, fieldNumber, iPositionForFieldNumber);
                                 break;
                             default:
@@ -3882,7 +4145,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 }
                                 if (!unknownFieldSchema.mergeOneFieldFrom(objFilterMapUnknownEnumValues, reader)) {
                                     for (int i3 = this.checkInitializedCount; i3 < this.repeatedFieldOffsetStart; i3++) {
-                                        objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i3], objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                        objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i3],
+                                                objFilterMapUnknownEnumValues, unknownFieldSchema);
                                     }
                                     if (objFilterMapUnknownEnumValues != null) {
                                         unknownFieldSchema.setBuilderToMessage(t, objFilterMapUnknownEnumValues);
@@ -3890,7 +4154,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     }
                                     return;
                                 }
-                                break;
                                 break;
                         }
                     } catch (InvalidProtocolBufferException.InvalidWireTypeException unused) {
@@ -3900,7 +4163,8 @@ final class MessageSchema<T> implements Schema<T> {
                             }
                             if (!unknownFieldSchema.mergeOneFieldFrom(objFilterMapUnknownEnumValues, reader)) {
                                 for (int i4 = this.checkInitializedCount; i4 < this.repeatedFieldOffsetStart; i4++) {
-                                    objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i4], objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                    objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i4],
+                                            objFilterMapUnknownEnumValues, unknownFieldSchema);
                                 }
                                 if (objFilterMapUnknownEnumValues != null) {
                                     unknownFieldSchema.setBuilderToMessage(t, objFilterMapUnknownEnumValues);
@@ -3910,7 +4174,8 @@ final class MessageSchema<T> implements Schema<T> {
                             }
                         } else if (!reader.skipField()) {
                             for (int i5 = this.checkInitializedCount; i5 < this.repeatedFieldOffsetStart; i5++) {
-                                objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i5], objFilterMapUnknownEnumValues, unknownFieldSchema);
+                                objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i5],
+                                        objFilterMapUnknownEnumValues, unknownFieldSchema);
                             }
                             if (objFilterMapUnknownEnumValues != null) {
                                 unknownFieldSchema.setBuilderToMessage(t, objFilterMapUnknownEnumValues);
@@ -3922,7 +4187,8 @@ final class MessageSchema<T> implements Schema<T> {
                 } else {
                     if (fieldNumber == Integer.MAX_VALUE) {
                         for (int i6 = this.checkInitializedCount; i6 < this.repeatedFieldOffsetStart; i6++) {
-                            objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i6], objFilterMapUnknownEnumValues, unknownFieldSchema);
+                            objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i6],
+                                    objFilterMapUnknownEnumValues, unknownFieldSchema);
                         }
                         if (objFilterMapUnknownEnumValues != null) {
                             unknownFieldSchema.setBuilderToMessage(t, objFilterMapUnknownEnumValues);
@@ -3930,12 +4196,16 @@ final class MessageSchema<T> implements Schema<T> {
                         }
                         return;
                     }
-                    Object objFindExtensionByNumber = !this.hasExtensions ? null : extensionSchema.findExtensionByNumber(extensionRegistryLite, this.defaultInstance, fieldNumber);
+                    Object objFindExtensionByNumber = !this.hasExtensions ? null
+                            : extensionSchema.findExtensionByNumber(extensionRegistryLite, this.defaultInstance,
+                                    fieldNumber);
                     if (objFindExtensionByNumber != null) {
                         if (mutableExtensions == null) {
                             mutableExtensions = extensionSchema.getMutableExtensions(t);
                         }
-                        objFilterMapUnknownEnumValues = extensionSchema.parseExtension(reader, objFindExtensionByNumber, extensionRegistryLite, mutableExtensions, objFilterMapUnknownEnumValues, unknownFieldSchema);
+                        objFilterMapUnknownEnumValues = extensionSchema.parseExtension(reader, objFindExtensionByNumber,
+                                extensionRegistryLite, mutableExtensions, objFilterMapUnknownEnumValues,
+                                unknownFieldSchema);
                     } else if (!unknownFieldSchema.shouldDiscardUnknownFields(reader)) {
                         if (objFilterMapUnknownEnumValues == null) {
                             objFilterMapUnknownEnumValues = unknownFieldSchema.getBuilderFromMessage(t);
@@ -3947,7 +4217,8 @@ final class MessageSchema<T> implements Schema<T> {
                 }
             } catch (Throwable th) {
                 for (int i7 = this.checkInitializedCount; i7 < this.repeatedFieldOffsetStart; i7++) {
-                    objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i7], objFilterMapUnknownEnumValues, unknownFieldSchema);
+                    objFilterMapUnknownEnumValues = filterMapUnknownEnumValues(t, this.intArray[i7],
+                            objFilterMapUnknownEnumValues, unknownFieldSchema);
                 }
                 if (objFilterMapUnknownEnumValues != null) {
                     unknownFieldSchema.setBuilderToMessage(t, objFilterMapUnknownEnumValues);
@@ -3968,7 +4239,10 @@ final class MessageSchema<T> implements Schema<T> {
         return unknownFieldSetLiteNewInstance;
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.MessageSchema$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.MessageSchema$1, reason:
+     * invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -4046,7 +4320,8 @@ final class MessageSchema<T> implements Schema<T> {
         }
     }
 
-    private int decodeMapEntryValue(byte[] bArr, int i, int i2, WireFormat.FieldType fieldType, Class<?> cls, ArrayDecoders.Registers registers) throws IOException {
+    private int decodeMapEntryValue(byte[] bArr, int i, int i2, WireFormat.FieldType fieldType, Class<?> cls,
+            ArrayDecoders.Registers registers) throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[fieldType.ordinal()]) {
             case 1:
                 int iDecodeVarint64 = ArrayDecoders.decodeVarint64(bArr, i, registers);
@@ -4080,7 +4355,8 @@ final class MessageSchema<T> implements Schema<T> {
                 registers.object1 = Long.valueOf(registers.long1);
                 return iDecodeVarint642;
             case 14:
-                return ArrayDecoders.decodeMessageField(Protobuf.getInstance().schemaFor((Class) cls), bArr, i, i2, registers);
+                return ArrayDecoders.decodeMessageField(Protobuf.getInstance().schemaFor(cls), bArr, i, i2,
+                        registers);
             case 15:
                 int iDecodeVarint322 = ArrayDecoders.decodeVarint32(bArr, i, registers);
                 registers.object1 = Integer.valueOf(CodedInputStream.decodeZigZag32(registers.int1));
@@ -4096,9 +4372,13 @@ final class MessageSchema<T> implements Schema<T> {
         }
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r19v0, resolved type: java.util.Map<K, V> */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r19v0, resolved type:
+     * java.util.Map<K, V>
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    private <K, V> int decodeMapEntry(byte[] bArr, int i, int i2, MapEntryLite.Metadata<K, V> metadata, Map<K, V> map, ArrayDecoders.Registers registers) throws IOException {
+    private <K, V> int decodeMapEntry(byte[] bArr, int i, int i2, MapEntryLite.Metadata<K, V> metadata, Map<K, V> map,
+            ArrayDecoders.Registers registers) throws IOException {
         int iDecodeVarint32;
         int iDecodeVarint322 = ArrayDecoders.decodeVarint32(bArr, i, registers);
         int i3 = registers.int1;
@@ -4121,13 +4401,15 @@ final class MessageSchema<T> implements Schema<T> {
             int i8 = i6 & 7;
             if (i7 == 1) {
                 if (i8 == metadata.keyType.getWireType()) {
-                    iDecodeVarint322 = decodeMapEntryValue(bArr, iDecodeVarint32, i2, metadata.keyType, null, registers);
+                    iDecodeVarint322 = decodeMapEntryValue(bArr, iDecodeVarint32, i2, metadata.keyType, null,
+                            registers);
                     obj = registers.object1;
                 } else {
                     iDecodeVarint322 = ArrayDecoders.skipField(i6, bArr, iDecodeVarint32, i2, registers);
                 }
             } else if (i7 == 2 && i8 == metadata.valueType.getWireType()) {
-                iDecodeVarint322 = decodeMapEntryValue(bArr, iDecodeVarint32, i2, metadata.valueType, metadata.defaultValue.getClass(), registers);
+                iDecodeVarint322 = decodeMapEntryValue(bArr, iDecodeVarint32, i2, metadata.valueType,
+                        metadata.defaultValue.getClass(), registers);
                 obj2 = registers.object1;
             } else {
                 iDecodeVarint322 = ArrayDecoders.skipField(i6, bArr, iDecodeVarint32, i2, registers);
@@ -4140,96 +4422,140 @@ final class MessageSchema<T> implements Schema<T> {
         return i4;
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r14v0, resolved type: T */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r14v0, resolved type: T
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    private int parseRepeatedField(T t, byte[] bArr, int i, int i2, int i3, int i4, int i5, int i6, long j, int i7, long j2, ArrayDecoders.Registers registers) throws IOException {
+    private int parseRepeatedField(T t, byte[] bArr, int i, int i2, int i3, int i4, int i5, int i6, long j, int i7,
+            long j2, ArrayDecoders.Registers registers) throws IOException {
         int iDecodeVarint32List;
         Unsafe unsafe = UNSAFE;
-        Internal.ProtobufList protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList) unsafe.getObject(t, j2);
+        Internal.ProtobufList<?> protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList<?>) unsafe.getObject(t,
+                j2);
         if (!protobufListMutableCopyWithCapacity2.isModifiable()) {
             int size = protobufListMutableCopyWithCapacity2.size();
-            protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+            protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2
+                    .mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
             unsafe.putObject(t, j2, protobufListMutableCopyWithCapacity2);
         }
         switch (i7) {
             case 18:
             case 35:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedDoubleList(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedDoubleList(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 1 ? ArrayDecoders.decodeDoubleList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 1
+                        ? ArrayDecoders.decodeDoubleList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case 19:
             case 36:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedFloatList(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedFloatList(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 5 ? ArrayDecoders.decodeFloatList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 5
+                        ? ArrayDecoders.decodeFloatList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case 20:
             case 21:
             case 37:
             case ApsConstant.APS_SCENE_BOKEH_AINR_CHDR /* 38 */:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedVarint64List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedVarint64List(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 0 ? ArrayDecoders.decodeVarint64List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 0
+                        ? ArrayDecoders.decodeVarint64List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case 22:
             case ApsConstant.FEATURE_TYPE_AI_HDR /* 29 */:
             case DescriptorProtos.FileOptions.SWIFT_PREFIX_FIELD_NUMBER /* 39 */:
             case ApsConstant.FEATURE_TYPE_CHDR_MFNR /* 43 */:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedVarint32List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedVarint32List(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 0 ? ArrayDecoders.decodeVarint32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 0
+                        ? ArrayDecoders.decodeVarint32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case 23:
             case 32:
             case 40:
             case 46:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedFixed64List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedFixed64List(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 1 ? ArrayDecoders.decodeFixed64List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 1
+                        ? ArrayDecoders.decodeFixed64List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
             case 31:
             case 41:
             case 45:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedFixed32List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedFixed32List(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 5 ? ArrayDecoders.decodeFixed32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 5
+                        ? ArrayDecoders.decodeFixed32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case StatisticConstant.FunctionalErrorValues.CF_SENSOR_MODE_SWITCH_TIMEOUT /* 25 */:
             case 42:
                 if (i5 == 2) {
                     return ArrayDecoders.decodePackedBoolList(bArr, i, protobufListMutableCopyWithCapacity2, registers);
                 }
-                return i5 == 0 ? ArrayDecoders.decodeBoolList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 0
+                        ? ArrayDecoders.decodeBoolList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers)
+                        : i;
             case 26:
                 if (i5 != 2) {
                     return i;
                 }
                 if ((j & 536870912) == 0) {
-                    return ArrayDecoders.decodeStringList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodeStringList(i3, bArr, i, i2,
+                            (Internal.ProtobufList<String>) protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return ArrayDecoders.decodeStringListRequireUtf8(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers);
+                return ArrayDecoders.decodeStringListRequireUtf8(i3, bArr, i, i2,
+                        (Internal.ProtobufList<String>) protobufListMutableCopyWithCapacity2,
+                        registers);
             case 27:
-                return i5 == 2 ? ArrayDecoders.decodeMessageList(getMessageFieldSchema(i6), i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 2 ? ArrayDecoders.decodeMessageList(getMessageFieldSchema(i6), i3, bArr, i, i2,
+                        (Internal.ProtobufList<Object>) protobufListMutableCopyWithCapacity2, registers) : i;
             case 28:
-                return i5 == 2 ? ArrayDecoders.decodeBytesList(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 2
+                        ? ArrayDecoders.decodeBytesList(i3, bArr, i, i2,
+                                (Internal.ProtobufList<ByteString>) protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case 30:
             case DescriptorProtos.FileOptions.PHP_METADATA_NAMESPACE_FIELD_NUMBER /* 44 */:
                 if (i5 == 2) {
-                    iDecodeVarint32List = ArrayDecoders.decodePackedVarint32List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    iDecodeVarint32List = ArrayDecoders.decodePackedVarint32List(bArr, i,
+                            protobufListMutableCopyWithCapacity2, registers);
                 } else {
                     if (i5 != 0) {
                         return i;
                     }
-                    iDecodeVarint32List = ArrayDecoders.decodeVarint32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers);
+                    iDecodeVarint32List = ArrayDecoders.decodeVarint32List(i3, bArr, i, i2,
+                            protobufListMutableCopyWithCapacity2, registers);
                 }
                 GeneratedMessageLite generatedMessageLite = (GeneratedMessageLite) t;
                 UnknownFieldSetLite unknownFieldSetLite = generatedMessageLite.unknownFields;
                 if (unknownFieldSetLite == UnknownFieldSetLite.getDefaultInstance()) {
                     unknownFieldSetLite = null;
                 }
-                UnknownFieldSetLite unknownFieldSetLite2 = (UnknownFieldSetLite) SchemaUtil.filterUnknownEnumList(i4, (List<Integer>) protobufListMutableCopyWithCapacity2, getEnumFieldVerifier(i6), unknownFieldSetLite, (UnknownFieldSchema<UT, UnknownFieldSetLite>) this.unknownFieldSchema);
+                UnknownFieldSetLite unknownFieldSetLite2 = (UnknownFieldSetLite) SchemaUtil.filterUnknownEnumList(i4,
+                        (List<Integer>) protobufListMutableCopyWithCapacity2, getEnumFieldVerifier(i6),
+                        unknownFieldSetLite, (UnknownFieldSchema<Object, UnknownFieldSetLite>) this.unknownFieldSchema);
                 if (unknownFieldSetLite2 != null) {
                     generatedMessageLite.unknownFields = unknownFieldSetLite2;
                 }
@@ -4237,23 +4563,33 @@ final class MessageSchema<T> implements Schema<T> {
             case 33:
             case ApsConstant.FEATURE_TYPE_AHEAD_MD_HDR_ULTRA /* 47 */:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedSInt32List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedSInt32List(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 0 ? ArrayDecoders.decodeSInt32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 0
+                        ? ArrayDecoders.decodeSInt32List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case 34:
             case ApsConstant.FEATURE_TYPE_TURBO_RAW /* 48 */:
                 if (i5 == 2) {
-                    return ArrayDecoders.decodePackedSInt64List(bArr, i, protobufListMutableCopyWithCapacity2, registers);
+                    return ArrayDecoders.decodePackedSInt64List(bArr, i, protobufListMutableCopyWithCapacity2,
+                            registers);
                 }
-                return i5 == 0 ? ArrayDecoders.decodeSInt64List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 0
+                        ? ArrayDecoders.decodeSInt64List(i3, bArr, i, i2, protobufListMutableCopyWithCapacity2,
+                                registers)
+                        : i;
             case ApsConstant.FEATURE_TYPE_TURBO_RAW_IZOOM /* 49 */:
-                return i5 == 3 ? ArrayDecoders.decodeGroupList(getMessageFieldSchema(i6), i3, bArr, i, i2, protobufListMutableCopyWithCapacity2, registers) : i;
+                return i5 == 3 ? ArrayDecoders.decodeGroupList(getMessageFieldSchema(i6), i3, bArr, i, i2,
+                        protobufListMutableCopyWithCapacity2, registers) : i;
             default:
                 return i;
         }
     }
 
-    private <K, V> int parseMapField(T t, byte[] bArr, int i, int i2, int i3, long j, ArrayDecoders.Registers registers) throws IOException {
+    private <K, V> int parseMapField(T t, byte[] bArr, int i, int i2, int i3, long j, ArrayDecoders.Registers registers)
+            throws IOException {
         Unsafe unsafe = UNSAFE;
         Object mapFieldDefaultEntry = getMapFieldDefaultEntry(i3);
         Object object = unsafe.getObject(t, j);
@@ -4263,10 +4599,13 @@ final class MessageSchema<T> implements Schema<T> {
             unsafe.putObject(t, j, objNewMapField);
             object = objNewMapField;
         }
-        return decodeMapEntry(bArr, i, i2, this.mapFieldSchema.forMapMetadata(mapFieldDefaultEntry), this.mapFieldSchema.forMutableMapData(object), registers);
+        return decodeMapEntry(bArr, i, i2,
+                (MapEntryLite.Metadata<Object, Object>) this.mapFieldSchema.forMapMetadata(mapFieldDefaultEntry),
+                (Map<Object, Object>) this.mapFieldSchema.forMutableMapData(object), registers);
     }
 
-    private int parseOneofField(T t, byte[] bArr, int i, int i2, int i3, int i4, int i5, int i6, int i7, long j, int i8, ArrayDecoders.Registers registers) throws IOException {
+    private int parseOneofField(T t, byte[] bArr, int i, int i2, int i3, int i4, int i5, int i6, int i7, long j, int i8,
+            ArrayDecoders.Registers registers) throws IOException {
         Unsafe unsafe = UNSAFE;
         long j2 = this.buffer[i8 + 2] & 1048575;
         switch (i7) {
@@ -4339,7 +4678,8 @@ final class MessageSchema<T> implements Schema<T> {
                 if (i13 == 0) {
                     unsafe.putObject(t, j, "");
                 } else {
-                    if ((i6 & ENFORCE_UTF8_MASK) != 0 && !Utf8.isValidUtf8(bArr, iDecodeVarint322, iDecodeVarint322 + i13)) {
+                    if ((i6 & ENFORCE_UTF8_MASK) != 0
+                            && !Utf8.isValidUtf8(bArr, iDecodeVarint322, iDecodeVarint322 + i13)) {
                         throw InvalidProtocolBufferException.invalidUtf8();
                     }
                     unsafe.putObject(t, j, new String(bArr, iDecodeVarint322, i13, Internal.UTF_8));
@@ -4351,7 +4691,8 @@ final class MessageSchema<T> implements Schema<T> {
                 if (i5 != 2) {
                     return i;
                 }
-                int iDecodeMessageField = ArrayDecoders.decodeMessageField(getMessageFieldSchema(i8), bArr, i, i2, registers);
+                int iDecodeMessageField = ArrayDecoders.decodeMessageField(getMessageFieldSchema(i8), bArr, i, i2,
+                        registers);
                 Object object = unsafe.getInt(t, j2) == i4 ? unsafe.getObject(t, j) : null;
                 if (object == null) {
                     unsafe.putObject(t, j, registers.object1);
@@ -4402,7 +4743,8 @@ final class MessageSchema<T> implements Schema<T> {
                 if (i5 != 3) {
                     return i;
                 }
-                int iDecodeGroupField = ArrayDecoders.decodeGroupField(getMessageFieldSchema(i8), bArr, i, i2, (i3 & (-8)) | 4, registers);
+                int iDecodeGroupField = ArrayDecoders.decodeGroupField(getMessageFieldSchema(i8), bArr, i, i2,
+                        (i3 & (-8)) | 4, registers);
                 Object object2 = unsafe.getInt(t, j2) == i4 ? unsafe.getObject(t, j) : null;
                 if (object2 == null) {
                     unsafe.putObject(t, j, registers.object1);
@@ -4416,13 +4758,13 @@ final class MessageSchema<T> implements Schema<T> {
         }
     }
 
-    private Schema getMessageFieldSchema(int i) {
+    private Schema<?> getMessageFieldSchema(int i) {
         int i2 = (i / 3) * 2;
-        Schema schema = (Schema) this.objects[i2];
+        Schema<?> schema = (Schema<?>) this.objects[i2];
         if (schema != null) {
             return schema;
         }
-        Schema<T> schemaSchemaFor = Protobuf.getInstance().schemaFor((Class) this.objects[i2 + 1]);
+        Schema<?> schemaSchemaFor = Protobuf.getInstance().schemaFor((Class<?>) this.objects[i2 + 1]);
         this.objects[i2] = schemaSchemaFor;
         return schemaSchemaFor;
     }
@@ -4435,30 +4777,38 @@ final class MessageSchema<T> implements Schema<T> {
         return (Internal.EnumVerifier) this.objects[((i / 3) * 2) + 1];
     }
 
-    /* JADX DEBUG: Type inference failed for r6v3. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX WARN: Failed to find 'out' block for switch in B:24:0x008d. Please report as an issue. */
-    int parseProto2Message(T t, byte[] bArr, int i, int i2, int i3, ArrayDecoders.Registers registers) throws IOException {
-        Unsafe unsafe;
-        int i4;
-        MessageSchema<T> messageSchema;
-        int i5;
-        T t2;
-        int i6;
-        int iPositionForFieldNumber;
-        int i7;
-        int i8;
-        int i9;
-        int i10;
-        int i11;
-        int i12;
-        int i13;
-        int i14;
-        T t3;
-        T t4;
-        int i15;
-        T t5;
-        int i16;
-        int i17;
+    /*
+     * JADX DEBUG: Type inference failed for r6v3. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /*
+     * JADX WARN: Failed to find 'out' block for switch in B:24:0x008d. Please
+     * report as an issue.
+     */
+    int parseProto2Message(T t, byte[] bArr, int i, int i2, int i3, ArrayDecoders.Registers registers)
+            throws IOException {
+        Unsafe unsafe = null;
+        int i4 = 0;
+        MessageSchema<T> messageSchema = null;
+        int i5 = 0;
+        T t2 = null;
+        int i6 = 0;
+        int iPositionForFieldNumber = 0;
+        int i7 = 0;
+        int i8 = 0;
+        int i9 = 0;
+        int i10 = 0;
+        int i11 = 0;
+        int i12 = 0;
+        int i13 = 0;
+        int i14 = 0;
+        T t3 = null;
+        T t4 = null;
+        int i15 = 0;
+        T t5 = null;
+        int i16 = 0;
+        int i17 = 0;
         MessageSchema<T> messageSchema2 = this;
         T t6 = t;
         byte[] bArr2 = bArr;
@@ -4724,7 +5074,8 @@ final class MessageSchema<T> implements Schema<T> {
                                     if ((i29 & ENFORCE_UTF8_MASK) == 0) {
                                         iDecodeUnknownField = ArrayDecoders.decodeString(bArr2, i25, registers2);
                                     } else {
-                                        iDecodeUnknownField = ArrayDecoders.decodeStringRequireUtf8(bArr2, i25, registers2);
+                                        iDecodeUnknownField = ArrayDecoders.decodeStringRequireUtf8(bArr2, i25,
+                                                registers2);
                                     }
                                     unsafe2.putObject(t5, jOffset, registers2.object1);
                                     int i3522 = i34 | i32;
@@ -4753,11 +5104,13 @@ final class MessageSchema<T> implements Schema<T> {
                                 bArr2 = bArr;
                                 if (i27 == 2) {
                                     i15 = i2;
-                                    iDecodeUnknownField = ArrayDecoders.decodeMessageField(messageSchema2.getMessageFieldSchema(i13), bArr2, i25, i15, registers2);
+                                    iDecodeUnknownField = ArrayDecoders.decodeMessageField(
+                                            messageSchema2.getMessageFieldSchema(i13), bArr2, i25, i15, registers2);
                                     if ((i34 & i32) == 0) {
                                         unsafe2.putObject(t5, jOffset, registers2.object1);
                                     } else {
-                                        unsafe2.putObject(t5, jOffset, Internal.mergeMessage(unsafe2.getObject(t5, jOffset), registers2.object1));
+                                        unsafe2.putObject(t5, jOffset, Internal
+                                                .mergeMessage(unsafe2.getObject(t5, jOffset), registers2.object1));
                                     }
                                     int i35222 = i34 | i32;
                                     t6 = t5;
@@ -4898,11 +5251,14 @@ final class MessageSchema<T> implements Schema<T> {
                                 break;
                             case 17:
                                 if (i27 == 3) {
-                                    iDecodeUnknownField = ArrayDecoders.decodeGroupField(messageSchema2.getMessageFieldSchema(i28), bArr, i25, i2, (i26 << 3) | 4, registers);
+                                    iDecodeUnknownField = ArrayDecoders.decodeGroupField(
+                                            messageSchema2.getMessageFieldSchema(i28), bArr, i25, i2, (i26 << 3) | 4,
+                                            registers);
                                     if ((i34 & i32) == 0) {
                                         unsafe2.putObject(t6, jOffset, registers2.object1);
                                     } else {
-                                        unsafe2.putObject(t6, jOffset, Internal.mergeMessage(unsafe2.getObject(t6, jOffset), registers2.object1));
+                                        unsafe2.putObject(t6, jOffset, Internal
+                                                .mergeMessage(unsafe2.getObject(t6, jOffset), registers2.object1));
                                     }
                                     i22 = i34 | i32;
                                     bArr2 = bArr;
@@ -4948,7 +5304,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 int i37 = i25;
                                 unsafe = unsafe2;
                                 i17 = i30;
-                                iDecodeUnknownField = parseRepeatedField(t, bArr, i25, i2, i30, i7, i27, i12, i29, iType, jOffset, registers);
+                                iDecodeUnknownField = parseRepeatedField(t, bArr, i25, i2, i30, i7, i27, i12, i29,
+                                        iType, jOffset, registers);
                                 if (iDecodeUnknownField != i37) {
                                     messageSchema2 = this;
                                     t6 = t;
@@ -4972,7 +5329,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 unsafe = unsafe2;
                                 i17 = i30;
                                 if (iType != 50) {
-                                    iDecodeUnknownField = parseOneofField(t, bArr, i16, i2, i17, i7, i27, i29, iType, jOffset, i12, registers);
+                                    iDecodeUnknownField = parseOneofField(t, bArr, i16, i2, i17, i7, i27, i29, iType,
+                                            jOffset, i12, registers);
                                     if (iDecodeUnknownField != i16) {
                                         messageSchema2 = this;
                                         t6 = t;
@@ -5014,14 +5372,18 @@ final class MessageSchema<T> implements Schema<T> {
                                 }
                             }
                         } else if (i27 == 2) {
-                            Internal.ProtobufList protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList) unsafe2.getObject(t9, jOffset);
+                            Internal.ProtobufList<?> protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList<?>) unsafe2
+                                    .getObject(t9, jOffset);
                             if (!protobufListMutableCopyWithCapacity2.isModifiable()) {
                                 int size = protobufListMutableCopyWithCapacity2.size();
-                                protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+                                protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2
+                                        .mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
                                 unsafe2.putObject(t9, jOffset, protobufListMutableCopyWithCapacity2);
                             }
                             i11 = i24;
-                            iDecodeUnknownField = ArrayDecoders.decodeMessageList(messageSchema2.getMessageFieldSchema(i28), i30, bArr, i25, i2, protobufListMutableCopyWithCapacity2, registers);
+                            iDecodeUnknownField = ArrayDecoders.decodeMessageList(
+                                    messageSchema2.getMessageFieldSchema(i28), i30, bArr, i25, i2,
+                                    protobufListMutableCopyWithCapacity2, registers);
                             t6 = t;
                             i18 = i2;
                             i21 = i30;
@@ -5045,9 +5407,11 @@ final class MessageSchema<T> implements Schema<T> {
                 }
                 if (i9 != i4 || i4 == 0) {
                     if (this.hasExtensions && registers.extensionRegistry != ExtensionRegistryLite.getEmptyRegistry()) {
-                        iDecodeUnknownField = ArrayDecoders.decodeExtensionOrUnknownField(i9, bArr, i8, i2, t, this.defaultInstance, this.unknownFieldSchema, registers);
+                        iDecodeUnknownField = ArrayDecoders.decodeExtensionOrUnknownField(i9, bArr, i8, i2, t,
+                                this.defaultInstance, (UnknownFieldSchema) this.unknownFieldSchema, registers);
                     } else {
-                        iDecodeUnknownField = ArrayDecoders.decodeUnknownField(i9, bArr, i8, i2, getMutableUnknownFields(t), registers);
+                        iDecodeUnknownField = ArrayDecoders.decodeUnknownField(i9, bArr, i8, i2,
+                                getMutableUnknownFields(t), registers);
                     }
                     t6 = t;
                     bArr2 = bArr;
@@ -5074,6 +5438,7 @@ final class MessageSchema<T> implements Schema<T> {
                 i4 = i19;
                 messageSchema = messageSchema2;
                 i5 = 1048575;
+                break;
             }
         }
         if (i24 != i5) {
@@ -5082,12 +5447,14 @@ final class MessageSchema<T> implements Schema<T> {
         } else {
             t2 = t;
         }
-        UnknownFieldSetLite unknownFieldSetLite = null;
+        Object unknownFieldSetLite = null;
         for (int i38 = messageSchema.checkInitializedCount; i38 < messageSchema.repeatedFieldOffsetStart; i38++) {
-            unknownFieldSetLite = (UnknownFieldSetLite) messageSchema.filterMapUnknownEnumValues(t2, messageSchema.intArray[i38], unknownFieldSetLite, messageSchema.unknownFieldSchema);
+            unknownFieldSetLite = messageSchema.filterMapUnknownEnumValues(t2,
+                    messageSchema.intArray[i38], unknownFieldSetLite,
+                    (UnknownFieldSchema) messageSchema.unknownFieldSchema);
         }
         if (unknownFieldSetLite != null) {
-            messageSchema.unknownFieldSchema.setBuilderToMessage(t2, unknownFieldSetLite);
+            ((UnknownFieldSchema) messageSchema.unknownFieldSchema).setBuilderToMessage(t2, unknownFieldSetLite);
         }
         if (i4 == 0) {
             if (iDecodeUnknownField != i2) {
@@ -5099,56 +5466,65 @@ final class MessageSchema<T> implements Schema<T> {
         return iDecodeUnknownField;
     }
 
-    /* JADX WARN: Code restructure failed: missing block: B:103:0x028e, code lost:
-    
-        if (r0 != r15) goto L104;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:104:0x0290, code lost:
-    
-        r15 = r30;
-        r14 = r31;
-        r12 = r32;
-        r13 = r34;
-        r11 = r35;
-        r10 = r18;
-        r1 = r19;
-        r2 = r20;
-        r6 = r24;
-        r7 = r25;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:110:0x02d7, code lost:
-    
-        if (r0 != r15) goto L104;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:115:0x02fa, code lost:
-    
-        if (r0 != r15) goto L104;
-     */
-    /* JADX WARN: Code restructure failed: missing block: B:117:0x02fd, code lost:
-    
-        r2 = r0;
-     */
-    /* JADX WARN: Failed to find 'out' block for switch in B:27:0x0093. Please report as an issue. */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    private int parseProto3Message(T t, byte[] bArr, int i, int i2, ArrayDecoders.Registers registers) throws IOException {
-        int i3;
-        int iDecodeVarint32;
-        int iPositionForFieldNumber;
-        int i4;
-        int i5;
-        Unsafe unsafe;
-        int i6;
-        int i7;
-        int i8;
-        Unsafe unsafe2;
-        int i9;
-        int i10;
-        int i11;
-        int iDecodeVarint64;
-        int i12;
-        Unsafe unsafe3;
+     * JADX WARN: Code restructure failed: missing block: B:103:0x028e, code lost:
+     * 
+     * if (r0 != r15) goto L104;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:104:0x0290, code lost:
+     * 
+     * r15 = r30;
+     * r14 = r31;
+     * r12 = r32;
+     * r13 = r34;
+     * r11 = r35;
+     * r10 = r18;
+     * r1 = r19;
+     * r2 = r20;
+     * r6 = r24;
+     * r7 = r25;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:110:0x02d7, code lost:
+     * 
+     * if (r0 != r15) goto L104;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:115:0x02fa, code lost:
+     * 
+     * if (r0 != r15) goto L104;
+     */
+    /*
+     * JADX WARN: Code restructure failed: missing block: B:117:0x02fd, code lost:
+     * 
+     * r2 = r0;
+     */
+    /*
+     * JADX WARN: Failed to find 'out' block for switch in B:27:0x0093. Please
+     * report as an issue.
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    private int parseProto3Message(T t, byte[] bArr, int i, int i2, ArrayDecoders.Registers registers)
+            throws IOException {
+        int i3 = 0;
+        int iDecodeVarint32 = 0;
+        int iPositionForFieldNumber = 0;
+        int i4 = 0;
+        int i5 = 0;
+        Unsafe unsafe = null;
+        int i6 = 0;
+        int i7 = 0;
+        int i8 = 0;
+        Unsafe unsafe2 = null;
+        int i9 = 0;
+        int i10 = 0;
+        int i11 = 0;
+        int iDecodeVarint64 = 0;
+        int i12 = 0;
+        Unsafe unsafe3 = null;
         MessageSchema<T> messageSchema = this;
         T t2 = t;
         byte[] bArr2 = bArr;
@@ -5364,9 +5740,11 @@ final class MessageSchema<T> implements Schema<T> {
                                 i6 = -1;
                             } else {
                                 if ((i23 & ENFORCE_UTF8_MASK) == 0) {
-                                    iDecodeUnknownField = ArrayDecoders.decodeString(bArr2, iDecodeVarint32, registers2);
+                                    iDecodeUnknownField = ArrayDecoders.decodeString(bArr2, iDecodeVarint32,
+                                            registers2);
                                 } else {
-                                    iDecodeUnknownField = ArrayDecoders.decodeStringRequireUtf8(bArr2, iDecodeVarint32, registers2);
+                                    iDecodeUnknownField = ArrayDecoders.decodeStringRequireUtf8(bArr2, iDecodeVarint32,
+                                            registers2);
                                 }
                                 unsafe2.putObject(t2, jOffset, registers2.object1);
                                 i17 |= i25;
@@ -5388,7 +5766,9 @@ final class MessageSchema<T> implements Schema<T> {
                                 i6 = -1;
                             } else {
                                 i12 = i2;
-                                iDecodeUnknownField = ArrayDecoders.decodeMessageField(messageSchema.getMessageFieldSchema(i8), bArr2, iDecodeVarint32, i12, registers2);
+                                iDecodeUnknownField = ArrayDecoders.decodeMessageField(
+                                        messageSchema.getMessageFieldSchema(i8), bArr2, iDecodeVarint32, i12,
+                                        registers2);
                                 Object object = unsafe2.getObject(t2, jOffset);
                                 if (object == null) {
                                     unsafe2.putObject(t2, jOffset, registers2.object1);
@@ -5504,7 +5884,8 @@ final class MessageSchema<T> implements Schema<T> {
                             unsafe = unsafe2;
                             i6 = -1;
                             i7 = i8;
-                            iDecodeUnknownField = parseRepeatedField(t, bArr, iDecodeVarint32, i2, i3, i5, i21, i8, i23, iType, jOffset, registers);
+                            iDecodeUnknownField = parseRepeatedField(t, bArr, iDecodeVarint32, i2, i3, i5, i21, i8, i23,
+                                    iType, jOffset, registers);
                         } else {
                             i9 = iDecodeVarint32;
                             i10 = i17;
@@ -5513,20 +5894,24 @@ final class MessageSchema<T> implements Schema<T> {
                             i7 = i8;
                             i6 = -1;
                             if (iType != 50) {
-                                iDecodeUnknownField = parseOneofField(t, bArr, i9, i2, i3, i5, i21, i23, iType, jOffset, i7, registers);
+                                iDecodeUnknownField = parseOneofField(t, bArr, i9, i2, i3, i5, i21, i23, iType, jOffset,
+                                        i7, registers);
                             } else if (i21 == 2) {
                                 iDecodeUnknownField = parseMapField(t, bArr, i9, i2, i7, jOffset, registers);
                             }
                         }
                         unsafe4 = unsafe;
                     } else if (i21 == 2) {
-                        Internal.ProtobufList protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList) unsafe2.getObject(t2, jOffset);
+                        Internal.ProtobufList protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList) unsafe2
+                                .getObject(t2, jOffset);
                         if (!protobufListMutableCopyWithCapacity2.isModifiable()) {
                             int size = protobufListMutableCopyWithCapacity2.size();
-                            protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+                            protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2
+                                    .mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
                             unsafe2.putObject(t2, jOffset, protobufListMutableCopyWithCapacity2);
                         }
-                        iDecodeUnknownField = ArrayDecoders.decodeMessageList(messageSchema.getMessageFieldSchema(i8), i3, bArr, iDecodeVarint32, i2, protobufListMutableCopyWithCapacity2, registers);
+                        iDecodeUnknownField = ArrayDecoders.decodeMessageList(messageSchema.getMessageFieldSchema(i8),
+                                i3, bArr, iDecodeVarint32, i2, protobufListMutableCopyWithCapacity2, registers);
                         i17 = i17;
                         unsafe4 = unsafe2;
                         i16 = i8;
@@ -5546,7 +5931,8 @@ final class MessageSchema<T> implements Schema<T> {
                     i18 = i11;
                 }
             }
-            iDecodeUnknownField = ArrayDecoders.decodeUnknownField(i3, bArr, i4, i2, getMutableUnknownFields(t), registers);
+            iDecodeUnknownField = ArrayDecoders.decodeUnknownField(i3, bArr, i4, i2, getMutableUnknownFields(t),
+                    registers);
             messageSchema = this;
             t2 = t;
             bArr2 = bArr;
@@ -5604,7 +5990,8 @@ final class MessageSchema<T> implements Schema<T> {
         }
     }
 
-    private final <K, V> void mergeMap(Object obj, int i, Object obj2, ExtensionRegistryLite extensionRegistryLite, Reader reader) throws IOException {
+    private final <K, V> void mergeMap(Object obj, int i, Object obj2, ExtensionRegistryLite extensionRegistryLite,
+            Reader reader) throws IOException {
         long jOffset = offset(typeAndOffsetAt(i));
         Object object = UnsafeUtil.getObject(obj, jOffset);
         if (object == null) {
@@ -5616,19 +6003,28 @@ final class MessageSchema<T> implements Schema<T> {
             UnsafeUtil.putObject(obj, jOffset, objNewMapField);
             object = objNewMapField;
         }
-        reader.readMap(this.mapFieldSchema.forMutableMapData(object), this.mapFieldSchema.forMapMetadata(obj2), extensionRegistryLite);
+        reader.readMap((Map<K, V>) this.mapFieldSchema.forMutableMapData(object),
+                (MapEntryLite.Metadata<K, V>) this.mapFieldSchema.forMapMetadata(obj2), extensionRegistryLite);
     }
 
-    /* JADX DEBUG: Type inference failed for r3v0. Raw type applied. Possible types: java.util.Map<?, ?>, java.util.Map<K, V> */
-    private final <UT, UB> UB filterMapUnknownEnumValues(Object obj, int i, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+    /*
+     * JADX DEBUG: Type inference failed for r3v0. Raw type applied. Possible types:
+     * java.util.Map<?, ?>, java.util.Map<K, V>
+     */
+    private final <UT, UB> UB filterMapUnknownEnumValues(Object obj, int i, UB ub,
+            UnknownFieldSchema<UT, UB> unknownFieldSchema) {
         Internal.EnumVerifier enumFieldVerifier;
         int iNumberAt = numberAt(i);
         Object object = UnsafeUtil.getObject(obj, offset(typeAndOffsetAt(i)));
-        return (object == null || (enumFieldVerifier = getEnumFieldVerifier(i)) == null) ? ub : (UB) filterUnknownEnumMap(i, iNumberAt, this.mapFieldSchema.forMutableMapData(object), enumFieldVerifier, ub, unknownFieldSchema);
+        return (object == null || (enumFieldVerifier = getEnumFieldVerifier(i)) == null) ? ub
+                : (UB) filterUnknownEnumMap(i, iNumberAt, this.mapFieldSchema.forMutableMapData(object),
+                        enumFieldVerifier, ub, unknownFieldSchema);
     }
 
-    private final <K, V, UT, UB> UB filterUnknownEnumMap(int i, int i2, Map<K, V> map, Internal.EnumVerifier enumVerifier, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
-        MapEntryLite.Metadata<?, ?> metadataForMapMetadata = this.mapFieldSchema.forMapMetadata(getMapFieldDefaultEntry(i));
+    private final <K, V, UT, UB> UB filterUnknownEnumMap(int i, int i2, Map<K, V> map,
+            Internal.EnumVerifier enumVerifier, UB ub, UnknownFieldSchema<UT, UB> unknownFieldSchema) {
+        MapEntryLite.Metadata<?, ?> metadataForMapMetadata = this.mapFieldSchema
+                .forMapMetadata(getMapFieldDefaultEntry(i));
         Iterator<Map.Entry<K, V>> it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<K, V> next = it.next();
@@ -5636,9 +6032,12 @@ final class MessageSchema<T> implements Schema<T> {
                 if (ub == null) {
                     ub = unknownFieldSchema.newBuilder();
                 }
-                ByteString.CodedBuilder codedBuilderNewCodedBuilder = ByteString.newCodedBuilder(MapEntryLite.computeSerializedSize(metadataForMapMetadata, next.getKey(), next.getValue()));
+                ByteString.CodedBuilder codedBuilderNewCodedBuilder = ByteString.newCodedBuilder(
+                        MapEntryLite.computeSerializedSize((MapEntryLite.Metadata<K, V>) metadataForMapMetadata,
+                                next.getKey(), next.getValue()));
                 try {
-                    MapEntryLite.writeTo(codedBuilderNewCodedBuilder.getCodedOutput(), metadataForMapMetadata, next.getKey(), next.getValue());
+                    MapEntryLite.writeTo(codedBuilderNewCodedBuilder.getCodedOutput(),
+                            (MapEntryLite.Metadata<K, V>) metadataForMapMetadata, next.getKey(), next.getValue());
                     unknownFieldSchema.addLengthDelimited(ub, i2, codedBuilderNewCodedBuilder.build());
                     it.remove();
                 } catch (IOException e) {
@@ -5649,11 +6048,11 @@ final class MessageSchema<T> implements Schema<T> {
         return ub;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:39:0x0089  */
+    /* JADX WARN: Removed duplicated region for block: B:39:0x0089 */
     @Override // com.google.oplus.protobuf.Schema
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     public final boolean isInitialized(T t) {
         int i;
         int i2;
@@ -5682,7 +6081,8 @@ final class MessageSchema<T> implements Schema<T> {
             }
             int iType = type(iTypeAndOffsetAt);
             if (iType == 9 || iType == 17) {
-                if (isFieldPresent(t, i6, i, i2, i9) && !isInitialized(t, iTypeAndOffsetAt, getMessageFieldSchema(i6))) {
+                if (isFieldPresent(t, i6, i, i2, i9)
+                        && !isInitialized(t, iTypeAndOffsetAt, getMessageFieldSchema(i6))) {
                     return false;
                 }
             } else if (iType == 27) {
@@ -5690,7 +6090,8 @@ final class MessageSchema<T> implements Schema<T> {
                     return false;
                 }
             } else if (iType == 60 || iType == 68) {
-                if (isOneofPresent(t, iNumberAt, i6) && !isInitialized(t, iTypeAndOffsetAt, getMessageFieldSchema(i6))) {
+                if (isOneofPresent(t, iNumberAt, i6)
+                        && !isInitialized(t, iTypeAndOffsetAt, getMessageFieldSchema(i6))) {
                     return false;
                 }
             } else if (iType != 49) {
@@ -5705,16 +6106,22 @@ final class MessageSchema<T> implements Schema<T> {
         return !this.hasExtensions || this.extensionSchema.getExtensions(t).isInitialized();
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type: com.google.oplus.protobuf.Schema */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r4v0, resolved type:
+     * com.google.oplus.protobuf.Schema
+     */
     /* JADX WARN: Multi-variable type inference failed */
     private static boolean isInitialized(Object obj, int i, Schema schema) {
         return schema.isInitialized(UnsafeUtil.getObject(obj, offset(i)));
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r2v1, resolved type: com.google.oplus.protobuf.Schema */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r2v1, resolved type:
+     * com.google.oplus.protobuf.Schema
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    private <N> boolean isListInitialized(Object obj, int i, int i2) {
-        List list = (List) UnsafeUtil.getObject(obj, offset(i));
+    private <E> boolean isListInitialized(Object obj, int i, int i2) {
+        List<E> list = listAt(obj, offset(i));
         if (list.isEmpty()) {
             return true;
         }
@@ -5727,26 +6134,32 @@ final class MessageSchema<T> implements Schema<T> {
         return true;
     }
 
-    /* JADX DEBUG: Failed to insert an additional move for type inference into block B:21:? */
+    /*
+     * JADX DEBUG: Failed to insert an additional move for type inference into block
+     * B:21:?
+     */
     /* JADX WARN: Multi-variable type inference failed */
     /* JADX WARN: Type inference failed for: r3v11 */
     /* JADX WARN: Type inference failed for: r3v12 */
     /* JADX WARN: Type inference failed for: r3v5 */
     /* JADX WARN: Type inference failed for: r3v6 */
-    /* JADX WARN: Type inference failed for: r3v7, types: [com.google.oplus.protobuf.Schema] */
+    /*
+     * JADX WARN: Type inference failed for: r3v7, types:
+     * [com.google.oplus.protobuf.Schema]
+     */
     private boolean isMapInitialized(T t, int i, int i2) {
         Map<?, ?> mapForMapData = this.mapFieldSchema.forMapData(UnsafeUtil.getObject(t, offset(i)));
         if (mapForMapData.isEmpty()) {
             return true;
         }
-        if (this.mapFieldSchema.forMapMetadata(getMapFieldDefaultEntry(i2)).valueType.getJavaType() != WireFormat.JavaType.MESSAGE) {
+        if (this.mapFieldSchema.forMapMetadata(getMapFieldDefaultEntry(i2)).valueType
+                .getJavaType() != WireFormat.JavaType.MESSAGE) {
             return true;
         }
-        Schema SchemaFor = null;
+        Schema<?> schemaFor = null;
         for (Object obj : mapForMapData.values()) {
-            SchemaFor = SchemaFor;
-            if (SchemaFor == 0) {
-                SchemaFor = Protobuf.getInstance().schemaFor((Class) obj.getClass());
+            if (schemaFor == null) {
+                schemaFor = Protobuf.getInstance().schemaFor(obj.getClass());
             }
             if (!SchemaFor.isInitialized(obj)) {
                 return false;
@@ -5781,11 +6194,13 @@ final class MessageSchema<T> implements Schema<T> {
         }
     }
 
-    private <E> void readMessageList(Object obj, int i, Reader reader, Schema<E> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    private <E> void readMessageList(Object obj, int i, Reader reader, Schema<E> schema,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
         reader.readMessageList(this.listFieldSchema.mutableListAt(obj, offset(i)), schema, extensionRegistryLite);
     }
 
-    private <E> void readGroupList(Object obj, long j, Reader reader, Schema<E> schema, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    private <E> void readGroupList(Object obj, long j, Reader reader, Schema<E> schema,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
         reader.readGroupList(this.listFieldSchema.mutableListAt(obj, j), schema, extensionRegistryLite);
     }
 

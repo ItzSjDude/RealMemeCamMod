@@ -13,7 +13,8 @@ public class RefStaticMethod<T> {
     public RefStaticMethod(Class<?> cls, Field field) throws NoSuchMethodException {
         Class<?> cls2;
         if (field.isAnnotationPresent(MethodName.class)) {
-            setMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(), ((MethodName) field.getAnnotation(MethodName.class)).name());
+            setMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(),
+                    ((MethodName) field.getAnnotation(MethodName.class)).name());
             this.mMethod.setAccessible(true);
         } else {
             int i = 0;
@@ -51,11 +52,13 @@ public class RefStaticMethod<T> {
                     i++;
                 }
                 try {
-                    setMethod(cls, field, clsArr, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                    setMethod(cls, field, clsArr,
+                            ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                 } catch (Exception e3) {
                     Log.e(TAG, e3.toString());
                     if (z) {
-                        setMethod(cls, field, clsArr2, ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
+                        setMethod(cls, field, clsArr2,
+                                ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                     }
                 }
                 this.mMethod.setAccessible(true);
@@ -129,12 +132,15 @@ public class RefStaticMethod<T> {
         }
     }
 
-    public T callWithException(Object... objArr) throws Throwable {
+    public T callWithException(Object... objArr) throws Exception {
         try {
             return (T) this.mMethod.invoke(null, objArr);
         } catch (InvocationTargetException e) {
-            if (e.getCause() != null) {
-                throw e.getCause();
+            Throwable cause = e.getCause();
+            if (cause instanceof Exception) {
+                throw (Exception) cause;
+            } else if (cause != null) {
+                throw new Exception(cause);
             }
             throw e;
         }

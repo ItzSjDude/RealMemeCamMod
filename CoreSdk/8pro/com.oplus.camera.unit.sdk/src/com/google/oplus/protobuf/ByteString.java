@@ -276,7 +276,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
     }
 
     public static ByteString readFrom(InputStream inputStream, int i, int i2) throws IOException {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<ByteString> arrayList = new ArrayList<>();
         while (true) {
             ByteString chunk = readChunk(inputStream, i);
             if (chunk != null) {
@@ -321,7 +321,7 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
                 size++;
             }
         } else {
-            size = ((Collection) iterable).size();
+            size = ((Collection<?>) iterable).size();
         }
         if (size == 0) {
             return EMPTY;
@@ -407,7 +407,6 @@ public abstract class ByteString implements Iterable<Byte>, Serializable {
         /*
          * JADX DEBUG: Return type fixed from 'java.util.Iterator' to match base method
          */
-
 
         @Override // com.google.oplus.protobuf.ByteString
         void writeToReverse(ByteOutput byteOutput) throws IOException {

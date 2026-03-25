@@ -25,7 +25,7 @@ class OplusExifModifier {
         }
     }
 
-    protected OplusExifModifier(ByteBuffer byteBuffer, OplusExifInterface oplusExifInterface) throws Throwable {
+    protected OplusExifModifier(ByteBuffer byteBuffer, OplusExifInterface oplusExifInterface) throws Exception {
         this.mByteBuffer = byteBuffer;
         this.mOffsetBase = byteBuffer.position();
         this.mInterface = oplusExifInterface;
@@ -41,7 +41,7 @@ class OplusExifModifier {
         return this.mTagToModified.getByteOrder();
     }
 
-    protected boolean commit() throws Throwable {
+    protected boolean commit() throws Exception {
         OplusExifTag tag;
         OplusExifTag tag2;
         OplusIfdData oplusIfdData = null;
