@@ -40,7 +40,8 @@ public class MovieMode extends VideoMode {
     private static final String TAG = "MovieMode";
     private Size mMovieSize = null;
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return "movie_mode";
     }
@@ -55,17 +56,21 @@ public class MovieMode extends VideoMode {
         return false;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getFeatureName(String str) {
         String str2 = (String) getConfigureParameter(str).get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
         CameraUnitLog.i(TAG, "getFeatureName, cameraType: " + str + ", stabilizationValue: " + str2);
         return "video_stabilization".equals(str2) ? "video_stabilization" : "movie_mode";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected Long getVideoFrameReaderUsage(String str) {
         Parameter configureParameter = getConfigureParameter(str);
-        if (PlatformUtil.isMtkPlatform() && "on".equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE)) && isVideo10BitOpen(str)) {
+        if (PlatformUtil.isMtkPlatform()
+                && "on".equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))
+                && isVideo10BitOpen(str)) {
             return 65587L;
         }
         return 128L;
@@ -74,7 +79,9 @@ public class MovieMode extends VideoMode {
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     public boolean needVideoMeta(String str) {
         Parameter configureParameter = getConfigureParameter(str);
-        if (PlatformUtil.isMtkPlatform() && "on".equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE)) && isVideo10BitOpen(str)) {
+        if (PlatformUtil.isMtkPlatform()
+                && "on".equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))
+                && isVideo10BitOpen(str)) {
             return false;
         }
         return super.needPreviewMeta(str);
@@ -121,26 +128,34 @@ public class MovieMode extends VideoMode {
         return jArr;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public int getSurfaceFormatBySurfaceType(String str, String str2, String str3) {
         if (("preview".equals(str) || "video_recorder".equals(str) || "video".equals(str)) && isVideo10BitOpen(str3)) {
-            return (PlatformUtil.isMtkPlatform() && CameraConstant.STATUS_ON.equals(getConfigureParameter(str3).get(ConfigureParameter.KEY_MOVIE_HDR_ENABLE))) ? 54 : 34;
+            return (PlatformUtil.isMtkPlatform() && CameraConstant.STATUS_ON
+                    .equals(getConfigureParameter(str3).get(ConfigureParameter.KEY_MOVIE_HDR_ENABLE))) ? 54 : 34;
         }
         return super.getSurfaceFormatBySurfaceType(str, str2, str3);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
-        return "on".equals(getConfigureParameter(str).get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE)) ? CameraConstant.UseCase.WATERMARK_VIDEO : "recorder_video_case";
+        return "on".equals(getConfigureParameter(str).get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))
+                ? CameraConstant.UseCase.WATERMARK_VIDEO
+                : "recorder_video_case";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected CameraDeviceInfoInterface createCameraDeviceInfo(String str) {
         StreamConfigurationMap streamConfigurationMap;
         CameraDeviceInfoImpl cameraDeviceInfoImpl = (CameraDeviceInfoImpl) super.createCameraDeviceInfo(str);
-        cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_COLOR_TEMPERATURE_RANGE.getName(), CameraCharacteristicsHelper.getColorTemperatureValueList(str));
+        cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_COLOR_TEMPERATURE_RANGE.getName(),
+                CameraCharacteristicsHelper.getColorTemperatureValueList(str));
         ArrayList arrayList = new ArrayList(1);
-        int[] iArr = (int[]) cameraDeviceInfoImpl.get(CameraCharacteristicsWrapper.KEY_CUSTOM_MOVIE_STREAM_CONFIGURATION_MAP);
+        int[] iArr = (int[]) cameraDeviceInfoImpl
+                .get(CameraCharacteristicsWrapper.KEY_CUSTOM_MOVIE_STREAM_CONFIGURATION_MAP);
         if (iArr != null && iArr.length > 0) {
             int length = iArr.length / 4;
             Size[] sizeArr = new Size[length];
@@ -149,13 +164,16 @@ public class MovieMode extends VideoMode {
                 sizeArr[i] = new Size(iArr[i2 + 1], iArr[i2 + 2]);
             }
             this.mMovieSize = Util.getMaxSizeByRatio(sizeArr, RATIO_VALUE_7_3);
-            CameraUnitLog.v(TAG, "createCameraDeviceInfo, customSize: " + Arrays.toString(iArr) + ", mMovieSize: " + this.mMovieSize);
+            CameraUnitLog.v(TAG, "createCameraDeviceInfo, customSize: " + Arrays.toString(iArr) + ", mMovieSize: "
+                    + this.mMovieSize);
             streamConfigurationMap = null;
         } else {
-            streamConfigurationMap = (StreamConfigurationMap) cameraDeviceInfoImpl.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+            streamConfigurationMap = (StreamConfigurationMap) cameraDeviceInfoImpl
+                    .get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
         }
         if (streamConfigurationMap != null) {
-            this.mMovieSize = Util.getMaxSizeByRatio(streamConfigurationMap.getOutputSizes(SurfaceTexture.class), RATIO_VALUE_7_3);
+            this.mMovieSize = Util.getMaxSizeByRatio(streamConfigurationMap.getOutputSizes(SurfaceTexture.class),
+                    RATIO_VALUE_7_3);
         }
         Size size = this.mMovieSize;
         if (size != null) {
@@ -166,7 +184,9 @@ public class MovieMode extends VideoMode {
         return cameraDeviceInfoImpl;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.common.surface.SurfaceControlInterface
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.common.surface.SurfaceControlInterface
     public LinkedList<SurfaceWrapper> buildStreamSurface(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str) {
         LinkedList<SurfaceWrapper> linkedListBuildStreamSurface = super.buildStreamSurface(sdkCameraDeviceConfig, str);
         if (linkedListBuildStreamSurface == null) {
@@ -179,8 +199,10 @@ public class MovieMode extends VideoMode {
         return linkedListBuildStreamSurface;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         if ("video".equals(str)) {
             Size size = this.mMovieSize;
             return new Pair<>(size, size);
@@ -188,8 +210,10 @@ public class MovieMode extends VideoMode {
         return super.getSurfaceSize(sdkCameraDeviceConfig, str, str2, str3);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, ApsRequestTag apsRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, ApsRequestTag apsRequestTag) {
         super.onConfigure(cameraSessionEntity, sdkCameraDeviceConfig, str, apsRequestTag);
         SurfaceWrapper videoSurface = sdkCameraDeviceConfig.getVideoSurface();
         getConfigureParameter(str);
@@ -197,15 +221,19 @@ public class MovieMode extends VideoMode {
         if (supportVideoSize.size() >= 1) {
             this.mMovieSize = Util.getMaxSizeByRatio(supportVideoSize, RATIO_VALUE_7_3);
         }
-        if (!((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SUPPORT_MOVIE_MODE_V2, false)).booleanValue()) {
+        if (!((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SUPPORT_MOVIE_MODE_V2, false))
+                .booleanValue()) {
             this.mMovieSize = sdkCameraDeviceConfig.getDefaultPreviewSurface().getHalSurfaceSize();
         }
         CameraUnitLog.d(TAG, "onConfigure, mMovieSize: " + this.mMovieSize);
         videoSurface.setHalSurfaceSize(this.mMovieSize);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         if (Parameter.ParameterStage.START_PREVIEW.equals(str)) {
             checkColorTemperature(builder);
@@ -214,14 +242,16 @@ public class MovieMode extends VideoMode {
             checkFlashAndAeMode(builder);
             checkAfMode(builder);
             setFrameDuration(builder);
-            if (-1 == ((Integer) builder.get(CaptureRequest.SENSOR_SENSITIVITY)).intValue() && -1 == ((Long) builder.get(CaptureRequest.SENSOR_EXPOSURE_TIME)).longValue()) {
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AE_MODE, 1);
+            if (-1 == ((Integer) builder.get(CaptureRequest.SENSOR_SENSITIVITY)).intValue()
+                    && -1 == ((Long) builder.get(CaptureRequest.SENSOR_EXPOSURE_TIME)).longValue()) {
+                builder.set(CaptureRequest.CONTROL_AE_MODE, 1);
                 return;
             }
             return;
         }
         if (Parameter.ParameterStage.CONFIGURE.equals(str)) {
-            builder.set(ConfigureParameter.KEY_MOVIE_HDR_ENABLE, (Byte) getConfigureParameter(str2).get(ConfigureParameter.KEY_MOVIE_HDR_ENABLE));
+            builder.set(ConfigureParameter.KEY_MOVIE_HDR_ENABLE,
+                    (Byte) getConfigureParameter(str2).get(ConfigureParameter.KEY_MOVIE_HDR_ENABLE));
             long[] flexibleCapabilities = getFlexibleCapabilities(str2);
             CameraUnitLog.d(TAG, "updateStageParameterBuilder, flex value: " + Arrays.toString(flexibleCapabilities));
             if (flexibleCapabilities != null) {
@@ -233,16 +263,16 @@ public class MovieMode extends VideoMode {
     private void checkExposureTime(PreviewParameter.Builder builder) {
         Long l = (Long) builder.get(CaptureRequest.SENSOR_EXPOSURE_TIME);
         if (l != null && -1 != l.longValue()) {
-            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[]{0});
+            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[] { 0 });
         }
         if (l == null) {
-            builder.set((CaptureRequest.Key<long>) CaptureRequest.SENSOR_EXPOSURE_TIME, -1L);
+            builder.set(CaptureRequest.SENSOR_EXPOSURE_TIME, -1L);
         }
     }
 
     private void checkIso(PreviewParameter.Builder builder) {
         if (((Integer) builder.get(CaptureRequest.SENSOR_SENSITIVITY)) == null) {
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.SENSOR_SENSITIVITY, -1);
+            builder.set(CaptureRequest.SENSOR_SENSITIVITY, -1);
         }
     }
 
@@ -250,23 +280,25 @@ public class MovieMode extends VideoMode {
         int[] iArr = (int[]) builder.get(PreviewParameter.KEY_COLOR_TEMPERATURE);
         if (iArr != null && iArr.length > 0 && -1 != iArr[0]) {
             if (PlatformUtil.isMtkPlatform()) {
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AWB_MODE, 10);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 10);
                 return;
             } else {
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AWB_MODE, 0);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 0);
                 return;
             }
         }
-        builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AWB_MODE, 1);
+        builder.set(CaptureRequest.CONTROL_AWB_MODE, 1);
     }
 
     private void checkFlashAndAeMode(PreviewParameter.Builder builder) {
         Long l = (Long) builder.get(CaptureRequest.SENSOR_EXPOSURE_TIME);
         Integer num = (Integer) builder.get(CaptureRequest.SENSOR_SENSITIVITY);
-        if (!PlatformUtil.isQualcommPlatform() ? !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue())) : !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue())) {
+        if (!PlatformUtil.isQualcommPlatform()
+                ? !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue()))
+                : !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue())) {
             builder.remove(PreviewParameter.KEY_FLASH_MODE);
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.FLASH_MODE, 0);
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AE_MODE, 0);
+            builder.set(CaptureRequest.FLASH_MODE, 0);
+            builder.set(CaptureRequest.CONTROL_AE_MODE, 0);
         } else {
             builder.remove(CaptureRequest.FLASH_MODE);
             builder.remove(CaptureRequest.CONTROL_AE_MODE);
@@ -279,7 +311,8 @@ public class MovieMode extends VideoMode {
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected boolean isExplorerOpen(String str) {
         boolean zEquals;
         boolean zEquals2;
@@ -292,7 +325,8 @@ public class MovieMode extends VideoMode {
             zEquals = false;
             zEquals2 = false;
         }
-        CameraUnitLog.d(TAG, "mCurrentFps: " + this.mCurrentFps + ", bMovieLogEnable: " + zEquals2 + ", bMovieHdrEnable: " + zEquals);
+        CameraUnitLog.d(TAG, "mCurrentFps: " + this.mCurrentFps + ", bMovieLogEnable: " + zEquals2
+                + ", bMovieHdrEnable: " + zEquals);
         return (30 != this.mCurrentFps || zEquals2 || zEquals) ? false : true;
     }
 }

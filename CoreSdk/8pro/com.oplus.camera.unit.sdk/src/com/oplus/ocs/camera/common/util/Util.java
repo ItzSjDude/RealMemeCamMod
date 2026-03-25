@@ -258,6 +258,7 @@ public class Util {
         CameraUnitLog.v(TAG, "buildRawImage, rawImg: " + image + ", captureResult: " + captureResult + ", cameraType: "
                 + cameraRequestTag.mCameraType);
         ByteArrayOutputStream byteArrayOutputStream2 = null;
+        Throwable th = null;
         if (image != null) {
             try {
                 if (32 == image.getFormat()) {
@@ -311,35 +312,38 @@ public class Util {
                                 }
                                 return null;
                             }
-                        } catch (Throwable th) {
-                            byteArrayOutputStream2 = null;
-                            Throwable th2 = th;
+                        } catch (Throwable th_local) {
+                            th = th_local;
                             if (image != null) {
                                 image.close();
                             }
                             dngCreator.close();
-                            if (byteArrayOutputStream2 != null) {
+                            if (byteArrayOutputStream != null) { // Changed from byteArrayOutputStream2 to
+                                                                 // byteArrayOutputStream
                                 try {
-                                    byteArrayOutputStream2.close();
-                                    throw new Exception(th2);
+                                    byteArrayOutputStream.close();
                                 } catch (IOException e4) {
                                     e4.printStackTrace();
-                                    throw new Exception(th2);
                                 }
                             }
-                            throw new Exception(th2);
+                            throw new Exception(th);
                         }
                     } catch (IOException e5) {
                         e = e5;
                         byteArrayOutputStream = null;
                     } catch (Throwable th3) {
                         th = th3;
-                        Throwable th22 = th;
                         if (image != null) {
+                            image.close();
                         }
                         dngCreator.close();
-                        if (byteArrayOutputStream2 != null) {
+                        if (byteArrayOutputStream != null) {
+                            try {
+                                byteArrayOutputStream.close();
+                            } catch (IOException e_ignored) {
+                            }
                         }
+                        throw new Exception(th);
                     }
                 }
             } catch (IllegalStateException e6) {

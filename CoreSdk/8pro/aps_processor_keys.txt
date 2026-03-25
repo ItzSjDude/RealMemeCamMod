@@ -1,0 +1,555 @@
+                        || (apsInitParameter2.get(ParameterKeys.KEY_CAMERA_FEATURE) != null
+                && ((apsInitParameter2.get(ParameterKeys.KEY_CAMERA_FEATURE) == null
+                        || (apsInitParameter2.get(ParameterKeys.KEY_VIDEO_SIZE) != null
+                && ((apsInitParameter2.get(ParameterKeys.KEY_VIDEO_SIZE) == null
+            apsInitParameter2.setParameter(ParameterKeys.KEY_CAMERA_CHARACTERISTICS,
+            apsInitParameter2.setParameter(ParameterKeys.KEY_THERMAL_LEVEL,
+            apsInitParameter2.setParameter(ParameterKeys.KEY_THIRD_CUSTOM_BEAUTY_PARAM,
+        apsInitParameter2.setParameter(ParameterKeys.KEY_UNINIT_ALGOS, set);
+        apsInitParameter3.setParameter(ParameterKeys.KEY_CAMERA_FEATURE,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_CAMERA_ID,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_CAPTURE_MODE,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_HIGHT_PICTURE_SIZE_ENABLE,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_LOGIC_CAMERA_ID,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_OPERATION_MODE,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_PHOTO_10BIT_ENABLE,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_PREVIEW_SIZE,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_QUICK_JPEG,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_UNINIT_ALGOS,
+        apsInitParameter3.setParameter(ParameterKeys.KEY_VIDEO_SIZE,
+                        && apsInitParameter.get(ParameterKeys.KEY_CAMERA_FEATURE) == null)
+                || apsInitParameter.get(ParameterKeys.KEY_CAMERA_ID) == null || set == null
+                || apsInitParameter.get(ParameterKeys.KEY_HIGHT_PICTURE_SIZE_ENABLE) == null
+                || apsInitParameter.get(ParameterKeys.KEY_OPERATION_MODE) == null
+                || apsInitParameter.get(ParameterKeys.KEY_PHOTO_10BIT_ENABLE) == null
+                || apsInitParameter.get(ParameterKeys.KEY_PREVIEW_SIZE) == null) {
+                        && apsInitParameter.get(ParameterKeys.KEY_VIDEO_SIZE) == null)
+        apsInitParameter.setParameter(ParameterKeys.KEY_AI_FLASH,
+        apsInitParameter.setParameter(ParameterKeys.KEY_ASD_DEFAULT_STATE,
+        apsInitParameter.setParameter(ParameterKeys.KEY_CAMERA_FEATURE, ApsDataConvert
+        apsInitParameter.setParameter(ParameterKeys.KEY_CAMERA_ID, Integer.toString(zIsFrontCamera ? 1 : 0));
+        apsInitParameter.setParameter(ParameterKeys.KEY_CAPTURE_MODE, apsModeName);
+        apsInitParameter.setParameter(ParameterKeys.KEY_HIGHT_PICTURE_SIZE_ENABLE,
+            apsInitParameter.setParameter(ParameterKeys.KEY_IS_FROM_MAIN_MENU_APP,
+        apsInitParameter.setParameter(ParameterKeys.KEY_IS_FROM_MAIN_MENU_APP, true);
+        apsInitParameter.setParameter(ParameterKeys.KEY_IS_FROM_SYSTEM_CAMERA, Boolean.valueOf(Util.isSystemCamera()));
+        apsInitParameter.setParameter(ParameterKeys.KEY_IS_VIDEO_3HDR_10BIT,
+        apsInitParameter.setParameter(ParameterKeys.KEY_LOGIC_CAMERA_ID, Integer.valueOf(cameraId));
+        apsInitParameter.setParameter(ParameterKeys.KEY_OPERATION_MODE, String.valueOf(apsRequestTag.mOperationMode));
+        apsInitParameter.setParameter(ParameterKeys.KEY_OUTPUT_VIDEO_SIZE, apsRequestTag.mOutputVideoSize);
+        apsInitParameter.setParameter(ParameterKeys.KEY_PHOTO_10BIT_ENABLE,
+        apsInitParameter.setParameter(ParameterKeys.KEY_PREVIEW_CALLBACK_TYPE, this.mPreviewCallbackType);
+        apsInitParameter.setParameter(ParameterKeys.KEY_PREVIEW_SIZE, apsRequestTag.mPreviewSize);
+        apsInitParameter.setParameter(ParameterKeys.KEY_QUICK_JPEG, Boolean.valueOf(apsRequestTag.mbSupportQuickJpeg));
+            apsInitParameter.setParameter(ParameterKeys.KEY_SIMULATION_CASE_ID, ApsUtils.getSimulationCaseId());
+        apsInitParameter.setParameter(ParameterKeys.KEY_SIMULATION_FLAG, Integer.valueOf(ApsUtils.getSimulationMode()));
+        apsInitParameter.setParameter(ParameterKeys.KEY_SIMULATION_TIMES,
+        apsInitParameter.setParameter(ParameterKeys.KEY_TORCH_FLASH,
+        apsInitParameter.setParameter(ParameterKeys.KEY_VIDEO_SIZE, apsRequestTag.mInputVideoSize);
+        ApsParameters.Key<Integer> key = ParameterKeys.KEY_REC_BURST_NUMBER;
+                ApsParameters.Key<String[]> key = ParameterKeys.KEY_APS_PROCESS_ALGO_TYPE;
+                    Arrays.toString((int[]) metaItemInfo.get(ParameterKeys.KEY_CUSTOM_BEAUTY_PARAM)));
+                    Arrays.toString((int[]) metaItemInfo.get(ParameterKeys.KEY_FACE_DATA)));
+                (Boolean) apsInitParameter.get(ParameterKeys.KEY_QUICK_JPEG));
+                    Boolean.parseBoolean((String) mapGenerateImageInfo.get(ParameterKeys.KEY_CAN_NOT_DROP.getName()))));
+                    Boolean.parseBoolean((String) mapGenerateImageInfo.get(ParameterKeys.KEY_SKIP_PROCESS.getName()))));
+                && captureResult.get(ParameterKeys.KEY_GYRO_STATE) != null) {
+                        .equals(apsInitParameter2.get(ParameterKeys.KEY_PREVIEW_SIZE))
+                                        .equals(apsInitParameter.get(ParameterKeys.KEY_CAMERA_FEATURE))))) ? false
+                        .equals(apsInitParameter.get(ParameterKeys.KEY_CAMERA_ID))
+                .equals(apsInitParameter.get(ParameterKeys.KEY_CAPTURE_MODE))
+                        .equals(apsInitParameter.get(ParameterKeys.KEY_HIGHT_PICTURE_SIZE_ENABLE))
+                        .equals(apsInitParameter.get(ParameterKeys.KEY_OPERATION_MODE))
+                                        .equals(apsInitParameter.get(ParameterKeys.KEY_VIDEO_SIZE))))
+                    float f = ((int[]) metaItemInfo.get(ParameterKeys.KEY_OUTPUT_SIZE))[0]
+                float f = ((int[]) metaItemInfo.get(ParameterKeys.KEY_OUTPUT_SIZE))[0] / cameraRequestTag2.mInputWidth;
+                && getInitAlgos((String) apsInitParameter2.get(ParameterKeys.KEY_CAPTURE_MODE),
+                    .get(ParameterKeys.KEY_INTELLIGENT_CROP_REGION.getName());
+        if (AlgoSwitchConfig.getApsMode() == 0 || apsInitParameter.get(ParameterKeys.KEY_CAPTURE_MODE) == null
+            if (cameraRequestTag2.mbWatermarkNeedScale && metaItemInfo.get(ParameterKeys.KEY_OUTPUT_SIZE) != null
+        if (iArr == null || iArr.length <= 1 || metaItemInfo.get(ParameterKeys.KEY_OUTPUT_SIZE) != null) {
+            if (imageItemInfo.get(ParameterKeys.KEY_BURST_SHOT_FLAG_ID) != null) {
+            if (imageItemInfo.get(ParameterKeys.KEY_BURST_SHOT) != null) {
+            if (((Long) metaItemInfo.get(ParameterKeys.KEY_DATE)).longValue() != 0) {
+        if (mapGenerateImageInfo.get(ParameterKeys.KEY_CAN_NOT_DROP.getName()) != null) {
+        if (mapGenerateImageInfo.get(ParameterKeys.KEY_FRAMES_CAN_NOT_SKIP.getName()) != null) {
+        if (mapGenerateImageInfo.get(ParameterKeys.KEY_SKIP_PROCESS.getName()) != null) {
+            if (metaItemInfo.get(ParameterKeys.KEY_NIGHT_ALGO_PROCESS_TIME) != null) {
+            if (metaItemInfo.get(ParameterKeys.KEY_PICTURE_EXIF_FLAG) != null) {
+            if (metaItemInfo.get(ParameterKeys.KEY_REPROCESS_APS_WAIT_TIME) != null) {
+            if (metaItemInfo.get(ParameterKeys.KEY_REPROCESS_META_DATA) != null) {
+            if (metaItemInfo.get(ParameterKeys.KEY_REPROCESS_TIME) != null) {
+        if (TextUtils.isEmpty((CharSequence) apsInitParameter2.get(ParameterKeys.KEY_CAMERA_FEATURE))) {
+            imageItemInfo.setParameter(ParameterKeys.KEY_ACCELEROMETER_DATA,
+            imageItemInfo.setParameter(ParameterKeys.KEY_ACCELEROMETER_USE, Integer.valueOf("1"));
+        imageItemInfo.setParameter(ParameterKeys.KEY_AI_HIGH_PIXEL_ENABLE,
+        imageItemInfo.setParameter(ParameterKeys.KEY_BURST_SHOT, Boolean.valueOf(cameraRequestTag.mbBurstShot));
+            imageItemInfo.setParameter(ParameterKeys.KEY_BURST_SHOT, false);
+            imageItemInfo.setParameter(ParameterKeys.KEY_BURST_SHOT_FLAG_ID,
+            imageItemInfo.setParameter(ParameterKeys.KEY_CAN_NOT_DROP, Boolean.valueOf(
+            imageItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER,
+            imageItemInfo.setParameter(ParameterKeys.KEY_CSHOT_PATH, cameraRequestTag.mBurstShotPath);
+            imageItemInfo.setParameter(ParameterKeys.KEY_DATE, Long.valueOf(System.currentTimeMillis()));
+        imageItemInfo.setParameter(ParameterKeys.KEY_DATE, Long.valueOf(System.currentTimeMillis()));
+            imageItemInfo.setParameter(ParameterKeys.KEY_FRAMES_CAN_NOT_SKIP,
+        imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_FORMAT,
+        imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_HEIGHT,
+            imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_HEIGHT, Integer.valueOf(image.getHeight()));
+        imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, Integer.valueOf(i));
+            imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, Integer.valueOf(i2));
+        imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_WIDTH,
+            imageItemInfo.setParameter(ParameterKeys.KEY_IMAGE_WIDTH, Integer.valueOf(image.getWidth()));
+            imageItemInfo.setParameter(ParameterKeys.KEY_INTELLIGENT_CROP_REGION,
+            imageItemInfo.setParameter(ParameterKeys.KEY_INTELLIGENT_FPS_RANGE,
+            imageItemInfo.setParameter(ParameterKeys.KEY_INTELLIGENT_OPENED, "1");
+            imageItemInfo.setParameter(ParameterKeys.KEY_IS_DETACHED, Boolean.valueOf(z));
+        imageItemInfo.setParameter(ParameterKeys.KEY_IS_DETACHED, true);
+        imageItemInfo.setParameter(ParameterKeys.KEY_ITEM_INFO_TYPE, ImageCategory.ItemInfoType.CAPTURE);
+            imageItemInfo.setParameter(ParameterKeys.KEY_ITEM_INFO_TYPE, itemInfoType);
+                imageItemInfo.setParameter(ParameterKeys.KEY_NEED_MATCH_TIME_STAMP,
+                imageItemInfo.setParameter(ParameterKeys.KEY_NEED_MATCH_TIME_STAMP, true);
+            imageItemInfo.setParameter(ParameterKeys.KEY_NEED_META_DATA,
+            imageItemInfo.setParameter(ParameterKeys.KEY_NEED_VIDEO_META_DATA,
+            imageItemInfo.setParameter(ParameterKeys.KEY_ORIENTATION, Integer.valueOf(apsRequestTag.mJpegOrientation));
+            imageItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_STREAM_NUMBER,
+            imageItemInfo.setParameter(ParameterKeys.KEY_RAW_ON_REPROCESS, true);
+        imageItemInfo.setParameter(ParameterKeys.KEY_RAW_SR_ENABLE,
+            imageItemInfo.setParameter(ParameterKeys.KEY_REC_BURST_NUMBER, -1);
+            imageItemInfo.setParameter(ParameterKeys.KEY_SKIP_PROCESS, Boolean.valueOf(
+        imageItemInfo.setParameter(ParameterKeys.KEY_SLOW_VIDEO_HIGH_FRAME, true);
+                imageItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP,
+        imageItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, Long.valueOf(imageBuffer.getTimestamp()));
+                imageItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, Long.valueOf(image.getTimestamp()));
+            imageItemInfo.setParameter(ParameterKeys.KEY_VALID_BURST_SHOT_IMAGE, true);
+                (Integer) apsInitParameter.get(ParameterKeys.KEY_LOGIC_CAMERA_ID));
+        Integer num = (Integer) apsInitParameter2.get(ParameterKeys.KEY_LOGIC_CAMERA_ID);
+        int i2 = Integer.parseInt((String) apsInitParameter2.get(ParameterKeys.KEY_CAMERA_ID));
+                map.put(ParameterKeys.KEY_BURST_SHOT_FLAG_ID.getName(),
+                map.put(ParameterKeys.KEY_BURST_SHOT.getName(),
+            map.put(ParameterKeys.KEY_CUSTOM_BEAUTY_PARAM.getName(),
+            map.put(ParameterKeys.KEY_FACE_DATA.getName(),
+                map.put(ParameterKeys.KEY_NIGHT_ALGO_PROCESS_TIME.getName(),
+                map.put(ParameterKeys.KEY_PICTURE_DATE_TIME, String.valueOf(imageItemInfo.get(ParameterKeys.KEY_DATE)));
+                map.put(ParameterKeys.KEY_PICTURE_DATE_TIME, String.valueOf(metaItemInfo.get(ParameterKeys.KEY_DATE)));
+                map.put(ParameterKeys.KEY_PICTURE_EXIF_FLAG.getName(),
+            map.put(ParameterKeys.KEY_PREVIEW_CALLBACK_TYPE.getName(), this.mPreviewCallbackType);
+                map.put(ParameterKeys.KEY_REC_BURST_NUMBER.getName(),
+                map.put(ParameterKeys.KEY_REPROCESS_APS_WAIT_TIME.getName(),
+                map.put(ParameterKeys.KEY_REPROCESS_META_DATA.getName(),
+                map.put(ParameterKeys.KEY_REPROCESS_TIME.getName(),
+                        && metaItemInfo.get(ParameterKeys.KEY_OUTPUT_SIZE) != null
+        metaItemInfo.setParameter(ParameterKeys.KEY_2DOL_CAPTURE_STREAM_NUMBER,
+                metaItemInfo.setParameter(ParameterKeys.KEY_3D_PHOTO_OPEN,
+        metaItemInfo.setParameter(ParameterKeys.KEY_AICOLOR_ENABLE, cameraRequestTag2.mAiColorEnable ? "1" : "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_AI_HIGH_PIXEL_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_AIS_BRACKET, String.valueOf(this.mApsRequestTag.mAISBracket));
+        metaItemInfo.setParameter(ParameterKeys.KEY_AIS_DCT_AINR_SUPPORT,
+        metaItemInfo.setParameter(ParameterKeys.KEY_AIS_DCT_SUPPORT, String.valueOf(this.mApsRequestTag.mIsSupportDCT));
+            metaItemInfo.setParameter(ParameterKeys.KEY_AI_SHUTTER, Boolean.valueOf(cameraRequestTag.mbAIShutter));
+        metaItemInfo.setParameter(ParameterKeys.KEY_AI_SHUTTER, Boolean.valueOf(cameraRequestTag.mbAIShutter));
+                metaItemInfo.setParameter(ParameterKeys.KEY_AIS_STATE, String.valueOf(cameraRequestTag.mAISState));
+        metaItemInfo.setParameter(ParameterKeys.KEY_AIS_STATE, String.valueOf(cameraRequestTag.mAISState));
+        metaItemInfo.setParameter(ParameterKeys.KEY_ALGO_VISUALIZATION_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_ANTIBANDING_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_APS_MODE_NAME, cameraRequestTag.mApsRequestTag.mModeName);
+                    metaItemInfo.setParameter(ParameterKeys.KEY_APS_PROCESS_ALGO_TYPE,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_APS_PROCESS_ALGO_TYPE, strArrJoinAppAndHalAlgoFlag);
+                metaItemInfo.setParameter(ParameterKeys.KEY_APS_PROCESS_ALGO_TYPE, strArrJoinAppAndHalAlgoFlag);
+            metaItemInfo.setParameter(ParameterKeys.KEY_APS_WATERMARK_PARAM,
+                metaItemInfo.setParameter(ParameterKeys.KEY_APS_WATERMARK_PARAM, cameraRequestTag.mApsWatermarkParam);
+            metaItemInfo.setParameter(ParameterKeys.KEY_APS_WATERMARK_PARAM, cameraRequestTag.mApsWatermarkParam);
+        metaItemInfo.setParameter(ParameterKeys.KEY_AUTO_TRANSMIT_BY_UNIT, cameraRequestTag.mAutoTransmit);
+            metaItemInfo.setParameter(ParameterKeys.KEY_AVAILABLE_MEMORY, String.valueOf(this.mAvaiMemory));
+        metaItemInfo.setParameter(ParameterKeys.KEY_AVAILABLE_MEMORY, String.valueOf(this.mAvaiMemory));
+                metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_EDIT_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_EDIT_ENABLE,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SHOW, String.valueOf(cameraRequestTag.mBlurShow));
+                metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SHOW, String.valueOf(cameraRequestTag.mBlurShow));
+            metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SHOW, String.valueOf(cameraRequestTag.mBlurShow));
+                metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SUPPORT_APERTURES,
+            metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SUPPORT_APERTURES, cameraRequestTag.mBlurSupportApertures);
+                metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SUPPORT_VALUES, cameraRequestTag.mBlurSupportValues);
+            metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_SUPPORT_VALUES, cameraRequestTag.mBlurSupportValues);
+                    metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_VALUE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_VALUE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_VALUE, String.valueOf(cameraRequestTag.mBlurIndex));
+            metaItemInfo.setParameter(ParameterKeys.KEY_BLUR_VALUE, String.valueOf(cameraRequestTag.mBlurIndex));
+                metaItemInfo.setParameter(ParameterKeys.KEY_BURST_CAPTURE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_BURST_SHOT, Boolean.valueOf(cameraRequestTag.mbBurstShot));
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_ID, String.valueOf(cameraRequestTag2.mRearFrontCameraId));
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_ID, String.valueOf(cameraRequestTag.mRearFrontCameraId));
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_ID, String.valueOf(cameraRequestTag.mRearFrontCameraId));
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_REQUEST_TAG,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_REQUEST_TAG,
+                metaItemInfo.setParameter(ParameterKeys.KEY_CAMERA_TYPE, cameraRequestTag.mCameraType);
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST,
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_ALGO_LIST, cameraRequestTag.mApsBurstAlgoFlags);
+                metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FEATURE_TYPE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FEATURE_TYPE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FOR_VIDEO,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FOR_VIDEO,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_FRAME_COUNT, Integer.valueOf(cameraRequestTag.mRequestNum));
+                metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_MFNR_NUM,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_MFNR_NUM,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_MODE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_REPROCESS, Integer.valueOf(i));
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_RESULT, apsCaptureResult.getTotalResult());
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_RESULT, apsCaptureResult.getTotalResult());
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_RESULT, totalCaptureResult);
+                metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_SCENE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_SCENE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_SENSOR_MODE,
+                            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER,
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER,
+                metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER, 1);
+            metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER, 1);
+                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER, 2);
+                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER, Integer
+                        metaItemInfo.setParameter(ParameterKeys.KEY_CAPTURE_STREAM_NUMBER, Integer.valueOf(i));
+                metaItemInfo.setParameter(ParameterKeys.KEY_CROP_HEIGHT,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CROP_HEIGHT, String.valueOf(iArr[1]));
+                metaItemInfo.setParameter(ParameterKeys.KEY_CROP_WIDTH,
+        metaItemInfo.setParameter(ParameterKeys.KEY_CROP_WIDTH, String.valueOf(iArr[0]));
+            metaItemInfo.setParameter(ParameterKeys.KEY_CUSTOM_BEAUTY_PARAM, cameraRequestTag.mFaceBeautyParam);
+        metaItemInfo.setParameter(ParameterKeys.KEY_CUSTOM_BEAUTY_PARAM, cameraRequestTag.mFaceBeautyParam);
+                metaItemInfo.setParameter(ParameterKeys.KEY_DATE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_DATE, Long.valueOf(System.currentTimeMillis()));
+            metaItemInfo.setParameter(ParameterKeys.KEY_DATE, Long.valueOf(System.currentTimeMillis()));
+        metaItemInfo.setParameter(ParameterKeys.KEY_DCIP3_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_DECISION_REQUEST_MIXED_FORMAT,
+        metaItemInfo.setParameter(ParameterKeys.KEY_DECISION_REQUEST_MIXED_FORMAT,
+                metaItemInfo.setParameter(ParameterKeys.KEY_DERED_EYS,
+            metaItemInfo.setParameter(ParameterKeys.KEY_DISPLAY_METRICS_HEIGHT, String.valueOf(Util.getScreenHeight()));
+        metaItemInfo.setParameter(ParameterKeys.KEY_DISPLAY_METRICS_HEIGHT, String.valueOf(Util.getScreenHeight()));
+            metaItemInfo.setParameter(ParameterKeys.KEY_DISPLAY_METRICS_WIDTH, String.valueOf(Util.getScreenWidth()));
+        metaItemInfo.setParameter(ParameterKeys.KEY_DISPLAY_METRICS_WIDTH, String.valueOf(Util.getScreenWidth()));
+        metaItemInfo.setParameter(ParameterKeys.KEY_EDGE_FILTER_COLOR_U, cameraRequestTag2.mbEdgeFilterColorU);
+        metaItemInfo.setParameter(ParameterKeys.KEY_EDGE_FILTER_COLOR_V, cameraRequestTag2.mbEdgeFilterColorV);
+        metaItemInfo.setParameter(ParameterKeys.KEY_EDGE_FILTER_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_EDGE_FILTER_LINE_SIZE, cameraRequestTag2.mbEdgeFilterLineSize);
+                metaItemInfo.setParameter(ParameterKeys.KEY_ENHANCE_EYS,
+            metaItemInfo.setParameter(ParameterKeys.KEY_EXPOSURE_COMPOSITION_FROM_APP,
+        metaItemInfo.setParameter(ParameterKeys.KEY_EXPOSURE_COMPOSITION_FROM_APP,
+            metaItemInfo.setParameter(ParameterKeys.KEY_EXPOSURE_TIME_FROM_APP,
+        metaItemInfo.setParameter(ParameterKeys.KEY_EXPOSURE_TIME_FROM_APP,
+                metaItemInfo.setParameter(ParameterKeys.KEY_FACE_BEAUTY_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_FACE_BEAUTY_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_FACE_BEAUTY_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_FACE_BEAUTY_VERSION, cameraRequestTag.mFaceBeautyVersion);
+        metaItemInfo.setParameter(ParameterKeys.KEY_FACE_BEAUTY_VERSION, cameraRequestTag.mFaceBeautyVersion);
+            metaItemInfo.setParameter(ParameterKeys.KEY_FACE_DATA, cameraRequestTag.mFaceData);
+        metaItemInfo.setParameter(ParameterKeys.KEY_FACE_DATA, cameraRequestTag.mFaceData);
+                metaItemInfo.setParameter(ParameterKeys.KEY_FACE_MAKEUP_TYPE, cameraRequestTag.mMakeupType);
+            metaItemInfo.setParameter(ParameterKeys.KEY_FACE_MAKEUP_TYPE, cameraRequestTag.mMakeupType);
+        metaItemInfo.setParameter(ParameterKeys.KEY_FACE_MAKEUP_TYPE, String.valueOf(cameraRequestTag2.mMakeupType));
+                metaItemInfo.setParameter(ParameterKeys.KEY_FACE_MAKEUP_VALUE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_FACE_MAKEUP_VALUE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_FACE_MAKEUP_VALUE, Integer.valueOf(cameraRequestTag2.mMakeupValue));
+                metaItemInfo.setParameter(ParameterKeys.KEY_FACE_RECTIFY_OPEN,
+            metaItemInfo.setParameter(ParameterKeys.KEY_FAST_CAPTURE, Boolean.valueOf(cameraRequestTag.mbFastCapture));
+        metaItemInfo.setParameter(ParameterKeys.KEY_FAST_CAPTURE, Boolean.valueOf(cameraRequestTag.mbFastCapture));
+        metaItemInfo.setParameter(ParameterKeys.KEY_FAST_SHOT_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_FILTER_OPEN,
+                metaItemInfo.setParameter(ParameterKeys.KEY_FILTER_TYPE, cameraRequestTag.mFilterType);
+                metaItemInfo.setParameter(ParameterKeys.KEY_FILTER_WITHVIGNETTE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_FISH_EYE_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_FISH_EYE_ENABLE, String.valueOf(1));
+                metaItemInfo.setParameter(ParameterKeys.KEY_FRAME_FLAG, Integer.valueOf(cameraRequestTag.mFrameFlag));
+            metaItemInfo.setParameter(ParameterKeys.KEY_FRAME_NUMBER,
+            metaItemInfo.setParameter(ParameterKeys.KEY_FRAME_NUMBER, Long.valueOf(apsCaptureResult.mFrameNumber));
+        metaItemInfo.setParameter(ParameterKeys.KEY_FRAME_NUMBER, Long.valueOf(apsCaptureResult.mFrameNumber));
+        metaItemInfo.setParameter(ParameterKeys.KEY_GESTURE_ENABLE, Boolean.valueOf(cameraRequestTag2.mbGestureEnable));
+                metaItemInfo.setParameter(ParameterKeys.KEY_GPS_COORDS,
+            metaItemInfo.setParameter(ParameterKeys.KEY_GPS_COORDS,
+                metaItemInfo.setParameter(ParameterKeys.KEY_GPS_TIME,
+            metaItemInfo.setParameter(ParameterKeys.KEY_GPS_TIME, String.valueOf(cameraRequestTag.mLocation.getTime()));
+        metaItemInfo.setParameter(ParameterKeys.KEY_HDR_STATE, cameraRequestTag.mHDRState);
+            metaItemInfo.setParameter(ParameterKeys.KEY_HEIF_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_HEIF_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_HYPER_LAPSE_RATE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_HYPER_LAPSE_RECORDING_STATUS,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_IMAGE_ROLE, 2);
+                metaItemInfo.setParameter(ParameterKeys.KEY_INPUT_EVLIST,
+        metaItemInfo.setParameter(ParameterKeys.KEY_INPUT_EVLIST, Arrays.toString(cameraRequestTag.mCaptureEVList));
+            metaItemInfo.setParameter(ParameterKeys.KEY_INPUT_SIZE, new int[] { i11, i10, i9, i15 });
+        metaItemInfo.setParameter(ParameterKeys.KEY_IS_FACE_DETECTED, Boolean.valueOf(cameraRequestTag.mbIsDetectFace));
+                metaItemInfo.setParameter(ParameterKeys.KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE, bool4);
+            metaItemInfo.setParameter(ParameterKeys.KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE, true);
+            metaItemInfo.setParameter(ParameterKeys.KEY_ISO_VALUE_FROM_APP,
+        metaItemInfo.setParameter(ParameterKeys.KEY_ISO_VALUE_FROM_APP, Integer.valueOf(cameraRequestTag2.mIsoValue));
+        metaItemInfo.setParameter(ParameterKeys.KEY_ISO_VALUE_FROM_APP, Integer.valueOf(cameraRequestTag.mIsoValue));
+        metaItemInfo.setParameter(ParameterKeys.KEY_IS_TUNING_DATA, Boolean.valueOf(cameraRequestTag.mbUseTuningData));
+            metaItemInfo.setParameter(ParameterKeys.KEY_IS_TUNING_DATA, Boolean.valueOf(z5));
+        metaItemInfo.setParameter(ParameterKeys.KEY_IS_TUNING_DATA, Boolean.valueOf(z5));
+        metaItemInfo.setParameter(ParameterKeys.KEY_ITEM_INFO_TYPE, itemInfoType);
+                metaItemInfo.setParameter(ParameterKeys.KEY_KEY_DECISION_BRACKET_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_KEY_DECISION_BRACKET_MODE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_KEY_DECISION_FEATURE_TYPE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_KEY_DECISION_FEATURE_TYPE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_LENS_FACING, String.valueOf(0));
+            metaItemInfo.setParameter(ParameterKeys.KEY_LENS_FACING, String.valueOf(0));
+                metaItemInfo.setParameter(ParameterKeys.KEY_LENS_FACING, String.valueOf(1));
+        metaItemInfo.setParameter(ParameterKeys.KEY_LOGIC_CAMERA_ID, Integer.valueOf(cameraRequestTag2.mCameraId));
+            metaItemInfo.setParameter(ParameterKeys.KEY_LOGIC_CAMERA_ID, Integer.valueOf(cameraRequestTag.mCameraId));
+        metaItemInfo.setParameter(ParameterKeys.KEY_LOGIC_CAMERA_ID, Integer.valueOf(cameraRequestTag.mCameraId));
+        metaItemInfo.setParameter(ParameterKeys.KEY_LSD_STATUS, Integer.valueOf(cameraRequestTag2.mbEnableLsd ? 1 : 0));
+        metaItemInfo.setParameter(ParameterKeys.KEY_MASTER_PIPELINE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_MAX_HOLD_IMAGES, Integer.valueOf(i5));
+        metaItemInfo.setParameter(ParameterKeys.KEY_MAX_HOLD_IMAGES, Integer.valueOf(i52));
+                metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_IDENTITY, apsCaptureResult.mSensorTimestamp);
+            metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_IDENTITY, apsCaptureResult.mSensorTimestamp);
+        metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_IDENTITY, l);
+                metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_IDENTITY, Long.valueOf(this.mCaptureMergeIdentity));
+                metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_INDEX, 0);
+            metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_INDEX, 0);
+                metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_INDEX, Integer.valueOf(this.mMergeIndex));
+                            metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_NUMBER,
+                        metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_NUMBER,
+                metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_NUMBER, 1);
+            metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_NUMBER, 1);
+                        metaItemInfo.setParameter(ParameterKeys.KEY_MERGE_NUMBER, Integer
+                metaItemInfo.setParameter(ParameterKeys.KEY_META_INDEX, String.valueOf(cameraRequestTag.mMetaIndex));
+        metaItemInfo.setParameter(ParameterKeys.KEY_META_INDEX, String.valueOf(cameraRequestTag.mMetaIndex));
+            metaItemInfo.setParameter(ParameterKeys.KEY_META_MAP, apsCaptureResult.getMetaMap());
+        metaItemInfo.setParameter(ParameterKeys.KEY_META_MAP, apsCaptureResult.getMetaMap());
+            metaItemInfo.setParameter(ParameterKeys.KEY_META_MAP, ApsUtils.assembleMetaMap(totalCaptureResult,
+            metaItemInfo.setParameter(ParameterKeys.KEY_MICROSCOPE_CAPTURE_PREVIEW_STATE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_MICROSCOPE_CAPTURE_PREVIEW_STATE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_MONO_PORTRAIT, cameraRequestTag2.mbMonoPortraitEnable ? "1" : "0");
+                metaItemInfo.setParameter(ParameterKeys.KEY_MOVE_MSNR_RIGHT, ParameterKeys.getFlagState(true));
+        metaItemInfo.setParameter(ParameterKeys.KEY_MULTICAMERA_CAMERA_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_NEON_ENABLE, String.valueOf(cameraRequestTag2.mNeonEnable ? 1 : 0));
+                metaItemInfo.setParameter(ParameterKeys.KEY_NIGHT_ALGO_PROCESS_TIME, this.mNightProcessTime);
+            metaItemInfo.setParameter(ParameterKeys.KEY_NIGHT_PRO_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_NIGHT_PRO_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_NIGHT_SE_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_OFFSET_DATE_TIME,
+                metaItemInfo.setParameter(ParameterKeys.KEY_OPEN_SUPERTEXT,
+            metaItemInfo.setParameter(ParameterKeys.KEY_OPERATION_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_OPERATION_MODE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_ORIENTATION, num);
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_FORMAT, Integer.valueOf(cameraRequestTag.mOutputFormat));
+        metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_FORMAT, Integer.valueOf(cameraRequestTag.mOutputFormat));
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_HEIGHT,
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_HEIGHT, String.valueOf(i6));
+        metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_HEIGHT, String.valueOf(iArr[1]));
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_HEIGHT, String.valueOf(size.getHeight()));
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_SIZE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_SIZE, cameraRequestTag.mUpScaleOutputSize);
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_SIZE, new int[] { i11, i10, i9, i15 });
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_SIZE, new int[] { i5, i6, i8, i7 });
+        metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_SIZE, new int[] { iArr[0], iArr[1], 0, 0 });
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_WIDTH,
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_WIDTH, String.valueOf(i5));
+        metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_WIDTH, String.valueOf(iArr[0]));
+            metaItemInfo.setParameter(ParameterKeys.KEY_OUTPUT_WIDTH, String.valueOf(size.getWidth()));
+        metaItemInfo.setParameter(ParameterKeys.KEY_OVERHEAT_SKIP_FRAME, Boolean.valueOf(z));
+            metaItemInfo.setParameter(ParameterKeys.KEY_PHOTO_10BIT_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_PHOTO_10BIT_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_EXIF_FLAG,
+        metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_EXIF_FLAG,
+                metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_MIRROR,
+            metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_MIRROR,
+                metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_MIRROR, "0");
+            metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_VISUALIZATION_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_PICTURE_VISUALIZATION_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_PI_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_PI_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_PI_ENABLE, ParameterKeys.getFlagState(cameraRequestTag.mbPiEnable));
+            metaItemInfo.setParameter(ParameterKeys.KEY_PORTRAIT_HDR_TYPE, cameraRequestTag.mPortraitHdrType);
+        metaItemInfo.setParameter(ParameterKeys.KEY_PORTRAIT_HDR_TYPE, cameraRequestTag.mPortraitHdrType);
+            metaItemInfo.setParameter(ParameterKeys.KEY_PREFER_ADD_FRAME_TYPE, Integer.valueOf(i6 ^ 1));
+        metaItemInfo.setParameter(ParameterKeys.KEY_PREFER_ADD_FRAME_TYPE, Integer.valueOf(i6 ^ 1));
+            metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_CALLBACK_TYPE, "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_CALLBACK_TYPE, "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_CALLBACK_TYPE, this.mPreviewCallbackType);
+                metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_STREAM_NUMBER,
+        metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_STREAM_NUMBER,
+                metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_STREAM_NUMBER, 1);
+            metaItemInfo.setParameter(ParameterKeys.KEY_PREVIEW_STREAM_NUMBER, 1);
+            metaItemInfo.setParameter(ParameterKeys.KEY_QUICK_JPEG,
+        metaItemInfo.setParameter(ParameterKeys.KEY_QUICK_JPEG, Boolean.valueOf(cameraRequestTag.mbSupportQuickJpeg));
+            metaItemInfo.setParameter(ParameterKeys.KEY_QUICK_VIDEO_EIS, "0");
+            metaItemInfo.setParameter(ParameterKeys.KEY_QUICK_VIDEO_EIS, "1");
+            metaItemInfo.setParameter(ParameterKeys.KEY_RAW_SR_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_RAW_SR_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_RAW_TUNING_STREAM_NUMBER,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_REAR_SELF_MODE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_REAR_SELF_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_RECORDING_CAPTURE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_REPROCESS_APS_WAIT_TIME, this.mReprocessApsWaitTime);
+                metaItemInfo.setParameter(ParameterKeys.KEY_REPROCESS_META_DATA, bool4);
+                metaItemInfo.setParameter(ParameterKeys.KEY_REPROCESS_TIME,
+                            metaItemInfo.setParameter(ParameterKeys.KEY_REQUEST_MIXED_FORMAT,
+                        metaItemInfo.setParameter(ParameterKeys.KEY_REQUEST_MIXED_FORMAT,
+            metaItemInfo.setParameter(ParameterKeys.KEY_REQUEST_NUM, Integer.valueOf(cameraRequestTag.mRequestNum));
+        metaItemInfo.setParameter(ParameterKeys.KEY_REQUEST_NUM, Integer.valueOf(cameraRequestTag.mRequestNum));
+            metaItemInfo.setParameter(ParameterKeys.KEY_RETENTION_ENABLE, !cameraRequestTag.mAiColorEnable ? "1" : "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_RETENTION_ENABLE, !cameraRequestTag.mAiColorEnable ? "1" : "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_RTB_ENABLE, cameraRequestTag2.mRTBEnable ? "1" : "0");
+            metaItemInfo.setParameter(ParameterKeys.KEY_RTB_ENABLE, !cameraRequestTag.mRTBEnable ? objArr2 : "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_RTB_ENABLE, !cameraRequestTag.mRTBEnable ? objArr2 : "0");
+        metaItemInfo.setParameter(ParameterKeys.KEY_RUNTIME_HAL_MEMORY_SIZE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_RUNTIME_MEMORY_SIZE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_SAT_OPEN,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SCP_ENABLE, String.valueOf(cameraRequestTag2.mSCPEnable ? 1 : 0));
+            metaItemInfo.setParameter(ParameterKeys.KEY_SHUTTER_BUTTON_CLICK_TIME,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SHUTTER_BUTTON_CLICK_TIME,
+                metaItemInfo.setParameter(ParameterKeys.KEY_SINGLE_BLUR_NAME, cameraRequestTag.mSingleBlurAlgoName);
+                metaItemInfo.setParameter(ParameterKeys.KEY_SINGLE_PORTRAIT_EFFECT_MODE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SIZE_MODE, Integer.valueOf(cameraRequestTag2.mSizeRatioType));
+            metaItemInfo.setParameter(ParameterKeys.KEY_SIZE_MODE, Integer.valueOf(cameraRequestTag.mSizeRatioType));
+        metaItemInfo.setParameter(ParameterKeys.KEY_SIZE_MODE, Integer.valueOf(cameraRequestTag.mSizeRatioType));
+                            metaItemInfo.setParameter(ParameterKeys.KEY_SPECIFIC_APS_PROCESS_ALGO,
+                                metaItemInfo.setParameter(ParameterKeys.KEY_SPECIFIC_APS_PROCESS_ALGO, 1);
+                            metaItemInfo.setParameter(ParameterKeys.KEY_SPECIFIC_APS_PROCESS_ALGO, 1);
+                                metaItemInfo.setParameter(ParameterKeys.KEY_SPECIFIC_APS_PROCESS_ALGO, 2);
+                                metaItemInfo.setParameter(ParameterKeys.KEY_SPECIFIC_APS_PROCESS_ALGO, 3);
+        metaItemInfo.setParameter(ParameterKeys.KEY_STARBURST_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_STARBURST_ENABLE, String.valueOf(1));
+            metaItemInfo.setParameter(ParameterKeys.KEY_STARBURST_ENABLE, String.valueOf(1));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_STARBURST_INFO, cameraRequestTag.mStarburstInfo);
+                metaItemInfo.setParameter(ParameterKeys.KEY_STARBURST_INFO, cameraRequestTag.mStarburstInfo);
+                metaItemInfo.setParameter(ParameterKeys.KEY_START_BURST_ENABLE, Integer.valueOf(i));
+        metaItemInfo.setParameter(ParameterKeys.KEY_STAR_VIDEO_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_STREAMER_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_STREET_RAW_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_NIGHT_SCENE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_NIGHT_SCENE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_RAW_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_RAW_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SUPERRAW_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_TEXT_ENABLE, ParameterKeys.getFlagState(false));
+            metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_TEXT_ENABLE, ParameterKeys.getFlagState(false));
+                metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_TEXT_ENABLE, ParameterKeys.getFlagState(true));
+                metaItemInfo.setParameter(ParameterKeys.KEY_SUPER_TEXT_VERTICES, cameraRequestTag.mSuperTextVertices);
+                metaItemInfo.setParameter(ParameterKeys.KEY_SUPPORT_FULL_PROFESSIONAL,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SUPPORT_FULL_PROFESSIONAL,
+            metaItemInfo.setParameter(ParameterKeys.KEY_SUPPORT_MAKEUP,
+        metaItemInfo.setParameter(ParameterKeys.KEY_SUPPORT_MAKEUP, Boolean.valueOf(cameraRequestTag2.mbSupportMakeup));
+        metaItemInfo.setParameter(ParameterKeys.KEY_SUPPORT_MAKEUP, Boolean.valueOf(cameraRequestTag.mbSupportMakeup));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_SUPPORT_RAW2YUV, 1);
+        metaItemInfo.setParameter(ParameterKeys.KEY_THERMAL_ALGO_MASK,
+        metaItemInfo.setParameter(ParameterKeys.KEY_THERMAL_LEVEL, Integer.valueOf(this.mApsRequestTag.mThermalLevel));
+            metaItemInfo.setParameter(ParameterKeys.KEY_THIRD_CUSTOM_BEAUTY_PARAM,
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT, "0");
+            metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT, "0");
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT, "1");
+        metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT, cameraRequestTag2.mbTiltShiftOpen ? "1" : "0");
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT_CENTER_POSITION,
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT_CLEAR_DISTANCE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILTSHIFT_OPEN,
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT_PREVIEW_SIZE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT_ROTATE_ANGLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_TILT_SHIFT_TYPE, cameraRequestTag.mTiltShiftType);
+            metaItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP,
+            metaItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, apsCaptureResult.mSensorTimestamp);
+        metaItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, apsCaptureResult.mSensorTimestamp);
+            metaItemInfo.setParameter(ParameterKeys.KEY_TIME_STAMP, l);
+        metaItemInfo.setParameter(ParameterKeys.KEY_TOTAL_MEMORY_SIZE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_TRIPOD_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_TURBO_RAW_SENCE, String.valueOf(cameraRequestTag2.mTurboRawScene));
+        metaItemInfo.setParameter(ParameterKeys.KEY_TURBO_RAW_SENCE, String.valueOf(cameraRequestTag.mTurboRawScene));
+        metaItemInfo.setParameter(ParameterKeys.KEY_ULTRA_HIGHRES_ENABLE,
+            metaItemInfo.setParameter(ParameterKeys.KEY_ULTRA_RESOLUTION,
+        metaItemInfo.setParameter(ParameterKeys.KEY_ULTRA_RESOLUTION,
+                metaItemInfo.setParameter(ParameterKeys.KEY_UPSCALE_OPEN,
+            metaItemInfo.setParameter(ParameterKeys.KEY_USE_TUNING_DATA, Boolean.valueOf(z5));
+        metaItemInfo.setParameter(ParameterKeys.KEY_USE_TUNING_DATA, Boolean.valueOf(z5));
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_AICOLOR_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_BLUR_EFFECT, String.valueOf(true));
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_BLUR_OPEN,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_BLUR_ORIENTATION,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_BLUR_PARAMS, cameraRequestTag.mVideoBlurParams);
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_CAPTURE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_FUSION_EFFECT,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_MIRROR,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_MIRROR, ParameterKeys.getFlagState(false));
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_NEON_OPEN,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_NEON_PARAMS, cameraRequestTag.mVideoNeonParams);
+            metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_ORIENTATION,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_RETENTION,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_RETENTION_OPEN,
+                metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_RETENTION_ORIENTATION,
+            metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_SNAPSHOT, Boolean.valueOf(z));
+        metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_SNAPSHOT, Boolean.valueOf(z));
+            metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_WATERMARK_ENABLE, "0");
+            metaItemInfo.setParameter(ParameterKeys.KEY_VIDEO_WATERMARK_ENABLE, "1");
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_X, Integer.valueOf(i));
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_X, Integer.valueOf(i2));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_X, Integer.valueOf(i3));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_X, Integer.valueOf((int) (i3 * f)));
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_Y, Integer.valueOf(i));
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_Y, Integer.valueOf(i2));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_Y, Integer.valueOf(i4));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_Y, Integer.valueOf((int) (i4 * f)));
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_ENABLE, "0");
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_ENABLE, "0");
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_ENABLE, "1");
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_ENABLE, objArr2);
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_HEIGHT,
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_HEIGHT,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_START_X,
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_START_X,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_START_Y,
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_START_Y,
+                    metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_WIDTH,
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_MAKEUP_WIDTH,
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATERMARK_EDIT_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_WATER_MARK_ENABLE,
+        metaItemInfo.setParameter(ParameterKeys.KEY_WATER_MARK_ENABLE,
+                metaItemInfo.setParameter(ParameterKeys.KEY_YUV_TUNING_STREAM_NUMBER,
+        metaItemInfo.setParameter(ParameterKeys.KEY_ZOOM_RATIO, String.valueOf(cameraRequestTag2.mZoomRatio));
+                metaItemInfo.setParameter(ParameterKeys.KEY_ZOOM_RATIO, String.valueOf(previewRequestTag.mZoomRatio));
+                new HashSet((Collection) apsInitParameter.get(ParameterKeys.KEY_UNINIT_ALGOS)));
+                        parameterModel.setParameter(ParameterKeys.KEY_TURN_OFF_CAPTURE_ALGO_LIST_INIT, value);
+                        parameterModel.setParameter(ParameterKeys.KEY_TURN_OFF_CAPTURE_ALGO_LIST_PROCESS, value);
+                        parameterModel.setParameter(ParameterKeys.KEY_TURN_OFF_PREVIEW_ALGO_LIST_INIT, value);
+                        parameterModel.setParameter(ParameterKeys.KEY_TURN_OFF_PREVIEW_ALGO_LIST_PROCESS, value);
+        return (((String) apsInitParameter2.get(ParameterKeys.KEY_CAPTURE_MODE))
+                        (Set) apsInitParameter2.get(ParameterKeys.KEY_UNINIT_ALGOS)).equals(set)
+                (Set) apsInitParameter.get(ParameterKeys.KEY_UNINIT_ALGOS));
+                    (Set) mapGenerateImageInfo.get(ParameterKeys.KEY_FRAMES_CAN_NOT_SKIP.getName()));
+                    .setParameter(ParameterKeys.KEY_DCIP3_ENABLE,
+                        .setParameter(ParameterKeys.KEY_FACEBASE_RETOUCH_ENABLE,
+                        .setParameter(ParameterKeys.KEY_FACE_RESTORE_ENABLE,
+                        .setParameter(ParameterKeys.KEY_MIRROR_OPEN,
+                .setParameter(ParameterKeys.KEY_OFFSET_DATE_TIME,
+                        .setParameter(ParameterKeys.KEY_SUPPORT_FACEINFO,
+        Set<String> initAlgos = getInitAlgos((String) apsInitParameter.get(ParameterKeys.KEY_CAPTURE_MODE),
+                (Size) apsInitParameter2.get(ParameterKeys.KEY_OUTPUT_VIDEO_SIZE),
+                (Size) apsInitParameter2.get(ParameterKeys.KEY_PREVIEW_SIZE),
+                                && ((Size) apsInitParameter2.get(ParameterKeys.KEY_VIDEO_SIZE))
+                (Size) apsInitParameter2.get(ParameterKeys.KEY_VIDEO_SIZE),
+                && ((Size) apsInitParameter.get(ParameterKeys.KEY_PREVIEW_SIZE))
+                (Size) apsInitParameter.get(ParameterKeys.KEY_PREVIEW_SIZE));
+                (Size) apsInitParameter.get(ParameterKeys.KEY_VIDEO_SIZE));
+                                && ((String) apsInitParameter2.get(ParameterKeys.KEY_CAMERA_FEATURE))
+                        (String) apsInitParameter2.get(ParameterKeys.KEY_CAMERA_ID),
+                && ((String) apsInitParameter2.get(ParameterKeys.KEY_CAMERA_ID))
+                && ((String) apsInitParameter2.get(ParameterKeys.KEY_HIGHT_PICTURE_SIZE_ENABLE))
+                && ((String) apsInitParameter2.get(ParameterKeys.KEY_OPERATION_MODE))
+                (String) apsInitParameter.get(ParameterKeys.KEY_CAMERA_FEATURE));
+                (String) apsInitParameter.get(ParameterKeys.KEY_CAMERA_ID));
+                (String) apsInitParameter.get(ParameterKeys.KEY_CAMERA_ID),
+                (String) apsInitParameter.get(ParameterKeys.KEY_CAPTURE_MODE));
+                (String) apsInitParameter.get(ParameterKeys.KEY_HIGHT_PICTURE_SIZE_ENABLE));
+                (String) apsInitParameter.get(ParameterKeys.KEY_OPERATION_MODE));
+                (String) apsInitParameter.get(ParameterKeys.KEY_PHOTO_10BIT_ENABLE));
+                        ((String) metaItemInfo.get(ParameterKeys.KEY_PICTURE_EXIF_FLAG)).substring(6));
+                String[] strArr = (String[]) metaItemInfo.get(ParameterKeys.KEY_APS_PROCESS_ALGO_TYPE);
+                        String.valueOf(imageItemInfo.get(ParameterKeys.KEY_BURST_SHOT)));
+                        String.valueOf(imageItemInfo.get(ParameterKeys.KEY_BURST_SHOT_FLAG_ID)));
+                        String.valueOf(imageItemInfo.get(ParameterKeys.KEY_TIME_STAMP)));
+                    String.valueOf(metaItemInfo.get(ParameterKeys.KEY_LOGIC_CAMERA_ID))));
+                    String.valueOf(metaItemInfo.get(ParameterKeys.KEY_MERGE_IDENTITY)));
+                        String.valueOf(metaItemInfo.get(ParameterKeys.KEY_NIGHT_ALGO_PROCESS_TIME)));
+                        String.valueOf(metaItemInfo.get(ParameterKeys.KEY_REPROCESS_APS_WAIT_TIME)));
+                        String.valueOf(metaItemInfo.get(ParameterKeys.KEY_REPROCESS_META_DATA)));
+                        String.valueOf(metaItemInfo.get(ParameterKeys.KEY_REPROCESS_TIME)));
+            str = (String) apsInitParameter2.get(ParameterKeys.KEY_CAMERA_FEATURE);
+            str = (String) apsInitParameter2.get(ParameterKeys.KEY_CAPTURE_MODE);
+                && !TextUtils.equals((CharSequence) this.mApsInitParameter.get(ParameterKeys.KEY_CAMERA_FEATURE),
+            this.mApsInitParameter.setParameter(ParameterKeys.KEY_CAMERA_FEATURE,
+            this.mReprocessApsWaitTime = apsResult.mProcTimes.get(ParameterKeys.KEY_REPROCESS_APS_WAIT_TIME.getName());

@@ -6161,7 +6161,7 @@ final class MessageSchema<T> implements Schema<T> {
             if (schemaFor == null) {
                 schemaFor = Protobuf.getInstance().schemaFor(obj.getClass());
             }
-            if (!SchemaFor.isInitialized(obj)) {
+            if (!schemaFor.isInitialized(obj)) {
                 return false;
             }
         }

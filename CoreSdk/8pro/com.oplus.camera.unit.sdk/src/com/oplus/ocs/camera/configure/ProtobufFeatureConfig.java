@@ -340,11 +340,11 @@ public final class ProtobufFeatureConfig {
                                 }
                             } else {
                                 String stringRequireUtf8 = codedInputStream.readStringRequireUtf8();
-                                boolean z3 = (z2 ? 1 : 0) & true;
+                                boolean z3 = z2;
                                 z2 = z2;
                                 if (!z3) {
                                     this.strPool_ = new LazyStringArrayList();
-                                    z2 = (z2 ? 1 : 0) | true;
+                                    z2 = true;
                                 }
                                 this.strPool_.add(stringRequireUtf8);
                             }
@@ -356,7 +356,7 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if ((z2 ? 1 : 0) & true) {
+                    if (z2) {
                         this.strPool_ = this.strPool_.getUnmodifiableView();
                     }
                     this.unknownFields = builderNewBuilder.build();
@@ -1468,10 +1468,10 @@ public final class ProtobufFeatureConfig {
                                 } else if (tag == 56) {
                                     this.groupConflict_ = codedInputStream.readBool();
                                 } else if (tag == 66) {
-                                    if (!(z2 & true)) {
+                                    if (!z2) {
                                         this.conflictMap_ = MapField
                                                 .newMapField(ConflictMapDefaultEntryHolder.defaultEntry);
-                                        z2 |= true;
+                                        z2 = true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(
                                             ConflictMapDefaultEntryHolder.defaultEntry.getParserForType(),
@@ -2515,9 +2515,9 @@ public final class ProtobufFeatureConfig {
                         int tag = codedInputStream.readTag();
                         if (tag != 0) {
                             if (tag == 10) {
-                                if (!(z2 & true)) {
+                                if (!z2) {
                                     this.conflictFeatures_ = new ArrayList();
-                                    z2 |= true;
+                                    z2 = true;
                                 }
                                 this.conflictFeatures_.add((ConflictFeature) codedInputStream
                                         .readMessage(ConflictFeature.parser(), extensionRegistryLite));
@@ -2532,7 +2532,7 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (z2 & true) {
+                    if (z2) {
                         this.conflictFeatures_ = Collections.unmodifiableList(this.conflictFeatures_);
                     }
                     this.unknownFields = builderNewBuilder.build();
@@ -4151,9 +4151,9 @@ public final class ProtobufFeatureConfig {
                         int tag = codedInputStream.readTag();
                         if (tag != 0) {
                             if (tag == 10) {
-                                if (!(z2 & true)) {
+                                if (!z2) {
                                     this.featureList_ = new ArrayList();
-                                    z2 |= true;
+                                    z2 = true;
                                 }
                                 this.featureList_.add((Feature) codedInputStream.readMessage(Feature.parser(),
                                         extensionRegistryLite));
@@ -4168,7 +4168,7 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (z2 & true) {
+                    if (z2) {
                         this.featureList_ = Collections.unmodifiableList(this.featureList_);
                     }
                     this.unknownFields = builderNewBuilder.build();
@@ -5065,9 +5065,9 @@ public final class ProtobufFeatureConfig {
                         int tag = codedInputStream.readTag();
                         if (tag != 0) {
                             if (tag == 10) {
-                                if (!(z2 & true)) {
+                                if (!z2) {
                                     this.cameraTypeFeatureTableList_ = new ArrayList();
-                                    z2 |= true;
+                                    z2 = true;
                                 }
                                 this.cameraTypeFeatureTableList_.add((CameraTypeFeatureTable) codedInputStream
                                         .readMessage(CameraTypeFeatureTable.parser(), extensionRegistryLite));
@@ -5082,7 +5082,7 @@ public final class ProtobufFeatureConfig {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (z2 & true) {
+                    if (z2) {
                         this.cameraTypeFeatureTableList_ = Collections
                                 .unmodifiableList(this.cameraTypeFeatureTableList_);
                     }
@@ -5982,10 +5982,10 @@ public final class ProtobufFeatureConfig {
                             int tag = codedInputStream.readTag();
                             if (tag != 0) {
                                 if (tag == 10) {
-                                    if (!(z2 & true)) {
+                                    if (!z2) {
                                         this.cameraTypeFeatureTables_ = MapField
                                                 .newMapField(CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry);
-                                        z2 |= true;
+                                        z2 = true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(
                                             CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(),
@@ -6780,10 +6780,10 @@ public final class ProtobufFeatureConfig {
                             int tag = codedInputStream.readTag();
                             if (tag != 0) {
                                 if (tag == 10) {
-                                    if (!(z2 & true)) {
+                                    if (!z2) {
                                         this.cameraTypeFeatureTables_ = MapField
                                                 .newMapField(CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry);
-                                        z2 |= true;
+                                        z2 = true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(
                                             CameraTypeFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(),
@@ -7585,10 +7585,10 @@ public final class ProtobufFeatureConfig {
                             int tag = codedInputStream.readTag();
                             if (tag != 0) {
                                 if (tag == 10) {
-                                    if (!(z2 & true)) {
+                                    if (!z2) {
                                         this.modeFeatureTables_ = MapField
                                                 .newMapField(ModeFeatureTablesDefaultEntryHolder.defaultEntry);
-                                        z2 |= true;
+                                        z2 = true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(
                                             ModeFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(),
@@ -8392,10 +8392,10 @@ public final class ProtobufFeatureConfig {
                             int tag = codedInputStream.readTag();
                             if (tag != 0) {
                                 if (tag == 10) {
-                                    if (!(z2 & true)) {
+                                    if (!z2) {
                                         this.modeGroupFeatureTables_ = MapField
                                                 .newMapField(ModeGroupFeatureTablesDefaultEntryHolder.defaultEntry);
-                                        z2 |= true;
+                                        z2 = true;
                                     }
                                     MapEntry mapEntry = (MapEntry) codedInputStream.readMessage(
                                             ModeGroupFeatureTablesDefaultEntryHolder.defaultEntry.getParserForType(),

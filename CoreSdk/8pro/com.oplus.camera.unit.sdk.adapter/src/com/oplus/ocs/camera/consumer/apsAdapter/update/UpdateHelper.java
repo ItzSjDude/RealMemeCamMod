@@ -79,6 +79,7 @@ public class UpdateHelper {
                         str2 = str3;
                     } catch (Throwable th2) {
                         th2.printStackTrace();
+                        th = th2;
                         str2 = str3;
                         if (fileInputStream2 != null) {
                         }
@@ -150,9 +151,10 @@ public class UpdateHelper {
         } catch (Throwable th5) {
             th = th5;
         }
+        return str2;
     }
 
     public static boolean isNewConfigFormat(String str) {
-        return str != null && str.substring(0, 50).contains(CONFIG_FILE_VERSION);
+        return str != null && str.length() >= 50 && str.substring(0, 50).contains(CONFIG_FILE_VERSION);
     }
 }

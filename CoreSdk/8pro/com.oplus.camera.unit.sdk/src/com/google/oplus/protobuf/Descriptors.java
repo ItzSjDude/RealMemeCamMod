@@ -55,7 +55,10 @@ public final class Descriptors {
             return this;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.FileDescriptorProto toProto() {
             return this.proto;
@@ -146,7 +149,8 @@ public final class Descriptors {
                 str = str2 + '.' + str;
             }
             GenericDescriptor genericDescriptorFindSymbol = this.pool.findSymbol(str);
-            if ((genericDescriptorFindSymbol instanceof EnumDescriptor) && genericDescriptorFindSymbol.getFile() == this) {
+            if ((genericDescriptorFindSymbol instanceof EnumDescriptor)
+                    && genericDescriptorFindSymbol.getFile() == this) {
                 return (EnumDescriptor) genericDescriptorFindSymbol;
             }
             return null;
@@ -161,7 +165,8 @@ public final class Descriptors {
                 str = str2 + '.' + str;
             }
             GenericDescriptor genericDescriptorFindSymbol = this.pool.findSymbol(str);
-            if ((genericDescriptorFindSymbol instanceof ServiceDescriptor) && genericDescriptorFindSymbol.getFile() == this) {
+            if ((genericDescriptorFindSymbol instanceof ServiceDescriptor)
+                    && genericDescriptorFindSymbol.getFile() == this) {
                 return (ServiceDescriptor) genericDescriptorFindSymbol;
             }
             return null;
@@ -176,18 +181,22 @@ public final class Descriptors {
                 str = str2 + '.' + str;
             }
             GenericDescriptor genericDescriptorFindSymbol = this.pool.findSymbol(str);
-            if ((genericDescriptorFindSymbol instanceof FieldDescriptor) && genericDescriptorFindSymbol.getFile() == this) {
+            if ((genericDescriptorFindSymbol instanceof FieldDescriptor)
+                    && genericDescriptorFindSymbol.getFile() == this) {
                 return (FieldDescriptor) genericDescriptorFindSymbol;
             }
             return null;
         }
 
-        public static FileDescriptor buildFrom(DescriptorProtos.FileDescriptorProto fileDescriptorProto, FileDescriptor[] fileDescriptorArr) throws DescriptorValidationException {
+        public static FileDescriptor buildFrom(DescriptorProtos.FileDescriptorProto fileDescriptorProto,
+                FileDescriptor[] fileDescriptorArr) throws DescriptorValidationException {
             return buildFrom(fileDescriptorProto, fileDescriptorArr, false);
         }
 
-        public static FileDescriptor buildFrom(DescriptorProtos.FileDescriptorProto fileDescriptorProto, FileDescriptor[] fileDescriptorArr, boolean z) throws DescriptorValidationException {
-            FileDescriptor fileDescriptor = new FileDescriptor(fileDescriptorProto, fileDescriptorArr, new DescriptorPool(fileDescriptorArr, z), z);
+        public static FileDescriptor buildFrom(DescriptorProtos.FileDescriptorProto fileDescriptorProto,
+                FileDescriptor[] fileDescriptorArr, boolean z) throws DescriptorValidationException {
+            FileDescriptor fileDescriptor = new FileDescriptor(fileDescriptorProto, fileDescriptorArr,
+                    new DescriptorPool(fileDescriptorArr, z), z);
             fileDescriptor.crossLink();
             return fileDescriptor;
         }
@@ -207,7 +216,8 @@ public final class Descriptors {
             ArrayList arrayList = new ArrayList();
             for (int i = 0; i < strArr.length; i++) {
                 try {
-                    arrayList.add((FileDescriptor) cls.getClassLoader().loadClass(strArr[i]).getField("descriptor").get(null));
+                    arrayList.add((FileDescriptor) cls.getClassLoader().loadClass(strArr[i]).getField("descriptor")
+                            .get(null));
                 } catch (Exception unused) {
                     Descriptors.logger.warning("Descriptors for \"" + strArr2[i] + "\" can not be found.");
                 }
@@ -216,60 +226,77 @@ public final class Descriptors {
         }
 
         @Deprecated
-        public static void internalBuildGeneratedFileFrom(String[] strArr, FileDescriptor[] fileDescriptorArr, InternalDescriptorAssigner internalDescriptorAssigner) {
+        public static void internalBuildGeneratedFileFrom(String[] strArr, FileDescriptor[] fileDescriptorArr,
+                InternalDescriptorAssigner internalDescriptorAssigner) {
             byte[] bArrLatin1Cat = latin1Cat(strArr);
             try {
-                DescriptorProtos.FileDescriptorProto from = DescriptorProtos.FileDescriptorProto.parseFrom(bArrLatin1Cat);
+                DescriptorProtos.FileDescriptorProto from = DescriptorProtos.FileDescriptorProto
+                        .parseFrom(bArrLatin1Cat);
                 try {
                     FileDescriptor fileDescriptorBuildFrom = buildFrom(from, fileDescriptorArr, true);
-                    ExtensionRegistry extensionRegistryAssignDescriptors = internalDescriptorAssigner.assignDescriptors(fileDescriptorBuildFrom);
+                    ExtensionRegistry extensionRegistryAssignDescriptors = internalDescriptorAssigner
+                            .assignDescriptors(fileDescriptorBuildFrom);
                     if (extensionRegistryAssignDescriptors != null) {
                         try {
-                            fileDescriptorBuildFrom.setProto(DescriptorProtos.FileDescriptorProto.parseFrom(bArrLatin1Cat, extensionRegistryAssignDescriptors));
+                            fileDescriptorBuildFrom.setProto(DescriptorProtos.FileDescriptorProto
+                                    .parseFrom(bArrLatin1Cat, extensionRegistryAssignDescriptors));
                         } catch (InvalidProtocolBufferException e) {
-                            throw new IllegalArgumentException("Failed to parse protocol buffer descriptor for generated code.", e);
+                            throw new IllegalArgumentException(
+                                    "Failed to parse protocol buffer descriptor for generated code.", e);
                         }
                     }
                 } catch (DescriptorValidationException e2) {
-                    throw new IllegalArgumentException("Invalid embedded descriptor for \"" + from.getName() + "\".", e2);
+                    throw new IllegalArgumentException("Invalid embedded descriptor for \"" + from.getName() + "\".",
+                            e2);
                 }
             } catch (InvalidProtocolBufferException e3) {
-                throw new IllegalArgumentException("Failed to parse protocol buffer descriptor for generated code.", e3);
+                throw new IllegalArgumentException("Failed to parse protocol buffer descriptor for generated code.",
+                        e3);
             }
         }
 
-        public static FileDescriptor internalBuildGeneratedFileFrom(String[] strArr, FileDescriptor[] fileDescriptorArr) {
+        public static FileDescriptor internalBuildGeneratedFileFrom(String[] strArr,
+                FileDescriptor[] fileDescriptorArr) {
             try {
-                DescriptorProtos.FileDescriptorProto from = DescriptorProtos.FileDescriptorProto.parseFrom(latin1Cat(strArr));
+                DescriptorProtos.FileDescriptorProto from = DescriptorProtos.FileDescriptorProto
+                        .parseFrom(latin1Cat(strArr));
                 try {
                     return buildFrom(from, fileDescriptorArr, true);
                 } catch (DescriptorValidationException e) {
-                    throw new IllegalArgumentException("Invalid embedded descriptor for \"" + from.getName() + "\".", e);
+                    throw new IllegalArgumentException("Invalid embedded descriptor for \"" + from.getName() + "\".",
+                            e);
                 }
             } catch (InvalidProtocolBufferException e2) {
-                throw new IllegalArgumentException("Failed to parse protocol buffer descriptor for generated code.", e2);
+                throw new IllegalArgumentException("Failed to parse protocol buffer descriptor for generated code.",
+                        e2);
             }
         }
 
         @Deprecated
-        public static void internalBuildGeneratedFileFrom(String[] strArr, Class<?> cls, String[] strArr2, String[] strArr3, InternalDescriptorAssigner internalDescriptorAssigner) {
+        public static void internalBuildGeneratedFileFrom(String[] strArr, Class<?> cls, String[] strArr2,
+                String[] strArr3, InternalDescriptorAssigner internalDescriptorAssigner) {
             internalBuildGeneratedFileFrom(strArr, findDescriptors(cls, strArr2, strArr3), internalDescriptorAssigner);
         }
 
-        public static FileDescriptor internalBuildGeneratedFileFrom(String[] strArr, Class<?> cls, String[] strArr2, String[] strArr3) {
+        public static FileDescriptor internalBuildGeneratedFileFrom(String[] strArr, Class<?> cls, String[] strArr2,
+                String[] strArr3) {
             return internalBuildGeneratedFileFrom(strArr, findDescriptors(cls, strArr2, strArr3));
         }
 
-        public static void internalUpdateFileDescriptor(FileDescriptor fileDescriptor, ExtensionRegistry extensionRegistry) {
+        public static void internalUpdateFileDescriptor(FileDescriptor fileDescriptor,
+                ExtensionRegistry extensionRegistry) {
             try {
-                fileDescriptor.setProto(DescriptorProtos.FileDescriptorProto.parseFrom(fileDescriptor.proto.toByteString(), extensionRegistry));
+                fileDescriptor.setProto(DescriptorProtos.FileDescriptorProto
+                        .parseFrom(fileDescriptor.proto.toByteString(), extensionRegistry));
             } catch (InvalidProtocolBufferException e) {
                 throw new IllegalArgumentException("Failed to parse protocol buffer descriptor for generated code.", e);
             }
         }
 
         /* JADX WARN: Illegal instructions before constructor call */
-        private FileDescriptor(DescriptorProtos.FileDescriptorProto fileDescriptorProto, FileDescriptor[] fileDescriptorArr, DescriptorPool descriptorPool, boolean z) throws DescriptorValidationException {
+        private FileDescriptor(DescriptorProtos.FileDescriptorProto fileDescriptorProto,
+                FileDescriptor[] fileDescriptorArr, DescriptorPool descriptorPool, boolean z)
+                throws DescriptorValidationException {
             super((AnonymousClass1) null);
             Descriptor[] descriptorArr;
             EnumDescriptor[] enumDescriptorArr;
@@ -295,7 +322,8 @@ public final class Descriptors {
                 if (fileDescriptor2 != null) {
                     arrayList.add(fileDescriptor2);
                 } else if (!z) {
-                    throw new DescriptorValidationException(this, "Invalid public dependency: " + dependency, anonymousClass1);
+                    throw new DescriptorValidationException(this, "Invalid public dependency: " + dependency,
+                            anonymousClass1);
                 }
             }
             FileDescriptor[] fileDescriptorArr2 = new FileDescriptor[arrayList.size()];
@@ -327,7 +355,8 @@ public final class Descriptors {
             }
             this.services = serviceDescriptorArr;
             for (int i4 = 0; i4 < fileDescriptorProto.getServiceCount(); i4++) {
-                this.services[i4] = new ServiceDescriptor(fileDescriptorProto.getService(i4), this, i4, anonymousClass1);
+                this.services[i4] = new ServiceDescriptor(fileDescriptorProto.getService(i4), this, i4,
+                        anonymousClass1);
             }
             if (fileDescriptorProto.getExtensionCount() <= 0) {
                 fieldDescriptorArr = Descriptors.EMPTY_FIELD_DESCRIPTORS;
@@ -336,7 +365,8 @@ public final class Descriptors {
             }
             this.extensions = fieldDescriptorArr;
             for (int i5 = 0; i5 < fileDescriptorProto.getExtensionCount(); i5++) {
-                this.extensions[i5] = new FieldDescriptor(fileDescriptorProto.getExtension(i5), this, null, i5, true, null);
+                this.extensions[i5] = new FieldDescriptor(fileDescriptorProto.getExtension(i5), this, null, i5, true,
+                        null);
             }
         }
 
@@ -344,10 +374,12 @@ public final class Descriptors {
             super(null);
             DescriptorPool descriptorPool = new DescriptorPool(new FileDescriptor[0], true);
             this.pool = descriptorPool;
-            this.proto = DescriptorProtos.FileDescriptorProto.newBuilder().setName(descriptor.getFullName() + ".placeholder.proto").setPackage(str).addMessageType(descriptor.toProto()).build();
+            this.proto = DescriptorProtos.FileDescriptorProto.newBuilder()
+                    .setName(descriptor.getFullName() + ".placeholder.proto").setPackage(str)
+                    .addMessageType(descriptor.toProto()).build();
             this.dependencies = new FileDescriptor[0];
             this.publicDependencies = new FileDescriptor[0];
-            this.messageTypes = new Descriptor[]{descriptor};
+            this.messageTypes = new Descriptor[] { descriptor };
             this.enumTypes = Descriptors.EMPTY_ENUM_DESCRIPTORS;
             this.services = Descriptors.EMPTY_SERVICE_DESCRIPTORS;
             this.extensions = Descriptors.EMPTY_FIELD_DESCRIPTORS;
@@ -428,13 +460,25 @@ public final class Descriptors {
         private DescriptorProtos.DescriptorProto proto;
         private final int realOneofCount;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$DescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
-          (r4v0 int)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$DescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:648) call: com.google.oplus.protobuf.Descriptors.Descriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$DescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int):void type: THIS */
-        /* synthetic */ Descriptor(DescriptorProtos.DescriptorProto descriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$DescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
+         * (r4v0 int)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$DescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:648) call:
+         * com.google.oplus.protobuf.Descriptors.Descriptor.<init>(com.google.oplus.
+         * protobuf.DescriptorProtos$DescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int):void type: THIS
+         */
+        /* synthetic */ Descriptor(DescriptorProtos.DescriptorProto descriptorProto, FileDescriptor fileDescriptor,
+                Descriptor descriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
             this(descriptorProto, fileDescriptor, descriptor, i);
         }
 
@@ -442,7 +486,10 @@ public final class Descriptors {
             return this.index;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.DescriptorProto toProto() {
             return this.proto;
@@ -537,7 +584,8 @@ public final class Descriptors {
 
         public FieldDescriptor findFieldByNumber(int i) {
             FieldDescriptor[] fieldDescriptorArr = this.fieldsSortedByNumber;
-            return (FieldDescriptor) Descriptors.binarySearch(fieldDescriptorArr, fieldDescriptorArr.length, FieldDescriptor.NUMBER_GETTER, i);
+            return (FieldDescriptor) Descriptors.binarySearch(fieldDescriptorArr, fieldDescriptorArr.length,
+                    FieldDescriptor.NUMBER_GETTER, i);
         }
 
         public Descriptor findNestedTypeByName(String str) {
@@ -570,7 +618,9 @@ public final class Descriptors {
                 strSubstring2 = str;
             }
             this.index = 0;
-            this.proto = DescriptorProtos.DescriptorProto.newBuilder().setName(strSubstring2).addExtensionRange(DescriptorProtos.DescriptorProto.ExtensionRange.newBuilder().setStart(1).setEnd(536870912).build()).build();
+            this.proto = DescriptorProtos.DescriptorProto.newBuilder().setName(strSubstring2).addExtensionRange(
+                    DescriptorProtos.DescriptorProto.ExtensionRange.newBuilder().setStart(1).setEnd(536870912).build())
+                    .build();
             this.fullName = str;
             this.containingType = null;
             this.nestedTypes = Descriptors.EMPTY_DESCRIPTORS;
@@ -581,12 +631,13 @@ public final class Descriptors {
             this.oneofs = Descriptors.EMPTY_ONEOF_DESCRIPTORS;
             this.realOneofCount = 0;
             this.file = new FileDescriptor(strSubstring, this);
-            this.extensionRangeLowerBounds = new int[]{1};
-            this.extensionRangeUpperBounds = new int[]{536870912};
+            this.extensionRangeLowerBounds = new int[] { 1 };
+            this.extensionRangeUpperBounds = new int[] { 536870912 };
         }
 
         /* JADX WARN: Illegal instructions before constructor call */
-        private Descriptor(DescriptorProtos.DescriptorProto descriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i) throws DescriptorValidationException {
+        private Descriptor(DescriptorProtos.DescriptorProto descriptorProto, FileDescriptor fileDescriptor,
+                Descriptor descriptor, int i) throws DescriptorValidationException {
             super((AnonymousClass1) null);
             OneofDescriptor[] oneofDescriptorArr;
             Descriptor[] descriptorArr;
@@ -626,7 +677,8 @@ public final class Descriptors {
             }
             this.enumTypes = enumDescriptorArr;
             for (int i5 = 0; i5 < descriptorProto.getEnumTypeCount(); i5++) {
-                this.enumTypes[i5] = new EnumDescriptor(descriptorProto.getEnumType(i5), fileDescriptor, this, i5, null);
+                this.enumTypes[i5] = new EnumDescriptor(descriptorProto.getEnumType(i5), fileDescriptor, this, i5,
+                        null);
             }
             if (descriptorProto.getFieldCount() <= 0) {
                 fieldDescriptorArr = Descriptors.EMPTY_FIELD_DESCRIPTORS;
@@ -635,9 +687,11 @@ public final class Descriptors {
             }
             this.fields = fieldDescriptorArr;
             for (int i6 = 0; i6 < descriptorProto.getFieldCount(); i6++) {
-                this.fields[i6] = new FieldDescriptor(descriptorProto.getField(i6), fileDescriptor, this, i6, false, null);
+                this.fields[i6] = new FieldDescriptor(descriptorProto.getField(i6), fileDescriptor, this, i6, false,
+                        null);
             }
-            this.fieldsSortedByNumber = descriptorProto.getFieldCount() > 0 ? (FieldDescriptor[]) this.fields.clone() : Descriptors.EMPTY_FIELD_DESCRIPTORS;
+            this.fieldsSortedByNumber = descriptorProto.getFieldCount() > 0 ? (FieldDescriptor[]) this.fields.clone()
+                    : Descriptors.EMPTY_FIELD_DESCRIPTORS;
             if (descriptorProto.getExtensionCount() <= 0) {
                 fieldDescriptorArr2 = Descriptors.EMPTY_FIELD_DESCRIPTORS;
             } else {
@@ -645,7 +699,8 @@ public final class Descriptors {
             }
             this.extensions = fieldDescriptorArr2;
             for (int i7 = 0; i7 < descriptorProto.getExtensionCount(); i7++) {
-                this.extensions[i7] = new FieldDescriptor(descriptorProto.getExtension(i7), fileDescriptor, this, i7, true, null);
+                this.extensions[i7] = new FieldDescriptor(descriptorProto.getExtension(i7), fileDescriptor, this, i7,
+                        true, null);
             }
             for (int i8 = 0; i8 < descriptorProto.getOneofDeclCount(); i8++) {
                 OneofDescriptor oneofDescriptor = this.oneofs[i8];
@@ -675,7 +730,8 @@ public final class Descriptors {
             }
             this.extensionRangeLowerBounds = new int[descriptorProto.getExtensionRangeCount()];
             this.extensionRangeUpperBounds = new int[descriptorProto.getExtensionRangeCount()];
-            for (DescriptorProtos.DescriptorProto.ExtensionRange extensionRange : descriptorProto.getExtensionRangeList()) {
+            for (DescriptorProtos.DescriptorProto.ExtensionRange extensionRange : descriptorProto
+                    .getExtensionRangeList()) {
                 this.extensionRangeLowerBounds[i2] = extensionRange.getStart();
                 this.extensionRangeUpperBounds[i2] = extensionRange.getEnd();
                 i2++;
@@ -710,7 +766,11 @@ public final class Descriptors {
                 FieldDescriptor fieldDescriptor = fieldDescriptorArr[i];
                 FieldDescriptor fieldDescriptor2 = fieldDescriptorArr[i2];
                 if (fieldDescriptor.getNumber() == fieldDescriptor2.getNumber()) {
-                    throw new DescriptorValidationException(fieldDescriptor2, "Field number " + fieldDescriptor2.getNumber() + " has already been used in \"" + fieldDescriptor2.getContainingType().getFullName() + "\" by field \"" + fieldDescriptor.getName() + "\".", (AnonymousClass1) null);
+                    throw new DescriptorValidationException(fieldDescriptor2,
+                            "Field number " + fieldDescriptor2.getNumber() + " has already been used in \""
+                                    + fieldDescriptor2.getContainingType().getFullName() + "\" by field \""
+                                    + fieldDescriptor.getName() + "\".",
+                            (AnonymousClass1) null);
                 }
                 i = i2;
             }
@@ -767,9 +827,14 @@ public final class Descriptors {
         }
     }
 
-    public static final class FieldDescriptor extends GenericDescriptor implements Comparable<FieldDescriptor>, FieldSet.FieldDescriptorLite<FieldDescriptor> {
-        private static final NumberGetter<FieldDescriptor> NUMBER_GETTER = new NumberGetter<FieldDescriptor>() { // from class: com.google.oplus.protobuf.Descriptors.FieldDescriptor.1
-            /* JADX DEBUG: Method merged with bridge method: getNumber(Ljava/lang/Object;)I */
+    public static final class FieldDescriptor extends GenericDescriptor
+            implements Comparable<FieldDescriptor>, FieldSet.FieldDescriptorLite<FieldDescriptor> {
+        private static final NumberGetter<FieldDescriptor> NUMBER_GETTER = new NumberGetter<FieldDescriptor>() { // from
+                                                                                                                 // class:
+                                                                                                                 // com.google.oplus.protobuf.Descriptors.FieldDescriptor.1
+            /*
+             * JADX DEBUG: Method merged with bridge method: getNumber(Ljava/lang/Object;)I
+             */
             @Override // com.google.oplus.protobuf.Descriptors.NumberGetter
             public int getNumber(FieldDescriptor fieldDescriptor) {
                 return fieldDescriptor.getNumber();
@@ -790,20 +855,35 @@ public final class Descriptors {
         private DescriptorProtos.FieldDescriptorProto proto;
         private Type type;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$FieldDescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
-          (r4v0 int)
-          (r5v0 boolean)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$FieldDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int, boolean):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:1057) call: com.google.oplus.protobuf.Descriptors.FieldDescriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$FieldDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int, boolean):void type: THIS */
-        /* synthetic */ FieldDescriptor(DescriptorProtos.FieldDescriptorProto fieldDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i, boolean z, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$FieldDescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
+         * (r4v0 int)
+         * (r5v0 boolean)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$FieldDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int, boolean):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:1057) call:
+         * com.google.oplus.protobuf.Descriptors.FieldDescriptor.<init>(com.google.oplus
+         * .protobuf.DescriptorProtos$FieldDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int, boolean):void type:
+         * THIS
+         */
+        /* synthetic */ FieldDescriptor(DescriptorProtos.FieldDescriptorProto fieldDescriptorProto,
+                FileDescriptor fileDescriptor, Descriptor descriptor, int i, boolean z, AnonymousClass1 anonymousClass1)
+                throws DescriptorValidationException {
             this(fieldDescriptorProto, fileDescriptor, descriptor, i, z);
         }
 
         static {
             if (Type.types.length != DescriptorProtos.FieldDescriptorProto.Type.values().length) {
-                throw new RuntimeException("descriptor.proto has a new declared type but Descriptors.java wasn't updated.");
+                throw new RuntimeException(
+                        "descriptor.proto has a new declared type but Descriptors.java wasn't updated.");
             }
         }
 
@@ -811,7 +891,10 @@ public final class Descriptors {
             return this.index;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.FieldDescriptorProto toProto() {
             return this.proto;
@@ -874,7 +957,8 @@ public final class Descriptors {
             if (this.type != Type.STRING) {
                 return false;
             }
-            if (getContainingType().getOptions().getMapEntry() || getFile().getSyntax() == FileDescriptor.Syntax.PROTO3) {
+            if (getContainingType().getOptions().getMapEntry()
+                    || getFile().getSyntax() == FileDescriptor.Syntax.PROTO3) {
                 return true;
             }
             return getFile().getOptions().getJavaStringCheckUtf8();
@@ -918,7 +1002,8 @@ public final class Descriptors {
 
         public Object getDefaultValue() {
             if (getJavaType() == JavaType.MESSAGE) {
-                throw new UnsupportedOperationException("FieldDescriptor.getDefaultValue() called on an embedded message field.");
+                throw new UnsupportedOperationException(
+                        "FieldDescriptor.getDefaultValue() called on an embedded message field.");
             }
             return this.defaultValue;
         }
@@ -948,44 +1033,55 @@ public final class Descriptors {
         }
 
         public boolean hasOptionalKeyword() {
-            return this.isProto3Optional || (this.file.getSyntax() == FileDescriptor.Syntax.PROTO2 && isOptional() && getContainingOneof() == null);
+            return this.isProto3Optional || (this.file.getSyntax() == FileDescriptor.Syntax.PROTO2 && isOptional()
+                    && getContainingOneof() == null);
         }
 
         public boolean hasPresence() {
             if (isRepeated()) {
                 return false;
             }
-            return getType() == Type.MESSAGE || getType() == Type.GROUP || getContainingOneof() != null || this.file.getSyntax() == FileDescriptor.Syntax.PROTO2;
+            return getType() == Type.MESSAGE || getType() == Type.GROUP || getContainingOneof() != null
+                    || this.file.getSyntax() == FileDescriptor.Syntax.PROTO2;
         }
 
         public Descriptor getExtensionScope() {
             if (!isExtension()) {
-                throw new UnsupportedOperationException(String.format("This field is not an extension. (%s)", this.fullName));
+                throw new UnsupportedOperationException(
+                        String.format("This field is not an extension. (%s)", this.fullName));
             }
             return this.extensionScope;
         }
 
         public Descriptor getMessageType() {
             if (getJavaType() != JavaType.MESSAGE) {
-                throw new UnsupportedOperationException(String.format("This field is not of message type. (%s)", this.fullName));
+                throw new UnsupportedOperationException(
+                        String.format("This field is not of message type. (%s)", this.fullName));
             }
             return this.messageType;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: getEnumType()Lcom/google/oplus/protobuf/Internal$EnumLiteMap; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * getEnumType()Lcom/google/oplus/protobuf/Internal$EnumLiteMap;
+         */
         @Override // com.google.oplus.protobuf.FieldSet.FieldDescriptorLite
         public EnumDescriptor getEnumType() {
             if (getJavaType() != JavaType.ENUM) {
-                throw new UnsupportedOperationException(String.format("This field is not of enum type. (%s)", this.fullName));
+                throw new UnsupportedOperationException(
+                        String.format("This field is not of enum type. (%s)", this.fullName));
             }
             return this.enumType;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I */
+        /*
+         * JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I
+         */
         @Override // java.lang.Comparable
         public int compareTo(FieldDescriptor fieldDescriptor) {
             if (fieldDescriptor.containingType != this.containingType) {
-                throw new IllegalArgumentException("FieldDescriptors can only be compared to other FieldDescriptors for fields of the same message type.");
+                throw new IllegalArgumentException(
+                        "FieldDescriptors can only be compared to other FieldDescriptors for fields of the same message type.");
             }
             return getNumber() - fieldDescriptor.getNumber();
         }
@@ -1074,7 +1170,9 @@ public final class Descriptors {
         }
 
         /* JADX WARN: Illegal instructions before constructor call */
-        private FieldDescriptor(DescriptorProtos.FieldDescriptorProto fieldDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i, boolean z) throws DescriptorValidationException {
+        private FieldDescriptor(DescriptorProtos.FieldDescriptorProto fieldDescriptorProto,
+                FileDescriptor fileDescriptor, Descriptor descriptor, int i, boolean z)
+                throws DescriptorValidationException {
             super((AnonymousClass1) null);
             AnonymousClass1 anonymousClass1 = null;
 
@@ -1089,7 +1187,8 @@ public final class Descriptors {
             if (getNumber() > 0) {
                 if (z) {
                     if (!fieldDescriptorProto.hasExtendee()) {
-                        throw new DescriptorValidationException(this, "FieldDescriptorProto.extendee not set for extension field.", anonymousClass1);
+                        throw new DescriptorValidationException(this,
+                                "FieldDescriptorProto.extendee not set for extension field.", anonymousClass1);
                     }
                     this.containingType = null;
                     if (descriptor != null) {
@@ -1098,19 +1197,25 @@ public final class Descriptors {
                         this.extensionScope = null;
                     }
                     if (fieldDescriptorProto.hasOneofIndex()) {
-                        throw new DescriptorValidationException(this, "FieldDescriptorProto.oneof_index set for extension field.", anonymousClass1);
+                        throw new DescriptorValidationException(this,
+                                "FieldDescriptorProto.oneof_index set for extension field.", anonymousClass1);
                     }
                     this.containingOneof = null;
                 } else {
                     if (fieldDescriptorProto.hasExtendee()) {
-                        throw new DescriptorValidationException(this, "FieldDescriptorProto.extendee set for non-extension field.", anonymousClass1);
+                        throw new DescriptorValidationException(this,
+                                "FieldDescriptorProto.extendee set for non-extension field.", anonymousClass1);
                     }
                     this.containingType = descriptor;
                     if (fieldDescriptorProto.hasOneofIndex()) {
-                        if (fieldDescriptorProto.getOneofIndex() < 0 || fieldDescriptorProto.getOneofIndex() >= descriptor.toProto().getOneofDeclCount()) {
-                            throw new DescriptorValidationException(this, "FieldDescriptorProto.oneof_index is out of range for type " + descriptor.getName(), anonymousClass1);
+                        if (fieldDescriptorProto.getOneofIndex() < 0
+                                || fieldDescriptorProto.getOneofIndex() >= descriptor.toProto().getOneofDeclCount()) {
+                            throw new DescriptorValidationException(this,
+                                    "FieldDescriptorProto.oneof_index is out of range for type " + descriptor.getName(),
+                                    anonymousClass1);
                         }
-                        OneofDescriptor oneofDescriptor = descriptor.getOneofs().get(fieldDescriptorProto.getOneofIndex());
+                        OneofDescriptor oneofDescriptor = descriptor.getOneofs()
+                                .get(fieldDescriptorProto.getOneofIndex());
                         this.containingOneof = oneofDescriptor;
                         OneofDescriptor.access$2608(oneofDescriptor);
                     } else {
@@ -1125,58 +1230,73 @@ public final class Descriptors {
         }
 
         /* JADX INFO: Access modifiers changed from: private */
-        /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
+        /*
+         * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+         */
         public void crossLink() throws DescriptorValidationException {
             AnonymousClass1 anonymousClass1 = null;
             if (this.proto.hasExtendee()) {
-                GenericDescriptor genericDescriptorLookupSymbol = this.file.pool.lookupSymbol(this.proto.getExtendee(), this, DescriptorPool.SearchFilter.TYPES_ONLY);
+                GenericDescriptor genericDescriptorLookupSymbol = this.file.pool.lookupSymbol(this.proto.getExtendee(),
+                        this, DescriptorPool.SearchFilter.TYPES_ONLY);
                 if (!(genericDescriptorLookupSymbol instanceof Descriptor)) {
-                    throw new DescriptorValidationException(this, '\"' + this.proto.getExtendee() + "\" is not a message type.", anonymousClass1);
+                    throw new DescriptorValidationException(this,
+                            '\"' + this.proto.getExtendee() + "\" is not a message type.", anonymousClass1);
                 }
                 this.containingType = (Descriptor) genericDescriptorLookupSymbol;
                 if (!getContainingType().isExtensionNumber(getNumber())) {
-                    throw new DescriptorValidationException(this, '\"' + getContainingType().getFullName() + "\" does not declare " + getNumber() + " as an extension number.", anonymousClass1);
+                    throw new DescriptorValidationException(this, '\"' + getContainingType().getFullName()
+                            + "\" does not declare " + getNumber() + " as an extension number.", anonymousClass1);
                 }
             }
             if (this.proto.hasTypeName()) {
-                GenericDescriptor genericDescriptorLookupSymbol2 = this.file.pool.lookupSymbol(this.proto.getTypeName(), this, DescriptorPool.SearchFilter.TYPES_ONLY);
+                GenericDescriptor genericDescriptorLookupSymbol2 = this.file.pool.lookupSymbol(this.proto.getTypeName(),
+                        this, DescriptorPool.SearchFilter.TYPES_ONLY);
                 if (!this.proto.hasType()) {
                     if (genericDescriptorLookupSymbol2 instanceof Descriptor) {
                         this.type = Type.MESSAGE;
                     } else if (genericDescriptorLookupSymbol2 instanceof EnumDescriptor) {
                         this.type = Type.ENUM;
                     } else {
-                        throw new DescriptorValidationException(this, '\"' + this.proto.getTypeName() + "\" is not a type.", anonymousClass1);
+                        throw new DescriptorValidationException(this,
+                                '\"' + this.proto.getTypeName() + "\" is not a type.", anonymousClass1);
                     }
                 }
                 if (getJavaType() == JavaType.MESSAGE) {
                     if (!(genericDescriptorLookupSymbol2 instanceof Descriptor)) {
-                        throw new DescriptorValidationException(this, '\"' + this.proto.getTypeName() + "\" is not a message type.", anonymousClass1);
+                        throw new DescriptorValidationException(this,
+                                '\"' + this.proto.getTypeName() + "\" is not a message type.", anonymousClass1);
                     }
                     this.messageType = (Descriptor) genericDescriptorLookupSymbol2;
                     if (this.proto.hasDefaultValue()) {
-                        throw new DescriptorValidationException(this, "Messages can't have default values.", anonymousClass1);
+                        throw new DescriptorValidationException(this, "Messages can't have default values.",
+                                anonymousClass1);
                     }
                 } else if (getJavaType() == JavaType.ENUM) {
                     if (!(genericDescriptorLookupSymbol2 instanceof EnumDescriptor)) {
-                        throw new DescriptorValidationException(this, '\"' + this.proto.getTypeName() + "\" is not an enum type.", anonymousClass1);
+                        throw new DescriptorValidationException(this,
+                                '\"' + this.proto.getTypeName() + "\" is not an enum type.", anonymousClass1);
                     }
                     this.enumType = (EnumDescriptor) genericDescriptorLookupSymbol2;
                 } else {
-                    throw new DescriptorValidationException(this, "Field with primitive type has type_name.", anonymousClass1);
+                    throw new DescriptorValidationException(this, "Field with primitive type has type_name.",
+                            anonymousClass1);
                 }
             } else if (getJavaType() == JavaType.MESSAGE || getJavaType() == JavaType.ENUM) {
-                throw new DescriptorValidationException(this, "Field with message or enum type missing type_name.", anonymousClass1);
+                throw new DescriptorValidationException(this, "Field with message or enum type missing type_name.",
+                        anonymousClass1);
             }
             if (this.proto.getOptions().getPacked() && !isPackable()) {
-                throw new DescriptorValidationException(this, "[packed = true] can only be specified for repeated primitive fields.", anonymousClass1);
+                throw new DescriptorValidationException(this,
+                        "[packed = true] can only be specified for repeated primitive fields.", anonymousClass1);
             }
             if (this.proto.hasDefaultValue()) {
                 if (isRepeated()) {
-                    throw new DescriptorValidationException(this, "Repeated fields cannot have default values.", anonymousClass1);
+                    throw new DescriptorValidationException(this, "Repeated fields cannot have default values.",
+                            anonymousClass1);
                 }
                 try {
-                    switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[getType().ordinal()]) {
+                    switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[getType()
+                            .ordinal()]) {
                         case 1:
                         case 2:
                         case 3:
@@ -1227,28 +1347,35 @@ public final class Descriptors {
                             try {
                                 this.defaultValue = TextFormat.unescapeBytes(this.proto.getDefaultValue());
                             } catch (TextFormat.InvalidEscapeSequenceException e) {
-                                throw new DescriptorValidationException(this, "Couldn't parse default value: " + e.getMessage(), e, anonymousClass1);
+                                throw new DescriptorValidationException(this,
+                                        "Couldn't parse default value: " + e.getMessage(), e, anonymousClass1);
                             }
                             break;
                         case 16:
-                            EnumValueDescriptor enumValueDescriptorFindValueByName = this.enumType.findValueByName(this.proto.getDefaultValue());
+                            EnumValueDescriptor enumValueDescriptorFindValueByName = this.enumType
+                                    .findValueByName(this.proto.getDefaultValue());
                             this.defaultValue = enumValueDescriptorFindValueByName;
                             if (enumValueDescriptorFindValueByName == null) {
-                                throw new DescriptorValidationException(this, "Unknown enum default value: \"" + this.proto.getDefaultValue() + '\"', anonymousClass1);
+                                throw new DescriptorValidationException(this,
+                                        "Unknown enum default value: \"" + this.proto.getDefaultValue() + '\"',
+                                        anonymousClass1);
                             }
-                            break;
                             break;
                         case 17:
                         case 18:
-                            throw new DescriptorValidationException(this, "Message type had default value.", anonymousClass1);
+                            throw new DescriptorValidationException(this, "Message type had default value.",
+                                    anonymousClass1);
                     }
                 } catch (NumberFormatException e2) {
-                    throw new DescriptorValidationException(this, "Could not parse default value: \"" + this.proto.getDefaultValue() + '\"', e2, anonymousClass1);
+                    throw new DescriptorValidationException(this,
+                            "Could not parse default value: \"" + this.proto.getDefaultValue() + '\"', e2,
+                            anonymousClass1);
                 }
             } else if (isRepeated()) {
                 this.defaultValue = Collections.emptyList();
             } else {
-                int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[getJavaType().ordinal()];
+                int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[getJavaType()
+                        .ordinal()];
                 if (i == 1) {
                     this.defaultValue = this.enumType.getValues().get(0);
                 } else if (i != 2) {
@@ -1263,11 +1390,13 @@ public final class Descriptors {
             }
             if (isExtension()) {
                 if (!isOptional() || getType() != Type.MESSAGE) {
-                    throw new DescriptorValidationException(this, "Extensions of MessageSets must be optional messages.", anonymousClass1);
+                    throw new DescriptorValidationException(this,
+                            "Extensions of MessageSets must be optional messages.", anonymousClass1);
                 }
                 return;
             }
-            throw new DescriptorValidationException(this, "MessageSets cannot have fields, only extensions.", anonymousClass1);
+            throw new DescriptorValidationException(this, "MessageSets cannot have fields, only extensions.",
+                    anonymousClass1);
         }
 
         /* JADX INFO: Access modifiers changed from: private */
@@ -1281,7 +1410,10 @@ public final class Descriptors {
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.Descriptors$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.Descriptors$1, reason:
+     * invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
@@ -1294,7 +1426,8 @@ public final class Descriptors {
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[FieldDescriptor.JavaType.MESSAGE.ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$JavaType[FieldDescriptor.JavaType.MESSAGE
+                        .ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             int[] iArr2 = new int[FieldDescriptor.Type.values().length];
@@ -1304,77 +1437,95 @@ public final class Descriptors {
             } catch (NoSuchFieldError unused3) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SINT32.ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SINT32
+                        .ordinal()] = 2;
             } catch (NoSuchFieldError unused4) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SFIXED32.ordinal()] = 3;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SFIXED32
+                        .ordinal()] = 3;
             } catch (NoSuchFieldError unused5) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.UINT32.ordinal()] = 4;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.UINT32
+                        .ordinal()] = 4;
             } catch (NoSuchFieldError unused6) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.FIXED32.ordinal()] = 5;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.FIXED32
+                        .ordinal()] = 5;
             } catch (NoSuchFieldError unused7) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.INT64.ordinal()] = 6;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.INT64
+                        .ordinal()] = 6;
             } catch (NoSuchFieldError unused8) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SINT64.ordinal()] = 7;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SINT64
+                        .ordinal()] = 7;
             } catch (NoSuchFieldError unused9) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SFIXED64.ordinal()] = 8;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.SFIXED64
+                        .ordinal()] = 8;
             } catch (NoSuchFieldError unused10) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.UINT64.ordinal()] = 9;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.UINT64
+                        .ordinal()] = 9;
             } catch (NoSuchFieldError unused11) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.FIXED64.ordinal()] = 10;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.FIXED64
+                        .ordinal()] = 10;
             } catch (NoSuchFieldError unused12) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.FLOAT.ordinal()] = 11;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.FLOAT
+                        .ordinal()] = 11;
             } catch (NoSuchFieldError unused13) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.DOUBLE.ordinal()] = 12;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.DOUBLE
+                        .ordinal()] = 12;
             } catch (NoSuchFieldError unused14) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.BOOL.ordinal()] = 13;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.BOOL
+                        .ordinal()] = 13;
             } catch (NoSuchFieldError unused15) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.STRING.ordinal()] = 14;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.STRING
+                        .ordinal()] = 14;
             } catch (NoSuchFieldError unused16) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.BYTES.ordinal()] = 15;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.BYTES
+                        .ordinal()] = 15;
             } catch (NoSuchFieldError unused17) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.ENUM.ordinal()] = 16;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.ENUM
+                        .ordinal()] = 16;
             } catch (NoSuchFieldError unused18) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.MESSAGE.ordinal()] = 17;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.MESSAGE
+                        .ordinal()] = 17;
             } catch (NoSuchFieldError unused19) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.GROUP.ordinal()] = 18;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[FieldDescriptor.Type.GROUP
+                        .ordinal()] = 18;
             } catch (NoSuchFieldError unused20) {
             }
         }
     }
 
-    public static final class EnumDescriptor extends GenericDescriptor implements Internal.EnumLiteMap<EnumValueDescriptor> {
+    public static final class EnumDescriptor extends GenericDescriptor
+            implements Internal.EnumLiteMap<EnumValueDescriptor> {
         private ReferenceQueue<EnumValueDescriptor> cleanupQueue;
         private final Descriptor containingType;
         private final int distinctNumbers;
@@ -1386,13 +1537,26 @@ public final class Descriptors {
         private final EnumValueDescriptor[] values;
         private final EnumValueDescriptor[] valuesSortedByNumber;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$EnumDescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
-          (r4v0 int)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$EnumDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:1737) call: com.google.oplus.protobuf.Descriptors.EnumDescriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$EnumDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int):void type: THIS */
-        /* synthetic */ EnumDescriptor(DescriptorProtos.EnumDescriptorProto enumDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$EnumDescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
+         * (r4v0 int)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$EnumDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:1737) call:
+         * com.google.oplus.protobuf.Descriptors.EnumDescriptor.<init>(com.google.oplus.
+         * protobuf.DescriptorProtos$EnumDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int):void type: THIS
+         */
+        /* synthetic */ EnumDescriptor(DescriptorProtos.EnumDescriptorProto enumDescriptorProto,
+                FileDescriptor fileDescriptor, Descriptor descriptor, int i, AnonymousClass1 anonymousClass1)
+                throws DescriptorValidationException {
             this(enumDescriptorProto, fileDescriptor, descriptor, i);
         }
 
@@ -1400,7 +1564,10 @@ public final class Descriptors {
             return this.index;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.EnumDescriptorProto toProto() {
             return this.proto;
@@ -1441,17 +1608,30 @@ public final class Descriptors {
             return null;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: findValueByNumber(I)Lcom/google/oplus/protobuf/Internal$EnumLite; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * findValueByNumber(I)Lcom/google/oplus/protobuf/Internal$EnumLite;
+         */
         @Override // com.google.oplus.protobuf.Internal.EnumLiteMap
         public EnumValueDescriptor findValueByNumber(int i) {
-            return (EnumValueDescriptor) Descriptors.binarySearch(this.valuesSortedByNumber, this.distinctNumbers, EnumValueDescriptor.NUMBER_GETTER, i);
+            return (EnumValueDescriptor) Descriptors.binarySearch(this.valuesSortedByNumber, this.distinctNumbers,
+                    EnumValueDescriptor.NUMBER_GETTER, i);
         }
 
         private static class UnknownEnumValueReference extends WeakReference<EnumValueDescriptor> {
             private final int number;
 
-            /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 int), (r2v0 com.google.oplus.protobuf.Descriptors$EnumValueDescriptor) A[MD:(int, com.google.oplus.protobuf.Descriptors$EnumValueDescriptor):void (m)] (LINE:1819) call: com.google.oplus.protobuf.Descriptors.EnumDescriptor.UnknownEnumValueReference.<init>(int, com.google.oplus.protobuf.Descriptors$EnumValueDescriptor):void type: THIS */
-            /* synthetic */ UnknownEnumValueReference(int i, EnumValueDescriptor enumValueDescriptor, AnonymousClass1 anonymousClass1) {
+            /*
+             * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+             * 0x0000: CONSTRUCTOR (r1v0 int), (r2v0
+             * com.google.oplus.protobuf.Descriptors$EnumValueDescriptor) A[MD:(int,
+             * com.google.oplus.protobuf.Descriptors$EnumValueDescriptor):void (m)]
+             * (LINE:1819) call: com.google.oplus.protobuf.Descriptors.EnumDescriptor.
+             * UnknownEnumValueReference.<init>(int,
+             * com.google.oplus.protobuf.Descriptors$EnumValueDescriptor):void type: THIS
+             */
+            /* synthetic */ UnknownEnumValueReference(int i, EnumValueDescriptor enumValueDescriptor,
+                    AnonymousClass1 anonymousClass1) {
                 this(i, enumValueDescriptor);
             }
 
@@ -1473,7 +1653,8 @@ public final class Descriptors {
                     this.unknownValues = new HashMap();
                 } else {
                     while (true) {
-                        UnknownEnumValueReference unknownEnumValueReference = (UnknownEnumValueReference) this.cleanupQueue.poll();
+                        UnknownEnumValueReference unknownEnumValueReference = (UnknownEnumValueReference) this.cleanupQueue
+                                .poll();
                         if (unknownEnumValueReference == null) {
                             break;
                         }
@@ -1485,7 +1666,8 @@ public final class Descriptors {
                 enumValueDescriptor = weakReference == null ? null : weakReference.get();
                 if (enumValueDescriptor == null) {
                     enumValueDescriptor = new EnumValueDescriptor(this, Integer.valueOf(i), anonymousClass1);
-                    this.unknownValues.put(Integer.valueOf(i), new UnknownEnumValueReference(i, enumValueDescriptor, anonymousClass1));
+                    this.unknownValues.put(Integer.valueOf(i),
+                            new UnknownEnumValueReference(i, enumValueDescriptor, anonymousClass1));
                 }
             }
             return enumValueDescriptor;
@@ -1496,7 +1678,8 @@ public final class Descriptors {
         }
 
         /* JADX WARN: Illegal instructions before constructor call */
-        private EnumDescriptor(DescriptorProtos.EnumDescriptorProto enumDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i) throws DescriptorValidationException {
+        private EnumDescriptor(DescriptorProtos.EnumDescriptorProto enumDescriptorProto, FileDescriptor fileDescriptor,
+                Descriptor descriptor, int i) throws DescriptorValidationException {
             super((AnonymousClass1) null);
             AnonymousClass1 anonymousClass1 = null;
 
@@ -1508,12 +1691,14 @@ public final class Descriptors {
             this.file = fileDescriptor;
             this.containingType = descriptor;
             if (enumDescriptorProto.getValueCount() == 0) {
-                throw new DescriptorValidationException(this, "Enums must contain at least one value.", anonymousClass1);
+                throw new DescriptorValidationException(this, "Enums must contain at least one value.",
+                        anonymousClass1);
             }
             this.values = new EnumValueDescriptor[enumDescriptorProto.getValueCount()];
             int i2 = 0;
             for (int i3 = 0; i3 < enumDescriptorProto.getValueCount(); i3++) {
-                this.values[i3] = new EnumValueDescriptor(enumDescriptorProto.getValue(i3), fileDescriptor, this, i3, null);
+                this.values[i3] = new EnumValueDescriptor(enumDescriptorProto.getValue(i3), fileDescriptor, this, i3,
+                        null);
             }
             EnumValueDescriptor[] enumValueDescriptorArr = (EnumValueDescriptor[]) this.values.clone();
             this.valuesSortedByNumber = enumValueDescriptorArr;
@@ -1549,15 +1734,23 @@ public final class Descriptors {
     }
 
     public static final class EnumValueDescriptor extends GenericDescriptor implements Internal.EnumLite {
-        static final Comparator<EnumValueDescriptor> BY_NUMBER = new Comparator<EnumValueDescriptor>() { // from class: com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.1
-            /* JADX DEBUG: Method merged with bridge method: compare(Ljava/lang/Object;Ljava/lang/Object;)I */
+        static final Comparator<EnumValueDescriptor> BY_NUMBER = new Comparator<EnumValueDescriptor>() { // from class:
+                                                                                                         // com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.1
+            /*
+             * JADX DEBUG: Method merged with bridge method:
+             * compare(Ljava/lang/Object;Ljava/lang/Object;)I
+             */
             @Override // java.util.Comparator
             public int compare(EnumValueDescriptor enumValueDescriptor, EnumValueDescriptor enumValueDescriptor2) {
                 return Integer.compare(enumValueDescriptor.getNumber(), enumValueDescriptor2.getNumber());
             }
         };
-        static final NumberGetter<EnumValueDescriptor> NUMBER_GETTER = new NumberGetter<EnumValueDescriptor>() { // from class: com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.2
-            /* JADX DEBUG: Method merged with bridge method: getNumber(Ljava/lang/Object;)I */
+        static final NumberGetter<EnumValueDescriptor> NUMBER_GETTER = new NumberGetter<EnumValueDescriptor>() { // from
+                                                                                                                 // class:
+                                                                                                                 // com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.2
+            /*
+             * JADX DEBUG: Method merged with bridge method: getNumber(Ljava/lang/Object;)I
+             */
             @Override // com.google.oplus.protobuf.Descriptors.NumberGetter
             public int getNumber(EnumValueDescriptor enumValueDescriptor) {
                 return enumValueDescriptor.getNumber();
@@ -1568,18 +1761,41 @@ public final class Descriptors {
         private DescriptorProtos.EnumValueDescriptorProto proto;
         private final EnumDescriptor type;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$EnumValueDescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 com.google.oplus.protobuf.Descriptors$EnumDescriptor)
-          (r4v0 int)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$EnumValueDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$EnumDescriptor, int):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:1938) call: com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$EnumValueDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$EnumDescriptor, int):void type: THIS */
-        /* synthetic */ EnumValueDescriptor(DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProto, FileDescriptor fileDescriptor, EnumDescriptor enumDescriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$EnumValueDescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 com.google.oplus.protobuf.Descriptors$EnumDescriptor)
+         * (r4v0 int)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$EnumValueDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$EnumDescriptor, int):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:1938) call:
+         * com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.<init>(com.google.
+         * oplus.protobuf.DescriptorProtos$EnumValueDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$EnumDescriptor, int):void type: THIS
+         */
+        /* synthetic */ EnumValueDescriptor(DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProto,
+                FileDescriptor fileDescriptor, EnumDescriptor enumDescriptor, int i, AnonymousClass1 anonymousClass1)
+                throws DescriptorValidationException {
             this(enumValueDescriptorProto, fileDescriptor, enumDescriptor, i);
         }
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.Descriptors$EnumDescriptor), (r2v0 java.lang.Integer) A[MD:(com.google.oplus.protobuf.Descriptors$EnumDescriptor, java.lang.Integer):void (m)] (LINE:1938) call: com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.<init>(com.google.oplus.protobuf.Descriptors$EnumDescriptor, java.lang.Integer):void type: THIS */
-        /* synthetic */ EnumValueDescriptor(EnumDescriptor enumDescriptor, Integer num, AnonymousClass1 anonymousClass1) {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR (r1v0
+         * com.google.oplus.protobuf.Descriptors$EnumDescriptor), (r2v0
+         * java.lang.Integer)
+         * A[MD:(com.google.oplus.protobuf.Descriptors$EnumDescriptor,
+         * java.lang.Integer):void (m)] (LINE:1938) call:
+         * com.google.oplus.protobuf.Descriptors.EnumValueDescriptor.<init>(com.google.
+         * oplus.protobuf.Descriptors$EnumDescriptor, java.lang.Integer):void type: THIS
+         */
+        /* synthetic */ EnumValueDescriptor(EnumDescriptor enumDescriptor, Integer num,
+                AnonymousClass1 anonymousClass1) {
             this(enumDescriptor, num);
         }
 
@@ -1587,7 +1803,10 @@ public final class Descriptors {
             return this.index;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.EnumValueDescriptorProto toProto() {
             return this.proto;
@@ -1625,7 +1844,9 @@ public final class Descriptors {
             return this.proto.getOptions();
         }
 
-        private EnumValueDescriptor(DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProto, FileDescriptor fileDescriptor, EnumDescriptor enumDescriptor, int i) throws DescriptorValidationException {
+        private EnumValueDescriptor(DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProto,
+                FileDescriptor fileDescriptor, EnumDescriptor enumDescriptor, int i)
+                throws DescriptorValidationException {
             super(null);
             this.index = i;
             this.proto = enumValueDescriptorProto;
@@ -1636,7 +1857,9 @@ public final class Descriptors {
 
         private EnumValueDescriptor(EnumDescriptor enumDescriptor, Integer num) {
             super(null);
-            DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProtoBuild = DescriptorProtos.EnumValueDescriptorProto.newBuilder().setName("UNKNOWN_ENUM_VALUE_" + enumDescriptor.getName() + "_" + num).setNumber(num.intValue()).build();
+            DescriptorProtos.EnumValueDescriptorProto enumValueDescriptorProtoBuild = DescriptorProtos.EnumValueDescriptorProto
+                    .newBuilder().setName("UNKNOWN_ENUM_VALUE_" + enumDescriptor.getName() + "_" + num)
+                    .setNumber(num.intValue()).build();
             this.index = -1;
             this.proto = enumValueDescriptorProtoBuild;
             this.type = enumDescriptor;
@@ -1656,12 +1879,23 @@ public final class Descriptors {
         private MethodDescriptor[] methods;
         private DescriptorProtos.ServiceDescriptorProto proto;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$ServiceDescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 int)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$ServiceDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, int):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:2056) call: com.google.oplus.protobuf.Descriptors.ServiceDescriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$ServiceDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, int):void type: THIS */
-        /* synthetic */ ServiceDescriptor(DescriptorProtos.ServiceDescriptorProto serviceDescriptorProto, FileDescriptor fileDescriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$ServiceDescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 int)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$ServiceDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor, int):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:2056) call:
+         * com.google.oplus.protobuf.Descriptors.ServiceDescriptor.<init>(com.google.
+         * oplus.protobuf.DescriptorProtos$ServiceDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor, int):void type: THIS
+         */
+        /* synthetic */ ServiceDescriptor(DescriptorProtos.ServiceDescriptorProto serviceDescriptorProto,
+                FileDescriptor fileDescriptor, int i, AnonymousClass1 anonymousClass1)
+                throws DescriptorValidationException {
             this(serviceDescriptorProto, fileDescriptor, i);
         }
 
@@ -1669,7 +1903,10 @@ public final class Descriptors {
             return this.index;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.ServiceDescriptorProto toProto() {
             return this.proto;
@@ -1706,7 +1943,8 @@ public final class Descriptors {
             return null;
         }
 
-        private ServiceDescriptor(DescriptorProtos.ServiceDescriptorProto serviceDescriptorProto, FileDescriptor fileDescriptor, int i) throws DescriptorValidationException {
+        private ServiceDescriptor(DescriptorProtos.ServiceDescriptorProto serviceDescriptorProto,
+                FileDescriptor fileDescriptor, int i) throws DescriptorValidationException {
             super(null);
             this.index = i;
             this.proto = serviceDescriptorProto;
@@ -1714,7 +1952,8 @@ public final class Descriptors {
             this.file = fileDescriptor;
             this.methods = new MethodDescriptor[serviceDescriptorProto.getMethodCount()];
             for (int i2 = 0; i2 < serviceDescriptorProto.getMethodCount(); i2++) {
-                this.methods[i2] = new MethodDescriptor(serviceDescriptorProto.getMethod(i2), fileDescriptor, this, i2, null);
+                this.methods[i2] = new MethodDescriptor(serviceDescriptorProto.getMethod(i2), fileDescriptor, this, i2,
+                        null);
             }
             fileDescriptor.pool.addSymbol(this);
         }
@@ -1750,13 +1989,26 @@ public final class Descriptors {
         private DescriptorProtos.MethodDescriptorProto proto;
         private final ServiceDescriptor service;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$MethodDescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 com.google.oplus.protobuf.Descriptors$ServiceDescriptor)
-          (r4v0 int)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$MethodDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$ServiceDescriptor, int):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:2158) call: com.google.oplus.protobuf.Descriptors.MethodDescriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$MethodDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$ServiceDescriptor, int):void type: THIS */
-        /* synthetic */ MethodDescriptor(DescriptorProtos.MethodDescriptorProto methodDescriptorProto, FileDescriptor fileDescriptor, ServiceDescriptor serviceDescriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$MethodDescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 com.google.oplus.protobuf.Descriptors$ServiceDescriptor)
+         * (r4v0 int)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$MethodDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$ServiceDescriptor, int):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:2158) call:
+         * com.google.oplus.protobuf.Descriptors.MethodDescriptor.<init>(com.google.
+         * oplus.protobuf.DescriptorProtos$MethodDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$ServiceDescriptor, int):void type: THIS
+         */
+        /* synthetic */ MethodDescriptor(DescriptorProtos.MethodDescriptorProto methodDescriptorProto,
+                FileDescriptor fileDescriptor, ServiceDescriptor serviceDescriptor, int i,
+                AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
             this(methodDescriptorProto, fileDescriptor, serviceDescriptor, i);
         }
 
@@ -1764,7 +2016,10 @@ public final class Descriptors {
             return this.index;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.MethodDescriptorProto toProto() {
             return this.proto;
@@ -1809,7 +2064,9 @@ public final class Descriptors {
             return this.proto.getOptions();
         }
 
-        private MethodDescriptor(DescriptorProtos.MethodDescriptorProto methodDescriptorProto, FileDescriptor fileDescriptor, ServiceDescriptor serviceDescriptor, int i) throws DescriptorValidationException {
+        private MethodDescriptor(DescriptorProtos.MethodDescriptorProto methodDescriptorProto,
+                FileDescriptor fileDescriptor, ServiceDescriptor serviceDescriptor, int i)
+                throws DescriptorValidationException {
             super(null);
             this.index = i;
             this.proto = methodDescriptorProto;
@@ -1821,15 +2078,19 @@ public final class Descriptors {
 
         /* JADX INFO: Access modifiers changed from: private */
         public void crossLink() throws DescriptorValidationException {
-            GenericDescriptor genericDescriptorLookupSymbol = getFile().pool.lookupSymbol(this.proto.getInputType(), this, DescriptorPool.SearchFilter.TYPES_ONLY);
+            GenericDescriptor genericDescriptorLookupSymbol = getFile().pool.lookupSymbol(this.proto.getInputType(),
+                    this, DescriptorPool.SearchFilter.TYPES_ONLY);
             AnonymousClass1 anonymousClass1 = null;
             if (!(genericDescriptorLookupSymbol instanceof Descriptor)) {
-                throw new DescriptorValidationException(this, '\"' + this.proto.getInputType() + "\" is not a message type.", anonymousClass1);
+                throw new DescriptorValidationException(this,
+                        '\"' + this.proto.getInputType() + "\" is not a message type.", anonymousClass1);
             }
             this.inputType = (Descriptor) genericDescriptorLookupSymbol;
-            GenericDescriptor genericDescriptorLookupSymbol2 = getFile().pool.lookupSymbol(this.proto.getOutputType(), this, DescriptorPool.SearchFilter.TYPES_ONLY);
+            GenericDescriptor genericDescriptorLookupSymbol2 = getFile().pool.lookupSymbol(this.proto.getOutputType(),
+                    this, DescriptorPool.SearchFilter.TYPES_ONLY);
             if (!(genericDescriptorLookupSymbol2 instanceof Descriptor)) {
-                throw new DescriptorValidationException(this, '\"' + this.proto.getOutputType() + "\" is not a message type.", anonymousClass1);
+                throw new DescriptorValidationException(this,
+                        '\"' + this.proto.getOutputType() + "\" is not a message type.", anonymousClass1);
             }
             this.outputType = (Descriptor) genericDescriptorLookupSymbol2;
         }
@@ -1861,7 +2122,12 @@ public final class Descriptors {
 
         public abstract Message toProto();
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR  A[MD:():void (m)] (LINE:2300) call: com.google.oplus.protobuf.Descriptors.GenericDescriptor.<init>():void type: THIS */
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR A[MD:():void (m)] (LINE:2300) call:
+         * com.google.oplus.protobuf.Descriptors.GenericDescriptor.<init>():void type:
+         * THIS
+         */
         /* synthetic */ GenericDescriptor(AnonymousClass1 anonymousClass1) {
             this();
         }
@@ -1876,18 +2142,50 @@ public final class Descriptors {
         private final String name;
         private final Message proto;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.Descriptors$FileDescriptor), (r2v0 java.lang.String) A[MD:(com.google.oplus.protobuf.Descriptors$FileDescriptor, java.lang.String):void (m)] (LINE:2315) call: com.google.oplus.protobuf.Descriptors.DescriptorValidationException.<init>(com.google.oplus.protobuf.Descriptors$FileDescriptor, java.lang.String):void type: THIS */
-        /* synthetic */ DescriptorValidationException(FileDescriptor fileDescriptor, String str, AnonymousClass1 anonymousClass1) {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR (r1v0
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor), (r2v0
+         * java.lang.String) A[MD:(com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * java.lang.String):void (m)] (LINE:2315) call:
+         * com.google.oplus.protobuf.Descriptors.DescriptorValidationException.<init>(
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor, java.lang.String):void
+         * type: THIS
+         */
+        /* synthetic */ DescriptorValidationException(FileDescriptor fileDescriptor, String str,
+                AnonymousClass1 anonymousClass1) {
             this(fileDescriptor, str);
         }
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.Descriptors$GenericDescriptor), (r2v0 java.lang.String) A[MD:(com.google.oplus.protobuf.Descriptors$GenericDescriptor, java.lang.String):void (m)] (LINE:2315) call: com.google.oplus.protobuf.Descriptors.DescriptorValidationException.<init>(com.google.oplus.protobuf.Descriptors$GenericDescriptor, java.lang.String):void type: THIS */
-        /* synthetic */ DescriptorValidationException(GenericDescriptor genericDescriptor, String str, AnonymousClass1 anonymousClass1) {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR (r1v0
+         * com.google.oplus.protobuf.Descriptors$GenericDescriptor), (r2v0
+         * java.lang.String)
+         * A[MD:(com.google.oplus.protobuf.Descriptors$GenericDescriptor,
+         * java.lang.String):void (m)] (LINE:2315) call:
+         * com.google.oplus.protobuf.Descriptors.DescriptorValidationException.<init>(
+         * com.google.oplus.protobuf.Descriptors$GenericDescriptor,
+         * java.lang.String):void type: THIS
+         */
+        /* synthetic */ DescriptorValidationException(GenericDescriptor genericDescriptor, String str,
+                AnonymousClass1 anonymousClass1) {
             this(genericDescriptor, str);
         }
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.Descriptors$GenericDescriptor), (r2v0 java.lang.String), (r3v0 java.lang.Throwable) A[MD:(com.google.oplus.protobuf.Descriptors$GenericDescriptor, java.lang.String, java.lang.Throwable):void (m)] (LINE:2315) call: com.google.oplus.protobuf.Descriptors.DescriptorValidationException.<init>(com.google.oplus.protobuf.Descriptors$GenericDescriptor, java.lang.String, java.lang.Throwable):void type: THIS */
-        /* synthetic */ DescriptorValidationException(GenericDescriptor genericDescriptor, String str, Throwable th, AnonymousClass1 anonymousClass1) {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR (r1v0
+         * com.google.oplus.protobuf.Descriptors$GenericDescriptor), (r2v0
+         * java.lang.String), (r3v0 java.lang.Throwable)
+         * A[MD:(com.google.oplus.protobuf.Descriptors$GenericDescriptor,
+         * java.lang.String, java.lang.Throwable):void (m)] (LINE:2315) call:
+         * com.google.oplus.protobuf.Descriptors.DescriptorValidationException.<init>(
+         * com.google.oplus.protobuf.Descriptors$GenericDescriptor, java.lang.String,
+         * java.lang.Throwable):void type: THIS
+         */
+        /* synthetic */ DescriptorValidationException(GenericDescriptor genericDescriptor, String str, Throwable th,
+                AnonymousClass1 anonymousClass1) {
             this(genericDescriptor, str, th);
         }
 
@@ -1964,13 +2262,18 @@ public final class Descriptors {
 
         GenericDescriptor findSymbol(String str, SearchFilter searchFilter) {
             GenericDescriptor genericDescriptor = this.descriptorsByName.get(str);
-            if (genericDescriptor != null && (searchFilter == SearchFilter.ALL_SYMBOLS || ((searchFilter == SearchFilter.TYPES_ONLY && isType(genericDescriptor)) || (searchFilter == SearchFilter.AGGREGATES_ONLY && isAggregate(genericDescriptor))))) {
+            if (genericDescriptor != null && (searchFilter == SearchFilter.ALL_SYMBOLS
+                    || ((searchFilter == SearchFilter.TYPES_ONLY && isType(genericDescriptor))
+                            || (searchFilter == SearchFilter.AGGREGATES_ONLY && isAggregate(genericDescriptor))))) {
                 return genericDescriptor;
             }
             Iterator<FileDescriptor> it = this.dependencies.iterator();
             while (it.hasNext()) {
                 GenericDescriptor genericDescriptor2 = it.next().pool.descriptorsByName.get(str);
-                if (genericDescriptor2 != null && (searchFilter == SearchFilter.ALL_SYMBOLS || ((searchFilter == SearchFilter.TYPES_ONLY && isType(genericDescriptor2)) || (searchFilter == SearchFilter.AGGREGATES_ONLY && isAggregate(genericDescriptor2))))) {
+                if (genericDescriptor2 != null && (searchFilter == SearchFilter.ALL_SYMBOLS
+                        || ((searchFilter == SearchFilter.TYPES_ONLY && isType(genericDescriptor2))
+                                || (searchFilter == SearchFilter.AGGREGATES_ONLY
+                                        && isAggregate(genericDescriptor2))))) {
                     return genericDescriptor2;
                 }
             }
@@ -1982,10 +2285,13 @@ public final class Descriptors {
         }
 
         boolean isAggregate(GenericDescriptor genericDescriptor) {
-            return (genericDescriptor instanceof Descriptor) || (genericDescriptor instanceof EnumDescriptor) || (genericDescriptor instanceof PackageDescriptor) || (genericDescriptor instanceof ServiceDescriptor);
+            return (genericDescriptor instanceof Descriptor) || (genericDescriptor instanceof EnumDescriptor)
+                    || (genericDescriptor instanceof PackageDescriptor)
+                    || (genericDescriptor instanceof ServiceDescriptor);
         }
 
-        GenericDescriptor lookupSymbol(String str, GenericDescriptor genericDescriptor, SearchFilter searchFilter) throws DescriptorValidationException {
+        GenericDescriptor lookupSymbol(String str, GenericDescriptor genericDescriptor, SearchFilter searchFilter)
+                throws DescriptorValidationException {
             GenericDescriptor genericDescriptorFindSymbol;
             String string;
             if (str.startsWith(".")) {
@@ -2005,7 +2311,8 @@ public final class Descriptors {
                     int i = iLastIndexOf + 1;
                     sb.setLength(i);
                     sb.append(strSubstring);
-                    GenericDescriptor genericDescriptorFindSymbol2 = findSymbol(sb.toString(), SearchFilter.AGGREGATES_ONLY);
+                    GenericDescriptor genericDescriptorFindSymbol2 = findSymbol(sb.toString(),
+                            SearchFilter.AGGREGATES_ONLY);
                     if (genericDescriptorFindSymbol2 != null) {
                         if (iIndexOf != -1) {
                             sb.setLength(i);
@@ -2024,12 +2331,14 @@ public final class Descriptors {
                 return genericDescriptorFindSymbol;
             }
             if (this.allowUnknownDependencies && searchFilter == SearchFilter.TYPES_ONLY) {
-                Descriptors.logger.warning("The descriptor for message type \"" + str + "\" can not be found and a placeholder is created for it");
+                Descriptors.logger.warning("The descriptor for message type \"" + str
+                        + "\" can not be found and a placeholder is created for it");
                 Descriptor descriptor = new Descriptor(string);
                 this.dependencies.add(descriptor.getFile());
                 return descriptor;
             }
-            throw new DescriptorValidationException(genericDescriptor, '\"' + str + "\" is not defined.", (AnonymousClass1) null);
+            throw new DescriptorValidationException(genericDescriptor, '\"' + str + "\" is not defined.",
+                    (AnonymousClass1) null);
         }
 
         void addSymbol(GenericDescriptor genericDescriptor) throws DescriptorValidationException {
@@ -2042,11 +2351,17 @@ public final class Descriptors {
                 if (genericDescriptor.getFile() == genericDescriptorPut.getFile()) {
                     int iLastIndexOf = fullName.lastIndexOf(46);
                     if (iLastIndexOf == -1) {
-                        throw new DescriptorValidationException(genericDescriptor, '\"' + fullName + "\" is already defined.", anonymousClass1);
+                        throw new DescriptorValidationException(genericDescriptor,
+                                '\"' + fullName + "\" is already defined.", anonymousClass1);
                     }
-                    throw new DescriptorValidationException(genericDescriptor, '\"' + fullName.substring(iLastIndexOf + 1) + "\" is already defined in \"" + fullName.substring(0, iLastIndexOf) + "\".", anonymousClass1);
+                    throw new DescriptorValidationException(
+                            genericDescriptor, '\"' + fullName.substring(iLastIndexOf + 1)
+                                    + "\" is already defined in \"" + fullName.substring(0, iLastIndexOf) + "\".",
+                            anonymousClass1);
                 }
-                throw new DescriptorValidationException(genericDescriptor, '\"' + fullName + "\" is already defined in file \"" + genericDescriptorPut.getFile().getName() + "\".", anonymousClass1);
+                throw new DescriptorValidationException(genericDescriptor, '\"' + fullName
+                        + "\" is already defined in file \"" + genericDescriptorPut.getFile().getName() + "\".",
+                        anonymousClass1);
             }
         }
 
@@ -2092,13 +2407,17 @@ public final class Descriptors {
                 addPackage(str.substring(0, iLastIndexOf), fileDescriptor);
                 strSubstring = str.substring(iLastIndexOf + 1);
             }
-            GenericDescriptor genericDescriptorPut = this.descriptorsByName.put(str, new PackageDescriptor(strSubstring, str, fileDescriptor));
+            GenericDescriptor genericDescriptorPut = this.descriptorsByName.put(str,
+                    new PackageDescriptor(strSubstring, str, fileDescriptor));
             if (genericDescriptorPut != null) {
                 this.descriptorsByName.put(str, genericDescriptorPut);
                 if (genericDescriptorPut instanceof PackageDescriptor) {
                     return;
                 }
-                throw new DescriptorValidationException(fileDescriptor, '\"' + strSubstring + "\" is already defined (as something other than a package) in file \"" + genericDescriptorPut.getFile().getName() + "\".", (AnonymousClass1) null);
+                throw new DescriptorValidationException(fileDescriptor,
+                        '\"' + strSubstring + "\" is already defined (as something other than a package) in file \""
+                                + genericDescriptorPut.getFile().getName() + "\".",
+                        (AnonymousClass1) null);
             }
         }
 
@@ -2110,8 +2429,10 @@ public final class Descriptors {
             }
             for (int i = 0; i < name.length(); i++) {
                 char cCharAt = name.charAt(i);
-                if (('a' > cCharAt || cCharAt > 'z') && (('A' > cCharAt || cCharAt > 'Z') && cCharAt != '_' && ('0' > cCharAt || cCharAt > '9' || i <= 0))) {
-                    throw new DescriptorValidationException(genericDescriptor, '\"' + name + "\" is not a valid identifier.", anonymousClass1);
+                if (('a' > cCharAt || cCharAt > 'z') && (('A' > cCharAt || cCharAt > 'Z') && cCharAt != '_'
+                        && ('0' > cCharAt || cCharAt > '9' || i <= 0))) {
+                    throw new DescriptorValidationException(genericDescriptor,
+                            '\"' + name + "\" is not a valid identifier.", anonymousClass1);
                 }
             }
         }
@@ -2126,13 +2447,26 @@ public final class Descriptors {
         private final int index;
         private DescriptorProtos.OneofDescriptorProto proto;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR 
-          (r1v0 com.google.oplus.protobuf.DescriptorProtos$OneofDescriptorProto)
-          (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
-          (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
-          (r4v0 int)
-         A[MD:(com.google.oplus.protobuf.DescriptorProtos$OneofDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int):void throws com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)] (LINE:2710) call: com.google.oplus.protobuf.Descriptors.OneofDescriptor.<init>(com.google.oplus.protobuf.DescriptorProtos$OneofDescriptorProto, com.google.oplus.protobuf.Descriptors$FileDescriptor, com.google.oplus.protobuf.Descriptors$Descriptor, int):void type: THIS */
-        /* synthetic */ OneofDescriptor(DescriptorProtos.OneofDescriptorProto oneofDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i, AnonymousClass1 anonymousClass1) throws DescriptorValidationException {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR
+         * (r1v0 com.google.oplus.protobuf.DescriptorProtos$OneofDescriptorProto)
+         * (r2v0 com.google.oplus.protobuf.Descriptors$FileDescriptor)
+         * (r3v0 com.google.oplus.protobuf.Descriptors$Descriptor)
+         * (r4v0 int)
+         * A[MD:(com.google.oplus.protobuf.DescriptorProtos$OneofDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int):void throws
+         * com.google.oplus.protobuf.Descriptors$DescriptorValidationException (m)]
+         * (LINE:2710) call:
+         * com.google.oplus.protobuf.Descriptors.OneofDescriptor.<init>(com.google.oplus
+         * .protobuf.DescriptorProtos$OneofDescriptorProto,
+         * com.google.oplus.protobuf.Descriptors$FileDescriptor,
+         * com.google.oplus.protobuf.Descriptors$Descriptor, int):void type: THIS
+         */
+        /* synthetic */ OneofDescriptor(DescriptorProtos.OneofDescriptorProto oneofDescriptorProto,
+                FileDescriptor fileDescriptor, Descriptor descriptor, int i, AnonymousClass1 anonymousClass1)
+                throws DescriptorValidationException {
             this(oneofDescriptorProto, fileDescriptor, descriptor, i);
         }
 
@@ -2186,7 +2520,10 @@ public final class Descriptors {
             return this.fields[i];
         }
 
-        /* JADX DEBUG: Method merged with bridge method: toProto()Lcom/google/oplus/protobuf/Message; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * toProto()Lcom/google/oplus/protobuf/Message;
+         */
         @Override // com.google.oplus.protobuf.Descriptors.GenericDescriptor
         public DescriptorProtos.OneofDescriptorProto toProto() {
             return this.proto;
@@ -2197,7 +2534,8 @@ public final class Descriptors {
             this.proto = oneofDescriptorProto;
         }
 
-        private OneofDescriptor(DescriptorProtos.OneofDescriptorProto oneofDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i) throws DescriptorValidationException {
+        private OneofDescriptor(DescriptorProtos.OneofDescriptorProto oneofDescriptorProto,
+                FileDescriptor fileDescriptor, Descriptor descriptor, int i) throws DescriptorValidationException {
             super(null);
             this.proto = oneofDescriptorProto;
             this.fullName = Descriptors.computeFullName(fileDescriptor, descriptor, oneofDescriptorProto.getName());

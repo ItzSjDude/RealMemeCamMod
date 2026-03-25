@@ -333,8 +333,9 @@ public final class CameraConfigure {
     private static void initCameraFeatureTable(ProtobufFeatureConfig.FeatureTable featureTable) {
         ProtobufFeatureConfig.CameraFeatureTable cameraFeatureTable = featureTable.getCameraFeatureTable();
         if (cameraFeatureTable != null) {
-            for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : cameraFeatureTable
-                    .getModeFeatureTablesMap().entrySet()) {
+            Map<String, ProtobufFeatureConfig.ModeFeatureTable> modeFeatureTablesMap = cameraFeatureTable
+                    .getModeFeatureTablesMap();
+            for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : modeFeatureTablesMap.entrySet()) {
                 String key = entry.getKey();
                 Map<String, Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>>> map = sFeatureTable;
                 Map<String, Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>>> map2 = map.get(key);
@@ -389,8 +390,8 @@ public final class CameraConfigure {
     private static Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> initCameraTypeFeatureTable(
             ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable, List<String> list, String str,
             String str2) {
-        HashMap map = new HashMap();
-        HashMap map2 = new HashMap();
+        Map<CameraFeatureKey<?>, ProtobufFeatureInfoInterface<?>> map = new HashMap<>();
+        Map<CameraFeatureKey<?>, ProtobufFeatureConfig.Feature> map2 = new HashMap<>();
         for (ProtobufFeatureConfig.Feature feature : cameraTypeFeatureTable.getFeatureListList()) {
             ProtobufFeatureInfoImpl<?> protobufFeatureInfoImplInitFeatureInfo = initFeatureInfo(feature, list, str);
             if (protobufFeatureInfoImplInitFeatureInfo != null) {
@@ -400,11 +401,11 @@ public final class CameraConfigure {
                 }
             }
         }
-        for (Map.Entry entry : map2.entrySet()) {
+        for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureConfig.Feature> entry : map2.entrySet()) {
             ProtobufFeatureInfoInterface protobufFeatureInfoInterface = (ProtobufFeatureInfoInterface) map
                     .get(entry.getKey());
             Map<ConflictTargetValue<?>, List<ConflictFeature<?>>> mapInitConflictMap = initConflictMap(
-                    ((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list,
+                    entry.getValue().getConflictMapMap(), list,
                     protobufFeatureInfoInterface.getFeatureKey(), str, str2);
             if (protobufFeatureInfoInterface instanceof ProtobufFeatureInfoImpl) {
                 ((ProtobufFeatureInfoImpl) protobufFeatureInfoInterface).setConflictMap(mapInitConflictMap);

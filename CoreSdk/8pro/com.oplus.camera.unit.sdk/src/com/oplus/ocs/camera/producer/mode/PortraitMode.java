@@ -138,8 +138,10 @@ public class PortraitMode extends BaseMode {
         return cameraRequestTagCreateRequestTag;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         if (Parameter.ParameterStage.CONFIGURE.equals(str)) {
             if (PlatformUtil.isMtkPlatform()) {
@@ -151,33 +153,34 @@ public class PortraitMode extends BaseMode {
                             builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, availableMultiCameraFeature);
                         }
                     } else if (availableMultiCameraFeature.length == 2) {
-                        builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[]{1});
+                        builder.set(ConfigureParameter.KEY_MTK_MULTI_CAM_FEATURE_MODE, new int[] { 1 });
                     }
                 }
                 if (!"front_main".equals(str2) && !isSupportRearAINRCapture()) {
-                    builder.set(ConfigureParameter.KEY_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE, new int[]{0});
+                    builder.set(ConfigureParameter.KEY_CONTROL_CAPTURE_PERFORMANCE_OPTIMAL_MODE, new int[] { 0 });
                 }
                 if ("rear_sat".equals(str2)) {
                     if (isFullBodyType(str2)) {
-                        builder.set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[]{0});
+                        builder.set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[] { 0 });
                     } else if (isHalfBodyType(str2)) {
-                        builder.set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[]{1});
+                        builder.set(ConfigureParameter.KEY_VSDOF_OPTICAL_ZOOM, new int[] { 1 });
                     }
                 }
             }
             if ("rear_portrait".equals(str2)) {
-                builder.set(ConfigureParameter.KEY_VSDOF_PREVIEW_SIZE, this.mConfigMap.get(str2).getDefaultPreviewSurface().getAppSurfaceSize());
+                builder.set(ConfigureParameter.KEY_VSDOF_PREVIEW_SIZE,
+                        this.mConfigMap.get(str2).getDefaultPreviewSurface().getAppSurfaceSize());
             }
             if (Util.isSystemCamera()) {
                 return;
             }
-            builder.set(ConfigureParameter.KEY_REQUEST_ZSL_MODE, new byte[]{1});
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.STATISTICS_FACE_DETECT_MODE, 1);
+            builder.set(ConfigureParameter.KEY_REQUEST_ZSL_MODE, new byte[] { 1 });
+            builder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE, 1);
             return;
         }
         if (Parameter.ParameterStage.START_PREVIEW.equals(str)) {
             if (!builder.containsKey((Parameter.Key<?>) PreviewParameter.KEY_BLUR_LEVEL)) {
-                builder.set(PreviewParameter.KEY_BLUR_LEVEL, new float[]{getDefaultBlurValue()});
+                builder.set(PreviewParameter.KEY_BLUR_LEVEL, new float[] { getDefaultBlurValue() });
                 return;
             }
             float[] fArr = (float[]) builder.get(PreviewParameter.KEY_BLUR_LEVEL);
@@ -185,20 +188,26 @@ public class PortraitMode extends BaseMode {
             if (apsRequestTag != null && fArr != null && fArr.length >= 1) {
                 apsRequestTag.mBlurIndex = (int) (fArr[0] * 100.0f);
             }
-            if (cameraRequestTag != null && builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE) && builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_VALUE)) {
+            if (cameraRequestTag != null && builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE)
+                    && builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_VALUE)) {
                 cameraRequestTag.mMakeupType = (String) builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE);
-                cameraRequestTag.mMakeupValue = ((Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE)).intValue();
-                cameraRequestTag.mb3DLutEnable = ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_3D_LUT_SUPPORT, false)).booleanValue();
+                cameraRequestTag.mMakeupValue = ((Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE))
+                        .intValue();
+                cameraRequestTag.mb3DLutEnable = ((Boolean) CameraConfigHelper
+                        .getConfigValue(CameraConfigBase.KEY_3D_LUT_SUPPORT, false)).booleanValue();
                 return;
             }
             return;
         }
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
             if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
-                cameraRequestTag.mStreamerEnable = "on".equals(getConfigureParameter(str2).get(ConfigureParameter.PORTRAIT_STREAMER_ENABLE));
+                cameraRequestTag.mStreamerEnable = "on"
+                        .equals(getConfigureParameter(str2).get(ConfigureParameter.PORTRAIT_STREAMER_ENABLE));
                 cameraRequestTag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
-                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN)).booleanValue();
-                cameraRequestTag.mbFilterVignette = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE)).booleanValue();
+                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN))
+                        .booleanValue();
+                cameraRequestTag.mbFilterVignette = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE))
+                        .booleanValue();
             }
             if (builder.containCustomKey(PreviewParameter.KEY_FACE_BEAUTY_ENABLE)) {
                 cameraRequestTag.mbFaceBeautyOpen = "on".equals(builder.get(PreviewParameter.KEY_FACE_BEAUTY_ENABLE));
@@ -208,7 +217,8 @@ public class PortraitMode extends BaseMode {
             }
             if (builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE)) {
                 cameraRequestTag.mMakeupType = (String) builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE);
-                cameraRequestTag.mMakeupValue = ((Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE)).intValue();
+                cameraRequestTag.mMakeupValue = ((Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE))
+                        .intValue();
             }
         }
     }
@@ -788,5 +798,7 @@ public class PortraitMode extends BaseMode {
     private boolean isSupportRearAINRCapture() {
         return this.mRearFrontCameraId == 0
                 && AlgoSwitchConfig.getSupportCaptureAlgo("portrait", this.mRearFrontCameraId, "aps_algo_ainr");
-    }
-}
+    }}
+
+    
+            

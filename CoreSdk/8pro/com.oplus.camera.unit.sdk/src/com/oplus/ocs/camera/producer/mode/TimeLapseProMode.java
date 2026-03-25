@@ -42,7 +42,8 @@ public class TimeLapseProMode extends BaseMode {
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         Size size;
         double width;
         SurfaceWrapper surfaceWrapper;
@@ -54,7 +55,8 @@ public class TimeLapseProMode extends BaseMode {
             case "reprocess_input":
             case "raw_output":
             case "raw16_output":
-                return new Pair<>(surfaceWrapper.getAppSurfaceSize(), CameraCharacteristicsHelper.getSizeByFormat(str3, 1.3333333333333333d, 32));
+                return new Pair<>(surfaceWrapper.getAppSurfaceSize(),
+                        CameraCharacteristicsHelper.getSizeByFormat(str3, 1.3333333333333333d, 32));
             case "preview":
                 return new Pair<>(size, size);
             case "capture_yuv":
@@ -64,7 +66,10 @@ public class TimeLapseProMode extends BaseMode {
                     str2.hashCode();
                     switch (str2) {
                         case "rear_sat":
-                            Size maxSize = Util.getMaxSize(new Size[]{getSatSize(CameraConfigBase.KEY_SAT_MAIN_PICTURE_SIZE, width), getSatSize(CameraConfigBase.KEY_SAT_SUB_PICTURE_SIZE, width), getSatSize(CameraConfigBase.KEY_SAT_THIRD_PICTURE_SIZE, width)});
+                            Size maxSize = Util.getMaxSize(
+                                    new Size[] { getSatSize(CameraConfigBase.KEY_SAT_MAIN_PICTURE_SIZE, width),
+                                            getSatSize(CameraConfigBase.KEY_SAT_SUB_PICTURE_SIZE, width),
+                                            getSatSize(CameraConfigBase.KEY_SAT_THIRD_PICTURE_SIZE, width) });
                             return new Pair<>(maxSize, maxSize);
                         case "rear_main":
                             Size satSize = getSatSize(CameraConfigBase.KEY_SAT_MAIN_PICTURE_SIZE, width);
@@ -87,35 +92,46 @@ public class TimeLapseProMode extends BaseMode {
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
-        return (("front_wide".equals(str) || "front_main".equals(str)) && Util.isSystemCamera()) ? CameraConstant.UseCase.FRONT_SINGLE_PHOTO : "star_video_case";
+        return (("front_wide".equals(str) || "front_main".equals(str)) && Util.isSystemCamera())
+                ? CameraConstant.UseCase.FRONT_SINGLE_PHOTO
+                : "star_video_case";
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameter(parameter, str, str2, cameraRequestTag);
         if (!Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str) || cameraRequestTag == null) {
             return;
         }
         cameraRequestTag.mRequestFormat = 35;
-        if (cameraRequestTag.mbInNightProcess || CameraRequestTag.RequestMode.CAPTURE_REPROCESS == cameraRequestTag.getRequestMode()) {
+        if (cameraRequestTag.mbInNightProcess
+                || CameraRequestTag.RequestMode.CAPTURE_REPROCESS == cameraRequestTag.getRequestMode()) {
             synchronized (this.mPreviewResultLock) {
-                parameter.set(PreviewParameter.KEY_NIGHT_MODE, new int[]{Util.getNightStateDecision(this.mPreviewResult)});
+                parameter.set(PreviewParameter.KEY_NIGHT_MODE,
+                        new int[] { Util.getNightStateDecision(this.mPreviewResult) });
                 Parameter.Key<int[]> key = PreviewParameter.KEY_BRACKET_MODE;
                 int[] iArr = new int[1];
-                iArr[0] = this.mPreviewResult != null ? ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_BRACKET_MODE)).intValue() : 0;
+                iArr[0] = this.mPreviewResult != null
+                        ? ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_BRACKET_MODE)).intValue()
+                        : 0;
                 parameter.set(key, iArr);
             }
         }
         if (cameraRequestTag.mbInNightProcess) {
-            parameter.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AF_MODE, 1);
-            parameter.set((CaptureRequest.Key<MeteringRectangle[]>) CaptureRequest.CONTROL_AF_REGIONS, AEAFHelp.getDefaultWeightRegion());
-            parameter.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_MODE, 1);
-            parameter.set((CaptureRequest.Key<MeteringRectangle[]>) CaptureRequest.CONTROL_AE_REGIONS, AEAFHelp.getDefaultWeightRegion());
+            parameter.set(CaptureRequest.CONTROL_AF_MODE, 1);
+            parameter.set((CaptureRequest.Key<MeteringRectangle[]>) CaptureRequest.CONTROL_AF_REGIONS,
+                    AEAFHelp.getDefaultWeightRegion());
+            parameter.set(CaptureRequest.CONTROL_MODE, 1);
+            parameter.set((CaptureRequest.Key<MeteringRectangle[]>) CaptureRequest.CONTROL_AE_REGIONS,
+                    AEAFHelp.getDefaultWeightRegion());
         }
     }
 
@@ -125,18 +141,22 @@ public class TimeLapseProMode extends BaseMode {
         List<Integer> colorTemperatureValueList = CameraCharacteristicsHelper.getColorTemperatureValueList(str);
         Map<String, Object> previewParameterRangeMap = cameraDeviceInfoImpl.getPreviewParameterRangeMap();
         previewParameterRangeMap.put(PreviewParameter.KEY_COLOR_TEMPERATURE_RANGE.getName(), colorTemperatureValueList);
-        previewParameterRangeMap.put(PreviewParameter.KEY_ZOOM_RATIO.getName(), new ZoomHelper(str).getZoomRatioList(false, false, false));
+        previewParameterRangeMap.put(PreviewParameter.KEY_ZOOM_RATIO.getName(),
+                new ZoomHelper(str).getZoomRatioList(false, false, false));
         return cameraDeviceInfoImpl;
     }
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag, String str, String str2) {
+    protected void updatePreviewRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag,
+            String str, String str2) {
         super.updatePreviewRequestTag(builder, cameraRequestTag, str, str2);
         cameraRequestTag.mbStarVideoEnable = "on".equals(builder.get(PreviewParameter.KEY_STAR_VIDEO_ENABLE));
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         str.hashCode();
         if (!str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
@@ -153,7 +173,8 @@ public class TimeLapseProMode extends BaseMode {
             cameraRequestTag.mFrameFlag = ((Integer) builder.get(PreviewParameter.KEY_FRAME_FLAG)).intValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_CAPTURE_FOR_VIDEO)) {
-            cameraRequestTag.mbCaptureForVideo = ((Boolean) builder.get(PreviewParameter.KEY_CAPTURE_FOR_VIDEO)).booleanValue();
+            cameraRequestTag.mbCaptureForVideo = ((Boolean) builder.get(PreviewParameter.KEY_CAPTURE_FOR_VIDEO))
+                    .booleanValue();
         }
         if (builder.containCustomKey(PreviewParameter.KEY_STAR_VIDEO_ENABLE)) {
             cameraRequestTag.mbStarVideoEnable = "on".equals(builder.get(PreviewParameter.KEY_STAR_VIDEO_ENABLE));
@@ -166,27 +187,34 @@ public class TimeLapseProMode extends BaseMode {
         setFastCapture(builder, cameraRequestTag);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
+    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder) {
         CameraRequestTag cameraRequestTagCreateRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
         boolean z = false;
         cameraRequestTagCreateRequestTag.mMFSRFrameCount = 0;
         synchronized (this.mPreviewResultLock) {
             if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
                 if (this.mPreviewResult != null) {
-                    cameraRequestTagCreateRequestTag.mbMirrorEnable = "on".equals(getConfigureParameter(str).get(ConfigureParameter.MIRROR_ENABLE));
+                    cameraRequestTagCreateRequestTag.mbMirrorEnable = "on"
+                            .equals(getConfigureParameter(str).get(ConfigureParameter.MIRROR_ENABLE));
                 }
-                if (Util.getNightStateDecision(this.mPreviewResult) > 0 && !cameraRequestTagCreateRequestTag.mbBurstShot) {
+                if (Util.getNightStateDecision(this.mPreviewResult) > 0
+                        && !cameraRequestTagCreateRequestTag.mbBurstShot) {
                     z = true;
                 }
                 cameraRequestTagCreateRequestTag.mbInNightProcess = z;
             }
             if (cameraRequestTagCreateRequestTag.mbInNightProcess) {
-                cameraRequestTagCreateRequestTag.mCaptureEvList = (int[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
-                cameraRequestTagCreateRequestTag.mCaptureEtList = (long[]) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_ET_LIST);
+                cameraRequestTagCreateRequestTag.mCaptureEvList = (int[]) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_EV_LIST);
+                cameraRequestTagCreateRequestTag.mCaptureEtList = (long[]) this.mPreviewResult
+                        .get(ApsDecisionParameter.KEY_PREVIEW_CAPTURE_ET_LIST);
             }
             if (builder.containCustomKey(PreviewParameter.KEY_STAR_VIDEO_ENABLE)) {
-                cameraRequestTagCreateRequestTag.mbStarVideoEnable = "on".equals(builder.get(PreviewParameter.KEY_STAR_VIDEO_ENABLE));
+                cameraRequestTagCreateRequestTag.mbStarVideoEnable = "on"
+                        .equals(builder.get(PreviewParameter.KEY_STAR_VIDEO_ENABLE));
                 cameraRequestTagCreateRequestTag.mbStarryProcess = cameraRequestTagCreateRequestTag.mbStarVideoEnable;
             }
             cameraRequestTagCreateRequestTag.mbTimeLapsePro = true;
@@ -201,7 +229,7 @@ public class TimeLapseProMode extends BaseMode {
         }
         if (Parameter.ParameterStage.START_PREVIEW.equals(str)) {
             if (40000000 < l.longValue()) {
-                builder.set((CaptureRequest.Key<long>) CaptureRequest.SENSOR_EXPOSURE_TIME, 40000000L);
+                builder.set(CaptureRequest.SENSOR_EXPOSURE_TIME, 40000000L);
                 this.mCaptureExposureTime = l;
             } else if (40000000 > l.longValue()) {
                 this.mCaptureExposureTime = null;
@@ -213,16 +241,17 @@ public class TimeLapseProMode extends BaseMode {
             }
             if (l.longValue() >= 40000000) {
                 builder.remove(PreviewParameter.KEY_FLASH_MODE);
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.FLASH_MODE, 0);
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AE_MODE, 0);
+                builder.set(CaptureRequest.FLASH_MODE, 0);
+                builder.set(CaptureRequest.CONTROL_AE_MODE, 0);
             }
-            builder.set((CaptureRequest.Key<Boolean>) CaptureRequest.CONTROL_ENABLE_ZSL, Boolean.valueOf(40000000 > l.longValue()));
+            builder.set((CaptureRequest.Key<Boolean>) CaptureRequest.CONTROL_ENABLE_ZSL,
+                    Boolean.valueOf(40000000 > l.longValue()));
         }
         builder.set(PreviewParameter.KEY_MULTI_FRAME_EXPOSURE_TIME, l);
         if (l.longValue() < 40000000) {
-            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[]{0});
+            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[] { 0 });
         } else {
-            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[]{1});
+            builder.set(PreviewParameter.KEY_LONGSHOT_ENABLE, new int[] { 1 });
         }
     }
 
@@ -230,26 +259,28 @@ public class TimeLapseProMode extends BaseMode {
         int[] iArr = (int[]) builder.get(PreviewParameter.KEY_COLOR_TEMPERATURE);
         if (iArr != null && iArr.length > 0 && -1 != iArr[0]) {
             if (PlatformUtil.isMtkPlatform()) {
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AWB_MODE, 10);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 10);
                 return;
             } else {
-                builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AWB_MODE, 0);
+                builder.set(CaptureRequest.CONTROL_AWB_MODE, 0);
                 return;
             }
         }
-        builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AWB_MODE, 1);
+        builder.set(CaptureRequest.CONTROL_AWB_MODE, 1);
     }
 
     private void checkProfessionalAeMode(PreviewParameter.Builder builder) {
         Long l = (Long) builder.get(CaptureRequest.SENSOR_EXPOSURE_TIME);
         Integer num = (Integer) builder.get(CaptureRequest.SENSOR_SENSITIVITY);
-        if (!PlatformUtil.isQualcommPlatform() ? !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue())) : !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue())) {
+        if (!PlatformUtil.isQualcommPlatform()
+                ? !((num == null || -1 == num.intValue()) && (l == null || -1 == l.longValue()))
+                : !(num == null || -1 == num.intValue() || l == null || -1 == l.longValue())) {
             builder.remove(PreviewParameter.KEY_FLASH_MODE);
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.FLASH_MODE, 0);
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AE_MODE, 0);
+            builder.set(CaptureRequest.FLASH_MODE, 0);
+            builder.set(CaptureRequest.CONTROL_AE_MODE, 0);
         } else {
             builder.remove(CaptureRequest.FLASH_MODE);
-            builder.set((CaptureRequest.Key<int>) CaptureRequest.CONTROL_AE_MODE, 1);
+            builder.set(CaptureRequest.CONTROL_AE_MODE, 1);
         }
     }
 
@@ -260,7 +291,8 @@ public class TimeLapseProMode extends BaseMode {
 
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     protected long getHalMemory() {
-        return ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_PROFESSIONAL, 0)).intValue();
+        return ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HAL_MEMORY_PROFESSIONAL, 0))
+                .intValue();
     }
 
     protected Size getSatSize(CameraConfigBase.Key<Size[]> key, double d) {

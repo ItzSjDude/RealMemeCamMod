@@ -41,17 +41,17 @@ public class ApsTotalResult {
     private native int destroy(Object obj, Object obj2);
 
     static {
-        APS_BOKEN_STATE = new Key<>("RTB_msg", Integer.TYPE);
-        APS_AI_SCENE = new Key<>("ASD_scene_icon", Integer.TYPE);
-        APS_AI_TUNING_SCENE = new Key<>("ASD_tuning_scene", Integer.TYPE);
-        APS_HDR_SCOPE = new Key<>("ASD_hdr_scope", Integer.TYPE);
-        SAT_MASTER_CAMERA_ID = new Key<>("sat_master_camera_id", Integer.TYPE);
-        SAT_ACTIVE_MAP = new Key<>("sat_active_map", Integer.TYPE);
-        APS_LENS_DIRTY = new Key<>("LSD_is_dirty", Integer.TYPE);
-        APS_GESTURE_ACTION_TYPE = new Key<>("Gesture_action_type", Integer.TYPE);
-        APS_VIDEO_EIS = new Key<>("video_eis_on", Integer.TYPE);
-        APS_FRAME_ID = new Key<>("frameId", Integer.TYPE);
-        APS_BUFFER_TIMESTAMP = new Key<>("buffer_Timestamp", Long.TYPE);
+        APS_BOKEN_STATE = new Key<>("RTB_msg", Integer.class);
+        APS_AI_SCENE = new Key<>("ASD_scene_icon", Integer.class);
+        APS_AI_TUNING_SCENE = new Key<>("ASD_tuning_scene", Integer.class);
+        APS_HDR_SCOPE = new Key<>("ASD_hdr_scope", Integer.class);
+        SAT_MASTER_CAMERA_ID = new Key<>("sat_master_camera_id", Integer.class);
+        SAT_ACTIVE_MAP = new Key<>("sat_active_map", Integer.class);
+        APS_LENS_DIRTY = new Key<>("LSD_is_dirty", Integer.class);
+        APS_GESTURE_ACTION_TYPE = new Key<>("Gesture_action_type", Integer.class);
+        APS_VIDEO_EIS = new Key<>("video_eis_on", Integer.class);
+        APS_FRAME_ID = new Key<>("frameId", Integer.class);
+        APS_BUFFER_TIMESTAMP = new Key<>("buffer_Timestamp", Long.class);
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -63,7 +63,8 @@ public class ApsTotalResult {
         }
     }
 
-    public ApsTotalResult(TotalCaptureResult totalCaptureResult, Image image, APSClient.MetaImageRefCounter metaImageRefCounter, long j) {
+    public ApsTotalResult(TotalCaptureResult totalCaptureResult, Image image,
+            APSClient.MetaImageRefCounter metaImageRefCounter, long j) {
         this.mMetaBuffer = null;
         this.mTotalResult = totalCaptureResult;
         this.mMetaImage = image;
@@ -117,10 +118,11 @@ public class ApsTotalResult {
         try {
             Class<?> cls = Class.forName("android.hardware.camera2.OplusCameraManager");
             Field declaredField = cls.getDeclaredField("mInstance");
-            Method declaredMethod = cls.getDeclaredMethod("generateTotalCaptureResult", Object.class, Long.TYPE);
+            Method declaredMethod = cls.getDeclaredMethod("generateTotalCaptureResult", Object.class, Long.class);
             declaredField.setAccessible(true);
             declaredMethod.setAccessible(true);
-            totalCaptureResult = (TotalCaptureResult) declaredMethod.invoke(declaredField.get(null), obj, Long.valueOf(j));
+            totalCaptureResult = (TotalCaptureResult) declaredMethod.invoke(declaredField.get(null), obj,
+                    Long.valueOf(j));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -222,23 +224,28 @@ public class ApsTotalResult {
                                         } else {
                                             Key<Integer> key7 = APS_GESTURE_ACTION_TYPE;
                                             if (((Key) key7).mName.equals(strArrSplit[0])) {
-                                                this.mResults.put(key7, Integer.valueOf(Integer.parseInt(strArrSplit[2])));
+                                                this.mResults.put(key7,
+                                                        Integer.valueOf(Integer.parseInt(strArrSplit[2])));
                                             } else {
                                                 Key<Integer> key8 = APS_VIDEO_EIS;
                                                 if (((Key) key8).mName.equals(strArrSplit[0])) {
-                                                    this.mResults.put(key8, Integer.valueOf(Integer.parseInt(strArrSplit[2])));
+                                                    this.mResults.put(key8,
+                                                            Integer.valueOf(Integer.parseInt(strArrSplit[2])));
                                                 } else {
                                                     Key<Integer> key9 = APS_FRAME_ID;
                                                     if (((Key) key9).mName.equals(strArrSplit[0])) {
-                                                        this.mResults.put(key9, Integer.valueOf(Integer.parseInt(strArrSplit[2])));
+                                                        this.mResults.put(key9,
+                                                                Integer.valueOf(Integer.parseInt(strArrSplit[2])));
                                                     } else {
                                                         Key<Integer> key10 = APS_HDR_SCOPE;
                                                         if (((Key) key10).mName.equals(strArrSplit[0])) {
-                                                            this.mResults.put(key10, Integer.valueOf(Integer.parseInt(strArrSplit[2])));
+                                                            this.mResults.put(key10,
+                                                                    Integer.valueOf(Integer.parseInt(strArrSplit[2])));
                                                         } else {
                                                             Key<Long> key11 = APS_BUFFER_TIMESTAMP;
                                                             if (((Key) key11).mName.equals(strArrSplit[0])) {
-                                                                this.mResults.put(key11, Long.valueOf(Long.parseLong(strArrSplit[2])));
+                                                                this.mResults.put(key11,
+                                                                        Long.valueOf(Long.parseLong(strArrSplit[2])));
                                                             }
                                                         }
                                                     }

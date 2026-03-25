@@ -478,7 +478,7 @@ public final class TextFormat {
                 return;
             }
             if (tagWireType == 1) {
-                textGenerator.print(String.format(null, "0x%016x", (Long) obj));
+                textGenerator.print(String.format((Locale) null, "0x%016x", (Long) obj));
                 return;
             }
             if (tagWireType != 2) {
@@ -487,7 +487,7 @@ public final class TextFormat {
                     return;
                 }
                 if (tagWireType == 5) {
-                    textGenerator.print(String.format(null, "0x%08x", (Integer) obj));
+                    textGenerator.print(String.format((Locale) null, "0x%08x", (Integer) obj));
                     return;
                 } else {
                     throw new IllegalArgumentException("Bad tag: " + i);

@@ -310,7 +310,6 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mPreviewImpl is null.");
                     break;
                 }
-                break;
             case "pipeline_video":
                 ApsVideoAdapterImpl apsVideoAdapterImpl = this.mVideoImpl;
                 if (apsVideoAdapterImpl != null) {
@@ -320,7 +319,6 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mVideoImpl is null.");
                     break;
                 }
-                break;
             case "pipeline_capture":
                 ApsCaptureAdapterImpl apsCaptureAdapterImpl = this.mCaptureImpl;
                 if (apsCaptureAdapterImpl != null) {
@@ -330,7 +328,6 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mCaptureImpl is null.");
                     break;
                 }
-                break;
             default:
                 ApsAdapterLog.e(TAG,
                         "onPreviewReceived, mPipelineName: " + apsResult.mPipelineName + " no need to processed.");

@@ -154,10 +154,11 @@ public class ProtobufParser implements IConfigParser {
     private Map<String, Map<String, Map<String, FeatureInterface>>> initCameraFeatureTable(
             ProtobufFeatureConfig.FeatureTable featureTable) {
         ProtobufFeatureConfig.CameraFeatureTable cameraFeatureTable = featureTable.getCameraFeatureTable();
-        HashMap map = new HashMap();
+        Map<String, Map<String, Map<String, FeatureInterface>>> map = new HashMap<>();
         if (cameraFeatureTable != null) {
-            for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : cameraFeatureTable
-                    .getModeFeatureTablesMap().entrySet()) {
+            Map<String, ProtobufFeatureConfig.ModeFeatureTable> modeFeatureTablesMap = cameraFeatureTable
+                    .getModeFeatureTablesMap();
+            for (Map.Entry<String, ProtobufFeatureConfig.ModeFeatureTable> entry : modeFeatureTablesMap.entrySet()) {
                 String key = entry.getKey();
                 Map map2 = (Map) map.computeIfAbsent(key, new Function() { // from class:
                                                                            // com.oplus.ocs.camera.configure.ProtobufParser$$ExternalSyntheticLambda1
@@ -190,8 +191,8 @@ public class ProtobufParser implements IConfigParser {
     private Map<String, FeatureInterface> initCameraTypeFeatureTable(
             ProtobufFeatureConfig.CameraTypeFeatureTable cameraTypeFeatureTable, List<String> list, String str,
             String str2) {
-        HashMap map = new HashMap();
-        HashMap map2 = new HashMap();
+        Map<String, FeatureInterface> map = new HashMap<>();
+        Map<CameraFeatureKey<?>, ProtobufFeatureConfig.Feature> map2 = new HashMap<>();
         CameraConfigHelper.blockFeatureParameterMapIfNeeded();
         for (ProtobufFeatureConfig.Feature feature : cameraTypeFeatureTable.getFeatureListList()) {
             ConfigFeatureImpl<?> configFeatureImplInitFeatureInfo = initFeatureInfo(feature, list, str);
@@ -202,14 +203,14 @@ public class ProtobufParser implements IConfigParser {
                 }
             }
         }
-        for (Map.Entry entry : map2.entrySet()) {
-            String name = ((CameraFeatureKey) entry.getKey()).getName();
+        for (Map.Entry<CameraFeatureKey<?>, ProtobufFeatureConfig.Feature> entry : map2.entrySet()) {
+            String name = entry.getKey().getName();
             ProtobufFeatureInfoImpl protobufFeatureInfoImpl = map.get(name) instanceof ConfigFeatureImpl
                     ? (ConfigFeatureImpl) map.get(name)
                     : null;
             if (protobufFeatureInfoImpl != null) {
                 protobufFeatureInfoImpl.setConflictMap(
-                        initConflictMap(((ProtobufFeatureConfig.Feature) entry.getValue()).getConflictMapMap(), list,
+                        initConflictMap(entry.getValue().getConflictMapMap(), list,
                                 protobufFeatureInfoImpl.getFeatureKey(), str, str2));
             }
         }
