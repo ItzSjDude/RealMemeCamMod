@@ -31,18 +31,25 @@ public class DefaultPictureCallback extends com.oplus.ocs.camera.appinterface.Ca
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onPictureCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
-        this.mCameraPictureCallback.onPictureCaptureProgressed(captureRequest, new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
+    public void onPictureCaptureProgressed(@NonNull CaptureRequest captureRequest,
+            @NonNull com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        this.mCameraPictureCallback.onPictureCaptureProgressed(captureRequest,
+                new com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter.PictureResult(
+                        pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
+    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest,
+            @NonNull TotalCaptureResult totalCaptureResult, String str) {
         this.mCameraPictureCallback.onCaptureCompleted(captureRequest, totalCaptureResult, str);
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onCaptureCompleted(CaptureRequest captureRequest, com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
-        this.mCameraPictureCallback.onCaptureCompleted(captureRequest, new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
+    public void onCaptureCompleted(CaptureRequest captureRequest,
+            com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        this.mCameraPictureCallback.onCaptureCompleted(captureRequest,
+                new com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter.PictureResult(
+                        pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
@@ -51,12 +58,14 @@ public class DefaultPictureCallback extends com.oplus.ocs.camera.appinterface.Ca
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onCaptureFailed(CaptureRequest captureRequest, com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
-        com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult2;
+    public void onCaptureFailed(CaptureRequest captureRequest,
+            com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter.PictureResult pictureResult2;
         if (pictureResult == null) {
-            pictureResult2 = new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(null, null);
+            pictureResult2 = new com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter.PictureResult(null, null);
         } else {
-            pictureResult2 = new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure());
+            pictureResult2 = new com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter.PictureResult(
+                    pictureResult.getCaptureResult(), pictureResult.getCaptureFailure());
         }
         this.mCameraPictureCallback.onCaptureFailed(captureRequest, pictureResult2);
     }

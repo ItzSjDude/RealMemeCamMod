@@ -22,7 +22,7 @@ import android.util.Size;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
-import com.google.oplus.protobuf.Reader;
+
 import com.oplus.ocs.camera.SdkConfig;
 import com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter;
 import com.oplus.ocs.camera.common.parameter.Parameter;
@@ -74,7 +74,8 @@ public class Util {
     private static final String SYSTEM_CAMERA_PACKNAME = "com.oplus.camera";
     private static final String TAG = "Util";
     private static final int UNSPECIFIED = -1;
-    private static final String DEBUG_SAVE_PATH = Environment.getExternalStorageDirectory() + "/Android/data/com.oplus.camera/files/dump";
+    private static final String DEBUG_SAVE_PATH = Environment.getExternalStorageDirectory()
+            + "/Android/data/com.oplus.camera/files/dump";
     private static int sScreenWidth = 0;
     private static int sScreenHeight = 0;
     private static ActivityManager mActivityManager = null;
@@ -93,7 +94,8 @@ public class Util {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             try {
                 YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
-                yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 95, byteArrayOutputStream);
+                yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), 95,
+                        byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream.toByteArray();
                 byteArrayOutputStream.close();
                 return byteArray;
@@ -184,7 +186,10 @@ public class Util {
         return bArr;
     }
 
-    /* JADX DEBUG: Another duplicated slice has different insns count: {[]}, finally: {[INVOKE, MOVE_EXCEPTION, INVOKE, MOVE_EXCEPTION] complete} */
+    /*
+     * JADX DEBUG: Another duplicated slice has different insns count: {[]},
+     * finally: {[INVOKE, MOVE_EXCEPTION, INVOKE, MOVE_EXCEPTION] complete}
+     */
     public static String saveBytesToFile(byte[] bArr, String str) {
         if (bArr == null || bArr.length == 0) {
             Log.e(TAG, "saveBytesToJpeg, bytes is empty");
@@ -214,28 +219,49 @@ public class Util {
     }
 
     public static CameraImage buildJpegImage(Image image, String str) {
-        return new CameraImage(convertNV21DataToJpeg(getYuvDataWithoutPadding(image, 17, null), image.getWidth(), image.getHeight()), 256, image.getWidth(), image.getHeight(), image.getWidth(), image.getHeight(), 90, image.getTimestamp(), false, str, 4);
+        return new CameraImage(
+                convertNV21DataToJpeg(getYuvDataWithoutPadding(image, 17, null), image.getWidth(), image.getHeight()),
+                256, image.getWidth(), image.getHeight(), image.getWidth(), image.getHeight(), 90, image.getTimestamp(),
+                false, str, 4);
     }
 
-    /* JADX DEBUG: Failed to insert an additional move for type inference into block B:34:0x00b6 */
-    /* JADX DEBUG: Multi-variable search result rejected for r3v2, resolved type: java.io.ByteArrayOutputStream */
-    /* JADX DEBUG: Multi-variable search result rejected for r3v3, resolved type: java.io.ByteArrayOutputStream */
-    /* JADX DEBUG: Multi-variable search result rejected for r3v4, resolved type: java.io.ByteArrayOutputStream */
+    /*
+     * JADX DEBUG: Failed to insert an additional move for type inference into block
+     * B:34:0x00b6
+     */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r3v2, resolved type:
+     * java.io.ByteArrayOutputStream
+     */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r3v3, resolved type:
+     * java.io.ByteArrayOutputStream
+     */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r3v4, resolved type:
+     * java.io.ByteArrayOutputStream
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:51:0x00d7  */
-    /* JADX WARN: Removed duplicated region for block: B:63:0x00df A[EXC_TOP_SPLITTER, SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:51:0x00d7 */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:63:0x00df
+     * A[EXC_TOP_SPLITTER, SYNTHETIC]
+     */
     /* JADX WARN: Removed duplicated region for block: B:74:? A[SYNTHETIC] */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    public static CameraImage buildRawImage(CameraRequestTag cameraRequestTag, Image image, CaptureResult captureResult, long j) throws Throwable {
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    public static CameraImage buildRawImage(CameraRequestTag cameraRequestTag, Image image, CaptureResult captureResult,
+            long j) throws Throwable {
         ByteArrayOutputStream byteArrayOutputStream;
-        CameraUnitLog.v(TAG, "buildRawImage, rawImg: " + image + ", captureResult: " + captureResult + ", cameraType: " + cameraRequestTag.mCameraType);
+        CameraUnitLog.v(TAG, "buildRawImage, rawImg: " + image + ", captureResult: " + captureResult + ", cameraType: "
+                + cameraRequestTag.mCameraType);
         ByteArrayOutputStream byteArrayOutputStream2 = 0;
         if (image != null) {
             try {
                 if (32 == image.getFormat()) {
-                    DngCreator dngCreator = new DngCreator(CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(cameraRequestTag.mCameraType).get(), captureResult);
+                    DngCreator dngCreator = new DngCreator(CameraCharacteristicsHelper
+                            .getCameraCharacteristicsWrapper(cameraRequestTag.mCameraType).get(), captureResult);
                     int i = cameraRequestTag.mOrientation;
                     if (i == 90) {
                         dngCreator.setOrientation(6);
@@ -255,7 +281,9 @@ public class Util {
                             byteArrayOutputStream = new ByteArrayOutputStream();
                             try {
                                 dngCreator.writeImage(byteArrayOutputStream, image);
-                                CameraImage cameraImage = new CameraImage(byteArrayOutputStream.toByteArray(), 32, 0, 0, image.getWidth(), image.getHeight(), cameraRequestTag.mOrientation, j, false, cameraRequestTag.mCameraType, 3);
+                                CameraImage cameraImage = new CameraImage(byteArrayOutputStream.toByteArray(), 32, 0, 0,
+                                        image.getWidth(), image.getHeight(), cameraRequestTag.mOrientation, j, false,
+                                        cameraRequestTag.mCameraType, 3);
                                 if (image != null) {
                                     image.close();
                                 }
@@ -322,7 +350,8 @@ public class Util {
     }
 
     public static Rect getCropRegionForZoom(Float f, String str) {
-        Rect rect = (Rect) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str).get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE);
+        Rect rect = (Rect) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str)
+                .get(CameraCharacteristics.SENSOR_INFO_ACTIVE_ARRAY_SIZE);
         Rect rect2 = new Rect();
         int iWidth = rect.width() / 2;
         int iHeight = rect.height() / 2;
@@ -332,8 +361,14 @@ public class Util {
         return rect2;
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v21, resolved type: byte[] */
-    /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: java.lang.String */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v21, resolved type:
+     * byte[]
+     */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type:
+     * java.lang.String
+     */
     /* JADX WARN: Multi-variable type inference failed */
     public static <T> T getValue(String str, String str2) {
         if (FORMAT_BYTE.equals(str)) {
@@ -367,12 +402,14 @@ public class Util {
     }
 
     public static void initScreenHeightWidth() {
-        Display.Mode mode = ((WindowManager) ContextHolder.getContext().getSystemService("window")).getDefaultDisplay().getMode();
+        Display.Mode mode = ((WindowManager) ContextHolder.getContext().getSystemService("window")).getDefaultDisplay()
+                .getMode();
         int physicalHeight = mode.getPhysicalHeight();
         int physicalWidth = mode.getPhysicalWidth();
         sScreenHeight = Math.max(physicalHeight, physicalWidth);
         sScreenWidth = Math.min(physicalHeight, physicalWidth);
-        CameraUnitLog.e(TAG, "initScreenHeightWidth sScreenHeight: " + sScreenHeight + ", sScreenWidth: " + sScreenWidth);
+        CameraUnitLog.e(TAG,
+                "initScreenHeightWidth sScreenHeight: " + sScreenHeight + ", sScreenWidth: " + sScreenWidth);
     }
 
     public static int getScreenHeight() {
@@ -421,10 +458,12 @@ public class Util {
         }
     }
 
-    public static ApsCameraRequestTag createApsRequestTag(CameraRequestTag cameraRequestTag, ImageCategory.MetaItemInfo metaItemInfo) {
+    public static ApsCameraRequestTag createApsRequestTag(CameraRequestTag cameraRequestTag,
+            ImageCategory.MetaItemInfo metaItemInfo) {
         ApsCameraRequestTag apsCameraRequestTag = new ApsCameraRequestTag();
         if (metaItemInfo != null && metaItemInfo.get(ParameterKeys.KEY_LOGIC_CAMERA_ID) != null) {
-            apsCameraRequestTag.mbFrontCamera = CameraCharacteristicsHelper.isFrontCamera(((Integer) metaItemInfo.get(ParameterKeys.KEY_LOGIC_CAMERA_ID)).intValue());
+            apsCameraRequestTag.mbFrontCamera = CameraCharacteristicsHelper
+                    .isFrontCamera(((Integer) metaItemInfo.get(ParameterKeys.KEY_LOGIC_CAMERA_ID)).intValue());
         }
         if (cameraRequestTag != null) {
             apsCameraRequestTag.mbInThirdApp = cameraRequestTag.mbInThirdApp;
@@ -449,7 +488,8 @@ public class Util {
         }
         CameraUnitLog.d(TAG, "getMaxSizeByRatio, sizes: " + Arrays.toString(sizeArr) + ", targetRatio: " + d);
         for (Size size2 : sizeArr) {
-            if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d && (size == null || size.getHeight() < size2.getHeight())) {
+            if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d
+                    && (size == null || size.getHeight() < size2.getHeight())) {
                 size = size2;
             }
         }
@@ -466,7 +506,7 @@ public class Util {
         if (sizeArr == null) {
             return null;
         }
-        int iAbs = Reader.READ_DONE;
+        int iAbs = Integer.MAX_VALUE;
         int iAbs2 = Integer.MAX_VALUE;
         for (Size size2 : sizeArr) {
             if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d) {
@@ -487,7 +527,8 @@ public class Util {
             }
         }
         if (size != null) {
-            CameraUnitLog.v(TAG, "getOptimalPreviewSize, screen: " + sScreenWidth + "x" + sScreenHeight + ", targetRatio: " + d + ", optimalSize: " + size.getHeight() + "x" + size.getWidth());
+            CameraUnitLog.v(TAG, "getOptimalPreviewSize, screen: " + sScreenWidth + "x" + sScreenHeight
+                    + ", targetRatio: " + d + ", optimalSize: " + size.getHeight() + "x" + size.getWidth());
         } else {
             CameraUnitLog.e(TAG, "getOptimalPreviewSize, optimalSize is null");
         }
@@ -502,12 +543,16 @@ public class Util {
         Size size = null;
         if (sizeArr != null && sizeArr.length != 0) {
             for (Size size2 : sizeArr) {
-                if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= PICTURE_SIZE_IMPRECISE_ASPECT_TOLERANCE && ((-1 == i || size2.getHeight() <= i) && (size == null || size.getHeight() < size2.getHeight()))) {
+                if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight()))
+                        - d) <= PICTURE_SIZE_IMPRECISE_ASPECT_TOLERANCE
+                        && ((-1 == i || size2.getHeight() <= i)
+                                && (size == null || size.getHeight() < size2.getHeight()))) {
                     size = size2;
                 }
             }
             if (size != null) {
-                CameraUnitLog.v(TAG, "getImpreciseMaxSizeByRatio, size: " + size.getHeight() + "x" + size.getWidth() + ", targetRatio: " + d);
+                CameraUnitLog.v(TAG, "getImpreciseMaxSizeByRatio, size: " + size.getHeight() + "x" + size.getWidth()
+                        + ", targetRatio: " + d);
             } else {
                 CameraUnitLog.e(TAG, "getImpreciseMaxSizeByRatio, optimalSize is null");
             }
@@ -519,12 +564,14 @@ public class Util {
         Size size = null;
         if (sizeArr != null && sizeArr.length != 0) {
             for (Size size2 : sizeArr) {
-                if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d && (size == null || size2.getHeight() < size.getHeight())) {
+                if (Math.abs((((double) size2.getWidth()) / ((double) size2.getHeight())) - d) <= 0.01d
+                        && (size == null || size2.getHeight() < size.getHeight())) {
                     size = size2;
                 }
             }
             if (size != null) {
-                CameraUnitLog.v(TAG, "getMinSizeByRatio, size: " + size.getHeight() + "x" + size.getWidth() + ", targetRatio: " + d);
+                CameraUnitLog.v(TAG,
+                        "getMinSizeByRatio, size: " + size.getHeight() + "x" + size.getWidth() + ", targetRatio: " + d);
             } else {
                 CameraUnitLog.e(TAG, "getMinSizeByRatio, optimalSize is null");
             }
@@ -557,11 +604,15 @@ public class Util {
     }
 
     public static int getNightStateDecision(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        int iIntValue = previewResult != null ? ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue() : 0;
+        int iIntValue = previewResult != null
+                ? ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue()
+                : 0;
         if (48 == iIntValue || 49 == iIntValue || 50 == iIntValue) {
             return ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_TURBO_RAW_SCENE)).intValue();
         }
-        if (9 == iIntValue || 10 == iIntValue || 11 == iIntValue || 13 == iIntValue || 29 == iIntValue || 14 == iIntValue || 21 == iIntValue || 31 == iIntValue || 35 == iIntValue || 40 == iIntValue || 32 == iIntValue || 41 == iIntValue) {
+        if (9 == iIntValue || 10 == iIntValue || 11 == iIntValue || 13 == iIntValue || 29 == iIntValue
+                || 14 == iIntValue || 21 == iIntValue || 31 == iIntValue || 35 == iIntValue || 40 == iIntValue
+                || 32 == iIntValue || 41 == iIntValue) {
             return ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SUPER_NIGHT_SCENE)).intValue();
         }
         return 0;
@@ -569,7 +620,7 @@ public class Util {
 
     public static String[] joinAppAndHalAlgoFlag(String[] strArr, String[] strArr2) {
         if (strArr == null || strArr.length <= 0) {
-            return (strArr2 == null || strArr2.length == 0) ? new String[]{ApsParameters.ALGO_NAME_NONE} : strArr2;
+            return (strArr2 == null || strArr2.length == 0) ? new String[] { ApsParameters.ALGO_NAME_NONE } : strArr2;
         }
         if (strArr2 == null || strArr2.length == 0) {
             return strArr;
@@ -582,10 +633,13 @@ public class Util {
 
     public static boolean isAIOrPoitraitNight(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
         String[] strArr;
-        if (previewResult == null || (strArr = (String[]) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_ALGO_FLAG)) == null || strArr.length <= 0) {
+        if (previewResult == null
+                || (strArr = (String[]) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_ALGO_FLAG)) == null
+                || strArr.length <= 0) {
             return false;
         }
-        return ParameterKeys.ALGO_NAME_SUPERNIGHT.equals(strArr[0]) || ParameterKeys.ALGO_NAME_FRONT_PORTRAIT_SUPERNIGHT.equals(strArr[0]);
+        return ParameterKeys.ALGO_NAME_SUPERNIGHT.equals(strArr[0])
+                || ParameterKeys.ALGO_NAME_FRONT_PORTRAIT_SUPERNIGHT.equals(strArr[0]);
     }
 
     public static boolean isTurboHdr(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
@@ -606,7 +660,10 @@ public class Util {
         }
         int iIntValue = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_FEATURE_TYPE)).intValue();
         int iIntValue2 = ((Integer) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SCENE_MODE)).intValue();
-        boolean z = 4 == iIntValue || 8 == iIntValue || 16 == iIntValue || 24 == iIntValue || 26 == iIntValue || 30 == iIntValue || 34 == iIntValue || 27 == iIntValue || 28 == iIntValue || 32 == iIntValue || 36 == iIntValue || 37 == iIntValue || 42 == iIntValue || 43 == iIntValue || 27 == iIntValue2 || 28 == iIntValue2 || 45 == iIntValue || 47 == iIntValue;
+        boolean z = 4 == iIntValue || 8 == iIntValue || 16 == iIntValue || 24 == iIntValue || 26 == iIntValue
+                || 30 == iIntValue || 34 == iIntValue || 27 == iIntValue || 28 == iIntValue || 32 == iIntValue
+                || 36 == iIntValue || 37 == iIntValue || 42 == iIntValue || 43 == iIntValue || 27 == iIntValue2
+                || 28 == iIntValue2 || 45 == iIntValue || 47 == iIntValue;
         CameraUnitLog.d(TAG, "isHdrOn, isHdrOn: " + z);
         return z;
     }
@@ -641,15 +698,19 @@ public class Util {
         }
     }
 
-    public static void dumpSessionConfig(SessionConfiguration sessionConfiguration, LinkedList<SurfaceWrapper> linkedList, String str) {
+    public static void dumpSessionConfig(SessionConfiguration sessionConfiguration,
+            LinkedList<SurfaceWrapper> linkedList, String str) {
         if (SdkConfig.META_DUMP) {
             CameraUnitLog.d(TAG, "dumpSessionConfig: ========================================");
             CameraUnitLog.d(TAG, "dumpSessionConfig: camera device id: " + str);
-            CameraUnitLog.d(TAG, "dumpSessionConfig: Session Num: 0x" + Integer.toHexString(sessionConfiguration.getSessionType()));
+            CameraUnitLog.d(TAG,
+                    "dumpSessionConfig: Session Num: 0x" + Integer.toHexString(sessionConfiguration.getSessionType()));
             InputConfiguration inputConfiguration = sessionConfiguration.getInputConfiguration();
             CameraUnitLog.d(TAG, "dumpSessionConfig: inputConfiguration:" + inputConfiguration);
             if (inputConfiguration != null) {
-                CameraUnitLog.d(TAG, String.format(Locale.ENGLISH, "dumpSessionConfig: inputConfiguration: %dx%d:%d", Integer.valueOf(inputConfiguration.getWidth()), Integer.valueOf(inputConfiguration.getHeight()), Integer.valueOf(inputConfiguration.getFormat())));
+                CameraUnitLog.d(TAG, String.format(Locale.ENGLISH, "dumpSessionConfig: inputConfiguration: %dx%d:%d",
+                        Integer.valueOf(inputConfiguration.getWidth()), Integer.valueOf(inputConfiguration.getHeight()),
+                        Integer.valueOf(inputConfiguration.getFormat())));
             }
             List<OutputConfiguration> outputConfigurations = sessionConfiguration.getOutputConfigurations();
             Iterator<SurfaceWrapper> it = linkedList.iterator();
@@ -675,7 +736,8 @@ public class Util {
         } else {
             CameraUnitLog.d(TAG, "dumpSessionConfig: ignore du-to release version");
         }
-        CameraUnitLog.e(TAG, "dumpSessionConfig, createCaptureSession with operation mode: 0x" + Integer.toHexString(sessionConfiguration.getSessionType()).toUpperCase(Locale.ENGLISH));
+        CameraUnitLog.e(TAG, "dumpSessionConfig, createCaptureSession with operation mode: 0x"
+                + Integer.toHexString(sessionConfiguration.getSessionType()).toUpperCase(Locale.ENGLISH));
     }
 
     public static void dumpCaptureRequest(CaptureRequest captureRequest, String str) {
@@ -698,7 +760,8 @@ public class Util {
             buffer.position(0);
             byte[] bArr = new byte[buffer.limit() - buffer.position()];
             buffer.get(bArr);
-            String str = "FrameFlag_" + i + "_frameNumber_" + j + "_metaTimeStamp_" + j2 + "_RAW_" + image.getWidth() + "x" + image.getHeight() + "_" + image.getTimestamp() + ".raw";
+            String str = "FrameFlag_" + i + "_frameNumber_" + j + "_metaTimeStamp_" + j2 + "_RAW_" + image.getWidth()
+                    + "x" + image.getHeight() + "_" + image.getTimestamp() + ".raw";
             saveBytesToFile(bArr, str);
             CameraUnitLog.d(TAG, "dumpRawSensorImage, dump raw image success, saved at " + DEBUG_SAVE_PATH + str);
         }
@@ -726,7 +789,8 @@ public class Util {
     }
 
     public static Size getMaxSize(Size[] sizeArr) {
-        return (Size) Arrays.stream(sizeArr).filter(new Predicate() { // from class: com.oplus.ocs.camera.common.util.Util$$ExternalSyntheticLambda0
+        return (Size) Arrays.stream(sizeArr).filter(new Predicate() { // from class:
+                                                                      // com.oplus.ocs.camera.common.util.Util$$ExternalSyntheticLambda0
             @Override // java.util.function.Predicate
             public final boolean test(Object obj) {
                 return Objects.nonNull((Size) obj);
@@ -739,7 +803,18 @@ public class Util {
         }).orElse(null);
     }
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0012: ARITH (wrap:int:0x0008: ARITH (wrap:int:0x0000: INVOKE (r1v0 android.util.Size) VIRTUAL call: android.util.Size.getWidth():int A[MD:():int (c), WRAPPED] (LINE:947)) * (wrap:int:0x0004: INVOKE (r1v0 android.util.Size) VIRTUAL call: android.util.Size.getHeight():int A[MD:():int (c), WRAPPED]) A[WRAPPED] (LINE:947)) - (wrap:int:0x0011: ARITH (wrap:int:0x0009: INVOKE (r2v0 android.util.Size) VIRTUAL call: android.util.Size.getWidth():int A[MD:():int (c), WRAPPED]) * (wrap:int:0x000d: INVOKE (r2v0 android.util.Size) VIRTUAL call: android.util.Size.getHeight():int A[MD:():int (c), WRAPPED]) A[WRAPPED]) (LINE:947) */
+    /*
+     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+     * 0x0012: ARITH (wrap:int:0x0008: ARITH (wrap:int:0x0000: INVOKE (r1v0
+     * android.util.Size) VIRTUAL call: android.util.Size.getWidth():int A[MD:():int
+     * (c), WRAPPED] (LINE:947)) * (wrap:int:0x0004: INVOKE (r1v0 android.util.Size)
+     * VIRTUAL call: android.util.Size.getHeight():int A[MD:():int (c), WRAPPED])
+     * A[WRAPPED] (LINE:947)) - (wrap:int:0x0011: ARITH (wrap:int:0x0009: INVOKE
+     * (r2v0 android.util.Size) VIRTUAL call: android.util.Size.getWidth():int
+     * A[MD:():int (c), WRAPPED]) * (wrap:int:0x000d: INVOKE (r2v0
+     * android.util.Size) VIRTUAL call: android.util.Size.getHeight():int
+     * A[MD:():int (c), WRAPPED]) A[WRAPPED]) (LINE:947)
+     */
     static /* synthetic */ int lambda$getMaxSize$0(Size size, Size size2) {
         return (size.getWidth() * size.getHeight()) - (size2.getWidth() * size2.getHeight());
     }
@@ -801,7 +876,8 @@ public class Util {
 
     public static boolean getSystemPropertiesBoolean(String str, boolean z) {
         try {
-            Method declaredMethod = Class.forName("android.os.SystemProperties").getDeclaredMethod("getBoolean", String.class, Boolean.TYPE);
+            Method declaredMethod = Class.forName("android.os.SystemProperties").getDeclaredMethod("getBoolean",
+                    String.class, Boolean.TYPE);
             declaredMethod.setAccessible(true);
             return ((Boolean) declaredMethod.invoke(null, str, Boolean.valueOf(z))).booleanValue();
         } catch (Exception unused) {
@@ -812,7 +888,8 @@ public class Util {
 
     public static String getSystemPropertiesString(String str, String str2) {
         try {
-            Method declaredMethod = Class.forName("android.os.SystemProperties").getDeclaredMethod("get", String.class, String.class);
+            Method declaredMethod = Class.forName("android.os.SystemProperties").getDeclaredMethod("get", String.class,
+                    String.class);
             declaredMethod.setAccessible(true);
             return (String) declaredMethod.invoke(null, str, str2);
         } catch (Exception unused) {
@@ -827,7 +904,8 @@ public class Util {
 
     public static boolean isSupportOfflineNight(String str) {
         if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_NIGHT_OFFLINE_R2Y))) {
-            return ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_OFFLINE_R2Y_DISABLE_IN_NIGHT_MODE)) && "night_mode".equals(str)) ? false : true;
+            return ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_OFFLINE_R2Y_DISABLE_IN_NIGHT_MODE))
+                    && "night_mode".equals(str)) ? false : true;
         }
         return false;
     }

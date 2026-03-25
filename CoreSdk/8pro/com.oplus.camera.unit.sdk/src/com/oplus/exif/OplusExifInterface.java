@@ -160,14 +160,14 @@ public class OplusExifInterface {
     private final DateFormat mGPSDateStampFormat;
     private final Calendar mGPSTimeStampCalendar;
     private SparseIntArray mTagInfo;
-    public static final int TAG_IMAGE_WIDTH = defineTag(0, 256);
-    public static final int TAG_IMAGE_LENGTH = defineTag(0, 257);
-    public static final int TAG_BITS_PER_SAMPLE = defineTag(0, 258);
-    public static final int TAG_COMPRESSION = defineTag(0, 259);
-    public static final int TAG_PHOTOMETRIC_INTERPRETATION = defineTag(0, 262);
-    public static final int TAG_IMAGE_DESCRIPTION = defineTag(0, 270);
-    public static final int TAG_MAKE = defineTag(0, 271);
-    public static final int TAG_MODEL = defineTag(0, 272);
+    public static final int TAG_IMAGE_WIDTH = defineTag(0, (short) 256);
+    public static final int TAG_IMAGE_LENGTH = defineTag(0, (short) 257);
+    public static final int TAG_BITS_PER_SAMPLE = defineTag(0, (short) 258);
+    public static final int TAG_COMPRESSION = defineTag(0, (short) 259);
+    public static final int TAG_PHOTOMETRIC_INTERPRETATION = defineTag(0, (short) 262);
+    public static final int TAG_IMAGE_DESCRIPTION = defineTag(0, (short) 270);
+    public static final int TAG_MAKE = defineTag(0, (short) 271);
+    public static final int TAG_MODEL = defineTag(0, (short) 272);
 
     public interface ColorSpace {
         public static final short SRGB = 1;

@@ -12,7 +12,8 @@ public class OplusFaceBeautyPreview {
 
     public native float getZoomScale();
 
-    public native int init(int i, int i2, int i3, int i4, String str, String str2, String str3, boolean z, boolean z2, byte[] bArr, int i5);
+    public native int init(int i, int i2, int i3, int i4, String str, String str2, String str3, boolean z, boolean z2,
+            byte[] bArr, int i5);
 
     public native int process(int i, int[] iArr, int[] iArr2, int[] iArr3);
 
@@ -30,13 +31,10 @@ public class OplusFaceBeautyPreview {
         if (Util.isQcomPlatform()) {
             if (isFileExist("/product/lib64/libApsFaceBeautyPreviewProductJni.so")) {
                 System.loadLibrary("ApsFaceBeautyPreviewProductJni");
-                return;
             } else if (isFileExist("/system_ext/lib64/libApsFaceBeautyPreviewJni.qti.so")) {
                 System.loadLibrary("ApsFaceBeautyPreviewJni.qti");
-                return;
             } else {
                 System.loadLibrary("ApsFaceBeautyPreviewJni");
-                return;
             }
         }
         if (isFileExist("/product/lib64/libApsFaceBeautyPreviewProductJni.so")) {

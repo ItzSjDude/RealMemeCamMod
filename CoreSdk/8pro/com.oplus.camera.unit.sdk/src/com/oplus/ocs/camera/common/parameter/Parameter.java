@@ -39,7 +39,8 @@ public class Parameter {
         public static final String STOP_RECORDING = "stop_recording";
     }
 
-    protected Parameter(@NonNull ConcurrentHashMap<Key<?>, ValueWrapper<?>> concurrentHashMap, @NonNull ConcurrentHashMap<CaptureRequest.Key<?>, ValueWrapper<?>> concurrentHashMap2) {
+    protected Parameter(@NonNull ConcurrentHashMap<Key<?>, ValueWrapper<?>> concurrentHashMap,
+            @NonNull ConcurrentHashMap<CaptureRequest.Key<?>, ValueWrapper<?>> concurrentHashMap2) {
         this.mCustomParameterMap = concurrentHashMap;
         this.mAndroidParameterMap = concurrentHashMap2;
     }
@@ -106,7 +107,7 @@ public class Parameter {
 
     private void updateAndroidParameter(CaptureRequestProxy.Builder builder) {
         for (Map.Entry<CaptureRequest.Key<?>, ValueWrapper<?>> entry : this.mAndroidParameterMap.entrySet()) {
-            builder.setParameter(entry.getKey(), entry.getValue().getValue().get());
+            builder.setParameter((CaptureRequest.Key) entry.getKey(), entry.getValue().getValue().get());
         }
     }
 
@@ -176,7 +177,8 @@ public class Parameter {
         }
 
         public Parameter build() {
-            return new Parameter(new ConcurrentHashMap(this.mCustomParameterMap), new ConcurrentHashMap(this.mAndroidParameterMap));
+            return new Parameter(new ConcurrentHashMap(this.mCustomParameterMap),
+                    new ConcurrentHashMap(this.mAndroidParameterMap));
         }
     }
 

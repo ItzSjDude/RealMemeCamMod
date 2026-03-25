@@ -42,18 +42,25 @@ final class MessageLiteToString {
         for (String str : treeSet) {
             String strSubstring = str.startsWith("get") ? str.substring(3) : str;
             boolean zBooleanValue = true;
-            if (strSubstring.endsWith(LIST_SUFFIX) && !strSubstring.endsWith(BUILDER_LIST_SUFFIX) && !strSubstring.equals(LIST_SUFFIX)) {
-                String str2 = strSubstring.substring(0, 1).toLowerCase() + strSubstring.substring(1, strSubstring.length() - 4);
+            if (strSubstring.endsWith(LIST_SUFFIX) && !strSubstring.endsWith(BUILDER_LIST_SUFFIX)
+                    && !strSubstring.equals(LIST_SUFFIX)) {
+                String str2 = strSubstring.substring(0, 1).toLowerCase()
+                        + strSubstring.substring(1, strSubstring.length() - 4);
                 java.lang.reflect.Method method2 = (java.lang.reflect.Method) map.get(str);
                 if (method2 != null && method2.getReturnType().equals(List.class)) {
-                    printField(sb, i, camelCaseToSnakeCase(str2), GeneratedMessageLite.invokeOrDie(method2, messageLite, new Object[0]));
+                    printField(sb, i, camelCaseToSnakeCase(str2),
+                            GeneratedMessageLite.invokeOrDie(method2, messageLite, new Object[0]));
                 }
             }
             if (strSubstring.endsWith(MAP_SUFFIX) && !strSubstring.equals(MAP_SUFFIX)) {
-                String str3 = strSubstring.substring(0, 1).toLowerCase() + strSubstring.substring(1, strSubstring.length() - 3);
+                String str3 = strSubstring.substring(0, 1).toLowerCase()
+                        + strSubstring.substring(1, strSubstring.length() - 3);
                 java.lang.reflect.Method method3 = (java.lang.reflect.Method) map.get(str);
-                if (method3 != null && method3.getReturnType().equals(Map.class) && !method3.isAnnotationPresent(Deprecated.class) && Modifier.isPublic(method3.getModifiers())) {
-                    printField(sb, i, camelCaseToSnakeCase(str3), GeneratedMessageLite.invokeOrDie(method3, messageLite, new Object[0]));
+                if (method3 != null && method3.getReturnType().equals(Map.class)
+                        && !method3.isAnnotationPresent(Deprecated.class)
+                        && Modifier.isPublic(method3.getModifiers())) {
+                    printField(sb, i, camelCaseToSnakeCase(str3),
+                            GeneratedMessageLite.invokeOrDie(method3, messageLite, new Object[0]));
                 }
             }
             if (((java.lang.reflect.Method) map2.get("set" + strSubstring)) != null) {
@@ -71,7 +78,8 @@ final class MessageLiteToString {
                             zBooleanValue = false;
                         }
                     } else {
-                        zBooleanValue = ((Boolean) GeneratedMessageLite.invokeOrDie(method5, messageLite, new Object[0])).booleanValue();
+                        zBooleanValue = ((Boolean) GeneratedMessageLite.invokeOrDie(method5, messageLite,
+                                new Object[0])).booleanValue();
                     }
                     if (zBooleanValue) {
                         printField(sb, i, camelCaseToSnakeCase(str4), objInvokeOrDie);
@@ -80,10 +88,12 @@ final class MessageLiteToString {
             }
         }
         if (messageLite instanceof GeneratedMessageLite.ExtendableMessage) {
-            Iterator<Map.Entry<T, Object>> it = ((GeneratedMessageLite.ExtendableMessage) messageLite).extensions.iterator();
+            Iterator<Map.Entry<?, Object>> it = ((GeneratedMessageLite.ExtendableMessage) messageLite).extensions
+                    .iterator();
             while (it.hasNext()) {
                 Map.Entry entry = (Map.Entry) it.next();
-                printField(sb, i, "[" + ((GeneratedMessageLite.ExtensionDescriptor) entry.getKey()).getNumber() + "]", entry.getValue());
+                printField(sb, i, "[" + ((GeneratedMessageLite.ExtensionDescriptor) entry.getKey()).getNumber() + "]",
+                        entry.getValue());
             }
         }
         GeneratedMessageLite generatedMessageLite = (GeneratedMessageLite) messageLite;
@@ -111,7 +121,8 @@ final class MessageLiteToString {
         if (obj instanceof ByteString) {
             return obj.equals(ByteString.EMPTY);
         }
-        return obj instanceof MessageLite ? obj == ((MessageLite) obj).getDefaultInstanceForType() : (obj instanceof java.lang.Enum) && ((java.lang.Enum) obj).ordinal() == 0;
+        return obj instanceof MessageLite ? obj == ((MessageLite) obj).getDefaultInstanceForType()
+                : (obj instanceof java.lang.Enum) && ((java.lang.Enum) obj).ordinal() == 0;
     }
 
     static final void printField(StringBuilder sb, int i, String str, Object obj) {

@@ -98,6 +98,7 @@ public class AlgoSwitchConfig {
         CONFIG_CONDITION.block();
         PreviewConfig previewConfig = sPreviewConfigMap.get(str + "@" + i);
         if (previewConfig != null && previewConfig.mComponentMap.containsKey(str2)
+                
                 && (component = previewConfig.mComponentMap.get(str2)) != null && component.mAlgoList != null) {
             for (String str4 : component.mAlgoList) {
                 if (str4.equals(str3)) {
@@ -138,6 +139,7 @@ public class AlgoSwitchConfig {
         return new PreviewConfig(previewConfig);
     }
 
+            
     public static PreviewConfig getPreviewConfig(String str, int i, Size size, Size size2, Size size3, boolean z,
             boolean z2, boolean z3) {
         CONFIG_CONDITION.block();
@@ -153,6 +155,7 @@ public class AlgoSwitchConfig {
             checkNeedAlgorithmVideoFrc(false, component);
             if (z2 && z) {
                 component.mbEnable = true;
+                    
             }
             if ((component.mMasterInputWidth != size.getWidth() || component.mMasterInputHeight != size.getHeight())
                     && component.mbEnable) {
@@ -170,6 +173,7 @@ public class AlgoSwitchConfig {
             PreviewConfig.Component component2 = previewConfig2.mComponentMap.get(APS_PIPELINE_VIDEO);
             checkNeedAlgorithmVideoFrc(z3, component2);
             if (z2 && z) {
+                    
                 component2.mbEnable = true;
             }
             if ((component2.mMasterInputWidth != size2.getWidth() || component2.mMasterInputHeight != size2.getHeight())
@@ -184,6 +188,7 @@ public class AlgoSwitchConfig {
                 component2.mOutputHeight = size3.getHeight();
             }
         }
+                    
         if (size != null && previewConfig2.mComponentMap.keySet().contains(APS_PIPELINE_ASD)) {
             PreviewConfig.Component component3 = previewConfig2.mComponentMap.get(APS_PIPELINE_ASD);
             checkNeedAlgorithmVideoFrc(false, component3);
@@ -217,6 +222,7 @@ public class AlgoSwitchConfig {
         if (str != null) {
             try {
                 JSONObject jSONObject = new JSONObject(str);
+                            
                 sApsVersion = jSONObject.getInt("aps_version");
                 sApsMode = jSONObject.getInt("aps_mode");
                 ApsAdapterLog.d(TAG, "parseConfigData, sApsVersion: " + sApsVersion + ", sApsMode: " + sApsMode);
@@ -262,6 +268,7 @@ public class AlgoSwitchConfig {
                             captureConfig.mbEnable = z;
                             linkedHashSet.remove("id");
                             linkedHashSet.remove("enable");
+                                    
                             for (String str : linkedHashSet) {
                                 if (jSONObject3.getInt(str) != 0) {
                                     captureConfig.mAlgos.add(str);
@@ -294,6 +301,7 @@ public class AlgoSwitchConfig {
                             PreviewConfig previewConfig = new PreviewConfig();
                             previewConfig.mCameraMode = string;
                             previewConfig.mCameraId = jSONObject3.getInt("id");
+                                    
                             previewConfig.mCameraNum = jSONObject3.getInt("camera_num");
                             previewConfig.mIsSeparateStreamForPrevAndVideo = jSONObject3.getInt("separate_preview_video");
                             JSONObject jSONObject4 = jSONObject3.getJSONObject("pipelines");
@@ -340,6 +348,9 @@ public class AlgoSwitchConfig {
                                 } catch (Exception e) {
                                     ApsAdapterLog.e(TAG, "parsePreviewConfig, e1/e2 inner error: " + e.getMessage());
                                 }
+                                                            
+                                                                    
+                                                                    
                             }
                             sPreviewConfigMap.put(previewConfig.mCameraMode + "@" + previewConfig.mCameraId, previewConfig);
                         }
@@ -361,6 +372,7 @@ public class AlgoSwitchConfig {
         public int mCameraId;
         public String mCameraMode;
         public boolean mbEnable;
+                                    
 
         CaptureConfig() {
             this.mCameraMode = null;
@@ -407,6 +419,7 @@ public class AlgoSwitchConfig {
             this.mCameraId = -1;
             this.mCameraNum = -1;
             this.mIsSeparateStreamForPrevAndVideo = 0;
+                    
             this.mComponentMap = new ArrayMap<>();
             this.mCameraMode = previewConfig.mCameraMode;
             this.mCameraId = previewConfig.mCameraId;
@@ -418,8 +431,7 @@ public class AlgoSwitchConfig {
         }
 
         public String toString() {
-            return "mCameraMode: " + this.mCameraMode + ", mCameraId: " + this.mCameraId + ", mCameraNum:
-                    " + this.mCameraNum + ", mIsSeparateStreamForPrevAndVideo: " + this.mIsSeparateStreamForPrevAndVideo + ", mComponentMap: " + this.mComponentMap;
+            return "mCameraMode: " + this.mCameraMode + ", mCameraId: " + this.mCameraId + ", mCameraNum: " + this.mCameraNum + ", mIsSeparateStreamForPrevAndVideo: " + this.mIsSeparateStreamForPrevAndVideo + ", mComponentMap: " + this.mComponentMap;
         }
 
         public static class Component {
@@ -443,9 +455,18 @@ public class AlgoSwitchConfig {
         }
     }
 }
+                    
+                    
 
                     
                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
