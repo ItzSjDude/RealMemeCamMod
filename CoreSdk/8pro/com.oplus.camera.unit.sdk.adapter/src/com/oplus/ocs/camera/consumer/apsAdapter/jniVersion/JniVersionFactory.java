@@ -2,7 +2,8 @@ package com.oplus.ocs.camera.consumer.apsAdapter.jniVersion;
 
 import android.text.TextUtils;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class JniVersionFactory {
     private static final String TAG = "JniVersionFactory";
 

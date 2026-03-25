@@ -16,14 +16,14 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsPreviewDecisionParam;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsPreviewParam;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public interface ApsInterface {
     public static final int ADD_FRAME_ERROR = -1;
     public static final int ADD_FRAME_WITH_COPY = 0;
     public static final int ADD_FRAME_WITH_DETACH = 1;
     public static final int ADD_FRAME_WITH_HOLD = 2;
 
-    /* loaded from: classes.dex */
     public interface ApsListener {
         void initHeifCodec(long j);
 

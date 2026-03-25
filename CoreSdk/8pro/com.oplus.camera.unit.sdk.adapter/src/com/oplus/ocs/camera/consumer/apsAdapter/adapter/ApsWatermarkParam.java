@@ -2,7 +2,8 @@ package com.oplus.ocs.camera.consumer.apsAdapter.adapter;
 
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsWatermarkParam {
     private Bitmap mBitmap;
     private int mRefWidth;

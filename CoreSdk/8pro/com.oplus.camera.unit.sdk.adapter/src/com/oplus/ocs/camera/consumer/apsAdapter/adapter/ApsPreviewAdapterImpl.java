@@ -31,9 +31,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-/* JADX INFO: Access modifiers changed from: package-private */
-/* loaded from: classes.dex */
-public class ApsPreviewAdapterImpl {
+
+/* JADX INFO: loaded from: classes.dex */
+class ApsPreviewAdapterImpl {
     private static final boolean DEBUG = false;
     private static final Long FIRST_PREVIEW_FRAME_NUMBER = 0L;
     private static final int MAX_INFLIGHT_IMAGE_NUMBER = 6;
@@ -57,16 +57,18 @@ public class ApsPreviewAdapterImpl {
     private List<CaptureRequest> mCaptureRequestList = new CopyOnWriteArrayList();
     private long mFrameNumber = -1;
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public ApsPreviewAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener) {
+    protected ApsPreviewAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener) {
         this.mApsInterface = null;
         this.mApsInterface = apsInterface;
         this.mImageProcessListener = imageProcessListener;
         createProcessThread();
     }
 
+    /* JADX DEBUG: Multi-variable search result rejected for r1v6, resolved type: java.lang.Object[] */
+    /* JADX WARN: Multi-variable type inference failed */
     private void createProcessThread() {
         CameraHandlerThread cameraHandlerThread = null;
+        Object[] objArr = 0;
         if (this.mProcessHandler == null) {
             CameraHandlerThread cameraHandlerThread2 = new CameraHandlerThread("PreviewProcessThread");
             cameraHandlerThread2.enableUxState();
@@ -107,14 +109,14 @@ public class ApsPreviewAdapterImpl {
     }
 
     private boolean checkSendFrames(long j, ImageCategory imageCategory) {
-        Set<Long> set = (Set) imageCategory.mImageItemList.get(0).get(ApsParameters.KEY_FRAMES_CAN_NOT_SKIP);
+        Set set = (Set) imageCategory.mImageItemList.get(0).get(ApsParameters.KEY_FRAMES_CAN_NOT_SKIP);
         if (set != null) {
-            for (Long l : set) {
-                long longValue = l.longValue();
-                ImageCategory imageCategory2 = this.mProcessMap.get(Long.valueOf(longValue));
-                if (imageCategory2 != null && !imageCategory2.mbAlreadySendAps && !imageCategory2.mImageItemList.isEmpty() && longValue < j) {
-                    String str = TAG;
-                    ApsAdapterLog.i(str, "checkSendFrames, stop sending frame " + j + " to avoid skip " + longValue + " which is marked by ApsParameters.KEY_FRAMES_CAN_NOT_SKIP");
+            Iterator it = set.iterator();
+            while (it.hasNext()) {
+                long jLongValue = ((Long) it.next()).longValue();
+                ImageCategory imageCategory2 = this.mProcessMap.get(Long.valueOf(jLongValue));
+                if (imageCategory2 != null && !imageCategory2.mbAlreadySendAps && !imageCategory2.mImageItemList.isEmpty() && jLongValue < j) {
+                    ApsAdapterLog.i(TAG, "checkSendFrames, stop sending frame " + j + " to avoid skip " + jLongValue + " which is marked by ApsParameters.KEY_FRAMES_CAN_NOT_SKIP");
                     imageCategory2.mbHoldSendAps = true;
                     imageCategory.mbNeedReSendAps = true;
                     this.mProcessMap.put(Long.valueOf(j), imageCategory);
@@ -127,7 +129,7 @@ public class ApsPreviewAdapterImpl {
 
     private void checkReSendFrames(ImageCategory imageCategory) {
         if (imageCategory.mbHoldSendAps) {
-            ArrayList<Long> arrayList = new ArrayList();
+            ArrayList arrayList = new ArrayList();
             Iterator<Map.Entry<Long, ImageCategory>> it = this.mProcessMap.entrySet().iterator();
             while (it != null && it.hasNext()) {
                 Map.Entry<Long, ImageCategory> next = it.next();
@@ -135,13 +137,13 @@ public class ApsPreviewAdapterImpl {
                     arrayList.add(next.getKey());
                 }
             }
-            for (Long l : arrayList) {
-                long longValue = l.longValue();
-                Message obtainMessage = this.mProcessHandler.obtainMessage(2);
-                obtainMessage.obj = this.mProcessMap.remove(Long.valueOf(longValue));
-                obtainMessage.sendToTarget();
-                String str = TAG;
-                ApsAdapterLog.i(str, "checkReSendFrames, resend frame " + longValue);
+            Iterator it2 = arrayList.iterator();
+            while (it2.hasNext()) {
+                long jLongValue = ((Long) it2.next()).longValue();
+                Message messageObtainMessage = this.mProcessHandler.obtainMessage(2);
+                messageObtainMessage.obj = this.mProcessMap.remove(Long.valueOf(jLongValue));
+                messageObtainMessage.sendToTarget();
+                ApsAdapterLog.i(TAG, "checkReSendFrames, resend frame " + jLongValue);
             }
         }
     }
@@ -149,9 +151,9 @@ public class ApsPreviewAdapterImpl {
     private void sendImageAndMetaToAps(long j, ImageCategory imageCategory) {
         if (checkSendFrames(j, imageCategory)) {
             imageCategory.mbAlreadySendAps = true;
-            Message obtainMessage = this.mProcessHandler.obtainMessage(2);
-            obtainMessage.obj = imageCategory;
-            obtainMessage.sendToTarget();
+            Message messageObtainMessage = this.mProcessHandler.obtainMessage(2);
+            messageObtainMessage.obj = imageCategory;
+            messageObtainMessage.sendToTarget();
         }
         checkReSendFrames(imageCategory);
     }
@@ -159,84 +161,80 @@ public class ApsPreviewAdapterImpl {
     public void setPermitProcess(boolean z) {
         synchronized (this.mPermitLock) {
             if (this.mbPermit.booleanValue() != z) {
-                String str = TAG;
-                ApsAdapterLog.d(str, "setPermitProcess, mbPermit: " + this.mbPermit + " => " + z);
+                ApsAdapterLog.d(TAG, "setPermitProcess, mbPermit: " + this.mbPermit + " => " + z);
             }
             this.mbPermit = Boolean.valueOf(z);
         }
     }
 
     private boolean checkNeedMatchTimeStamp(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory imageCategory) {
-        if (!imageCategory.mbNeedMatchTimeStamp && imageCategory.mMetaItem == null && ((Integer) imageItemInfo.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER)).intValue() == imageCategory.mImageItemList.size()) {
-            ImageCategory.MetaItemInfo metaItemInfo = this.mCurMetaItemInfo;
-            if (metaItemInfo == null || metaItemInfo.mImageBuffer != null) {
-                ImageCategory.MetaItemInfo metaItemInfo2 = this.mCurMetaItemInfo;
-                if (metaItemInfo2 == null || metaItemInfo2.mImageBuffer == null || this.mMetaImage == null) {
-                    return false;
-                }
-                ImageCategory.MetaItemInfo metaItemInfo3 = this.mCurMetaItemInfo;
-                ImageReader imageReader = metaItemInfo3.mImageBuffer.getImageReader();
-                Image image = this.mMetaImage;
-                metaItemInfo3.mImageBuffer = new ApsResult.ImageBuffer(imageReader, image, ApsUtils.getHardwareBuffer(image), this.mMetaImage.getTimestamp());
-                this.mMetaImageRefCounter.setMetaImageRef(this.mMetaImage, null, true);
-                return true;
-            }
+        if (imageCategory.mbNeedMatchTimeStamp || imageCategory.mMetaItem != null || ((Integer) imageItemInfo.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER)).intValue() != imageCategory.mImageItemList.size()) {
+            return false;
+        }
+        ImageCategory.MetaItemInfo metaItemInfo = this.mCurMetaItemInfo;
+        if (metaItemInfo != null && metaItemInfo.mImageBuffer == null) {
             return true;
         }
-        return false;
+        ImageCategory.MetaItemInfo metaItemInfo2 = this.mCurMetaItemInfo;
+        if (metaItemInfo2 == null || metaItemInfo2.mImageBuffer == null || this.mMetaImage == null) {
+            return false;
+        }
+        ImageCategory.MetaItemInfo metaItemInfo3 = this.mCurMetaItemInfo;
+        ImageReader imageReader = metaItemInfo3.mImageBuffer.getImageReader();
+        Image image = this.mMetaImage;
+        metaItemInfo3.mImageBuffer = new ApsResult.ImageBuffer(imageReader, image, ApsUtils.getHardwareBuffer(image), this.mMetaImage.getTimestamp());
+        this.mMetaImageRefCounter.setMetaImageRef(this.mMetaImage, null, true);
+        return true;
     }
 
     public void setApsConnected(boolean z) {
-        String str = TAG;
-        ApsAdapterLog.d(str, "setApsConnected, mbApsConnected: " + this.mbApsConnected + " => " + z);
+        ApsAdapterLog.d(TAG, "setApsConnected, mbApsConnected: " + this.mbApsConnected + " => " + z);
         this.mbApsConnected = Boolean.valueOf(z);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addImage(ImageCategory.ImageItemInfo imageItemInfo) {
+    protected void addImage(ImageCategory.ImageItemInfo imageItemInfo) {
         ImageCategory imageCategory;
         if (!this.mbApsConnected.booleanValue()) {
             checkImageOverflow((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
             return;
         }
         synchronized (this.mQueueLock) {
-            long longValue = ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
-            if (this.mProcessMap.containsKey(Long.valueOf(longValue))) {
-                imageCategory = this.mProcessMap.get(Long.valueOf(longValue));
+            long jLongValue = ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
+            if (this.mProcessMap.containsKey(Long.valueOf(jLongValue))) {
+                imageCategory = this.mProcessMap.get(Long.valueOf(jLongValue));
                 imageCategory.mImageItemList.add(imageItemInfo);
             } else {
                 imageCategory = new ImageCategory();
                 imageCategory.mImageItemList.add(imageItemInfo);
-                this.mProcessMap.put(Long.valueOf(longValue), imageCategory);
+                this.mProcessMap.put(Long.valueOf(jLongValue), imageCategory);
             }
-            boolean isValid = imageCategory.isValid();
+            boolean zIsValid = imageCategory.isValid();
             imageCategory.mbNeedMatchTimeStamp = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_MATCH_TIME_STAMP)).booleanValue();
-            if (isValid || checkNeedMatchTimeStamp(imageItemInfo, imageCategory)) {
-                checkImageOverflow(Long.valueOf(longValue));
-                if (isValid) {
-                    this.mProcessMap.remove(Long.valueOf(longValue));
+            if (zIsValid || checkNeedMatchTimeStamp(imageItemInfo, imageCategory)) {
+                checkImageOverflow(Long.valueOf(jLongValue));
+                if (zIsValid) {
+                    this.mProcessMap.remove(Long.valueOf(jLongValue));
                 } else {
                     imageCategory.mMetaItem = this.mCurMetaItemInfo.copy();
-                    imageCategory.mMetaItem.setParameter(ApsParameters.KEY_TIME_STAMP, Long.valueOf(longValue));
+                    imageCategory.mMetaItem.setParameter(ApsParameters.KEY_TIME_STAMP, Long.valueOf(jLongValue));
                 }
-                sendImageAndMetaToAps(longValue, imageCategory);
+                sendImageAndMetaToAps(jLongValue, imageCategory);
             }
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void addMetadata(ImageCategory.MetaItemInfo metaItemInfo) {
+    protected void addMetadata(ImageCategory.MetaItemInfo metaItemInfo) {
         ImageCategory imageCategory;
         synchronized (this.mQueueLock) {
             ImageCategory.MetaItemInfo metaItemInfo2 = this.mCurMetaItemInfo;
             if (metaItemInfo2 == null || ((Long) metaItemInfo2.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() < ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()) {
                 this.mCurMetaItemInfo = metaItemInfo;
             }
-            long longValue = ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
-            if (this.mProcessMap.containsKey(Long.valueOf(longValue))) {
-                imageCategory = this.mProcessMap.get(Long.valueOf(longValue));
+            long jLongValue = ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
+            if (this.mProcessMap.containsKey(Long.valueOf(jLongValue))) {
+                imageCategory = this.mProcessMap.get(Long.valueOf(jLongValue));
                 if (imageCategory.mbAlreadySendAps) {
-                    this.mProcessMap.remove(Long.valueOf(longValue));
+                    this.mProcessMap.remove(Long.valueOf(jLongValue));
                     if (metaItemInfo.mImageBuffer != null) {
                         metaItemInfo.mImageBuffer.close();
                     }
@@ -247,26 +245,24 @@ public class ApsPreviewAdapterImpl {
             } else {
                 imageCategory = new ImageCategory();
                 imageCategory.mMetaItem = metaItemInfo;
-                this.mProcessMap.put(Long.valueOf(longValue), imageCategory);
+                this.mProcessMap.put(Long.valueOf(jLongValue), imageCategory);
             }
             if (imageCategory.isValid()) {
-                checkImageOverflow(Long.valueOf(longValue));
-                this.mProcessMap.remove(Long.valueOf(longValue));
-                sendImageAndMetaToAps(longValue, imageCategory);
+                checkImageOverflow(Long.valueOf(jLongValue));
+                this.mProcessMap.remove(Long.valueOf(jLongValue));
+                sendImageAndMetaToAps(jLongValue, imageCategory);
             }
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public boolean dropFrame(long j) {
+    protected boolean dropFrame(long j) {
         synchronized (this.mQueueLock) {
             if (!this.mProcessMap.isEmpty()) {
-                Optional<Long> findFirst = this.mProcessMap.keySet().stream().sorted().findFirst();
-                if (findFirst.isPresent()) {
-                    Long l = findFirst.get();
+                Optional<Long> optionalFindFirst = this.mProcessMap.keySet().stream().sorted().findFirst();
+                if (optionalFindFirst.isPresent()) {
+                    Long l = optionalFindFirst.get();
                     this.mProcessMap.remove(l).releaseImageItemList();
-                    String str = TAG;
-                    ApsAdapterLog.i(str, "dropFrame, frameNumber: " + j + ", timestamp: " + l, true);
+                    ApsAdapterLog.i(TAG, "dropFrame, frameNumber: " + j + ", timestamp: " + l, true);
                     ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
                     if (apsServiceListener != null) {
                         apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY, StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
@@ -283,7 +279,7 @@ public class ApsPreviewAdapterImpl {
 
     /* JADX INFO: Access modifiers changed from: private */
     public int addPreviewFrameBuff(ImageCategory imageCategory) {
-        int i;
+        int iAddPreviewFrameBuff;
         synchronized (this.mPermitLock) {
             if (!this.mbPermit.booleanValue()) {
                 imageCategory.releaseImageItemList();
@@ -301,42 +297,41 @@ public class ApsPreviewAdapterImpl {
                 List<ImageCategory.ImageItemInfo> list = imageCategory.mImageItemList;
                 ApsResult.ImageBuffer[] imageBufferArr = new ApsResult.ImageBuffer[list.size()];
                 int[] iArr = new int[list.size()];
-                i = -1;
-                for (int i2 = 0; i2 < list.size(); i2++) {
+                iAddPreviewFrameBuff = -1;
+                for (int i = 0; i < list.size(); i++) {
                     try {
-                        ImageCategory.ImageItemInfo imageItemInfo2 = list.get(i2);
-                        imageBufferArr[i2] = imageItemInfo2.mImageBuffer;
-                        iArr[i2] = ((Integer) imageItemInfo2.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
+                        ImageCategory.ImageItemInfo imageItemInfo2 = list.get(i);
+                        imageBufferArr[i] = imageItemInfo2.mImageBuffer;
+                        iArr[i] = ((Integer) imageItemInfo2.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
                     } catch (Exception e) {
                         ApsAdapterLog.e(TAG, "addPreviewFrameBuff error.", e);
                     }
                 }
-                long j = -1;
+                long jLongValue = -1;
                 if (imageCategory.mbNeedMatchTimeStamp) {
                     CaptureResult captureResult = (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT);
                     if (captureResult != null) {
-                        j = captureResult.getFrameNumber();
+                        jLongValue = captureResult.getFrameNumber();
                     }
                 } else {
                     Long l = (Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER);
                     if (l != null) {
-                        j = l.longValue();
+                        jLongValue = l.longValue();
                     }
                 }
-                long j2 = j;
-                ApsPreviewParam apsPreviewParam = new ApsPreviewParam(j2, apsParameters.getParameters(), ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr, (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT), (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr, ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(), metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, false, 0L, metaItemInfo.mImageBuffer == null || ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue() == metaItemInfo.mImageBuffer.getTimestamp(), (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE));
+                long j = jLongValue;
+                ApsPreviewParam apsPreviewParam = new ApsPreviewParam(j, apsParameters.getParameters(), ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr, (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT), (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr, ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(), metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, false, 0L, metaItemInfo.mImageBuffer == null || ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue() == metaItemInfo.mImageBuffer.getTimestamp(), (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE));
                 ApsAdapterInterface.ImageProcessListener imageProcessListener2 = this.mImageProcessListener;
                 if (imageProcessListener2 != null) {
-                    imageProcessListener2.onPreviewFrameProcessStarted(j2, (Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
+                    imageProcessListener2.onPreviewFrameProcessStarted(j, (Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
                 }
-                i = this.mApsInterface.addPreviewFrameBuff(apsPreviewParam, null);
+                iAddPreviewFrameBuff = this.mApsInterface.addPreviewFrameBuff(apsPreviewParam, null);
             }
-            return i;
+            return iAddPreviewFrameBuff;
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void onDecisionControlData(final ApsAdapterDecision.DecisionControlData decisionControlData) {
+    protected void onDecisionControlData(final ApsAdapterDecision.DecisionControlData decisionControlData) {
         if (this.mApsInterface == null || decisionControlData.mDecisionCallback == null) {
             return;
         }
@@ -351,8 +346,7 @@ public class ApsPreviewAdapterImpl {
         });
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void init(ApsInitParameter apsInitParameter) {
+    protected void init(ApsInitParameter apsInitParameter) {
         ProcessHandler processHandler;
         synchronized (this.mApsInitLock) {
             ApsAdapterInterface.ImageProcessListener imageProcessListener = this.mImageProcessListener;
@@ -401,12 +395,10 @@ public class ApsPreviewAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void unInit(int i) {
+    protected void unInit(int i) {
         ApsInitParameter apsInitParameter;
         synchronized (this.mApsInitLock) {
-            String str = TAG;
-            ApsAdapterLog.v(str, "unInit, module: " + i);
+            ApsAdapterLog.v(TAG, "unInit, module: " + i);
             ApsInterface apsInterface = this.mApsInterface;
             if (apsInterface != null) {
                 apsInterface.unInitAlgo(i);
@@ -419,8 +411,7 @@ public class ApsPreviewAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void onPreviewReceived(ApsResult apsResult) {
+    protected void onPreviewReceived(ApsResult apsResult) {
         boolean metaImageRef;
         if (this.mApsServiceListener != null) {
             ApsResult.ImageBuffer imageBuffer = apsResult.getImageBuffer();
@@ -445,16 +436,15 @@ public class ApsPreviewAdapterImpl {
                     imageBuffer.setApsInterface(this.mApsInterface);
                     if (!this.mCaptureRequestList.isEmpty()) {
                         imageBuffer.addRef();
-                        CaptureRequest remove = this.mCaptureRequestList.remove(0);
-                        String str = TAG;
-                        ApsAdapterLog.v(str, "onPreviewReceived, captureRequest: " + remove + " mMetadata:" + apsResult.mMetadata);
-                        if (remove != null) {
+                        CaptureRequest captureRequestRemove = this.mCaptureRequestList.remove(0);
+                        ApsAdapterLog.v(TAG, "onPreviewReceived, captureRequest: " + captureRequestRemove + " mMetadata:" + apsResult.mMetadata);
+                        if (captureRequestRemove != null) {
                             if (apsResult.mMetaImageRefCounter != null) {
                                 apsResult.mMetaImageRefCounter.setMetaImageRef(apsResult.getMetaImage(), null, true);
                             }
                             ApsTotalResult apsTotalResult2 = new ApsTotalResult(apsResult.mMetadata, apsResult.getMetaImage(), apsResult.mMetaImageRefCounter, apsResult.mFrameId);
-                            remove.mCaptureCallback.onApsCaptureStarted(apsResult.mIdentity);
-                            remove.mCaptureCallback.onApsCaptureCompleted(apsResult, apsTotalResult2, remove.mRequestTag);
+                            captureRequestRemove.mCaptureCallback.onApsCaptureStarted(apsResult.mIdentity);
+                            captureRequestRemove.mCaptureCallback.onApsCaptureCompleted(apsResult, apsTotalResult2, captureRequestRemove.mRequestTag);
                         }
                     }
                 }
@@ -473,8 +463,7 @@ public class ApsPreviewAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void flushImage() {
+    protected void flushImage() {
         synchronized (this.mQueueLock) {
             Iterator<Map.Entry<Long, ImageCategory>> it = this.mProcessMap.entrySet().iterator();
             while (it.hasNext()) {
@@ -499,8 +488,7 @@ public class ApsPreviewAdapterImpl {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public void destroy() {
+    protected void destroy() {
         ProcessHandler processHandler = this.mProcessHandler;
         if (processHandler != null) {
             processHandler.getLooper().quitSafely();
@@ -516,7 +504,7 @@ public class ApsPreviewAdapterImpl {
     private void checkImageOverflow(Long l) {
         synchronized (this.mQueueLock) {
             if (this.mProcessMap.size() - 6 > 0) {
-                ArrayList<Long> arrayList = new ArrayList();
+                ArrayList arrayList = new ArrayList();
                 Iterator<Map.Entry<Long, ImageCategory>> it = this.mProcessMap.entrySet().iterator();
                 while (it != null && it.hasNext()) {
                     Map.Entry<Long, ImageCategory> next = it.next();
@@ -524,13 +512,13 @@ public class ApsPreviewAdapterImpl {
                         arrayList.add(next.getKey());
                     }
                 }
-                for (Long l2 : arrayList) {
-                    long longValue = l2.longValue();
-                    ImageCategory remove = this.mProcessMap.remove(Long.valueOf(longValue));
-                    String str = TAG;
-                    ApsAdapterLog.v(str, "checkImageOverflow, time: " + longValue, true);
-                    if (remove != null && !remove.mbAlreadySendAps) {
-                        remove.releaseImageItemList();
+                Iterator it2 = arrayList.iterator();
+                while (it2.hasNext()) {
+                    long jLongValue = ((Long) it2.next()).longValue();
+                    ImageCategory imageCategoryRemove = this.mProcessMap.remove(Long.valueOf(jLongValue));
+                    ApsAdapterLog.v(TAG, "checkImageOverflow, time: " + jLongValue, true);
+                    if (imageCategoryRemove != null && !imageCategoryRemove.mbAlreadySendAps) {
+                        imageCategoryRemove.releaseImageItemList();
                     }
                     ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
                     if (apsServiceListener != null) {
@@ -544,28 +532,25 @@ public class ApsPreviewAdapterImpl {
 
     private void checkMetaImageOverflow(Long l) {
         if (this.mProcessMap.size() - 6 > 0) {
-            long j = 0;
+            long jLongValue = 0;
             Iterator<Map.Entry<Long, ImageCategory>> it = this.mProcessMap.entrySet().iterator();
             while (it != null && it.hasNext()) {
                 Map.Entry<Long, ImageCategory> next = it.next();
                 if (l.longValue() > next.getKey().longValue()) {
-                    j = next.getKey().longValue();
+                    jLongValue = next.getKey().longValue();
                 }
             }
-            ImageCategory remove = this.mProcessMap.remove(Long.valueOf(j));
-            String str = TAG;
-            ApsAdapterLog.v(str, "checkMetaImageOverflow, time: " + j);
-            if (remove == null || remove.mbAlreadySendAps || remove.mMetaItem == null || remove.mMetaItem.mImageBuffer == null) {
+            ImageCategory imageCategoryRemove = this.mProcessMap.remove(Long.valueOf(jLongValue));
+            ApsAdapterLog.v(TAG, "checkMetaImageOverflow, time: " + jLongValue);
+            if (imageCategoryRemove == null || imageCategoryRemove.mbAlreadySendAps || imageCategoryRemove.mMetaItem == null || imageCategoryRemove.mMetaItem.mImageBuffer == null) {
                 return;
             }
-            remove.mMetaItem.mImageBuffer.close();
-            remove.mMetaItem = null;
+            imageCategoryRemove.mMetaItem.mImageBuffer.close();
+            imageCategoryRemove.mMetaItem = null;
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    /* loaded from: classes.dex */
-    public class ProcessHandler extends Handler {
+    private class ProcessHandler extends Handler {
         private ProcessHandler(Looper looper) {
             super(looper);
         }
@@ -589,21 +574,17 @@ public class ApsPreviewAdapterImpl {
                         apsPreviewAdapterImpl.mFrameNumber = metaItemInfo != null ? ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() : apsPreviewAdapterImpl.mFrameNumber;
                         return;
                     }
-                    String str = ApsPreviewAdapterImpl.TAG;
-                    ApsAdapterLog.w(str, "handleMessage,mbNeedMatchTimeStamp: " + imageCategory.mbNeedMatchTimeStamp + " drop this frame because of wrong frame order.");
+                    ApsAdapterLog.w(ApsPreviewAdapterImpl.TAG, "handleMessage,mbNeedMatchTimeStamp: " + imageCategory.mbNeedMatchTimeStamp + " drop this frame because of wrong frame order.");
                     imageCategory.releaseImageItemList();
                     return;
                 }
-                String str2 = ApsPreviewAdapterImpl.TAG;
-                ApsAdapterLog.e(str2, "handleMessage, error msg: " + message.obj);
+                ApsAdapterLog.e(ApsPreviewAdapterImpl.TAG, "handleMessage, error msg: " + message.obj);
                 return;
             }
-            String str3 = ApsPreviewAdapterImpl.TAG;
-            ApsAdapterLog.e(str3, "handleMessage, msg: " + message.what + " is not defined.");
+            ApsAdapterLog.e(ApsPreviewAdapterImpl.TAG, "handleMessage, msg: " + message.what + " is not defined.");
         }
     }
 
-    /* loaded from: classes.dex */
     private class CaptureRequest {
         private ApsAdapterListener.CaptureCallback mCaptureCallback;
         private ApsCameraRequestTag mRequestTag;

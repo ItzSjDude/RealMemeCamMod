@@ -32,7 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class ApsUtils {
     public static final int APS_CONNECT_FAIL = -1;
     public static final int APS_CONNECT_SUCEESS = 0;
@@ -114,10 +114,10 @@ public class ApsUtils {
         return sSimulationCaseId;
     }
 
-    public static void setAlgoSwitch(HashMap<String, String> hashMap) {
+    public static void setAlgoSwitch(HashMap<String, String> map) {
         sAlgoSwitch.clear();
-        if (hashMap != null) {
-            sAlgoSwitch.putAll(hashMap);
+        if (map != null) {
+            sAlgoSwitch.putAll(map);
         }
     }
 
@@ -174,26 +174,25 @@ public class ApsUtils {
         }
     }
 
-    public static void setDefaultVendorTagConfigMap(HashMap<String, String> hashMap) {
-        if (hashMap == null) {
+    public static void setDefaultVendorTagConfigMap(HashMap<String, String> map) {
+        if (map == null) {
             return;
         }
-        DefaultUtill.setDefaultVendorTagConfigure(hashMap);
+        DefaultUtill.setDefaultVendorTagConfigure(map);
     }
 
     public static void initConfigData(String str, int i) {
         if (i == 0) {
-            HashMap<String, String> hashMap = new HashMap<>(512);
-            sVendorTagConfigMap = hashMap;
-            setDefaultVendorTagConfigMap(hashMap);
+            HashMap<String, String> map = new HashMap<>(512);
+            sVendorTagConfigMap = map;
+            setDefaultVendorTagConfigMap(map);
         }
         if (str != null) {
             try {
                 if (UpdateHelper.isNewConfigFormat(str)) {
                     JSONObject jSONObject = new JSONObject(str);
                     parseJsonArray(jSONObject.getJSONArray(UpdateHelper.CONFIG_FILE_DATA), i);
-                    ApsAdapterLog.d(TAG, "initConfigData, new format with version: "
-                            + jSONObject.getDouble(UpdateHelper.CONFIG_FILE_VERSION));
+                    ApsAdapterLog.d(TAG, "initConfigData, new format with version: " + jSONObject.getDouble(UpdateHelper.CONFIG_FILE_VERSION));
                 } else {
                     parseJsonArray(new JSONArray(str), i);
                     ApsAdapterLog.d(TAG, "initConfigData, old format without version");
@@ -205,28 +204,28 @@ public class ApsUtils {
     }
 
     public static String getVendorTagConfig(String str) {
-        HashMap<String, String> hashMap = sVendorTagConfigMap;
-        if (hashMap == null) {
+        HashMap<String, String> map = sVendorTagConfigMap;
+        if (map == null) {
             return null;
         }
-        return hashMap.get(str);
+        return map.get(str);
     }
 
     public static boolean setVendorTagConfigRus(String str, String str2) {
-        HashMap<String, String> hashMap = sVendorTagConfigMap;
-        if (hashMap != null) {
-            hashMap.put(str, str2);
-            return true;
+        HashMap<String, String> map = sVendorTagConfigMap;
+        if (map == null) {
+            return false;
         }
-        return false;
+        map.put(str, str2);
+        return true;
     }
 
     public static String getSensorConfig(String str) {
-        HashMap<String, String> hashMap = sSensorConfigMap;
-        if (hashMap == null) {
+        HashMap<String, String> map = sSensorConfigMap;
+        if (map == null) {
             return null;
         }
-        return hashMap.get(str);
+        return map.get(str);
     }
 
     public static void parseJsonArray(JSONArray jSONArray, int i) throws JSONException {
@@ -267,10 +266,10 @@ public class ApsUtils {
         }
         ApsAdapterLog.v(TAG, "stringConvertInt, str: " + str + ", separator: " + str2);
         try {
-            String[] split = str.split(str2);
-            int[] iArr = new int[split.length];
-            for (int i = 0; i < split.length; i++) {
-                iArr[i] = Integer.parseInt(split[i]);
+            String[] strArrSplit = str.split(str2);
+            int[] iArr = new int[strArrSplit.length];
+            for (int i = 0; i < strArrSplit.length; i++) {
+                iArr[i] = Integer.parseInt(strArrSplit[i]);
             }
             return iArr;
         } catch (Exception e) {
@@ -294,9 +293,7 @@ public class ApsUtils {
         }
         ArrayMap<String, CameraMetadata> arrayMap = new ArrayMap<>();
         arrayMap.put(str, (CaptureResult) obj);
-        if ((obj instanceof TotalCaptureResult)
-                && (physicalCameraResults = ((TotalCaptureResult) obj).getPhysicalCameraResults()) != null
-                && !physicalCameraResults.isEmpty()) {
+        if ((obj instanceof TotalCaptureResult) && (physicalCameraResults = ((TotalCaptureResult) obj).getPhysicalCameraResults()) != null && !physicalCameraResults.isEmpty()) {
             for (Map.Entry<String, CaptureResult> entry : physicalCameraResults.entrySet()) {
                 arrayMap.put(entry.getKey(), entry.getValue());
             }
@@ -313,8 +310,7 @@ public class ApsUtils {
             try {
                 Field declaredField2 = captureRequest.getClass().getDeclaredField(KEY_PHYSICAL_CAMERA_SETTINGS);
                 declaredField2.setAccessible(true);
-                for (Map.Entry entry : (java.util.Set<Map.Entry>) ((HashMap) declaredField2.get(captureRequest))
-                        .entrySet()) {
+                for (Map.Entry entry : ((HashMap) declaredField2.get(captureRequest)).entrySet()) {
                     arrayMap.put((String) entry.getKey(), Long.valueOf(getMetadataPtr(entry.getValue())));
                 }
                 return arrayMap;
@@ -368,17 +364,17 @@ public class ApsUtils {
     }
 
     public static long getConsumerPtr(ImageReader imageReader) {
-        if (imageReader != null) {
-            try {
-                Method declaredMethod = imageReader.getClass().getDeclaredMethod("nativeGetConsumer", new Class[0]);
-                declaredMethod.setAccessible(true);
-                return ((Long) declaredMethod.invoke(imageReader, new Object[0])).longValue();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return 0L;
-            }
+        if (imageReader == null) {
+            return 0L;
         }
-        return 0L;
+        try {
+            Method declaredMethod = imageReader.getClass().getDeclaredMethod("nativeGetConsumer", new Class[0]);
+            declaredMethod.setAccessible(true);
+            return ((Long) declaredMethod.invoke(imageReader, new Object[0])).longValue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0L;
+        }
     }
 
     public static long getTotalMemory(Context context) {
@@ -422,12 +418,14 @@ public class ApsUtils {
     public static byte[] convertNV21DataToJpeg(byte[] bArr, int i, int i2) {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
-            yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), JPEG_QUALITY_NORMAL,
-                    byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            byteArrayOutputStream.close();
-            return byteArray;
+            try {
+                YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
+                yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), JPEG_QUALITY_NORMAL, byteArrayOutputStream);
+                byte[] byteArray = byteArrayOutputStream.toByteArray();
+                byteArrayOutputStream.close();
+                return byteArray;
+            } finally {
+            }
         } catch (Exception e) {
             ApsAdapterLog.e(TAG, "convertNV21DataToJpeg", e);
             return null;
@@ -443,9 +441,9 @@ public class ApsUtils {
         int height = image.getHeight();
         int format = image.getFormat();
         Rect cropRect = image.getCropRect();
-        int width2 = ((cropRect.width() * cropRect.height()) * ImageFormat.getBitsPerPixel(format)) / 8;
-        if (bArr == null || bArr.length < width2) {
-            bArr = new byte[width2];
+        int iWidth = ((cropRect.width() * cropRect.height()) * ImageFormat.getBitsPerPixel(format)) / 8;
+        if (bArr == null || bArr.length < iWidth) {
+            bArr = new byte[iWidth];
         }
         Image.Plane[] planes = image.getPlanes();
         int i2 = 0;

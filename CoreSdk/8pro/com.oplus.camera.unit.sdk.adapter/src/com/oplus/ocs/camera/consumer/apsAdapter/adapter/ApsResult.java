@@ -11,7 +11,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsResult {
     private static final String TAG = "ApsResult";
     public long mAppAlgoFlag;
@@ -270,7 +271,6 @@ public class ApsResult {
         return sb.toString();
     }
 
-    /* loaded from: classes.dex */
     public static class ImageBuffer {
         private static final int REFERENCE_COUNT_ZERO = 0;
         private static final int TYPE_FROM_APP = 0;
@@ -311,7 +311,7 @@ public class ApsResult {
             this.mTimestamp = 0L;
             this.mRef = new AtomicInteger(1);
             this.mApsInterface = null;
-            int i2 = 0;
+            int format = 0;
             this.mFormat = 0;
             this.mImageReader = imageReader;
             this.mImage = image;
@@ -323,13 +323,13 @@ public class ApsResult {
             this.mSurfaceUsage = str2;
             if (image != null) {
                 try {
-                    i2 = image.getFormat();
+                    format = image.getFormat();
                 } catch (Throwable th) {
                     ApsAdapterLog.e(ApsResult.TAG, "Fail to get image format.", th);
                     return;
                 }
             }
-            this.mFormat = i2;
+            this.mFormat = format;
         }
 
         public ImageBuffer(ImageReader imageReader, Image image, HardwareBuffer hardwareBuffer, long j, int i, String str, String str2, int i2) {

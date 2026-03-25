@@ -15,7 +15,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import java.lang.reflect.Method;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class APSClientKeyBase {
     static final /* synthetic */ boolean $assertionsDisabled = false;
     static final int ERROR_CODE_NO_ERR = 0;
@@ -294,6 +295,9 @@ class APSClientKeyBase {
     static final String KEY_SFX_HEICQUALITY = "heicQuality";
     private static final String KEY_EXIF_HEIC_QUALITY = buildKey("", KEY_PARAM_EXIFDATA, KEY_SFX_HEICQUALITY, KEY_TYPE_INT);
 
+    APSClientKeyBase() {
+    }
+
     @NonNull
     protected static String buildKey(@NonNull String str, @NonNull String str2, @NonNull String str3, @NonNull String str4, @NonNull String str5) {
         String str6;
@@ -324,20 +328,17 @@ class APSClientKeyBase {
         return str6;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @NonNull
-    public static String buildKey(String str, String str2, String str3, String str4) {
+    protected static String buildKey(String str, String str2, String str3, String str4) {
         return buildKey(str, str2, str3, "", str4);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @NonNull
-    public static String buildKey(String str, String str2, String str3) {
+    protected static String buildKey(String str, String str2, String str3) {
         return buildKey(str, str2, "", "", str3);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static void fillExifData(Map<String, Object> map, @NonNull ApsExifData apsExifData) {
+    protected static void fillExifData(Map<String, Object> map, @NonNull ApsExifData apsExifData) {
         apsExifData.mSensorName = getString(map, KEY_EXIF_SENSOR_NAME);
         apsExifData.mExifRotate = getInt(map, KEY_EXIF_ROTATE);
         apsExifData.mExifIso = getLong(map, KEY_EXIF_ISO);
@@ -394,8 +395,7 @@ class APSClientKeyBase {
         apsExifData.mHeicQuality = getInt(map, KEY_EXIF_HEIC_QUALITY);
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static boolean getBoolean(@NonNull Map<String, Object> map, String str) {
+    protected static boolean getBoolean(@NonNull Map<String, Object> map, String str) {
         Object obj = map.get(str);
         return obj != null && ((Boolean) obj).booleanValue();
     }
@@ -408,8 +408,7 @@ class APSClientKeyBase {
         return 0;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    public static long getLong(@NonNull Map<String, Object> map, String str) {
+    protected static long getLong(@NonNull Map<String, Object> map, String str) {
         Object obj = map.get(str);
         if (obj != null) {
             return ((Long) obj).longValue();
@@ -417,9 +416,8 @@ class APSClientKeyBase {
         return 0L;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Nullable
-    public static String getString(@NonNull Map<String, Object> map, String str) {
+    protected static String getString(@NonNull Map<String, Object> map, String str) {
         Object obj = map.get(str);
         if (obj != null) {
             return (String) obj;
@@ -427,9 +425,8 @@ class APSClientKeyBase {
         return null;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Nullable
-    public static byte[] getByteArray(@NonNull Map<String, Object> map, String str) {
+    protected static byte[] getByteArray(@NonNull Map<String, Object> map, String str) {
         Object obj = map.get(str);
         if (obj != null) {
             return (byte[]) obj;
@@ -437,9 +434,8 @@ class APSClientKeyBase {
         return null;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     @Nullable
-    public static String[] getStringArray(@NonNull Map<String, Object> map, String str) {
+    protected static String[] getStringArray(@NonNull Map<String, Object> map, String str) {
         Object obj = map.get(str);
         if (obj != null) {
             return (String[]) obj;
@@ -447,14 +443,13 @@ class APSClientKeyBase {
         return null;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public int getCurrentUserId() {
+    int getCurrentUserId() {
         try {
             Method method = UserHandle.class.getMethod("myUserId", new Class[0]);
             method.setAccessible(true);
-            Object invoke = method.invoke(null, new Object[0]);
-            if (invoke instanceof Integer) {
-                return ((Integer) invoke).intValue();
+            Object objInvoke = method.invoke(null, new Object[0]);
+            if (objInvoke instanceof Integer) {
+                return ((Integer) objInvoke).intValue();
             }
             return -1;
         } catch (Exception unused) {
@@ -463,8 +458,7 @@ class APSClientKeyBase {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    public String getKeySuffix(Object obj) {
+    String getKeySuffix(Object obj) {
         return obj instanceof Image ? KEY_TYPE_IMAGE : obj instanceof CameraMetadata ? KEY_TYPE_CAMERAMETADATA : obj instanceof HardwareBuffer ? KEY_TYPE_HARDWAREBUFFER : obj instanceof ApsResult.ImageBuffer ? KEY_TYPE_IMAGEBUFFER : obj instanceof Surface ? KEY_TYPE_SURFACE : obj instanceof Bitmap ? KEY_TYPE_BITMAP : obj instanceof byte[] ? KEY_TYPE_BYTE_ARRAY : "";
     }
 }

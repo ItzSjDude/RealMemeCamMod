@@ -1,9 +1,0 @@
-package com.oplus.statistics.record;
-
-import android.content.Context;
-import androidx.annotation.NonNull;
-import com.oplus.statistics.data.TrackEvent;
-/* loaded from: classes.dex */
-public interface IRecorder {
-    void addTrackEvent(@NonNull Context context, @NonNull TrackEvent trackEvent);
-}

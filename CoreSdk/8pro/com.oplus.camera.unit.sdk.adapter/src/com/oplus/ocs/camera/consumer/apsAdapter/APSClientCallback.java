@@ -10,7 +10,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsExtendData;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import java.lang.ref.WeakReference;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 class APSClientCallback extends APSClientKeyBase {
     private static final int FIRST_CALL_TRANSACTION = 1;
     private static final String TAG = "APSClientCallback";
@@ -58,7 +59,6 @@ class APSClientCallback extends APSClientKeyBase {
     APSClientCallback() {
     }
 
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
     public static int onTransact(@NonNull Object obj, int i, Map<String, Object> map, Map<String, Object> map2) {
         APSClient aPSClient = (APSClient) ((WeakReference) obj).get();
         switch (i) {
@@ -74,11 +74,10 @@ class APSClientCallback extends APSClientKeyBase {
             case 5:
                 processCloseObject(map, map2);
                 return 0;
-            case 6:
-                break;
             case 7:
                 processManipulate(map, map2);
-                break;
+            case 6:
+                return 0;
             case 8:
                 processCheckoutObject(map, map2);
                 return 0;
@@ -86,7 +85,6 @@ class APSClientCallback extends APSClientKeyBase {
                 ApsAdapterLog.e(TAG, "onTransact, not match this code: " + i);
                 return -1;
         }
-        return 0;
     }
 
     private static void processMetadataRef(APSClient aPSClient, Map<String, Object> map, Map<String, Object> map2) {
@@ -183,52 +181,24 @@ class APSClientCallback extends APSClientKeyBase {
     }
 
     private static void processManipulate(Map<String, Object> map, Map<String, Object> map2) {
-        long j = getLong(map, KEY_BUF_MANIPULATE_BUFF_DATA);
+        long j;
+        j = getLong(map, KEY_BUF_MANIPULATE_BUFF_DATA);
         String string = getString(map, KEY_BUF_MANIPULATE_BUFF_TYPE);
         ApsAdapterLog.i(TAG, "TRANSACTION_CALLBACK_CAPTURE, bufferPlanesData: " + j + " bufManipulateType: " + string);
         string.hashCode();
-        char c = 65535;
-        switch (string.hashCode()) {
-            case -1681737167:
-                if (string.equals("processHeifEvent")) {
-                    c = 0;
-                    break;
-                }
-                break;
-            case -1088185470:
-                if (string.equals("attachHWBufToBufQEvent")) {
-                    c = 1;
-                    break;
-                }
-                break;
-            case 1317553644:
-                if (string.equals("exchgHWBufBtwBufQEvent")) {
-                    c = 2;
-                    break;
-                }
-                break;
-            case 1815220416:
-                if (string.equals("bufQAllocEnableEvent")) {
-                    c = 3;
-                    break;
-                }
-                break;
-        }
-        switch (c) {
-            case 0:
+        switch (string) {
+            case "processHeifEvent":
                 ApsHelper.postProcessHeifEvent(j);
-                return;
-            case 1:
+                break;
+            case "attachHWBufToBufQEvent":
                 ApsHelper.postAttachHWBufToBufQEvent(j);
-                return;
-            case 2:
+                break;
+            case "exchgHWBufBtwBufQEvent":
                 ApsHelper.postExchgHWBufBtwBufQEvent(j);
-                return;
-            case 3:
+                break;
+            case "bufQAllocEnableEvent":
                 ApsHelper.postBufQAllocEnableEvent(j);
-                return;
-            default:
-                return;
+                break;
         }
     }
 
@@ -249,51 +219,21 @@ class APSClientCallback extends APSClientKeyBase {
     /* JADX WARN: Removed duplicated region for block: B:14:0x0037  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    private static void processCheckoutObject(java.util.Map<java.lang.String, java.lang.Object> r4, java.util.Map<java.lang.String, java.lang.Object> r5) {
-        /*
-            java.lang.String r0 = com.oplus.ocs.camera.consumer.apsAdapter.APSClientCallback.KEY_CHECK_VALID_IMAGEBUFFER
-            java.lang.Object r4 = r4.get(r0)
-            boolean r0 = r4 instanceof com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult.ImageBuffer
-            java.lang.String r1 = "APSClientCallback"
-            r2 = 0
-            if (r0 == 0) goto L1d
-            com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult$ImageBuffer r4 = (com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult.ImageBuffer) r4
-            android.hardware.HardwareBuffer r4 = r4.getHardwareBuffer()
-            if (r4 == 0) goto L31
-            boolean r4 = r4.isClosed()
-            if (r4 != 0) goto L31
-            r4 = 1
-            goto L32
-        L1d:
-            java.lang.StringBuilder r0 = new java.lang.StringBuilder
-            r0.<init>()
-            java.lang.String r3 = "TRANSACTION_CHECKOUT_OBJECT, object: "
-            r0.append(r3)
-            r0.append(r4)
-            java.lang.String r4 = r0.toString()
-            com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog.w(r1, r4)
-        L31:
-            r4 = r2
-        L32:
-            java.lang.String r0 = com.oplus.ocs.camera.consumer.apsAdapter.APSClientCallback.KEY_CHECK_VALID_RESULT
-            if (r4 == 0) goto L37
-            goto L38
-        L37:
-            r2 = -1
-        L38:
-            java.lang.Integer r2 = java.lang.Integer.valueOf(r2)
-            r5.put(r0, r2)
-            java.lang.StringBuilder r5 = new java.lang.StringBuilder
-            r5.<init>()
-            java.lang.String r0 = "TRANSACTION_CHECKOUT_OBJECT valid: "
-            r5.append(r0)
-            r5.append(r4)
-            java.lang.String r4 = r5.toString()
-            com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog.i(r1, r4)
-            return
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.oplus.ocs.camera.consumer.apsAdapter.APSClientCallback.processCheckoutObject(java.util.Map, java.util.Map):void");
+    private static void processCheckoutObject(Map<String, Object> map, Map<String, Object> map2) {
+        boolean z;
+        Object obj = map.get(KEY_CHECK_VALID_IMAGEBUFFER);
+        if (obj instanceof ApsResult.ImageBuffer) {
+            HardwareBuffer hardwareBuffer = ((ApsResult.ImageBuffer) obj).getHardwareBuffer();
+            if (hardwareBuffer != null && !hardwareBuffer.isClosed()) {
+                z = true;
+            }
+            map2.put(KEY_CHECK_VALID_RESULT, Integer.valueOf(z ? 0 : -1));
+            ApsAdapterLog.i(TAG, "TRANSACTION_CHECKOUT_OBJECT valid: " + z);
+        }
+        ApsAdapterLog.w(TAG, "TRANSACTION_CHECKOUT_OBJECT, object: " + obj);
+        z = false;
+        map2.put(KEY_CHECK_VALID_RESULT, Integer.valueOf(z ? 0 : -1));
+        ApsAdapterLog.i(TAG, "TRANSACTION_CHECKOUT_OBJECT valid: " + z);
     }
 }

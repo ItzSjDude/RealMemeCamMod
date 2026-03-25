@@ -4,7 +4,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory;
 import java.util.Iterator;
 import java.util.List;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CaptureImageCategory extends ImageCategory {
     private static final String TAG = "CaptureImageCategory";
 
@@ -16,29 +17,29 @@ public class CaptureImageCategory extends ImageCategory {
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ImageCategory
     protected boolean isTuningDataValid() {
         String str;
-        int i;
-        if (((Boolean) this.mMetaItem.get(ApsParameters.KEY_USE_TUNING_DATA)).booleanValue()) {
-            if (this.mTuningItemLists.isEmpty()) {
-                return false;
-            }
-            Iterator<List<ImageCategory.TuningItemInfo>> it = this.mTuningItemLists.values().iterator();
-            if (it.hasNext()) {
-                List<ImageCategory.TuningItemInfo> next = it.next();
-                if (next.isEmpty() || !((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP)).equals(next.get(0).get(ApsParameters.KEY_TIME_STAMP))) {
-                    return false;
-                }
-                str = (String) next.get(0).get(ApsParameters.KEY_TUNING_SURFACE_USAGE);
-                i = next.size() + 0;
-            } else {
-                str = "";
-                i = 0;
-            }
-            if ((!ApsUtils.TUNING_YUV.equals(str) || ((Integer) this.mMetaItem.get(ApsParameters.KEY_YUV_TUNING_STREAM_NUMBER)).intValue() == i) && (!ApsUtils.TUNING_RAW.equals(str) || ((Integer) this.mMetaItem.get(ApsParameters.KEY_RAW_TUNING_STREAM_NUMBER)).intValue() == i)) {
-                return !((Boolean) this.mMetaItem.get(ApsParameters.KEY_REQUEST_MIXED_FORMAT)).booleanValue() || this.mTuningItemLists.size() == ((Integer) this.mMetaItem.get(ApsParameters.KEY_CAPTURE_STREAM_NUMBER)).intValue();
-            }
-            ApsAdapterLog.d(TAG, "isTuningDataValid, return false , tuning stream number is not equal to tunningItemNum., tuningItemNum: " + i + ", KEY_YUV_TUNING_STREAM_NUMBER: " + this.mMetaItem.get(ApsParameters.KEY_YUV_TUNING_STREAM_NUMBER) + ", KEY_RAW_TUNING_STREAM_NUMBER: " + this.mMetaItem.get(ApsParameters.KEY_RAW_TUNING_STREAM_NUMBER) + ", usage: " + str);
+        int size;
+        if (!((Boolean) this.mMetaItem.get(ApsParameters.KEY_USE_TUNING_DATA)).booleanValue()) {
+            return true;
+        }
+        if (this.mTuningItemLists.isEmpty()) {
             return false;
         }
-        return true;
+        Iterator<List<ImageCategory.TuningItemInfo>> it = this.mTuningItemLists.values().iterator();
+        if (it.hasNext()) {
+            List<ImageCategory.TuningItemInfo> next = it.next();
+            if (next.isEmpty() || !((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP)).equals(next.get(0).get(ApsParameters.KEY_TIME_STAMP))) {
+                return false;
+            }
+            str = (String) next.get(0).get(ApsParameters.KEY_TUNING_SURFACE_USAGE);
+            size = next.size() + 0;
+        } else {
+            str = "";
+            size = 0;
+        }
+        if ((!ApsUtils.TUNING_YUV.equals(str) || ((Integer) this.mMetaItem.get(ApsParameters.KEY_YUV_TUNING_STREAM_NUMBER)).intValue() == size) && (!ApsUtils.TUNING_RAW.equals(str) || ((Integer) this.mMetaItem.get(ApsParameters.KEY_RAW_TUNING_STREAM_NUMBER)).intValue() == size)) {
+            return !((Boolean) this.mMetaItem.get(ApsParameters.KEY_REQUEST_MIXED_FORMAT)).booleanValue() || this.mTuningItemLists.size() == ((Integer) this.mMetaItem.get(ApsParameters.KEY_CAPTURE_STREAM_NUMBER)).intValue();
+        }
+        ApsAdapterLog.d(TAG, "isTuningDataValid, return false , tuning stream number is not equal to tunningItemNum., tuningItemNum: " + size + ", KEY_YUV_TUNING_STREAM_NUMBER: " + this.mMetaItem.get(ApsParameters.KEY_YUV_TUNING_STREAM_NUMBER) + ", KEY_RAW_TUNING_STREAM_NUMBER: " + this.mMetaItem.get(ApsParameters.KEY_RAW_TUNING_STREAM_NUMBER) + ", usage: " + str);
+        return false;
     }
 }

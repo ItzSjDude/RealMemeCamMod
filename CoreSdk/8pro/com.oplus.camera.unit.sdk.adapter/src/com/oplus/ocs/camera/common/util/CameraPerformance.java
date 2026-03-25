@@ -5,7 +5,8 @@ import android.os.Process;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils;
 import com.oplus.uifirst.OplusUIFirstManager;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class CameraPerformance {
     private static final String TAG = "CameraHandlerThread";
     public static final String UX_STATE_DISABLE = "0";
@@ -16,14 +17,14 @@ public class CameraPerformance {
         if (30 >= Build.VERSION.SDK_INT || !ApsUtils.isSystemCamera()) {
             return;
         }
-        int myPid = Process.myPid();
-        ApsAdapterLog.d(TAG, "setUxThreadValue, pid is: " + myPid + ", tid is " + i + " value is " + str);
-        if (myPid == 0 || i == 0) {
+        int iMyPid = Process.myPid();
+        ApsAdapterLog.d(TAG, "setUxThreadValue, pid is: " + iMyPid + ", tid is " + i + " value is " + str);
+        if (iMyPid == 0 || i == 0) {
             ApsAdapterLog.e(TAG, "setUxThreadValue fail");
             return;
         }
         try {
-            OplusUIFirstManager.getInstance().setUxThreadValue(myPid, i, str);
+            OplusUIFirstManager.getInstance().setUxThreadValue(iMyPid, i, str);
         } catch (Throwable th) {
             th.printStackTrace();
         }

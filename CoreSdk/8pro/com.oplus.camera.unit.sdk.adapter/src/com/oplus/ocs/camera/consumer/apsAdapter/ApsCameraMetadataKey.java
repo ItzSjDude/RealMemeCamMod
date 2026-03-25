@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.consumer.apsAdapter;
 
 import android.hardware.camera2.CaptureResult;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsCameraMetadataKey {
     public static final CaptureResult.Key<byte[]> KEY_APS_RESULT_DATA = new CaptureResult.Key<>("com.oplus.aps.result.data", byte[].class);
     public static final CaptureResult.Key<int[]> KEY_SENSOR_MASK = new CaptureResult.Key<>("com.oplus.aps.sat.snapshot.sensors.mask", int[].class);

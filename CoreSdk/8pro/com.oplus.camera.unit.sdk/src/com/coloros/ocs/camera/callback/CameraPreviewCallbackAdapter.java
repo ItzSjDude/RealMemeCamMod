@@ -6,7 +6,6 @@ import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.view.Surface;
 import androidx.annotation.NonNull;
-import com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter;
 import java.util.concurrent.ConcurrentHashMap;
 
 /* JADX INFO: loaded from: classes.dex */
@@ -23,7 +22,8 @@ public abstract class CameraPreviewCallbackAdapter {
     public void onPreviewCaptureFailed(@NonNull CaptureRequest captureRequest, @NonNull CaptureFailure captureFailure) {
     }
 
-    public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull CaptureResult captureResult) {
+    public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest,
+            @NonNull CaptureResult captureResult) {
     }
 
     public void onPreviewCaptureSequenceAborted(int i) {
@@ -38,11 +38,13 @@ public abstract class CameraPreviewCallbackAdapter {
     public void onPreviewRequestStopped(String str) {
     }
 
-    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
+    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest,
+            @NonNull TotalCaptureResult totalCaptureResult, String str) {
         onCaptureCompleted(captureRequest, new PreviewResult(totalCaptureResult));
     }
 
-    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, ConcurrentHashMap<String, Integer> concurrentHashMap) {
+    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest,
+            @NonNull TotalCaptureResult totalCaptureResult, ConcurrentHashMap<String, Integer> concurrentHashMap) {
         onCaptureCompleted(captureRequest, new PreviewResult(totalCaptureResult, concurrentHashMap));
     }
 
@@ -50,7 +52,8 @@ public abstract class CameraPreviewCallbackAdapter {
         private ConcurrentHashMap<String, Integer> mApsTotalResult;
         private CaptureResult mCaptureResult;
 
-        public PreviewResult(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
+        public PreviewResult(
+                com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult previewResult) {
             this.mCaptureResult = null;
             this.mApsTotalResult = null;
             this.mCaptureResult = previewResult.getCaptureResult();
@@ -61,7 +64,8 @@ public abstract class CameraPreviewCallbackAdapter {
             this.mCaptureResult = totalCaptureResult;
         }
 
-        public PreviewResult(@NonNull TotalCaptureResult totalCaptureResult, ConcurrentHashMap<String, Integer> concurrentHashMap) {
+        public PreviewResult(@NonNull TotalCaptureResult totalCaptureResult,
+                ConcurrentHashMap<String, Integer> concurrentHashMap) {
             this.mCaptureResult = totalCaptureResult;
             this.mApsTotalResult = concurrentHashMap;
         }

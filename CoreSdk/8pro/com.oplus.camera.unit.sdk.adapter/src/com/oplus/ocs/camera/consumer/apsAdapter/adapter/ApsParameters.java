@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/* loaded from: classes.dex */
+/* JADX INFO: loaded from: classes.dex */
 public class ApsParameters {
     public static final String ALGO_NAME_FRC = "preview_video_frc";
     public static final String ALGO_NAME_NONE = "aps_algo_none";
@@ -193,7 +193,6 @@ public class ApsParameters {
             "previewdecision_request_mixed_format", 1, false);
     public static final Key<String> KEY_HDR_STATE = new Key<>("previewdecision_hdr_state", 1);
 
-    /* loaded from: classes.dex */
     public interface Supplier<T> {
         T get();
     }
@@ -217,21 +216,21 @@ public class ApsParameters {
         this.mMap.remove(str);
     }
 
-    public void setAll(HashMap<String, String> hashMap) {
-        if (hashMap == null) {
+    public void setAll(HashMap<String, String> map) {
+        if (map == null) {
             return;
         }
-        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             set(entry.getKey(), entry.getValue());
         }
     }
 
     public String get(String str) {
-        HashMap<String, String> hashMap = this.mMap;
-        if (hashMap == null) {
+        HashMap<String, String> map = this.mMap;
+        if (map == null) {
             return null;
         }
-        return hashMap.get(str);
+        return map.get(str);
     }
 
     public String[] getParameters() {
@@ -250,7 +249,6 @@ public class ApsParameters {
         return strArr;
     }
 
-    /* loaded from: classes.dex */
     public static class ParameterModel {
         public Map<Key<?>, ValueWrapper<?>> mParameterMap = new ConcurrentHashMap();
 
@@ -269,29 +267,31 @@ public class ApsParameters {
             return valueWrapper != null ? (T) valueWrapper.getValue().get() : key.getDefault();
         }
 
-        public Map<Key<?>, ValueWrapper<?>> copy(Map<Key<?>, ValueWrapper<?>> map) {
+        public Map<Key<?>, ValueWrapper<?>> copy(Map<Key<?>, ValueWrapper<?>> map) throws CloneNotSupportedException {
+            Object arrayMap;
             for (Map.Entry<Key<?>, ValueWrapper<?>> entry : this.mParameterMap.entrySet()) {
                 Key<?> key = entry.getKey();
                 Key<?> key2 = new Key<>(key.getName(), key.getCategory(), key.getDefault());
-                Object obj2 = entry.getValue().getValue().get();
-                Object clonedObj = obj2;
-                if (obj2 instanceof String[]) {
-                    clonedObj = ((String[]) obj2).clone();
-                } else if (obj2 instanceof int[]) {
-                    clonedObj = ((int[]) obj2).clone();
-                } else if (obj2 instanceof ArrayMap) {
-                    clonedObj = new ArrayMap((ArrayMap) obj2);
-                } else if (obj2 instanceof float[]) {
-                    float[] fArr = (float[]) obj2;
-                    float[] fArrCloned = new float[fArr.length];
-                    System.arraycopy(fArr, 0, fArrCloned, 0, fArr.length);
-                    clonedObj = fArrCloned;
+                final Object objClone = entry.getValue().getValue().get();
+                Object arrayMap;
+                if (objClone instanceof String[]) {
+                    arrayMap = ((String[]) objClone).clone();
+                } else if (objClone instanceof int[]) {
+                    arrayMap = ((int[]) objClone).clone();
+                } else if (objClone instanceof ArrayMap) {
+                    arrayMap = new ArrayMap((ArrayMap) objClone);
+                } else if (objClone instanceof float[]) {
+                    float[] fArr = (float[]) objClone;
+                    arrayMap = new float[fArr.length];
+                    System.arraycopy(fArr, 0, arrayMap, 0, fArr.length);
+                } else {
+                    arrayMap = objClone;
                 }
-                final Object finalObj = clonedObj;
+                final Object finalObjClone = arrayMap;
                 map.put(key2, new ValueWrapper<>(new Supplier() {
                     @Override
                     public Object get() {
-                        return finalObj;
+                        return finalObjClone;
                     }
                 }));
             }
@@ -329,7 +329,6 @@ public class ApsParameters {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class Key<T> {
         private int mCategory;
         private T mDefault;
@@ -374,7 +373,6 @@ public class ApsParameters {
         }
     }
 
-    /* loaded from: classes.dex */
     public static final class ValueWrapper<T> {
         private Supplier<T> mValue;
 

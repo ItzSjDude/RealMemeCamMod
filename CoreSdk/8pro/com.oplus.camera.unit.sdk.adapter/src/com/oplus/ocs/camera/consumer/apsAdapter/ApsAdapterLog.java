@@ -6,7 +6,8 @@ import android.util.Log;
 import android.util.LogPrinter;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsAdapterLog {
     private static final String TAG_FORMAT = "ApsAdapter, %s";
     private static final String TRACE_COUNTER_HEAD = "O_";

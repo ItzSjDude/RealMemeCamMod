@@ -11,17 +11,21 @@ import androidx.annotation.NonNull;
 public final class DefaultCameraPreviewCallback extends com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter mCameraPreviewCallback;
 
-    DefaultCameraPreviewCallback(com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter) {
+    DefaultCameraPreviewCallback(
+            com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter) {
         this.mCameraPreviewCallback = cameraPreviewCallbackAdapter;
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onCaptureCompleted(CaptureRequest captureRequest, com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        this.mCameraPreviewCallback.onCaptureCompleted(captureRequest, new com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult(previewResult));
+    public void onCaptureCompleted(CaptureRequest captureRequest,
+            com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult previewResult) {
+        this.mCameraPreviewCallback.onCaptureCompleted(captureRequest,
+                new com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter.PreviewResult(previewResult));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest, @NonNull TotalCaptureResult totalCaptureResult, String str) {
+    public void onCaptureCompleted(@NonNull CaptureRequest captureRequest,
+            @NonNull TotalCaptureResult totalCaptureResult, String str) {
         this.mCameraPreviewCallback.onCaptureCompleted(captureRequest, totalCaptureResult, str);
     }
 
@@ -41,7 +45,8 @@ public final class DefaultCameraPreviewCallback extends com.oplus.ocs.camera.app
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull CaptureResult captureResult) {
+    public void onPreviewCaptureProgressed(@NonNull CaptureRequest captureRequest,
+            @NonNull CaptureResult captureResult) {
         this.mCameraPreviewCallback.onPreviewCaptureProgressed(captureRequest, captureResult);
     }
 

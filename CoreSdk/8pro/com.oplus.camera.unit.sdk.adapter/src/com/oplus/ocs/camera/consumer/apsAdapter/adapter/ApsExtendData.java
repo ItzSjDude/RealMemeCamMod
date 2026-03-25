@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.consumer.apsAdapter.adapter;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsExtendData {
     public byte[] mDepthRuleConfig;
     public byte[] mFilter;

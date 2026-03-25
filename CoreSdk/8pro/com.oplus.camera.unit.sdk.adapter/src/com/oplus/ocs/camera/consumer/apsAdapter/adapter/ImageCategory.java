@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ImageCategory {
     private static final String TAG = "ImageCategory";
     public static final int TYPE_CAPTURE = 1;
@@ -24,20 +25,17 @@ public class ImageCategory {
     public boolean mbNeedReSendAps = false;
     public boolean mbNeedMatchTimeStamp = true;
 
-    /* loaded from: classes.dex */
     public static class ImageItemInfo extends ApsParameters.ParameterModel {
         public ApsResult.ImageBuffer mImageBuffer = null;
         public ApsAdapterListener.ApsServiceListener mApsServiceListener = null;
     }
 
-    /* loaded from: classes.dex */
     public enum ItemInfoType {
         CAPTURE,
         PREVIEW,
         VIDEO
     }
 
-    /* loaded from: classes.dex */
     public static class TuningItemInfo extends ApsParameters.ParameterModel {
         public ApsResult.ImageBuffer mTuningBuffer = null;
     }
@@ -50,18 +48,18 @@ public class ImageCategory {
     }
 
     protected boolean isTuningDataValid() {
-        if (((Boolean) this.mMetaItem.get(ApsParameters.KEY_USE_TUNING_DATA)).booleanValue()) {
-            Iterator<List<TuningItemInfo>> it = this.mTuningItemLists.values().iterator();
-            if (it.hasNext()) {
-                List<TuningItemInfo> next = it.next();
-                if (next.isEmpty()) {
-                    return false;
-                }
-                return ((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP)).equals(next.get(0).get(ApsParameters.KEY_TIME_STAMP));
-            }
+        if (!((Boolean) this.mMetaItem.get(ApsParameters.KEY_USE_TUNING_DATA)).booleanValue()) {
+            return true;
+        }
+        Iterator<List<TuningItemInfo>> it = this.mTuningItemLists.values().iterator();
+        if (!it.hasNext()) {
             return false;
         }
-        return true;
+        List<TuningItemInfo> next = it.next();
+        if (next.isEmpty()) {
+            return false;
+        }
+        return ((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP)).equals(next.get(0).get(ApsParameters.KEY_TIME_STAMP));
     }
 
     public void releaseImageItemList() {
@@ -78,8 +76,9 @@ public class ImageCategory {
         }
         Map<Integer, List<TuningItemInfo>> map = this.mTuningItemLists;
         if (map != null) {
-            for (List<TuningItemInfo> list2 : map.values()) {
-                for (TuningItemInfo tuningItemInfo : list2) {
+            Iterator<List<TuningItemInfo>> it = map.values().iterator();
+            while (it.hasNext()) {
+                for (TuningItemInfo tuningItemInfo : it.next()) {
                     if (tuningItemInfo.mTuningBuffer != null) {
                         tuningItemInfo.mTuningBuffer.close();
                         tuningItemInfo.mTuningBuffer = null;
@@ -97,7 +96,6 @@ public class ImageCategory {
         this.mMetaItem.mImageBuffer = null;
     }
 
-    /* loaded from: classes.dex */
     public static class MetaItemInfo extends ApsParameters.ParameterModel {
         public ApsResult.ImageBuffer mImageBuffer = null;
 
@@ -115,10 +113,11 @@ public class ImageCategory {
         if (this.mImageItemList != null) {
             sb.append("mImageItemList size: " + this.mImageItemList.size() + ", ");
             for (int i = 0; i < this.mImageItemList.size(); i++) {
+                ImageItemInfo imageItemInfo = this.mImageItemList.get(i);
                 sb.append("image");
                 sb.append(i);
                 sb.append(" [");
-                sb.append(this.mImageItemList.get(i).toString());
+                sb.append(imageItemInfo.toString());
                 sb.append("], ");
             }
         } else {
@@ -126,16 +125,18 @@ public class ImageCategory {
         }
         if (this.mTuningItemLists != null) {
             sb.append("mTuningItemList size: " + this.mTuningItemLists.size() + " ");
-            for (Integer num : this.mTuningItemLists.keySet()) {
-                int intValue = num.intValue();
-                List<TuningItemInfo> list = this.mTuningItemLists.get(Integer.valueOf(intValue));
+            Iterator<Integer> it = this.mTuningItemLists.keySet().iterator();
+            while (it.hasNext()) {
+                int iIntValue = it.next().intValue();
+                List<TuningItemInfo> list = this.mTuningItemLists.get(Integer.valueOf(iIntValue));
                 for (int i2 = 0; i2 < list.size(); i2++) {
+                    TuningItemInfo tuningItemInfo = list.get(i2);
                     sb.append("tuningItem_");
-                    sb.append(intValue);
+                    sb.append(iIntValue);
                     sb.append("_");
                     sb.append(i2);
                     sb.append(" [");
-                    sb.append(list.get(i2).toString());
+                    sb.append(tuningItemInfo.toString());
                     sb.append("], ");
                 }
             }

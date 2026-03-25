@@ -18,7 +18,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.NoneApsImpl;
 import java.nio.ByteBuffer;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class PreviewApsImpl extends FullApsImpl {
     private static final String TAG = "PreviewApsImpl";
     private Queue<NoneApsImpl.CaptureFrame> mCaptureFrameQueue;
@@ -102,12 +103,12 @@ public class PreviewApsImpl extends FullApsImpl {
             if (this.mCaptureFrameQueue.isEmpty()) {
                 return -1;
             }
-            NoneApsImpl.CaptureFrame poll = this.mCaptureFrameQueue.poll();
+            NoneApsImpl.CaptureFrame captureFramePoll = this.mCaptureFrameQueue.poll();
             int i = 0;
             while (true) {
                 if (i < strArr.length) {
-                    if (poll != null && strArr[i].equals(ApsParameters.KEY_PROCESS_IMAGE_IDENTITY)) {
-                        poll.mTimeStamp = Long.decode(strArr[i + 1]).longValue();
+                    if (captureFramePoll != null && strArr[i].equals(ApsParameters.KEY_PROCESS_IMAGE_IDENTITY)) {
+                        captureFramePoll.mTimeStamp = Long.decode(strArr[i + 1]).longValue();
                         break;
                     }
                     i += 2;
@@ -115,7 +116,7 @@ public class PreviewApsImpl extends FullApsImpl {
                     break;
                 }
             }
-            this.mProcessHandler.sendMessageDelayed(this.mProcessHandler.obtainMessage(0, poll), 20L);
+            this.mProcessHandler.sendMessageDelayed(this.mProcessHandler.obtainMessage(0, captureFramePoll), 20L);
             return 0;
         }
     }

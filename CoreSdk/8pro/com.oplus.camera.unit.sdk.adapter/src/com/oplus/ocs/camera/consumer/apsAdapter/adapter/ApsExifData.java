@@ -1,7 +1,8 @@
 package com.oplus.ocs.camera.consumer.apsAdapter.adapter;
 
 import com.oplus.exif.OplusRational;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsExifData {
     public String mDocExifGpsDateStamp;
     public OplusRational mExifAltitude;
@@ -56,7 +57,6 @@ public class ApsExifData {
     public OplusRational[] mExifLongitude = new OplusRational[3];
     public OplusRational[] mDocExifGpsTimeStamp = new OplusRational[3];
 
-    /* loaded from: classes.dex */
     public static class ApsSizeDataType {
         public byte[] mBuffer;
         public long mSize;

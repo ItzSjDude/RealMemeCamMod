@@ -8,7 +8,8 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters;
 import com.oplus.ocs.camera.consumer.apsAdapter.config.AlgoSwitchConfig;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
-/* loaded from: classes.dex */
+
+/* JADX INFO: loaded from: classes.dex */
 public class ApsInitParameter extends ApsParameters.ParameterModel {
     public static final int APS_MODULE_BOTH = 1;
     public static final int APS_MODULE_CAPTURE = 2;

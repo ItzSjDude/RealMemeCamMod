@@ -14,8 +14,9 @@ public final class RefClass {
     private static final String TAG = "RefClass";
 
     static {
-        Class<? extends IBaseRef>[] clsArr = {RefObject.class, RefMethod.class, RefInt.class, RefLong.class, RefFloat.class, RefDouble.class, RefBoolean.class, RefByte.class, RefChar.class, RefShort.class, RefConstructor.class};
-        REF_CLASSES = clsArr;
+        Class[] clsArr = { RefObject.class, RefMethod.class, RefInt.class, RefLong.class, RefFloat.class,
+                RefDouble.class, RefBoolean.class, RefByte.class, RefChar.class, RefShort.class, RefConstructor.class };
+        REF_CLASSES = (Class<? extends IBaseRef>[]) clsArr;
         try {
             for (Class<? extends IBaseRef> cls : clsArr) {
                 REF_TYPES.put(cls, cls.getConstructor(Class.class, Field.class));
