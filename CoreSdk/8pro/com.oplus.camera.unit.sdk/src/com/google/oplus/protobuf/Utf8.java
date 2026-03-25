@@ -273,11 +273,7 @@ final class Utf8 {
                     }
                     i2 = i7;
                 }
-                if (b4 <= -65 && (((b << 28) + (b4 + 112)) >> 30) == 0 && b5 <= -65) {
-                    i4 = i2 + 1;
-                }
                 return -1;
-                i2 = i4;
             }
             return partialIsValidUtf8(byteBuffer, i2, i3);
         }
@@ -572,11 +568,7 @@ final class Utf8 {
                     }
                     i2 = i7;
                 }
-                if (b4 <= -65 && (((b << 28) + (b4 + 112)) >> 30) == 0 && b5 <= -65) {
-                    i4 = i2 + 1;
-                }
                 return -1;
-                i2 = i4;
             }
             return partialIsValidUtf8(bArr, i2, i3);
         }
@@ -659,7 +651,7 @@ final class Utf8 {
 
         @Override // com.google.oplus.protobuf.Utf8.Processor
         int encodeUtf8(CharSequence charSequence, byte[] bArr, int i, int i2) {
-            int i3;
+            int i3 = 0;
             int i4;
             int i5;
             char cCharAt;
@@ -877,7 +869,6 @@ final class Utf8 {
                     j = j2 + 1;
                 }
                 return -1;
-                j2 = j;
             }
             return partialIsValidUtf8(bArr, j2, (int) (j3 - j2));
         }
@@ -957,7 +948,6 @@ final class Utf8 {
                     j = jAddressOffset + 1;
                 }
                 return -1;
-                jAddressOffset = j;
             }
             return partialIsValidUtf8(jAddressOffset, (int) (j2 - jAddressOffset));
         }
