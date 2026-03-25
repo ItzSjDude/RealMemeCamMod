@@ -41,42 +41,50 @@ public class HumanEffectDoubleExposureApi {
         ANC_HUM_IMG_NV12
     }
 
-        /* Native method bindings (signatures preserved). */
-        private native int nativeAttachGl(long nativeHandle);
+    /* Native method bindings (signatures preserved). */
+    private native int nativeAttachGl(long nativeHandle);
 
-        private native long nativeInitHandle(HumanEffectDoubleExposureConfig config);
+    private native long nativeInitHandle(HumanEffectDoubleExposureConfig config);
 
-        private native int nativeProcessFrame(long nativeHandle, byte[] in, byte[] out, int inW, int inH, int outW, int outH, int imageType,
+    private native int nativeProcessFrame(long nativeHandle, byte[] in, byte[] out, int inW, int inH, int outW,
+            int outH, int imageType,
             int rotation);
 
-        private native int nativeProcessFrameInTextureOut(long nativeHandle, byte[] in, int cameraType, int outTexId, boolean outIsOES, int bgCameraType, int bgTexId,
+    private native int nativeProcessFrameInTextureOut(long nativeHandle, byte[] in, int cameraType, int outTexId,
+            boolean outIsOES, int bgCameraType, int bgTexId,
             int inW, int inH, int outW, int outH, boolean bgFromAlbum, int bgRotation, int inRotation);
 
-        private native int nativeProcessHardwareBufferInTextureOut(long nativeHandle, HardwareBuffer hardwareBuffer, int width, int height,
+    private native int nativeProcessHardwareBufferInTextureOut(long nativeHandle, HardwareBuffer hardwareBuffer,
+            int width, int height,
             boolean isOES, int scanline, int bgTexId, int bgIsOES, int outTexId, int inW, int inH, int outW, int outH,
             int inRotation, int bgRotation, boolean bgFromAlbum);
 
-        private native int nativeProcessTexture(long nativeHandle, int inTexId, int outTexId, int width, int height, int rotation, boolean isOES);
+    private native int nativeProcessTexture(long nativeHandle, int inTexId, int outTexId, int width, int height,
+            int rotation, boolean isOES);
 
-        private native int nativeProcessTextureAndHardwareBufferInTextureOut(long nativeHandle, int inTexId, boolean inIsOES,
-            HardwareBuffer hardwareBuffer, int scanline, int bgTexId, boolean bgIsOES, int outTexId, int inW, int inH, int outW, int outH,
+    private native int nativeProcessTextureAndHardwareBufferInTextureOut(long nativeHandle, int inTexId,
+            boolean inIsOES,
+            HardwareBuffer hardwareBuffer, int scanline, int bgTexId, boolean bgIsOES, int outTexId, int inW, int inH,
+            int outW, int outH,
             int outRotation, int inRotation, int inCamera, int bgCamera, boolean bgFromAlbum);
 
-        private native int nativeProcessTextures(long nativeHandle, int fgTexId, boolean fgIsOES, int bgTexId, boolean bgIsOES, int outTexId, int fgW, int fgH, int bgW,
+    private native int nativeProcessTextures(long nativeHandle, int fgTexId, boolean fgIsOES, int bgTexId,
+            boolean bgIsOES, int outTexId, int fgW, int fgH, int bgW,
             int bgH, int bgRotation, int fgRotation);
 
-        private native int nativeRelease(long nativeHandle);
+    private native int nativeRelease(long nativeHandle);
 
-        private native String nativeSdkVersion();
+    private native String nativeSdkVersion();
 
-        private native int nativeSetLogLevel(int level);
+    private native int nativeSetLogLevel(int level);
 
-        private native int nativeSetParams(long nativeHandle, HumanVideoDoubleExposureParams params);
+    private native int nativeSetParams(long nativeHandle, HumanVideoDoubleExposureParams params);
 
     public int initByConfig(HumanEffectDoubleExposureConfig humanEffectDoubleExposureConfig) {
         if (DEBUG) {
             Log.i(TAG, "init API by BuildNumber: 350 isRealTime: "
-                    + (humanEffectDoubleExposureConfig != null ? humanEffectDoubleExposureConfig.toString() : " null config"));
+                    + (humanEffectDoubleExposureConfig != null ? humanEffectDoubleExposureConfig.toString()
+                            : " null config"));
         } else {
             Log.e(TAG, "init API by config BuildNumber: 350");
         }
@@ -161,10 +169,10 @@ public class HumanEffectDoubleExposureApi {
             return 1;
         }
         return nativeProcessTextures(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID,
-            humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTextureRequest2.humanVideoTexture.texID,
-            humanProcessTextureRequest2.humanVideoTexture.isOES, humanProcessTexureResult.humanVideoTexture.texID,
-            fgW, fgH, bgW, bgH, humanProcessTextureRequest2.humanVideoTexture.rotation,
-            humanProcessTextureRequest.humanVideoTexture.rotation);
+                humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTextureRequest2.humanVideoTexture.texID,
+                humanProcessTextureRequest2.humanVideoTexture.isOES, humanProcessTexureResult.humanVideoTexture.texID,
+                fgW, fgH, bgW, bgH, humanProcessTextureRequest2.humanVideoTexture.rotation,
+                humanProcessTextureRequest.humanVideoTexture.rotation);
     }
 
     public int process(HumanProcessFrameRequest humanProcessFrameRequest,
@@ -185,7 +193,7 @@ public class HumanEffectDoubleExposureApi {
                         "process: argment is invalid, image type=%d" + humanProcessFrameRequest.humanVideoFrame.type);
                 return 1;
             }
-            if (i % 64 != 0) {
+            if (inW % 64 != 0) {
                 Log.e(TAG,
                         "[Warning]process: argment maybe is invalid, width is not 64 alignment maybe causes abnormal rendering cases");
             }
@@ -199,7 +207,7 @@ public class HumanEffectDoubleExposureApi {
                 Log.e(TAG, "process: please set output 2d texture instead of oes.");
                 return 1;
             }
-                return nativeProcessFrameInTextureOut(this.handle.get(), humanProcessFrameRequest.humanVideoFrame.data,
+            return nativeProcessFrameInTextureOut(this.handle.get(), humanProcessFrameRequest.humanVideoFrame.data,
                     humanProcessFrameRequest.cameraType == CameraType.CAMERA_TYPE_REAR ? 0 : 1,
                     humanProcessTextureRequest.humanVideoTexture.texID,
                     humanProcessTextureRequest.humanVideoTexture.isOES,
@@ -234,7 +242,7 @@ public class HumanEffectDoubleExposureApi {
                         + humanProcessHardwareBufferRequest.humanVideoFrame.type);
                 return 1;
             }
-            if (i % 64 != 0) {
+            if (inW % 64 != 0) {
                 Log.e(TAG,
                         "[Warning]process: argment maybe is invalid, width is not 64 alignment maybe causes abnormal rendering cases");
             }
@@ -244,7 +252,7 @@ public class HumanEffectDoubleExposureApi {
                 Log.e(TAG, "process: please set output 2d texture instead of oes.");
                 return 1;
             }
-                return nativeProcessTextureAndHardwareBufferInTextureOut(this.handle.get(), 0, false,
+            return nativeProcessTextureAndHardwareBufferInTextureOut(this.handle.get(), 0, false,
                     humanProcessHardwareBufferRequest.humanVideoFrame.data,
                     humanProcessHardwareBufferRequest.humanVideoFrame.scanline,
                     humanProcessTextureRequest.humanVideoTexture.texID,
@@ -296,7 +304,7 @@ public class HumanEffectDoubleExposureApi {
                         + humanProcessHardwareBufferRequest.humanVideoFrame.type);
                 return 1;
             }
-            if (i % 64 != 0) {
+            if (inW % 64 != 0) {
                 Log.e(TAG,
                         "[Warning]process: argment maybe is invalid, width is not 64 alignment maybe causes abnormal rendering cases");
             }
@@ -306,7 +314,7 @@ public class HumanEffectDoubleExposureApi {
                 Log.e(TAG, "process: please set output 2d texture instead of oes.");
                 return 1;
             }
-                return nativeProcessTextureAndHardwareBufferInTextureOut(this.handle.get(),
+            return nativeProcessTextureAndHardwareBufferInTextureOut(this.handle.get(),
                     z ? humanProcessTextureRequest.humanVideoTexture.texID : 0,
                     z ? humanProcessTextureRequest.humanVideoTexture.isOES : false,
                     humanProcessHardwareBufferRequest.humanVideoFrame.data,
@@ -343,11 +351,14 @@ public class HumanEffectDoubleExposureApi {
         }
         int inW = humanProcessFrameRequest.humanVideoFrame.width;
         int inH = humanProcessFrameRequest.humanVideoFrame.height;
-        int outW = humanProcessFrameResult.humanVideoFrame.width == 0 ? inW : humanProcessFrameResult.humanVideoFrame.width;
-        int outH = humanProcessFrameResult.humanVideoFrame.height == 0 ? inH : humanProcessFrameResult.humanVideoFrame.height;
+        int outW = humanProcessFrameResult.humanVideoFrame.width == 0 ? inW
+                : humanProcessFrameResult.humanVideoFrame.width;
+        int outH = humanProcessFrameResult.humanVideoFrame.height == 0 ? inH
+                : humanProcessFrameResult.humanVideoFrame.height;
         return nativeProcessFrame(this.handle.get(), humanProcessFrameRequest.humanVideoFrame.data,
-            humanProcessFrameResult.humanVideoFrame.data, inW, inH, outW, outH,
-            humanProcessFrameRequest.humanVideoFrame.type.ordinal(), humanProcessFrameRequest.humanVideoFrame.rotation);
+                humanProcessFrameResult.humanVideoFrame.data, inW, inH, outW, outH,
+                humanProcessFrameRequest.humanVideoFrame.type.ordinal(),
+                humanProcessFrameRequest.humanVideoFrame.rotation);
     }
 
     public int release() {
