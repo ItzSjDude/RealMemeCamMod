@@ -135,7 +135,7 @@ public final class TextFormat {
             return;
         }
         if (tagWireType == 1) {
-            textGenerator.print(String.format(null, "0x%016x", (Long) obj));
+            textGenerator.print(String.format((Locale) null, "0x%016x", (Long) obj));
             return;
         }
         if (tagWireType != 2) {
@@ -144,7 +144,7 @@ public final class TextFormat {
                 return;
             }
             if (tagWireType == 5) {
-                textGenerator.print(String.format(null, "0x%08x", (Integer) obj));
+                textGenerator.print(String.format((Locale) null, "0x%08x", (Integer) obj));
                 return;
             } else {
                 throw new IllegalArgumentException("Bad tag: " + i);
@@ -365,34 +365,34 @@ public final class TextFormat {
             String strReplace;
             switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor
                     .getType().ordinal()]) {
-                case 1:
-                case 2:
-                case 3:
+                case 1: // INT32
+                case 2: // SINT32
+                case 3: // SFIXED32
                     textGenerator.print(((Integer) obj).toString());
                     break;
-                case 4:
-                case 5:
-                case 6:
+                case 4: // INT64
+                case 5: // SINT64
+                case 6: // SFIXED64
                     textGenerator.print(((Long) obj).toString());
                     break;
-                case 7:
+                case 7: // BOOL
                     textGenerator.print(((Boolean) obj).toString());
                     break;
-                case 8:
+                case 8: // FLOAT
                     textGenerator.print(((Float) obj).toString());
                     break;
-                case 9:
+                case 9: // DOUBLE
                     textGenerator.print(((Double) obj).toString());
                     break;
-                case 10:
-                case 11:
+                case 10: // UINT32
+                case 11: // FIXED32
                     textGenerator.print(TextFormat.unsignedToString(((Integer) obj).intValue()));
                     break;
-                case 12:
-                case 13:
+                case 12: // UINT64
+                case 13: // FIXED64
                     textGenerator.print(TextFormat.unsignedToString(((Long) obj).longValue()));
                     break;
-                case 14:
+                case 14: // STRING
                     textGenerator.print("\"");
                     if (this.escapeNonAscii) {
                         strReplace = TextFormatEscaper.escapeText((String) obj);

@@ -89,11 +89,11 @@ public class RepeatedFieldBuilder<MType extends GeneratedMessage, BType extends 
     public IType getMessageOrBuilder(int i) {
         List<SingleFieldBuilder<MType, BType, IType>> list = this.builders;
         if (list == null) {
-            return this.messages.get(i);
+            return (IType) this.messages.get(i);
         }
         SingleFieldBuilder<MType, BType, IType> singleFieldBuilder = list.get(i);
         if (singleFieldBuilder == null) {
-            return this.messages.get(i);
+            return (IType) this.messages.get(i);
         }
         return (IType) singleFieldBuilder.getMessageOrBuilder();
     }

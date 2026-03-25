@@ -126,7 +126,7 @@ final class RopeByteString extends ByteString {
              */
             private ByteString.ByteIterator nextPiece() {
                 if (this.pieces.hasNext()) {
-                    return this.pieces.next().iterator();
+                    return (ByteString.ByteIterator) this.pieces.next().iterator();
                 }
                 return null;
             }
@@ -481,6 +481,7 @@ final class RopeByteString extends ByteString {
                 }
                 leafByLeft = getLeafByLeft(this.breadCrumbs.pop().right);
             } while (leafByLeft.size() == 0);
+
             return leafByLeft;
         }
 

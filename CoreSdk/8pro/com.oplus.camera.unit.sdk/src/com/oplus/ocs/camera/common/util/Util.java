@@ -291,8 +291,8 @@ public class Util {
                                 dngCreator.close();
                                 try {
                                     byteArrayOutputStream.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                } catch (IOException e2) {
+                                    e2.printStackTrace();
                                 }
                                 return cameraImage;
                             } catch (IOException e2) {
@@ -396,7 +396,7 @@ public class Util {
             return (T) Character.valueOf(str2.toCharArray()[0]);
         }
         if (FORMAT_STRING.equalsIgnoreCase(str)) {
-            return str2;
+            return (T) str2;
         }
         return null;
     }
