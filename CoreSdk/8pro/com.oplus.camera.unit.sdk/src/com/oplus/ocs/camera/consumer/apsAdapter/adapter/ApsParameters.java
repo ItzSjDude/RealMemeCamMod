@@ -267,7 +267,7 @@ public class ApsParameters {
             for (Map.Entry<Key<?>, ValueWrapper<?>> entry : this.mParameterMap.entrySet()) {
                 Key<?> key = entry.getKey();
                 Key<?> key2 = new Key<>(key.getName(), key.getCategory(), key.getDefault());
-                final Object objClone = entry.getValue().getValue().get();
+                Object objClone = entry.getValue().getValue().get();
                 if (objClone instanceof String[]) {
                     objClone = ((String[]) objClone).clone();
                 } else if (objClone instanceof int[]) {

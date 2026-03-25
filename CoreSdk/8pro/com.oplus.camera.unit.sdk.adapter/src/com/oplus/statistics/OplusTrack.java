@@ -181,14 +181,14 @@ public class OplusTrack {
             LogUtil.v(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda27
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return OplusTrack.lambda$onCommon$1(CommonBean.this, i);
+                    return OplusTrack.lambda$onCommon$1(commonBean, i);
                 }
             });
             if ((i & 1) == 1) {
                 WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda28
                     @Override // java.lang.Runnable
                     public final void run() {
-                        CommonAgent.recordCommon(r0.getContext(), CommonBean.this);
+                        CommonAgent.recordCommon(commonBean.getContext(), commonBean);
                     }
                 });
             }
@@ -196,13 +196,18 @@ public class OplusTrack {
                 WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda29
                     @Override // java.lang.Runnable
                     public final void run() {
-                        AtomAgent.recordAtomCommon(r0.getContext(), CommonBean.this);
+                        AtomAgent.recordAtomCommon(commonBean.getContext(), commonBean);
                     }
                 });
             }
             return true;
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
             return false;
         }
     }
@@ -230,7 +235,7 @@ public class OplusTrack {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda12
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return OplusTrack.lambda$onStaticDataUpdate$4(PeriodDataBean.this);
+                    return OplusTrack.lambda$onStaticDataUpdate$4(periodDataBean);
                 }
             });
             WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda13
@@ -240,7 +245,12 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -262,7 +272,7 @@ public class OplusTrack {
             LogUtil.d(TAG, new Supplier() { // from class: com.oplus.statistics.OplusTrack$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return OplusTrack.lambda$onSettingKeyUpdate$6(SettingKeyDataBean.this);
+                    return OplusTrack.lambda$onSettingKeyUpdate$6(settingKeyDataBean);
                 }
             });
             if (!TextUtils.isEmpty(settingKeyDataBean.getLogTag())) {
@@ -281,7 +291,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -328,7 +343,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -355,7 +375,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -382,7 +407,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -409,7 +439,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -434,7 +469,12 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -459,7 +499,12 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -485,7 +530,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -511,7 +561,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -537,7 +592,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -563,7 +623,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -577,7 +642,12 @@ public class OplusTrack {
             });
             sPageVisitAgent.onPause(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -591,7 +661,12 @@ public class OplusTrack {
             });
             sPageVisitAgent.onResume(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -609,7 +684,12 @@ public class OplusTrack {
                     sExceptionHandler.setStatisticsExceptionHandler();
                 }
             } catch (Exception e) {
-                LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+                LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
             }
         }
     }
@@ -632,7 +712,12 @@ public class OplusTrack {
                 });
             }
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -651,7 +736,12 @@ public class OplusTrack {
                 }
             });
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -676,7 +766,12 @@ public class OplusTrack {
             try {
                 PreferenceHandler.setSessionTimeout(context, i);
             } catch (Exception e) {
-                LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+                LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
             }
         }
     }
@@ -696,7 +791,12 @@ public class OplusTrack {
         try {
             PreferenceHandler.setSsoID(context, (TextUtils.isEmpty(str) || str.equals("null")) ? "0" : "0");
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 
@@ -710,7 +810,12 @@ public class OplusTrack {
             });
             PreferenceHandler.setSsoID(context);
         } catch (Exception e) {
-            LogUtil.e(TAG, new OplusTrack$$ExternalSyntheticLambda2(e));
+            LogUtil.e(TAG, new Supplier() {
+                    @Override
+                    public Object get() {
+                        return e.getMessage();
+                    }
+                });
         }
     }
 

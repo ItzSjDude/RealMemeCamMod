@@ -5,12 +5,10 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 import android.view.Surface;
 import androidx.annotation.NonNull;
-import com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter;
-import com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter;
 import com.oplus.ocs.camera.common.util.CameraImage;
 
 /* JADX INFO: loaded from: classes.dex */
-public class DefaultPictureCallback extends CameraPictureCallbackAdapter {
+public class DefaultPictureCallback extends com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter mCameraPictureCallback;
 
     DefaultPictureCallback(com.coloros.ocs.camera.callback.CameraPictureCallbackAdapter cameraPictureCallbackAdapter) {
@@ -33,8 +31,8 @@ public class DefaultPictureCallback extends CameraPictureCallbackAdapter {
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onPictureCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull CameraPictureCallbackAdapter.PictureResult pictureResult) {
-        this.mCameraPictureCallback.onPictureCaptureProgressed(captureRequest, new CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
+    public void onPictureCaptureProgressed(@NonNull CaptureRequest captureRequest, @NonNull com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        this.mCameraPictureCallback.onPictureCaptureProgressed(captureRequest, new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
@@ -43,8 +41,8 @@ public class DefaultPictureCallback extends CameraPictureCallbackAdapter {
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onCaptureCompleted(CaptureRequest captureRequest, CameraPictureCallbackAdapter.PictureResult pictureResult) {
-        this.mCameraPictureCallback.onCaptureCompleted(captureRequest, new CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
+    public void onCaptureCompleted(CaptureRequest captureRequest, com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        this.mCameraPictureCallback.onCaptureCompleted(captureRequest, new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure()));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
@@ -53,12 +51,12 @@ public class DefaultPictureCallback extends CameraPictureCallbackAdapter {
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter
-    public void onCaptureFailed(CaptureRequest captureRequest, CameraPictureCallbackAdapter.PictureResult pictureResult) {
-        CameraPictureCallbackAdapter.PictureResult pictureResult2;
+    public void onCaptureFailed(CaptureRequest captureRequest, com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult) {
+        com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult pictureResult2;
         if (pictureResult == null) {
-            pictureResult2 = new CameraPictureCallbackAdapter.PictureResult(null, null);
+            pictureResult2 = new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(null, null);
         } else {
-            pictureResult2 = new CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure());
+            pictureResult2 = new com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter.PictureResult(pictureResult.getCaptureResult(), pictureResult.getCaptureFailure());
         }
         this.mCameraPictureCallback.onCaptureFailed(captureRequest, pictureResult2);
     }

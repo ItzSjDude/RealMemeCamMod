@@ -1,10 +1,8 @@
 package com.coloros.ocs.camera.impl;
 
-import com.coloros.ocs.camera.callback.CameraRecordingCallbackAdapter;
-import com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter;
 
 /* JADX INFO: loaded from: classes.dex */
-public class DefaultCameraRecordingCallback extends CameraRecordingCallbackAdapter {
+public class DefaultCameraRecordingCallback extends com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraRecordingCallbackAdapter mCameraRecordingCallback;
 
     DefaultCameraRecordingCallback(com.coloros.ocs.camera.callback.CameraRecordingCallbackAdapter cameraRecordingCallbackAdapter) {
@@ -12,7 +10,7 @@ public class DefaultCameraRecordingCallback extends CameraRecordingCallbackAdapt
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter
-    public void onRecordingResult(CameraRecordingCallbackAdapter.RecordingResult recordingResult) {
-        this.mCameraRecordingCallback.onRecordingResult(new CameraRecordingCallbackAdapter.RecordingResult(recordingResult.getRecordingState(), recordingResult.getCameraRequestTag()));
+    public void onRecordingResult(com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter.RecordingResult recordingResult) {
+        this.mCameraRecordingCallback.onRecordingResult(new com.oplus.ocs.camera.appinterface.CameraRecordingCallbackAdapter.RecordingResult(recordingResult.getRecordingState(), recordingResult.getCameraRequestTag()));
     }
 }

@@ -6,11 +6,9 @@ import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.view.Surface;
 import androidx.annotation.NonNull;
-import com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter;
-import com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter;
 
 /* JADX INFO: loaded from: classes.dex */
-public final class DefaultCameraPreviewCallback extends CameraPreviewCallbackAdapter {
+public final class DefaultCameraPreviewCallback extends com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter {
     private com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter mCameraPreviewCallback;
 
     DefaultCameraPreviewCallback(com.coloros.ocs.camera.callback.CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter) {
@@ -18,8 +16,8 @@ public final class DefaultCameraPreviewCallback extends CameraPreviewCallbackAda
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
-    public void onCaptureCompleted(CaptureRequest captureRequest, CameraPreviewCallbackAdapter.PreviewResult previewResult) {
-        this.mCameraPreviewCallback.onCaptureCompleted(captureRequest, new CameraPreviewCallbackAdapter.PreviewResult(previewResult));
+    public void onCaptureCompleted(CaptureRequest captureRequest, com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult previewResult) {
+        this.mCameraPreviewCallback.onCaptureCompleted(captureRequest, new com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter.PreviewResult(previewResult));
     }
 
     @Override // com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter
