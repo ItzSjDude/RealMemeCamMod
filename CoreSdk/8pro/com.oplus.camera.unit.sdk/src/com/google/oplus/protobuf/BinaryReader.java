@@ -1309,9 +1309,9 @@ abstract class BinaryReader implements Reader {
         }
 
         public long readVarint64() throws IOException {
-            long j;
-            long j2;
-            long j3;
+            long j = 0;
+            long j2 = 0;
+            long j3 = 0;
             int i;
             int i2 = this.pos;
             int i3 = this.limit;
