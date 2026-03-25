@@ -53,11 +53,14 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
         createImageProcessThread();
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v3, resolved type: java.lang.Object[] */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v3, resolved type:
+     * java.lang.Object[]
+     */
     /* JADX WARN: Multi-variable type inference failed */
     private void createImageProcessThread() {
         CameraHandlerThread cameraHandlerThread = null;
-        Object[] objArr = 0;
+        Object[] objArr = null;
         if (this.mImageProcessHandler == null) {
             CameraHandlerThread cameraHandlerThread2 = new CameraHandlerThread("ImageProcessThread");
             cameraHandlerThread2.enableUxState();
@@ -120,7 +123,8 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
     }
 
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface
-    public boolean notifyLastCaptureFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo) {
+    public boolean notifyLastCaptureFrame(ImageCategory.ImageItemInfo imageItemInfo,
+            ImageCategory.MetaItemInfo metaItemInfo) {
         ApsCaptureAdapterImpl apsCaptureAdapterImpl = this.mCaptureImpl;
         if (apsCaptureAdapterImpl != null) {
             return apsCaptureAdapterImpl.notifyLastCaptureFrame(imageItemInfo, metaItemInfo);
@@ -179,11 +183,13 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface
     public Bitmap processBitmap(Bitmap bitmap, CaptureResult captureResult, ImageCategory.MetaItemInfo metaItemInfo) {
         ApsCaptureAdapterImpl apsCaptureAdapterImpl = this.mCaptureImpl;
-        return apsCaptureAdapterImpl != null ? apsCaptureAdapterImpl.processBitmap(bitmap, captureResult, metaItemInfo) : bitmap;
+        return apsCaptureAdapterImpl != null ? apsCaptureAdapterImpl.processBitmap(bitmap, captureResult, metaItemInfo)
+                : bitmap;
     }
 
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface
-    public void videoSnapshot(ApsAdapterListener.CaptureCallback captureCallback, ApsCameraRequestTag apsCameraRequestTag) {
+    public void videoSnapshot(ApsAdapterListener.CaptureCallback captureCallback,
+            ApsCameraRequestTag apsCameraRequestTag) {
         ApsPreviewAdapterImpl apsPreviewAdapterImpl = this.mPreviewImpl;
         if (apsPreviewAdapterImpl != null) {
             apsPreviewAdapterImpl.videoSnapshot(captureCallback, apsCameraRequestTag);
@@ -193,10 +199,12 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface
     public void addPreviewMetadata(ImageCategory.MetaItemInfo metaItemInfo) {
         ApsVideoAdapterImpl apsVideoAdapterImpl;
-        if (metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO && (apsVideoAdapterImpl = this.mVideoImpl) != null) {
+        if (metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO
+                && (apsVideoAdapterImpl = this.mVideoImpl) != null) {
             apsVideoAdapterImpl.addMetadata(metaItemInfo);
         }
-        if (this.mPreviewImpl == null || ((Boolean) metaItemInfo.get(ApsParameters.KEY_OVERHEAT_SKIP_FRAME)).booleanValue()) {
+        if (this.mPreviewImpl == null
+                || ((Boolean) metaItemInfo.get(ApsParameters.KEY_OVERHEAT_SKIP_FRAME)).booleanValue()) {
             return;
         }
         this.mPreviewImpl.addMetadata(metaItemInfo);
@@ -248,7 +256,8 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
             this.mbIsApsCaptureAlgoIniting.set(false);
             this.mApsCaptureAlgoInitSig.open();
         }
-        ApsAdapterLog.v(TAG, "init X, mApsModule: " + apsInitParameter.mApsModule + ", AlgoInitializing: " + isApsCaptureAlgoInitializing());
+        ApsAdapterLog.v(TAG, "init X, mApsModule: " + apsInitParameter.mApsModule + ", AlgoInitializing: "
+                + isApsCaptureAlgoInitializing());
     }
 
     @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterInterface
@@ -290,7 +299,8 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
             case "pipeline_default":
                 if (this.mbIsApsCaptureAlgoIniting.get()) {
                     apsResult.mDecisionResult = null;
-                    ApsAdapterLog.d(TAG, "onPreviewReceived, aps capture algo is initing, reset mDecisionResult as null.");
+                    ApsAdapterLog.d(TAG,
+                            "onPreviewReceived, aps capture algo is initing, reset mDecisionResult as null.");
                 }
                 ApsPreviewAdapterImpl apsPreviewAdapterImpl = this.mPreviewImpl;
                 if (apsPreviewAdapterImpl != null) {
@@ -322,7 +332,8 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                 }
                 break;
             default:
-                ApsAdapterLog.e(TAG, "onPreviewReceived, mPipelineName: " + apsResult.mPipelineName + " no need to processed.");
+                ApsAdapterLog.e(TAG,
+                        "onPreviewReceived, mPipelineName: " + apsResult.mPipelineName + " no need to processed.");
                 break;
         }
     }
@@ -531,21 +542,27 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                     }
                     apsAdapterImpl.mApsInterface = noneApsImpl;
                 }
-                ApsAdapterImpl.this.mPreviewImpl = new ApsPreviewAdapterImpl(ApsAdapterImpl.this.mApsInterface, ApsAdapterImpl.this.mImageListener);
-                ApsAdapterImpl.this.mVideoImpl = new ApsVideoAdapterImpl(ApsAdapterImpl.this.mApsInterface, ApsAdapterImpl.this.mImageListener);
-                ApsAdapterImpl.this.mCaptureImpl = new ApsCaptureAdapterImpl(ApsAdapterImpl.this.mApsInterface, ApsAdapterImpl.this.mImageListener, ApsAdapterImpl.this.mImageProcessHandler);
+                ApsAdapterImpl.this.mPreviewImpl = new ApsPreviewAdapterImpl(ApsAdapterImpl.this.mApsInterface,
+                        ApsAdapterImpl.this.mImageListener);
+                ApsAdapterImpl.this.mVideoImpl = new ApsVideoAdapterImpl(ApsAdapterImpl.this.mApsInterface,
+                        ApsAdapterImpl.this.mImageListener);
+                ApsAdapterImpl.this.mCaptureImpl = new ApsCaptureAdapterImpl(ApsAdapterImpl.this.mApsInterface,
+                        ApsAdapterImpl.this.mImageListener, ApsAdapterImpl.this.mImageProcessHandler);
                 boolean zConnect = ApsAdapterImpl.this.mApsInterface.connect(AlgoSwitchConfig.getApsVersion());
                 if (ApsAdapterImpl.this.mPreviewImpl != null) {
                     ApsAdapterImpl.this.mPreviewImpl.setApsConnected(zConnect);
                 }
                 ApsAdapterImpl.this.mImageListener.onApsConnected();
                 ApsAdapterImpl.this.mInitSig.open();
-                ApsAdapterLog.v(ApsAdapterImpl.TAG, "ImageProcessHandler, handleMessage, MSG_APS_CONNECT, result : " + zConnect);
+                ApsAdapterLog.v(ApsAdapterImpl.TAG,
+                        "ImageProcessHandler, handleMessage, MSG_APS_CONNECT, result : " + zConnect);
             } else if (i != 2) {
                 if (i == 3) {
-                    ApsAdapterLog.d(ApsAdapterImpl.TAG, "handleMessage, add frame, timestamp: " + ((Long) message.obj).longValue());
+                    ApsAdapterLog.d(ApsAdapterImpl.TAG,
+                            "handleMessage, add frame, timestamp: " + ((Long) message.obj).longValue());
                     if (ApsAdapterImpl.this.isApsCaptureAlgoInitializing()) {
-                        ApsAdapterLog.e(ApsAdapterImpl.TAG, "ImageProcessHandler, handleMessage, need block, aps initializing...");
+                        ApsAdapterLog.e(ApsAdapterImpl.TAG,
+                                "ImageProcessHandler, handleMessage, need block, aps initializing...");
                         ApsAdapterImpl.this.mApsCaptureAlgoInitSig.close();
                         ApsAdapterImpl.this.mApsCaptureAlgoInitSig.block(ApsAdapterImpl.APS_INIT_TIME_OUT_MS);
                     }

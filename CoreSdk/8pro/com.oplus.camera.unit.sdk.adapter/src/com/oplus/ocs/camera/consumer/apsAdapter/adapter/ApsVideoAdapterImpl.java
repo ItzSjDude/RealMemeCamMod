@@ -34,17 +34,21 @@ class ApsVideoAdapterImpl {
     private ProcessHandler mVideoProcessHandler = null;
     private ImageCategory.MetaItemInfo mCurMetaItemInfo = null;
 
-    protected ApsVideoAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener) {
+    protected ApsVideoAdapterImpl(ApsInterface apsInterface,
+            ApsAdapterInterface.ImageProcessListener imageProcessListener) {
         this.mApsInterface = apsInterface;
         this.mImageProcessListener = imageProcessListener;
         createProcessThread();
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v6, resolved type: java.lang.Object[] */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v6, resolved type:
+     * java.lang.Object[]
+     */
     /* JADX WARN: Multi-variable type inference failed */
     private void createProcessThread() {
         HandlerThread handlerThread = null;
-        Object[] objArr = 0;
+        Object[] objArr = null;
         if (this.mVideoProcessHandler == null) {
             HandlerThread handlerThread2 = new HandlerThread("VideoProcessThread");
             handlerThread2.start();
@@ -80,7 +84,8 @@ class ApsVideoAdapterImpl {
                 imageCategory.mImageItemList.add(imageItemInfo);
                 this.mVideoProcessMap.put(Long.valueOf(jLongValue), imageCategory);
             }
-            boolean zBooleanValue = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_VIDEO_META_DATA)).booleanValue();
+            boolean zBooleanValue = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_VIDEO_META_DATA))
+                    .booleanValue();
             if (imageCategory.isValid() || !zBooleanValue) {
                 if (!zBooleanValue) {
                     ImageCategory.MetaItemInfo metaItemInfo = this.mCurMetaItemInfo;
@@ -103,7 +108,8 @@ class ApsVideoAdapterImpl {
         ImageCategory imageCategory;
         synchronized (this.mVideoQueueLock) {
             ImageCategory.MetaItemInfo metaItemInfo2 = this.mCurMetaItemInfo;
-            if (metaItemInfo2 == null || ((Long) metaItemInfo2.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() < ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()) {
+            if (metaItemInfo2 == null || ((Long) metaItemInfo2.get(ApsParameters.KEY_FRAME_NUMBER))
+                    .longValue() < ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()) {
                 this.mCurMetaItemInfo = metaItemInfo;
             }
             long jLongValue = ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
@@ -133,13 +139,15 @@ class ApsVideoAdapterImpl {
             }
             System.currentTimeMillis();
             ImageCategory.ImageItemInfo imageItemInfo = imageCategory.mImageItemList.get(0);
-            ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem != null ? imageCategory.mMetaItem : new ImageCategory.MetaItemInfo();
+            ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem != null ? imageCategory.mMetaItem
+                    : new ImageCategory.MetaItemInfo();
             ApsParameters apsParameters = new ApsParameters();
             ApsAdapterInterface.ImageProcessListener imageProcessListener = this.mImageProcessListener;
             if (imageProcessListener != null) {
                 apsParameters.setAll(imageProcessListener.fillApsParameters(imageCategory, 3, false));
             }
-            ApsWatermarkParam apsWatermarkParam = (ApsWatermarkParam) metaItemInfo.get(ApsParameters.KEY_APS_WATERMARK_PARAM);
+            ApsWatermarkParam apsWatermarkParam = (ApsWatermarkParam) metaItemInfo
+                    .get(ApsParameters.KEY_APS_WATERMARK_PARAM);
             List<ImageCategory.ImageItemInfo> list = imageCategory.mImageItemList;
             ApsResult.ImageBuffer[] imageBufferArr = new ApsResult.ImageBuffer[list.size()];
             int[] iArr = new int[list.size()];
@@ -153,7 +161,21 @@ class ApsVideoAdapterImpl {
                     return -1;
                 }
             }
-            return this.mApsInterface.addPreviewFrameBuff(new ApsPreviewParam(metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT) != null ? ((CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT)).getFrameNumber() : -1L, apsParameters.getParameters(), ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr, (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT), (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr, ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(), metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, ((Boolean) imageItemInfo.get(ApsParameters.KEY_IS_DETACHED)).booleanValue(), ApsUtils.getConsumerPtr(imageItemInfo.mImageBuffer.getImageReader()), true, (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE)), apsWatermarkParam);
+            return this.mApsInterface
+                    .addPreviewFrameBuff(new ApsPreviewParam(
+                            metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT) != null
+                                    ? ((CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT))
+                                            .getFrameNumber()
+                                    : -1L,
+                            apsParameters.getParameters(),
+                            ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr,
+                            (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT),
+                            (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr,
+                            ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(),
+                            metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO,
+                            ((Boolean) imageItemInfo.get(ApsParameters.KEY_IS_DETACHED)).booleanValue(),
+                            ApsUtils.getConsumerPtr(imageItemInfo.mImageBuffer.getImageReader()), true,
+                            (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE)), apsWatermarkParam);
         }
     }
 
@@ -206,14 +228,16 @@ class ApsVideoAdapterImpl {
         }
         Iterator it = arrayList2.iterator();
         while (it.hasNext()) {
-            ImageCategory imageCategoryRemove = this.mVideoProcessMap.remove(Long.valueOf(((Long) it.next()).longValue()));
+            ImageCategory imageCategoryRemove = this.mVideoProcessMap
+                    .remove(Long.valueOf(((Long) it.next()).longValue()));
             ApsAdapterLog.e(TAG, "checkImageOverflow, category: " + imageCategoryRemove);
             if (imageCategoryRemove != null) {
                 imageCategoryRemove.releaseImageItemList();
             }
             ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
             if (apsServiceListener != null) {
-                apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY, StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
+                apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY,
+                        StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
             }
         }
     }

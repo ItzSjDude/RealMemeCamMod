@@ -57,18 +57,22 @@ class ApsPreviewAdapterImpl {
     private List<CaptureRequest> mCaptureRequestList = new CopyOnWriteArrayList();
     private long mFrameNumber = -1;
 
-    protected ApsPreviewAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener) {
+    protected ApsPreviewAdapterImpl(ApsInterface apsInterface,
+            ApsAdapterInterface.ImageProcessListener imageProcessListener) {
         this.mApsInterface = null;
         this.mApsInterface = apsInterface;
         this.mImageProcessListener = imageProcessListener;
         createProcessThread();
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v6, resolved type: java.lang.Object[] */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v6, resolved type:
+     * java.lang.Object[]
+     */
     /* JADX WARN: Multi-variable type inference failed */
     private void createProcessThread() {
         CameraHandlerThread cameraHandlerThread = null;
-        Object[] objArr = 0;
+        Object[] objArr = null;
         if (this.mProcessHandler == null) {
             CameraHandlerThread cameraHandlerThread2 = new CameraHandlerThread("PreviewProcessThread");
             cameraHandlerThread2.enableUxState();
@@ -115,8 +119,10 @@ class ApsPreviewAdapterImpl {
             while (it.hasNext()) {
                 long jLongValue = ((Long) it.next()).longValue();
                 ImageCategory imageCategory2 = this.mProcessMap.get(Long.valueOf(jLongValue));
-                if (imageCategory2 != null && !imageCategory2.mbAlreadySendAps && !imageCategory2.mImageItemList.isEmpty() && jLongValue < j) {
-                    ApsAdapterLog.i(TAG, "checkSendFrames, stop sending frame " + j + " to avoid skip " + jLongValue + " which is marked by ApsParameters.KEY_FRAMES_CAN_NOT_SKIP");
+                if (imageCategory2 != null && !imageCategory2.mbAlreadySendAps
+                        && !imageCategory2.mImageItemList.isEmpty() && jLongValue < j) {
+                    ApsAdapterLog.i(TAG, "checkSendFrames, stop sending frame " + j + " to avoid skip " + jLongValue
+                            + " which is marked by ApsParameters.KEY_FRAMES_CAN_NOT_SKIP");
                     imageCategory2.mbHoldSendAps = true;
                     imageCategory.mbNeedReSendAps = true;
                     this.mProcessMap.put(Long.valueOf(j), imageCategory);
@@ -168,7 +174,9 @@ class ApsPreviewAdapterImpl {
     }
 
     private boolean checkNeedMatchTimeStamp(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory imageCategory) {
-        if (imageCategory.mbNeedMatchTimeStamp || imageCategory.mMetaItem != null || ((Integer) imageItemInfo.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER)).intValue() != imageCategory.mImageItemList.size()) {
+        if (imageCategory.mbNeedMatchTimeStamp || imageCategory.mMetaItem != null
+                || ((Integer) imageItemInfo.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER))
+                        .intValue() != imageCategory.mImageItemList.size()) {
             return false;
         }
         ImageCategory.MetaItemInfo metaItemInfo = this.mCurMetaItemInfo;
@@ -182,7 +190,8 @@ class ApsPreviewAdapterImpl {
         ImageCategory.MetaItemInfo metaItemInfo3 = this.mCurMetaItemInfo;
         ImageReader imageReader = metaItemInfo3.mImageBuffer.getImageReader();
         Image image = this.mMetaImage;
-        metaItemInfo3.mImageBuffer = new ApsResult.ImageBuffer(imageReader, image, ApsUtils.getHardwareBuffer(image), this.mMetaImage.getTimestamp());
+        metaItemInfo3.mImageBuffer = new ApsResult.ImageBuffer(imageReader, image, ApsUtils.getHardwareBuffer(image),
+                this.mMetaImage.getTimestamp());
         this.mMetaImageRefCounter.setMetaImageRef(this.mMetaImage, null, true);
         return true;
     }
@@ -209,7 +218,8 @@ class ApsPreviewAdapterImpl {
                 this.mProcessMap.put(Long.valueOf(jLongValue), imageCategory);
             }
             boolean zIsValid = imageCategory.isValid();
-            imageCategory.mbNeedMatchTimeStamp = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_MATCH_TIME_STAMP)).booleanValue();
+            imageCategory.mbNeedMatchTimeStamp = ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_MATCH_TIME_STAMP))
+                    .booleanValue();
             if (zIsValid || checkNeedMatchTimeStamp(imageItemInfo, imageCategory)) {
                 checkImageOverflow(Long.valueOf(jLongValue));
                 if (zIsValid) {
@@ -227,7 +237,8 @@ class ApsPreviewAdapterImpl {
         ImageCategory imageCategory;
         synchronized (this.mQueueLock) {
             ImageCategory.MetaItemInfo metaItemInfo2 = this.mCurMetaItemInfo;
-            if (metaItemInfo2 == null || ((Long) metaItemInfo2.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() < ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()) {
+            if (metaItemInfo2 == null || ((Long) metaItemInfo2.get(ApsParameters.KEY_FRAME_NUMBER))
+                    .longValue() < ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()) {
                 this.mCurMetaItemInfo = metaItemInfo;
             }
             long jLongValue = ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue();
@@ -265,7 +276,8 @@ class ApsPreviewAdapterImpl {
                     ApsAdapterLog.i(TAG, "dropFrame, frameNumber: " + j + ", timestamp: " + l, true);
                     ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
                     if (apsServiceListener != null) {
-                        apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY, StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
+                        apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY,
+                                StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
                     }
                 }
             }
@@ -273,7 +285,8 @@ class ApsPreviewAdapterImpl {
         return true;
     }
 
-    public void videoSnapshot(ApsAdapterListener.CaptureCallback captureCallback, ApsCameraRequestTag apsCameraRequestTag) {
+    public void videoSnapshot(ApsAdapterListener.CaptureCallback captureCallback,
+            ApsCameraRequestTag apsCameraRequestTag) {
         this.mCaptureRequestList.add(new CaptureRequest(captureCallback, apsCameraRequestTag));
     }
 
@@ -288,7 +301,8 @@ class ApsPreviewAdapterImpl {
             synchronized (this.mQueueLock) {
                 System.currentTimeMillis();
                 ImageCategory.ImageItemInfo imageItemInfo = imageCategory.mImageItemList.get(0);
-                ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem != null ? imageCategory.mMetaItem : new ImageCategory.MetaItemInfo();
+                ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem != null ? imageCategory.mMetaItem
+                        : new ImageCategory.MetaItemInfo();
                 ApsParameters apsParameters = new ApsParameters();
                 ApsAdapterInterface.ImageProcessListener imageProcessListener = this.mImageProcessListener;
                 if (imageProcessListener != null) {
@@ -320,10 +334,20 @@ class ApsPreviewAdapterImpl {
                     }
                 }
                 long j = jLongValue;
-                ApsPreviewParam apsPreviewParam = new ApsPreviewParam(j, apsParameters.getParameters(), ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr, (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT), (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr, ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(), metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, false, 0L, metaItemInfo.mImageBuffer == null || ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue() == metaItemInfo.mImageBuffer.getTimestamp(), (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE));
+                ApsPreviewParam apsPreviewParam = new ApsPreviewParam(j, apsParameters.getParameters(),
+                        ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr,
+                        (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT),
+                        (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr,
+                        ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(),
+                        metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, false,
+                        0L,
+                        metaItemInfo.mImageBuffer == null || ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP))
+                                .longValue() == metaItemInfo.mImageBuffer.getTimestamp(),
+                        (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE));
                 ApsAdapterInterface.ImageProcessListener imageProcessListener2 = this.mImageProcessListener;
                 if (imageProcessListener2 != null) {
-                    imageProcessListener2.onPreviewFrameProcessStarted(j, (Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
+                    imageProcessListener2.onPreviewFrameProcessStarted(j,
+                            (Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
                 }
                 iAddPreviewFrameBuff = this.mApsInterface.addPreviewFrameBuff(apsPreviewParam, null);
             }
@@ -336,12 +360,24 @@ class ApsPreviewAdapterImpl {
             return;
         }
         getDecisionHandler().removeCallbacksAndMessages(null);
-        getDecisionHandler().post(new Runnable() { // from class: com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsPreviewAdapterImpl.1
+        getDecisionHandler().post(new Runnable() { // from class:
+                                                   // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsPreviewAdapterImpl.1
             @Override // java.lang.Runnable
             public void run() {
-                ApsPreviewDecisionParam apsPreviewDecisionParam = new ApsPreviewDecisionParam(decisionControlData.mZoomValue, decisionControlData.mCaptureResult, decisionControlData.mLogicCameraType, decisionControlData.mCameraId, Integer.parseInt(decisionControlData.mLogicCameraId), decisionControlData.mPiEnable, decisionControlData.mAlgoVisualizationEnable, decisionControlData.mPictureVisualizationEnable, decisionControlData.mTripodEnable, decisionControlData.mUltraHighResolutionEnable, decisionControlData.mFilterEnable, decisionControlData.mCaptureMode, decisionControlData.mNeonEnable, decisionControlData.mSCPEnable, decisionControlData.mFaceBeautyEnable, decisionControlData.mSuperRawEnable, decisionControlData.mStreamerEnable, decisionControlData.mRecordingCapture, decisionControlData.mAlgoHashMap);
+                ApsPreviewDecisionParam apsPreviewDecisionParam = new ApsPreviewDecisionParam(
+                        decisionControlData.mZoomValue, decisionControlData.mCaptureResult,
+                        decisionControlData.mLogicCameraType, decisionControlData.mCameraId,
+                        Integer.parseInt(decisionControlData.mLogicCameraId), decisionControlData.mPiEnable,
+                        decisionControlData.mAlgoVisualizationEnable, decisionControlData.mPictureVisualizationEnable,
+                        decisionControlData.mTripodEnable, decisionControlData.mUltraHighResolutionEnable,
+                        decisionControlData.mFilterEnable, decisionControlData.mCaptureMode,
+                        decisionControlData.mNeonEnable, decisionControlData.mSCPEnable,
+                        decisionControlData.mFaceBeautyEnable, decisionControlData.mSuperRawEnable,
+                        decisionControlData.mStreamerEnable, decisionControlData.mRecordingCapture,
+                        decisionControlData.mAlgoHashMap);
                 apsPreviewDecisionParam.setAvailMem(decisionControlData.mAvailMem);
-                decisionControlData.mDecisionCallback.onDecisionResult(ApsPreviewAdapterImpl.this.mApsInterface.previewDecision(apsPreviewDecisionParam));
+                decisionControlData.mDecisionCallback.onDecisionResult(
+                        ApsPreviewAdapterImpl.this.mApsInterface.previewDecision(apsPreviewDecisionParam));
             }
         });
     }
@@ -353,9 +389,12 @@ class ApsPreviewAdapterImpl {
             if (imageProcessListener == null) {
                 return;
             }
-            ApsInitParameter apsInitParameter2 = imageProcessListener.getApsInitParameter(apsInitParameter, this.mInitParameter);
-            if (apsInitParameter2 != null && (processHandler = this.mProcessHandler) != null && processHandler.getLooper().getThread().isAlive()) {
-                ApsAdapterLog.v(TAG, "init, mInitParameter: " + this.mInitParameter + ", parameter: " + apsInitParameter);
+            ApsInitParameter apsInitParameter2 = imageProcessListener.getApsInitParameter(apsInitParameter,
+                    this.mInitParameter);
+            if (apsInitParameter2 != null && (processHandler = this.mProcessHandler) != null
+                    && processHandler.getLooper().getThread().isAlive()) {
+                ApsAdapterLog.v(TAG,
+                        "init, mInitParameter: " + this.mInitParameter + ", parameter: " + apsInitParameter);
                 this.mInitParameter = apsInitParameter2;
                 ApsParameters apsParameters = new ApsParameters();
                 apsParameters.set(ApsParameters.KEY_PACKAGE_NAME, AlgoSwitchConfig.getPackageName());
@@ -371,7 +410,8 @@ class ApsPreviewAdapterImpl {
                 ApsInitParameter apsInitParameter3 = new ApsInitParameter();
                 apsInitParameter3.mParameters = apsParameters.getParameters();
                 apsInitParameter3.mVendorTags = apsInitParameter.mVendorTags;
-                apsInitParameter3.mMetadata = (CameraMetadata) apsInitParameter.get(ApsParameters.KEY_CAMERA_CHARACTERISTICS);
+                apsInitParameter3.mMetadata = (CameraMetadata) apsInitParameter
+                        .get(ApsParameters.KEY_CAMERA_CHARACTERISTICS);
                 apsInitParameter3.mApsModule = apsInitParameter.mApsModule;
                 apsInitParameter3.mInitAlgo = new String[apsInitParameter2.mInitAlgo.length];
                 apsInitParameter3.mPreviewConfig = apsInitParameter.mPreviewConfig;
@@ -431,20 +471,24 @@ class ApsPreviewAdapterImpl {
                 }
             }
             try {
-                ApsTotalResult apsTotalResult = new ApsTotalResult(apsResult.mMetadata, apsResult.getMetaImage(), apsResult.mMetaImageRefCounter, apsResult.mFrameId);
+                ApsTotalResult apsTotalResult = new ApsTotalResult(apsResult.mMetadata, apsResult.getMetaImage(),
+                        apsResult.mMetaImageRefCounter, apsResult.mFrameId);
                 if (imageBuffer != null) {
                     imageBuffer.setApsInterface(this.mApsInterface);
                     if (!this.mCaptureRequestList.isEmpty()) {
                         imageBuffer.addRef();
                         CaptureRequest captureRequestRemove = this.mCaptureRequestList.remove(0);
-                        ApsAdapterLog.v(TAG, "onPreviewReceived, captureRequest: " + captureRequestRemove + " mMetadata:" + apsResult.mMetadata);
+                        ApsAdapterLog.v(TAG, "onPreviewReceived, captureRequest: " + captureRequestRemove
+                                + " mMetadata:" + apsResult.mMetadata);
                         if (captureRequestRemove != null) {
                             if (apsResult.mMetaImageRefCounter != null) {
                                 apsResult.mMetaImageRefCounter.setMetaImageRef(apsResult.getMetaImage(), null, true);
                             }
-                            ApsTotalResult apsTotalResult2 = new ApsTotalResult(apsResult.mMetadata, apsResult.getMetaImage(), apsResult.mMetaImageRefCounter, apsResult.mFrameId);
+                            ApsTotalResult apsTotalResult2 = new ApsTotalResult(apsResult.mMetadata,
+                                    apsResult.getMetaImage(), apsResult.mMetaImageRefCounter, apsResult.mFrameId);
                             captureRequestRemove.mCaptureCallback.onApsCaptureStarted(apsResult.mIdentity);
-                            captureRequestRemove.mCaptureCallback.onApsCaptureCompleted(apsResult, apsTotalResult2, captureRequestRemove.mRequestTag);
+                            captureRequestRemove.mCaptureCallback.onApsCaptureCompleted(apsResult, apsTotalResult2,
+                                    captureRequestRemove.mRequestTag);
                         }
                     }
                 }
@@ -452,7 +496,8 @@ class ApsPreviewAdapterImpl {
             } catch (IllegalStateException e) {
                 e.printStackTrace();
                 closeImageBuffer(imageBuffer);
-                ApsAdapterLog.w(TAG, "onPreviewReceived, create ApsTotalResult fail, maybe image already closed, drop it");
+                ApsAdapterLog.w(TAG,
+                        "onPreviewReceived, create ApsTotalResult fail, maybe image already closed, drop it");
             }
         }
     }
@@ -522,7 +567,8 @@ class ApsPreviewAdapterImpl {
                     }
                     ApsAdapterListener.ApsServiceListener apsServiceListener = this.mApsServiceListener;
                     if (apsServiceListener != null) {
-                        apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY, StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
+                        apsServiceListener.reportDataToDcs(StaticsConstant.EventType.ABNORMAL_DISPLAY,
+                                StaticsConstant.AbnormalDisplayKeys.KEY_ABNORMAL_PREVIEW, 4);
                     }
                 }
                 arrayList.clear();
@@ -542,7 +588,8 @@ class ApsPreviewAdapterImpl {
             }
             ImageCategory imageCategoryRemove = this.mProcessMap.remove(Long.valueOf(jLongValue));
             ApsAdapterLog.v(TAG, "checkMetaImageOverflow, time: " + jLongValue);
-            if (imageCategoryRemove == null || imageCategoryRemove.mbAlreadySendAps || imageCategoryRemove.mMetaItem == null || imageCategoryRemove.mMetaItem.mImageBuffer == null) {
+            if (imageCategoryRemove == null || imageCategoryRemove.mbAlreadySendAps
+                    || imageCategoryRemove.mMetaItem == null || imageCategoryRemove.mMetaItem.mImageBuffer == null) {
                 return;
             }
             imageCategoryRemove.mMetaItem.mImageBuffer.close();
@@ -561,20 +608,31 @@ class ApsPreviewAdapterImpl {
                 if (message.obj != null && (message.obj instanceof ImageCategory)) {
                     ImageCategory imageCategory = (ImageCategory) message.obj;
                     ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem;
-                    if (!imageCategory.mbNeedMatchTimeStamp && metaItemInfo != null && ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() <= ApsPreviewAdapterImpl.this.mFrameNumber) {
+                    if (!imageCategory.mbNeedMatchTimeStamp && metaItemInfo != null
+                            && ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER))
+                                    .longValue() <= ApsPreviewAdapterImpl.this.mFrameNumber) {
                         if (-1 == ApsPreviewAdapterImpl.this.mFrameNumber) {
-                            metaItemInfo.setParameter(ApsParameters.KEY_FRAME_NUMBER, ApsPreviewAdapterImpl.FIRST_PREVIEW_FRAME_NUMBER);
+                            metaItemInfo.setParameter(ApsParameters.KEY_FRAME_NUMBER,
+                                    ApsPreviewAdapterImpl.FIRST_PREVIEW_FRAME_NUMBER);
                         } else {
-                            metaItemInfo.setParameter(ApsParameters.KEY_FRAME_NUMBER, Long.valueOf(ApsPreviewAdapterImpl.this.mFrameNumber));
+                            metaItemInfo.setParameter(ApsParameters.KEY_FRAME_NUMBER,
+                                    Long.valueOf(ApsPreviewAdapterImpl.this.mFrameNumber));
                         }
                     }
-                    if (ApsPreviewAdapterImpl.this.mApsInterface.isApsPreviewInit() && (metaItemInfo == null || !imageCategory.mbNeedMatchTimeStamp || ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() >= ApsPreviewAdapterImpl.this.mFrameNumber || metaItemInfo.mImageBuffer != null)) {
+                    if (ApsPreviewAdapterImpl.this.mApsInterface.isApsPreviewInit()
+                            && (metaItemInfo == null || !imageCategory.mbNeedMatchTimeStamp
+                                    || ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER))
+                                            .longValue() >= ApsPreviewAdapterImpl.this.mFrameNumber
+                                    || metaItemInfo.mImageBuffer != null)) {
                         ApsPreviewAdapterImpl.this.addPreviewFrameBuff(imageCategory);
                         ApsPreviewAdapterImpl apsPreviewAdapterImpl = ApsPreviewAdapterImpl.this;
-                        apsPreviewAdapterImpl.mFrameNumber = metaItemInfo != null ? ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue() : apsPreviewAdapterImpl.mFrameNumber;
+                        apsPreviewAdapterImpl.mFrameNumber = metaItemInfo != null
+                                ? ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue()
+                                : apsPreviewAdapterImpl.mFrameNumber;
                         return;
                     }
-                    ApsAdapterLog.w(ApsPreviewAdapterImpl.TAG, "handleMessage,mbNeedMatchTimeStamp: " + imageCategory.mbNeedMatchTimeStamp + " drop this frame because of wrong frame order.");
+                    ApsAdapterLog.w(ApsPreviewAdapterImpl.TAG, "handleMessage,mbNeedMatchTimeStamp: "
+                            + imageCategory.mbNeedMatchTimeStamp + " drop this frame because of wrong frame order.");
                     imageCategory.releaseImageItemList();
                     return;
                 }
@@ -589,7 +647,8 @@ class ApsPreviewAdapterImpl {
         private ApsAdapterListener.CaptureCallback mCaptureCallback;
         private ApsCameraRequestTag mRequestTag;
 
-        private CaptureRequest(ApsAdapterListener.CaptureCallback captureCallback, ApsCameraRequestTag apsCameraRequestTag) {
+        private CaptureRequest(ApsAdapterListener.CaptureCallback captureCallback,
+                ApsCameraRequestTag apsCameraRequestTag) {
             this.mCaptureCallback = captureCallback;
             this.mRequestTag = apsCameraRequestTag;
         }

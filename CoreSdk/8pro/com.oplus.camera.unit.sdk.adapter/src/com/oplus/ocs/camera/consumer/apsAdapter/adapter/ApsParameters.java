@@ -273,7 +273,6 @@ public class ApsParameters {
                 Key<?> key = entry.getKey();
                 Key<?> key2 = new Key<>(key.getName(), key.getCategory(), key.getDefault());
                 final Object objClone = entry.getValue().getValue().get();
-                Object arrayMap;
                 if (objClone instanceof String[]) {
                     arrayMap = ((String[]) objClone).clone();
                 } else if (objClone instanceof int[]) {
