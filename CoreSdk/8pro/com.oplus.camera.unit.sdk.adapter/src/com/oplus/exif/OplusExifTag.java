@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+
 /* loaded from: classes.dex */
 public class OplusExifTag {
     public static final String EXIF_KEY_TAGFLAGS = "tagflags";
@@ -82,8 +83,7 @@ public class OplusExifTag {
     }
 
     static {
-        TYPE_TO_SIZE_MAP = r0;
-        int[] iArr = {0, 1, 1, 2, 4, 8, 0, 1, 0, 4, 8};
+        TYPE_TO_SIZE_MAP = new int[] { 0, 1, 1, 2, 4, 8, 0, 1, 0, 4, 8 };
     }
 
     /* JADX INFO: Access modifiers changed from: package-private */
@@ -157,7 +157,7 @@ public class OplusExifTag {
     }
 
     public boolean setValue(int i) {
-        return setValue(new int[]{i});
+        return setValue(new int[] { i });
     }
 
     public boolean setValue(long[] jArr) {
@@ -170,7 +170,7 @@ public class OplusExifTag {
     }
 
     public boolean setValue(long j) {
-        return setValue(new long[]{j});
+        return setValue(new long[] { j });
     }
 
     public boolean setValue(String str) {
@@ -182,7 +182,7 @@ public class OplusExifTag {
                     bytes = Arrays.copyOf(bytes, bytes.length + 1);
                 }
             } else if (this.mDataType == 2 && this.mComponentCountActual == 1) {
-                bytes = new byte[]{0};
+                bytes = new byte[] { 0 };
             }
             int length = bytes.length;
             if (checkBadComponentCount(length)) {
@@ -215,7 +215,7 @@ public class OplusExifTag {
     }
 
     public boolean setValue(OplusRational oplusRational) {
-        return setValue(new OplusRational[]{oplusRational});
+        return setValue(new OplusRational[] { oplusRational });
     }
 
     public boolean setValue(byte[] bArr, int i, int i2) {
@@ -238,7 +238,7 @@ public class OplusExifTag {
     }
 
     public boolean setValue(byte b) {
-        return setValue(new byte[]{b});
+        return setValue(new byte[] { b });
     }
 
     public boolean setValue(Object obj) {
@@ -418,7 +418,9 @@ public class OplusExifTag {
             return valueAsBytes[0];
         }
         OplusRational[] valueAsRationals = getValueAsRationals();
-        return (valueAsRationals == null || valueAsRationals.length < 1 || valueAsRationals[0].getDenominator() == 0) ? j : (long) valueAsRationals[0].toDouble();
+        return (valueAsRationals == null || valueAsRationals.length < 1 || valueAsRationals[0].getDenominator() == 0)
+                ? j
+                : (long) valueAsRationals[0].toDouble();
     }
 
     public String forceGetValueAsString() {
@@ -551,7 +553,9 @@ public class OplusExifTag {
 
     private boolean checkOverflowForUnsignedRational(OplusRational[] oplusRationalArr) {
         for (OplusRational oplusRational : oplusRationalArr) {
-            if (oplusRational.getNumerator() < 0 || oplusRational.getDenominator() < 0 || oplusRational.getNumerator() > UNSIGNED_LONG_MAX || oplusRational.getDenominator() > UNSIGNED_LONG_MAX) {
+            if (oplusRational.getNumerator() < 0 || oplusRational.getDenominator() < 0
+                    || oplusRational.getNumerator() > UNSIGNED_LONG_MAX
+                    || oplusRational.getDenominator() > UNSIGNED_LONG_MAX) {
                 return true;
             }
         }
@@ -560,7 +564,8 @@ public class OplusExifTag {
 
     private boolean checkOverflowForRational(OplusRational[] oplusRationalArr) {
         for (OplusRational oplusRational : oplusRationalArr) {
-            if (oplusRational.getNumerator() < LONG_MIN || oplusRational.getDenominator() < LONG_MIN || oplusRational.getNumerator() > LONG_MAX || oplusRational.getDenominator() > LONG_MAX) {
+            if (oplusRational.getNumerator() < LONG_MIN || oplusRational.getDenominator() < LONG_MIN
+                    || oplusRational.getNumerator() > LONG_MAX || oplusRational.getDenominator() > LONG_MAX) {
                 return true;
             }
         }
@@ -570,7 +575,8 @@ public class OplusExifTag {
     public boolean equals(Object obj) {
         if (obj != null && (obj instanceof OplusExifTag)) {
             OplusExifTag oplusExifTag = (OplusExifTag) obj;
-            if (oplusExifTag.mTagId == this.mTagId && oplusExifTag.mComponentCountActual == this.mComponentCountActual && oplusExifTag.mDataType == this.mDataType) {
+            if (oplusExifTag.mTagId == this.mTagId && oplusExifTag.mComponentCountActual == this.mComponentCountActual
+                    && oplusExifTag.mDataType == this.mDataType) {
                 Object obj2 = this.mValue;
                 if (obj2 == null) {
                     return oplusExifTag.mValue == null;
@@ -608,6 +614,8 @@ public class OplusExifTag {
     }
 
     public String toString() {
-        return String.format("tag id: %04X\n", Short.valueOf(this.mTagId)) + "ifd id: " + this.mIfd + "\ntype: " + convertTypeToString(this.mDataType) + "\ncount: " + this.mComponentCountActual + "\noffset: " + this.mOffset + "\nvalue: " + forceGetValueAsString() + "\n";
+        return String.format("tag id: %04X\n", Short.valueOf(this.mTagId)) + "ifd id: " + this.mIfd + "\ntype: "
+                + convertTypeToString(this.mDataType) + "\ncount: " + this.mComponentCountActual + "\noffset: "
+                + this.mOffset + "\nvalue: " + forceGetValueAsString() + "\n";
     }
 }

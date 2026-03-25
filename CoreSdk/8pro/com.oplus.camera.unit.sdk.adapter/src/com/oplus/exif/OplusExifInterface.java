@@ -623,24 +623,11 @@ public class OplusExifInterface {
     }
 
     public void readExif(String str) throws FileNotFoundException, IOException {
-        BufferedInputStream bufferedInputStream;
         if (str == null) {
             throw new IllegalArgumentException(NULL_ARGUMENT_STRING);
         }
-        BufferedInputStream bufferedInputStream2 = null;
-        try {
-            bufferedInputStream = new BufferedInputStream(new FileInputStream(str));
-        } catch (IOException e) {
-            e = e;
-        }
-        try {
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(str))) {
             readExif(bufferedInputStream);
-            bufferedInputStream.close();
-        } catch (IOException e2) {
-            e = e2;
-            bufferedInputStream2 = bufferedInputStream;
-            closeSilently(bufferedInputStream2);
-            throw e;
         }
     }
 
@@ -729,24 +716,11 @@ public class OplusExifInterface {
     }
 
     public void writeExif(String str, String str2) throws FileNotFoundException, IOException {
-        FileInputStream fileInputStream;
         if (str == null || str2 == null) {
             throw new IllegalArgumentException(NULL_ARGUMENT_STRING);
         }
-        FileInputStream fileInputStream2 = null;
-        try {
-            fileInputStream = new FileInputStream(str);
-        } catch (IOException e) {
-            e = e;
-        }
-        try {
+        try (FileInputStream fileInputStream = new FileInputStream(str)) {
             writeExif(fileInputStream, str2);
-            fileInputStream.close();
-        } catch (IOException e2) {
-            e = e2;
-            fileInputStream2 = fileInputStream;
-            closeSilently(fileInputStream2);
-            throw e;
         }
     }
 
@@ -816,40 +790,23 @@ public class OplusExifInterface {
 
     public void forceRewriteExif(String str, Collection<OplusExifTag> collection)
             throws FileNotFoundException, IOException {
-        InputStream fileInputStream;
         if (collection == null || rewriteExif(str, collection)) {
             return;
         }
         OplusExifData oplusExifData = this.mData;
         this.mData = new OplusExifData(DEFAULT_BYTE_ORDER);
-        InputStream inputStream = null;
-        try {
-            try {
-                fileInputStream = new FileInputStream(str);
-            } catch (Throwable th) {
-                th = th;
-            }
-        } catch (IOException e) {
-            e = e;
-        }
-        try {
+        try (InputStream fileInputStream = new FileInputStream(str)) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             doExifStreamIO(fileInputStream, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             readExif(byteArray);
             setTags(collection);
             writeExif(byteArray, str);
-            closeSilently(fileInputStream);
             this.mData = oplusExifData;
-        } catch (IOException e2) {
-            e = e2;
-            inputStream = fileInputStream;
-            closeSilently(inputStream);
+        } catch (IOException e) {
+            this.mData = oplusExifData;
             throw e;
-        } catch (Throwable th2) {
-            th = th2;
-            inputStream = fileInputStream;
-            closeSilently(inputStream);
+        } catch (Throwable th) {
             this.mData = oplusExifData;
             throw th;
         }

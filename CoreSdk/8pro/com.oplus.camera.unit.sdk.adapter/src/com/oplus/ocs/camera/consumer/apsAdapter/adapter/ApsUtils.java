@@ -31,6 +31,7 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 /* loaded from: classes.dex */
 public class ApsUtils {
     public static final int APS_CONNECT_FAIL = -1;
@@ -191,7 +192,8 @@ public class ApsUtils {
                 if (UpdateHelper.isNewConfigFormat(str)) {
                     JSONObject jSONObject = new JSONObject(str);
                     parseJsonArray(jSONObject.getJSONArray(UpdateHelper.CONFIG_FILE_DATA), i);
-                    ApsAdapterLog.d(TAG, "initConfigData, new format with version: " + jSONObject.getDouble(UpdateHelper.CONFIG_FILE_VERSION));
+                    ApsAdapterLog.d(TAG, "initConfigData, new format with version: "
+                            + jSONObject.getDouble(UpdateHelper.CONFIG_FILE_VERSION));
                 } else {
                     parseJsonArray(new JSONArray(str), i);
                     ApsAdapterLog.d(TAG, "initConfigData, old format without version");
@@ -292,7 +294,9 @@ public class ApsUtils {
         }
         ArrayMap<String, CameraMetadata> arrayMap = new ArrayMap<>();
         arrayMap.put(str, (CaptureResult) obj);
-        if ((obj instanceof TotalCaptureResult) && (physicalCameraResults = ((TotalCaptureResult) obj).getPhysicalCameraResults()) != null && !physicalCameraResults.isEmpty()) {
+        if ((obj instanceof TotalCaptureResult)
+                && (physicalCameraResults = ((TotalCaptureResult) obj).getPhysicalCameraResults()) != null
+                && !physicalCameraResults.isEmpty()) {
             for (Map.Entry<String, CaptureResult> entry : physicalCameraResults.entrySet()) {
                 arrayMap.put(entry.getKey(), entry.getValue());
             }
@@ -309,7 +313,8 @@ public class ApsUtils {
             try {
                 Field declaredField2 = captureRequest.getClass().getDeclaredField(KEY_PHYSICAL_CAMERA_SETTINGS);
                 declaredField2.setAccessible(true);
-                for (Map.Entry entry : ((HashMap) declaredField2.get(captureRequest)).entrySet()) {
+                for (Map.Entry entry : (java.util.Set<Map.Entry>) ((HashMap) declaredField2.get(captureRequest))
+                        .entrySet()) {
                     arrayMap.put((String) entry.getKey(), Long.valueOf(getMetadataPtr(entry.getValue())));
                 }
                 return arrayMap;
@@ -418,7 +423,8 @@ public class ApsUtils {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
-            yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), JPEG_QUALITY_NORMAL, byteArrayOutputStream);
+            yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), JPEG_QUALITY_NORMAL,
+                    byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             byteArrayOutputStream.close();
             return byteArray;
