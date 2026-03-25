@@ -145,21 +145,21 @@ final class MessageSchema<T> implements Schema<T> {
         int i15;
         int i16;
         boolean z;
-        int i17;
-        int iObjectFieldOffset;
-        String str;
-        boolean z2;
-        int iObjectFieldOffset2;
-        int i18;
-        int i19;
-        java.lang.reflect.Field fieldReflectField;
-        char cCharAt9;
-        int i20;
-        int i21;
-        Object obj;
-        java.lang.reflect.Field fieldReflectField2;
-        Object obj2;
-        java.lang.reflect.Field fieldReflectField3;
+        int i17 = 0;
+        int iObjectFieldOffset = 0;
+        String str = null;
+        boolean z2 = false;
+        int iObjectFieldOffset2 = 0;
+        int i18 = 0;
+        int i19 = 0;
+        java.lang.reflect.Field fieldReflectField = null;
+        char cCharAt9 = 0;
+        int i20 = 0;
+        int i21 = 0;
+        Object obj = null;
+        java.lang.reflect.Field fieldReflectField2 = null;
+        Object obj2 = null;
+        java.lang.reflect.Field fieldReflectField3 = null;
         int i22;
         char cCharAt10;
         int i23;
@@ -648,7 +648,7 @@ final class MessageSchema<T> implements Schema<T> {
             MapFieldSchema mapFieldSchema) {
         int fieldNumber;
         int fieldNumber2;
-        int i;
+        int i = 0;
         boolean z = structuralMessageInfo.getSyntax() == ProtoSyntax.PROTO3;
         FieldInfo[] fields = structuralMessageInfo.getFields();
         if (fields.length == 0) {
@@ -732,8 +732,8 @@ final class MessageSchema<T> implements Schema<T> {
         int iObjectFieldOffset;
         int iId;
         long jObjectFieldOffset;
-        int iObjectFieldOffset2;
-        int iNumberOfTrailingZeros;
+        int iObjectFieldOffset2 = 0;
+        int iNumberOfTrailingZeros = 0;
         OneofInfo oneof = fieldInfo.getOneof();
         if (oneof != null) {
             iId = fieldInfo.getType().id() + 51;
