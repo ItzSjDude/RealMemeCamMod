@@ -102,8 +102,8 @@ class MessageReflection {
     }
 
     static int getSerializedSize(Message message, Map<Descriptors.FieldDescriptor, Object> map) {
-        int serializedSize;
-        int iComputeFieldSize;
+        int serializedSize = 0;
+        int iComputeFieldSize = 0;
         boolean messageSetWireFormat = message.getDescriptorForType().getOptions().getMessageSetWireFormat();
         int i = 0;
         for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : map.entrySet()) {
@@ -580,7 +580,8 @@ class MessageReflection {
             int iPushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
             if (fieldDescriptorFindFieldByNumber.getLiteType() == WireFormat.FieldType.ENUM) {
                 while (codedInputStream.getBytesUntilLimit() > 0) {
-                    int i2 = codedInputStream.readEnum();
+                    int i2 = 0;
+                    i2 = codedInputStream.readEnum();
                     if (fieldDescriptorFindFieldByNumber.getFile().supportsUnknownEnumValue()) {
                         mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber,
                                 fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumberCreatingIfUnknown(i2));

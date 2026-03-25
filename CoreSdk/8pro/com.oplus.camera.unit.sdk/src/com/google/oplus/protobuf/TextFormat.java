@@ -1361,8 +1361,8 @@ public final class TextFormat {
         }
 
         private void checkUnknownFields(List<TextFormat.Parser.UnknownField> list) throws TextFormat.ParseException {
-            int i;
-            boolean z;
+            int i = 0;
+            boolean z = false;
             if (list.isEmpty()) {
                 return;
             }
@@ -1762,10 +1762,10 @@ public final class TextFormat {
     }
 
     public static ByteString unescapeBytes(CharSequence charSequence) throws InvalidEscapeSequenceException {
-        int i;
-        int i2;
-        int i3;
-        int length;
+        int i = 0;
+        int i2 = 0;
+        int i3 = 0;
+        int length = 0;
         ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8(charSequence.toString());
         int size = byteStringCopyFromUtf8.size();
         byte[] bArr = new byte[size];

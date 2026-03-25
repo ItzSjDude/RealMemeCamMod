@@ -84,7 +84,7 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public boolean skipField() throws IOException {
-            int i;
+            int i = 0;
             if (isAtEnd() || (i = this.tag) == this.endGroupTag) {
                 return false;
             }
@@ -306,8 +306,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readDoubleList(List<Double> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof DoubleArrayList) {
                 DoubleArrayList doubleArrayList = (DoubleArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -361,8 +361,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readFloatList(List<Float> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof FloatArrayList) {
                 FloatArrayList floatArrayList = (FloatArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -416,8 +416,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readUInt64List(List<Long> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof LongArrayList) {
                 LongArrayList longArrayList = (LongArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -469,8 +469,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readInt64List(List<Long> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof LongArrayList) {
                 LongArrayList longArrayList = (LongArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -522,8 +522,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readInt32List(List<Integer> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof IntArrayList) {
                 IntArrayList intArrayList = (IntArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -575,8 +575,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readFixed64List(List<Long> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof LongArrayList) {
                 LongArrayList longArrayList = (LongArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -630,8 +630,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readFixed32List(List<Integer> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof IntArrayList) {
                 IntArrayList intArrayList = (IntArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -685,8 +685,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readBoolList(List<Boolean> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof BooleanArrayList) {
                 BooleanArrayList booleanArrayList = (BooleanArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -746,8 +746,8 @@ abstract class BinaryReader implements Reader {
         }
 
         public void readStringListInternal(List<String> list, boolean z) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (WireFormat.getTagWireType(this.tag) != 2) {
                 throw InvalidProtocolBufferException.invalidWireType();
             }
@@ -854,8 +854,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readUInt32List(List<Integer> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof IntArrayList) {
                 IntArrayList intArrayList = (IntArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -904,8 +904,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readEnumList(List<Integer> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof IntArrayList) {
                 IntArrayList intArrayList = (IntArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -954,8 +954,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readSFixed32List(List<Integer> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof IntArrayList) {
                 IntArrayList intArrayList = (IntArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -1009,8 +1009,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readSFixed64List(List<Long> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof LongArrayList) {
                 LongArrayList longArrayList = (LongArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -1064,8 +1064,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readSInt32List(List<Integer> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof IntArrayList) {
                 IntArrayList intArrayList = (IntArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);
@@ -1114,8 +1114,8 @@ abstract class BinaryReader implements Reader {
 
         @Override // com.google.oplus.protobuf.Reader
         public void readSInt64List(List<Long> list) throws IOException {
-            int i;
-            int i2;
+            int i = 0;
+            int i2 = 0;
             if (list instanceof LongArrayList) {
                 LongArrayList longArrayList = (LongArrayList) list;
                 int tagWireType = WireFormat.getTagWireType(this.tag);

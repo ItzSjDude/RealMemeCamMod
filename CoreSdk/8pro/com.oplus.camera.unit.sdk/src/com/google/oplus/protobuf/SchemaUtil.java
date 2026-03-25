@@ -298,7 +298,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeInt64ListNoTag(List<Long> list) {
-        int iComputeInt64SizeNoTag;
+        int iComputeInt64SizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -334,7 +334,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeUInt64ListNoTag(List<Long> list) {
-        int iComputeUInt64SizeNoTag;
+        int iComputeUInt64SizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -371,7 +371,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeSInt64ListNoTag(List<Long> list) {
-        int iComputeSInt64SizeNoTag;
+        int iComputeSInt64SizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -408,7 +408,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeEnumListNoTag(List<Integer> list) {
-        int iComputeEnumSizeNoTag;
+        int iComputeEnumSizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -445,7 +445,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeInt32ListNoTag(List<Integer> list) {
-        int iComputeInt32SizeNoTag;
+        int iComputeInt32SizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -482,7 +482,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeUInt32ListNoTag(List<Integer> list) {
-        int iComputeUInt32SizeNoTag;
+        int iComputeUInt32SizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -519,7 +519,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeSInt32ListNoTag(List<Integer> list) {
-        int iComputeSInt32SizeNoTag;
+        int iComputeSInt32SizeNoTag = 0;
         int size = list.size();
         int i = 0;
         if (size == 0) {
@@ -601,8 +601,8 @@ final class SchemaUtil {
     }
 
     static int computeSizeStringList(int i, List<?> list) {
-        int iComputeStringSizeNoTag;
-        int iComputeStringSizeNoTag2;
+        int iComputeStringSizeNoTag = 0;
+        int iComputeStringSizeNoTag2 = 0;
         int size = list.size();
         int i2 = 0;
         if (size == 0) {
@@ -644,7 +644,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeMessageList(int i, List<?> list) {
-        int iComputeMessageSizeNoTag;
+        int iComputeMessageSizeNoTag = 0;
         int size = list.size();
         if (size == 0) {
             return 0;
@@ -663,7 +663,7 @@ final class SchemaUtil {
     }
 
     static int computeSizeMessageList(int i, List<?> list, Schema schema) {
-        int iComputeMessageSizeNoTag;
+        int iComputeMessageSizeNoTag = 0;
         int size = list.size();
         if (size == 0) {
             return 0;
