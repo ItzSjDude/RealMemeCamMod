@@ -6,6 +6,8 @@ import com.google.oplus.protobuf.GeneratedMessageLite;
 import com.google.oplus.protobuf.LazyField;
 import com.google.oplus.protobuf.WireFormat;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 /* JADX INFO: loaded from: classes.dex */
 final class MessageSetSchema<T> implements Schema<T> {
@@ -14,14 +16,16 @@ final class MessageSetSchema<T> implements Schema<T> {
     private final boolean hasExtensions;
     private final UnknownFieldSchema<?, ?> unknownFieldSchema;
 
-    private MessageSetSchema(UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema, MessageLite messageLite) {
+    private MessageSetSchema(UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema,
+            MessageLite messageLite) {
         this.unknownFieldSchema = unknownFieldSchema;
         this.hasExtensions = extensionSchema.hasExtensions(messageLite);
         this.extensionSchema = extensionSchema;
         this.defaultInstance = messageLite;
     }
 
-    static <T> MessageSetSchema<T> newSchema(UnknownFieldSchema<?, ?> unknownFieldSchema, ExtensionSchema<?> extensionSchema, MessageLite messageLite) {
+    static <T> MessageSetSchema<T> newSchema(UnknownFieldSchema<?, ?> unknownFieldSchema,
+            ExtensionSchema<?> extensionSchema, MessageLite messageLite) {
         return new MessageSetSchema<>(unknownFieldSchema, extensionSchema, messageLite);
     }
 
@@ -55,16 +59,24 @@ final class MessageSetSchema<T> implements Schema<T> {
         }
     }
 
-    /* JADX DEBUG: Type inference failed for r0v3. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
+    /*
+     * JADX DEBUG: Type inference failed for r0v3. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
     @Override // com.google.oplus.protobuf.Schema
     public void writeTo(T t, Writer writer) throws IOException {
-        for (T t2 : this.extensionSchema.getExtensions(t)) {
+        Iterator<? extends Map.Entry<?, ?>> it = this.extensionSchema.getExtensions(t).iterator();
+        while (it.hasNext()) {
+            Map.Entry<?, ?> t2 = it.next();
             FieldSet.FieldDescriptorLite fieldDescriptorLite = (FieldSet.FieldDescriptorLite) t2.getKey();
-            if (fieldDescriptorLite.getLiteJavaType() != WireFormat.JavaType.MESSAGE || fieldDescriptorLite.isRepeated() || fieldDescriptorLite.isPacked()) {
+            if (fieldDescriptorLite.getLiteJavaType() != WireFormat.JavaType.MESSAGE || fieldDescriptorLite.isRepeated()
+                    || fieldDescriptorLite.isPacked()) {
                 throw new IllegalStateException("Found invalid MessageSet item.");
             }
             if (t2 instanceof LazyField.LazyEntry) {
-                writer.writeMessageSetItem(fieldDescriptorLite.getNumber(), ((LazyField.LazyEntry) t2).getField().toByteString());
+                writer.writeMessageSetItem(fieldDescriptorLite.getNumber(),
+                        ((LazyField.LazyEntry) t2).getField().toByteString());
             } else {
                 writer.writeMessageSetItem(fieldDescriptorLite.getNumber(), t2.getValue());
             }
@@ -72,18 +84,25 @@ final class MessageSetSchema<T> implements Schema<T> {
         writeUnknownFieldsHelper(this.unknownFieldSchema, t, writer);
     }
 
-    private <UT, UB> void writeUnknownFieldsHelper(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, Writer writer) throws IOException {
+    private <UT, UB> void writeUnknownFieldsHelper(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t, Writer writer)
+            throws IOException {
         unknownFieldSchema.writeAsMessageSetTo(unknownFieldSchema.getFromMessage(t), writer);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r11v0, resolved type: T */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r11v0, resolved type: T
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    /* JADX WARN: Removed duplicated region for block: B:33:0x00c6  */
-    /* JADX WARN: Removed duplicated region for block: B:58:0x00cb A[EDGE_INSN: B:58:0x00cb->B:34:0x00cb BREAK  A[LOOP:1: B:18:0x006d->B:61:0x006d], SYNTHETIC] */
+    /* JADX WARN: Removed duplicated region for block: B:33:0x00c6 */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:58:0x00cb A[EDGE_INSN:
+     * B:58:0x00cb->B:34:0x00cb BREAK A[LOOP:1: B:18:0x006d->B:61:0x006d],
+     * SYNTHETIC]
+     */
     @Override // com.google.oplus.protobuf.Schema
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     public void mergeFrom(T t, byte[] bArr, int i, int i2, ArrayDecoders.Registers registers) throws IOException {
         GeneratedMessageLite generatedMessageLite = (GeneratedMessageLite) t;
         UnknownFieldSetLite unknownFieldSetLiteNewInstance = generatedMessageLite.unknownFields;
@@ -91,7 +110,8 @@ final class MessageSetSchema<T> implements Schema<T> {
             unknownFieldSetLiteNewInstance = UnknownFieldSetLite.newInstance();
             generatedMessageLite.unknownFields = unknownFieldSetLiteNewInstance;
         }
-        FieldSet<GeneratedMessageLite.ExtensionDescriptor> fieldSetEnsureExtensionsAreMutable = ((GeneratedMessageLite.ExtendableMessage) t).ensureExtensionsAreMutable();
+        FieldSet<GeneratedMessageLite.ExtensionDescriptor> fieldSetEnsureExtensionsAreMutable = ((GeneratedMessageLite.ExtendableMessage) t)
+                .ensureExtensionsAreMutable();
         GeneratedMessageLite.GeneratedExtension generatedExtension = null;
         while (i < i2) {
             int iDecodeVarint32 = ArrayDecoders.decodeVarint32(bArr, i, registers);
@@ -107,8 +127,14 @@ final class MessageSetSchema<T> implements Schema<T> {
                     if (tagFieldNumber != 2) {
                         if (tagFieldNumber == 3) {
                             if (generatedExtension != null) {
-                                iDecodeVarint32 = ArrayDecoders.decodeMessageField(Protobuf.getInstance().schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()), bArr, iDecodeVarint32, i2, registers);
-                                fieldSetEnsureExtensionsAreMutable.setField(generatedExtension.descriptor, registers.object1);
+                                iDecodeVarint32 = ArrayDecoders
+                                        .decodeMessageField(
+                                                Protobuf.getInstance()
+                                                        .schemaFor((Class) generatedExtension
+                                                                .getMessageDefaultInstance().getClass()),
+                                                bArr, iDecodeVarint32, i2, registers);
+                                fieldSetEnsureExtensionsAreMutable.setField(generatedExtension.descriptor,
+                                        registers.object1);
                             } else if (tagWireType == 2) {
                                 iDecodeVarint32 = ArrayDecoders.decodeBytes(bArr, iDecodeVarint32, registers);
                                 byteString = (ByteString) registers.object1;
@@ -122,7 +148,8 @@ final class MessageSetSchema<T> implements Schema<T> {
                     } else if (tagWireType == 0) {
                         iDecodeVarint32 = ArrayDecoders.decodeVarint32(bArr, iDecodeVarint32, registers);
                         i4 = registers.int1;
-                        generatedExtension = (GeneratedMessageLite.GeneratedExtension) this.extensionSchema.findExtensionByNumber(registers.extensionRegistry, this.defaultInstance, i4);
+                        generatedExtension = (GeneratedMessageLite.GeneratedExtension) this.extensionSchema
+                                .findExtensionByNumber(registers.extensionRegistry, this.defaultInstance, i4);
                     } else if (i5 != WireFormat.MESSAGE_SET_ITEM_END_TAG) {
                     }
                 }
@@ -131,12 +158,18 @@ final class MessageSetSchema<T> implements Schema<T> {
                 }
                 i = iDecodeVarint32;
             } else if (WireFormat.getTagWireType(i3) == 2) {
-                GeneratedMessageLite.GeneratedExtension generatedExtension2 = (GeneratedMessageLite.GeneratedExtension) this.extensionSchema.findExtensionByNumber(registers.extensionRegistry, this.defaultInstance, WireFormat.getTagFieldNumber(i3));
+                GeneratedMessageLite.GeneratedExtension generatedExtension2 = (GeneratedMessageLite.GeneratedExtension) this.extensionSchema
+                        .findExtensionByNumber(registers.extensionRegistry, this.defaultInstance,
+                                WireFormat.getTagFieldNumber(i3));
                 if (generatedExtension2 != null) {
-                    i = ArrayDecoders.decodeMessageField(Protobuf.getInstance().schemaFor((Class) generatedExtension2.getMessageDefaultInstance().getClass()), bArr, iDecodeVarint32, i2, registers);
+                    i = ArrayDecoders.decodeMessageField(
+                            Protobuf.getInstance()
+                                    .schemaFor((Class) generatedExtension2.getMessageDefaultInstance().getClass()),
+                            bArr, iDecodeVarint32, i2, registers);
                     fieldSetEnsureExtensionsAreMutable.setField(generatedExtension2.descriptor, registers.object1);
                 } else {
-                    i = ArrayDecoders.decodeUnknownField(i3, bArr, iDecodeVarint32, i2, unknownFieldSetLiteNewInstance, registers);
+                    i = ArrayDecoders.decodeUnknownField(i3, bArr, iDecodeVarint32, i2, unknownFieldSetLiteNewInstance,
+                            registers);
                 }
                 generatedExtension = generatedExtension2;
             } else {
@@ -148,19 +181,31 @@ final class MessageSetSchema<T> implements Schema<T> {
         }
     }
 
-    /* JADX DEBUG: Type inference failed for r1v0. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
-    /* JADX DEBUG: Type inference failed for r2v0. Raw type applied. Possible types: com.google.oplus.protobuf.ExtensionSchema<?>, com.google.oplus.protobuf.ExtensionSchema<ET extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<ET>> */
+    /*
+     * JADX DEBUG: Type inference failed for r1v0. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
+    /*
+     * JADX DEBUG: Type inference failed for r2v0. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.ExtensionSchema<?>,
+     * com.google.oplus.protobuf.ExtensionSchema<ET extends
+     * com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<ET>>
+     */
     @Override // com.google.oplus.protobuf.Schema
     public void mergeFrom(T t, Reader reader, ExtensionRegistryLite extensionRegistryLite) throws IOException {
         mergeFromHelper(this.unknownFieldSchema, this.extensionSchema, t, reader, extensionRegistryLite);
     }
 
-    private <UT, UB, ET extends FieldSet.FieldDescriptorLite<ET>> void mergeFromHelper(UnknownFieldSchema<UT, UB> unknownFieldSchema, ExtensionSchema<ET> extensionSchema, T t, Reader reader, ExtensionRegistryLite extensionRegistryLite) throws IOException {
+    private <UT, UB, ET extends FieldSet.FieldDescriptorLite<ET>> void mergeFromHelper(
+            UnknownFieldSchema<UT, UB> unknownFieldSchema, ExtensionSchema<ET> extensionSchema, T t, Reader reader,
+            ExtensionRegistryLite extensionRegistryLite) throws IOException {
         UB builderFromMessage = unknownFieldSchema.getBuilderFromMessage(t);
         FieldSet<ET> mutableExtensions = extensionSchema.getMutableExtensions(t);
         while (reader.getFieldNumber() != Integer.MAX_VALUE) {
             try {
-                if (!parseMessageSetItemOrUnknownField(reader, extensionRegistryLite, extensionSchema, mutableExtensions, unknownFieldSchema, builderFromMessage)) {
+                if (!parseMessageSetItemOrUnknownField(reader, extensionRegistryLite, extensionSchema,
+                        mutableExtensions, unknownFieldSchema, builderFromMessage)) {
                     return;
                 }
             } finally {
@@ -175,15 +220,23 @@ final class MessageSetSchema<T> implements Schema<T> {
         this.extensionSchema.makeImmutable(t);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r10v0, resolved type: com.google.oplus.protobuf.FieldSet<ET extends com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<ET>> */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r10v0, resolved type:
+     * com.google.oplus.protobuf.FieldSet<ET extends
+     * com.google.oplus.protobuf.FieldSet$FieldDescriptorLite<ET>>
+     */
     /* JADX WARN: Multi-variable type inference failed */
-    private <UT, UB, ET extends FieldSet.FieldDescriptorLite<ET>> boolean parseMessageSetItemOrUnknownField(Reader reader, ExtensionRegistryLite extensionRegistryLite, ExtensionSchema<ET> extensionSchema, FieldSet<ET> fieldSet, UnknownFieldSchema<UT, UB> unknownFieldSchema, UB ub) throws IOException {
+    private <UT, UB, ET extends FieldSet.FieldDescriptorLite<ET>> boolean parseMessageSetItemOrUnknownField(
+            Reader reader, ExtensionRegistryLite extensionRegistryLite, ExtensionSchema<ET> extensionSchema,
+            FieldSet<ET> fieldSet, UnknownFieldSchema<UT, UB> unknownFieldSchema, UB ub) throws IOException {
         int tag = reader.getTag();
         if (tag != WireFormat.MESSAGE_SET_ITEM_TAG) {
             if (WireFormat.getTagWireType(tag) == 2) {
-                Object objFindExtensionByNumber = extensionSchema.findExtensionByNumber(extensionRegistryLite, this.defaultInstance, WireFormat.getTagFieldNumber(tag));
+                Object objFindExtensionByNumber = extensionSchema.findExtensionByNumber(extensionRegistryLite,
+                        this.defaultInstance, WireFormat.getTagFieldNumber(tag));
                 if (objFindExtensionByNumber != null) {
-                    extensionSchema.parseLengthPrefixedMessageSetItem(reader, objFindExtensionByNumber, extensionRegistryLite, fieldSet);
+                    extensionSchema.parseLengthPrefixedMessageSetItem(reader, objFindExtensionByNumber,
+                            extensionRegistryLite, fieldSet);
                     return true;
                 }
                 return unknownFieldSchema.mergeOneFieldFrom(ub, reader);
@@ -197,10 +250,12 @@ final class MessageSetSchema<T> implements Schema<T> {
             int tag2 = reader.getTag();
             if (tag2 == WireFormat.MESSAGE_SET_TYPE_ID_TAG) {
                 uInt32 = reader.readUInt32();
-                objFindExtensionByNumber2 = extensionSchema.findExtensionByNumber(extensionRegistryLite, this.defaultInstance, uInt32);
+                objFindExtensionByNumber2 = extensionSchema.findExtensionByNumber(extensionRegistryLite,
+                        this.defaultInstance, uInt32);
             } else if (tag2 == WireFormat.MESSAGE_SET_MESSAGE_TAG) {
                 if (objFindExtensionByNumber2 != null) {
-                    extensionSchema.parseLengthPrefixedMessageSetItem(reader, objFindExtensionByNumber2, extensionRegistryLite, fieldSet);
+                    extensionSchema.parseLengthPrefixedMessageSetItem(reader, objFindExtensionByNumber2,
+                            extensionRegistryLite, fieldSet);
                 } else {
                     bytes = reader.readBytes();
                 }
@@ -226,11 +281,17 @@ final class MessageSetSchema<T> implements Schema<T> {
         return this.extensionSchema.getExtensions(t).isInitialized();
     }
 
-    /* JADX DEBUG: Type inference failed for r0v0. Raw type applied. Possible types: com.google.oplus.protobuf.UnknownFieldSchema<?, ?>, com.google.oplus.protobuf.UnknownFieldSchema<UT, UB> */
+    /*
+     * JADX DEBUG: Type inference failed for r0v0. Raw type applied. Possible types:
+     * com.google.oplus.protobuf.UnknownFieldSchema<?, ?>,
+     * com.google.oplus.protobuf.UnknownFieldSchema<UT, UB>
+     */
     @Override // com.google.oplus.protobuf.Schema
     public int getSerializedSize(T t) {
         int unknownFieldsSerializedSize = getUnknownFieldsSerializedSize(this.unknownFieldSchema, t) + 0;
-        return this.hasExtensions ? unknownFieldsSerializedSize + this.extensionSchema.getExtensions(t).getMessageSetSerializedSize() : unknownFieldsSerializedSize;
+        return this.hasExtensions
+                ? unknownFieldsSerializedSize + this.extensionSchema.getExtensions(t).getMessageSetSerializedSize()
+                : unknownFieldsSerializedSize;
     }
 
     private <UT, UB> int getUnknownFieldsSerializedSize(UnknownFieldSchema<UT, UB> unknownFieldSchema, T t) {

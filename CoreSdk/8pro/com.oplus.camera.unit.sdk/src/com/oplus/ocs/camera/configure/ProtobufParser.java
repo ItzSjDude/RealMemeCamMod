@@ -113,61 +113,40 @@ public class ProtobufParser implements IConfigParser {
 
     @Override // com.oplus.ocs.camera.configure.IConfigParser
     public Map<String, Map<String, Map<String, FeatureInterface>>> parseModeCameraTypeFeature(List<String> list) {
-        Map<String, Map<String, Map<String, FeatureInterface>>> map;
-        FileInputStream fileInputStream;
         long jCurrentTimeMillis = System.currentTimeMillis();
-        FileInputStream fileInputStream2 = null;
+        FileInputStream fileInputStream = null;
         Map<String, Map<String, Map<String, FeatureInterface>>> mapInitCameraFeatureTable = null;
-        fileInputStream2 = null;
+
         try {
-            try {
-                CameraUnitLog.traceBeginSection("ProtobufParser.parse");
-                fileInputStream = new FileInputStream(CONFIG_PATH);
-            } catch (IOException e) {
-                e = e;
-                map = null;
-            }
-        } catch (Throwable th) {
-            th = th;
-        }
-        try {
+            CameraUnitLog.traceBeginSection("ProtobufParser.parse");
+            fileInputStream = new FileInputStream(CONFIG_PATH);
             ProtobufFeatureConfig.FeatureTable from = ProtobufFeatureConfig.FeatureTable.parseFrom(fileInputStream);
             CameraUnitLog.e(TAG, "protobuf version: " + from.getVersion());
             CameraUnitLog.e(TAG, "protobuf parser cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
             CameraUnitLog.traceEndSection("ProtobufParser.parse");
+
             CameraUnitLog.traceBeginSection("ProtobufParser.initFeatureTable");
             mapInitCameraFeatureTable = initCameraFeatureTable(from);
             CameraUnitLog.traceEndSection("ProtobufParser.initFeatureTable");
-            try {
-                fileInputStream.close();
-            } catch (IOException e2) {
-                e2.printStackTrace();
-            }
-        } catch (IOException e3) {
-            e = e3;
-            map = mapInitCameraFeatureTable;
-            fileInputStream2 = fileInputStream;
+        } catch (IOException e) {
+            CameraUnitLog.e(TAG, "parseModeCameraTypeFeature, parse error!", e);
             e.printStackTrace();
-            if (fileInputStream2 != null) {
+        } catch (Throwable th) {
+            CameraUnitLog.e(TAG, "parseModeCameraTypeFeature, unexpected error!", th);
+            if (th instanceof RuntimeException) {
+                throw (RuntimeException) th;
+            }
+            throw new RuntimeException(th);
+        } finally {
+            if (fileInputStream != null) {
                 try {
-                    fileInputStream2.close();
-                } catch (IOException e4) {
-                    e4.printStackTrace();
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            mapInitCameraFeatureTable = map;
-        } catch (Throwable th2) {
-            th = th2;
-            fileInputStream2 = fileInputStream;
-            if (fileInputStream2 != null) {
-                try {
-                    fileInputStream2.close();
-                } catch (IOException e5) {
-                    e5.printStackTrace();
-                }
-            }
-            throw th;
         }
+
         CameraUnitLog.e(TAG, "initialize cost time: " + (System.currentTimeMillis() - jCurrentTimeMillis));
         return mapInitCameraFeatureTable;
     }

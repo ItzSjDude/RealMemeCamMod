@@ -42,9 +42,19 @@ public class ImageCategory {
 
     public boolean isValid() {
         List<ImageItemInfo> list = this.mImageItemList;
-        boolean z = (list == null || list.size() <= 0 || ((Boolean) this.mImageItemList.get(0).get(ApsParameters.KEY_NEED_META_DATA)).booleanValue()) ? false : true;
+        boolean z = (list == null || list.size() <= 0
+                || ((Boolean) this.mImageItemList.get(0).get(ApsParameters.KEY_NEED_META_DATA)).booleanValue()) ? false
+                        : true;
         MetaItemInfo metaItemInfo = this.mMetaItem;
-        return z || (metaItemInfo != null && ((Integer) metaItemInfo.get(ApsParameters.KEY_MERGE_NUMBER)).intValue() >= 1 && ((Integer) this.mMetaItem.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER)).intValue() >= 1 && this.mImageItemList != null && ((Integer) this.mMetaItem.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER)).intValue() == this.mImageItemList.size() && ((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP)).equals(this.mImageItemList.get(0).get(ApsParameters.KEY_TIME_STAMP)) && isTuningDataValid());
+        return z || (metaItemInfo != null
+                && ((Integer) metaItemInfo.get(ApsParameters.KEY_MERGE_NUMBER)).intValue() >= 1
+                && ((Integer) this.mMetaItem.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER)).intValue() >= 1
+                && this.mImageItemList != null
+                && ((Integer) this.mMetaItem.get(ApsParameters.KEY_PREVIEW_STREAM_NUMBER))
+                        .intValue() == this.mImageItemList.size()
+                && ((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP))
+                        .equals(this.mImageItemList.get(0).get(ApsParameters.KEY_TIME_STAMP))
+                && isTuningDataValid());
     }
 
     protected boolean isTuningDataValid() {
@@ -59,7 +69,8 @@ public class ImageCategory {
         if (next.isEmpty()) {
             return false;
         }
-        return ((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP)).equals(next.get(0).get(ApsParameters.KEY_TIME_STAMP));
+        return ((Long) this.mMetaItem.get(ApsParameters.KEY_TIME_STAMP))
+                .equals(next.get(0).get(ApsParameters.KEY_TIME_STAMP));
     }
 
     public void releaseImageItemList() {
@@ -101,7 +112,7 @@ public class ImageCategory {
 
         public MetaItemInfo copy() {
             MetaItemInfo metaItemInfo = new MetaItemInfo();
-            metaItemInfo.mParameterMap = new HashMap();
+            metaItemInfo.mParameterMap = new java.util.concurrent.ConcurrentHashMap<>();
             metaItemInfo.mImageBuffer = this.mImageBuffer;
             copy(metaItemInfo.mParameterMap);
             return metaItemInfo;

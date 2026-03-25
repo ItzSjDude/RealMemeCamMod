@@ -190,111 +190,82 @@ public final class CameraConfigure {
      */
     private static void decodeConfigFileVersion2(Context context) throws Exception {
         int intFormStream;
-        int i;
+        int i = 0;
         FileInputStream fileInputStream = null;
+        IOException ex = null;
+        Throwable throwable = null;
+
         try {
-            try {
-                FileInputStream fileInputStream2 = new FileInputStream(
-                        "/odm/etc/camera/config/oplus_camera_feature_config");
-                if (context != null) {
-                    String str = context.getFilesDir().getAbsolutePath()
-                            + "/odm/etc/camera/config/oplus_camera_feature_config";
-                    FileInputStream fileInputStream3 = Util.isFileExist(str) ? new FileInputStream(str) : null;
-                    int intFormStream2 = readIntFormStream(fileInputStream2);
-                    CameraUnitLog.e(TAG, "decodeConfigFileVersion2, odmFileVersion:" + intFormStream2);
-                    if (fileInputStream3 != null) {
-                        int intFormStream3 = readIntFormStream(fileInputStream3);
-                        CameraUnitLog.e(TAG, "decodeConfigFileVersion2, rusFileVersion:" + intFormStream3);
-                        if (intFormStream3 >= intFormStream2) {
-                            try {
-                                fileInputStream2.close();
-                                fileInputStream = fileInputStream3;
-                                intFormStream = readIntFormStream(fileInputStream);
-                                for (i = 0; i < intFormStream; i++) {
-                                    int intFormStream4 = readIntFormStream(fileInputStream);
-                                    int intFormStream5 = readIntFormStream(fileInputStream);
-                                    byte[] bArr = new byte[intFormStream5];
-                                    if (fileInputStream.read(bArr) != intFormStream5) {
-                                        CameraUnitLog.e(TAG,
-                                                "decodeConfigFileVersion2, content length is not correct, tag: "
-                                                        + intFormStream4);
-                                    }
-                                    if (intFormStream4 == 1) {
-                                        generateVendorTagMap(bArr);
-                                        PROJECT_FEATURES_READY_CONDITION.open();
-                                    } else if (intFormStream4 == 2) {
-                                        parseProtobufFeature(bArr);
-                                    }
-                                }
-                                if (fileInputStream != null) {
-                                    try {
-                                        fileInputStream.close();
-                                    } catch (IOException e) {
-                                        e = e;
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } catch (IOException e2) {
-                                e = e2;
-                                fileInputStream = fileInputStream3;
-                                CameraUnitLog.e(TAG, "decodeConfigFileVersion2, parse error!", e);
-                                if (fileInputStream != null) {
-                                }
-                            } catch (Throwable th) {
-                                th = th;
-                                fileInputStream = fileInputStream3;
-                                if (fileInputStream != null) {
-                                }
-                                PROJECT_FEATURES_READY_CONDITION.open();
-                                FEATURE_CONFIG_CONDITION.open();
-                                throw th;
-                            }
-                        } else {
-                            try {
-                                fileInputStream3.close();
-                            } catch (IOException e3) {
-                                e = e3;
-                                fileInputStream = fileInputStream2;
-                                CameraUnitLog.e(TAG, "decodeConfigFileVersion2, parse error!", e);
-                                if (fileInputStream != null) {
-                                    try {
-                                        fileInputStream.close();
-                                    } catch (IOException e4) {
-                                        e = e4;
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } catch (Throwable th2) {
-                                th = th2;
-                                fileInputStream = fileInputStream2;
-                                if (fileInputStream != null) {
-                                    try {
-                                        fileInputStream.close();
-                                    } catch (IOException e5) {
-                                        e5.printStackTrace();
-                                    }
-                                }
-                                PROJECT_FEATURES_READY_CONDITION.open();
-                                FEATURE_CONFIG_CONDITION.open();
-                                throw th;
-                            }
-                        }
-                    }
-                    fileInputStream = fileInputStream2;
-                    intFormStream = readIntFormStream(fileInputStream);
-                    while (i < intFormStream) {
-                    }
-                    if (fileInputStream != null) {
-                    }
+            FileInputStream fileInputStream2 = new FileInputStream(
+                    "/odm/etc/camera/config/oplus_camera_feature_config");
+            FileInputStream fileInputStream3 = null;
+
+            if (context != null) {
+                String str = context.getFilesDir().getAbsolutePath()
+                        + "/odm/etc/camera/config/oplus_camera_feature_config";
+                if (Util.isFileExist(str)) {
+                    fileInputStream3 = new FileInputStream(str);
                 }
-            } catch (Throwable th3) {
-                th = th3;
+
+                int intFormStream2 = readIntFormStream(fileInputStream2);
+                CameraUnitLog.e(TAG, "decodeConfigFileVersion2, odmFileVersion:" + intFormStream2);
+
+                if (fileInputStream3 != null) {
+                    int intFormStream3 = readIntFormStream(fileInputStream3);
+                    CameraUnitLog.e(TAG, "decodeConfigFileVersion2, rusFileVersion:" + intFormStream3);
+
+                    if (intFormStream3 >= intFormStream2) {
+                        fileInputStream2.close();
+                        fileInputStream = fileInputStream3;
+                    } else {
+                        fileInputStream3.close();
+                        fileInputStream = fileInputStream2;
+                    }
+                } else {
+                    fileInputStream = fileInputStream2;
+                }
+            } else {
+                fileInputStream = fileInputStream2;
             }
-        } catch (IOException e6) {
-            e = e6;
+
+            intFormStream = readIntFormStream(fileInputStream);
+            for (i = 0; i < intFormStream; i++) {
+                int intFormStream4 = readIntFormStream(fileInputStream);
+                int intFormStream5 = readIntFormStream(fileInputStream);
+                byte[] bArr = new byte[intFormStream5];
+
+                if (fileInputStream.read(bArr) != intFormStream5) {
+                    CameraUnitLog.e(TAG,
+                            "decodeConfigFileVersion2, content length is not correct, tag: " + intFormStream4);
+                }
+
+                if (intFormStream4 == 1) {
+                    generateVendorTagMap(bArr);
+                    PROJECT_FEATURES_READY_CONDITION.open();
+                } else if (intFormStream4 == 2) {
+                    parseProtobufFeature(bArr);
+                }
+            }
+        } catch (IOException e) {
+            ex = e;
+            CameraUnitLog.e(TAG, "decodeConfigFileVersion2, parse error!", ex);
+            throw ex;
+        } catch (Throwable th) {
+            throwable = th;
+            throw new Exception(throwable);
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            PROJECT_FEATURES_READY_CONDITION.open();
+            FEATURE_CONFIG_CONDITION.open();
         }
-        PROJECT_FEATURES_READY_CONDITION.open();
-        FEATURE_CONFIG_CONDITION.open();
+    }
+
     }
 
     private static void parseProtobufFeature(byte[] bArr) throws InvalidProtocolBufferException {
