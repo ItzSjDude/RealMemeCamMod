@@ -655,7 +655,7 @@ final class ArrayDecoders {
             UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers)
             throws IOException {
         Object field;
-        Object objValueOf;
+        Object objValueOf = null;
         FieldSet<GeneratedMessageLite.ExtensionDescriptor> fieldSet = extendableMessage.extensions;
         int i4 = i >>> 3;
         if (generatedExtension.descriptor.isRepeated() && generatedExtension.descriptor.isPacked()) {
