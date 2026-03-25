@@ -13,15 +13,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /* JADX INFO: loaded from: classes.dex */
+/**
+ * Readability-refactor of decompiled AncHuman Bokeh API wrapper.
+ * Preserves public/native signatures; improves local names, formatting,
+ * and adds brief documentation.
+ */
 public class HumanEffectBokehApi {
-    static final String TAG = "HumanEffectBokehApi";
-    private static HumanEffectBokehApi sInstance = new HumanEffectBokehApi();
-    private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
-    private AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
-    private AtomicLong handle = new AtomicLong(0);
-    private AtomicBoolean isInitializing = new AtomicBoolean(false);
-    int mWidth = 0;
-    int mHeight = 0;
+    private static final String TAG = "HumanEffectBokehApi";
+
+    private static final HumanEffectBokehApi sInstance = new HumanEffectBokehApi();
+    private static final AtomicBoolean isSoLoaded = new AtomicBoolean(false);
+
+    private final AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
+    private final AtomicLong handle = new AtomicLong(0);
+    private final AtomicBoolean isInitializing = new AtomicBoolean(false);
+
+    private int mWidth = 0;
+    private int mHeight = 0;
 
     public static class ErrorCode {
         public static final int ANC_HUM_FAILURE = 3;
@@ -38,31 +46,32 @@ public class HumanEffectBokehApi {
         return "errorMessage";
     }
 
-    private native int nativeDetect(long j, byte[] bArr, int i, int i2, int i3);
+    /* Native method bindings (signatures preserved). */
+    private native int nativeDetect(long nativeHandle, byte[] data, int width, int height, int rotation);
 
-    private native int nativeDetectTextureIn(long j, int i, int i2, int i3, int i4, float f, float f2, boolean z);
+    private native int nativeDetectTextureIn(long nativeHandle, int texId, int width, int height, int rotation, float x, float y, boolean isOES);
 
-    private native int nativeDetectTextureInWithSeg(long j, int i, int i2, int i3, int i4, float f, float f2, boolean z, boolean z2);
+    private native int nativeDetectTextureInWithSeg(long nativeHandle, int texId, int width, int height, int rotation, float x, float y, boolean isOES, boolean useSegmentation);
 
-    private native long nativeInitConfigHandle(HumanEffectBokehConfig humanEffectBokehConfig);
+    private native long nativeInitConfigHandle(HumanEffectBokehConfig config);
 
-    private native long nativeInitHandle(byte[] bArr, String str, boolean z);
+    private native long nativeInitHandle(byte[] modelData, String libPath, boolean useVndk);
 
-    private native int nativeProcess(long j, int i, int i2, float f, boolean z, boolean z2);
+    private native int nativeProcess(long nativeHandle, int inTexId, int outTexId, float intensity, boolean doBlur, boolean doOther);
 
-    private native int nativeProcessImage(long j, Bitmap bitmap, Bitmap bitmap2, float f);
+    private native int nativeProcessImage(long nativeHandle, Bitmap inBitmap, Bitmap outBitmap, float intensity);
 
-    private native int nativeProcessNV21(long j, byte[] bArr, int i, int i2, byte[] bArr2, float f);
+    private native int nativeProcessNV21(long nativeHandle, byte[] nv21, int width, int height, byte[] outBuffer, float param);
 
-    private native int nativeProcessNV21TextureOutput(long j, byte[] bArr, int i, int i2, int i3, float f);
+    private native int nativeProcessNV21TextureOutput(long nativeHandle, byte[] nv21, int width, int height, int outTexId, float param);
 
-    private native int nativeProcessTextureInTextureOutput(long j, int i, int i2, int i3, int i4, float f);
+    private native int nativeProcessTextureInTextureOutput(long nativeHandle, int inTexId, int width, int height, int outTexId, float param);
 
-    private native int nativeProcessYUV(long j, byte[] bArr, int i, int i2, int i3, float f);
+    private native int nativeProcessYUV(long nativeHandle, byte[] yuv, int width, int height, int rotation, float param);
 
-    private native int nativeRelease(long j);
+    private native int nativeRelease(long nativeHandle);
 
-    private native int nativeSetLogLevel(int i);
+    private native int nativeSetLogLevel(int level);
 
     public native String nativeSdkVersion();
 
@@ -266,46 +275,40 @@ public class HumanEffectBokehApi {
     }
 
     private static byte[] getFileContent(String str, AssetManager assetManager) {
-        InputStream inputStreamOpen;
-        boolean z;
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] bArr = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
+        InputStream in = null;
+        boolean openedFromAssets = false;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
         if (assetManager != null) {
             try {
-                inputStreamOpen = assetManager.open(str);
-                z = true;
-            } catch (IOException unused) {
+                in = assetManager.open(str);
+                openedFromAssets = true;
+            } catch (IOException e) {
                 Log.e(TAG, "fail to open " + str);
-                z = false;
-                inputStreamOpen = null;
+                openedFromAssets = false;
+                in = null;
             }
-        } else {
-            z = false;
-            inputStreamOpen = null;
         }
-        if (!z) {
+        if (!openedFromAssets) {
             try {
-                inputStreamOpen = new FileInputStream(str);
-            } catch (IOException unused2) {
+                in = new FileInputStream(str);
+            } catch (IOException e) {
                 return null;
             }
         }
-        if (inputStreamOpen == null) {
+        if (in == null) {
             return null;
         }
-        while (true) {
-            try {
-                int i = inputStreamOpen.read(bArr);
-                if (i != -1) {
-                    byteArrayOutputStream.write(bArr, 0, i);
-                } else {
-                    inputStreamOpen.close();
-                    byteArrayOutputStream.close();
-                    return byteArrayOutputStream.toByteArray();
-                }
-            } catch (IOException unused3) {
-                return null;
+        try {
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
             }
+            in.close();
+            out.close();
+            return out.toByteArray();
+        } catch (IOException e) {
+            return null;
         }
     }
 }

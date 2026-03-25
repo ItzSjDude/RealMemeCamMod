@@ -24,7 +24,10 @@ public class ChattyEventTracker {
     private int mCacheCount;
     private final Map<String, ChattyEvent> mChattyEventMap;
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "context is empty." */
+    /*
+     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+     * 0x0000: CONST_STR "context is empty."
+     */
     static /* synthetic */ String lambda$onChattyEvent$0() {
         return "context is empty.";
     }
@@ -40,23 +43,29 @@ public class ChattyEventTracker {
     public void onChattyEvent(@NonNull final CommonBean commonBean) {
         final Context applicationContext = commonBean.getContext().getApplicationContext();
         if (applicationContext == null) {
-            LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda0
+            LogUtil.e(TAG, new Supplier() { // from class:
+                                            // com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
                     return ChattyEventTracker.lambda$onChattyEvent$0();
                 }
             });
         } else {
-            WorkThread.execute(new Runnable() { // from class: com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda1
+            WorkThread.execute(new Runnable() { // from class:
+                                                // com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda1
                 @Override // java.lang.Runnable
                 public final void run() {
-                    this.f$0.m8x8ff901b1(applicationContext, commonBean);
+                    ChattyEventTracker.this.m8x8ff901b1(applicationContext, commonBean);
                 }
             });
         }
     }
 
-    /* JADX INFO: renamed from: lambda$onChattyEvent$1$com-oplus-statistics-strategy-ChattyEventTracker, reason: not valid java name */
+    /*
+     * JADX INFO: renamed from:
+     * lambda$onChattyEvent$1$com-oplus-statistics-strategy-ChattyEventTracker,
+     * reason: not valid java name
+     */
     /* synthetic */ void m8x8ff901b1(Context context, CommonBean commonBean) {
         onChattyEvent(context, commonBean.getAppId(), commonBean.getLogTag(), commonBean.getEventID());
     }
@@ -79,17 +88,25 @@ public class ChattyEventTracker {
             if (i != 1 || WorkThread.getInstance().hasMessages(1)) {
                 return;
             }
-            WorkThread.getInstance().postDelay(1, new Runnable() { // from class: com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda2
+            WorkThread.getInstance().postDelay(1, new Runnable() { // from class:
+                                                                   // com.oplus.statistics.strategy.ChattyEventTracker$$ExternalSyntheticLambda2
                 @Override // java.lang.Runnable
                 public final void run() {
-                    this.f$0.m9x81a2a7d0(context);
+                    ChattyEventTracker.this.m9x81a2a7d0(context);
                 }
             }, MIN_TIME_TO_COMMIT);
         }
     }
 
-    /* JADX DEBUG: Method merged with bridge method: lambda$onChattyEvent$2$com-oplus-statistics-strategy-ChattyEventTracker(Landroid/content/Context;)V */
-    /* JADX INFO: renamed from: commit, reason: merged with bridge method [inline-methods] */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * lambda$onChattyEvent$2$com-oplus-statistics-strategy-ChattyEventTracker(
+     * Landroid/content/Context;)V
+     */
+    /*
+     * JADX INFO: renamed from: commit, reason: merged with bridge method
+     * [inline-methods]
+     */
     public void m9x81a2a7d0(Context context) {
         for (ChattyEvent chattyEvent : this.mChattyEventMap.values()) {
             CommonBean commonBean = new CommonBean(context, SELF_TRACK_APP_ID, SELF_TRACK_LOG_TAG, CHATTY_EVENT_ID);

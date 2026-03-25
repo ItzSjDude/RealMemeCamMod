@@ -79,6 +79,7 @@ public class YTFetchLicenseHelper {
             StringBuilder sb;
             BufferedReader bufferedReader = null;
             Exception e = null;
+            Throwable th = null;
             try {
                 try {
                     long jCurrentTimeMillis = System.currentTimeMillis() / 1000;
@@ -127,8 +128,8 @@ public class YTFetchLicenseHelper {
                     } catch (JSONException eInternal7) {
                         e = eInternal7;
                     }
-                } catch (Throwable th) {
-                    th = th;
+                } catch (Throwable t) {
+                    th = t;
                 }
             } catch (MalformedURLException e8) {
                 e = e8;

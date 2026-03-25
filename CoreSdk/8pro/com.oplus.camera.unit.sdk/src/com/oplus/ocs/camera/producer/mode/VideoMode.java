@@ -371,7 +371,8 @@ public class VideoMode extends BaseMode {
         if (list != null) {
             Iterator it = list.iterator();
             while (it.hasNext()) {
-                int i = Integer.parseInt(((String) it.next()).substring(6, r0.length() - 3));
+                String str0 = (String) it.next();
+                int i = Integer.parseInt(str0.substring(6, str0.length() - 3));
                 Range<Integer> range = new Range<>(Integer.valueOf(i), Integer.valueOf(i));
                 if (!arrayList.contains(range)) {
                     arrayList.add(range);

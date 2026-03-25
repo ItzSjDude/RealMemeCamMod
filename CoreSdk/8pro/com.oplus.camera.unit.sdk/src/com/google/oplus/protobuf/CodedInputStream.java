@@ -1444,9 +1444,9 @@ public abstract class CodedInputStream {
 
         @Override // com.google.oplus.protobuf.CodedInputStream
         public long readRawVarint64() throws IOException {
-            long j;
-            long j2;
-            long j3;
+            long j = 0;
+            long j2 = 0;
+            long j3 = 0;
             int i;
             long j4 = this.pos;
             if (this.limit != j4) {
@@ -2233,9 +2233,9 @@ public abstract class CodedInputStream {
          * Code decompiled incorrectly, please refer to instructions dump.
          */
         public long readRawVarint64() throws IOException {
-            long j;
-            long j2;
-            long j3;
+            long j = 0;
+            long j2 = 0;
+            long j3 = 0;
             int i;
             int i2 = this.pos;
             int i3 = this.bufferSize;
@@ -3172,9 +3172,9 @@ public abstract class CodedInputStream {
 
         @Override // com.google.oplus.protobuf.CodedInputStream
         public long readRawVarint64() throws IOException {
-            long j;
-            long j2;
-            long j3;
+            long j = 0;
+            long j2 = 0;
+            long j3 = 0;
             int i;
             long j4 = this.currentByteBufferPos;
             if (this.currentByteBufferLimit != j4) {

@@ -13,14 +13,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /* JADX INFO: loaded from: classes.dex */
+/**
+ * Java wrapper for the native AncHumanVideo SDK.
+ *
+ * This is a readability-focused refactor of the decompiled code: names,
+ * formatting and Javadoc were improved while preserving runtime behavior
+ * and public API signatures.
+ */
 public class HumanVideoApi {
-    static final String TAG = "HumanVideoApi";
-    private AtomicLong handle = new AtomicLong(0);
-    private AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
+    private static final String TAG = "HumanVideoApi";
+
+    private final AtomicLong handle = new AtomicLong(0);
+    private final AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
     private int runtime_featureset;
     private int sdk_featureset;
-    private static HumanVideoApi sInstance = new HumanVideoApi();
-    private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
+    private static final HumanVideoApi sInstance = new HumanVideoApi();
+    private static final AtomicBoolean isSoLoaded = new AtomicBoolean(false);
 
     public enum CameraType {
         MODE_REAR_CAMERA,
@@ -88,23 +96,24 @@ public class HumanVideoApi {
         ANC_HUM_IMG_NV12
     }
 
-    private native int nativeEnableRunTimeFeature(long j, int i);
+    /* Native method bindings (signatures preserved). */
+    private native int nativeEnableRunTimeFeature(long nativeHandle, int featureBits);
 
-    private native long nativeInitHandle(HumanVideoConfig humanVideoConfig);
+    private native long nativeInitHandle(HumanVideoConfig config);
 
-    private native int nativeProcessFrame(long j, byte[] bArr, byte[] bArr2, int i, int i2, int i3, int i4, int i5, int i6);
+    private native int nativeProcessFrame(long nativeHandle, byte[] in, byte[] out, int inW, int inH, int outW, int outH, int imageTypeOrdinal, int rotation);
 
-    private native int nativeProcessTexture(long j, int i, int i2, int i3, int i4, int i5, boolean z);
+    private native int nativeProcessTexture(long nativeHandle, int inTexId, int outTexId, int width, int height, int rotation, boolean isOES);
 
-    private native int nativeRelease(long j);
+    private native int nativeRelease(long nativeHandle);
 
     private native String nativeSdkVersion();
 
-    private native int nativeSetLogLevel(int i);
+    private native int nativeSetLogLevel(int level);
 
-    private native int nativeSetParamsBokeh(long j, HumanVideoBokehParams humanVideoBokehParams);
+    private native int nativeSetParamsBokeh(long nativeHandle, HumanVideoBokehParams params);
 
-    private native int nativeSetParamsRetain(long j, HumanVideoRetainParams humanVideoRetainParams);
+    private native int nativeSetParamsRetain(long nativeHandle, HumanVideoRetainParams params);
 
     public static HumanVideoApi getInstance() {
         return sInstance;
@@ -128,18 +137,14 @@ public class HumanVideoApi {
     }
 
     public int initHandle(HumanVideoConfig humanVideoConfig) {
-        String str = TAG;
-        StringBuilder sb = new StringBuilder();
-        sb.append("init by config BuildNumber: 100 isRealTime: ");
-        sb.append(humanVideoConfig != null ? humanVideoConfig.toString() : " null config");
-        Log.i(str, sb.toString());
+        Log.i(TAG, "init by config BuildNumber: 100 isRealTime: " + (humanVideoConfig != null ? humanVideoConfig.toString() : " null config"));
         if (humanVideoConfig == null) {
-            Log.e(str, "initHandle: config invalid!");
+            Log.e(TAG, "initHandle: config invalid!");
             return 1;
         }
         if (humanVideoConfig.modelData == null) {
             if (humanVideoConfig.modelPath == null) {
-                Log.e(str, "initHandle: config invalid, model is null!");
+                Log.e(TAG, "initHandle: config invalid, model is null!");
                 return 1;
             }
             humanVideoConfig.modelData = getFileContent(humanVideoConfig.modelPath);
@@ -154,7 +159,7 @@ public class HumanVideoApi {
             }
         }
         if (this.handle.get() != 0) {
-            Log.e(str, "initHandle:handle start init failure!");
+            Log.e(TAG, "initHandle:handle start init failure!");
             return 5;
         }
         if (!isSoLoaded.get()) {
@@ -220,12 +225,34 @@ public class HumanVideoApi {
         }
         if ((humanProcessRequest instanceof HumanProcessTextureRequest) && (humanProcessResult instanceof HumanProcessTexureResult)) {
             HumanProcessTextureRequest humanProcessTextureRequest = (HumanProcessTextureRequest) humanProcessRequest;
-            return nativeProcessTexture(this.handle.get(), humanProcessTextureRequest.humanTexture.texID, ((HumanProcessTexureResult) humanProcessResult).humanTexture.texID, humanProcessTextureRequest.humanTexture.width, humanProcessTextureRequest.humanTexture.height, humanProcessTextureRequest.humanTexture.rotation, humanProcessTextureRequest.humanTexture.isOES);
+            HumanProcessTexureResult textureResult = (HumanProcessTexureResult) humanProcessResult;
+            return nativeProcessTexture(
+                    this.handle.get(),
+                    humanProcessTextureRequest.humanTexture.texID,
+                    textureResult.humanTexture.texID,
+                    humanProcessTextureRequest.humanTexture.width,
+                    humanProcessTextureRequest.humanTexture.height,
+                    humanProcessTextureRequest.humanTexture.rotation,
+                    humanProcessTextureRequest.humanTexture.isOES
+            );
         }
         if ((humanProcessRequest instanceof HumanProcessFrameRequest) && (humanProcessResult instanceof HumanProcessFrameResult)) {
             HumanProcessFrameRequest humanProcessFrameRequest = (HumanProcessFrameRequest) humanProcessRequest;
             HumanProcessFrameResult humanProcessFrameResult = (HumanProcessFrameResult) humanProcessResult;
-            return nativeProcessFrame(this.handle.get(), humanProcessFrameRequest.humanFrame.data, humanProcessFrameResult.humanFrame.data, humanProcessFrameRequest.humanFrame.width, humanProcessFrameRequest.humanFrame.height, (humanProcessFrameResult.humanFrame.width == 0 ? humanProcessFrameRequest.humanFrame : humanProcessFrameResult.humanFrame).width, (humanProcessFrameResult.humanFrame.height == 0 ? humanProcessFrameRequest.humanFrame : humanProcessFrameResult.humanFrame).height, humanProcessFrameRequest.humanFrame.type.ordinal(), humanProcessFrameRequest.humanFrame.rotation);
+            // if result frame width/height are zero, reuse input frame dimensions
+            int outW = humanProcessFrameResult.humanFrame.width == 0 ? humanProcessFrameRequest.humanFrame.width : humanProcessFrameResult.humanFrame.width;
+            int outH = humanProcessFrameResult.humanFrame.height == 0 ? humanProcessFrameRequest.humanFrame.height : humanProcessFrameResult.humanFrame.height;
+            return nativeProcessFrame(
+                    this.handle.get(),
+                    humanProcessFrameRequest.humanFrame.data,
+                    humanProcessFrameResult.humanFrame.data,
+                    humanProcessFrameRequest.humanFrame.width,
+                    humanProcessFrameRequest.humanFrame.height,
+                    outW,
+                    outH,
+                    humanProcessFrameRequest.humanFrame.type.ordinal(),
+                    humanProcessFrameRequest.humanFrame.rotation
+            );
         }
         Log.e(TAG, "process: request type is invalid!");
         return 2;
@@ -241,22 +268,19 @@ public class HumanVideoApi {
         return iNativeRelease;
     }
 
-    private static byte[] getFileContent(String str) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] bArr = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
+    private static byte[] getFileContent(String path) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
         try {
-            FileInputStream fileInputStream = new FileInputStream(str);
-            while (true) {
-                int i = fileInputStream.read(bArr);
-                if (i != -1) {
-                    byteArrayOutputStream.write(bArr, 0, i);
-                } else {
-                    fileInputStream.close();
-                    byteArrayOutputStream.close();
-                    return byteArrayOutputStream.toByteArray();
-                }
+            FileInputStream fis = new FileInputStream(path);
+            int read;
+            while ((read = fis.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
             }
-        } catch (IOException unused) {
+            fis.close();
+            out.close();
+            return out.toByteArray();
+        } catch (IOException e) {
             Log.e(TAG, "getFileContent: get model from path failure!");
             return null;
         }

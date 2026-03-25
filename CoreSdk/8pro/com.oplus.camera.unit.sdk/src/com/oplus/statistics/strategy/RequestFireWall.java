@@ -31,19 +31,25 @@ public class RequestFireWall {
         final long requestCountInWindowImpl = getRequestCountInWindowImpl(requestQueue, jElapsedRealtime);
         boolean z = requestCountInWindowImpl <= ((long) this.mLimit);
         if (!z && requestCountInWindowImpl % ((long) 10) == 1) {
-            LogUtil.w(TAG, new Supplier() { // from class: com.oplus.statistics.strategy.RequestFireWall$$ExternalSyntheticLambda0
+            LogUtil.w(TAG, new Supplier() { // from class:
+                                            // com.oplus.statistics.strategy.RequestFireWall$$ExternalSyntheticLambda0
                 @Override // com.oplus.statistics.util.Supplier
                 public final Object get() {
-                    return this.f$0.m10xd9117441(str, requestCountInWindowImpl);
+                    return RequestFireWall.this.m10xd9117441(str, requestCountInWindowImpl);
                 }
             });
         }
         return z;
     }
 
-    /* JADX INFO: renamed from: lambda$handleRequest$0$com-oplus-statistics-strategy-RequestFireWall, reason: not valid java name */
+    /*
+     * JADX INFO: renamed from:
+     * lambda$handleRequest$0$com-oplus-statistics-strategy-RequestFireWall, reason:
+     * not valid java name
+     */
     /* synthetic */ String m10xd9117441(String str, long j) {
-        return "Chatty!!! Allow " + this.mLimit + FeatureImpl.DELIMITER + this.mPeriod + "ms, but " + str + " request " + j + " in the recent period.";
+        return "Chatty!!! Allow " + this.mLimit + FeatureImpl.DELIMITER + this.mPeriod + "ms, but " + str + " request "
+                + j + " in the recent period.";
     }
 
     private long getRequestCountInWindowImpl(@NonNull Queue<Long> queue, long j) {

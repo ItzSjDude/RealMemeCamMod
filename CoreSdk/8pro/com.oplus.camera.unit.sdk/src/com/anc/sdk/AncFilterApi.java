@@ -12,19 +12,28 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /* JADX INFO: loaded from: classes.dex */
+/**
+ * High-level Java wrapper around the native ANC filter SDK.
+ *
+ * This class is a cleaned-up, readable version of the decompiled
+ * implementation. No runtime behavior or public APIs have been
+ * altered; only parameter names, formatting and documentation
+ * were improved for maintainability.
+ */
 public class AncFilterApi {
-    static final String TAG = "AncFilterApi";
-    private AtomicLong handle = new AtomicLong(0);
-    private AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
-    private static AncFilterApi sInstance = new AncFilterApi();
-    private static AtomicBoolean isSoLoaded = new AtomicBoolean(false);
+    private static final String TAG = "AncFilterApi";
+
+    private final AtomicLong handle = new AtomicLong(0);
+    private final AtomicInteger mPendingLogLevel = new AtomicInteger(-1);
+    private static final AncFilterApi sInstance = new AncFilterApi();
+    private static final AtomicBoolean isSoLoaded = new AtomicBoolean(false);
 
     public static class ErrorCode {
-        public static final int ANC_FILTER_FAILURE = 3;
-        public static final int ANC_FILTER_GL_COMPILING = 4;
+        public static final int ANC_FILTER_OK = 0;
         public static final int ANC_FILTER_INVALID_ARGUMENT = 1;
         public static final int ANC_FILTER_INVALID_HANDLE = 2;
-        public static final int ANC_FILTER_OK = 0;
+        public static final int ANC_FILTER_FAILURE = 3;
+        public static final int ANC_FILTER_GL_COMPILING = 4;
     }
 
     public static class FilterInfo {
@@ -41,38 +50,39 @@ public class AncFilterApi {
     }
 
     public static class FilterType {
-        public static final int ANC_FILTERT_CELL_BLUEPINK = 7;
+        public static final int ANC_FILTERT_KALEIDOSCOPE = 0;
+        public static final int ANC_FILTERT_HEXAGON = 1;
+        public static final int ANC_FILTERT_SPIRAL = 2;
+        public static final int ANC_FILTERT_CONCENTRIC_CIRCLES = 3;
+        public static final int ANC_FILTERT_POLYSPIN = 4;
         public static final int ANC_FILTERT_CELL_GRADIENTCOLOR = 5;
         public static final int ANC_FILTERT_CELL_GREENORANGE = 6;
-        public static final int ANC_FILTERT_CONCENTRIC_CIRCLES = 3;
-        public static final int ANC_FILTERT_HEXAGON = 1;
-        public static final int ANC_FILTERT_KALEIDOSCOPE = 0;
-        public static final int ANC_FILTERT_POLYSPIN = 4;
-        public static final int ANC_FILTERT_SPIRAL = 2;
+        public static final int ANC_FILTERT_CELL_BLUEPINK = 7;
     }
 
     public static class ImageType {
-        public static final int IMAGE_TYPE_NV12 = 6;
         public static final int IMAGE_TYPE_NV21 = 0;
+        public static final int IMAGE_TYPE_NV12 = 6;
     }
 
     public static class SDKLoadType {
-        public static final int ANC_LOAD_TYPE_ANDROID_DLOPEN = 1;
         public static final int ANC_LOAD_TYPE_DLOEPN = 0;
+        public static final int ANC_LOAD_TYPE_ANDROID_DLOPEN = 1;
         public static final int ANC_LOAD_TYPE_VNDKSUPPORT = 2;
     }
 
-    private native long nativeInitHandle(boolean z, int i);
+    /* Native method bindings (signatures preserved). */
+    private native long nativeInitHandle(boolean useVndk, int loadType);
 
-    private native int nativeProcess(long j, int i, int i2, int i3, boolean z, boolean z2, int i4, int i5, float f);
+    private native int nativeProcess(long nativeHandle, int a, int b, int c, boolean flag1, boolean flag2, int d, int e, float f);
 
-    private native int nativeProcessNV21(long j, String str, int i, int i2, int i3);
+    private native int nativeProcessNV21(long nativeHandle, String filePath, int a, int b, int c);
 
-    private native int nativeRelease(long j);
+    private native int nativeRelease(long nativeHandle);
 
-    private native int nativeSetFilterInfo(long j, FilterInfo filterInfo);
+    private native int nativeSetFilterInfo(long nativeHandle, FilterInfo filterInfo);
 
-    private native int nativeSetLogLevel(int i);
+    private native int nativeSetLogLevel(int level);
 
     public native String nativeSdkVersion();
 
@@ -80,31 +90,37 @@ public class AncFilterApi {
         return sInstance;
     }
 
-    public int init(boolean z, int i) {
-        String str = TAG;
-        Log.e(str, "init in");
+    /**
+     * Initialize the native SDK. Parameter names clarified but behavior unchanged.
+     *
+     * @param useVndk boolean flag passed to native initializer
+     * @param unusedLoadType this parameter is unused by original implementation
+     * @return ErrorCode value
+     */
+    public int init(boolean useVndk, int unusedLoadType) {
+        Log.e(TAG, "init in");
         if (this.handle.get() != 0) {
-            return 3;
+            return ErrorCode.ANC_FILTER_FAILURE;
         }
         if (!isSoLoaded.get()) {
             System.loadLibrary("AncFilter_jni");
             isSoLoaded.set(true);
         }
-        long jNativeInitHandle = nativeInitHandle(z, 2);
-        if (jNativeInitHandle == 0) {
-            return 1;
+        long nativeHandle = nativeInitHandle(useVndk, 2);
+        if (nativeHandle == 0) {
+            return ErrorCode.ANC_FILTER_INVALID_ARGUMENT;
         }
-        this.handle.set(jNativeInitHandle);
-        Log.e(str, "init out hdl: " + jNativeInitHandle);
-        return 0;
+        this.handle.set(nativeHandle);
+        Log.e(TAG, "init out hdl: " + nativeHandle);
+        return ErrorCode.ANC_FILTER_OK;
     }
 
-    public int setLogLevel(int i) {
+    public int setLogLevel(int level) {
         if (!isSoLoaded.get()) {
-            this.mPendingLogLevel.set(i);
+            this.mPendingLogLevel.set(level);
             return -1;
         }
-        nativeSetLogLevel(i);
+        nativeSetLogLevel(level);
         return 0;
     }
 
@@ -112,71 +128,72 @@ public class AncFilterApi {
         return nativeSetFilterInfo(this.handle.get(), filterInfo);
     }
 
-    public int process(int i, int i2, int i3, boolean z, boolean z2, int i4, int i5, float f) {
+    /**
+     * Process a frame through native pipeline. Parameter names preserved as positional-only.
+     */
+    public int process(int a, int b, int c, boolean flag1, boolean flag2, int d, int e, float f) {
         Log.e(TAG, "process in");
-        return nativeProcess(this.handle.get(), i, i2, i3, z, z2, i4, i5, f);
+        return nativeProcess(this.handle.get(), a, b, c, flag1, flag2, d, e, f);
     }
 
-    public int processNV21(String str, int i, int i2, int i3) {
+    public int processNV21(String filePath, int a, int b, int c) {
         Log.e(TAG, "processNV21 in");
-        return nativeProcessNV21(this.handle.get(), str, i, i2, i3);
+        return nativeProcessNV21(this.handle.get(), filePath, a, b, c);
     }
 
     public int release() {
         Log.e(TAG, "release in");
         if (this.handle.get() == 0) {
-            return 2;
+            return ErrorCode.ANC_FILTER_INVALID_HANDLE;
         }
-        int iNativeRelease = nativeRelease(this.handle.get());
+        int result = nativeRelease(this.handle.get());
         this.handle.set(0L);
-        return iNativeRelease;
+        return result;
     }
 
     public String getVersion() {
         return !isSoLoaded.get() ? "" : nativeSdkVersion();
     }
 
-    private static byte[] getFileContent(String str, AssetManager assetManager) {
-        InputStream inputStreamOpen;
-        boolean z;
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] bArr = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
+    private static byte[] getFileContent(String path, AssetManager assetManager) {
+        InputStream stream = null;
+        boolean openedFromAssets = false;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buffer = new byte[OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION];
+
         if (assetManager != null) {
             try {
-                inputStreamOpen = assetManager.open(str);
-                z = true;
-            } catch (IOException unused) {
-                Log.e(TAG, "fail to open " + str);
-                z = false;
-                inputStreamOpen = null;
+                stream = assetManager.open(path);
+                openedFromAssets = true;
+            } catch (IOException e) {
+                Log.e(TAG, "fail to open " + path);
+                openedFromAssets = false;
+                stream = null;
             }
-        } else {
-            z = false;
-            inputStreamOpen = null;
         }
-        if (!z) {
+
+        if (!openedFromAssets) {
             try {
-                inputStreamOpen = new FileInputStream(str);
-            } catch (IOException unused2) {
+                stream = new FileInputStream(path);
+            } catch (IOException e) {
                 return null;
             }
         }
-        if (inputStreamOpen == null) {
+
+        if (stream == null) {
             return null;
         }
-        while (true) {
-            try {
-                int i = inputStreamOpen.read(bArr);
-                if (i != -1) {
-                    byteArrayOutputStream.write(bArr, 0, i);
-                } else {
-                    inputStreamOpen.close();
-                    byteArrayOutputStream.close();
-                    return byteArrayOutputStream.toByteArray();
-                }
-            } catch (IOException unused3) {
-                return null;
+
+        try {
+            int read;
+            while ((read = stream.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
             }
+            stream.close();
+            out.close();
+            return out.toByteArray();
+        } catch (IOException e) {
+            return null;
         }
     }
 }

@@ -39,9 +39,11 @@ public class HumanEffectFusionApi {
 
     private native long nativeInitHandle(HumanEffectFusionConfig humanEffectFusionConfig);
 
-    private native int nativeProcessFrame(long j, byte[] bArr, byte[] bArr2, int i, int i2, int i3, int i4, int i5, int i6);
+    private native int nativeProcessFrame(long j, byte[] bArr, byte[] bArr2, int i, int i2, int i3, int i4, int i5,
+            int i6);
 
-    private native int nativeProcessFrameV2(long j, byte[] bArr, byte[] bArr2, int i, int i2, int i3, int i4, int i5, int i6, boolean z);
+    private native int nativeProcessFrameV2(long j, byte[] bArr, byte[] bArr2, int i, int i2, int i3, int i4, int i5,
+            int i6, boolean z);
 
     private native int nativeProcessTexture(long j, int i, int i2, int i3, int i4, int i5, boolean z);
 
@@ -62,11 +64,8 @@ public class HumanEffectFusionApi {
     public int initByConfig(HumanEffectFusionConfig humanEffectFusionConfig) {
         boolean z;
         if (DEBUG) {
-            String str = TAG;
-            StringBuilder sb = new StringBuilder();
-            sb.append("init API by config BuildNumber: 1046 config: ");
-            sb.append(humanEffectFusionConfig);
-            Log.i(str, sb.toString() != null ? humanEffectFusionConfig.toString() : " null config");
+            Log.i(TAG, "init API by config BuildNumber: 1046 config: "
+                    + (humanEffectFusionConfig != null ? humanEffectFusionConfig.toString() : " null config"));
         } else {
             Log.d(TAG, "init API by config BuildNumber: 1046");
         }
@@ -153,36 +152,48 @@ public class HumanEffectFusionApi {
         return 2;
     }
 
-    public int process(HumanProcessTextureRequest humanProcessTextureRequest, HumanProcessTexureResult humanProcessTexureResult) {
+    public int process(HumanProcessTextureRequest humanProcessTextureRequest,
+            HumanProcessTexureResult humanProcessTexureResult) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
         }
         if (humanProcessTextureRequest != null && humanProcessTexureResult != null) {
-            if (humanProcessTextureRequest.IsValid() && humanProcessTextureRequest.humanVideoTexture.rotation == humanProcessTexureResult.humanVideoTexture.rotation) {
-                return nativeProcessTextureV2(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID, humanProcessTexureResult.humanVideoTexture.texID, humanProcessTextureRequest.humanVideoTexture.width, humanProcessTextureRequest.humanVideoTexture.height, humanProcessTextureRequest.humanVideoTexture.rotation, humanProcessTextureRequest.humanVideoTexture.isOES, humanProcessTextureRequest.cameraType == CameraType.CAMERA_TYPE_REAR);
+            if (humanProcessTextureRequest.IsValid()
+                    && humanProcessTextureRequest.humanVideoTexture.rotation == humanProcessTexureResult.humanVideoTexture.rotation) {
+                return nativeProcessTextureV2(this.handle.get(), humanProcessTextureRequest.humanVideoTexture.texID,
+                        humanProcessTexureResult.humanVideoTexture.texID,
+                        humanProcessTextureRequest.humanVideoTexture.width,
+                        humanProcessTextureRequest.humanVideoTexture.height,
+                        humanProcessTextureRequest.humanVideoTexture.rotation,
+                        humanProcessTextureRequest.humanVideoTexture.isOES,
+                        humanProcessTextureRequest.cameraType == CameraType.CAMERA_TYPE_REAR);
             }
-            String str = TAG;
-            Object[] objArr = new Object[2];
-            objArr[0] = Boolean.valueOf(!humanProcessTextureRequest.IsValid());
-            objArr[1] = Boolean.valueOf(humanProcessTextureRequest.humanVideoTexture.rotation != humanProcessTexureResult.humanVideoTexture.rotation);
-            Log.e(str, String.format("request : invalid %b, rotation %b ", objArr));
+            Log.e(TAG, String.format("request : invalid %b, rotation %b ", !humanProcessTextureRequest.IsValid(),
+                    humanProcessTextureRequest.humanVideoTexture.rotation != humanProcessTexureResult.humanVideoTexture.rotation));
             return 1;
         }
-        String str2 = TAG;
-        Object[] objArr2 = new Object[2];
-        objArr2[0] = Boolean.valueOf(humanProcessTextureRequest == null);
-        objArr2[1] = Boolean.valueOf(humanProcessTexureResult == null);
-        Log.e(str2, String.format("request :empty %b, valid %b ", objArr2));
+        Log.e(TAG, String.format("request :empty %b, valid %b ", humanProcessTextureRequest == null,
+                humanProcessTexureResult == null));
         return 1;
     }
 
-    public int process(HumanProcessFrameRequest humanProcessFrameRequest, HumanProcessFrameResult humanProcessFrameResult) {
+    public int process(HumanProcessFrameRequest humanProcessFrameRequest,
+            HumanProcessFrameResult humanProcessFrameResult) {
         if (this.handle.get() == 0) {
             Log.e(TAG, "process: handle is invalid!");
             return 2;
         }
-        return nativeProcessFrameV2(this.handle.get(), humanProcessFrameRequest.humanVideoFrame.data, humanProcessFrameResult.humanVideoFrame.data, humanProcessFrameRequest.humanVideoFrame.width, humanProcessFrameRequest.humanVideoFrame.height, (humanProcessFrameResult.humanVideoFrame.width == 0 ? humanProcessFrameRequest.humanVideoFrame : humanProcessFrameResult.humanVideoFrame).width, (humanProcessFrameResult.humanVideoFrame.height == 0 ? humanProcessFrameRequest.humanVideoFrame : humanProcessFrameResult.humanVideoFrame).height, humanProcessFrameRequest.humanVideoFrame.type.ordinal(), humanProcessFrameRequest.humanVideoFrame.rotation, humanProcessFrameRequest.cameraType == CameraType.CAMERA_TYPE_REAR);
+        return nativeProcessFrameV2(this.handle.get(), humanProcessFrameRequest.humanVideoFrame.data,
+                humanProcessFrameResult.humanVideoFrame.data, humanProcessFrameRequest.humanVideoFrame.width,
+                humanProcessFrameRequest.humanVideoFrame.height,
+                (humanProcessFrameResult.humanVideoFrame.width == 0 ? humanProcessFrameRequest.humanVideoFrame
+                        : humanProcessFrameResult.humanVideoFrame).width,
+                (humanProcessFrameResult.humanVideoFrame.height == 0 ? humanProcessFrameRequest.humanVideoFrame
+                        : humanProcessFrameResult.humanVideoFrame).height,
+                humanProcessFrameRequest.humanVideoFrame.type.ordinal(),
+                humanProcessFrameRequest.humanVideoFrame.rotation,
+                humanProcessFrameRequest.cameraType == CameraType.CAMERA_TYPE_REAR);
     }
 
     public int release() {
@@ -245,7 +256,8 @@ public class HumanEffectFusionApi {
         public int power_mode;
         public int sdkLoadType;
 
-        public HumanEffectFusionConfig(boolean z, byte[] bArr, String str, String str2, boolean z2, SdkPowerMode sdkPowerMode) {
+        public HumanEffectFusionConfig(boolean z, byte[] bArr, String str, String str2, boolean z2,
+                SdkPowerMode sdkPowerMode) {
             this.log_level = 2;
             this.power_mode = SdkPowerMode.ANC_HUM_POWER_DEFAULT.ordinal();
             this.sdkLoadType = SdkLoadType.ANC_LOAD_TYPE_DLOEPN.ordinal();
@@ -300,15 +312,11 @@ public class HumanEffectFusionApi {
         }
 
         public String toString() {
-            Object[] objArr = new Object[6];
-            byte[] bArr = this.model_data;
-            objArr[0] = Integer.valueOf(bArr != null ? bArr.length : 0);
-            objArr[1] = this.cache_path != null ? new File(this.cache_path).getName() : "null";
-            objArr[2] = this.native_lib_path != null ? new File(this.native_lib_path).getName() : "null";
-            objArr[3] = Boolean.valueOf(this.isRealTime);
-            objArr[4] = Integer.valueOf(this.power_mode);
-            objArr[5] = Integer.valueOf(this.sdkLoadType);
-            return String.format("model size %d, cache path %s, lib path %s, realtime %b, power %d, sdkLoadType:%d", objArr);
+            return String.format("model size %d, cache path %s, lib path %s, realtime %b, power %d, sdkLoadType:%d",
+                    this.model_data != null ? this.model_data.length : 0,
+                    this.cache_path != null ? new File(this.cache_path).getName() : "null",
+                    this.native_lib_path != null ? new File(this.native_lib_path).getName() : "null", this.isRealTime,
+                    this.power_mode, this.sdkLoadType);
         }
 
         public static class HumanEffectFusionConfigBuilder {
@@ -362,7 +370,8 @@ public class HumanEffectFusionApi {
             }
 
             public HumanEffectFusionConfig Build() {
-                return new HumanEffectFusionConfig(this.isRealTime, this.model_data, this.cache_path, this.native_lib_path, this.isBackCamera, this.power_mode);
+                return new HumanEffectFusionConfig(this.isRealTime, this.model_data, this.cache_path,
+                        this.native_lib_path, this.isBackCamera, this.power_mode);
             }
         }
     }
@@ -464,10 +473,12 @@ public class HumanEffectFusionApi {
             int i2;
             ImageType imageType;
             byte[] bArr = this.data;
-            if (bArr == null || (i = this.width) <= 0 || (i2 = this.height) <= 0 || (imageType = this.type) == null || this.cameraType == null) {
+            if (bArr == null || (i = this.width) <= 0 || (i2 = this.height) <= 0 || (imageType = this.type) == null
+                    || this.cameraType == null) {
                 return null;
             }
-            return new HumanProcessFrameRequest(this.cameraType, new HumanVideoFrame(bArr, imageType, i, i2, this.rotation));
+            return new HumanProcessFrameRequest(this.cameraType,
+                    new HumanVideoFrame(bArr, imageType, i, i2, this.rotation));
         }
     }
 
@@ -560,7 +571,8 @@ public class HumanEffectFusionApi {
         }
 
         public boolean IsValid() {
-            return this.data != null && this.width > 0 && this.height > 0 && this.rotation % 90 == 0 && this.type != null;
+            return this.data != null && this.width > 0 && this.height > 0 && this.rotation % 90 == 0
+                    && this.type != null;
         }
     }
 
