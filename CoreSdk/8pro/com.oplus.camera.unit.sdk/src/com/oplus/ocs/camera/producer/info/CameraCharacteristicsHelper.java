@@ -111,35 +111,37 @@ public final class CameraCharacteristicsHelper {
         CameraCharacteristicsWrapper cameraCharacteristicsWrapper2 = null;
         for (String str : list) {
             try {
-                cameraCharacteristicsWrapper = new CameraCharacteristicsWrapper(cameraManager.getCameraCharacteristics(str));
+                cameraCharacteristicsWrapper = new CameraCharacteristicsWrapper(
+                        cameraManager.getCameraCharacteristics(str));
                 try {
                     if ("1".equals(str)) {
                         cameraCharacteristicsWrapper2 = cameraCharacteristicsWrapper;
                     }
                 } catch (CameraAccessException e) {
-                    e = e;
                     CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e);
                 } catch (IllegalArgumentException e2) {
-                    e = e2;
                     if ("0".equals(str)) {
-                        throw e;
+                        throw e2;
                     }
-                    CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e);
+                    CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e2);
                 }
             } catch (CameraAccessException e3) {
-                e = e3;
+                CameraUnitLog.e(TAG, "initialize fail", e3);
                 cameraCharacteristicsWrapper = null;
             } catch (IllegalArgumentException e4) {
-                e = e4;
+                CameraUnitLog.e(TAG, "initialize fail", e4);
                 cameraCharacteristicsWrapper = null;
             }
             if (cameraCharacteristicsWrapper != null) {
-                int[] iArr = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_CUSTOM_CAMERA_TYPE);
+                int[] iArr = (int[]) cameraCharacteristicsWrapper
+                        .get(CameraCharacteristicsWrapper.KEY_CUSTOM_CAMERA_TYPE);
                 int i = iArr != null ? iArr[0] : -1;
-                int[] iArr2 = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_AVAILABLE_STREAM_FPS_RANGES);
+                int[] iArr2 = (int[]) cameraCharacteristicsWrapper
+                        .get(CameraCharacteristicsWrapper.KEY_AVAILABLE_STREAM_FPS_RANGES);
                 if (i > -1) {
                     String cameraTypeByTypeId = getCameraTypeByTypeId(i);
-                    CameraUnitLog.v(TAG, "initialize, cameraId: " + str + ", cameraIdType: " + i + ", cameraType: " + cameraTypeByTypeId + ", availableStreamFpsRanges: " + Arrays.toString(iArr2));
+                    CameraUnitLog.v(TAG, "initialize, cameraId: " + str + ", cameraIdType: " + i + ", cameraType: "
+                            + cameraTypeByTypeId + ", availableStreamFpsRanges: " + Arrays.toString(iArr2));
                     CameraIdType cameraIdType = new CameraIdType(cameraTypeByTypeId, Integer.parseInt(str));
                     sCameraIdTypeMap.put(cameraTypeByTypeId, cameraIdType);
                     sCameraIdArray.put(cameraIdType.getCameraId(), cameraIdType);
@@ -165,13 +167,15 @@ public final class CameraCharacteristicsHelper {
         sCameraIdTypeMap.put(CameraConstant.CameraType.REAR_MAIN_FRONT_SUB_CAMERA, cameraIdType3);
         sCameraIdArray.put(101, cameraIdType3);
         sCameraCharacteristicsMap.put("rear_main_front_main", cameraCharacteristicsWrapper2);
-        sCameraCharacteristicsMap.put(CameraConstant.CameraType.REAR_MAIN_FRONT_SUB_CAMERA, cameraCharacteristicsWrapper2);
+        sCameraCharacteristicsMap.put(CameraConstant.CameraType.REAR_MAIN_FRONT_SUB_CAMERA,
+                cameraCharacteristicsWrapper2);
     }
 
     private static Map<String, Range<Integer>> getStreamFpsRangesMap(int[] iArr) {
         HashMap map = new HashMap();
         for (int i = 0; i < iArr.length; i += 5) {
-            map.put(iArr[i + 0] + "_" + iArr[i + 1] + "_" + iArr[i + 2], new Range(Integer.valueOf(iArr[i + 3]), Integer.valueOf(iArr[i + 4])));
+            map.put(iArr[i + 0] + "_" + iArr[i + 1] + "_" + iArr[i + 2],
+                    new Range(Integer.valueOf(iArr[i + 3]), Integer.valueOf(iArr[i + 4])));
         }
         return map;
     }
@@ -240,7 +244,8 @@ public final class CameraCharacteristicsHelper {
             return cameraIdType2.getCameraId();
         }
         ArrayList<String> arrayList = sBackCameraIds;
-        if (arrayList == null || arrayList.size() <= 0 || (cameraIdType = getCameraIdType(sBackCameraIds.get(0))) == null) {
+        if (arrayList == null || arrayList.size() <= 0
+                || (cameraIdType = getCameraIdType(sBackCameraIds.get(0))) == null) {
             return 0;
         }
         return cameraIdType.getCameraId();
@@ -296,9 +301,11 @@ public final class CameraCharacteristicsHelper {
     public static int getLogicalCameraType(String str) {
         int[] iArr;
         if (PlatformUtil.isQualcommPlatform()) {
-            iArr = (int[]) getCameraCharacteristicsWrapper(str).get(CameraCharacteristicsWrapper.KEY_LOGICAL_CAMERA_TYPE);
+            iArr = (int[]) getCameraCharacteristicsWrapper(str)
+                    .get(CameraCharacteristicsWrapper.KEY_LOGICAL_CAMERA_TYPE);
         } else {
-            iArr = (int[]) getCameraCharacteristicsWrapper(str).get(CameraCharacteristicsWrapper.KEY_OPLUS_LOGICAL_CAMERA_TYPE);
+            iArr = (int[]) getCameraCharacteristicsWrapper(str)
+                    .get(CameraCharacteristicsWrapper.KEY_OPLUS_LOGICAL_CAMERA_TYPE);
         }
         if (iArr != null && iArr.length > 0) {
             return iArr[0];
@@ -326,7 +333,8 @@ public final class CameraCharacteristicsHelper {
 
     @Nullable
     public static Size getTuningSize(String str) {
-        int[] iArr = (int[]) getCameraCharacteristicsWrapper(str).get(CameraCharacteristicsWrapper.KEY_MTK_TUNING_DATA_RAW_SIZE);
+        int[] iArr = (int[]) getCameraCharacteristicsWrapper(str)
+                .get(CameraCharacteristicsWrapper.KEY_MTK_TUNING_DATA_RAW_SIZE);
         if (iArr == null || iArr.length <= 1) {
             return null;
         }
@@ -354,7 +362,9 @@ public final class CameraCharacteristicsHelper {
         if ("rear_tele".equals(str) && 32 == i) {
             return Util.getImpreciseMaxSizeByRatio(sizeListByFormat, d);
         }
-        if (538982489 == i || (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_REAR_SINGLE_BOKEH_SUPPORT, false)).booleanValue() && "rear_portrait_mono_1".equals(str))) {
+        if (538982489 == i
+                || (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_REAR_SINGLE_BOKEH_SUPPORT, false))
+                        .booleanValue() && "rear_portrait_mono_1".equals(str))) {
             return Util.getOptimalPreviewSize(sizeListByFormat, d);
         }
         return Util.getMaxSizeByRatio(sizeListByFormat, d);
@@ -368,10 +378,14 @@ public final class CameraCharacteristicsHelper {
             CameraUnitLog.w(TAG, "getSizeByFormat, get CameraCharacteristicsWrapper failed!!!");
             return null;
         }
-        Size[] outputSizes = ((StreamConfigurationMap) cameraCharacteristicsWrapper.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)).getOutputSizes(i);
+        Size[] outputSizes = ((StreamConfigurationMap) cameraCharacteristicsWrapper
+                .get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)).getOutputSizes(i);
         ArrayList arrayList = new ArrayList();
         arrayList.addAll(Arrays.asList(outputSizes));
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SUPPORT_CONFIGURE_STREAM_SIZE_CUSTOM, false)).booleanValue() && (iArr = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_CUSTOM_JPEG_SIZE)) != null) {
+        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SUPPORT_CONFIGURE_STREAM_SIZE_CUSTOM,
+                false)).booleanValue()
+                && (iArr = (int[]) cameraCharacteristicsWrapper
+                        .get(CameraCharacteristicsWrapper.KEY_CUSTOM_JPEG_SIZE)) != null) {
             for (int i3 = 0; i3 < iArr.length; i3++) {
                 if (i3 % 2 == 0 && (i2 = i3 + 1) < iArr.length) {
                     arrayList.add(new Size(iArr[i3], iArr[i2]));
@@ -388,7 +402,8 @@ public final class CameraCharacteristicsHelper {
             return null;
         }
         int[] iArr = new int[2];
-        int[] iArr2 = (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_MTK_SMVR_FEATURE_AVAILABLE_SMVR_MODES);
+        int[] iArr2 = (int[]) cameraCharacteristicsWrapper
+                .get(CameraCharacteristicsWrapper.KEY_MTK_SMVR_FEATURE_AVAILABLE_SMVR_MODES);
         if (iArr2 != null) {
             try {
                 if (iArr2.length > 0) {
@@ -408,11 +423,13 @@ public final class CameraCharacteristicsHelper {
                         iArr[0] = i2;
                         iArr[1] = i2 / 30;
                     }
-                    CameraUnitLog.d(TAG, "getAvailableSmvrModes, fps: " + iArr[0] + ", batch num: " + iArr[1] + ", videoFps: " + i2);
+                    CameraUnitLog.d(TAG,
+                            "getAvailableSmvrModes, fps: " + iArr[0] + ", batch num: " + iArr[1] + ", videoFps: " + i2);
                     return iArr;
                 }
             } catch (IndexOutOfBoundsException e) {
-                CameraUnitLog.w(TAG, "getAvailableSmvrModes, There is a problem with configure of the smvrfeature value.", e);
+                CameraUnitLog.w(TAG,
+                        "getAvailableSmvrModes, There is a problem with configure of the smvrfeature value.", e);
             }
         }
         return null;
@@ -485,11 +502,14 @@ public final class CameraCharacteristicsHelper {
         CameraCharacteristicsWrapper cameraCharacteristicsWrapper;
         boolean z;
         boolean z2;
-        if (PlatformUtil.isQualcommPlatform() || (cameraCharacteristicsWrapper = sCameraCharacteristicsMap.get(str)) == null) {
+        if (PlatformUtil.isQualcommPlatform()
+                || (cameraCharacteristicsWrapper = sCameraCharacteristicsMap.get(str)) == null) {
             return false;
         }
-        int[] intArrayConfig = cameraCharacteristicsWrapper.getIntArrayConfig(CameraCharacteristicsWrapper.KEY_STATIC_CSHOT_SUPPORT);
-        int[] intArrayConfig2 = cameraCharacteristicsWrapper.getIntArrayConfig(CameraCharacteristicsWrapper.KEY_STATIC_SUPPORT_EARLY_NOTIFY);
+        int[] intArrayConfig = cameraCharacteristicsWrapper
+                .getIntArrayConfig(CameraCharacteristicsWrapper.KEY_STATIC_CSHOT_SUPPORT);
+        int[] intArrayConfig2 = cameraCharacteristicsWrapper
+                .getIntArrayConfig(CameraCharacteristicsWrapper.KEY_STATIC_SUPPORT_EARLY_NOTIFY);
         if (intArrayConfig == null || intArrayConfig.length <= 0) {
             z = false;
         } else {
@@ -521,6 +541,7 @@ public final class CameraCharacteristicsHelper {
             CameraUnitLog.w(TAG, "getAvailableMultiCameraFeature, get CameraCharacteristicsWrapper failed!!!");
             return null;
         }
-        return (int[]) cameraCharacteristicsWrapper.get(CameraCharacteristicsWrapper.KEY_FEATURE_AVAILABLE_MULTI_CAMERA_MODE);
+        return (int[]) cameraCharacteristicsWrapper
+                .get(CameraCharacteristicsWrapper.KEY_FEATURE_AVAILABLE_MULTI_CAMERA_MODE);
     }
 }

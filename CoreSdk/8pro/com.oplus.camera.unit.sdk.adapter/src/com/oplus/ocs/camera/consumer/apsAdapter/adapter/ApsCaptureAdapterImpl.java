@@ -75,7 +75,8 @@ class ApsCaptureAdapterImpl {
         }
     }
 
-    protected ApsCaptureAdapterImpl(ApsInterface apsInterface, ApsAdapterInterface.ImageProcessListener imageProcessListener, Handler handler) {
+    protected ApsCaptureAdapterImpl(ApsInterface apsInterface,
+            ApsAdapterInterface.ImageProcessListener imageProcessListener, Handler handler) {
         this.mApsInterface = null;
         this.mImageProcessHandler = null;
         this.mImageProcessListener = null;
@@ -86,10 +87,12 @@ class ApsCaptureAdapterImpl {
 
     public void startCapture(ImageCategory.MetaItemInfo metaItemInfo) {
         ApsParameters apsParameters = new ApsParameters();
-        for (Map.Entry<ApsParameters.Key<?>, ApsParameters.ValueWrapper<?>> entry : metaItemInfo.mParameterMap.entrySet()) {
+        for (Map.Entry<ApsParameters.Key<?>, ApsParameters.ValueWrapper<?>> entry : metaItemInfo.mParameterMap
+                .entrySet()) {
             ApsParameters.Key<?> key = entry.getKey();
             if (key.getName().equals(ApsParameters.KEY_CAPTURE_ALGO_LIST.getName())) {
-                String strReplace = Arrays.toString((String[]) entry.getValue().getValue().get()).replace('[', ' ').replace(']', ' ');
+                String strReplace = Arrays.toString((String[]) entry.getValue().getValue().get()).replace('[', ' ')
+                        .replace(']', ' ');
                 ApsAdapterLog.v(TAG, "startCapture, algoList: " + strReplace);
                 apsParameters.set(APSClient.KEY_CAPTURE_ALGO_LIST, strReplace);
             } else {
@@ -114,13 +117,17 @@ class ApsCaptureAdapterImpl {
         }
         ApsAdapterLog.v(TAG, "beforeCapture");
         ApsParameters apsParameters = new ApsParameters();
-        for (Map.Entry<ApsParameters.Key<?>, ApsParameters.ValueWrapper<?>> entry : metaItemInfo.mParameterMap.entrySet()) {
+        for (Map.Entry<ApsParameters.Key<?>, ApsParameters.ValueWrapper<?>> entry : metaItemInfo.mParameterMap
+                .entrySet()) {
             if (1 == entry.getKey().getCategory()) {
                 if (entry.getValue().getValue().get() instanceof Object[]) {
-                    ApsAdapterLog.i(TAG, "beforeCapture, Object[], key : " + entry.getKey().getName() + " ; value : " + Arrays.toString((Object[]) entry.getValue().getValue().get()));
-                    apsParameters.set(entry.getKey().getName(), Arrays.toString((Object[]) entry.getValue().getValue().get()));
+                    ApsAdapterLog.i(TAG, "beforeCapture, Object[], key : " + entry.getKey().getName() + " ; value : "
+                            + Arrays.toString((Object[]) entry.getValue().getValue().get()));
+                    apsParameters.set(entry.getKey().getName(),
+                            Arrays.toString((Object[]) entry.getValue().getValue().get()));
                 } else {
-                    ApsAdapterLog.i(TAG, "beforeCapture, String, key : " + entry.getKey().getName() + " ;  value : " + String.valueOf(entry.getValue().getValue().get()));
+                    ApsAdapterLog.i(TAG, "beforeCapture, String, key : " + entry.getKey().getName() + " ;  value : "
+                            + String.valueOf(entry.getValue().getValue().get()));
                     apsParameters.set(entry.getKey().getName(), String.valueOf(entry.getValue().getValue().get()));
                 }
             }
@@ -161,7 +168,8 @@ class ApsCaptureAdapterImpl {
                 }
             }
             if (captureImageCategory != null && !this.mbAbortCaptures) {
-                ApsAdapterLog.v(TAG, "addImage, timestamp:" + jLongValue + ", size: " + this.mImageProcessMap.size() + ", isValid: " + captureImageCategory.isValid(), true);
+                ApsAdapterLog.v(TAG, "addImage, timestamp:" + jLongValue + ", size: " + this.mImageProcessMap.size()
+                        + ", isValid: " + captureImageCategory.isValid(), true);
                 if (captureImageCategory.isValid()) {
                     this.mImageProcessHandler.obtainMessage(3, Long.valueOf(jLongValue)).sendToTarget();
                 }
@@ -194,7 +202,8 @@ class ApsCaptureAdapterImpl {
                 }
             }
             if (captureImageCategory != null && !this.mbAbortCaptures) {
-                ApsAdapterLog.d(TAG, "addMetaInfo, timestamp: " + jLongValue + ", size: " + this.mImageProcessMap.size() + ", isValid: " + captureImageCategory.isValid(), true);
+                ApsAdapterLog.d(TAG, "addMetaInfo, timestamp: " + jLongValue + ", size: " + this.mImageProcessMap.size()
+                        + ", isValid: " + captureImageCategory.isValid(), true);
                 if (captureImageCategory.isValid()) {
                     this.mImageProcessHandler.obtainMessage(3, Long.valueOf(jLongValue)).sendToTarget();
                 }
@@ -217,13 +226,15 @@ class ApsCaptureAdapterImpl {
             int iIntValue = ((Integer) tuningItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT_HINT)).intValue();
             int format = iIntValue != 0 ? iIntValue : tuningItemInfo.mTuningBuffer.getImage().getFormat();
             String str = TAG;
-            ApsAdapterLog.d(str, "addTuningItem, timeStamp: " + jLongValue + ", imageFormatHint: " + iIntValue + ", format: " + format + ", role: " + tuningItemInfo.get(ApsParameters.KEY_IMAGE_ROLE));
+            ApsAdapterLog.d(str, "addTuningItem, timeStamp: " + jLongValue + ", imageFormatHint: " + iIntValue
+                    + ", format: " + format + ", role: " + tuningItemInfo.get(ApsParameters.KEY_IMAGE_ROLE));
             ImageCategory captureImageCategory = null;
             ConcurrentHashMap<Long, ImageCategory> concurrentHashMap = this.mImageProcessMap;
             if (concurrentHashMap != null) {
                 if (concurrentHashMap.containsKey(Long.valueOf(jLongValue))) {
                     captureImageCategory = this.mImageProcessMap.get(Long.valueOf(jLongValue));
-                    List<ImageCategory.TuningItemInfo> arrayList = captureImageCategory.mTuningItemLists.get(Integer.valueOf(format));
+                    List<ImageCategory.TuningItemInfo> arrayList = captureImageCategory.mTuningItemLists
+                            .get(Integer.valueOf(format));
                     if (arrayList == null) {
                         arrayList = new ArrayList<>();
                         captureImageCategory.mTuningItemLists.put(Integer.valueOf(format), arrayList);
@@ -241,7 +252,8 @@ class ApsCaptureAdapterImpl {
                 ApsAdapterLog.d(str, "addTuningItem, timeStamp: " + jLongValue + " category null.");
                 return;
             }
-            ApsAdapterLog.d(str, "addTuningItem, isValid: " + captureImageCategory.isValid() + ", timeStamp: " + jLongValue);
+            ApsAdapterLog.d(str,
+                    "addTuningItem, isValid: " + captureImageCategory.isValid() + ", timeStamp: " + jLongValue);
             if (captureImageCategory.isValid()) {
                 this.mImageProcessHandler.obtainMessage(3, Long.valueOf(jLongValue)).sendToTarget();
             }
@@ -250,10 +262,12 @@ class ApsCaptureAdapterImpl {
 
     public Bitmap processBitmap(Bitmap bitmap, CaptureResult captureResult, ImageCategory.MetaItemInfo metaItemInfo) {
         ApsParameters apsParameters = new ApsParameters();
-        for (Map.Entry<ApsParameters.Key<?>, ApsParameters.ValueWrapper<?>> entry : metaItemInfo.mParameterMap.entrySet()) {
+        for (Map.Entry<ApsParameters.Key<?>, ApsParameters.ValueWrapper<?>> entry : metaItemInfo.mParameterMap
+                .entrySet()) {
             if (1 == entry.getKey().getCategory()) {
                 if (entry.getValue().getValue().get() instanceof Object[]) {
-                    apsParameters.set(entry.getKey().getName(), Arrays.toString((Object[]) entry.getValue().getValue().get()));
+                    apsParameters.set(entry.getKey().getName(),
+                            Arrays.toString((Object[]) entry.getValue().getValue().get()));
                 } else {
                     apsParameters.set(entry.getKey().getName(), String.valueOf(entry.getValue().getValue().get()));
                 }
@@ -271,7 +285,8 @@ class ApsCaptureAdapterImpl {
             this.mAddFrameConditionVariable.block();
         }
         ConcurrentHashMap<Long, Integer> concurrentHashMap3 = this.mAddFrameFinishMap;
-        if (concurrentHashMap3 != null && !concurrentHashMap3.isEmpty() && (concurrentHashMap = this.mImageProcessMap) != null && concurrentHashMap.isEmpty()) {
+        if (concurrentHashMap3 != null && !concurrentHashMap3.isEmpty()
+                && (concurrentHashMap = this.mImageProcessMap) != null && concurrentHashMap.isEmpty()) {
             ApsAdapterLog.e(TAG, "waitAddFrameFinish, the images may be not all arrived, so clear all the hashMap");
             ApsInterface apsInterface = this.mApsInterface;
             if (apsInterface != null) {
@@ -299,7 +314,8 @@ class ApsCaptureAdapterImpl {
         int iMax;
         synchronized (this.mBurstShotLock) {
             if (((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()) {
-                BurstShotParameter burstShotParameter = this.mBurstShotCountMap.get(imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID));
+                BurstShotParameter burstShotParameter = this.mBurstShotCountMap
+                        .get(imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID));
                 if (burstShotParameter == null) {
                     burstShotParameter = new BurstShotParameter();
                 }
@@ -311,18 +327,27 @@ class ApsCaptureAdapterImpl {
                 if (((ApsCameraRequestTag) metaItemInfo.get(ApsParameters.KEY_CAMERA_REQUEST_TAG)).mbQcom) {
                     iMax = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_BURST_SHOT_NUMBER)).intValue();
                 } else {
-                    iMax = Math.max(((Integer) metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)).intValue(), this.mBurstShotRequestNum);
+                    iMax = Math.max(((Integer) metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)).intValue(),
+                            this.mBurstShotRequestNum);
                 }
                 burstShotParameter.mCShotRequestNum = iMax;
-                ApsAdapterLog.v(TAG, "countBurstShot, mCount: " + burstShotParameter.mCount + ", mCshotPath: " + burstShotParameter.mCshotPath + ", mBurstShotFlagId: " + imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID) + ", map size: " + this.mBurstShotCountMap.size() + ", metaItemInfo.mCShotRequestNum: " + metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER) + ", parameter.mCShotRequestNum: " + burstShotParameter.mCShotRequestNum);
+                ApsAdapterLog.v(TAG,
+                        "countBurstShot, mCount: " + burstShotParameter.mCount + ", mCshotPath: "
+                                + burstShotParameter.mCshotPath + ", mBurstShotFlagId: "
+                                + imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID) + ", map size: "
+                                + this.mBurstShotCountMap.size() + ", metaItemInfo.mCShotRequestNum: "
+                                + metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)
+                                + ", parameter.mCShotRequestNum: " + burstShotParameter.mCShotRequestNum);
                 if (burstShotParameter.mCount >= burstShotParameter.mCShotRequestNum) {
                     if (this.mImageProcessListener != null) {
-                        imageItemInfo.setParameter(ApsParameters.KEY_BURST_COUNT, Integer.valueOf(burstShotParameter.mImageCount));
+                        imageItemInfo.setParameter(ApsParameters.KEY_BURST_COUNT,
+                                Integer.valueOf(burstShotParameter.mImageCount));
                         this.mImageProcessListener.onBurstShotEnd(imageItemInfo, metaItemInfo);
                     }
                     this.mBurstShotCountMap.remove(imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID));
                 } else {
-                    this.mBurstShotCountMap.put((Long) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID), burstShotParameter);
+                    this.mBurstShotCountMap.put((Long) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID),
+                            burstShotParameter);
                 }
             }
         }
@@ -336,8 +361,10 @@ class ApsCaptureAdapterImpl {
             boolean z = false;
             if (imageCategory != null && imageCategory.isValid()) {
                 ImageCategory.ImageItemInfo imageItemInfo = imageCategory.mImageItemList.get(0);
-                boolean zBooleanValue = ((Boolean) imageCategory.mMetaItem.get(ApsParameters.KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE)).booleanValue();
-                if (((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() != 32 || !this.mCurrentCaptureInfo.mbCaptureRawDone) {
+                boolean zBooleanValue = ((Boolean) imageCategory.mMetaItem
+                        .get(ApsParameters.KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE)).booleanValue();
+                if (((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() != 32
+                        || !this.mCurrentCaptureInfo.mbCaptureRawDone) {
                     z = zBooleanValue;
                 } else {
                     if (!((Boolean) imageItemInfo.get(ApsParameters.KEY_RAW_ON_REPROCESS)).booleanValue()) {
@@ -376,11 +403,14 @@ class ApsCaptureAdapterImpl {
 
     private int addPreviewFrameBuff(ImageCategory imageCategory) {
         ImageCategory.ImageItemInfo imageItemInfo = imageCategory.mImageItemList.get(0);
-        ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem != null ? imageCategory.mMetaItem : new ImageCategory.MetaItemInfo();
-        boolean zBooleanValue = ((Boolean) metaItemInfo.get(ApsParameters.KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE)).booleanValue();
+        ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem != null ? imageCategory.mMetaItem
+                : new ImageCategory.MetaItemInfo();
+        boolean zBooleanValue = ((Boolean) metaItemInfo.get(ApsParameters.KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE))
+                .booleanValue();
         if (((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() == 32) {
             synchronized (this.mRawImageCategoryLock) {
-                if (this.mRawImageCategory != null && !((Boolean) metaItemInfo.get(ApsParameters.KEY_IS_CAPTURE_LAST_FRAME)).booleanValue()) {
+                if (this.mRawImageCategory != null
+                        && !((Boolean) metaItemInfo.get(ApsParameters.KEY_IS_CAPTURE_LAST_FRAME)).booleanValue()) {
                     this.mRawImageCategory.releaseImageItemList();
                 }
                 this.mRawImageCategory = imageCategory;
@@ -412,24 +442,39 @@ class ApsCaptureAdapterImpl {
                 return -1;
             }
         }
-        long frameNumber = metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT) != null ? ((CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT)).getFrameNumber() : -1L;
-        ApsPreviewParam apsPreviewParam = new ApsPreviewParam(frameNumber, apsParameters.getParameters(), ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr, (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT), (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr, ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(), metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, false, 0L, metaItemInfo.mImageBuffer == null || ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue() == metaItemInfo.mImageBuffer.getTimestamp(), (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE));
+        long frameNumber = metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT) != null
+                ? ((CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT)).getFrameNumber()
+                : -1L;
+        ApsPreviewParam apsPreviewParam = new ApsPreviewParam(frameNumber, apsParameters.getParameters(),
+                ((Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP)).longValue(), imageBufferArr,
+                (CaptureResult) metaItemInfo.get(ApsParameters.KEY_CAPTURE_RESULT),
+                (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP), metaItemInfo.mImageBuffer, iArr,
+                ((Boolean) imageItemInfo.get(ApsParameters.KEY_NEED_META_DATA)).booleanValue(),
+                metaItemInfo.get(ApsParameters.KEY_ITEM_INFO_TYPE) == ImageCategory.ItemInfoType.VIDEO, false, 0L,
+                metaItemInfo.mImageBuffer == null || ((Long) metaItemInfo.get(ApsParameters.KEY_TIME_STAMP))
+                        .longValue() == metaItemInfo.mImageBuffer.getTimestamp(),
+                (String) metaItemInfo.get(ApsParameters.KEY_CAPTURE_MODE));
         ApsAdapterInterface.ImageProcessListener imageProcessListener2 = this.mImageProcessListener;
         if (imageProcessListener2 != null) {
-            imageProcessListener2.onPreviewFrameProcessStarted(frameNumber, (Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
+            imageProcessListener2.onPreviewFrameProcessStarted(frameNumber,
+                    (Long) imageItemInfo.get(ApsParameters.KEY_TIME_STAMP));
         }
         return this.mApsInterface.addPreviewFrameBuff(apsPreviewParam, null);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:217:0x0653  */
-    /* JADX WARN: Removed duplicated region for block: B:221:0x0666 A[Catch: all -> 0x068a, TryCatch #6 {, blocks: (B:218:0x0655, B:219:0x065e, B:221:0x0666, B:223:0x066f, B:224:0x0672), top: B:245:0x0655 }] */
+    /* JADX WARN: Removed duplicated region for block: B:217:0x0653 */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * JADX WARN: Removed duplicated region for block: B:221:0x0666 A[Catch: all ->
+     * 0x068a, TryCatch #6 {, blocks: (B:218:0x0655, B:219:0x065e, B:221:0x0666,
+     * B:223:0x066f, B:224:0x0672), top: B:245:0x0655 }]
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     protected void addFrameAndProcessImage(long j) {
         ImageCategory imageCategory;
         boolean z;
-        boolean z2;
+        boolean z2 = false;
         boolean z3;
         List<ImageCategory.ImageItemInfo> list;
         ImageCategory.ImageItemInfo imageItemInfo;
@@ -464,7 +509,8 @@ class ApsCaptureAdapterImpl {
                 map4.put(it.next(), 0);
             }
             synchronized (this.mImageQueueLock) {
-                if (1 < list4.size() && ApsAdapterConstant.PICTURE_DOL.equals(list4.get(0).mImageBuffer.getSurfaceUsage())) {
+                if (1 < list4.size()
+                        && ApsAdapterConstant.PICTURE_DOL.equals(list4.get(0).mImageBuffer.getSurfaceUsage())) {
                     Collections.swap(list4, 0, 1);
                 }
                 int i3 = 0;
@@ -476,10 +522,15 @@ class ApsCaptureAdapterImpl {
                         break;
                     }
                     ImageCategory.ImageItemInfo imageItemInfo2 = list4.get(i3);
-                    if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue() && ((Integer) imageItemInfo2.get(ApsParameters.KEY_REC_BURST_NUMBER)).intValue() == i2 && (imageProcessListener = this.mImageProcessListener) != null) {
-                        imageProcessListener.onBurstShotStart(((Long) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID)).longValue());
+                    if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                            && ((Integer) imageItemInfo2.get(ApsParameters.KEY_REC_BURST_NUMBER)).intValue() == i2
+                            && (imageProcessListener = this.mImageProcessListener) != null) {
+                        imageProcessListener.onBurstShotStart(
+                                ((Long) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID)).longValue());
                     }
-                    if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue() && !((Boolean) imageItemInfo2.get(ApsParameters.KEY_VALID_BURST_SHOT_IMAGE)).booleanValue()) {
+                    if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                            && !((Boolean) imageItemInfo2.get(ApsParameters.KEY_VALID_BURST_SHOT_IMAGE))
+                                    .booleanValue()) {
                         countBurstShot(imageItemInfo2, metaItemInfo);
                         list2 = list4;
                         map = map4;
@@ -496,14 +547,24 @@ class ApsCaptureAdapterImpl {
                         ApsResult.ImageBuffer imageBuffer = imageItemInfo2.mImageBuffer;
                         int format = imageItemInfo2.mImageBuffer.getFormat();
                         ArrayMap arrayMap = (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP);
-                        CameraMetadata cameraMetadata3 = (arrayMap == null || !arrayMap.containsKey(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)))) ? null : (CameraMetadata) arrayMap.get(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)));
-                        CameraMetadata cameraMetadata4 = (arrayMap == null || !arrayMap.containsKey(Integer.toString(iIntValue))) ? null : (CameraMetadata) arrayMap.get(Integer.toString(iIntValue));
+                        CameraMetadata cameraMetadata3 = (arrayMap == null || !arrayMap
+                                .containsKey(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID))))
+                                        ? null
+                                        : (CameraMetadata) arrayMap.get(
+                                                String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)));
+                        CameraMetadata cameraMetadata4 = (arrayMap == null
+                                || !arrayMap.containsKey(Integer.toString(iIntValue))) ? null
+                                        : (CameraMetadata) arrayMap.get(Integer.toString(iIntValue));
                         int[] iArr = (int[]) metaItemInfo.get(ApsParameters.KEY_INPUT_SIZE);
-                        boolean zBooleanValue = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue();
+                        boolean zBooleanValue = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA))
+                                .booleanValue();
                         int iIntValue2 = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_HOLD_IMAGES)).intValue();
-                        int iIntValue3 = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE)).intValue();
-                        boolean zBooleanValue2 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT)).booleanValue();
-                        int iIntValue4 = ((Integer) metaItemInfo.get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO)).intValue();
+                        int iIntValue3 = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE))
+                                .intValue();
+                        boolean zBooleanValue2 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT))
+                                .booleanValue();
+                        int iIntValue4 = ((Integer) metaItemInfo.get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO))
+                                .intValue();
                         String str = (String) metaItemInfo.get(ApsParameters.KEY_10BITS_ENABLE);
                         String str2 = (String) metaItemInfo.get(ApsParameters.KEY_INPUT_EVLIST);
                         if (metaItemInfo.mImageBuffer != null) {
@@ -514,7 +575,8 @@ class ApsCaptureAdapterImpl {
                             cameraMetadata2 = cameraMetadata4;
                         }
                         String[] strArr = (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE);
-                        ApsWatermarkParam apsWatermarkParam = (ApsWatermarkParam) metaItemInfo.get(ApsParameters.KEY_APS_WATERMARK_PARAM);
+                        ApsWatermarkParam apsWatermarkParam = (ApsWatermarkParam) metaItemInfo
+                                .get(ApsParameters.KEY_APS_WATERMARK_PARAM);
                         ApsParameters apsParameters = new ApsParameters();
                         list2 = list4;
                         ApsAdapterInterface.ImageProcessListener imageProcessListener2 = this.mImageProcessListener;
@@ -523,14 +585,20 @@ class ApsCaptureAdapterImpl {
                         if (imageProcessListener2 != null) {
                             apsParameters.setAll(imageProcessListener2.fillApsParameters(imageCategory, 1, false));
                         }
-                        if (((Boolean) metaItemInfo.get(ApsParameters.KEY_REQUEST_MIXED_FORMAT)).booleanValue() && (37 == format || 32 == format)) {
+                        if (((Boolean) metaItemInfo.get(ApsParameters.KEY_REQUEST_MIXED_FORMAT)).booleanValue()
+                                && (37 == format || 32 == format)) {
                             ApsAdapterLog.d(TAG, "addFrameAndProcessImage, is hdr mixed frame raw buffer");
                             z5 = true;
                         } else {
                             z5 = false;
                         }
-                        int iAddFrameBuff = this.mApsInterface.addFrameBuff(new ApsCaptureParam(jLongValue, imageBuffer, iIntValue, cameraMetadata, cameraMetadata2, metaItemInfo.mImageBuffer, iArr, null, zBooleanValue, iIntValue2, iIntValue3, zBooleanValue2, false, iIntValue4, str, str2, z5), apsParameters.getParameters(), strArr, apsWatermarkParam);
-                        ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add yuv frame buff ret: " + iAddFrameBuff + ", timestamp: " + j + ", role: " + iIntValue);
+                        int iAddFrameBuff = this.mApsInterface.addFrameBuff(
+                                new ApsCaptureParam(jLongValue, imageBuffer, iIntValue, cameraMetadata, cameraMetadata2,
+                                        metaItemInfo.mImageBuffer, iArr, null, zBooleanValue, iIntValue2, iIntValue3,
+                                        zBooleanValue2, false, iIntValue4, str, str2, z5),
+                                apsParameters.getParameters(), strArr, apsWatermarkParam);
+                        ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add yuv frame buff ret: " + iAddFrameBuff
+                                + ", timestamp: " + j + ", role: " + iIntValue);
                         if (1 == iAddFrameBuff) {
                             ApsUtils.detachImage(imageBuffer.getImageReader(), imageBuffer.getImage());
                         } else if (2 == iAddFrameBuff) {
@@ -552,18 +620,31 @@ class ApsCaptureAdapterImpl {
                             long jLongValue2 = ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue();
                             ApsResult.ImageBuffer imageBuffer2 = tuningItemInfo.mTuningBuffer;
                             ArrayMap arrayMap2 = (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP);
-                            CameraMetadata cameraMetadata5 = (arrayMap2 == null || !arrayMap2.containsKey(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)))) ? null : (CameraMetadata) arrayMap2.get(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)));
-                            boolean zBooleanValue3 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue();
+                            CameraMetadata cameraMetadata5 = (arrayMap2 == null || !arrayMap2
+                                    .containsKey(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID))))
+                                            ? null
+                                            : (CameraMetadata) arrayMap2.get(String
+                                                    .valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)));
+                            boolean zBooleanValue3 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA))
+                                    .booleanValue();
                             int iIntValue7 = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_HOLD_IMAGES)).intValue();
-                            int iIntValue8 = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE)).intValue();
-                            boolean zBooleanValue4 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT)).booleanValue();
-                            int iIntValue9 = ((Integer) metaItemInfo.get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO)).intValue();
+                            int iIntValue8 = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE))
+                                    .intValue();
+                            boolean zBooleanValue4 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT))
+                                    .booleanValue();
+                            int iIntValue9 = ((Integer) metaItemInfo.get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO))
+                                    .intValue();
                             String str3 = (String) metaItemInfo.get(ApsParameters.KEY_10BITS_ENABLE);
                             String str4 = (String) metaItemInfo.get(ApsParameters.KEY_INPUT_EVLIST);
-                            boolean zBooleanValue5 = ((Boolean) tuningItemInfo.get(ApsParameters.KEY_RAW_SYNC_PROCESS_FLAG)).booleanValue();
-                            String[] strArr2 = zBooleanValue5 ? new String[]{(String) metaItemInfo.get(ApsParameters.KEY_CROP_WIDTH), (String) metaItemInfo.get(ApsParameters.KEY_CROP_HEIGHT)} : null;
+                            boolean zBooleanValue5 = ((Boolean) tuningItemInfo
+                                    .get(ApsParameters.KEY_RAW_SYNC_PROCESS_FLAG)).booleanValue();
+                            String[] strArr2 = zBooleanValue5
+                                    ? new String[] { (String) metaItemInfo.get(ApsParameters.KEY_CROP_WIDTH),
+                                            (String) metaItemInfo.get(ApsParameters.KEY_CROP_HEIGHT) }
+                                    : null;
                             String[] strArr3 = (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE);
-                            ApsWatermarkParam apsWatermarkParam2 = (ApsWatermarkParam) metaItemInfo.get(ApsParameters.KEY_APS_WATERMARK_PARAM);
+                            ApsWatermarkParam apsWatermarkParam2 = (ApsWatermarkParam) metaItemInfo
+                                    .get(ApsParameters.KEY_APS_WATERMARK_PARAM);
                             ApsParameters apsParameters2 = new ApsParameters();
                             map2 = map3;
                             ApsAdapterInterface.ImageProcessListener imageProcessListener3 = this.mImageProcessListener;
@@ -571,8 +652,13 @@ class ApsCaptureAdapterImpl {
                             if (imageProcessListener3 != null) {
                                 apsParameters2.setAll(imageProcessListener3.fillApsParameters(imageCategory, 1, false));
                             }
-                            int iAddFrameBuff2 = this.mApsInterface.addFrameBuff(new ApsCaptureParam(jLongValue2, imageBuffer2, iIntValue6, cameraMetadata5, null, metaItemInfo.mImageBuffer, null, strArr2, zBooleanValue3, iIntValue7, iIntValue8, zBooleanValue4, zBooleanValue5, iIntValue9, str3, str4, false), apsParameters2.getParameters(), strArr3, apsWatermarkParam2);
-                            ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add tuning frame buff ret: " + iAddFrameBuff2 + ", timestamp: " + j + ", role: " + iIntValue6);
+                            int iAddFrameBuff2 = this.mApsInterface.addFrameBuff(
+                                    new ApsCaptureParam(jLongValue2, imageBuffer2, iIntValue6, cameraMetadata5, null,
+                                            metaItemInfo.mImageBuffer, null, strArr2, zBooleanValue3, iIntValue7,
+                                            iIntValue8, zBooleanValue4, zBooleanValue5, iIntValue9, str3, str4, false),
+                                    apsParameters2.getParameters(), strArr3, apsWatermarkParam2);
+                            ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add tuning frame buff ret: " + iAddFrameBuff2
+                                    + ", timestamp: " + j + ", role: " + iIntValue6);
                             if (1 == iAddFrameBuff2) {
                                 ApsUtils.detachImage(imageBuffer2.getImageReader(), imageBuffer2.getImage());
                             } else if (2 == iAddFrameBuff2) {
@@ -597,11 +683,13 @@ class ApsCaptureAdapterImpl {
                 list = list4;
             }
             String str5 = TAG;
-            ApsAdapterLog.v(str5, "addFrameAndProcessImage, isNeedProcessImage: " + z3 + ", imageCategory: " + imageCategory, true);
+            ApsAdapterLog.v(str5,
+                    "addFrameAndProcessImage, isNeedProcessImage: " + z3 + ", imageCategory: " + imageCategory, true);
             synchronized (this.mImageQueueLock) {
                 imageItemInfo = imageCategory.mImageItemList.get(0);
             }
-            boolean z8 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue() && ((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() == 32;
+            boolean z8 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue()
+                    && ((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() == 32;
             if (z8) {
                 synchronized (this.mRawImageCategoryLock) {
                     ImageCategory imageCategory2 = this.mRawImageCategory;
@@ -617,11 +705,15 @@ class ApsCaptureAdapterImpl {
             if (((ApsCameraRequestTag) metaItemInfo.get(ApsParameters.KEY_CAMERA_REQUEST_TAG)).mbQcom) {
                 iMax = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_BURST_SHOT_NUMBER)).intValue();
             } else {
-                iMax = Math.max(((Integer) metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)).intValue(), this.mBurstShotRequestNum);
+                iMax = Math.max(((Integer) metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)).intValue(),
+                        this.mBurstShotRequestNum);
             }
             this.mBurstShotRequestNum = iMax;
             ApsAdapterLog.d(str5, "addFrameAndProcessImage, mBurstShotRequestNum: " + this.mBurstShotRequestNum);
-            if (this.mImageProcessListener == null || !((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue() || ((Integer) imageItemInfo.get(ApsParameters.KEY_REC_BURST_NUMBER)).intValue() < this.mBurstShotRequestNum) {
+            if (this.mImageProcessListener == null
+                    || !((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                    || ((Integer) imageItemInfo.get(ApsParameters.KEY_REC_BURST_NUMBER))
+                            .intValue() < this.mBurstShotRequestNum) {
                 z4 = false;
             } else {
                 z4 = false;
@@ -629,11 +721,18 @@ class ApsCaptureAdapterImpl {
                 this.mImageProcessListener.afterAddFrame(imageItemInfo, metaItemInfo);
             }
             z = z4;
-            if (countAddFrame(((Long) metaItemInfo.get(ApsParameters.KEY_MERGE_IDENTITY)).longValue(), list.size(), ((Integer) metaItemInfo.get(ApsParameters.KEY_MERGE_NUMBER)).intValue(), false, imageItemInfo) && z3) {
+            if (countAddFrame(((Long) metaItemInfo.get(ApsParameters.KEY_MERGE_IDENTITY)).longValue(), list.size(),
+                    ((Integer) metaItemInfo.get(ApsParameters.KEY_MERGE_NUMBER)).intValue(), false, imageItemInfo)
+                    && z3) {
                 ApsAdapterLog.d(str5, "addFrameAndProcessImage, enter");
-                ApsAdapterLog.d(str5, "addFrameAndProcessImage, KEY_RAW_SR_ENABLE: " + ((String) imageItemInfo.get(ApsParameters.KEY_RAW_SR_ENABLE)));
-                boolean z9 = (((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() != 32 || ApsParameters.FLAG_ON.equals(imageItemInfo.get(ApsParameters.KEY_RAW_SR_ENABLE)) || this.mRawImageCategory == null) ? true : z;
-                if (this.mImageProcessListener != null && !((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue() && (ApsParameters.FLAG_ON.equals(metaItemInfo.get(ApsParameters.KEY_SUPER_RAW_ENABLE)) || z9)) {
+                ApsAdapterLog.d(str5, "addFrameAndProcessImage, KEY_RAW_SR_ENABLE: "
+                        + ((String) imageItemInfo.get(ApsParameters.KEY_RAW_SR_ENABLE)));
+                boolean z9 = (((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() != 32
+                        || ApsParameters.FLAG_ON.equals(imageItemInfo.get(ApsParameters.KEY_RAW_SR_ENABLE))
+                        || this.mRawImageCategory == null) ? true : z;
+                if (this.mImageProcessListener != null
+                        && !((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                        && (ApsParameters.FLAG_ON.equals(metaItemInfo.get(ApsParameters.KEY_SUPER_RAW_ENABLE)) || z9)) {
                     this.mImageProcessListener.afterAddFrame(imageItemInfo, metaItemInfo);
                     ApsAdapterLog.d(str5, "addFrameAndProcessImage, after afterAddFrame");
                 }
@@ -652,7 +751,9 @@ class ApsCaptureAdapterImpl {
                     }
                     z = true;
                 }
-                int iProcessImages = this.mApsInterface.processImages(apsParameters3.getParameters(), (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE), (ApsWatermarkParam) metaItemInfo.get(ApsParameters.KEY_APS_WATERMARK_PARAM));
+                int iProcessImages = this.mApsInterface.processImages(apsParameters3.getParameters(),
+                        (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE),
+                        (ApsWatermarkParam) metaItemInfo.get(ApsParameters.KEY_APS_WATERMARK_PARAM));
                 ApsAdapterLog.d(str5, "addFrameAndProcessImage, processImages result: " + iProcessImages, true);
                 synchronized (this.mAddFrameLock) {
                     this.mAddFrameMetadataList.clear();
@@ -701,7 +802,8 @@ class ApsCaptureAdapterImpl {
         Integer numValueOf;
         synchronized (this.mAddFrameLock) {
             if (i2 == i) {
-                ApsAdapterLog.v(TAG, "countAddFrame, identity: " + j + ", isCaptureFailed: " + z + ", mApsInterface: " + this.mApsInterface, true);
+                ApsAdapterLog.v(TAG, "countAddFrame, identity: " + j + ", isCaptureFailed: " + z + ", mApsInterface: "
+                        + this.mApsInterface, true);
                 if (z) {
                     handleCaptureFailed(imageItemInfo, i, i2);
                     return false;
@@ -717,7 +819,8 @@ class ApsCaptureAdapterImpl {
                 numValueOf = Integer.valueOf(num.intValue() + i);
                 this.mbCaptureFail |= z;
             }
-            ApsAdapterLog.v(TAG, "countAddFrame, mMergeIdentity: " + j + ", count: " + numValueOf + ", mMergeNum: " + i2 + ", isCaptureFailed: " + z + ", mbCaptureFail: " + this.mbCaptureFail, true);
+            ApsAdapterLog.v(TAG, "countAddFrame, mMergeIdentity: " + j + ", count: " + numValueOf + ", mMergeNum: " + i2
+                    + ", isCaptureFailed: " + z + ", mbCaptureFail: " + this.mbCaptureFail, true);
             if (numValueOf.intValue() >= i2) {
                 this.mAddFrameFinishMap.remove(Long.valueOf(j));
                 if (!this.mbCaptureFail) {
@@ -787,9 +890,16 @@ class ApsCaptureAdapterImpl {
                 if (!imageCategory.isValid()) {
                     String str = TAG;
                     ApsAdapterLog.v(str, "closeCamera, key: " + l);
-                    boolean z = metaItemInfo == null || !((Boolean) metaItemInfo.get(ApsParameters.KEY_USE_TUNING_DATA)).booleanValue() || (imageCategory.mTuningItemLists != null && imageCategory.mTuningItemLists.size() > 0);
-                    if (metaItemInfo != null && imageCategory.mMetaItem == null && z && imageCategory.mImageItemList != null && imageCategory.mImageItemList.size() == ((Integer) metaItemInfo.get(ApsParameters.KEY_CAPTURE_STREAM_NUMBER)).intValue()) {
-                        metaItemInfo.setParameter(ApsParameters.KEY_TIME_STAMP, (Long) imageCategory.mImageItemList.get(0).get(ApsParameters.KEY_TIME_STAMP));
+                    boolean z = metaItemInfo == null
+                            || !((Boolean) metaItemInfo.get(ApsParameters.KEY_USE_TUNING_DATA)).booleanValue()
+                            || (imageCategory.mTuningItemLists != null && imageCategory.mTuningItemLists.size() > 0);
+                    if (metaItemInfo != null && imageCategory.mMetaItem == null && z
+                            && imageCategory.mImageItemList != null
+                            && imageCategory.mImageItemList
+                                    .size() == ((Integer) metaItemInfo.get(ApsParameters.KEY_CAPTURE_STREAM_NUMBER))
+                                            .intValue()) {
+                        metaItemInfo.setParameter(ApsParameters.KEY_TIME_STAMP,
+                                (Long) imageCategory.mImageItemList.get(0).get(ApsParameters.KEY_TIME_STAMP));
                         imageCategory.mMetaItem = metaItemInfo.copy();
                         this.mImageProcessMap.put(l, imageCategory);
                         if (imageCategory.isValid()) {
@@ -824,7 +934,10 @@ class ApsCaptureAdapterImpl {
         ApsAdapterLog.v(TAG, "onRawReceived, result: " + apsResult + ", result.mIdentity: " + apsResult.mIdentity);
         if (this.mImageProcessListener != null) {
             synchronized (this.mRawImageCategoryLock) {
-                if (this.mRawImageCategory != null && (apsResult.mIdentity == ((Long) this.mRawImageCategory.mMetaItem.get(ApsParameters.KEY_MERGE_IDENTITY)).longValue() || (apsResult.getImageBuffer() != null && apsResult.mIdentity == apsResult.getImageBuffer().getTimestamp()))) {
+                if (this.mRawImageCategory != null && (apsResult.mIdentity == ((Long) this.mRawImageCategory.mMetaItem
+                        .get(ApsParameters.KEY_MERGE_IDENTITY)).longValue()
+                        || (apsResult.getImageBuffer() != null
+                                && apsResult.mIdentity == apsResult.getImageBuffer().getTimestamp()))) {
                     this.mImageProcessListener.onReprocess(this.mRawImageCategory, apsResult);
                     this.mRawImageCategory = null;
                 }
@@ -906,7 +1019,8 @@ class ApsCaptureAdapterImpl {
 
     public void updateThumbnailMap(long j) {
         if (!this.mbHeicProcessInApp) {
-            ApsAdapterLog.v(TAG, "updateThumbnailMap, return because heic process in aps or not need to update thumbnail");
+            ApsAdapterLog.v(TAG,
+                    "updateThumbnailMap, return because heic process in aps or not need to update thumbnail");
             return;
         }
         String str = TAG;
@@ -931,13 +1045,15 @@ class ApsCaptureAdapterImpl {
         ApsAdapterLog.v(str, "updateThumbnailMap, X");
     }
 
-    public boolean notifyLastCaptureFrame(ImageCategory.ImageItemInfo imageItemInfo, ImageCategory.MetaItemInfo metaItemInfo) {
+    public boolean notifyLastCaptureFrame(ImageCategory.ImageItemInfo imageItemInfo,
+            ImageCategory.MetaItemInfo metaItemInfo) {
         String str = TAG;
         ApsAdapterLog.v(str, "notifyLastCaptureFrame, format: " + metaItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT));
         synchronized (this.mImageQueueLock) {
             synchronized (this.mRawImageCategoryLock) {
                 this.mCurrentCaptureInfo.mbCaptureRawDone = true;
-                if (32 == ((Integer) metaItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() && this.mRawImageCategory != null) {
+                if (32 == ((Integer) metaItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue()
+                        && this.mRawImageCategory != null) {
                     Iterator<Long> it = this.mImageProcessMap.keySet().iterator();
                     while (it.hasNext()) {
                         ImageCategory imageCategory = this.mImageProcessMap.get(Long.valueOf(it.next().longValue()));

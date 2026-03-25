@@ -72,7 +72,9 @@ public class PreviewPropProvider {
     protected void setEnableAPSAlgoNode(ApsAdapterInterface apsAdapterInterface) {
         Iterator<Map.Entry<String, Integer>> it = this.mAlgoTable.entrySet().iterator();
         while (it.hasNext()) {
-            apsAdapterInterface.setEnableAPSAlgoNode(it.next().getKey(), !PropProvider.isPropDisable(this.mPropMap.get(r1.getValue())));
+            Map.Entry<String, Integer> entry = it.next();
+            apsAdapterInterface.setEnableAPSAlgoNode(entry.getKey(),
+                    !PropProvider.isPropDisable(this.mPropMap.get(entry.getValue())));
         }
     }
 }

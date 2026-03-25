@@ -1098,10 +1098,10 @@ public abstract class BaseMode implements ModeInterface {
         if (l == null || num == null || num.intValue() != 0) {
             return;
         }
+        Range range = (Range) builder.get(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE);
         builder.set((CaptureRequest.Key<Long>) CaptureRequest.SENSOR_FRAME_DURATION,
                 Long.valueOf(Math.max(CameraConstant.TIME_RATIO_S_TO_NS
-                        / (((Range) builder.get(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE)) == null ? 30
-                                : ((Integer) r5.getUpper()).intValue()),
+                        / (range == null ? 30 : ((Integer) range.getUpper()).intValue()),
                         l.longValue())));
     }
 
@@ -2007,7 +2007,7 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     protected boolean checkMemoryState(CameraRequestTag cameraRequestTag) {
-        HashMap map = new HashMap();
+        HashMap<Integer, Integer> map = new HashMap<>();
         int iCalculateMemorySize = 0;
         if (cameraRequestTag.mRequestFormatList == null) {
             map.put(Integer.valueOf(cameraRequestTag.mRequestFormat), Integer.valueOf(cameraRequestTag.mRequestNum));

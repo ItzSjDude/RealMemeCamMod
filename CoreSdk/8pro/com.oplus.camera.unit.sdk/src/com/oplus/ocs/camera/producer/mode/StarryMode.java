@@ -66,7 +66,6 @@ public class StarryMode extends BaseMode {
         SurfaceWrapper surfaceWrapper;
         size = this.mTagMap.get(str3).mPreviewSize;
         surfaceWrapper = sdkCameraDeviceConfig.getPictureSurfaces().get(0);
-        str.hashCode();
         switch (str) {
             case "reprocess_input":
             case "raw_output":
@@ -107,7 +106,6 @@ public class StarryMode extends BaseMode {
     public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
             @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        str.hashCode();
         if (str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
             checkPictureParameter(builder);
         } else if (str.equals(Parameter.ParameterStage.START_PREVIEW) && PlatformUtil.isMtkPlatform()

@@ -6156,7 +6156,7 @@ final class MessageSchema<T> implements Schema<T> {
                 .getJavaType() != WireFormat.JavaType.MESSAGE) {
             return true;
         }
-        Schema<?> schemaFor = null;
+        Schema schemaFor = null;
         for (Object obj : mapForMapData.values()) {
             if (schemaFor == null) {
                 schemaFor = Protobuf.getInstance().schemaFor(obj.getClass());
