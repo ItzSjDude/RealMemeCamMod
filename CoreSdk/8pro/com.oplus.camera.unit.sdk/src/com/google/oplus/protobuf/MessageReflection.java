@@ -31,7 +31,8 @@ class MessageReflection {
 
         ExtensionRegistry.ExtensionInfo findExtensionByName(ExtensionRegistry extensionRegistry, String str);
 
-        ExtensionRegistry.ExtensionInfo findExtensionByNumber(ExtensionRegistry extensionRegistry, Descriptors.Descriptor descriptor, int i);
+        ExtensionRegistry.ExtensionInfo findExtensionByNumber(ExtensionRegistry extensionRegistry,
+                Descriptors.Descriptor descriptor, int i);
 
         Object finish();
 
@@ -53,11 +54,14 @@ class MessageReflection {
 
         MergeTarget newMergeTargetForField(Descriptors.FieldDescriptor fieldDescriptor, Message message);
 
-        Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException;
+        Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException;
 
-        Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException;
+        Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException;
 
-        Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException;
+        Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException;
 
         MergeTarget setField(Descriptors.FieldDescriptor fieldDescriptor, Object obj);
 
@@ -67,7 +71,8 @@ class MessageReflection {
     MessageReflection() {
     }
 
-    static void writeMessageTo(Message message, Map<Descriptors.FieldDescriptor, Object> map, CodedOutputStream codedOutputStream, boolean z) throws IOException {
+    static void writeMessageTo(Message message, Map<Descriptors.FieldDescriptor, Object> map,
+            CodedOutputStream codedOutputStream, boolean z) throws IOException {
         boolean messageSetWireFormat = message.getDescriptorForType().getOptions().getMessageSetWireFormat();
         if (z) {
             TreeMap treeMap = new TreeMap(map);
@@ -81,7 +86,8 @@ class MessageReflection {
         for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : map.entrySet()) {
             Descriptors.FieldDescriptor key = entry.getKey();
             Object value = entry.getValue();
-            if (messageSetWireFormat && key.isExtension() && key.getType() == Descriptors.FieldDescriptor.Type.MESSAGE && !key.isRepeated()) {
+            if (messageSetWireFormat && key.isExtension() && key.getType() == Descriptors.FieldDescriptor.Type.MESSAGE
+                    && !key.isRepeated()) {
                 codedOutputStream.writeMessageSetExtension(key.getNumber(), (Message) value);
             } else {
                 FieldSet.writeField(key, value, codedOutputStream);
@@ -103,7 +109,8 @@ class MessageReflection {
         for (Map.Entry<Descriptors.FieldDescriptor, Object> entry : map.entrySet()) {
             Descriptors.FieldDescriptor key = entry.getKey();
             Object value = entry.getValue();
-            if (messageSetWireFormat && key.isExtension() && key.getType() == Descriptors.FieldDescriptor.Type.MESSAGE && !key.isRepeated()) {
+            if (messageSetWireFormat && key.isExtension() && key.getType() == Descriptors.FieldDescriptor.Type.MESSAGE
+                    && !key.isRepeated()) {
                 iComputeFieldSize = CodedOutputStream.computeMessageSetExtensionSize(key.getNumber(), (Message) value);
             } else {
                 iComputeFieldSize = FieldSet.computeFieldSize(key, value);
@@ -275,12 +282,14 @@ class MessageReflection {
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public ExtensionRegistry.ExtensionInfo findExtensionByNumber(ExtensionRegistry extensionRegistry, Descriptors.Descriptor descriptor, int i) {
+        public ExtensionRegistry.ExtensionInfo findExtensionByNumber(ExtensionRegistry extensionRegistry,
+                Descriptors.Descriptor descriptor, int i) {
             return extensionRegistry.findImmutableExtensionByNumber(descriptor, i);
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
+        public Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
@@ -296,7 +305,8 @@ class MessageReflection {
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
+        public Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
@@ -312,7 +322,8 @@ class MessageReflection {
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
+        public Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message.Builder builderNewBuilderForField;
             Message message2;
             if (message != null) {
@@ -442,12 +453,14 @@ class MessageReflection {
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public ExtensionRegistry.ExtensionInfo findExtensionByNumber(ExtensionRegistry extensionRegistry, Descriptors.Descriptor descriptor, int i) {
+        public ExtensionRegistry.ExtensionInfo findExtensionByNumber(ExtensionRegistry extensionRegistry,
+                Descriptors.Descriptor descriptor, int i) {
             return extensionRegistry.findImmutableExtensionByNumber(descriptor, i);
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
+        public Object parseGroup(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message message2;
             Message.Builder builderNewBuilderForType = message.newBuilderForType();
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
@@ -458,7 +471,8 @@ class MessageReflection {
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
+        public Object parseMessage(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message message2;
             Message.Builder builderNewBuilderForType = message.newBuilderForType();
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
@@ -469,7 +483,8 @@ class MessageReflection {
         }
 
         @Override // com.google.oplus.protobuf.MessageReflection.MergeTarget
-        public Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite, Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
+        public Object parseMessageFromBytes(ByteString byteString, ExtensionRegistryLite extensionRegistryLite,
+                Descriptors.FieldDescriptor fieldDescriptor, Message message) throws IOException {
             Message message2;
             Message.Builder builderNewBuilderForType = message.newBuilderForType();
             if (!fieldDescriptor.isRepeated() && (message2 = (Message) getField(fieldDescriptor)) != null) {
@@ -503,31 +518,37 @@ class MessageReflection {
         }
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:26:0x006d  */
-    /* JADX WARN: Removed duplicated region for block: B:29:0x0071  */
+    /* JADX WARN: Removed duplicated region for block: B:26:0x006d */
+    /* JADX WARN: Removed duplicated region for block: B:29:0x0071 */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
-    static boolean mergeFieldFrom(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, Descriptors.Descriptor descriptor, MergeTarget mergeTarget, int i) throws IOException {
-        Message message;
-        boolean z;
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
+    static boolean mergeFieldFrom(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder,
+            ExtensionRegistryLite extensionRegistryLite, Descriptors.Descriptor descriptor, MergeTarget mergeTarget,
+            int i) throws IOException {
+        Message message = null;
+        boolean z = false;
         Object group;
         ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByNumber;
         if (descriptor.getOptions().getMessageSetWireFormat() && i == WireFormat.MESSAGE_SET_ITEM_TAG) {
-            mergeMessageSetExtensionFromCodedStream(codedInputStream, builder, extensionRegistryLite, descriptor, mergeTarget);
+            mergeMessageSetExtensionFromCodedStream(codedInputStream, builder, extensionRegistryLite, descriptor,
+                    mergeTarget);
             return true;
         }
         int tagWireType = WireFormat.getTagWireType(i);
         int tagFieldNumber = WireFormat.getTagFieldNumber(i);
         Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = null;
         if (descriptor.isExtensionNumber(tagFieldNumber)) {
-            if (!(extensionRegistryLite instanceof ExtensionRegistry) || (extensionInfoFindExtensionByNumber = mergeTarget.findExtensionByNumber((ExtensionRegistry) extensionRegistryLite, descriptor, tagFieldNumber)) == null) {
+            if (!(extensionRegistryLite instanceof ExtensionRegistry)
+                    || (extensionInfoFindExtensionByNumber = mergeTarget.findExtensionByNumber(
+                            (ExtensionRegistry) extensionRegistryLite, descriptor, tagFieldNumber)) == null) {
                 message = null;
             } else {
                 Descriptors.FieldDescriptor fieldDescriptor = extensionInfoFindExtensionByNumber.descriptor;
                 Message message2 = extensionInfoFindExtensionByNumber.defaultInstance;
                 if (message2 == null && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                    throw new IllegalStateException("Message-typed extension lacked default instance: " + fieldDescriptor.getFullName());
+                    throw new IllegalStateException(
+                            "Message-typed extension lacked default instance: " + fieldDescriptor.getFullName());
                 }
                 message = message2;
                 fieldDescriptorFindFieldByNumber = fieldDescriptor;
@@ -538,9 +559,11 @@ class MessageReflection {
         }
         boolean z2 = false;
         if (fieldDescriptorFindFieldByNumber != null) {
-            if (tagWireType == FieldSet.getWireFormatForFieldType(fieldDescriptorFindFieldByNumber.getLiteType(), false)) {
+            if (tagWireType == FieldSet.getWireFormatForFieldType(fieldDescriptorFindFieldByNumber.getLiteType(),
+                    false)) {
                 z = false;
-            } else if (fieldDescriptorFindFieldByNumber.isPackable() && tagWireType == FieldSet.getWireFormatForFieldType(fieldDescriptorFindFieldByNumber.getLiteType(), true)) {
+            } else if (fieldDescriptorFindFieldByNumber.isPackable() && tagWireType == FieldSet
+                    .getWireFormatForFieldType(fieldDescriptorFindFieldByNumber.getLiteType(), true)) {
                 z = true;
             } else {
                 z = false;
@@ -559,11 +582,14 @@ class MessageReflection {
                 while (codedInputStream.getBytesUntilLimit() > 0) {
                     int i2 = codedInputStream.readEnum();
                     if (fieldDescriptorFindFieldByNumber.getFile().supportsUnknownEnumValue()) {
-                        mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumberCreatingIfUnknown(i2));
+                        mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber,
+                                fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumberCreatingIfUnknown(i2));
                     } else {
-                        Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber = fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumber(i2);
+                        Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber = fieldDescriptorFindFieldByNumber
+                                .getEnumType().findValueByNumber(i2);
                         if (enumValueDescriptorFindValueByNumber != null) {
-                            mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, enumValueDescriptorFindValueByNumber);
+                            mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber,
+                                    enumValueDescriptorFindValueByNumber);
                         } else if (builder != null) {
                             builder.mergeVarintField(tagFieldNumber, i2);
                         }
@@ -571,22 +597,29 @@ class MessageReflection {
                 }
             } else {
                 while (codedInputStream.getBytesUntilLimit() > 0) {
-                    mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, WireFormat.readPrimitiveField(codedInputStream, fieldDescriptorFindFieldByNumber.getLiteType(), mergeTarget.getUtf8Validation(fieldDescriptorFindFieldByNumber)));
+                    mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber,
+                            WireFormat.readPrimitiveField(codedInputStream,
+                                    fieldDescriptorFindFieldByNumber.getLiteType(),
+                                    mergeTarget.getUtf8Validation(fieldDescriptorFindFieldByNumber)));
                 }
             }
             codedInputStream.popLimit(iPushLimit);
         } else {
-            int i3 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptorFindFieldByNumber.getType().ordinal()];
+            int i3 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptorFindFieldByNumber
+                    .getType().ordinal()];
             if (i3 == 1) {
-                group = mergeTarget.parseGroup(codedInputStream, extensionRegistryLite, fieldDescriptorFindFieldByNumber, message);
+                group = mergeTarget.parseGroup(codedInputStream, extensionRegistryLite,
+                        fieldDescriptorFindFieldByNumber, message);
             } else if (i3 == 2) {
-                group = mergeTarget.parseMessage(codedInputStream, extensionRegistryLite, fieldDescriptorFindFieldByNumber, message);
+                group = mergeTarget.parseMessage(codedInputStream, extensionRegistryLite,
+                        fieldDescriptorFindFieldByNumber, message);
             } else if (i3 == 3) {
                 int i4 = codedInputStream.readEnum();
                 if (fieldDescriptorFindFieldByNumber.getFile().supportsUnknownEnumValue()) {
                     group = fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumberCreatingIfUnknown(i4);
                 } else {
-                    Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber2 = fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumber(i4);
+                    Descriptors.EnumValueDescriptor enumValueDescriptorFindValueByNumber2 = fieldDescriptorFindFieldByNumber
+                            .getEnumType().findValueByNumber(i4);
                     if (enumValueDescriptorFindValueByNumber2 == null) {
                         if (builder != null) {
                             builder.mergeVarintField(tagFieldNumber, i4);
@@ -596,7 +629,8 @@ class MessageReflection {
                     group = enumValueDescriptorFindValueByNumber2;
                 }
             } else {
-                group = WireFormat.readPrimitiveField(codedInputStream, fieldDescriptorFindFieldByNumber.getLiteType(), mergeTarget.getUtf8Validation(fieldDescriptorFindFieldByNumber));
+                group = WireFormat.readPrimitiveField(codedInputStream, fieldDescriptorFindFieldByNumber.getLiteType(),
+                        mergeTarget.getUtf8Validation(fieldDescriptorFindFieldByNumber));
             }
             if (fieldDescriptorFindFieldByNumber.isRepeated()) {
                 mergeTarget.addRepeatedField(fieldDescriptorFindFieldByNumber, group);
@@ -607,7 +641,10 @@ class MessageReflection {
         return true;
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.MessageReflection$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.MessageReflection$1,
+     * reason: invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
 
@@ -619,17 +656,21 @@ class MessageReflection {
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.MESSAGE.ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.MESSAGE
+                        .ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.ENUM.ordinal()] = 3;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.ENUM
+                        .ordinal()] = 3;
             } catch (NoSuchFieldError unused3) {
             }
         }
     }
 
-    private static void mergeMessageSetExtensionFromCodedStream(CodedInputStream codedInputStream, UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite, Descriptors.Descriptor descriptor, MergeTarget mergeTarget) throws IOException {
+    private static void mergeMessageSetExtensionFromCodedStream(CodedInputStream codedInputStream,
+            UnknownFieldSet.Builder builder, ExtensionRegistryLite extensionRegistryLite,
+            Descriptors.Descriptor descriptor, MergeTarget mergeTarget) throws IOException {
         int uInt32 = 0;
         ByteString bytes = null;
         ExtensionRegistry.ExtensionInfo extensionInfoFindExtensionByNumber = null;
@@ -641,11 +682,14 @@ class MessageReflection {
             if (tag == WireFormat.MESSAGE_SET_TYPE_ID_TAG) {
                 uInt32 = codedInputStream.readUInt32();
                 if (uInt32 != 0 && (extensionRegistryLite instanceof ExtensionRegistry)) {
-                    extensionInfoFindExtensionByNumber = mergeTarget.findExtensionByNumber((ExtensionRegistry) extensionRegistryLite, descriptor, uInt32);
+                    extensionInfoFindExtensionByNumber = mergeTarget
+                            .findExtensionByNumber((ExtensionRegistry) extensionRegistryLite, descriptor, uInt32);
                 }
             } else if (tag == WireFormat.MESSAGE_SET_MESSAGE_TAG) {
-                if (uInt32 != 0 && extensionInfoFindExtensionByNumber != null && ExtensionRegistryLite.isEagerlyParseMessageSets()) {
-                    eagerlyMergeMessageSetExtension(codedInputStream, extensionInfoFindExtensionByNumber, extensionRegistryLite, mergeTarget);
+                if (uInt32 != 0 && extensionInfoFindExtensionByNumber != null
+                        && ExtensionRegistryLite.isEagerlyParseMessageSets()) {
+                    eagerlyMergeMessageSetExtension(codedInputStream, extensionInfoFindExtensionByNumber,
+                            extensionRegistryLite, mergeTarget);
                     bytes = null;
                 } else {
                     bytes = codedInputStream.readBytes();
@@ -659,7 +703,8 @@ class MessageReflection {
             return;
         }
         if (extensionInfoFindExtensionByNumber != null) {
-            mergeMessageSetExtensionFromBytes(bytes, extensionInfoFindExtensionByNumber, extensionRegistryLite, mergeTarget);
+            mergeMessageSetExtensionFromBytes(bytes, extensionInfoFindExtensionByNumber, extensionRegistryLite,
+                    mergeTarget);
         } else {
             if (bytes == null || builder == null) {
                 return;
@@ -668,17 +713,24 @@ class MessageReflection {
         }
     }
 
-    private static void mergeMessageSetExtensionFromBytes(ByteString byteString, ExtensionRegistry.ExtensionInfo extensionInfo, ExtensionRegistryLite extensionRegistryLite, MergeTarget mergeTarget) throws IOException {
+    private static void mergeMessageSetExtensionFromBytes(ByteString byteString,
+            ExtensionRegistry.ExtensionInfo extensionInfo, ExtensionRegistryLite extensionRegistryLite,
+            MergeTarget mergeTarget) throws IOException {
         Descriptors.FieldDescriptor fieldDescriptor = extensionInfo.descriptor;
         if (mergeTarget.hasField(fieldDescriptor) || ExtensionRegistryLite.isEagerlyParseMessageSets()) {
-            mergeTarget.setField(fieldDescriptor, mergeTarget.parseMessageFromBytes(byteString, extensionRegistryLite, fieldDescriptor, extensionInfo.defaultInstance));
+            mergeTarget.setField(fieldDescriptor, mergeTarget.parseMessageFromBytes(byteString, extensionRegistryLite,
+                    fieldDescriptor, extensionInfo.defaultInstance));
         } else {
-            mergeTarget.setField(fieldDescriptor, new LazyField(extensionInfo.defaultInstance, extensionRegistryLite, byteString));
+            mergeTarget.setField(fieldDescriptor,
+                    new LazyField(extensionInfo.defaultInstance, extensionRegistryLite, byteString));
         }
     }
 
-    private static void eagerlyMergeMessageSetExtension(CodedInputStream codedInputStream, ExtensionRegistry.ExtensionInfo extensionInfo, ExtensionRegistryLite extensionRegistryLite, MergeTarget mergeTarget) throws IOException {
+    private static void eagerlyMergeMessageSetExtension(CodedInputStream codedInputStream,
+            ExtensionRegistry.ExtensionInfo extensionInfo, ExtensionRegistryLite extensionRegistryLite,
+            MergeTarget mergeTarget) throws IOException {
         Descriptors.FieldDescriptor fieldDescriptor = extensionInfo.descriptor;
-        mergeTarget.setField(fieldDescriptor, mergeTarget.parseMessage(codedInputStream, extensionRegistryLite, fieldDescriptor, extensionInfo.defaultInstance));
+        mergeTarget.setField(fieldDescriptor, mergeTarget.parseMessage(codedInputStream, extensionRegistryLite,
+                fieldDescriptor, extensionInfo.defaultInstance));
     }
 }
