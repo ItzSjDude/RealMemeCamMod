@@ -5,7 +5,8 @@ import com.google.oplus.protobuf.GeneratedMessage.Builder;
 import com.google.oplus.protobuf.MessageOrBuilder;
 
 /* JADX INFO: loaded from: classes.dex */
-public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder> implements GeneratedMessage.BuilderParent {
+public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends GeneratedMessage.Builder, IType extends MessageOrBuilder>
+        implements GeneratedMessage.BuilderParent {
     private BType builder;
     private boolean isClean;
     private MType message;
@@ -45,7 +46,7 @@ public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends Ge
 
     public IType getMessageOrBuilder() {
         BType btype = this.builder;
-        return btype != null ? btype : this.message;
+        return btype != null ? (IType) btype : (IType) this.message;
     }
 
     public SingleFieldBuilder<MType, BType, IType> setMessage(MType mtype) {
@@ -59,10 +60,10 @@ public class SingleFieldBuilder<MType extends GeneratedMessage, BType extends Ge
         return this;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:7:0x000f  */
+    /* JADX WARN: Removed duplicated region for block: B:7:0x000f */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     public SingleFieldBuilder<MType, BType, IType> mergeFrom(MType mtype) {
         if (this.builder == null) {
             Message message = this.message;

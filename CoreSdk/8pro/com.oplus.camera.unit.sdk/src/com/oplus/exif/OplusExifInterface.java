@@ -1283,7 +1283,7 @@ public class OplusExifInterface {
         int i = (int) dAbs;
         return new OplusRational[] { new OplusRational(i, 1L),
                 new OplusRational((int) ((dAbs - ((double) i)) * 60.0d), 1L),
-                new OplusRational((int) ((r7 - ((double) r1)) * 6000.0d), 100L) };
+                new OplusRational((int) ((dAbs - ((double) i)) * 3600.0d), 1L) };
     }
 
     private void doExifStreamIO(InputStream inputStream, OutputStream outputStream) throws IOException {

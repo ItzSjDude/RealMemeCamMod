@@ -78,6 +78,7 @@ public class YTFetchLicenseHelper {
             HttpsURLConnection httpsURLConnection;
             StringBuilder sb;
             BufferedReader bufferedReader = null;
+            Exception e = null;
             try {
                 try {
                     long jCurrentTimeMillis = System.currentTimeMillis() / 1000;
@@ -111,20 +112,20 @@ public class YTFetchLicenseHelper {
                         dataOutputStream.flush();
                         dataOutputStream.close();
                         this.result.http_status = httpsURLConnection.getResponseCode();
-                    } catch (MalformedURLException e) {
-                        e = e;
-                    } catch (ProtocolException e2) {
-                        e = e2;
-                    } catch (SocketTimeoutException e3) {
-                        e = e3;
-                    } catch (IOException e4) {
-                        e = e4;
-                    } catch (InvalidKeyException e5) {
-                        e = e5;
-                    } catch (NoSuchAlgorithmException e6) {
-                        e = e6;
-                    } catch (JSONException e7) {
-                        e = e7;
+                    } catch (MalformedURLException eInternal1) {
+                        e = eInternal1;
+                    } catch (ProtocolException eInternal2) {
+                        e = eInternal2;
+                    } catch (SocketTimeoutException eInternal3) {
+                        e = eInternal3;
+                    } catch (IOException eInternal4) {
+                        e = eInternal4;
+                    } catch (InvalidKeyException eInternal5) {
+                        e = eInternal5;
+                    } catch (NoSuchAlgorithmException eInternal6) {
+                        e = eInternal6;
+                    } catch (JSONException eInternal7) {
+                        e = eInternal7;
                     }
                 } catch (Throwable th) {
                     th = th;
