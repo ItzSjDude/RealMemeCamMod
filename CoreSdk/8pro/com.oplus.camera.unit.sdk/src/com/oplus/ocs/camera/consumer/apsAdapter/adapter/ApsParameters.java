@@ -57,7 +57,8 @@ public class ApsParameters {
     public static final Key<Integer> KEY_IMAGE_ROLE = new Key<>("image_role", 2, 0);
     public static final Key<Integer> KEY_ISO_VALUE_FROM_APP = new Key<>("iso_value_from_app", 1, -1);
     public static final Key<Long> KEY_EXPOSURE_TIME_FROM_APP = new Key<>("exposure_time_from_app", 1, -1L);
-    public static final Key<Integer> KEY_EXPOSURE_COMPOSITION_FROM_APP = new Key<>("exposure_composition_from_app", 1, 0);
+    public static final Key<Integer> KEY_EXPOSURE_COMPOSITION_FROM_APP = new Key<>("exposure_composition_from_app", 1,
+            0);
     public static final Key<Long> KEY_TIME_STAMP = new Key<>("time_stamp", 2, 0L);
     public static final Key<Boolean> KEY_SUPPORT_MAKEUP = new Key<>("support_makeup", 1, false);
     public static final Key<Integer> KEY_BURST_COUNT = new Key<>("burst_count", 2, 0);
@@ -67,7 +68,8 @@ public class ApsParameters {
     public static final Key<Integer> KEY_REC_BURST_NUMBER = new Key<>("rec_burst_number", 2, -1);
     public static final Key<Boolean> KEY_VALID_BURST_SHOT_IMAGE = new Key<>("valid_burst_shot_image", 2, false);
     public static final Key<Long> KEY_DATE = new Key<>("date", 2, 0L);
-    public static final Key<ImageCategory.ItemInfoType> KEY_ITEM_INFO_TYPE = new Key<>("item_info_type", 2, ImageCategory.ItemInfoType.CAPTURE);
+    public static final Key<ImageCategory.ItemInfoType> KEY_ITEM_INFO_TYPE = new Key<>("item_info_type", 2,
+            ImageCategory.ItemInfoType.CAPTURE);
     public static final Key<Surface> KEY_SURFACE = new Key<>("surface", 2);
     public static final Key<Boolean> KEY_NEED_META_DATA = new Key<>("needMetadata", 2, true);
     public static final Key<Boolean> KEY_NEED_VIDEO_META_DATA = new Key<>("needvideometadata", 2, true);
@@ -106,7 +108,8 @@ public class ApsParameters {
     public static final Key<CameraCharacteristics> KEY_CAMERA_CHARACTERISTICS = new Key<>("cameraCharacteristics", 2);
     public static final Key<Boolean> KEY_NEED_MATCH_TIME_STAMP = new Key<>("needMatchTimeStamp", 2, true);
     public static final Key<ApsWatermarkParam> KEY_APS_WATERMARK_PARAM = new Key<>("watermarkParam", 2);
-    public static final Key<Integer> KEY_WATERAMRK_BORDER_X = new Key<>(CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_X, 1);
+    public static final Key<Integer> KEY_WATERAMRK_BORDER_X = new Key<>(
+            CameraConstant.WaterMarkParamKeys.WATERMARK_BORDER_X, 1);
     public static final Key<Integer> KEY_WATERAMRK_BORDER_Y = new Key<>("watermark_border_Y", 1);
     public static final Key<String> KEY_WATERAMRK_MAKEUP_ENABLE = new Key<>("watermark_makeup_enable", 1);
     public static final Key<Integer> KEY_WATERAMRK_MAKEUP_WIDTH = new Key<>("watermark_makeup_width", 1);
@@ -134,7 +137,8 @@ public class ApsParameters {
     public static final Key<String> KEY_TILT_SHIFT_CENTER_POSITION = new Key<>("tilt_shift_center_position", 1);
     public static final Key<String> KEY_TILT_SHIFT_CLEAR_DISTANCE = new Key<>("tilt_shift_clear_distance", 1);
     public static final Key<String> KEY_TILT_SHIFT_ROTATE_ANGLE = new Key<>("tilt_shift_rotate_angle", 1);
-    public static final Key<Boolean> KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE = new Key<>("long_exposure_capture_enable", 1, false);
+    public static final Key<Boolean> KEY_IS_LONG_EXPOSURE_CAPTURE_ENABLE = new Key<>("long_exposure_capture_enable", 1,
+            false);
     public static final Key<Boolean> KEY_IS_CAPTURE_LAST_FRAME = new Key<>("capture_last_frame", 1, false);
     public static final Key<Boolean> KEY_RAW_ON_REPROCESS = new Key<>("raw_on_reprocess", 1, false);
     public static final Key<String> KEY_AIS_STATE = new Key<>("ais_state", 1);
@@ -183,10 +187,12 @@ public class ApsParameters {
     public static final Key<Boolean> KEY_OVERHEAT_SKIP_FRAME = new Key<>("overheat.skip.frame", 1, false);
     public static final Key<String> KEY_THERMAL_ALGO_MASK = new Key<>("thermal_algo_mask", 1);
     public static final Key<Boolean> KEY_FAST_SHOT_ENABLE = new Key<>("fast_shot_enable", 1);
-    public static final Key<Integer> KEY_MICROSCOPE_CAPTURE_PREVIEW_STATE = new Key<>("microscope_capture_preview_state", 1);
+    public static final Key<Integer> KEY_MICROSCOPE_CAPTURE_PREVIEW_STATE = new Key<>(
+            "microscope_capture_preview_state", 1);
     public static final Key<Integer> KEY_REQUEST_NUM = new Key<>("capture_request_num", 1, 0);
     public static final Key<Boolean> KEY_IS_FACE_DETECTED = new Key<>("is_face_detected", 1, false);
-    public static final Key<Boolean> KEY_DECISION_REQUEST_MIXED_FORMAT = new Key<>("previewdecision_request_mixed_format", 1, false);
+    public static final Key<Boolean> KEY_DECISION_REQUEST_MIXED_FORMAT = new Key<>(
+            "previewdecision_request_mixed_format", 1, false);
     public static final Key<String> KEY_HDR_STATE = new Key<>("previewdecision_hdr_state", 1);
 
     public interface Supplier<T> {
@@ -249,7 +255,8 @@ public class ApsParameters {
         public Map<Key<?>, ValueWrapper<?>> mParameterMap = new ConcurrentHashMap();
 
         public <T> void setParameter(@NonNull Key<T> key, final T t) {
-            this.mParameterMap.put(key, new ValueWrapper<>(new Supplier<T>() { // from class: com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters.ParameterModel.1
+            this.mParameterMap.put(key, new ValueWrapper<>(new Supplier<T>() { // from class:
+                                                                               // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters.ParameterModel.1
                 @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters.Supplier
                 public T get() {
                     return (T) t;
@@ -263,29 +270,28 @@ public class ApsParameters {
         }
 
         public Map<Key<?>, ValueWrapper<?>> copy(Map<Key<?>, ValueWrapper<?>> map) throws CloneNotSupportedException {
-            Object arrayMap;
             for (Map.Entry<Key<?>, ValueWrapper<?>> entry : this.mParameterMap.entrySet()) {
                 Key<?> key = entry.getKey();
                 Key<?> key2 = new Key<>(key.getName(), key.getCategory(), key.getDefault());
                 Object objClone = entry.getValue().getValue().get();
+                Object clonedObj = objClone;
                 if (objClone instanceof String[]) {
-                    objClone = ((String[]) objClone).clone();
+                    clonedObj = ((String[]) objClone).clone();
                 } else if (objClone instanceof int[]) {
-                    objClone = ((int[]) objClone).clone();
-                } else {
-                    if (objClone instanceof ArrayMap) {
-                        arrayMap = new ArrayMap((ArrayMap) objClone);
-                    } else if (objClone instanceof float[]) {
-                        float[] fArr = (float[]) objClone;
-                        arrayMap = new float[fArr.length];
-                        System.arraycopy(fArr, 0, arrayMap, 0, fArr.length);
-                    }
-                    objClone = arrayMap;
+                    clonedObj = ((int[]) objClone).clone();
+                } else if (objClone instanceof ArrayMap) {
+                    clonedObj = new ArrayMap((ArrayMap) objClone);
+                } else if (objClone instanceof float[]) {
+                    float[] fArr = (float[]) objClone;
+                    float[] fArrCloned = new float[fArr.length];
+                    System.arraycopy(fArr, 0, fArrCloned, 0, fArr.length);
+                    clonedObj = fArrCloned;
                 }
-                map.put(key2, new ValueWrapper<>(new Supplier() { // from class: com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters.ParameterModel.2
-                    @Override // com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsParameters.Supplier
+                final Object finalObj = clonedObj;
+                map.put(key2, new ValueWrapper<>(new Supplier() {
+                    @Override
                     public Object get() {
-                        return objClone;
+                        return finalObj;
                     }
                 }));
             }

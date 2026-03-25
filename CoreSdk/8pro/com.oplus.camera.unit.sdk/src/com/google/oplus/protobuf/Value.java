@@ -1019,7 +1019,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
         @Override // com.google.oplus.protobuf.ValueOrBuilder
         public String getStringValue() {
-            String str = this.kindCase_ == 3 ? this.kind_ : "";
+            Object str = this.kindCase_ == 3 ? this.kind_ : "";
             if (!(str instanceof String)) {
                 String stringUtf8 = ((ByteString) str).toStringUtf8();
                 if (this.kindCase_ == 3) {
@@ -1032,7 +1032,7 @@ public final class Value extends GeneratedMessageV3 implements ValueOrBuilder {
 
         @Override // com.google.oplus.protobuf.ValueOrBuilder
         public ByteString getStringValueBytes() {
-            String str = this.kindCase_ == 3 ? this.kind_ : "";
+            Object str = this.kindCase_ == 3 ? this.kind_ : "";
             if (str instanceof String) {
                 ByteString byteStringCopyFromUtf8 = ByteString.copyFromUtf8((String) str);
                 if (this.kindCase_ == 3) {

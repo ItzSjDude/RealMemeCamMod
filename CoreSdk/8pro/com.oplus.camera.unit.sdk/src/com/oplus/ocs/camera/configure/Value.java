@@ -59,35 +59,43 @@ public class Value<P> {
         return this.mValue;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:21:0x0040 A[PHI: r1
-      0x0040: PHI (r1v60 boolean) = 
-      (r1v34 boolean)
-      (r1v34 boolean)
-      (r1v41 boolean)
-      (r1v41 boolean)
-      (r1v50 boolean)
-      (r1v50 boolean)
-      (r1v58 boolean)
-      (r1v58 boolean)
-      (r1v68 boolean)
-      (r1v68 boolean)
-     binds: [B:87:0x013c, B:85:0x0138, B:72:0x0102, B:70:0x00fe, B:57:0x00c8, B:54:0x00c2, B:38:0x0087, B:35:0x0080, B:20:0x003e, B:18:0x003b] A[DONT_GENERATE, DONT_INLINE]] */
-    /* JADX WARN: Removed duplicated region for block: B:22:0x0043 A[PHI: r1
-      0x0043: PHI (r1v62 boolean) = 
-      (r1v34 boolean)
-      (r1v34 boolean)
-      (r1v41 boolean)
-      (r1v41 boolean)
-      (r1v50 boolean)
-      (r1v50 boolean)
-      (r1v58 boolean)
-      (r1v58 boolean)
-      (r1v68 boolean)
-      (r1v68 boolean)
-     binds: [B:87:0x013c, B:85:0x0138, B:72:0x0102, B:70:0x00fe, B:57:0x00c8, B:54:0x00c2, B:38:0x0087, B:35:0x0080, B:20:0x003e, B:18:0x003b] A[DONT_GENERATE, DONT_INLINE]] */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * JADX WARN: Removed duplicated region for block: B:21:0x0040 A[PHI: r1
+     * 0x0040: PHI (r1v60 boolean) =
+     * (r1v34 boolean)
+     * (r1v34 boolean)
+     * (r1v41 boolean)
+     * (r1v41 boolean)
+     * (r1v50 boolean)
+     * (r1v50 boolean)
+     * (r1v58 boolean)
+     * (r1v58 boolean)
+     * (r1v68 boolean)
+     * (r1v68 boolean)
+     * binds: [B:87:0x013c, B:85:0x0138, B:72:0x0102, B:70:0x00fe, B:57:0x00c8,
+     * B:54:0x00c2, B:38:0x0087, B:35:0x0080, B:20:0x003e, B:18:0x003b]
+     * A[DONT_GENERATE, DONT_INLINE]]
+     */
+    /*
+     * JADX WARN: Removed duplicated region for block: B:22:0x0043 A[PHI: r1
+     * 0x0043: PHI (r1v62 boolean) =
+     * (r1v34 boolean)
+     * (r1v34 boolean)
+     * (r1v41 boolean)
+     * (r1v41 boolean)
+     * (r1v50 boolean)
+     * (r1v50 boolean)
+     * (r1v58 boolean)
+     * (r1v58 boolean)
+     * (r1v68 boolean)
+     * (r1v68 boolean)
+     * binds: [B:87:0x013c, B:85:0x0138, B:72:0x0102, B:70:0x00fe, B:57:0x00c8,
+     * B:54:0x00c2, B:38:0x0087, B:35:0x0080, B:20:0x003e, B:18:0x003b]
+     * A[DONT_GENERATE, DONT_INLINE]]
+     */
+    /*
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     public boolean isTargetValue(Object obj) {
         boolean z;
         boolean z2;
@@ -108,7 +116,8 @@ public class Value<P> {
                 boolean z3 = this.mbIncludeLeftBoundary;
                 int iCompare = Float.compare(fFloatValue3, fFloatValue);
                 z2 = !z3 ? iCompare <= 0 : iCompare < 0;
-                if (!this.mbIncludeRightBoundary ? Float.compare(fFloatValue3, fFloatValue2) >= 0 : Float.compare(fFloatValue3, fFloatValue2) > 0) {
+                if (!this.mbIncludeRightBoundary ? Float.compare(fFloatValue3, fFloatValue2) >= 0
+                        : Float.compare(fFloatValue3, fFloatValue2) > 0) {
                 }
             } else if (obj instanceof Long) {
                 long jLongValue = ((Long) this.mValue.get(0)).longValue();
@@ -173,7 +182,10 @@ public class Value<P> {
         return this.mOriginValue;
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r6v0, resolved type: java.lang.Class<P> */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r6v0, resolved type:
+     * java.lang.Class<P>
+     */
     /* JADX WARN: Multi-variable type inference failed */
     private List<P> initValue(String[] strArr, Class<P> cls) {
         if (strArr == null || strArr.length == 0) {
@@ -199,7 +211,10 @@ public class Value<P> {
         return arrayList;
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v0, resolved type: java.lang.String */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v0, resolved type:
+     * java.lang.String
+     */
     /* JADX WARN: Multi-variable type inference failed */
     private <V> V getRealValue(String str, Class<V> cls) {
         if (Integer.class.equals(cls)) {
@@ -217,10 +232,12 @@ public class Value<P> {
         if (Byte.class.equals(cls)) {
             return (V) Byte.valueOf(Byte.parseByte(str));
         }
-        return Short.class.equals(cls) ? (V) Short.valueOf(Short.parseShort(str)) : str;
+        return Short.class.equals(cls) ? (V) Short.valueOf(Short.parseShort(str)) : (V) str;
     }
 
     public String toString() {
-        return "Value{mbSupportRange=" + this.mbSupportRange + ", mbSupportSize=" + this.mbSupportSize + ", mbIncludeLeftBoundary=" + this.mbIncludeLeftBoundary + ", mbIncludeRightBoundary=" + this.mbIncludeRightBoundary + ", mValue=" + this.mValue + ", mClazz=" + this.mClazz + '}';
+        return "Value{mbSupportRange=" + this.mbSupportRange + ", mbSupportSize=" + this.mbSupportSize
+                + ", mbIncludeLeftBoundary=" + this.mbIncludeLeftBoundary + ", mbIncludeRightBoundary="
+                + this.mbIncludeRightBoundary + ", mValue=" + this.mValue + ", mClazz=" + this.mClazz + '}';
     }
 }
