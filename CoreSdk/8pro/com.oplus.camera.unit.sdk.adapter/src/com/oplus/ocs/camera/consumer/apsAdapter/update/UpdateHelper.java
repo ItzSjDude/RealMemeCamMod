@@ -77,12 +77,12 @@ public class UpdateHelper {
                     try {
                         ApsAdapterLog.d(TAG, "getValidConfigData, no rus, use ota, path: " + str);
                         str2 = str3;
-                    } catch (Throwable th) {
-                        th = th;
+                    } catch (Throwable th2) {
+                        th2.printStackTrace();
                         str2 = str3;
                         if (fileInputStream2 != null) {
                         }
-                        throw th;
+                        throw th2;
                     }
                 }
                 if (fileInputStream2 != null) {

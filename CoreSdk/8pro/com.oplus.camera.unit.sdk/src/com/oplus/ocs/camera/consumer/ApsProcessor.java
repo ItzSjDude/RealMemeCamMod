@@ -1464,8 +1464,8 @@ public class ApsProcessor implements ApsProcessorContract.IProcessor, ApsAdapter
         boolean z3;
         boolean z4;
         int i;
-        Object[] objArr;
-        Object[] objArr2;
+        String objArr;
+        String objArr2;
         Boolean bool2;
         CharSequence charSequence;
         CameraRequestTag previewRequestTag;
@@ -1872,7 +1872,7 @@ public class ApsProcessor implements ApsProcessorContract.IProcessor, ApsAdapter
                     metaItemInfo.setParameter(ParameterKeys.KEY_WATERAMRK_BORDER_Y, Integer.valueOf(i4));
                 }
             }
-            if (num == null) {
+            if (num != null) {
                 metaItemInfo.setParameter(ParameterKeys.KEY_ORIENTATION, num);
             } else {
                 CameraUnitLog.w(TAG, "addPictureMeta, get jpegOrientation failed: " + num);

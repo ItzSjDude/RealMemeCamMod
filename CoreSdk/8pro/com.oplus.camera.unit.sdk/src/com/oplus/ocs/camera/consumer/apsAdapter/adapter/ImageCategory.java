@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /* JADX INFO: loaded from: classes.dex */
 public class ImageCategory {
@@ -112,9 +113,13 @@ public class ImageCategory {
 
         public MetaItemInfo copy() {
             MetaItemInfo metaItemInfo = new MetaItemInfo();
-            metaItemInfo.mParameterMap = new java.util.concurrent.ConcurrentHashMap<>();
+            metaItemInfo.mParameterMap = new ConcurrentHashMap<>();
             metaItemInfo.mImageBuffer = this.mImageBuffer;
-            copy(metaItemInfo.mParameterMap);
+            try {
+                copy(metaItemInfo.mParameterMap);
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
             return metaItemInfo;
         }
     }

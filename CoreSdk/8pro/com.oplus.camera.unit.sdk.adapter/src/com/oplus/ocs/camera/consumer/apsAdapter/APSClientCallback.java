@@ -26,35 +26,51 @@ class APSClientCallback extends APSClientKeyBase {
     private static final String KEY_SET_METADATA_REF_IMAGE = buildKey("", "", "_IMAGE_OBJECT_");
     private static final String KEY_SET_METADATA_REF_PIPELINE_NAME = buildKey("", "pipelineName", "_STRING_BASIC_");
     private static final String KEY_SET_METADATA_REF_IS_INC = buildKey("", "isInc", "_BOOLEAN_BASIC_");
-    private static final String KEY_CALLBACK_CAPTURE_RESULT_STRINGS = buildKey("", "result", "_STRING_BASIC_ARRAYVALUE_");
+    private static final String KEY_CALLBACK_CAPTURE_RESULT_STRINGS = buildKey("", "result",
+            "_STRING_BASIC_ARRAYVALUE_");
     private static final String KEY_CALLBACK_CAPTURE_BUFFER = buildKey("", "bufferPlanesData", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_IS_NEED_EXIF = buildKey("", "exifData", "needExifData", "_BOOLEAN_BASIC_");
+    private static final String KEY_CALLBACK_CAPTURE_IS_NEED_EXIF = buildKey("", "exifData", "needExifData",
+            "_BOOLEAN_BASIC_");
     private static final String KEY_CALLBACK_PREVIEW_IMAGE = buildKey("", "imageobj", "_IMAGE_OBJECT_");
-    private static final String KEY_CALLBACK_PREVIEW_HARDWARE_BUFFER = buildKey("", "hwBuffer", "_HARDWAREBUFFER_OBJECT_");
-    private static final String KEY_CALLBACK_PREVIEW_SUB_HARDWARE_BUFFER = buildKey("", "subHwBuffer", "_HARDWAREBUFFER_OBJECT_");
+    private static final String KEY_CALLBACK_PREVIEW_HARDWARE_BUFFER = buildKey("", "hwBuffer",
+            "_HARDWAREBUFFER_OBJECT_");
+    private static final String KEY_CALLBACK_PREVIEW_SUB_HARDWARE_BUFFER = buildKey("", "subHwBuffer",
+            "_HARDWAREBUFFER_OBJECT_");
     private static final String KEY_CALLBACK_PREVIEW_METADATA = buildKey("", "metadata", "_TOTALCAPTURERESULT_OBJECT_");
     private static final String KEY_CALLBACK_PREVIEW_META_IMAGE = buildKey("", "metaImage", "_IMAGE_OBJECT_");
-    private static final String KEY_CALLBACK_PREVIEW_RESULT_STRING = buildKey("", "result", "_STRING_BASIC_ARRAYVALUE_");
+    private static final String KEY_CALLBACK_PREVIEW_RESULT_STRING = buildKey("", "result",
+            "_STRING_BASIC_ARRAYVALUE_");
     private static final String KEY_BUF_MANIPULATE_BUFF_DATA = buildKey("", "bufferPlanesData", "_LONG_BASIC_");
     private static final String KEY_BUF_MANIPULATE_BUFF_TYPE = buildKey("", "heifCodecType", "_STRING_BASIC_");
     private static final String KEY_CLOSE_IIMAGEBUFFER = buildKey("", "close_object", "_IMAGEBUFFER_OBJECT_");
-    private static final String KEY_CHECK_VALID_IMAGEBUFFER = buildKey("", "checkout_valid_object", "_IMAGEBUFFER_OBJECT_");
+    private static final String KEY_CHECK_VALID_IMAGEBUFFER = buildKey("", "checkout_valid_object",
+            "_IMAGEBUFFER_OBJECT_");
     private static final String KEY_CHECK_VALID_RESULT = buildKey("", "checkout_valid_result", "_INT_BASIC_");
-    private static final String KEY_CALLBACK_CAPTURE_LINEARMASK = buildKey("", "linearMaskBuffer", "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_LINEARMASK = buildKey("", "linearMaskBuffer",
+            "_BYTE_BASIC_ARRAY_");
     private static final String KEY_CALLBACK_CAPTURE_LOCALHDR = buildKey("", "localHdfBuffer", "_BYTE_BASIC_ARRAY_");
     private static final String KEY_CALLBACK_CAPTURE_SRCIMAGE = buildKey("", "srcImageBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_SRCIMAGEBLOCK = buildKey("", "srcImageBlockBuffer", "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_SRCIMAGEBLOCK = buildKey("", "srcImageBlockBuffer",
+            "_BYTE_BASIC_ARRAY_");
     private static final String KEY_CALLBACK_CAPTURE_WATERMARK = buildKey("", "waterMarkBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_WATERMARKCONFIG = buildKey("", "waterMarkConfigBuffer", "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_WATERMARKCONFIG = buildKey("", "waterMarkConfigBuffer",
+            "_BYTE_BASIC_ARRAY_");
     private static final String KEY_CALLBACK_CAPTURE_REARDEPTH = buildKey("", "rearDepthBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_FRONTDEPTH = buildKey("", "frontDepthBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_FRONTSEGMEN = buildKey("", "frontSegmentBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_FRONTHAIRMASK = buildKey("", "frontHairmaskBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_FRONTMATTEINFO = buildKey("", "frontMatteinfoBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_NEGEVIMG = buildKey("", "frontNegevimgBuffer", "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_FRONTDEPTH = buildKey("", "frontDepthBuffer",
+            "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_FRONTSEGMEN = buildKey("", "frontSegmentBuffer",
+            "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_FRONTHAIRMASK = buildKey("", "frontHairmaskBuffer",
+            "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_FRONTMATTEINFO = buildKey("", "frontMatteinfoBuffer",
+            "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_NEGEVIMG = buildKey("", "frontNegevimgBuffer",
+            "_BYTE_BASIC_ARRAY_");
     private static final String KEY_CALLBACK_CAPTURE_FILTER = buildKey("", "filterBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_REARDEPTHCONFIG = buildKey("", "rearDepthConfigBuffer", "_BYTE_BASIC_ARRAY_");
-    private static final String KEY_CALLBACK_CAPTURE_FRONTDEPTHCONFIG = buildKey("", "frontDepthConfigBuffer", "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_REARDEPTHCONFIG = buildKey("", "rearDepthConfigBuffer",
+            "_BYTE_BASIC_ARRAY_");
+    private static final String KEY_CALLBACK_CAPTURE_FRONTDEPTHCONFIG = buildKey("", "frontDepthConfigBuffer",
+            "_BYTE_BASIC_ARRAY_");
 
     APSClientCallback() {
     }
@@ -91,7 +107,8 @@ class APSClientCallback extends APSClientKeyBase {
         Object obj = map.get(KEY_SET_METADATA_REF_IMAGE);
         String string = getString(map, KEY_SET_METADATA_REF_PIPELINE_NAME);
         boolean z = getBoolean(map, KEY_SET_METADATA_REF_IS_INC);
-        ApsAdapterLog.i(TAG, "TRANSACTION_SET_METADATA_REF, imageObject: " + obj + ", pipelineName: " + string + ", isInc: " + z);
+        ApsAdapterLog.i(TAG,
+                "TRANSACTION_SET_METADATA_REF, imageObject: " + obj + ", pipelineName: " + string + ", isInc: " + z);
         if (obj == null || string == null) {
             return;
         }
@@ -216,12 +233,12 @@ class APSClientCallback extends APSClientKeyBase {
         ApsAdapterLog.w(TAG, "TRANSACTION_CLOSE_IMAGE,  imageBuffer: " + obj);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:14:0x0037  */
+    /* JADX WARN: Removed duplicated region for block: B:14:0x0037 */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     private static void processCheckoutObject(Map<String, Object> map, Map<String, Object> map2) {
-        boolean z;
+        boolean z = false;
         Object obj = map.get(KEY_CHECK_VALID_IMAGEBUFFER);
         if (obj instanceof ApsResult.ImageBuffer) {
             HardwareBuffer hardwareBuffer = ((ApsResult.ImageBuffer) obj).getHardwareBuffer();
