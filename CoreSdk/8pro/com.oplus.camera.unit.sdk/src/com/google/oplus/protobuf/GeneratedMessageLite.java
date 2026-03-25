@@ -452,25 +452,25 @@ public abstract class GeneratedMessageLite<MessageType extends GeneratedMessageL
          */
         private boolean parseExtension(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite,
                 GeneratedExtension<?, ?> generatedExtension, int i, int i2) throws IOException {
-            boolean z;
-            boolean z2;
+            boolean z = false;
+            boolean z2 = false;
             Object objBuild;
             MessageLite messageLite;
             int tagWireType = WireFormat.getTagWireType(i);
-            if (generatedExtension != null) {
-                if (tagWireType == FieldSet.getWireFormatForFieldType(generatedExtension.descriptor.getLiteType(),
-                        false)) {
-                    z = false;
-                    z2 = false;
-                } else if (generatedExtension.descriptor.isRepeated && generatedExtension.descriptor.type.isPackable()
-                        && tagWireType == FieldSet
-                                .getWireFormatForFieldType(generatedExtension.descriptor.getLiteType(), true)) {
-                    z = false;
-                    z2 = true;
-                } else {
-                    z2 = false;
-                    z = true;
-                }
+            if (generatedExtension == null) {
+                z = true;
+            } else if (tagWireType == FieldSet.getWireFormatForFieldType(generatedExtension.descriptor.getLiteType(),
+                    false)) {
+                z = false;
+                z2 = false;
+            } else if (generatedExtension.descriptor.isRepeated && generatedExtension.descriptor.type.isPackable()
+                    && tagWireType == FieldSet
+                            .getWireFormatForFieldType(generatedExtension.descriptor.getLiteType(), true)) {
+                z = false;
+                z2 = true;
+            } else {
+                z2 = false;
+                z = true;
             }
             if (z) {
                 return parseUnknownField(i, codedInputStream);
