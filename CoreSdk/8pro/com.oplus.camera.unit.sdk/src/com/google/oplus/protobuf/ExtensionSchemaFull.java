@@ -19,7 +19,12 @@ final class ExtensionSchemaFull extends ExtensionSchema<Descriptors.FieldDescrip
     }
 
     private static <T> long getExtensionsFieldOffset() {
-        return UnsafeUtil.objectFieldOffset(GeneratedMessageV3.ExtendableMessage.class.getDeclaredField("extensions"));
+        try {
+            return UnsafeUtil
+                    .objectFieldOffset(GeneratedMessageV3.ExtendableMessage.class.getDeclaredField("extensions"));
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override // com.google.oplus.protobuf.ExtensionSchema
