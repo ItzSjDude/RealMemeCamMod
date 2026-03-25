@@ -1,223 +1,202 @@
 package com.oplus.exif;
 
 import android.util.Log;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteOrder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-/* JADX INFO: loaded from: classes.dex */
+/**
+ * Main data structure for holding EXIF metadata, including IFDs,
+ * thumbnails, and uncompressed strip data.
+ */
 class OplusExifData {
     private static final String TAG = "ExifData";
-    private static final byte[] USER_COMMENT_ASCII = {65, 83, 67, 73, 73, 0, 0, 0};
-    private static final byte[] USER_COMMENT_JIS = {74, 73, 83, 0, 0, 0, 0, 0};
-    private static final byte[] USER_COMMENT_UNICODE = {85, 78, 73, 67, 79, 68, 69, 0};
-    private final ByteOrder mByteOrder;
-    private final OplusIfdData[] mIfdDatas = new OplusIfdData[5];
-    private ArrayList<byte[]> mStripBytes = new ArrayList<>();
-    private byte[] mThumbnail;
+
+    // EXIF Specs define specific 8-byte prefixes for UserComment
+    private static final byte[] USER_COMMENT_ASCII = { 65, 83, 67, 73, 73, 0, 0, 0 }; // "ASCII\0\0\0"
+    private static final byte[] USER_COMMENT_JIS = { 74, 73, 83, 0, 0, 0, 0, 0 }; // "JIS\0\0\0\0\0"
+    private static final byte[] USER_COMMENT_UNICODE = { 85, 78, 73, 67, 79, 68, 69, 0 }; // "UNICODE\0"
+
+    private final ByteOrder byteOrder;
+    private final OplusIfdData[] ifdDatas = new OplusIfdData[OplusExifTag.NUM_IFDS]; // Assume 5
+    private final ArrayList<byte[]> stripBytes = new ArrayList<>();
+    private byte[] thumbnail;
 
     OplusExifData(ByteOrder byteOrder) {
-        this.mByteOrder = byteOrder;
+        this.byteOrder = byteOrder;
     }
+
+    // --- Thumbnail & Strip Management ---
 
     protected byte[] getCompressedThumbnail() {
-        return this.mThumbnail;
+        return thumbnail;
     }
 
-    protected void setCompressedThumbnail(byte[] bArr) {
-        this.mThumbnail = bArr;
+    protected void setCompressedThumbnail(byte[] thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     protected boolean hasCompressedThumbnail() {
-        return this.mThumbnail != null;
+        return thumbnail != null;
     }
 
-    protected void setStripBytes(int i, byte[] bArr) {
-        if (i < this.mStripBytes.size()) {
-            this.mStripBytes.set(i, bArr);
-            return;
+    protected void setStripBytes(int index, byte[] bytes) {
+        // Ensure the list is large enough to accommodate the index
+        while (index >= stripBytes.size()) {
+            stripBytes.add(null);
         }
-        for (int size = this.mStripBytes.size(); size < i; size++) {
-            this.mStripBytes.add(null);
-        }
-        this.mStripBytes.add(bArr);
+        stripBytes.set(index, bytes);
     }
 
     protected int getStripCount() {
-        return this.mStripBytes.size();
+        return stripBytes.size();
     }
 
-    protected byte[] getStrip(int i) {
-        return this.mStripBytes.get(i);
+    protected byte[] getStrip(int index) {
+        return (index >= 0 && index < stripBytes.size()) ? stripBytes.get(index) : null;
     }
 
     protected boolean hasUncompressedStrip() {
-        return this.mStripBytes.size() != 0;
+        return !stripBytes.isEmpty();
     }
 
     protected ByteOrder getByteOrder() {
-        return this.mByteOrder;
+        return byteOrder;
     }
 
-    protected OplusIfdData getIfdData(int i) {
-        if (OplusExifTag.isValidIfd(i)) {
-            return this.mIfdDatas[i];
+    // --- IFD & Tag Management ---
+
+    protected OplusIfdData getIfdData(int ifdId) {
+        return OplusExifTag.isValidIfd(ifdId) ? ifdDatas[ifdId] : null;
+    }
+
+    protected void addIfdData(OplusIfdData data) {
+        if (data != null && OplusExifTag.isValidIfd(data.getId())) {
+            ifdDatas[data.getId()] = data;
+        }
+    }
+
+    protected OplusIfdData getOrCreateIfdData(int ifdId) {
+        if (!OplusExifTag.isValidIfd(ifdId))
+            return null;
+
+        OplusIfdData data = ifdDatas[ifdId];
+        if (data == null) {
+            data = new OplusIfdData(ifdId);
+            ifdDatas[ifdId] = data;
+        }
+        return data;
+    }
+
+    protected OplusExifTag getTag(short tagId, int ifdId) {
+        OplusIfdData data = ifdDatas[ifdId];
+        return (data != null) ? data.getTag(tagId) : null;
+    }
+
+    protected OplusExifTag addTag(OplusExifTag tag) {
+        return (tag != null) ? addTag(tag, tag.getIfd()) : null;
+    }
+
+    protected OplusExifTag addTag(OplusExifTag tag, int ifdId) {
+        if (tag != null && OplusExifTag.isValidIfd(ifdId)) {
+            return getOrCreateIfdData(ifdId).setTag(tag);
         }
         return null;
     }
 
-    protected void addIfdData(OplusIfdData oplusIfdData) {
-        this.mIfdDatas[oplusIfdData.getId()] = oplusIfdData;
-    }
-
-    protected OplusIfdData getOrCreateIfdData(int i) {
-        OplusIfdData oplusIfdData = this.mIfdDatas[i];
-        if (oplusIfdData != null) {
-            return oplusIfdData;
+    protected void removeTag(short tagId, int ifdId) {
+        OplusIfdData data = ifdDatas[ifdId];
+        if (data != null) {
+            data.removeTag(tagId);
         }
-        OplusIfdData oplusIfdData2 = new OplusIfdData(i);
-        this.mIfdDatas[i] = oplusIfdData2;
-        return oplusIfdData2;
-    }
-
-    protected OplusExifTag getTag(short s, int i) {
-        OplusIfdData oplusIfdData = this.mIfdDatas[i];
-        if (oplusIfdData == null) {
-            return null;
-        }
-        return oplusIfdData.getTag(s);
-    }
-
-    protected OplusExifTag addTag(OplusExifTag oplusExifTag) {
-        if (oplusExifTag != null) {
-            return addTag(oplusExifTag, oplusExifTag.getIfd());
-        }
-        return null;
-    }
-
-    protected OplusExifTag addTag(OplusExifTag oplusExifTag, int i) {
-        if (oplusExifTag == null || !OplusExifTag.isValidIfd(i)) {
-            return null;
-        }
-        return getOrCreateIfdData(i).setTag(oplusExifTag);
     }
 
     protected void clearThumbnailAndStrips() {
-        this.mThumbnail = null;
-        this.mStripBytes.clear();
+        thumbnail = null;
+        stripBytes.clear();
     }
 
     protected void removeThumbnailData() {
         clearThumbnailAndStrips();
-        this.mIfdDatas[1] = null;
+        ifdDatas[OplusExifTag.IFD_1] = null; // Usually IFD1 holds thumbnail info
     }
 
-    protected void removeTag(short s, int i) {
-        OplusIfdData oplusIfdData = this.mIfdDatas[i];
-        if (oplusIfdData == null) {
-            return;
-        }
-        oplusIfdData.removeTag(s);
-    }
+    // --- Specialized Data Retrieval ---
 
     protected String getUserComment() {
-        OplusExifTag tag;
-        OplusIfdData oplusIfdData = this.mIfdDatas[0];
-        if (oplusIfdData == null || (tag = oplusIfdData.getTag(OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_USER_COMMENT))) == null || tag.getComponentCount() < 8) {
+        OplusIfdData data = ifdDatas[OplusExifTag.IFD_0];
+        if (data == null)
             return null;
+
+        OplusExifTag tag = data.getTag((short) OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_USER_COMMENT));
+        if (tag == null || tag.getComponentCount() < 8)
+            return null;
+
+        byte[] rawBytes = new byte[tag.getComponentCount()];
+        tag.getBytes(rawBytes);
+
+        // Header check
+        byte[] header = Arrays.copyOfRange(rawBytes, 0, 8);
+        int dataLen = rawBytes.length - 8;
+
+        if (Arrays.equals(header, USER_COMMENT_ASCII)) {
+            return new String(rawBytes, 8, dataLen, StandardCharsets.US_ASCII);
+        } else if (Arrays.equals(header, USER_COMMENT_JIS)) {
+            return new String(rawBytes, 8, dataLen, Charset.forName("EUC-JP"));
+        } else if (Arrays.equals(header, USER_COMMENT_UNICODE)) {
+            return new String(rawBytes, 8, dataLen, StandardCharsets.UTF_16);
         }
-        int componentCount = tag.getComponentCount();
-        byte[] bArr = new byte[componentCount];
-        tag.getBytes(bArr);
-        byte[] bArr2 = new byte[8];
-        System.arraycopy(bArr, 0, bArr2, 0, 8);
-        try {
-            if (Arrays.equals(bArr2, USER_COMMENT_ASCII)) {
-                return new String(bArr, 8, componentCount - 8, "US-ASCII");
-            }
-            if (Arrays.equals(bArr2, USER_COMMENT_JIS)) {
-                return new String(bArr, 8, componentCount - 8, "EUC-JP");
-            }
-            if (Arrays.equals(bArr2, USER_COMMENT_UNICODE)) {
-                return new String(bArr, 8, componentCount - 8, "UTF-16");
-            }
-            return null;
-        } catch (UnsupportedEncodingException unused) {
-            Log.w(TAG, "Failed to decode the user comment");
-            return null;
-        }
+
+        return null;
     }
 
     protected List<OplusExifTag> getAllTags() {
-        OplusExifTag[] allTags;
-        ArrayList arrayList = new ArrayList();
-        for (OplusIfdData oplusIfdData : this.mIfdDatas) {
-            if (oplusIfdData != null && (allTags = oplusIfdData.getAllTags()) != null) {
-                for (OplusExifTag oplusExifTag : allTags) {
-                    arrayList.add(oplusExifTag);
+        List<OplusExifTag> result = new ArrayList<>();
+        for (OplusIfdData data : ifdDatas) {
+            if (data != null) {
+                OplusExifTag[] tags = data.getAllTags();
+                if (tags != null) {
+                    result.addAll(Arrays.asList(tags));
                 }
             }
         }
-        if (arrayList.size() == 0) {
-            return null;
-        }
-        return arrayList;
+        return result.isEmpty() ? null : result;
     }
 
-    protected List<OplusExifTag> getAllTagsForIfd(int i) {
-        OplusExifTag[] allTags;
-        OplusIfdData oplusIfdData = this.mIfdDatas[i];
-        if (oplusIfdData == null || (allTags = oplusIfdData.getAllTags()) == null) {
-            return null;
-        }
-        ArrayList arrayList = new ArrayList(allTags.length);
-        for (OplusExifTag oplusExifTag : allTags) {
-            arrayList.add(oplusExifTag);
-        }
-        if (arrayList.size() == 0) {
-            return null;
-        }
-        return arrayList;
-    }
+    // --- Object Boilerplate ---
 
-    protected List<OplusExifTag> getAllTagsForTagId(short s) {
-        OplusExifTag tag;
-        ArrayList arrayList = new ArrayList();
-        for (OplusIfdData oplusIfdData : this.mIfdDatas) {
-            if (oplusIfdData != null && (tag = oplusIfdData.getTag(s)) != null) {
-                arrayList.add(tag);
-            }
-        }
-        if (arrayList.size() == 0) {
-            return null;
-        }
-        return arrayList;
-    }
-
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
             return true;
+        if (!(o instanceof OplusExifData))
+            return false;
+        OplusExifData that = (OplusExifData) o;
+
+        if (byteOrder != that.byteOrder || !Arrays.equals(thumbnail, that.thumbnail)) {
+            return false;
         }
-        if (obj != null && (obj instanceof OplusExifData)) {
-            OplusExifData oplusExifData = (OplusExifData) obj;
-            if (oplusExifData.mByteOrder == this.mByteOrder && oplusExifData.mStripBytes.size() == this.mStripBytes.size() && Arrays.equals(oplusExifData.mThumbnail, this.mThumbnail)) {
-                for (int i = 0; i < this.mStripBytes.size(); i++) {
-                    if (!Arrays.equals(oplusExifData.mStripBytes.get(i), this.mStripBytes.get(i))) {
-                        return false;
-                    }
-                }
-                for (int i2 = 0; i2 < 5; i2++) {
-                    OplusIfdData ifdData = oplusExifData.getIfdData(i2);
-                    OplusIfdData ifdData2 = getIfdData(i2);
-                    if (ifdData != ifdData2 && ifdData != null && !ifdData.equals(ifdData2)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
+
+        if (stripBytes.size() != that.stripBytes.size())
+            return false;
+        for (int i = 0; i < stripBytes.size(); i++) {
+            if (!Arrays.equals(stripBytes.get(i), that.stripBytes.get(i)))
+                return false;
         }
-        return false;
+
+        return Arrays.equals(ifdDatas, that.ifdDatas);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(byteOrder, stripBytes);
+        result = 31 * result + Arrays.hashCode(ifdDatas);
+        result = 31 * result + Arrays.hashCode(thumbnail);
+        return result;
     }
 }

@@ -1,6 +1,5 @@
 package com.oplus.exif;
 
-import com.oplus.exif.OplusExifInterface;
 import java.io.EOFException;
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -8,117 +7,127 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
-/* JADX INFO: loaded from: classes.dex */
-class OplusCountedDataInputStream extends FilterInputStream {
-    static final /* synthetic */ boolean $assertionsDisabled = false;
-    private final byte[] mByteArray;
-    private final ByteBuffer mByteBuffer;
-    private int mCount;
+/**
+ * A FilterInputStream that maintains a count of bytes read and provides
+ * utility methods for reading primitives with specific byte ordering.
+ */
+public class OplusCountedDataInputStream extends FilterInputStream {
 
-    protected OplusCountedDataInputStream(InputStream inputStream) {
-        super(inputStream);
-        this.mCount = 0;
-        byte[] bArr = new byte[8];
-        this.mByteArray = bArr;
-        this.mByteBuffer = ByteBuffer.wrap(bArr);
+    private final byte[] scratchBuffer = new byte[8];
+    private final ByteBuffer byteBuffer = ByteBuffer.wrap(scratchBuffer);
+    private int bytesReadCount = 0;
+
+    public OplusCountedDataInputStream(InputStream in) {
+        super(Objects.requireNonNull(in, "InputStream cannot be null"));
     }
 
     public int getReadByteCount() {
-        return this.mCount;
+        return bytesReadCount;
     }
 
-    @Override // java.io.FilterInputStream, java.io.InputStream
-    public int read(byte[] bArr) throws IOException {
-        int i = this.in.read(bArr);
-        this.mCount += i >= 0 ? i : 0;
-        return i;
-    }
-
-    @Override // java.io.FilterInputStream, java.io.InputStream
-    public int read(byte[] bArr, int i, int i2) throws IOException {
-        int i3 = this.in.read(bArr, i, i2);
-        this.mCount += i3 >= 0 ? i3 : 0;
-        return i3;
-    }
-
-    @Override // java.io.FilterInputStream, java.io.InputStream
+    @Override
     public int read() throws IOException {
-        int i = this.in.read();
-        this.mCount += i >= 0 ? 1 : 0;
-        return i;
+        int result = in.read();
+        if (result >= 0) {
+            bytesReadCount++;
+        }
+        return result;
     }
 
-    @Override // java.io.FilterInputStream, java.io.InputStream
-    public long skip(long j) throws IOException {
-        long jSkip = this.in.skip(j);
-        this.mCount = (int) (((long) this.mCount) + jSkip);
-        return jSkip;
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        int result = in.read(b, off, len);
+        if (result > 0) {
+            bytesReadCount += result;
+        }
+        return result;
     }
 
-    public void skipOrThrow(long j) throws IOException {
-        if (skip(j) != j) {
-            throw new EOFException();
+    @Override
+    public long skip(long n) throws IOException {
+        long skipped = in.skip(n);
+        bytesReadCount += (int) skipped;
+        return skipped;
+    }
+
+    // --- Utility Navigation Methods ---
+
+    public void skipOrThrow(long n) throws IOException {
+        if (n <= 0)
+            return;
+        if (skip(n) != n) {
+            throw new EOFException("Reached end of stream before skipping " + n + " bytes");
         }
     }
 
-    public void skipTo(long j) throws IOException {
-        skipOrThrow(j - ((long) this.mCount));
+    public void skipTo(long targetPosition) throws IOException {
+        long amountToSkip = targetPosition - bytesReadCount;
+        if (amountToSkip < 0) {
+            throw new IOException("Cannot skip backward: current=" + bytesReadCount + ", target=" + targetPosition);
+        }
+        skipOrThrow(amountToSkip);
     }
 
-    public void readOrThrow(byte[] bArr, int i, int i2) throws IOException {
-        if (read(bArr, i, i2) != i2) {
-            throw new EOFException();
+    public void readOrThrow(byte[] b, int off, int len) throws IOException {
+        int totalRead = 0;
+        while (totalRead < len) {
+            int result = read(b, off + totalRead, len - totalRead);
+            if (result == -1) {
+                throw new EOFException("Reached end of stream. Expected " + len + " bytes, but only read " + totalRead);
+            }
+            totalRead += result;
         }
     }
 
-    public void readOrThrow(byte[] bArr) throws IOException {
-        readOrThrow(bArr, 0, bArr.length);
+    public void readOrThrow(byte[] b) throws IOException {
+        readOrThrow(b, 0, b.length);
     }
+
+    // --- Byte Order & Primitive Reading ---
 
     public void setByteOrder(ByteOrder byteOrder) {
-        this.mByteBuffer.order(byteOrder);
+        byteBuffer.order(byteOrder);
     }
 
     public ByteOrder getByteOrder() {
-        return this.mByteBuffer.order();
+        return byteBuffer.order();
     }
 
     public short readShort() throws IOException {
-        readOrThrow(this.mByteArray, 0, 2);
-        this.mByteBuffer.rewind();
-        return this.mByteBuffer.getShort();
+        readOrThrow(scratchBuffer, 0, 2);
+        return byteBuffer.getShort(0); // Using index avoids needing rewind()
     }
 
     public int readUnsignedShort() throws IOException {
-        return readShort() & OplusExifInterface.ColorSpace.UNCALIBRATED;
+        return readShort() & 0xFFFF;
     }
 
     public int readInt() throws IOException {
-        readOrThrow(this.mByteArray, 0, 4);
-        this.mByteBuffer.rewind();
-        return this.mByteBuffer.getInt();
+        readOrThrow(scratchBuffer, 0, 4);
+        return byteBuffer.getInt(0);
     }
 
     public long readUnsignedInt() throws IOException {
-        return ((long) readInt()) & 4294967295L;
+        return readInt() & 0xFFFFFFFFL;
     }
 
     public long readLong() throws IOException {
-        readOrThrow(this.mByteArray, 0, 8);
-        this.mByteBuffer.rewind();
-        return this.mByteBuffer.getLong();
+        readOrThrow(scratchBuffer, 0, 8);
+        return byteBuffer.getLong(0);
     }
 
-    public String readString(int i) throws IOException {
-        byte[] bArr = new byte[i];
-        readOrThrow(bArr);
-        return new String(bArr, "UTF8");
+    // --- String Reading ---
+
+    public String readString(int length) throws IOException {
+        return readString(length, StandardCharsets.UTF_8);
     }
 
-    public String readString(int i, Charset charset) throws IOException {
-        byte[] bArr = new byte[i];
-        readOrThrow(bArr);
-        return new String(bArr, charset);
+    public String readString(int length, Charset charset) throws IOException {
+        byte[] b = new byte[length];
+        readOrThrow(b);
+        return new String(b, charset);
     }
 }

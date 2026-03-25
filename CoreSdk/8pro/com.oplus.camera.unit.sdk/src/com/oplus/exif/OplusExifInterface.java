@@ -750,7 +750,7 @@ public class OplusExifInterface {
         }
     }
 
-    public boolean rewriteExif(ByteBuffer byteBuffer, Collection<OplusExifTag> collection) throws IOException {
+    public boolean rewriteExif(ByteBuffer byteBuffer, Collection<OplusExifTag> collection) throws Exception {
         try {
             OplusExifModifier oplusExifModifier = new OplusExifModifier(byteBuffer, this);
             Iterator<OplusExifTag> it = collection.iterator();
