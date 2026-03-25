@@ -1161,7 +1161,7 @@ abstract class BinaryReader implements Reader {
                 while (true) {
                     int fieldNumber = getFieldNumber();
                     if (fieldNumber == Integer.MAX_VALUE) {
-                        map.put(field, field2);
+                        map.put((K) field, (V) field2);
                         return;
                     }
                     if (fieldNumber == 1) {

@@ -564,8 +564,8 @@ public final class PluginProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -1360,8 +1360,8 @@ public final class PluginProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -2643,8 +2643,8 @@ public final class PluginProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -3393,8 +3393,8 @@ public final class PluginProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */

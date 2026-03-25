@@ -599,8 +599,8 @@ public final class Type extends GeneratedMessageV3 implements TypeOrBuilder {
         /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* JADX INFO: renamed from: clone */
-        public Builder mo0clone() {
-            return (Builder) super.mo0clone();
+        public Builder clone() {
+            return (Builder) super.clone();
         }
 
         /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -728,38 +728,20 @@ public final class Type extends GeneratedMessageV3 implements TypeOrBuilder {
         /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
-        public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
-            Type type = null;
+        @Override
+        public Builder mergeFrom(CodedInputStream input, ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+            Type parsedMessage = null;
             try {
-                try {
-                    Type type2 = (Type) Type.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
-                    if (type2 != null) {
-                        mergeFrom(type2);
-                    }
-                    return this;
-                } catch (InvalidProtocolBufferException e) {
-                    Type type3 = (Type) e.getUnfinishedMessage();
-                    try {
-                        throw e.unwrapIOException();
-                    } catch (Throwable th) {
-                        th = th;
-                        type = type3;
-                        if (type != null) {
-                        }
-                        throw th;
-                    }
+                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (InvalidProtocolBufferException e) {
+                parsedMessage = (Type) e.getUnfinishedMessage();
+                throw e.unwrapIOException();
+            } finally {
+                if (parsedMessage != null) {
+                    mergeFrom(parsedMessage);
                 }
-            } catch (Throwable th2) {
-                th = th2;
-                if (type != null) {
-                    mergeFrom(type);
-                }
-                throw th;
             }
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.TypeOrBuilder

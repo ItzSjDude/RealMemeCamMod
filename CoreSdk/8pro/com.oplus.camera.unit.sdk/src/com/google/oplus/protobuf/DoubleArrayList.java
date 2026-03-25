@@ -220,7 +220,7 @@ final class DoubleArrayList extends AbstractProtobufList<Double> implements Inte
         double[] dArr = this.array;
         double d = dArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(dArr, i + 1, dArr, i, (r3 - i) - 1);
+            System.arraycopy(dArr, i + 1, dArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

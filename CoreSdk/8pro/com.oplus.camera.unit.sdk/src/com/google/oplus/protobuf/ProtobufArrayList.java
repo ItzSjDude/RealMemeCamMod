@@ -88,7 +88,7 @@ final class ProtobufArrayList<E> extends AbstractProtobufList<E> implements Rand
         E[] eArr = this.array;
         E e = eArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(eArr, i + 1, eArr, i, (r2 - i) - 1);
+            System.arraycopy(eArr, i + 1, eArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

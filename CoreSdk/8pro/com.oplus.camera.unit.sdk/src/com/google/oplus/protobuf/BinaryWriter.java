@@ -2560,13 +2560,13 @@ abstract class BinaryWriter extends ByteOutput implements Writer {
         private void writeVarint32ThreeBytes(int i) {
             int i2 = this.pos - 3;
             this.pos = i2;
-            this.buffer.putInt(i2, (((i & 127) | 128) << 8) | ((2080768 & i) << 10) | (((i & 16256) | OplusExifTag.EXIF_TAG_AI_ID_PHOTO) << 9));
+            this.buffer.putInt(i2, (((i & 127) | 128) << 8) | ((2080768 & i) << 10) | (((i & 16256) | 16384) << 9));
         }
 
         private void writeVarint32FourBytes(int i) {
             int i2 = this.pos - 4;
             this.pos = i2;
-            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2) | (((i & 16256) | OplusExifTag.EXIF_TAG_AI_ID_PHOTO) << 1));
+            this.buffer.putInt(i2 + 1, (i & 127) | 128 | ((266338304 & i) << 3) | (((2080768 & i) | 2097152) << 2) | (((i & 16256) | 16384) << 1));
         }
 
         private void writeVarint32FiveBytes(int i) {

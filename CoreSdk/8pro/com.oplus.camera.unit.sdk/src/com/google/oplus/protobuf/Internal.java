@@ -27,10 +27,20 @@ public final class Internal {
 
         boolean getBoolean(int i);
 
-        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
-        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$BooleanList' to match base method */
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
-        /* JADX INFO: renamed from: mutableCopyWithCapacity, reason: merged with bridge method [inline-methods] */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList;
+         */
+        /*
+         * JADX DEBUG: Return type fixed from
+         * 'com.google.oplus.protobuf.Internal$BooleanList' to match base method
+         */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
+        /*
+         * JADX INFO: renamed from: mutableCopyWithCapacity, reason: merged with bridge
+         * method [inline-methods]
+         */
         ProtobufList<Boolean> mutableCopyWithCapacity2(int i);
 
         boolean setBoolean(int i, boolean z);
@@ -41,9 +51,16 @@ public final class Internal {
 
         double getDouble(int i);
 
-        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
-        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$DoubleList' to match base method */
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList;
+         */
+        /*
+         * JADX DEBUG: Return type fixed from
+         * 'com.google.oplus.protobuf.Internal$DoubleList' to match base method
+         */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* JADX INFO: renamed from: mutableCopyWithCapacity */
         ProtobufList<Double> mutableCopyWithCapacity2(int i);
 
@@ -67,9 +84,16 @@ public final class Internal {
 
         float getFloat(int i);
 
-        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
-        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$FloatList' to match base method */
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList;
+         */
+        /*
+         * JADX DEBUG: Return type fixed from
+         * 'com.google.oplus.protobuf.Internal$FloatList' to match base method
+         */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* JADX INFO: renamed from: mutableCopyWithCapacity */
         ProtobufList<Float> mutableCopyWithCapacity2(int i);
 
@@ -81,9 +105,16 @@ public final class Internal {
 
         int getInt(int i);
 
-        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
-        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$IntList' to match base method */
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList;
+         */
+        /*
+         * JADX DEBUG: Return type fixed from
+         * 'com.google.oplus.protobuf.Internal$IntList' to match base method
+         */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* JADX INFO: renamed from: mutableCopyWithCapacity */
         ProtobufList<Integer> mutableCopyWithCapacity2(int i);
 
@@ -95,9 +126,16 @@ public final class Internal {
 
         long getLong(int i);
 
-        /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
-        /* JADX DEBUG: Return type fixed from 'com.google.oplus.protobuf.Internal$LongList' to match base method */
-        @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList;
+         */
+        /*
+         * JADX DEBUG: Return type fixed from
+         * 'com.google.oplus.protobuf.Internal$LongList' to match base method
+         */
+        @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+                  // com.google.oplus.protobuf.Internal.BooleanList
         /* JADX INFO: renamed from: mutableCopyWithCapacity */
         ProtobufList<Long> mutableCopyWithCapacity2(int i);
 
@@ -267,7 +305,8 @@ public final class Internal {
 
     public static int hashCodeByteBuffer(ByteBuffer byteBuffer) {
         if (byteBuffer.hasArray()) {
-            int iPartialHash = partialHash(byteBuffer.capacity(), byteBuffer.array(), byteBuffer.arrayOffset(), byteBuffer.capacity());
+            int iPartialHash = partialHash(byteBuffer.capacity(), byteBuffer.array(), byteBuffer.arrayOffset(),
+                    byteBuffer.capacity());
             if (iPartialHash == 0) {
                 return 1;
             }
@@ -336,20 +375,31 @@ public final class Internal {
             B doForward(A a);
         }
 
-        public static <T extends EnumLite> Converter<Integer, T> newEnumConverter(final EnumLiteMap<T> enumLiteMap, final T t) {
-            return (Converter<Integer, T>) new Converter<Integer, T>() { // from class: com.google.oplus.protobuf.Internal.MapAdapter.1
-                /* JADX DEBUG: Method merged with bridge method: doForward(Ljava/lang/Object;)Ljava/lang/Object; */
-                /* JADX WARN: Incorrect return type in method signature: (Ljava/lang/Integer;)TT; */
+        public static <T extends EnumLite> Converter<Integer, T> newEnumConverter(final EnumLiteMap<T> enumLiteMap,
+                final T t) {
+            return (Converter<Integer, T>) new Converter<Integer, T>() { // from class:
+                                                                         // com.google.oplus.protobuf.Internal.MapAdapter.1
+                /*
+                 * JADX DEBUG: Method merged with bridge method:
+                 * doForward(Ljava/lang/Object;)Ljava/lang/Object;
+                 */
+                /*
+                 * JADX WARN: Incorrect return type in method signature:
+                 * (Ljava/lang/Integer;)TT;
+                 */
                 @Override // com.google.oplus.protobuf.Internal.MapAdapter.Converter
-                public EnumLite doForward(Integer num) {
-                    EnumLite enumLiteFindValueByNumber = enumLiteMap.findValueByNumber(num.intValue());
+                public T doForward(Integer num) {
+                    T enumLiteFindValueByNumber = enumLiteMap.findValueByNumber(num.intValue());
                     return enumLiteFindValueByNumber == null ? t : enumLiteFindValueByNumber;
                 }
 
-                /* JADX DEBUG: Method merged with bridge method: doBackward(Ljava/lang/Object;)Ljava/lang/Object; */
+                /*
+                 * JADX DEBUG: Method merged with bridge method:
+                 * doBackward(Ljava/lang/Object;)Ljava/lang/Object;
+                 */
                 /* JADX WARN: Incorrect types in method signature: (TT;)Ljava/lang/Integer; */
                 @Override // com.google.oplus.protobuf.Internal.MapAdapter.Converter
-                public Integer doBackward(EnumLite enumLite) {
+                public Integer doBackward(T enumLite) {
                     return Integer.valueOf(enumLite.getNumber());
                 }
             };
@@ -391,7 +441,8 @@ public final class Internal {
                 this.realSet = set;
             }
 
-            @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, java.util.Set
+            @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable,
+                      // java.util.Set
             public Iterator<Map.Entry<K, V>> iterator() {
                 return new IteratorAdapter(this.realSet.iterator());
             }

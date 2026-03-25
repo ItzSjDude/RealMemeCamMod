@@ -271,7 +271,7 @@ public final class UnknownFieldSet implements MessageLite {
         /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
         /* JADX INFO: renamed from: clone, reason: merged with bridge method [inline-methods] */
-        public Builder m2clone() {
+        public Builder clone() {
             getFieldBuilder(0);
             return UnknownFieldSet.newBuilder().mergeFrom(new UnknownFieldSet(this.fields, Collections.unmodifiableMap(((TreeMap) this.fields).descendingMap())));
         }

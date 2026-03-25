@@ -14,32 +14,38 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
     private static final LazyStringArrayList EMPTY_LIST;
     private final List<Object> list;
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.Collection, java.util.List
     public /* bridge */ /* synthetic */ boolean equals(Object obj) {
         return super.equals(obj);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.Collection, java.util.List
     public /* bridge */ /* synthetic */ int hashCode() {
         return super.hashCode();
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, com.google.oplus.protobuf.Internal.ProtobufList
+    @Override // com.google.oplus.protobuf.AbstractProtobufList,
+              // com.google.oplus.protobuf.Internal.ProtobufList
     public /* bridge */ /* synthetic */ boolean isModifiable() {
         return super.isModifiable();
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection,
+              // java.util.Collection, java.util.List
     public /* bridge */ /* synthetic */ boolean remove(Object obj) {
         return super.remove(obj);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection,
+              // java.util.Collection, java.util.List
     public /* bridge */ /* synthetic */ boolean removeAll(Collection collection) {
         return super.removeAll(collection);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection,
+              // java.util.Collection, java.util.List
     public /* bridge */ /* synthetic */ boolean retainAll(Collection collection) {
         return super.retainAll(collection);
     }
@@ -76,8 +82,12 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         this.list = arrayList;
     }
 
-    /* JADX DEBUG: Method merged with bridge method: mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList; */
-    @Override // com.google.oplus.protobuf.Internal.ProtobufList, com.google.oplus.protobuf.Internal.BooleanList
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * mutableCopyWithCapacity(I)Lcom/google/oplus/protobuf/Internal$ProtobufList;
+     */
+    @Override // com.google.oplus.protobuf.Internal.ProtobufList,
+              // com.google.oplus.protobuf.Internal.BooleanList
     /* JADX INFO: renamed from: mutableCopyWithCapacity */
     public LazyStringArrayList mutableCopyWithCapacity2(int i) {
         if (i < size()) {
@@ -116,15 +126,20 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         return this.list.size();
     }
 
-    /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * set(ILjava/lang/Object;)Ljava/lang/Object;
+     */
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public String set(int i, String str) {
         ensureIsMutable();
         return asString(this.list.set(i, str));
     }
 
     /* JADX DEBUG: Method merged with bridge method: add(ILjava/lang/Object;)V */
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public void add(int i, String str) {
         ensureIsMutable();
         this.list.add(i, str);
@@ -145,16 +160,20 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         this.modCount++;
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractCollection,
+              // java.util.Collection, java.util.List
     public boolean addAll(Collection<? extends String> collection) {
         return addAll(size(), collection);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public boolean addAll(int i, Collection<? extends String> collection) {
         ensureIsMutable();
         if (collection instanceof LazyStringList) {
-            collection = ((LazyStringList) collection).getUnderlyingElements();
+            boolean zAddAll = this.list.addAll(i, ((LazyStringList) collection).getUnderlyingElements());
+            this.modCount++;
+            return zAddAll;
         }
         boolean zAddAll = this.list.addAll(i, collection);
         this.modCount++;
@@ -178,7 +197,8 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
     }
 
     /* JADX DEBUG: Method merged with bridge method: remove(I)Ljava/lang/Object; */
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.List
     public String remove(int i) {
         ensureIsMutable();
         Object objRemove = this.list.remove(i);
@@ -186,7 +206,8 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         return asString(objRemove);
     }
 
-    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList, java.util.AbstractCollection, java.util.Collection, java.util.List
+    @Override // com.google.oplus.protobuf.AbstractProtobufList, java.util.AbstractList,
+              // java.util.AbstractCollection, java.util.Collection, java.util.List
     public void clear() {
         ensureIsMutable();
         this.list.clear();
@@ -222,7 +243,10 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
         return byteStringAsByteString;
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v0, resolved type: byte[] */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v0, resolved type:
+     * byte[]
+     */
     /* JADX WARN: Multi-variable type inference failed */
     @Override // com.google.oplus.protobuf.LazyStringList
     public byte[] getByteArray(int i) {
@@ -324,7 +348,10 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             return this.list.size();
         }
 
-        /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * set(ILjava/lang/Object;)Ljava/lang/Object;
+         */
         @Override // java.util.AbstractList, java.util.List
         public byte[] set(int i, byte[] bArr) {
             Object andReturn = this.list.setAndReturn(i, bArr);
@@ -371,7 +398,10 @@ public class LazyStringArrayList extends AbstractProtobufList<String> implements
             return this.list.size();
         }
 
-        /* JADX DEBUG: Method merged with bridge method: set(ILjava/lang/Object;)Ljava/lang/Object; */
+        /*
+         * JADX DEBUG: Method merged with bridge method:
+         * set(ILjava/lang/Object;)Ljava/lang/Object;
+         */
         @Override // java.util.AbstractList, java.util.List
         public ByteString set(int i, ByteString byteString) {
             Object andReturn = this.list.setAndReturn(i, byteString);

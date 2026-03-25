@@ -43,11 +43,14 @@ public class MapField<K, V> implements MutabilityOracle {
             return this.defaultEntry.newBuilderForType().setKey(k).setValue(v).buildPartial();
         }
 
-        /* JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type: java.util.Map<K, V> */
+        /*
+         * JADX DEBUG: Multi-variable search result rejected for r2v0, resolved type:
+         * java.util.Map<K, V>
+         */
         /* JADX WARN: Multi-variable type inference failed */
         @Override // com.google.oplus.protobuf.MapField.Converter
         public void convertMessageToKeyAndValue(Message message, Map<K, V> map) {
-            MapEntry mapEntry = (MapEntry) message;
+            MapEntry<K, V> mapEntry = (MapEntry<K, V>) message;
             map.put(mapEntry.getKey(), mapEntry.getValue());
         }
 

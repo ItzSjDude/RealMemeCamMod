@@ -298,8 +298,8 @@ public final class UInt64Value extends GeneratedMessageV3 implements UInt64Value
         /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* JADX INFO: renamed from: clone */
-        public Builder mo0clone() {
-            return (Builder) super.mo0clone();
+        public Builder clone() {
+            return (Builder) super.clone();
         }
 
         /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -366,38 +366,20 @@ public final class UInt64Value extends GeneratedMessageV3 implements UInt64Value
         /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
-        public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
-            UInt64Value uInt64Value = null;
+        @Override
+        public Builder mergeFrom(CodedInputStream input, ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+            UInt64Value parsedMessage = null;
             try {
-                try {
-                    UInt64Value uInt64Value2 = (UInt64Value) UInt64Value.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
-                    if (uInt64Value2 != null) {
-                        mergeFrom(uInt64Value2);
-                    }
-                    return this;
-                } catch (InvalidProtocolBufferException e) {
-                    UInt64Value uInt64Value3 = (UInt64Value) e.getUnfinishedMessage();
-                    try {
-                        throw e.unwrapIOException();
-                    } catch (Throwable th) {
-                        th = th;
-                        uInt64Value = uInt64Value3;
-                        if (uInt64Value != null) {
-                        }
-                        throw th;
-                    }
+                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (InvalidProtocolBufferException e) {
+                parsedMessage = (UInt64Value) e.getUnfinishedMessage();
+                throw e.unwrapIOException();
+            } finally {
+                if (parsedMessage != null) {
+                    mergeFrom(parsedMessage);
                 }
-            } catch (Throwable th2) {
-                th = th2;
-                if (uInt64Value != null) {
-                    mergeFrom(uInt64Value);
-                }
-                throw th;
             }
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.UInt64ValueOrBuilder

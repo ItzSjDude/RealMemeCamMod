@@ -416,8 +416,8 @@ public final class EnumValue extends GeneratedMessageV3 implements EnumValueOrBu
         /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* JADX INFO: renamed from: clone */
-        public Builder mo0clone() {
-            return (Builder) super.mo0clone();
+        public Builder clone() {
+            return (Builder) super.clone();
         }
 
         /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -510,38 +510,20 @@ public final class EnumValue extends GeneratedMessageV3 implements EnumValueOrBu
         /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/Message$Builder; */
         /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/CodedInputStream;Lcom/google/oplus/protobuf/ExtensionRegistryLite;)Lcom/google/oplus/protobuf/MessageLite$Builder; */
         /* JADX WARN: Removed duplicated region for block: B:16:0x0023  */
-        @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder, com.google.oplus.protobuf.MessageLite.Builder, com.google.oplus.protobuf.Message.Builder
-        /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
-        public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
-            EnumValue enumValue = null;
+        @Override
+        public Builder mergeFrom(CodedInputStream input, ExtensionRegistryLite extensionRegistry) throws java.io.IOException {
+            EnumValue parsedMessage = null;
             try {
-                try {
-                    EnumValue enumValue2 = (EnumValue) EnumValue.PARSER.parsePartialFrom(codedInputStream, extensionRegistryLite);
-                    if (enumValue2 != null) {
-                        mergeFrom(enumValue2);
-                    }
-                    return this;
-                } catch (InvalidProtocolBufferException e) {
-                    EnumValue enumValue3 = (EnumValue) e.getUnfinishedMessage();
-                    try {
-                        throw e.unwrapIOException();
-                    } catch (Throwable th) {
-                        th = th;
-                        enumValue = enumValue3;
-                        if (enumValue != null) {
-                        }
-                        throw th;
-                    }
+                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (InvalidProtocolBufferException e) {
+                parsedMessage = (EnumValue) e.getUnfinishedMessage();
+                throw e.unwrapIOException();
+            } finally {
+                if (parsedMessage != null) {
+                    mergeFrom(parsedMessage);
                 }
-            } catch (Throwable th2) {
-                th = th2;
-                if (enumValue != null) {
-                    mergeFrom(enumValue);
-                }
-                throw th;
             }
+            return this;
         }
 
         @Override // com.google.oplus.protobuf.EnumValueOrBuilder

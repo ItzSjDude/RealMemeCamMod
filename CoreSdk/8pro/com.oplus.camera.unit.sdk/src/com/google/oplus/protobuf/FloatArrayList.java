@@ -220,7 +220,7 @@ final class FloatArrayList extends AbstractProtobufList<Float> implements Intern
         float[] fArr = this.array;
         float f = fArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(fArr, i + 1, fArr, i, (r2 - i) - 1);
+            System.arraycopy(fArr, i + 1, fArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

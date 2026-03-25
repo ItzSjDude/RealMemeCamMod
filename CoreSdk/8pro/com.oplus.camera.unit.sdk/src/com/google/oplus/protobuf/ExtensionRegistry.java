@@ -25,7 +25,10 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         return EMPTY_REGISTRY;
     }
 
-    /* JADX DEBUG: Method merged with bridge method: getUnmodifiable()Lcom/google/oplus/protobuf/ExtensionRegistryLite; */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * getUnmodifiable()Lcom/google/oplus/protobuf/ExtensionRegistryLite;
+     */
     @Override // com.google.oplus.protobuf.ExtensionRegistryLite
     public ExtensionRegistry getUnmodifiable() {
         return new ExtensionRegistry(this);
@@ -35,8 +38,19 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         public final Message defaultInstance;
         public final Descriptors.FieldDescriptor descriptor;
 
-        /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONSTRUCTOR (r1v0 com.google.oplus.protobuf.Descriptors$FieldDescriptor), (r2v0 com.google.oplus.protobuf.Message) A[MD:(com.google.oplus.protobuf.Descriptors$FieldDescriptor, com.google.oplus.protobuf.Message):void (m)] (LINE:110) call: com.google.oplus.protobuf.ExtensionRegistry.ExtensionInfo.<init>(com.google.oplus.protobuf.Descriptors$FieldDescriptor, com.google.oplus.protobuf.Message):void type: THIS */
-        /* synthetic */ ExtensionInfo(Descriptors.FieldDescriptor fieldDescriptor, Message message, AnonymousClass1 anonymousClass1) {
+        /*
+         * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+         * 0x0000: CONSTRUCTOR (r1v0
+         * com.google.oplus.protobuf.Descriptors$FieldDescriptor), (r2v0
+         * com.google.oplus.protobuf.Message)
+         * A[MD:(com.google.oplus.protobuf.Descriptors$FieldDescriptor,
+         * com.google.oplus.protobuf.Message):void (m)] (LINE:110) call:
+         * com.google.oplus.protobuf.ExtensionRegistry.ExtensionInfo.<init>(com.google.
+         * oplus.protobuf.Descriptors$FieldDescriptor,
+         * com.google.oplus.protobuf.Message):void type: THIS
+         */
+        /* synthetic */ ExtensionInfo(Descriptors.FieldDescriptor fieldDescriptor, Message message,
+                AnonymousClass1 anonymousClass1) {
             this(fieldDescriptor, message);
         }
 
@@ -98,7 +112,8 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
     }
 
     public void add(Extension<?, ?> extension) {
-        if (extension.getExtensionType() == Extension.ExtensionType.IMMUTABLE || extension.getExtensionType() == Extension.ExtensionType.MUTABLE) {
+        if (extension.getExtensionType() == Extension.ExtensionType.IMMUTABLE
+                || extension.getExtensionType() == Extension.ExtensionType.MUTABLE) {
             add(newExtensionInfo(extension), extension.getExtensionType());
         }
     }
@@ -107,36 +122,45 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         add((Extension<?, ?>) generatedExtension);
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r2v1, resolved type: java.lang.Object[] */
-    /* JADX DEBUG: Multi-variable search result rejected for r2v2, resolved type: java.lang.Object[] */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r2v1, resolved type:
+     * java.lang.Object[]
+     */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r2v2, resolved type:
+     * java.lang.Object[]
+     */
     /* JADX WARN: Multi-variable type inference failed */
     static ExtensionInfo newExtensionInfo(Extension<?, ?> extension) {
-        AnonymousClass1 anonymousClass1 = null;
-        Object[] objArr = 0;
-        Object[] objArr2 = 0;
         if (extension.getDescriptor().getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
             if (extension.getMessageDefaultInstance() == null) {
-                throw new IllegalStateException("Registered message-type extension had null default instance: " + extension.getDescriptor().getFullName());
+                throw new IllegalStateException("Registered message-type extension had null default instance: "
+                        + extension.getDescriptor().getFullName());
             }
-            return new ExtensionInfo(extension.getDescriptor(), extension.getMessageDefaultInstance(), anonymousClass1);
+            return new ExtensionInfo(extension.getDescriptor(), (Message) extension.getMessageDefaultInstance());
         }
-        return new ExtensionInfo(extension.getDescriptor(), objArr2 == true ? 1 : 0, objArr == true ? 1 : 0);
+        return new ExtensionInfo(extension.getDescriptor());
     }
 
-    /* JADX DEBUG: Multi-variable search result rejected for r1v2, resolved type: java.lang.Object[] */
+    /*
+     * JADX DEBUG: Multi-variable search result rejected for r1v2, resolved type:
+     * java.lang.Object[]
+     */
     /* JADX WARN: Multi-variable type inference failed */
     public void add(Descriptors.FieldDescriptor fieldDescriptor) {
         if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-            throw new IllegalArgumentException("ExtensionRegistry.add() must be provided a default instance when adding an embedded message extension.");
+            throw new IllegalArgumentException(
+                    "ExtensionRegistry.add() must be provided a default instance when adding an embedded message extension.");
         }
-        ExtensionInfo extensionInfo = new ExtensionInfo(fieldDescriptor, null, 0 == true ? 1 : 0);
+        ExtensionInfo extensionInfo = new ExtensionInfo(fieldDescriptor);
         add(extensionInfo, Extension.ExtensionType.IMMUTABLE);
         add(extensionInfo, Extension.ExtensionType.MUTABLE);
     }
 
     public void add(Descriptors.FieldDescriptor fieldDescriptor, Message message) {
         if (fieldDescriptor.getJavaType() != Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-            throw new IllegalArgumentException("ExtensionRegistry.add() provided a default instance for a non-message extension.");
+            throw new IllegalArgumentException(
+                    "ExtensionRegistry.add() provided a default instance for a non-message extension.");
         }
         add(new ExtensionInfo(fieldDescriptor, message, null), Extension.ExtensionType.IMMUTABLE);
     }
@@ -168,7 +192,8 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
         Map<String, ExtensionInfo> map;
         Map<DescriptorIntPair, ExtensionInfo> map2;
         if (!extensionInfo.descriptor.isExtension()) {
-            throw new IllegalArgumentException("ExtensionRegistry.add() was given a FieldDescriptor for a regular (non-extension) field.");
+            throw new IllegalArgumentException(
+                    "ExtensionRegistry.add() was given a FieldDescriptor for a regular (non-extension) field.");
         }
         int i = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$Extension$ExtensionType[extensionType.ordinal()];
         if (i == 1) {
@@ -182,14 +207,20 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
             map2 = this.mutableExtensionsByNumber;
         }
         map.put(extensionInfo.descriptor.getFullName(), extensionInfo);
-        map2.put(new DescriptorIntPair(extensionInfo.descriptor.getContainingType(), extensionInfo.descriptor.getNumber()), extensionInfo);
+        map2.put(new DescriptorIntPair(extensionInfo.descriptor.getContainingType(),
+                extensionInfo.descriptor.getNumber()), extensionInfo);
         Descriptors.FieldDescriptor fieldDescriptor = extensionInfo.descriptor;
-        if (fieldDescriptor.getContainingType().getOptions().getMessageSetWireFormat() && fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.MESSAGE && fieldDescriptor.isOptional() && fieldDescriptor.getExtensionScope() == fieldDescriptor.getMessageType()) {
+        if (fieldDescriptor.getContainingType().getOptions().getMessageSetWireFormat()
+                && fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.MESSAGE && fieldDescriptor.isOptional()
+                && fieldDescriptor.getExtensionScope() == fieldDescriptor.getMessageType()) {
             map.put(fieldDescriptor.getMessageType().getFullName(), extensionInfo);
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.ExtensionRegistry$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.ExtensionRegistry$1,
+     * reason: invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Extension$ExtensionType;
 
@@ -201,7 +232,8 @@ public class ExtensionRegistry extends ExtensionRegistryLite {
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Extension$ExtensionType[Extension.ExtensionType.MUTABLE.ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Extension$ExtensionType[Extension.ExtensionType.MUTABLE
+                        .ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
         }

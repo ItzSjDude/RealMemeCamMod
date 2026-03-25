@@ -37,7 +37,8 @@ final class Utf8 {
     }
 
     static {
-        processor = (!UnsafeProcessor.isAvailable() || Android.isOnAndroidDevice()) ? new SafeProcessor() : new UnsafeProcessor();
+        processor = (!UnsafeProcessor.isAvailable() || Android.isOnAndroidDevice()) ? new SafeProcessor()
+                : new UnsafeProcessor();
     }
 
     public static boolean isValidUtf8(byte[] bArr) {
@@ -111,7 +112,8 @@ final class Utf8 {
         if (iEncodedLengthGeneral >= length) {
             return iEncodedLengthGeneral;
         }
-        throw new IllegalArgumentException("UTF-8 length does not fit in int: " + (((long) iEncodedLengthGeneral) + CameraConstant.MEMORY_GB_4G));
+        throw new IllegalArgumentException(
+                "UTF-8 length does not fit in int: " + (((long) iEncodedLengthGeneral) + 4294967296L));
     }
 
     private static int encodedLengthGeneral(CharSequence charSequence, int i) {
@@ -204,21 +206,24 @@ final class Utf8 {
             return partialIsValidUtf8Default(i, byteBuffer, i2, i3);
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:10:0x0017, code lost:
-        
-            if (r7.get(r8) > (-65)) goto L13;
-         */
-        /* JADX WARN: Code restructure failed: missing block: B:31:0x004c, code lost:
-        
-            if (r7.get(r8) > (-65)) goto L32;
-         */
-        /* JADX WARN: Code restructure failed: missing block: B:52:0x008b, code lost:
-        
-            if (r7.get(r8) > (-65)) goto L53;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:10:0x0017, code lost:
+         * 
+         * if (r7.get(r8) > (-65)) goto L13;
          */
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * JADX WARN: Code restructure failed: missing block: B:31:0x004c, code lost:
+         * 
+         * if (r7.get(r8) > (-65)) goto L32;
+         */
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:52:0x008b, code lost:
+         * 
+         * if (r7.get(r8) > (-65)) goto L53;
+         */
+        /*
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         final int partialIsValidUtf8Default(int i, ByteBuffer byteBuffer, int i2, int i3) {
             int i4;
             if (i != 0) {
@@ -313,7 +318,8 @@ final class Utf8 {
                         }
                         int i6 = i3 + 1;
                         byte b3 = byteBuffer.get(i3);
-                        if (b3 > -65 || ((b == -32 && b3 < -96) || ((b == -19 && b3 >= -96) || byteBuffer.get(i6) > -65))) {
+                        if (b3 > -65
+                                || ((b == -32 && b3 < -96) || ((b == -19 && b3 >= -96) || byteBuffer.get(i6) > -65))) {
                             return -1;
                         }
                         iEstimateConsecutiveAscii = i6 + 1;
@@ -336,7 +342,8 @@ final class Utf8 {
 
         final String decodeUtf8Default(ByteBuffer byteBuffer, int i, int i2) throws InvalidProtocolBufferException {
             if ((i | i2 | ((byteBuffer.limit() - i) - i2)) < 0) {
-                throw new ArrayIndexOutOfBoundsException(String.format("buffer limit=%d, index=%d, limit=%d", Integer.valueOf(byteBuffer.limit()), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("buffer limit=%d, index=%d, limit=%d",
+                        Integer.valueOf(byteBuffer.limit()), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             int i3 = i + i2;
             char[] cArr = new char[i2];
@@ -401,7 +408,8 @@ final class Utf8 {
         final void encodeUtf8(CharSequence charSequence, ByteBuffer byteBuffer) {
             if (byteBuffer.hasArray()) {
                 int iArrayOffset = byteBuffer.arrayOffset();
-                byteBuffer.position(Utf8.encode(charSequence, byteBuffer.array(), byteBuffer.position() + iArrayOffset, byteBuffer.remaining()) - iArrayOffset);
+                byteBuffer.position(Utf8.encode(charSequence, byteBuffer.array(), byteBuffer.position() + iArrayOffset,
+                        byteBuffer.remaining()) - iArrayOffset);
             } else if (byteBuffer.isDirect()) {
                 encodeUtf8Direct(charSequence, byteBuffer);
             } else {
@@ -422,7 +430,8 @@ final class Utf8 {
                     byteBuffer.put(iPosition + i, (byte) cCharAt);
                     i++;
                 } catch (IndexOutOfBoundsException unused) {
-                    throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(i) + " at index " + (byteBuffer.position() + Math.max(i, (iPosition - byteBuffer.position()) + 1)));
+                    throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(i) + " at index "
+                            + (byteBuffer.position() + Math.max(i, (iPosition - byteBuffer.position()) + 1)));
                 }
             }
             if (i == length) {
@@ -442,7 +451,9 @@ final class Utf8 {
                         iPosition = i2;
                     } catch (IndexOutOfBoundsException unused2) {
                         iPosition = i2;
-                        throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(i) + " at index " + (byteBuffer.position() + Math.max(i, (iPosition - byteBuffer.position()) + 1)));
+                        throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(i)
+                                + " at index "
+                                + (byteBuffer.position() + Math.max(i, (iPosition - byteBuffer.position()) + 1)));
                     }
                 } else if (cCharAt2 < 55296 || 57343 < cCharAt2) {
                     int i3 = iPosition + 1;
@@ -470,7 +481,9 @@ final class Utf8 {
                                 } catch (IndexOutOfBoundsException unused3) {
                                     iPosition = i5;
                                     i = i4;
-                                    throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(i) + " at index " + (byteBuffer.position() + Math.max(i, (iPosition - byteBuffer.position()) + 1)));
+                                    throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(i)
+                                            + " at index " + (byteBuffer.position()
+                                                    + Math.max(i, (iPosition - byteBuffer.position()) + 1)));
                                 }
                             } else {
                                 i = i4;
@@ -491,22 +504,25 @@ final class Utf8 {
         SafeProcessor() {
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:10:0x0015, code lost:
-        
-            if (r7[r8] > (-65)) goto L13;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:10:0x0015, code lost:
+         * 
+         * if (r7[r8] > (-65)) goto L13;
          */
-        /* JADX WARN: Code restructure failed: missing block: B:31:0x0046, code lost:
-        
-            if (r7[r8] > (-65)) goto L32;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:31:0x0046, code lost:
+         * 
+         * if (r7[r8] > (-65)) goto L32;
          */
-        /* JADX WARN: Code restructure failed: missing block: B:52:0x007f, code lost:
-        
-            if (r7[r8] > (-65)) goto L53;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:52:0x007f, code lost:
+         * 
+         * if (r7[r8] > (-65)) goto L53;
          */
         @Override // com.google.oplus.protobuf.Utf8.Processor
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         int partialIsValidUtf8(int i, byte[] bArr, int i2, int i3) {
             int i4;
             if (i != 0) {
@@ -573,7 +589,8 @@ final class Utf8 {
         @Override // com.google.oplus.protobuf.Utf8.Processor
         String decodeUtf8(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
             if ((i | i2 | ((bArr.length - i) - i2)) < 0) {
-                throw new ArrayIndexOutOfBoundsException(String.format("buffer length=%d, index=%d, size=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("buffer length=%d, index=%d, size=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             int i3 = i + i2;
             char[] cArr = new char[i2];
@@ -688,7 +705,8 @@ final class Utf8 {
                                 }
                                 throw new UnpairedSurrogateException(i7 - 1, length);
                             }
-                            if (55296 <= cCharAt2 && cCharAt2 <= 57343 && ((i4 = i7 + 1) == charSequence.length() || !Character.isSurrogatePair(cCharAt2, charSequence.charAt(i4)))) {
+                            if (55296 <= cCharAt2 && cCharAt2 <= 57343 && ((i4 = i7 + 1) == charSequence.length()
+                                    || !Character.isSurrogatePair(cCharAt2, charSequence.charAt(i4)))) {
                                 throw new UnpairedSurrogateException(i7, length);
                             }
                             throw new ArrayIndexOutOfBoundsException("Failed writing " + cCharAt2 + " at index " + i8);
@@ -784,23 +802,26 @@ final class Utf8 {
             return UnsafeUtil.hasUnsafeArrayOperations() && UnsafeUtil.hasUnsafeByteBufferOperations();
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:35:0x0059, code lost:
-        
-            if (com.google.oplus.protobuf.UnsafeUtil.getByte(r12, r1) > (-65)) goto L38;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:35:0x0059, code lost:
+         * 
+         * if (com.google.oplus.protobuf.UnsafeUtil.getByte(r12, r1) > (-65)) goto L38;
          */
-        /* JADX WARN: Code restructure failed: missing block: B:58:0x009e, code lost:
-        
-            if (com.google.oplus.protobuf.UnsafeUtil.getByte(r12, r1) > (-65)) goto L59;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:58:0x009e, code lost:
+         * 
+         * if (com.google.oplus.protobuf.UnsafeUtil.getByte(r12, r1) > (-65)) goto L59;
          */
         @Override // com.google.oplus.protobuf.Utf8.Processor
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         int partialIsValidUtf8(int i, byte[] bArr, int i2, int i3) {
             long j;
             byte b = 0;
             if ((i2 | i3 | (bArr.length - i3)) < 0) {
-                throw new ArrayIndexOutOfBoundsException(String.format("Array length=%d, index=%d, limit=%d", Integer.valueOf(bArr.length), Integer.valueOf(i2), Integer.valueOf(i3)));
+                throw new ArrayIndexOutOfBoundsException(String.format("Array length=%d, index=%d, limit=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i2), Integer.valueOf(i3)));
             }
             long j2 = i2;
             long j3 = i3;
@@ -861,23 +882,26 @@ final class Utf8 {
             return partialIsValidUtf8(bArr, j2, (int) (j3 - j2));
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:35:0x0063, code lost:
-        
-            if (com.google.oplus.protobuf.UnsafeUtil.getByte(r1) > (-65)) goto L38;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:35:0x0063, code lost:
+         * 
+         * if (com.google.oplus.protobuf.UnsafeUtil.getByte(r1) > (-65)) goto L38;
          */
-        /* JADX WARN: Code restructure failed: missing block: B:58:0x00a8, code lost:
-        
-            if (com.google.oplus.protobuf.UnsafeUtil.getByte(r1) > (-65)) goto L59;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:58:0x00a8, code lost:
+         * 
+         * if (com.google.oplus.protobuf.UnsafeUtil.getByte(r1) > (-65)) goto L59;
          */
         @Override // com.google.oplus.protobuf.Utf8.Processor
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         int partialIsValidUtf8Direct(int i, ByteBuffer byteBuffer, int i2, int i3) {
             long j;
             byte b = 0;
             if ((i2 | i3 | (byteBuffer.limit() - i3)) < 0) {
-                throw new ArrayIndexOutOfBoundsException(String.format("buffer limit=%d, index=%d, limit=%d", Integer.valueOf(byteBuffer.limit()), Integer.valueOf(i2), Integer.valueOf(i3)));
+                throw new ArrayIndexOutOfBoundsException(String.format("buffer limit=%d, index=%d, limit=%d",
+                        Integer.valueOf(byteBuffer.limit()), Integer.valueOf(i2), Integer.valueOf(i3)));
             }
             long jAddressOffset = UnsafeUtil.addressOffset(byteBuffer) + ((long) i2);
             long j2 = ((long) (i3 - i2)) + jAddressOffset;
@@ -941,11 +965,13 @@ final class Utf8 {
         @Override // com.google.oplus.protobuf.Utf8.Processor
         String decodeUtf8(byte[] bArr, int i, int i2) throws InvalidProtocolBufferException {
             if ((i | i2 | ((bArr.length - i) - i2)) < 0) {
-                throw new ArrayIndexOutOfBoundsException(String.format("buffer length=%d, index=%d, size=%d", Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("buffer length=%d, index=%d, size=%d",
+                        Integer.valueOf(bArr.length), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             int iUnsafeEstimateConsecutiveAscii = unsafeEstimateConsecutiveAscii(bArr, i, i2) + i;
             int i3 = i + i2;
-            while (iUnsafeEstimateConsecutiveAscii < i3 && UnsafeUtil.getByte(bArr, iUnsafeEstimateConsecutiveAscii) >= 0) {
+            while (iUnsafeEstimateConsecutiveAscii < i3
+                    && UnsafeUtil.getByte(bArr, iUnsafeEstimateConsecutiveAscii) >= 0) {
                 iUnsafeEstimateConsecutiveAscii++;
             }
             if (iUnsafeEstimateConsecutiveAscii == i3) {
@@ -988,7 +1014,8 @@ final class Utf8 {
                         throw InvalidProtocolBufferException.invalidUtf8();
                     }
                     int i8 = i6 + 1;
-                    DecodeUtil.handleThreeBytes(b, UnsafeUtil.getByte(bArr, i6), UnsafeUtil.getByte(bArr, i8), cArr, i5);
+                    DecodeUtil.handleThreeBytes(b, UnsafeUtil.getByte(bArr, i6), UnsafeUtil.getByte(bArr, i8), cArr,
+                            i5);
                     iUnsafeEstimateConsecutiveAscii = i8 + 1;
                     i5++;
                 } else {
@@ -1010,7 +1037,8 @@ final class Utf8 {
         @Override // com.google.oplus.protobuf.Utf8.Processor
         String decodeUtf8Direct(ByteBuffer byteBuffer, int i, int i2) throws InvalidProtocolBufferException {
             if ((i | i2 | ((byteBuffer.limit() - i) - i2)) < 0) {
-                throw new ArrayIndexOutOfBoundsException(String.format("buffer limit=%d, index=%d, limit=%d", Integer.valueOf(byteBuffer.limit()), Integer.valueOf(i), Integer.valueOf(i2)));
+                throw new ArrayIndexOutOfBoundsException(String.format("buffer limit=%d, index=%d, limit=%d",
+                        Integer.valueOf(byteBuffer.limit()), Integer.valueOf(i), Integer.valueOf(i2)));
             }
             long jAddressOffset = UnsafeUtil.addressOffset(byteBuffer) + ((long) i);
             long j = ((long) i2) + jAddressOffset;
@@ -1089,7 +1117,8 @@ final class Utf8 {
             long j5 = ((long) i2) + j4;
             int length = charSequence.length();
             if (length > i2 || bArr.length - i2 < i) {
-                throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(length - 1) + " at index " + (i + i2));
+                throw new ArrayIndexOutOfBoundsException(
+                        "Failed writing " + charSequence.charAt(length - 1) + " at index " + (i + i2));
             }
             int i4 = 0;
             while (true) {
@@ -1147,7 +1176,8 @@ final class Utf8 {
                             }
                             throw new UnpairedSurrogateException(i4 - 1, length);
                         }
-                        if (55296 <= cCharAt2 && cCharAt2 <= 57343 && ((i3 = i4 + 1) == length || !Character.isSurrogatePair(cCharAt2, charSequence.charAt(i3)))) {
+                        if (55296 <= cCharAt2 && cCharAt2 <= 57343 && ((i3 = i4 + 1) == length
+                                || !Character.isSurrogatePair(cCharAt2, charSequence.charAt(i3)))) {
                             throw new UnpairedSurrogateException(i4, length);
                         }
                         throw new ArrayIndexOutOfBoundsException("Failed writing " + cCharAt2 + " at index " + j4);
@@ -1184,7 +1214,8 @@ final class Utf8 {
             long jLimit = ((long) byteBuffer.limit()) + jAddressOffset;
             int length = charSequence.length();
             if (length > jLimit - jPosition) {
-                throw new ArrayIndexOutOfBoundsException("Failed writing " + charSequence.charAt(length - 1) + " at index " + byteBuffer.limit());
+                throw new ArrayIndexOutOfBoundsException(
+                        "Failed writing " + charSequence.charAt(length - 1) + " at index " + byteBuffer.limit());
             }
             int i3 = 0;
             while (true) {
@@ -1228,10 +1259,12 @@ final class Utf8 {
                                 }
                                 throw new UnpairedSurrogateException(i3 - 1, length);
                             }
-                            if (55296 <= cCharAt2 && cCharAt2 <= 57343 && ((i = i3 + 1) == length || !Character.isSurrogatePair(cCharAt2, charSequence.charAt(i)))) {
+                            if (55296 <= cCharAt2 && cCharAt2 <= 57343 && ((i = i3 + 1) == length
+                                    || !Character.isSurrogatePair(cCharAt2, charSequence.charAt(i)))) {
                                 throw new UnpairedSurrogateException(i3, length);
                             }
-                            throw new ArrayIndexOutOfBoundsException("Failed writing " + cCharAt2 + " at index " + jPosition);
+                            throw new ArrayIndexOutOfBoundsException(
+                                    "Failed writing " + cCharAt2 + " at index " + jPosition);
                         }
                         long j6 = jPosition + 1;
                         UnsafeUtil.putByte(jPosition, (byte) ((cCharAt2 >>> '\f') | 480));
@@ -1272,7 +1305,8 @@ final class Utf8 {
             }
             while (true) {
                 int i3 = i2 + 8;
-                if (i3 > i || (UnsafeUtil.getLong((Object) bArr, UnsafeUtil.BYTE_ARRAY_BASE_OFFSET + j) & Utf8.ASCII_MASK_LONG) != 0) {
+                if (i3 > i || (UnsafeUtil.getLong((Object) bArr, UnsafeUtil.BYTE_ARRAY_BASE_OFFSET + j)
+                        & Utf8.ASCII_MASK_LONG) != 0) {
                     break;
                 }
                 j += 8;
@@ -1311,17 +1345,19 @@ final class Utf8 {
             return i - i4;
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:22:0x0039, code lost:
-        
-            return -1;
-         */
-        /* JADX WARN: Code restructure failed: missing block: B:39:0x0063, code lost:
-        
-            return -1;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:22:0x0039, code lost:
+         * 
+         * return -1;
          */
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * JADX WARN: Code restructure failed: missing block: B:39:0x0063, code lost:
+         * 
+         * return -1;
+         */
+        /*
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         private static int partialIsValidUtf8(byte[] bArr, long j, int i) {
             long j2;
             int iUnsafeEstimateConsecutiveAscii = unsafeEstimateConsecutiveAscii(bArr, j, i);
@@ -1398,17 +1434,19 @@ final class Utf8 {
             return -1;
         }
 
-        /* JADX WARN: Code restructure failed: missing block: B:22:0x0039, code lost:
-        
-            return -1;
-         */
-        /* JADX WARN: Code restructure failed: missing block: B:39:0x0063, code lost:
-        
-            return -1;
+        /*
+         * JADX WARN: Code restructure failed: missing block: B:22:0x0039, code lost:
+         * 
+         * return -1;
          */
         /*
-            Code decompiled incorrectly, please refer to instructions dump.
-        */
+         * JADX WARN: Code restructure failed: missing block: B:39:0x0063, code lost:
+         * 
+         * return -1;
+         */
+        /*
+         * Code decompiled incorrectly, please refer to instructions dump.
+         */
         private static int partialIsValidUtf8(long j, int i) {
             long j2;
             int iUnsafeEstimateConsecutiveAscii = unsafeEstimateConsecutiveAscii(j, i);
@@ -1561,19 +1599,24 @@ final class Utf8 {
         }
 
         /* JADX INFO: Access modifiers changed from: private */
-        public static void handleThreeBytes(byte b, byte b2, byte b3, char[] cArr, int i) throws InvalidProtocolBufferException {
-            if (isNotTrailingByte(b2) || ((b == -32 && b2 < -96) || ((b == -19 && b2 >= -96) || isNotTrailingByte(b3)))) {
+        public static void handleThreeBytes(byte b, byte b2, byte b3, char[] cArr, int i)
+                throws InvalidProtocolBufferException {
+            if (isNotTrailingByte(b2)
+                    || ((b == -32 && b2 < -96) || ((b == -19 && b2 >= -96) || isNotTrailingByte(b3)))) {
                 throw InvalidProtocolBufferException.invalidUtf8();
             }
             cArr[i] = (char) (((b & 15) << 12) | (trailingByteValue(b2) << 6) | trailingByteValue(b3));
         }
 
         /* JADX INFO: Access modifiers changed from: private */
-        public static void handleFourBytes(byte b, byte b2, byte b3, byte b4, char[] cArr, int i) throws InvalidProtocolBufferException {
-            if (isNotTrailingByte(b2) || (((b << 28) + (b2 + 112)) >> 30) != 0 || isNotTrailingByte(b3) || isNotTrailingByte(b4)) {
+        public static void handleFourBytes(byte b, byte b2, byte b3, byte b4, char[] cArr, int i)
+                throws InvalidProtocolBufferException {
+            if (isNotTrailingByte(b2) || (((b << 28) + (b2 + 112)) >> 30) != 0 || isNotTrailingByte(b3)
+                    || isNotTrailingByte(b4)) {
                 throw InvalidProtocolBufferException.invalidUtf8();
             }
-            int iTrailingByteValue = ((b & 7) << 18) | (trailingByteValue(b2) << 12) | (trailingByteValue(b3) << 6) | trailingByteValue(b4);
+            int iTrailingByteValue = ((b & 7) << 18) | (trailingByteValue(b2) << 12) | (trailingByteValue(b3) << 6)
+                    | trailingByteValue(b4);
             cArr[i] = highSurrogate(iTrailingByteValue);
             cArr[i + 1] = lowSurrogate(iTrailingByteValue);
         }

@@ -16,7 +16,6 @@ import com.coloros.ocs.camera.parameter.SdkCameraDeviceConfig;
 import com.coloros.ocs.camera.surface.SurfaceWrapper;
 import com.coloros.ocs.camera.util.Util;
 import com.oplus.ocs.camera.common.parameter.Parameter;
-import com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -46,8 +45,9 @@ public class DefaultCameraDevice implements CameraDeviceInterface {
         }
     }
 
-    private com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig convertConfig(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig) {
-        SdkCameraDeviceConfig.Builder builder = new SdkCameraDeviceConfig.Builder();
+    private com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig convertConfig(
+            @NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig) {
+        com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig.Builder builder = new com.oplus.ocs.camera.common.parameter.SdkCameraDeviceConfig.Builder();
         builder.setModeName(sdkCameraDeviceConfig.getModeName());
         ArrayList arrayList = new ArrayList();
         ArrayList arrayList2 = new ArrayList();
@@ -68,9 +68,11 @@ public class DefaultCameraDevice implements CameraDeviceInterface {
         if (sdkCameraDeviceConfig.getVideoSurface() != null) {
             builder.setVideoSurface(sdkCameraDeviceConfig.getVideoSurface().getSurfaceWrapper());
         }
-        if (sdkCameraDeviceConfig.getConfigureParameter() != null && sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys() != null) {
+        if (sdkCameraDeviceConfig.getConfigureParameter() != null
+                && sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys() != null) {
             for (Parameter.Key<?> key : sdkCameraDeviceConfig.getConfigureParameter().getCustomKeys()) {
-                builder.setParameter(Util.convertOldParameterKeyName(key.getName()), sdkCameraDeviceConfig.getConfigureParameter().get(key));
+                builder.setParameter(Util.convertOldParameterKeyName(key.getName()),
+                        sdkCameraDeviceConfig.getConfigureParameter().get(key));
             }
         }
         return builder.build();
@@ -109,10 +111,12 @@ public class DefaultCameraDevice implements CameraDeviceInterface {
     }
 
     @Override // com.coloros.ocs.camera.CameraDeviceInterface
-    public void startPreview(Map<String, Surface> map, CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter, Handler handler) {
+    public void startPreview(Map<String, Surface> map, CameraPreviewCallbackAdapter cameraPreviewCallbackAdapter,
+            Handler handler) {
         com.oplus.ocs.camera.appinterface.CameraDeviceInterface cameraDeviceInterface = this.mCameraDeviceInterface;
         if (cameraDeviceInterface != null) {
-            cameraDeviceInterface.startPreview(map, new DefaultCameraPreviewCallback(cameraPreviewCallbackAdapter), handler);
+            cameraDeviceInterface.startPreview(map, new DefaultCameraPreviewCallback(cameraPreviewCallbackAdapter),
+                    handler);
         }
     }
 
@@ -150,7 +154,8 @@ public class DefaultCameraDevice implements CameraDeviceInterface {
     public void startRecording(CameraRecordingCallbackAdapter cameraRecordingCallbackAdapter, Handler handler) {
         com.oplus.ocs.camera.appinterface.CameraDeviceInterface cameraDeviceInterface = this.mCameraDeviceInterface;
         if (cameraDeviceInterface != null) {
-            cameraDeviceInterface.startRecording(new DefaultCameraRecordingCallback(cameraRecordingCallbackAdapter), handler);
+            cameraDeviceInterface.startRecording(new DefaultCameraRecordingCallback(cameraRecordingCallbackAdapter),
+                    handler);
         }
     }
 
@@ -208,10 +213,12 @@ public class DefaultCameraDevice implements CameraDeviceInterface {
     }
 
     @Override // com.coloros.ocs.camera.CameraDeviceInterface
-    public void registerFlashCallback(@NonNull CameraFlashCallbackAdapter cameraFlashCallbackAdapter, @Nullable Handler handler) {
+    public void registerFlashCallback(@NonNull CameraFlashCallbackAdapter cameraFlashCallbackAdapter,
+            @Nullable Handler handler) {
         com.oplus.ocs.camera.appinterface.CameraDeviceInterface cameraDeviceInterface = this.mCameraDeviceInterface;
         if (cameraDeviceInterface != null) {
-            cameraDeviceInterface.registerFlashCallback(new DefaultCameraFlashCallback(cameraFlashCallbackAdapter), handler);
+            cameraDeviceInterface.registerFlashCallback(new DefaultCameraFlashCallback(cameraFlashCallbackAdapter),
+                    handler);
         }
     }
 }

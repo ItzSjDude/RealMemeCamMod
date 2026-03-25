@@ -24,12 +24,11 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
     private Map<K, V> overflowEntries;
     private Map<K, V> overflowEntriesDescending;
 
-    static <FieldDescriptorType extends FieldSet.FieldDescriptorLite<FieldDescriptorType>> SmallSortedMap<FieldDescriptorType, Object> newFieldMap(int i) {
-        return (SmallSortedMap<FieldDescriptorType, Object>) new SmallSortedMap<FieldDescriptorType, Object>(i) { // from class: com.google.oplus.protobuf.SmallSortedMap.1
-            @Override // com.google.oplus.protobuf.SmallSortedMap, java.util.AbstractMap, java.util.Map
-            public /* bridge */ /* synthetic */ Object put(Object obj, Object obj2) {
-                return super.put((FieldSet.FieldDescriptorLite) obj, obj2);
-            }
+    static <FieldDescriptorType extends FieldSet.FieldDescriptorLite<FieldDescriptorType>> SmallSortedMap<FieldDescriptorType, Object> newFieldMap(
+            int i) {
+        return (SmallSortedMap<FieldDescriptorType, Object>) new SmallSortedMap<FieldDescriptorType, Object>(i) { // from
+                                                                                                                  // class:
+                                                                                                                  // com.google.oplus.protobuf.SmallSortedMap.1
 
             @Override // com.google.oplus.protobuf.SmallSortedMap
             public void makeImmutable() {
@@ -121,20 +120,23 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
     @Override // java.util.AbstractMap, java.util.Map
     public boolean containsKey(Object obj) {
         Comparable comparable = (Comparable) obj;
-        return binarySearchInArray(comparable) >= 0 || this.overflowEntries.containsKey(comparable);
+        return binarySearchInArray((K) comparable) >= 0 || this.overflowEntries.containsKey(comparable);
     }
 
     @Override // java.util.AbstractMap, java.util.Map
     public V get(Object obj) {
         Comparable comparable = (Comparable) obj;
-        int iBinarySearchInArray = binarySearchInArray(comparable);
+        int iBinarySearchInArray = binarySearchInArray((K) comparable);
         if (iBinarySearchInArray >= 0) {
             return this.entryList.get(iBinarySearchInArray).getValue();
         }
         return this.overflowEntries.get(comparable);
     }
 
-    /* JADX DEBUG: Method merged with bridge method: put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; */
+    /*
+     * JADX DEBUG: Method merged with bridge method:
+     * put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+     */
     @Override // java.util.AbstractMap, java.util.Map
     public V put(K k, V v) {
         checkMutable();
@@ -173,7 +175,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
     public V remove(Object obj) {
         checkMutable();
         Comparable comparable = (Comparable) obj;
-        int iBinarySearchInArray = binarySearchInArray(comparable);
+        int iBinarySearchInArray = binarySearchInArray((K) comparable);
         if (iBinarySearchInArray >= 0) {
             return removeArrayEntryAt(iBinarySearchInArray);
         }
@@ -286,7 +288,9 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
             return this.value;
         }
 
-        /* JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I */
+        /*
+         * JADX DEBUG: Method merged with bridge method: compareTo(Ljava/lang/Object;)I
+         */
         @Override // java.lang.Comparable
         public int compareTo(SmallSortedMap<K, V>.Entry entry) {
             return getKey().compareTo(entry.getKey());
@@ -336,7 +340,8 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
         private EntrySet() {
         }
 
-        @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, java.util.Set
+        @Override // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable,
+                  // java.util.Set
         public Iterator<Map.Entry<K, V>> iterator() {
             return new EntryIterator();
         }
@@ -360,7 +365,7 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
             if (contains(entry)) {
                 return false;
             }
-            SmallSortedMap.this.put((Comparable) entry.getKey(), (Object) entry.getValue());
+            SmallSortedMap.this.put(entry.getKey(), entry.getValue());
             return true;
         }
 
@@ -385,7 +390,9 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
             super();
         }
 
-        @Override // com.google.oplus.protobuf.SmallSortedMap.EntrySet, java.util.AbstractCollection, java.util.Collection, java.lang.Iterable, java.util.Set
+        @Override // com.google.oplus.protobuf.SmallSortedMap.EntrySet,
+                  // java.util.AbstractCollection, java.util.Collection, java.lang.Iterable,
+                  // java.util.Set
         public Iterator<Map.Entry<K, V>> iterator() {
             return new DescendingEntryIterator();
         }
@@ -485,7 +492,8 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
     }
 
     private static class EmptySet {
-        private static final Iterator<Object> ITERATOR = new Iterator<Object>() { // from class: com.google.oplus.protobuf.SmallSortedMap.EmptySet.1
+        private static final Iterator<Object> ITERATOR = new Iterator<Object>() { // from class:
+                                                                                  // com.google.oplus.protobuf.SmallSortedMap.EmptySet.1
             @Override // java.util.Iterator
             public boolean hasNext() {
                 return false;
@@ -501,7 +509,8 @@ class SmallSortedMap<K extends Comparable<K>, V> extends AbstractMap<K, V> {
                 throw new UnsupportedOperationException();
             }
         };
-        private static final Iterable<Object> ITERABLE = new Iterable<Object>() { // from class: com.google.oplus.protobuf.SmallSortedMap.EmptySet.2
+        private static final Iterable<Object> ITERABLE = new Iterable<Object>() { // from class:
+                                                                                  // com.google.oplus.protobuf.SmallSortedMap.EmptySet.2
             @Override // java.lang.Iterable
             public Iterator<Object> iterator() {
                 return EmptySet.ITERATOR;

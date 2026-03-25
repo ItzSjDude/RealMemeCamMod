@@ -220,7 +220,7 @@ final class LongArrayList extends AbstractProtobufList<Long> implements Internal
         long[] jArr = this.array;
         long j = jArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(jArr, i + 1, jArr, i, (r3 - i) - 1);
+            System.arraycopy(jArr, i + 1, jArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

@@ -85,10 +85,15 @@ public enum FieldType {
         } else {
             this.elementType = null;
         }
-        this.primitiveScalar = (collection != Collection.SCALAR || (i2 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$JavaType[javaType.ordinal()]) == 1 || i2 == 2 || i2 == 3) ? false : true;
+        this.primitiveScalar = (collection != Collection.SCALAR
+                || (i2 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$JavaType[javaType.ordinal()]) == 1
+                || i2 == 2 || i2 == 3) ? false : true;
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.FieldType$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.FieldType$1, reason:
+     * invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$FieldType$Collection;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$JavaType;
@@ -189,12 +194,14 @@ public enum FieldType {
 
     private static java.lang.reflect.Type getGenericSuperList(Class<?> cls) {
         for (java.lang.reflect.Type type : cls.getGenericInterfaces()) {
-            if ((type instanceof ParameterizedType) && List.class.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
+            if ((type instanceof ParameterizedType)
+                    && List.class.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
                 return type;
             }
         }
         java.lang.reflect.Type genericSuperclass = cls.getGenericSuperclass();
-        if ((genericSuperclass instanceof ParameterizedType) && List.class.isAssignableFrom((Class) ((ParameterizedType) genericSuperclass).getRawType())) {
+        if ((genericSuperclass instanceof ParameterizedType)
+                && List.class.isAssignableFrom((Class) ((ParameterizedType) genericSuperclass).getRawType())) {
             return genericSuperclass;
         }
         return null;
@@ -212,7 +219,7 @@ public enum FieldType {
                     for (int i2 = 0; i2 < actualTypeArguments.length; i2++) {
                         java.lang.reflect.Type type = actualTypeArguments[i2];
                         if (type instanceof TypeVariable) {
-                            TypeVariable<Class<?>>[] typeParameters = cls.getTypeParameters();
+                            TypeVariable[] typeParameters = cls.getTypeParameters();
                             if (typeArr.length != typeParameters.length) {
                                 throw new RuntimeException("Type array mismatch");
                             }

@@ -220,7 +220,7 @@ final class IntArrayList extends AbstractProtobufList<Integer> implements Intern
         int[] iArr = this.array;
         int i2 = iArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(iArr, i + 1, iArr, i, (r2 - i) - 1);
+            System.arraycopy(iArr, i + 1, iArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

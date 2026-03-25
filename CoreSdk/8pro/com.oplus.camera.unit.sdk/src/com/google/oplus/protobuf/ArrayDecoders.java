@@ -109,7 +109,10 @@ final class ArrayDecoders {
     }
 
     static long decodeFixed64(byte[] bArr, int i) {
-        return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8) | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24) | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40) | ((((long) bArr[i + 6]) & 255) << 48);
+        return ((((long) bArr[i + 7]) & 255) << 56) | (((long) bArr[i]) & 255) | ((((long) bArr[i + 1]) & 255) << 8)
+                | ((((long) bArr[i + 2]) & 255) << 16) | ((((long) bArr[i + 3]) & 255) << 24)
+                | ((((long) bArr[i + 4]) & 255) << 32) | ((((long) bArr[i + 5]) & 255) << 40)
+                | ((((long) bArr[i + 6]) & 255) << 48);
     }
 
     static double decodeDouble(byte[] bArr, int i) {
@@ -184,7 +187,8 @@ final class ArrayDecoders {
         return i5;
     }
 
-    static int decodeGroupField(Schema schema, byte[] bArr, int i, int i2, int i3, Registers registers) throws IOException {
+    static int decodeGroupField(Schema schema, byte[] bArr, int i, int i2, int i3, Registers registers)
+            throws IOException {
         MessageSchema messageSchema = (MessageSchema) schema;
         Object objNewInstance = messageSchema.newInstance();
         int proto2Message = messageSchema.parseProto2Message(objNewInstance, bArr, i, i2, i3, registers);
@@ -193,7 +197,8 @@ final class ArrayDecoders {
         return proto2Message;
     }
 
-    static int decodeVarint32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeVarint32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i2, registers);
         intArrayList.addInt(registers.int1);
@@ -208,7 +213,8 @@ final class ArrayDecoders {
         return iDecodeVarint32;
     }
 
-    static int decodeVarint64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeVarint64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int iDecodeVarint64 = decodeVarint64(bArr, i2, registers);
         longArrayList.addLong(registers.long1);
@@ -223,7 +229,8 @@ final class ArrayDecoders {
         return iDecodeVarint64;
     }
 
-    static int decodeFixed32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeFixed32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         intArrayList.addInt(decodeFixed32(bArr, i2));
         int i4 = i2 + 4;
@@ -238,7 +245,8 @@ final class ArrayDecoders {
         return i4;
     }
 
-    static int decodeFixed64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeFixed64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         longArrayList.addLong(decodeFixed64(bArr, i2));
         int i4 = i2 + 8;
@@ -253,7 +261,8 @@ final class ArrayDecoders {
         return i4;
     }
 
-    static int decodeFloatList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeFloatList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         FloatArrayList floatArrayList = (FloatArrayList) protobufList;
         floatArrayList.addFloat(decodeFloat(bArr, i2));
         int i4 = i2 + 4;
@@ -268,7 +277,8 @@ final class ArrayDecoders {
         return i4;
     }
 
-    static int decodeDoubleList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeDoubleList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         DoubleArrayList doubleArrayList = (DoubleArrayList) protobufList;
         doubleArrayList.addDouble(decodeDouble(bArr, i2));
         int i4 = i2 + 8;
@@ -283,7 +293,8 @@ final class ArrayDecoders {
         return i4;
     }
 
-    static int decodeBoolList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeBoolList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         BooleanArrayList booleanArrayList = (BooleanArrayList) protobufList;
         int iDecodeVarint64 = decodeVarint64(bArr, i2, registers);
         booleanArrayList.addBoolean(registers.long1 != 0);
@@ -298,7 +309,8 @@ final class ArrayDecoders {
         return iDecodeVarint64;
     }
 
-    static int decodeSInt32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeSInt32List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i2, registers);
         intArrayList.addInt(CodedInputStream.decodeZigZag32(registers.int1));
@@ -313,7 +325,8 @@ final class ArrayDecoders {
         return iDecodeVarint32;
     }
 
-    static int decodeSInt64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) {
+    static int decodeSInt64List(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList,
+            Registers registers) {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int iDecodeVarint64 = decodeVarint64(bArr, i2, registers);
         longArrayList.addLong(CodedInputStream.decodeZigZag64(registers.long1));
@@ -328,7 +341,8 @@ final class ArrayDecoders {
         return iDecodeVarint64;
     }
 
-    static int decodePackedVarint32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedVarint32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -342,7 +356,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedVarint64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedVarint64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -356,7 +371,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedFixed32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedFixed32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -370,7 +386,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedFixed64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedFixed64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -384,7 +401,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedFloatList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedFloatList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         FloatArrayList floatArrayList = (FloatArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -398,7 +416,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedDoubleList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedDoubleList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         DoubleArrayList doubleArrayList = (DoubleArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -412,7 +431,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedBoolList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedBoolList(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         BooleanArrayList booleanArrayList = (BooleanArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -426,7 +446,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedSInt32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedSInt32List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         IntArrayList intArrayList = (IntArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -440,7 +461,8 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    static int decodePackedSInt64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodePackedSInt64List(byte[] bArr, int i, Internal.ProtobufList<?> protobufList, Registers registers)
+            throws IOException {
         LongArrayList longArrayList = (LongArrayList) protobufList;
         int iDecodeVarint32 = decodeVarint32(bArr, i, registers);
         int i2 = registers.int1 + iDecodeVarint32;
@@ -454,8 +476,12 @@ final class ArrayDecoders {
         throw InvalidProtocolBufferException.truncatedMessage();
     }
 
-    /* JADX DEBUG: Duplicate block (B:8:0x001a) to fix multi-entry loop: BACK_EDGE: B:8:0x001a -> B:9:0x001b */
-    static int decodeStringList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws InvalidProtocolBufferException {
+    /*
+     * JADX DEBUG: Duplicate block (B:8:0x001a) to fix multi-entry loop: BACK_EDGE:
+     * B:8:0x001a -> B:9:0x001b
+     */
+    static int decodeStringList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<String> protobufList,
+            Registers registers) throws InvalidProtocolBufferException {
         int iDecodeVarint32 = decodeVarint32(bArr, i2, registers);
         int i4 = registers.int1;
         if (i4 < 0) {
@@ -487,8 +513,12 @@ final class ArrayDecoders {
         return iDecodeVarint32;
     }
 
-    /* JADX DEBUG: Duplicate block (B:10:0x0022) to fix multi-entry loop: BACK_EDGE: B:10:0x0022 -> B:11:0x0023 */
-    static int decodeStringListRequireUtf8(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws InvalidProtocolBufferException {
+    /*
+     * JADX DEBUG: Duplicate block (B:10:0x0022) to fix multi-entry loop: BACK_EDGE:
+     * B:10:0x0022 -> B:11:0x0023
+     */
+    static int decodeStringListRequireUtf8(int i, byte[] bArr, int i2, int i3,
+            Internal.ProtobufList<String> protobufList, Registers registers) throws InvalidProtocolBufferException {
         int iDecodeVarint32 = decodeVarint32(bArr, i2, registers);
         int i4 = registers.int1;
         if (i4 < 0) {
@@ -528,8 +558,12 @@ final class ArrayDecoders {
         return iDecodeVarint32;
     }
 
-    /* JADX DEBUG: Duplicate block (B:9:0x001b) to fix multi-entry loop: BACK_EDGE: B:9:0x001b -> B:10:0x001c */
-    static int decodeBytesList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws InvalidProtocolBufferException {
+    /*
+     * JADX DEBUG: Duplicate block (B:9:0x001b) to fix multi-entry loop: BACK_EDGE:
+     * B:9:0x001b -> B:10:0x001c
+     */
+    static int decodeBytesList(int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<ByteString> protobufList,
+            Registers registers) throws InvalidProtocolBufferException {
         int iDecodeVarint32 = decodeVarint32(bArr, i2, registers);
         int i4 = registers.int1;
         if (i4 < 0) {
@@ -567,7 +601,8 @@ final class ArrayDecoders {
         return iDecodeVarint32;
     }
 
-    static int decodeMessageList(Schema<?> schema, int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodeMessageList(Schema<?> schema, int i, byte[] bArr, int i2, int i3,
+            Internal.ProtobufList protobufList, Registers registers) throws IOException {
         int iDecodeMessageField = decodeMessageField(schema, bArr, i2, i3, registers);
         protobufList.add(registers.object1);
         while (iDecodeMessageField < i3) {
@@ -581,7 +616,8 @@ final class ArrayDecoders {
         return iDecodeMessageField;
     }
 
-    static int decodeGroupList(Schema schema, int i, byte[] bArr, int i2, int i3, Internal.ProtobufList<?> protobufList, Registers registers) throws IOException {
+    static int decodeGroupList(Schema schema, int i, byte[] bArr, int i2, int i3, Internal.ProtobufList protobufList,
+            Registers registers) throws IOException {
         int i4 = (i & (-8)) | 4;
         int iDecodeGroupField = decodeGroupField(schema, bArr, i2, i3, i4, registers);
         protobufList.add(registers.object1);
@@ -596,23 +632,35 @@ final class ArrayDecoders {
         return iDecodeGroupField;
     }
 
-    static int decodeExtensionOrUnknownField(int i, byte[] bArr, int i2, int i3, Object obj, MessageLite messageLite, UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers) throws IOException {
-        GeneratedMessageLite.GeneratedExtension generatedExtensionFindLiteExtensionByNumber = registers.extensionRegistry.findLiteExtensionByNumber(messageLite, i >>> 3);
+    static int decodeExtensionOrUnknownField(int i, byte[] bArr, int i2, int i3, Object obj, MessageLite messageLite,
+            UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers)
+            throws IOException {
+        GeneratedMessageLite.GeneratedExtension generatedExtensionFindLiteExtensionByNumber = registers.extensionRegistry
+                .findLiteExtensionByNumber(messageLite, i >>> 3);
         if (generatedExtensionFindLiteExtensionByNumber == null) {
             return decodeUnknownField(i, bArr, i2, i3, MessageSchema.getMutableUnknownFields(obj), registers);
         }
         GeneratedMessageLite.ExtendableMessage extendableMessage = (GeneratedMessageLite.ExtendableMessage) obj;
         extendableMessage.ensureExtensionsAreMutable();
-        return decodeExtension(i, bArr, i2, i3, extendableMessage, generatedExtensionFindLiteExtensionByNumber, unknownFieldSchema, registers);
+        return decodeExtension(i, bArr, i2, i3, extendableMessage, generatedExtensionFindLiteExtensionByNumber,
+                unknownFieldSchema, registers);
     }
 
-    /* JADX WARN: Can't fix incorrect switch cases order, some code will duplicate */
-    static int decodeExtension(int i, byte[] bArr, int i2, int i3, GeneratedMessageLite.ExtendableMessage<?, ?> extendableMessage, GeneratedMessageLite.GeneratedExtension<?, ?> generatedExtension, UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers) throws IOException {
+    /*
+     * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
+     */
+    static int decodeExtension(int i, byte[] bArr, int i2, int i3,
+            GeneratedMessageLite.ExtendableMessage<?, ?> extendableMessage,
+            GeneratedMessageLite.GeneratedExtension<?, ?> generatedExtension,
+            UnknownFieldSchema<UnknownFieldSetLite, UnknownFieldSetLite> unknownFieldSchema, Registers registers)
+            throws IOException {
         Object field;
+        Object objValueOf;
         FieldSet<GeneratedMessageLite.ExtensionDescriptor> fieldSet = extendableMessage.extensions;
         int i4 = i >>> 3;
         if (generatedExtension.descriptor.isRepeated() && generatedExtension.descriptor.isPacked()) {
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension.getLiteType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension
+                    .getLiteType().ordinal()]) {
                 case 1:
                     DoubleArrayList doubleArrayList = new DoubleArrayList();
                     int iDecodePackedDoubleList = decodePackedDoubleList(bArr, i2, doubleArrayList, registers);
@@ -666,14 +714,19 @@ final class ArrayDecoders {
                     IntArrayList intArrayList4 = new IntArrayList();
                     int iDecodePackedVarint32List2 = decodePackedVarint32List(bArr, i2, intArrayList4, registers);
                     UnknownFieldSetLite unknownFieldSetLite = extendableMessage.unknownFields;
-                    UnknownFieldSetLite unknownFieldSetLite2 = (UnknownFieldSetLite) SchemaUtil.filterUnknownEnumList(i4, (List<Integer>) intArrayList4, generatedExtension.descriptor.getEnumType(), unknownFieldSetLite != UnknownFieldSetLite.getDefaultInstance() ? unknownFieldSetLite : null, (UnknownFieldSchema<UT, Object>) unknownFieldSchema);
+                    UnknownFieldSetLite unknownFieldSetLite2 = (UnknownFieldSetLite) SchemaUtil.filterUnknownEnumList(
+                            i4, (List<Integer>) intArrayList4, generatedExtension.descriptor.getEnumType(),
+                            unknownFieldSetLite != UnknownFieldSetLite.getDefaultInstance() ? unknownFieldSetLite
+                                    : null,
+                            unknownFieldSchema);
                     if (unknownFieldSetLite2 != null) {
                         extendableMessage.unknownFields = unknownFieldSetLite2;
                     }
                     fieldSet.setField(generatedExtension.descriptor, intArrayList4);
                     return iDecodePackedVarint32List2;
                 default:
-                    throw new IllegalStateException("Type cannot be packed: " + generatedExtension.descriptor.getLiteType());
+                    throw new IllegalStateException(
+                            "Type cannot be packed: " + generatedExtension.descriptor.getLiteType());
             }
         }
         if (generatedExtension.getLiteType() == WireFormat.FieldType.ENUM) {
@@ -689,7 +742,8 @@ final class ArrayDecoders {
             }
             objValueOf = Integer.valueOf(registers.int1);
         } else {
-            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension.getLiteType().ordinal()]) {
+            switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension
+                    .getLiteType().ordinal()]) {
                 case 1:
                     objValueOf = Double.valueOf(decodeDouble(bArr, i2));
                     i2 += 8;
@@ -741,11 +795,17 @@ final class ArrayDecoders {
                     objValueOf = registers.object1;
                     break;
                 case 17:
-                    i2 = decodeGroupField(Protobuf.getInstance().schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()), bArr, i2, i3, (i4 << 3) | 4, registers);
+                    i2 = decodeGroupField(
+                            Protobuf.getInstance()
+                                    .schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()),
+                            bArr, i2, i3, (i4 << 3) | 4, registers);
                     objValueOf = registers.object1;
                     break;
                 case 18:
-                    i2 = decodeMessageField(Protobuf.getInstance().schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()), bArr, i2, i3, registers);
+                    i2 = decodeMessageField(
+                            Protobuf.getInstance()
+                                    .schemaFor((Class) generatedExtension.getMessageDefaultInstance().getClass()),
+                            bArr, i2, i3, registers);
                     objValueOf = registers.object1;
                     break;
             }
@@ -753,7 +813,8 @@ final class ArrayDecoders {
         if (generatedExtension.isRepeated()) {
             fieldSet.addRepeatedField(generatedExtension.descriptor, objValueOf);
         } else {
-            int i5 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension.getLiteType().ordinal()];
+            int i5 = AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[generatedExtension
+                    .getLiteType().ordinal()];
             if ((i5 == 17 || i5 == 18) && (field = fieldSet.getField(generatedExtension.descriptor)) != null) {
                 objValueOf = Internal.mergeMessage(field, objValueOf);
             }
@@ -762,7 +823,10 @@ final class ArrayDecoders {
         return i2;
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.ArrayDecoders$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.ArrayDecoders$1, reason:
+     * invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -844,7 +908,8 @@ final class ArrayDecoders {
         }
     }
 
-    static int decodeUnknownField(int i, byte[] bArr, int i2, int i3, UnknownFieldSetLite unknownFieldSetLite, Registers registers) throws InvalidProtocolBufferException {
+    static int decodeUnknownField(int i, byte[] bArr, int i2, int i3, UnknownFieldSetLite unknownFieldSetLite,
+            Registers registers) throws InvalidProtocolBufferException {
         if (WireFormat.getTagFieldNumber(i) == 0) {
             throw InvalidProtocolBufferException.invalidTag();
         }
@@ -905,7 +970,8 @@ final class ArrayDecoders {
         return i2;
     }
 
-    static int skipField(int i, byte[] bArr, int i2, int i3, Registers registers) throws InvalidProtocolBufferException {
+    static int skipField(int i, byte[] bArr, int i2, int i3, Registers registers)
+            throws InvalidProtocolBufferException {
         if (WireFormat.getTagFieldNumber(i) == 0) {
             throw InvalidProtocolBufferException.invalidTag();
         }

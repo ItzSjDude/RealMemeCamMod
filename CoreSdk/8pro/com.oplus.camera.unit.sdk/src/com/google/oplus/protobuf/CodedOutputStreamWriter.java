@@ -530,12 +530,16 @@ final class CodedOutputStreamWriter implements Writer {
         }
         for (Map.Entry<K, V> entry : map.entrySet()) {
             this.output.writeTag(i, 2);
-            this.output.writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, entry.getKey(), entry.getValue()));
+            this.output
+                    .writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, entry.getKey(), entry.getValue()));
             MapEntryLite.writeTo(this.output, metadata, entry.getKey(), entry.getValue());
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.CodedOutputStreamWriter$1, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from: com.google.oplus.protobuf.CodedOutputStreamWriter$1,
+     * reason: invalid class name
+     */
     static /* synthetic */ class AnonymousClass1 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType;
 
@@ -593,16 +597,17 @@ final class CodedOutputStreamWriter implements Writer {
         }
     }
 
-    private <K, V> void writeDeterministicMap(int i, MapEntryLite.Metadata<K, V> metadata, Map<K, V> map) throws IOException {
+    private <K, V> void writeDeterministicMap(int i, MapEntryLite.Metadata<K, V> metadata, Map<K, V> map)
+            throws IOException {
         switch (AnonymousClass1.$SwitchMap$com$google$oplus$protobuf$WireFormat$FieldType[metadata.keyType.ordinal()]) {
             case 1:
                 V v = map.get(Boolean.FALSE);
                 if (v != null) {
-                    writeDeterministicBooleanMapEntry(i, false, v, metadata);
+                    writeDeterministicBooleanMapEntry(i, false, v, (MapEntryLite.Metadata) metadata);
                 }
                 V v2 = map.get(Boolean.TRUE);
                 if (v2 != null) {
-                    writeDeterministicBooleanMapEntry(i, true, v2, metadata);
+                    writeDeterministicBooleanMapEntry(i, true, v2, (MapEntryLite.Metadata) metadata);
                     return;
                 }
                 return;
@@ -611,30 +616,32 @@ final class CodedOutputStreamWriter implements Writer {
             case 4:
             case 5:
             case 6:
-                writeDeterministicIntegerMap(i, metadata, map);
+                writeDeterministicIntegerMap(i, (MapEntryLite.Metadata) metadata, (Map) map);
                 return;
             case 7:
             case 8:
             case 9:
             case 10:
             case 11:
-                writeDeterministicLongMap(i, metadata, map);
+                writeDeterministicLongMap(i, (MapEntryLite.Metadata) metadata, (Map) map);
                 return;
             case 12:
-                writeDeterministicStringMap(i, metadata, map);
+                writeDeterministicStringMap(i, (MapEntryLite.Metadata) metadata, (Map) map);
                 return;
             default:
                 throw new IllegalArgumentException("does not support key type: " + metadata.keyType);
         }
     }
 
-    private <V> void writeDeterministicBooleanMapEntry(int i, boolean z, V v, MapEntryLite.Metadata<Boolean, V> metadata) throws IOException {
+    private <V> void writeDeterministicBooleanMapEntry(int i, boolean z, V v,
+            MapEntryLite.Metadata<Boolean, V> metadata) throws IOException {
         this.output.writeTag(i, 2);
         this.output.writeUInt32NoTag(MapEntryLite.computeSerializedSize(metadata, Boolean.valueOf(z), v));
         MapEntryLite.writeTo(this.output, metadata, Boolean.valueOf(z), v);
     }
 
-    private <V> void writeDeterministicIntegerMap(int i, MapEntryLite.Metadata<Integer, V> metadata, Map<Integer, V> map) throws IOException {
+    private <V> void writeDeterministicIntegerMap(int i, MapEntryLite.Metadata<Integer, V> metadata,
+            Map<Integer, V> map) throws IOException {
         int size = map.size();
         int[] iArr = new int[size];
         Iterator<Integer> it = map.keySet().iterator();
@@ -653,7 +660,8 @@ final class CodedOutputStreamWriter implements Writer {
         }
     }
 
-    private <V> void writeDeterministicLongMap(int i, MapEntryLite.Metadata<Long, V> metadata, Map<Long, V> map) throws IOException {
+    private <V> void writeDeterministicLongMap(int i, MapEntryLite.Metadata<Long, V> metadata, Map<Long, V> map)
+            throws IOException {
         int size = map.size();
         long[] jArr = new long[size];
         Iterator<Long> it = map.keySet().iterator();
@@ -672,7 +680,8 @@ final class CodedOutputStreamWriter implements Writer {
         }
     }
 
-    private <V> void writeDeterministicStringMap(int i, MapEntryLite.Metadata<String, V> metadata, Map<String, V> map) throws IOException {
+    private <V> void writeDeterministicStringMap(int i, MapEntryLite.Metadata<String, V> metadata, Map<String, V> map)
+            throws IOException {
         int size = map.size();
         String[] strArr = new String[size];
         Iterator<String> it = map.keySet().iterator();

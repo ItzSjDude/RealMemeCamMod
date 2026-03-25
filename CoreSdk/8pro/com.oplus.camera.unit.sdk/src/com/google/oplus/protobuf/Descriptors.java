@@ -270,12 +270,13 @@ public final class Descriptors {
 
         /* JADX WARN: Illegal instructions before constructor call */
         private FileDescriptor(DescriptorProtos.FileDescriptorProto fileDescriptorProto, FileDescriptor[] fileDescriptorArr, DescriptorPool descriptorPool, boolean z) throws DescriptorValidationException {
+            super((AnonymousClass1) null);
             Descriptor[] descriptorArr;
             EnumDescriptor[] enumDescriptorArr;
             ServiceDescriptor[] serviceDescriptorArr;
             FieldDescriptor[] fieldDescriptorArr;
             AnonymousClass1 anonymousClass1 = null;
-            super(anonymousClass1);
+
             this.pool = descriptorPool;
             this.proto = fileDescriptorProto;
             this.dependencies = (FileDescriptor[]) fileDescriptorArr.clone();
@@ -556,9 +557,10 @@ public final class Descriptors {
         }
 
         Descriptor(String str) throws DescriptorValidationException {
+            super(null);
             String strSubstring;
             String strSubstring2;
-            super(null);
+
             int iLastIndexOf = str.lastIndexOf(46);
             if (iLastIndexOf != -1) {
                 strSubstring2 = str.substring(iLastIndexOf + 1);
@@ -585,13 +587,14 @@ public final class Descriptors {
 
         /* JADX WARN: Illegal instructions before constructor call */
         private Descriptor(DescriptorProtos.DescriptorProto descriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i) throws DescriptorValidationException {
+            super((AnonymousClass1) null);
             OneofDescriptor[] oneofDescriptorArr;
             Descriptor[] descriptorArr;
             EnumDescriptor[] enumDescriptorArr;
             FieldDescriptor[] fieldDescriptorArr;
             FieldDescriptor[] fieldDescriptorArr2;
             AnonymousClass1 anonymousClass1 = null;
-            super(anonymousClass1);
+
             this.index = i;
             this.proto = descriptorProto;
             this.fullName = Descriptors.computeFullName(fileDescriptor, descriptor, descriptorProto.getName());
@@ -1072,8 +1075,9 @@ public final class Descriptors {
 
         /* JADX WARN: Illegal instructions before constructor call */
         private FieldDescriptor(DescriptorProtos.FieldDescriptorProto fieldDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i, boolean z) throws DescriptorValidationException {
+            super((AnonymousClass1) null);
             AnonymousClass1 anonymousClass1 = null;
-            super(anonymousClass1);
+
             this.index = i;
             this.proto = fieldDescriptorProto;
             this.fullName = Descriptors.computeFullName(fileDescriptor, descriptor, fieldDescriptorProto.getName());
@@ -1493,8 +1497,9 @@ public final class Descriptors {
 
         /* JADX WARN: Illegal instructions before constructor call */
         private EnumDescriptor(DescriptorProtos.EnumDescriptorProto enumDescriptorProto, FileDescriptor fileDescriptor, Descriptor descriptor, int i) throws DescriptorValidationException {
+            super((AnonymousClass1) null);
             AnonymousClass1 anonymousClass1 = null;
-            super(anonymousClass1);
+
             this.unknownValues = null;
             this.cleanupQueue = null;
             this.index = i;

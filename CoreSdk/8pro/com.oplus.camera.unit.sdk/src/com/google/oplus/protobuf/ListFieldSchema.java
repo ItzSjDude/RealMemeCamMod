@@ -33,7 +33,8 @@ abstract class ListFieldSchema {
     }
 
     private static final class ListFieldSchemaFull extends ListFieldSchema {
-        private static final Class<?> UNMODIFIABLE_LIST_CLASS = Collections.unmodifiableList(Collections.emptyList()).getClass();
+        private static final Class<?> UNMODIFIABLE_LIST_CLASS = Collections.unmodifiableList(Collections.emptyList())
+                .getClass();
 
         private ListFieldSchemaFull() {
             super();
@@ -73,7 +74,7 @@ abstract class ListFieldSchema {
             List<L> list = getList(obj, j);
             if (list.isEmpty()) {
                 if (list instanceof LazyStringList) {
-                    arrayList = new LazyStringArrayList(i);
+                    arrayList = (List<L>) new LazyStringArrayList(i);
                 } else if ((list instanceof PrimitiveNonBoxingCollection) && (list instanceof Internal.ProtobufList)) {
                     arrayList = ((Internal.ProtobufList) list).mutableCopyWithCapacity2(i);
                 } else {
@@ -100,7 +101,8 @@ abstract class ListFieldSchema {
                 if (protobufList.isModifiable()) {
                     return list;
                 }
-                Internal.ProtobufList protobufListMutableCopyWithCapacity2 = protobufList.mutableCopyWithCapacity2(list.size() + i);
+                Internal.ProtobufList protobufListMutableCopyWithCapacity2 = protobufList
+                        .mutableCopyWithCapacity2(list.size() + i);
                 UnsafeUtil.putObject(obj, j, protobufListMutableCopyWithCapacity2);
                 return protobufListMutableCopyWithCapacity2;
             }
@@ -139,7 +141,8 @@ abstract class ListFieldSchema {
                 return protobufList;
             }
             int size = protobufList.size();
-            Internal.ProtobufList protobufListMutableCopyWithCapacity2 = protobufList.mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
+            Internal.ProtobufList protobufListMutableCopyWithCapacity2 = protobufList
+                    .mutableCopyWithCapacity2(size == 0 ? 10 : size * 2);
             UnsafeUtil.putObject(obj, j, protobufListMutableCopyWithCapacity2);
             return protobufListMutableCopyWithCapacity2;
         }
@@ -149,16 +152,25 @@ abstract class ListFieldSchema {
             getProtobufList(obj, j).makeImmutable();
         }
 
-        /* JADX DEBUG: Failed to insert an additional move for type inference into block B:9:0x0022 */
+        /*
+         * JADX DEBUG: Failed to insert an additional move for type inference into block
+         * B:9:0x0022
+         */
         /* JADX WARN: Multi-variable type inference failed */
         /* JADX WARN: Type inference failed for: r3v2 */
-        /* JADX WARN: Type inference failed for: r3v3, types: [com.google.oplus.protobuf.Internal$ProtobufList] */
+        /*
+         * JADX WARN: Type inference failed for: r3v3, types:
+         * [com.google.oplus.protobuf.Internal$ProtobufList]
+         */
         /* JADX WARN: Type inference failed for: r3v5 */
         /* JADX WARN: Type inference failed for: r3v6 */
         /* JADX WARN: Type inference failed for: r3v7 */
         /* JADX WARN: Type inference failed for: r3v8 */
         /* JADX WARN: Type inference failed for: r3v9 */
-        /* JADX WARN: Type inference failed for: r5v1, types: [com.google.oplus.protobuf.Internal$ProtobufList, java.util.Collection] */
+        /*
+         * JADX WARN: Type inference failed for: r5v1, types:
+         * [com.google.oplus.protobuf.Internal$ProtobufList, java.util.Collection]
+         */
         /* JADX WARN: Type inference failed for: r5v2, types: [java.lang.Object] */
         /* JADX WARN: Type inference failed for: r5v3 */
         @Override // com.google.oplus.protobuf.ListFieldSchema

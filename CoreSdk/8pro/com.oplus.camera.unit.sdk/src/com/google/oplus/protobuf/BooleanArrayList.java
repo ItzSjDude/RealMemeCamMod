@@ -220,7 +220,7 @@ final class BooleanArrayList extends AbstractProtobufList<Boolean> implements In
         boolean[] zArr = this.array;
         boolean z = zArr[i];
         if (i < this.size - 1) {
-            System.arraycopy(zArr, i + 1, zArr, i, (r2 - i) - 1);
+            System.arraycopy(zArr, i + 1, zArr, i, (this.size - i) - 1);
         }
         this.size--;
         this.modCount++;

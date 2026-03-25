@@ -18,7 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 final class DescriptorMessageInfoFactory implements MessageInfoFactory {
     private static final String GET_DEFAULT_INSTANCE_METHOD_NAME = "getDefaultInstance";
     private static final DescriptorMessageInfoFactory instance = new DescriptorMessageInfoFactory();
-    private static final Set<String> specialFieldNames = new HashSet(Arrays.asList("cached_size", "serialized_size", "class"));
+    private static final Set<String> specialFieldNames = new HashSet(
+            Arrays.asList("cached_size", "serialized_size", "class"));
     private static IsInitializedCheckAnalyzer isInitializedCheckAnalyzer = new IsInitializedCheckAnalyzer();
 
     private DescriptorMessageInfoFactory() {
@@ -43,7 +44,8 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
 
     private static Message getDefaultInstance(Class<?> cls) {
         try {
-            return (Message) cls.getDeclaredMethod(GET_DEFAULT_INSTANCE_METHOD_NAME, new Class[0]).invoke(null, new Object[0]);
+            return (Message) cls.getDeclaredMethod(GET_DEFAULT_INSTANCE_METHOD_NAME, new Class[0]).invoke(null,
+                    new Object[0]);
         } catch (Exception e) {
             throw new IllegalArgumentException("Unable to get default instance for message class " + cls.getName(), e);
         }
@@ -54,7 +56,8 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
     }
 
     private static MessageInfo convert(Class<?> cls, Descriptors.Descriptor descriptor) {
-        int i = AnonymousClass3.$SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax[descriptor.getFile().getSyntax().ordinal()];
+        int i = AnonymousClass3.$SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax[descriptor
+                .getFile().getSyntax().ordinal()];
         if (i == 1) {
             return convertProto2(cls, descriptor);
         }
@@ -182,7 +185,7 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         builderNewBuilder.withDefaultInstance(getDefaultInstance(cls));
         builderNewBuilder.withSyntax(ProtoSyntax.PROTO2);
         builderNewBuilder.withMessageSetWireFormat(descriptor.getOptions().getMessageSetWireFormat());
-        AnonymousClass1 anonymousClass1 = null;
+        Internal.EnumVerifier anonymousClass1 = null;
         OneofState oneofState = new OneofState();
         java.lang.reflect.Field fieldBitField = null;
         int i = 0;
@@ -191,48 +194,61 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         while (i < fields.size()) {
             final Descriptors.FieldDescriptor fieldDescriptor = fields.get(i);
             boolean javaStringCheckUtf8 = fieldDescriptor.getFile().getOptions().getJavaStringCheckUtf8();
-            Internal.EnumVerifier enumVerifier = fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM ? new Internal.EnumVerifier() { // from class: com.google.oplus.protobuf.DescriptorMessageInfoFactory.1
-                @Override // com.google.oplus.protobuf.Internal.EnumVerifier
-                public boolean isInRange(int i4) {
-                    return fieldDescriptor.getEnumType().findValueByNumber(i4) != null;
-                }
-            } : anonymousClass1;
+            Internal.EnumVerifier enumVerifier = fieldDescriptor
+                    .getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM ? new Internal.EnumVerifier() { // from
+                                                                                                                // class:
+                                                                                                                // com.google.oplus.protobuf.DescriptorMessageInfoFactory.1
+                        @Override // com.google.oplus.protobuf.Internal.EnumVerifier
+                        public boolean isInRange(int i4) {
+                            return fieldDescriptor.getEnumType().findValueByNumber(i4) != null;
+                        }
+                    } : anonymousClass1;
             if (fieldDescriptor.getContainingOneof() != null) {
-                builderNewBuilder.withField(buildOneofMember(cls, fieldDescriptor, oneofState, javaStringCheckUtf8, enumVerifier));
+                builderNewBuilder.withField(
+                        buildOneofMember(cls, fieldDescriptor, oneofState, javaStringCheckUtf8, enumVerifier));
             } else {
                 java.lang.reflect.Field field = field(cls, fieldDescriptor);
                 int number = fieldDescriptor.getNumber();
                 FieldType fieldType = getFieldType(fieldDescriptor);
                 if (fieldDescriptor.isMapField()) {
-                    final Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = fieldDescriptor.getMessageType().findFieldByNumber(2);
+                    final Descriptors.FieldDescriptor fieldDescriptorFindFieldByNumber = fieldDescriptor
+                            .getMessageType().findFieldByNumber(2);
                     if (fieldDescriptorFindFieldByNumber.getJavaType() == Descriptors.FieldDescriptor.JavaType.ENUM) {
-                        enumVerifier = new Internal.EnumVerifier() { // from class: com.google.oplus.protobuf.DescriptorMessageInfoFactory.2
+                        enumVerifier = new Internal.EnumVerifier() { // from class:
+                                                                     // com.google.oplus.protobuf.DescriptorMessageInfoFactory.2
                             @Override // com.google.oplus.protobuf.Internal.EnumVerifier
                             public boolean isInRange(int i4) {
                                 return fieldDescriptorFindFieldByNumber.getEnumType().findValueByNumber(i4) != null;
                             }
                         };
                     }
-                    builderNewBuilder.withField(FieldInfo.forMapField(field, number, SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), enumVerifier));
+                    builderNewBuilder.withField(FieldInfo.forMapField(field, number,
+                            SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), enumVerifier));
                 } else if (!fieldDescriptor.isRepeated()) {
                     if (fieldBitField == null) {
                         fieldBitField = bitField(cls, i2);
                     }
                     if (fieldDescriptor.isRequired()) {
-                        builderNewBuilder.withField(FieldInfo.forProto2RequiredField(field, number, fieldType, fieldBitField, i3, javaStringCheckUtf8, enumVerifier));
+                        builderNewBuilder.withField(FieldInfo.forProto2RequiredField(field, number, fieldType,
+                                fieldBitField, i3, javaStringCheckUtf8, enumVerifier));
                     } else {
-                        builderNewBuilder.withField(FieldInfo.forProto2OptionalField(field, number, fieldType, fieldBitField, i3, javaStringCheckUtf8, enumVerifier));
+                        builderNewBuilder.withField(FieldInfo.forProto2OptionalField(field, number, fieldType,
+                                fieldBitField, i3, javaStringCheckUtf8, enumVerifier));
                     }
                 } else if (enumVerifier != null) {
                     if (fieldDescriptor.isPacked()) {
-                        builderNewBuilder.withField(FieldInfo.forPackedFieldWithEnumVerifier(field, number, fieldType, enumVerifier, cachedSizeField(cls, fieldDescriptor)));
+                        builderNewBuilder.withField(FieldInfo.forPackedFieldWithEnumVerifier(field, number, fieldType,
+                                enumVerifier, cachedSizeField(cls, fieldDescriptor)));
                     } else {
-                        builderNewBuilder.withField(FieldInfo.forFieldWithEnumVerifier(field, number, fieldType, enumVerifier));
+                        builderNewBuilder
+                                .withField(FieldInfo.forFieldWithEnumVerifier(field, number, fieldType, enumVerifier));
                     }
                 } else if (fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                    builderNewBuilder.withField(FieldInfo.forRepeatedMessageField(field, number, fieldType, getTypeForRepeatedMessageField(cls, fieldDescriptor)));
+                    builderNewBuilder.withField(FieldInfo.forRepeatedMessageField(field, number, fieldType,
+                            getTypeForRepeatedMessageField(cls, fieldDescriptor)));
                 } else if (fieldDescriptor.isPacked()) {
-                    builderNewBuilder.withField(FieldInfo.forPackedField(field, number, fieldType, cachedSizeField(cls, fieldDescriptor)));
+                    builderNewBuilder.withField(
+                            FieldInfo.forPackedField(field, number, fieldType, cachedSizeField(cls, fieldDescriptor)));
                 } else {
                     builderNewBuilder.withField(FieldInfo.forField(field, number, fieldType, javaStringCheckUtf8));
                 }
@@ -251,7 +267,9 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         ArrayList arrayList = new ArrayList();
         for (int i4 = 0; i4 < fields.size(); i4++) {
             Descriptors.FieldDescriptor fieldDescriptor2 = fields.get(i4);
-            if (fieldDescriptor2.isRequired() || (fieldDescriptor2.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE && needsIsInitializedCheck(fieldDescriptor2.getMessageType()))) {
+            if (fieldDescriptor2.isRequired()
+                    || (fieldDescriptor2.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE
+                            && needsIsInitializedCheck(fieldDescriptor2.getMessageType()))) {
                 arrayList.add(Integer.valueOf(fieldDescriptor2.getNumber()));
             }
         }
@@ -274,25 +292,36 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
             if (fieldDescriptor.getContainingOneof() != null) {
                 builderNewBuilder.withField(buildOneofMember(cls, fieldDescriptor, oneofState, true, null));
             } else if (fieldDescriptor.isMapField()) {
-                builderNewBuilder.withField(FieldInfo.forMapField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), null));
-            } else if (fieldDescriptor.isRepeated() && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
-                builderNewBuilder.withField(FieldInfo.forRepeatedMessageField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), getTypeForRepeatedMessageField(cls, fieldDescriptor)));
+                builderNewBuilder
+                        .withField(FieldInfo.forMapField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(),
+                                SchemaUtil.getMapDefaultEntry(cls, fieldDescriptor.getName()), null));
+            } else if (fieldDescriptor.isRepeated()
+                    && fieldDescriptor.getJavaType() == Descriptors.FieldDescriptor.JavaType.MESSAGE) {
+                builderNewBuilder.withField(
+                        FieldInfo.forRepeatedMessageField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(),
+                                getFieldType(fieldDescriptor), getTypeForRepeatedMessageField(cls, fieldDescriptor)));
             } else if (fieldDescriptor.isPacked()) {
-                builderNewBuilder.withField(FieldInfo.forPackedField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), cachedSizeField(cls, fieldDescriptor)));
+                builderNewBuilder
+                        .withField(FieldInfo.forPackedField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(),
+                                getFieldType(fieldDescriptor), cachedSizeField(cls, fieldDescriptor)));
             } else {
-                builderNewBuilder.withField(FieldInfo.forField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(), getFieldType(fieldDescriptor), true));
+                builderNewBuilder.withField(FieldInfo.forField(field(cls, fieldDescriptor), fieldDescriptor.getNumber(),
+                        getFieldType(fieldDescriptor), true));
             }
         }
         return builderNewBuilder.build();
     }
 
-    private static FieldInfo buildOneofMember(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor, OneofState oneofState, boolean z, Internal.EnumVerifier enumVerifier) {
+    private static FieldInfo buildOneofMember(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor,
+            OneofState oneofState, boolean z, Internal.EnumVerifier enumVerifier) {
         OneofInfo oneof = oneofState.getOneof(cls, fieldDescriptor.getContainingOneof());
         FieldType fieldType = getFieldType(fieldDescriptor);
-        return FieldInfo.forOneofMemberField(fieldDescriptor.getNumber(), fieldType, oneof, getOneofStoredType(cls, fieldDescriptor, fieldType), z, enumVerifier);
+        return FieldInfo.forOneofMemberField(fieldDescriptor.getNumber(), fieldType, oneof,
+                getOneofStoredType(cls, fieldDescriptor, fieldType), z, enumVerifier);
     }
 
-    private static Class<?> getOneofStoredType(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor, FieldType fieldType) {
+    private static Class<?> getOneofStoredType(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor,
+            FieldType fieldType) {
         switch (AnonymousClass3.$SwitchMap$com$google$oplus$protobuf$JavaType[fieldType.getJavaType().ordinal()]) {
             case 1:
                 return Boolean.class;
@@ -316,7 +345,11 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         }
     }
 
-    /* JADX INFO: renamed from: com.google.oplus.protobuf.DescriptorMessageInfoFactory$3, reason: invalid class name */
+    /*
+     * JADX INFO: renamed from:
+     * com.google.oplus.protobuf.DescriptorMessageInfoFactory$3, reason: invalid
+     * class name
+     */
     static /* synthetic */ class AnonymousClass3 {
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type;
         static final /* synthetic */ int[] $SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax;
@@ -330,71 +363,88 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
             } catch (NoSuchFieldError unused) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.BYTES.ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.BYTES
+                        .ordinal()] = 2;
             } catch (NoSuchFieldError unused2) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.DOUBLE.ordinal()] = 3;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.DOUBLE
+                        .ordinal()] = 3;
             } catch (NoSuchFieldError unused3) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.ENUM.ordinal()] = 4;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.ENUM
+                        .ordinal()] = 4;
             } catch (NoSuchFieldError unused4) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED32.ordinal()] = 5;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED32
+                        .ordinal()] = 5;
             } catch (NoSuchFieldError unused5) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED64.ordinal()] = 6;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FIXED64
+                        .ordinal()] = 6;
             } catch (NoSuchFieldError unused6) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FLOAT.ordinal()] = 7;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.FLOAT
+                        .ordinal()] = 7;
             } catch (NoSuchFieldError unused7) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.GROUP.ordinal()] = 8;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.GROUP
+                        .ordinal()] = 8;
             } catch (NoSuchFieldError unused8) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.INT32.ordinal()] = 9;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.INT32
+                        .ordinal()] = 9;
             } catch (NoSuchFieldError unused9) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.INT64.ordinal()] = 10;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.INT64
+                        .ordinal()] = 10;
             } catch (NoSuchFieldError unused10) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.MESSAGE.ordinal()] = 11;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.MESSAGE
+                        .ordinal()] = 11;
             } catch (NoSuchFieldError unused11) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED32.ordinal()] = 12;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED32
+                        .ordinal()] = 12;
             } catch (NoSuchFieldError unused12) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED64.ordinal()] = 13;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SFIXED64
+                        .ordinal()] = 13;
             } catch (NoSuchFieldError unused13) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT32.ordinal()] = 14;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT32
+                        .ordinal()] = 14;
             } catch (NoSuchFieldError unused14) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT64.ordinal()] = 15;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.SINT64
+                        .ordinal()] = 15;
             } catch (NoSuchFieldError unused15) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.STRING.ordinal()] = 16;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.STRING
+                        .ordinal()] = 16;
             } catch (NoSuchFieldError unused16) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT32.ordinal()] = 17;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT32
+                        .ordinal()] = 17;
             } catch (NoSuchFieldError unused17) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT64.ordinal()] = 18;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[Descriptors.FieldDescriptor.Type.UINT64
+                        .ordinal()] = 18;
             } catch (NoSuchFieldError unused18) {
             }
             int[] iArr2 = new int[JavaType.values().length];
@@ -442,14 +492,16 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
             } catch (NoSuchFieldError unused28) {
             }
             try {
-                $SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax[Descriptors.FileDescriptor.Syntax.PROTO3.ordinal()] = 2;
+                $SwitchMap$com$google$oplus$protobuf$Descriptors$FileDescriptor$Syntax[Descriptors.FileDescriptor.Syntax.PROTO3
+                        .ordinal()] = 2;
             } catch (NoSuchFieldError unused29) {
             }
         }
     }
 
     private static FieldType getFieldType(Descriptors.FieldDescriptor fieldDescriptor) {
-        switch (AnonymousClass3.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor.getType().ordinal()]) {
+        switch (AnonymousClass3.$SwitchMap$com$google$oplus$protobuf$Descriptors$FieldDescriptor$Type[fieldDescriptor
+                .getType().ordinal()]) {
             case 1:
                 if (fieldDescriptor.isRepeated()) {
                     return fieldDescriptor.isPacked() ? FieldType.BOOL_LIST_PACKED : FieldType.BOOL_LIST;
@@ -596,7 +648,11 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
 
     private static Class<?> getOneofStoredTypeForMessage(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor) {
         try {
-            return cls.getDeclaredMethod(getterForField(fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.GROUP ? fieldDescriptor.getMessageType().getName() : fieldDescriptor.getName()), new Class[0]).getReturnType();
+            return cls.getDeclaredMethod(
+                    getterForField(fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.GROUP
+                            ? fieldDescriptor.getMessageType().getName()
+                            : fieldDescriptor.getName()),
+                    new Class[0]).getReturnType();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -604,7 +660,11 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
 
     private static Class<?> getTypeForRepeatedMessageField(Class<?> cls, Descriptors.FieldDescriptor fieldDescriptor) {
         try {
-            return cls.getDeclaredMethod(getterForField(fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.GROUP ? fieldDescriptor.getMessageType().getName() : fieldDescriptor.getName()), Integer.TYPE).getReturnType();
+            return cls.getDeclaredMethod(
+                    getterForField(fieldDescriptor.getType() == Descriptors.FieldDescriptor.Type.GROUP
+                            ? fieldDescriptor.getMessageType().getName()
+                            : fieldDescriptor.getName()),
+                    Integer.TYPE).getReturnType();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -612,7 +672,8 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
 
     private static String getterForField(String str) {
         String strSnakeCaseToCamelCase = snakeCaseToCamelCase(str);
-        return "get" + Character.toUpperCase(strSnakeCaseToCamelCase.charAt(0)) + strSnakeCaseToCamelCase.substring(1, strSnakeCaseToCamelCase.length());
+        return "get" + Character.toUpperCase(strSnakeCaseToCamelCase.charAt(0))
+                + strSnakeCaseToCamelCase.substring(1, strSnakeCaseToCamelCase.length());
     }
 
     private static final class OneofState {
@@ -638,8 +699,11 @@ final class DescriptorMessageInfoFactory implements MessageInfoFactory {
         }
 
         private static OneofInfo newInfo(Class<?> cls, Descriptors.OneofDescriptor oneofDescriptor) {
-            String strSnakeCaseToCamelCase = DescriptorMessageInfoFactory.snakeCaseToCamelCase(oneofDescriptor.getName());
-            return new OneofInfo(oneofDescriptor.getIndex(), DescriptorMessageInfoFactory.field(cls, strSnakeCaseToCamelCase + "Case_"), DescriptorMessageInfoFactory.field(cls, strSnakeCaseToCamelCase + "_"));
+            String strSnakeCaseToCamelCase = DescriptorMessageInfoFactory
+                    .snakeCaseToCamelCase(oneofDescriptor.getName());
+            return new OneofInfo(oneofDescriptor.getIndex(),
+                    DescriptorMessageInfoFactory.field(cls, strSnakeCaseToCamelCase + "Case_"),
+                    DescriptorMessageInfoFactory.field(cls, strSnakeCaseToCamelCase + "_"));
         }
     }
 }

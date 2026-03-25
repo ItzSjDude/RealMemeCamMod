@@ -340,7 +340,7 @@ public final class DynamicMessage extends AbstractMessage {
         /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
         @Override // com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
         /* JADX INFO: renamed from: clone */
-        public Builder mo0clone() {
+        public Builder clone() {
             Builder builder = new Builder(this.type);
             builder.fields.mergeFrom(this.fields);
             builder.mergeUnknownFields(this.unknownFields);

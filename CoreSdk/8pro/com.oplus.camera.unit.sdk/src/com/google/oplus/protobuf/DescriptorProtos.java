@@ -6,7 +6,7 @@ import com.google.oplus.protobuf.GeneratedMessage;
 import com.google.oplus.protobuf.GeneratedMessageV3;
 import com.google.oplus.protobuf.Internal;
 import com.google.oplus.protobuf.UnknownFieldSet;
-import com.oplus.exif.OplusExifTag;
+
 import com.oplus.ocs.camera.common.util.ApsConstant;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1157,8 +1157,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -1258,7 +1258,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws IOException {
                 FileDescriptorSet fileDescriptorSet = null;
                 try {
                     try {
@@ -1272,7 +1272,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             fileDescriptorSet = fileDescriptorSet2;
                             if (fileDescriptorSet != null) {
                                 mergeFrom(fileDescriptorSet);
@@ -1281,10 +1280,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (fileDescriptorSet != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -1611,47 +1607,47 @@ public final class DescriptorProtos {
                                 break;
                             case 26:
                                 ByteString bytes3 = codedInputStream.readBytes();
-                                int i2 = (i == true ? 1 : 0) & 4;
+                                int i2 = i & 4;
                                 i = i;
                                 if (i2 == 0) {
                                     this.dependency_ = new LazyStringArrayList();
-                                    i = (i == true ? 1 : 0) | 4;
+                                    i = i | 4;
                                 }
                                 this.dependency_.add(bytes3);
                                 break;
                             case 34:
-                                int i3 = (i == true ? 1 : 0) & 32;
+                                int i3 = i & 32;
                                 i = i;
                                 if (i3 == 0) {
                                     this.messageType_ = new ArrayList();
-                                    i = (i == true ? 1 : 0) | 32;
+                                    i = i | 32;
                                 }
                                 this.messageType_.add((DescriptorProto) codedInputStream.readMessage(DescriptorProto.PARSER, extensionRegistryLite));
                                 break;
                             case 42:
-                                int i4 = (i == true ? 1 : 0) & 64;
+                                int i4 = i & 64;
                                 i = i;
                                 if (i4 == 0) {
                                     this.enumType_ = new ArrayList();
-                                    i = (i == true ? 1 : 0) | 64;
+                                    i = i | 64;
                                 }
                                 this.enumType_.add((EnumDescriptorProto) codedInputStream.readMessage(EnumDescriptorProto.PARSER, extensionRegistryLite));
                                 break;
                             case 50:
-                                int i5 = (i == true ? 1 : 0) & 128;
+                                int i5 = i & 128;
                                 i = i;
                                 if (i5 == 0) {
                                     this.service_ = new ArrayList();
-                                    i = (i == true ? 1 : 0) | 128;
+                                    i = i | 128;
                                 }
                                 this.service_.add((ServiceDescriptorProto) codedInputStream.readMessage(ServiceDescriptorProto.PARSER, extensionRegistryLite));
                                 break;
                             case 58:
-                                int i6 = (i == true ? 1 : 0) & 256;
+                                int i6 = i & 256;
                                 i = i;
                                 if (i6 == 0) {
                                     this.extension_ = new ArrayList();
-                                    i = (i == true ? 1 : 0) | 256;
+                                    i = i | 256;
                                 }
                                 this.extension_.add((FieldDescriptorProto) codedInputStream.readMessage(FieldDescriptorProto.PARSER, extensionRegistryLite));
                                 break;
@@ -1676,23 +1672,23 @@ public final class DescriptorProtos {
                                 this.bitField0_ |= 8;
                                 break;
                             case 80:
-                                int i7 = (i == true ? 1 : 0) & 8;
+                                int i7 = i & 8;
                                 i = i;
                                 if (i7 == 0) {
                                     this.publicDependency_ = newIntList();
-                                    i = (i == true ? 1 : 0) | 8;
+                                    i = i | 8;
                                 }
                                 this.publicDependency_.addInt(codedInputStream.readInt32());
                                 break;
                             case 82:
                                 int iPushLimit = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
-                                int i8 = (i == true ? 1 : 0) & 8;
+                                int i8 = i & 8;
                                 i = i;
                                 if (i8 == 0) {
                                     i = i;
                                     if (codedInputStream.getBytesUntilLimit() > 0) {
                                         this.publicDependency_ = newIntList();
-                                        i = (i == true ? 1 : 0) | 8;
+                                        i = i | 8;
                                     }
                                 }
                                 while (codedInputStream.getBytesUntilLimit() > 0) {
@@ -1701,23 +1697,23 @@ public final class DescriptorProtos {
                                 codedInputStream.popLimit(iPushLimit);
                                 break;
                             case 88:
-                                int i9 = (i == true ? 1 : 0) & 16;
+                                int i9 = i & 16;
                                 i = i;
                                 if (i9 == 0) {
                                     this.weakDependency_ = newIntList();
-                                    i = (i == true ? 1 : 0) | 16;
+                                    i = i | 16;
                                 }
                                 this.weakDependency_.addInt(codedInputStream.readInt32());
                                 break;
                             case 90:
                                 int iPushLimit2 = codedInputStream.pushLimit(codedInputStream.readRawVarint32());
-                                int i10 = (i == true ? 1 : 0) & 16;
+                                int i10 = i & 16;
                                 i = i;
                                 if (i10 == 0) {
                                     i = i;
                                     if (codedInputStream.getBytesUntilLimit() > 0) {
                                         this.weakDependency_ = newIntList();
-                                        i = (i == true ? 1 : 0) | 16;
+                                        i = i | 16;
                                     }
                                 }
                                 while (codedInputStream.getBytesUntilLimit() > 0) {
@@ -1742,25 +1738,25 @@ public final class DescriptorProtos {
                         throw new InvalidProtocolBufferException(e2).setUnfinishedMessage(this);
                     }
                 } finally {
-                    if (((i == true ? 1 : 0) & 4) != 0) {
+                    if ((i & 4) != 0) {
                         this.dependency_ = this.dependency_.getUnmodifiableView();
                     }
-                    if (((i == true ? 1 : 0) & 32) != 0) {
+                    if ((i & 32) != 0) {
                         this.messageType_ = Collections.unmodifiableList(this.messageType_);
                     }
-                    if (((i == true ? 1 : 0) & 64) != 0) {
+                    if ((i & 64) != 0) {
                         this.enumType_ = Collections.unmodifiableList(this.enumType_);
                     }
-                    if (((i == true ? 1 : 0) & 128) != 0) {
+                    if ((i & 128) != 0) {
                         this.service_ = Collections.unmodifiableList(this.service_);
                     }
-                    if (((i == true ? 1 : 0) & 256) != 0) {
+                    if ((i & 256) != 0) {
                         this.extension_ = Collections.unmodifiableList(this.extension_);
                     }
-                    if (((i == true ? 1 : 0) & 8) != 0) {
+                    if ((i & 8) != 0) {
                         this.publicDependency_.makeImmutable();
                     }
-                    if (((i == true ? 1 : 0) & 16) != 0) {
+                    if ((i & 16) != 0) {
                         this.weakDependency_.makeImmutable();
                     }
                     this.unknownFields = builderNewBuilder.build();
@@ -2579,7 +2575,7 @@ public final class DescriptorProtos {
                     }
                     i2 |= 8;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+                if ((i & 2048) != 0) {
                     i2 |= 16;
                 }
                 fileDescriptorProto.syntax_ = this.syntax_;
@@ -2596,8 +2592,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -2786,7 +2782,7 @@ public final class DescriptorProtos {
                     mergeSourceCodeInfo(fileDescriptorProto.getSourceCodeInfo());
                 }
                 if (fileDescriptorProto.hasSyntax()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                    this.bitField0_ |= 2048;
                     this.syntax_ = fileDescriptorProto.syntax_;
                     onChanged();
                 }
@@ -2829,7 +2825,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 FileDescriptorProto fileDescriptorProto = null;
                 try {
                     try {
@@ -2843,7 +2839,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             fileDescriptorProto = fileDescriptorProto2;
                             if (fileDescriptorProto != null) {
                                 mergeFrom(fileDescriptorProto);
@@ -2852,10 +2847,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (fileDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -4079,7 +4071,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
             public boolean hasSyntax() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+                return (this.bitField0_ & 2048) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileDescriptorProtoOrBuilder
@@ -4109,7 +4101,7 @@ public final class DescriptorProtos {
 
             public Builder setSyntax(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.syntax_ = str;
                 onChanged();
                 return this;
@@ -4124,7 +4116,7 @@ public final class DescriptorProtos {
 
             public Builder setSyntaxBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.syntax_ = byteString;
                 onChanged();
                 return this;
@@ -4803,8 +4795,8 @@ public final class DescriptorProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -4886,7 +4878,7 @@ public final class DescriptorProtos {
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
                 */
-                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                     ExtensionRange extensionRange = null;
                     try {
                         try {
@@ -4900,7 +4892,6 @@ public final class DescriptorProtos {
                             try {
                                 throw e.unwrapIOException();
                             } catch (Throwable th) {
-                                th = th;
                                 extensionRange = extensionRange2;
                                 if (extensionRange != null) {
                                     mergeFrom(extensionRange);
@@ -4909,11 +4900,8 @@ public final class DescriptorProtos {
                             }
                         }
                     } catch (Throwable th2) {
-                        th = th2;
-                        if (extensionRange != null) {
-                        }
-                        throw th;
-                    }
+                    throw th2;
+                }
                 }
 
                 @Override // com.google.oplus.protobuf.DescriptorProtos.DescriptorProto.ExtensionRangeOrBuilder
@@ -5443,8 +5431,8 @@ public final class DescriptorProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -5518,7 +5506,7 @@ public final class DescriptorProtos {
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
                 */
-                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                     ReservedRange reservedRange = null;
                     try {
                         try {
@@ -5532,7 +5520,6 @@ public final class DescriptorProtos {
                             try {
                                 throw e.unwrapIOException();
                             } catch (Throwable th) {
-                                th = th;
                                 reservedRange = reservedRange2;
                                 if (reservedRange != null) {
                                     mergeFrom(reservedRange);
@@ -5541,11 +5528,8 @@ public final class DescriptorProtos {
                             }
                         }
                     } catch (Throwable th2) {
-                        th = th2;
-                        if (reservedRange != null) {
-                        }
-                        throw th;
-                    }
+                    throw th2;
+                }
                 }
 
                 @Override // com.google.oplus.protobuf.DescriptorProtos.DescriptorProto.ReservedRangeOrBuilder
@@ -6408,8 +6392,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -6684,7 +6668,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 DescriptorProto descriptorProto = null;
                 try {
                     try {
@@ -6698,7 +6682,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             descriptorProto = descriptorProto2;
                             if (descriptorProto != null) {
                                 mergeFrom(descriptorProto);
@@ -6707,10 +6690,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (descriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -8424,7 +8404,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             for (int i = 0; i < this.uninterpretedOption_.size(); i++) {
                 codedOutputStream.writeMessage(999, this.uninterpretedOption_.get(i));
             }
@@ -8555,25 +8535,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_ExtensionRangeOptions_descriptor;
@@ -8670,8 +8638,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -8714,25 +8682,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<ExtensionRangeOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -8796,7 +8748,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 ExtensionRangeOptions extensionRangeOptions = null;
                 try {
                     try {
@@ -8810,7 +8762,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             extensionRangeOptions = extensionRangeOptions2;
                             if (extensionRangeOptions != null) {
                                 mergeFrom(extensionRangeOptions);
@@ -8819,10 +8770,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (extensionRangeOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -9139,7 +9087,7 @@ public final class DescriptorProtos {
                                 this.bitField0_ |= 32;
                                 this.extendee_ = bytes2;
                                 break;
-                            case ApsConstant.FEATURE_TYPE_MULTI_FRAME_DENOISE_HDR /* 24 */:
+                            case 24 /* 24 */:
                                 this.bitField0_ |= 2;
                                 this.number_ = codedInputStream.readInt32();
                                 break;
@@ -10077,8 +10025,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -10194,7 +10142,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 FieldDescriptorProto fieldDescriptorProto = null;
                 try {
                     try {
@@ -10208,7 +10156,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             fieldDescriptorProto = fieldDescriptorProto2;
                             if (fieldDescriptorProto != null) {
                                 mergeFrom(fieldDescriptorProto);
@@ -10217,10 +10164,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (fieldDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -11136,8 +11080,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -11218,7 +11162,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 OneofDescriptorProto oneofDescriptorProto = null;
                 try {
                     try {
@@ -11232,7 +11176,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             oneofDescriptorProto = oneofDescriptorProto2;
                             if (oneofDescriptorProto != null) {
                                 mergeFrom(oneofDescriptorProto);
@@ -11241,10 +11184,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (oneofDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -11917,8 +11857,8 @@ public final class DescriptorProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -11992,7 +11932,7 @@ public final class DescriptorProtos {
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
                 */
-                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                     EnumReservedRange enumReservedRange = null;
                     try {
                         try {
@@ -12006,7 +11946,6 @@ public final class DescriptorProtos {
                             try {
                                 throw e.unwrapIOException();
                             } catch (Throwable th) {
-                                th = th;
                                 enumReservedRange = enumReservedRange2;
                                 if (enumReservedRange != null) {
                                     mergeFrom(enumReservedRange);
@@ -12015,11 +11954,8 @@ public final class DescriptorProtos {
                             }
                         }
                     } catch (Throwable th2) {
-                        th = th2;
-                        if (enumReservedRange != null) {
-                        }
-                        throw th;
-                    }
+                    throw th2;
+                }
                 }
 
                 @Override // com.google.oplus.protobuf.DescriptorProtos.EnumDescriptorProto.EnumReservedRangeOrBuilder
@@ -12572,8 +12508,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -12713,7 +12649,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 EnumDescriptorProto enumDescriptorProto = null;
                 try {
                     try {
@@ -12727,7 +12663,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             enumDescriptorProto = enumDescriptorProto2;
                             if (enumDescriptorProto != null) {
                                 mergeFrom(enumDescriptorProto);
@@ -12736,10 +12671,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (enumDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -13799,8 +13731,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -13884,7 +13816,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 EnumValueDescriptorProto enumValueDescriptorProto = null;
                 try {
                     try {
@@ -13898,7 +13830,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             enumValueDescriptorProto = enumValueDescriptorProto2;
                             if (enumValueDescriptorProto != null) {
                                 mergeFrom(enumValueDescriptorProto);
@@ -13907,10 +13838,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (enumValueDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -14589,8 +14517,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -14698,7 +14626,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 ServiceDescriptorProto serviceDescriptorProto = null;
                 try {
                     try {
@@ -14712,7 +14640,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             serviceDescriptorProto = serviceDescriptorProto2;
                             if (serviceDescriptorProto != null) {
                                 mergeFrom(serviceDescriptorProto);
@@ -14721,10 +14648,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (serviceDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -15678,8 +15602,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -15776,7 +15700,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 MethodDescriptorProto methodDescriptorProto = null;
                 try {
                     try {
@@ -15790,7 +15714,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             methodDescriptorProto = methodDescriptorProto2;
                             if (methodDescriptorProto != null) {
                                 mergeFrom(methodDescriptorProto);
@@ -15799,10 +15722,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (methodDescriptorProto != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -16304,7 +16224,7 @@ public final class DescriptorProtos {
                                     this.javaGenerateEqualsAndHash_ = codedInputStream.readBool();
                                     break;
                                 case 184:
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                                    this.bitField0_ |= 2048;
                                     this.deprecated_ = codedInputStream.readBool();
                                     break;
                                 case 216:
@@ -16317,17 +16237,17 @@ public final class DescriptorProtos {
                                     break;
                                 case 290:
                                     ByteString bytes4 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                                    this.bitField0_ |= 8192;
                                     this.objcClassPrefix_ = bytes4;
                                     break;
                                 case 298:
                                     ByteString bytes5 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                                    this.bitField0_ |= 16384;
                                     this.csharpNamespace_ = bytes5;
                                     break;
                                 case 314:
                                     ByteString bytes6 = codedInputStream.readBytes();
-                                    this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                                    this.bitField0_ |= 32768;
                                     this.swiftPrefix_ = bytes6;
                                     break;
                                 case 322:
@@ -16364,8 +16284,7 @@ public final class DescriptorProtos {
                                     this.uninterpretedOption_.add((UninterpretedOption) codedInputStream.readMessage(UninterpretedOption.PARSER, extensionRegistryLite));
                                     break;
                                 default:
-                                    unknownField = parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag);
-                                    if (unknownField == 0) {
+                                    if (!parseUnknownField(codedInputStream, builderNewBuilder, extensionRegistryLite, tag)) {
                                         z = true;
                                     }
                                     break;
@@ -16641,7 +16560,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasDeprecated() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+            return (this.bitField0_ & 2048) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -16661,7 +16580,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasObjcClassPrefix() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0;
+            return (this.bitField0_ & 8192) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -16691,7 +16610,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasCsharpNamespace() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0;
+            return (this.bitField0_ & 16384) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -16721,7 +16640,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
         public boolean hasSwiftPrefix() {
-            return (this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0;
+            return (this.bitField0_ & 32768) != 0;
         }
 
         @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -16919,7 +16838,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 1, this.javaPackage_);
             }
@@ -16947,7 +16866,7 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 8) != 0) {
                 codedOutputStream.writeBool(20, this.javaGenerateEqualsAndHash_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+            if ((this.bitField0_ & 2048) != 0) {
                 codedOutputStream.writeBool(23, this.deprecated_);
             }
             if ((this.bitField0_ & 16) != 0) {
@@ -16956,13 +16875,13 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 4096) != 0) {
                 codedOutputStream.writeBool(31, this.ccEnableArenas_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
+            if ((this.bitField0_ & 8192) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 36, this.objcClassPrefix_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
+            if ((this.bitField0_ & 16384) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 37, this.csharpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
+            if ((this.bitField0_ & 32768) != 0) {
                 GeneratedMessageV3.writeString(codedOutputStream, 39, this.swiftPrefix_);
             }
             if ((this.bitField0_ & 65536) != 0) {
@@ -17018,7 +16937,7 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 8) != 0) {
                 iComputeStringSize += CodedOutputStream.computeBoolSize(20, this.javaGenerateEqualsAndHash_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+            if ((this.bitField0_ & 2048) != 0) {
                 iComputeStringSize += CodedOutputStream.computeBoolSize(23, this.deprecated_);
             }
             if ((this.bitField0_ & 16) != 0) {
@@ -17027,13 +16946,13 @@ public final class DescriptorProtos {
             if ((this.bitField0_ & 4096) != 0) {
                 iComputeStringSize += CodedOutputStream.computeBoolSize(31, this.ccEnableArenas_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
+            if ((this.bitField0_ & 8192) != 0) {
                 iComputeStringSize += GeneratedMessageV3.computeStringSize(36, this.objcClassPrefix_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
+            if ((this.bitField0_ & 16384) != 0) {
                 iComputeStringSize += GeneratedMessageV3.computeStringSize(37, this.csharpNamespace_);
             }
-            if ((this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
+            if ((this.bitField0_ & 32768) != 0) {
                 iComputeStringSize += GeneratedMessageV3.computeStringSize(39, this.swiftPrefix_);
             }
             if ((this.bitField0_ & 65536) != 0) {
@@ -17307,25 +17226,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<FileOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<FileOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<FileOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<FileOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_FileOptions_descriptor;
@@ -17488,24 +17395,24 @@ public final class DescriptorProtos {
                     fileOptions.phpGenericServices_ = this.phpGenericServices_;
                     i2 |= 1024;
                 }
-                if ((i & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0) {
+                if ((i & 2048) != 0) {
                     fileOptions.deprecated_ = this.deprecated_;
-                    i2 |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                    i2 |= 2048;
                 }
                 if ((i & 4096) != 0) {
                     i2 |= 4096;
                 }
                 fileOptions.ccEnableArenas_ = this.ccEnableArenas_;
-                if ((i & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                if ((i & 8192) != 0) {
+                    i2 |= 8192;
                 }
                 fileOptions.objcClassPrefix_ = this.objcClassPrefix_;
-                if ((i & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                if ((i & 16384) != 0) {
+                    i2 |= 16384;
                 }
                 fileOptions.csharpNamespace_ = this.csharpNamespace_;
-                if ((i & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0) {
-                    i2 |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                if ((i & 32768) != 0) {
+                    i2 |= 32768;
                 }
                 fileOptions.swiftPrefix_ = this.swiftPrefix_;
                 if ((i & 65536) != 0) {
@@ -17547,8 +17454,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -17591,25 +17498,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<FileOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<FileOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<FileOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<FileOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -17672,17 +17563,17 @@ public final class DescriptorProtos {
                     setCcEnableArenas(fileOptions.getCcEnableArenas());
                 }
                 if (fileOptions.hasObjcClassPrefix()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                    this.bitField0_ |= 8192;
                     this.objcClassPrefix_ = fileOptions.objcClassPrefix_;
                     onChanged();
                 }
                 if (fileOptions.hasCsharpNamespace()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                    this.bitField0_ |= 16384;
                     this.csharpNamespace_ = fileOptions.csharpNamespace_;
                     onChanged();
                 }
                 if (fileOptions.hasSwiftPrefix()) {
-                    this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                    this.bitField0_ |= 32768;
                     this.swiftPrefix_ = fileOptions.swiftPrefix_;
                     onChanged();
                 }
@@ -17753,7 +17644,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 FileOptions fileOptions = null;
                 try {
                     try {
@@ -17767,7 +17658,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             fileOptions = fileOptions2;
                             if (fileOptions != null) {
                                 mergeFrom(fileOptions);
@@ -17776,10 +17666,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (fileOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -18142,7 +18029,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasDeprecated() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_NIGHT_SCENE) != 0;
+                return (this.bitField0_ & 2048) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18151,7 +18038,7 @@ public final class DescriptorProtos {
             }
 
             public Builder setDeprecated(boolean z) {
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_NIGHT_SCENE;
+                this.bitField0_ |= 2048;
                 this.deprecated_ = z;
                 onChanged();
                 return this;
@@ -18190,7 +18077,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasObjcClassPrefix() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION) != 0;
+                return (this.bitField0_ & 8192) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18220,7 +18107,7 @@ public final class DescriptorProtos {
 
             public Builder setObjcClassPrefix(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                this.bitField0_ |= 8192;
                 this.objcClassPrefix_ = str;
                 onChanged();
                 return this;
@@ -18235,7 +18122,7 @@ public final class DescriptorProtos {
 
             public Builder setObjcClassPrefixBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_SUPER_HIGH_RESOLUTION;
+                this.bitField0_ |= 8192;
                 this.objcClassPrefix_ = byteString;
                 onChanged();
                 return this;
@@ -18243,7 +18130,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasCsharpNamespace() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_AI_ID_PHOTO) != 0;
+                return (this.bitField0_ & 16384) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18273,7 +18160,7 @@ public final class DescriptorProtos {
 
             public Builder setCsharpNamespace(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                this.bitField0_ |= 16384;
                 this.csharpNamespace_ = str;
                 onChanged();
                 return this;
@@ -18288,7 +18175,7 @@ public final class DescriptorProtos {
 
             public Builder setCsharpNamespaceBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_AI_ID_PHOTO;
+                this.bitField0_ |= 16384;
                 this.csharpNamespace_ = byteString;
                 onChanged();
                 return this;
@@ -18296,7 +18183,7 @@ public final class DescriptorProtos {
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
             public boolean hasSwiftPrefix() {
-                return (this.bitField0_ & OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE) != 0;
+                return (this.bitField0_ & 32768) != 0;
             }
 
             @Override // com.google.oplus.protobuf.DescriptorProtos.FileOptionsOrBuilder
@@ -18326,7 +18213,7 @@ public final class DescriptorProtos {
 
             public Builder setSwiftPrefix(String str) {
                 str.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                this.bitField0_ |= 32768;
                 this.swiftPrefix_ = str;
                 onChanged();
                 return this;
@@ -18341,7 +18228,7 @@ public final class DescriptorProtos {
 
             public Builder setSwiftPrefixBytes(ByteString byteString) {
                 byteString.getClass();
-                this.bitField0_ |= OplusExifTag.EXIF_TAG_DOUBLE_EXPOSURE;
+                this.bitField0_ |= 32768;
                 this.swiftPrefix_ = byteString;
                 onChanged();
                 return this;
@@ -18978,7 +18865,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 codedOutputStream.writeBool(1, this.messageSetWireFormat_);
             }
@@ -19158,25 +19045,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<MessageOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<MessageOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<MessageOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<MessageOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_MessageOptions_descriptor;
@@ -19299,8 +19174,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -19343,25 +19218,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<MessageOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<MessageOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<MessageOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<MessageOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -19437,7 +19296,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 MessageOptions messageOptions = null;
                 try {
                     try {
@@ -19451,7 +19310,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             messageOptions = messageOptions2;
                             if (messageOptions != null) {
                                 mergeFrom(messageOptions);
@@ -19460,10 +19318,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (messageOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -20168,7 +20023,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 codedOutputStream.writeEnum(1, this.ctype_);
             }
@@ -20374,25 +20229,13 @@ public final class DescriptorProtos {
             private List<UninterpretedOption> uninterpretedOption_;
             private boolean weak_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<FieldOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<FieldOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<FieldOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<FieldOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_FieldOptions_descriptor;
@@ -20524,8 +20367,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -20568,25 +20411,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<FieldOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<FieldOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<FieldOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<FieldOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -20668,7 +20495,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 FieldOptions fieldOptions = null;
                 try {
                     try {
@@ -20682,7 +20509,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             fieldOptions = fieldOptions2;
                             if (fieldOptions != null) {
                                 mergeFrom(fieldOptions);
@@ -20691,10 +20517,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (fieldOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -21204,7 +21027,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             for (int i = 0; i < this.uninterpretedOption_.size(); i++) {
                 codedOutputStream.writeMessage(999, this.uninterpretedOption_.get(i));
             }
@@ -21335,25 +21158,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<OneofOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<OneofOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<OneofOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<OneofOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_OneofOptions_descriptor;
@@ -21450,8 +21261,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -21494,25 +21305,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<OneofOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<OneofOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<OneofOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<OneofOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -21576,7 +21371,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 OneofOptions oneofOptions = null;
                 try {
                     try {
@@ -21590,7 +21385,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             oneofOptions = oneofOptions2;
                             if (oneofOptions != null) {
                                 mergeFrom(oneofOptions);
@@ -21599,10 +21393,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (oneofOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -21995,7 +21786,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 codedOutputStream.writeBool(2, this.allowAlias_);
             }
@@ -22149,25 +21940,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<EnumOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<EnumOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<EnumOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<EnumOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_EnumOptions_descriptor;
@@ -22280,8 +22059,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -22324,25 +22103,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<EnumOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<EnumOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<EnumOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<EnumOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -22412,7 +22175,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 EnumOptions enumOptions = null;
                 try {
                     try {
@@ -22426,7 +22189,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             enumOptions = enumOptions2;
                             if (enumOptions != null) {
                                 mergeFrom(enumOptions);
@@ -22435,10 +22197,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (enumOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -22864,7 +22623,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 codedOutputStream.writeBool(1, this.deprecated_);
             }
@@ -23005,25 +22764,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<EnumValueOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<EnumValueOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<EnumValueOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<EnumValueOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_EnumValueOptions_descriptor;
@@ -23128,8 +22875,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -23172,25 +22919,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<EnumValueOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<EnumValueOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<EnumValueOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<EnumValueOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -23257,7 +22988,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 EnumValueOptions enumValueOptions = null;
                 try {
                     try {
@@ -23271,7 +23002,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             enumValueOptions = enumValueOptions2;
                             if (enumValueOptions != null) {
                                 mergeFrom(enumValueOptions);
@@ -23280,10 +23010,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (enumValueOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -23685,7 +23412,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 codedOutputStream.writeBool(33, this.deprecated_);
             }
@@ -23826,25 +23553,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<ServiceOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<ServiceOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<ServiceOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<ServiceOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_ServiceOptions_descriptor;
@@ -23949,8 +23664,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -23993,25 +23708,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<ServiceOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<ServiceOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<ServiceOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<ServiceOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -24078,7 +23777,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 ServiceOptions serviceOptions = null;
                 try {
                     try {
@@ -24092,7 +23791,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             serviceOptions = serviceOptions2;
                             if (serviceOptions != null) {
                                 mergeFrom(serviceOptions);
@@ -24101,10 +23799,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (serviceOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -24599,7 +24294,7 @@ public final class DescriptorProtos {
 
         @Override // com.google.oplus.protobuf.GeneratedMessageV3, com.google.oplus.protobuf.AbstractMessage, com.google.oplus.protobuf.MessageLite
         public void writeTo(CodedOutputStream codedOutputStream) throws IOException {
-            GeneratedMessageV3.ExtendableMessage<MessageType>.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
+            GeneratedMessageV3.ExtendableMessage.ExtensionWriter extensionWriterNewExtensionWriter = newExtensionWriter();
             if ((this.bitField0_ & 1) != 0) {
                 codedOutputStream.writeBool(33, this.deprecated_);
             }
@@ -24753,25 +24448,13 @@ public final class DescriptorProtos {
             private RepeatedFieldBuilderV3<UninterpretedOption, UninterpretedOption.Builder, UninterpretedOptionOrBuilder> uninterpretedOptionBuilder_;
             private List<UninterpretedOption> uninterpretedOption_;
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder addExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return addExtension((GeneratedMessage.GeneratedExtension<MethodOptions, List<Object>>) generatedExtension, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder clearExtension(GeneratedMessage.GeneratedExtension generatedExtension) {
-                return clearExtension((GeneratedMessage.GeneratedExtension<MethodOptions, ?>) generatedExtension);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, int i, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<MethodOptions, List<Object>>) generatedExtension, i, obj);
-            }
+            
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public /* bridge */ /* synthetic */ GeneratedMessageV3.ExtendableBuilder setExtension(GeneratedMessage.GeneratedExtension generatedExtension, Object obj) {
-                return setExtension((GeneratedMessage.GeneratedExtension<MethodOptions, Object>) generatedExtension, obj);
-            }
+            
 
             public static final Descriptors.Descriptor getDescriptor() {
                 return DescriptorProtos.internal_static_google_protobuf_MethodOptions_descriptor;
@@ -24886,8 +24569,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -24930,25 +24613,9 @@ public final class DescriptorProtos {
                 return (Builder) super.addRepeatedField(fieldDescriptor, obj);
             }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<MethodOptions, Type> generatedExtension, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder setExtension(GeneratedMessage.GeneratedExtension<MethodOptions, List<Type>> generatedExtension, int i, Type type) {
-                return (Builder) super.setExtension((GeneratedMessage.GeneratedExtension) generatedExtension, i, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder addExtension(GeneratedMessage.GeneratedExtension<MethodOptions, List<Type>> generatedExtension, Type type) {
-                return (Builder) super.addExtension((GeneratedMessage.GeneratedExtension) generatedExtension, (Object) type);
-            }
 
-            @Override // com.google.oplus.protobuf.GeneratedMessageV3.ExtendableBuilder
-            public <Type> Builder clearExtension(GeneratedMessage.GeneratedExtension<MethodOptions, ?> generatedExtension) {
-                return (Builder) super.clearExtension((GeneratedMessage.GeneratedExtension) generatedExtension);
-            }
 
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/AbstractMessage$Builder; */
             /* JADX DEBUG: Method merged with bridge method: mergeFrom(Lcom/google/oplus/protobuf/Message;)Lcom/google/oplus/protobuf/Message$Builder; */
@@ -25018,7 +24685,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 MethodOptions methodOptions = null;
                 try {
                     try {
@@ -25032,7 +24699,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             methodOptions = methodOptions2;
                             if (methodOptions != null) {
                                 mergeFrom(methodOptions);
@@ -25041,10 +24707,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (methodOptions != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -25827,8 +25490,8 @@ public final class DescriptorProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -25909,7 +25572,7 @@ public final class DescriptorProtos {
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
                 */
-                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                     NamePart namePart = null;
                     try {
                         try {
@@ -25923,7 +25586,6 @@ public final class DescriptorProtos {
                             try {
                                 throw e.unwrapIOException();
                             } catch (Throwable th) {
-                                th = th;
                                 namePart = namePart2;
                                 if (namePart != null) {
                                     mergeFrom(namePart);
@@ -25932,11 +25594,8 @@ public final class DescriptorProtos {
                             }
                         }
                     } catch (Throwable th2) {
-                        th = th2;
-                        if (namePart != null) {
-                        }
-                        throw th;
-                    }
+                    throw th2;
+                }
                 }
 
                 @Override // com.google.oplus.protobuf.DescriptorProtos.UninterpretedOption.NamePartOrBuilder
@@ -26539,8 +26198,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -26662,7 +26321,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 UninterpretedOption uninterpretedOption = null;
                 try {
                     try {
@@ -26676,7 +26335,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             uninterpretedOption = uninterpretedOption2;
                             if (uninterpretedOption != null) {
                                 mergeFrom(uninterpretedOption);
@@ -26685,10 +26343,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (uninterpretedOption != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -27824,8 +27479,8 @@ public final class DescriptorProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -27933,7 +27588,7 @@ public final class DescriptorProtos {
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
                 */
-                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                     Location location = null;
                     try {
                         try {
@@ -27947,7 +27602,6 @@ public final class DescriptorProtos {
                             try {
                                 throw e.unwrapIOException();
                             } catch (Throwable th) {
-                                th = th;
                                 location = location2;
                                 if (location != null) {
                                     mergeFrom(location);
@@ -27956,11 +27610,8 @@ public final class DescriptorProtos {
                             }
                         }
                     } catch (Throwable th2) {
-                        th = th2;
-                        if (location != null) {
-                        }
-                        throw th;
-                    }
+                    throw th2;
+                }
                 }
 
                 private void ensurePathIsMutable() {
@@ -28540,8 +28191,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -28631,7 +28282,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 SourceCodeInfo sourceCodeInfo = null;
                 try {
                     try {
@@ -28645,7 +28296,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             sourceCodeInfo = sourceCodeInfo2;
                             if (sourceCodeInfo != null) {
                                 mergeFrom(sourceCodeInfo);
@@ -28654,10 +28304,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (sourceCodeInfo != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
@@ -29464,8 +29111,8 @@ public final class DescriptorProtos {
                 /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
                 @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
                 /* JADX INFO: renamed from: clone */
-                public Builder mo0clone() {
-                    return (Builder) super.mo0clone();
+                public Builder clone() {
+                    return (Builder) super.clone();
                 }
 
                 /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -29554,7 +29201,7 @@ public final class DescriptorProtos {
                 /*
                     Code decompiled incorrectly, please refer to instructions dump.
                 */
-                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+                public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                     Annotation annotation = null;
                     try {
                         try {
@@ -29568,7 +29215,6 @@ public final class DescriptorProtos {
                             try {
                                 throw e.unwrapIOException();
                             } catch (Throwable th) {
-                                th = th;
                                 annotation = annotation2;
                                 if (annotation != null) {
                                     mergeFrom(annotation);
@@ -29577,11 +29223,8 @@ public final class DescriptorProtos {
                             }
                         }
                     } catch (Throwable th2) {
-                        th = th2;
-                        if (annotation != null) {
-                        }
-                        throw th;
-                    }
+                    throw th2;
+                }
                 }
 
                 private void ensurePathIsMutable() {
@@ -30040,8 +29683,8 @@ public final class DescriptorProtos {
             /* JADX DEBUG: Method merged with bridge method: clone()Ljava/lang/Object; */
             @Override // com.google.oplus.protobuf.GeneratedMessageV3.Builder, com.google.oplus.protobuf.AbstractMessage.Builder, com.google.oplus.protobuf.AbstractMessageLite.Builder
             /* JADX INFO: renamed from: clone */
-            public Builder mo0clone() {
-                return (Builder) super.mo0clone();
+            public Builder clone() {
+                return (Builder) super.clone();
             }
 
             /* JADX DEBUG: Method merged with bridge method: setField(Lcom/google/oplus/protobuf/Descriptors$FieldDescriptor;Ljava/lang/Object;)Lcom/google/oplus/protobuf/GeneratedMessageV3$Builder; */
@@ -30131,7 +29774,7 @@ public final class DescriptorProtos {
             /*
                 Code decompiled incorrectly, please refer to instructions dump.
             */
-            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws Throwable {
+            public Builder mergeFrom(CodedInputStream codedInputStream, ExtensionRegistryLite extensionRegistryLite) throws java.io.IOException {
                 GeneratedCodeInfo generatedCodeInfo = null;
                 try {
                     try {
@@ -30145,7 +29788,6 @@ public final class DescriptorProtos {
                         try {
                             throw e.unwrapIOException();
                         } catch (Throwable th) {
-                            th = th;
                             generatedCodeInfo = generatedCodeInfo2;
                             if (generatedCodeInfo != null) {
                                 mergeFrom(generatedCodeInfo);
@@ -30154,10 +29796,7 @@ public final class DescriptorProtos {
                         }
                     }
                 } catch (Throwable th2) {
-                    th = th2;
-                    if (generatedCodeInfo != null) {
-                    }
-                    throw th;
+                    throw th2;
                 }
             }
 
