@@ -4,10 +4,14 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.security.AccessController;
-import java.security.PrivilegedExceptionAction;
+import java.security.PrivilegedAction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.misc.Unsafe;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import com.oplus.camera.unit.sdk.compat.UnsafeCompat;
 
 /* JADX INFO: loaded from: classes.dex */
 final class UnsafeUtil {
@@ -27,9 +31,7 @@ final class UnsafeUtil {
     private static final long LONG_ARRAY_INDEX_SCALE;
     private static final long OBJECT_ARRAY_BASE_OFFSET;
     private static final long OBJECT_ARRAY_INDEX_SCALE;
-    private static final int STRIDE = 8;
-    private static final int STRIDE_ALIGNMENT_MASK = 7;
-    private static final Unsafe UNSAFE = getUnsafe();
+    private static final Object UNSAFE = UnsafeCompat.getUnsafe();
     private static final Class<?> MEMORY_CLASS = Android.getMemoryClass();
     private static final boolean IS_ANDROID_64 = determineAndroidSupportByAddressSize(Long.TYPE);
     private static final boolean IS_ANDROID_32 = determineAndroidSupportByAddressSize(Integer.TYPE);
@@ -255,32 +257,14 @@ final class UnsafeUtil {
         return MEMORY_ACCESSOR.getStaticObject(field);
     }
 
-    static Unsafe getUnsafe() {
-        try {
-            return (Unsafe) AccessController.doPrivileged(new PrivilegedExceptionAction<Unsafe>() { // from class:
-                                                                                                    // com.google.oplus.protobuf.UnsafeUtil.1
-                /* JADX DEBUG: Method merged with bridge method: run()Ljava/lang/Object; */
-                @Override // java.security.PrivilegedExceptionAction
-                public Unsafe run() throws Exception {
-                    for (java.lang.reflect.Field field : Unsafe.class.getDeclaredFields()) {
-                        field.setAccessible(true);
-                        Object obj = field.get(null);
-                        if (Unsafe.class.isInstance(obj)) {
-                            return (Unsafe) Unsafe.class.cast(obj);
-                        }
-                    }
-                    return null;
-                }
-            });
-        } catch (Throwable unused) {
-            return null;
-        }
+    static Object getUnsafe() {
+        return UnsafeCompat.getUnsafe();
     }
 
     private static MemoryAccessor getMemoryAccessor() {
-        Unsafe unsafe = UNSAFE;
+        Object unsafe = UNSAFE;
         if (unsafe == null) {
-            return null;
+            return new VarHandleMemoryAccessor(null);
         }
         if (Android.isOnAndroidDevice()) {
             if (IS_ANDROID_64) {
@@ -403,60 +387,26 @@ final class UnsafeUtil {
     }
 
     private static abstract class MemoryAccessor {
-        Unsafe unsafe;
+        Object unsafe;
 
-        public abstract void copyMemory(long j, byte[] bArr, long j2, long j3);
-
-        public abstract void copyMemory(byte[] bArr, long j, long j2, long j3);
-
-        public abstract boolean getBoolean(Object obj, long j);
-
-        public abstract byte getByte(long j);
-
-        public abstract byte getByte(Object obj, long j);
-
-        public abstract double getDouble(Object obj, long j);
-
-        public abstract float getFloat(Object obj, long j);
-
-        public abstract int getInt(long j);
-
-        public abstract long getLong(long j);
-
-        public abstract Object getStaticObject(java.lang.reflect.Field field);
-
-        public abstract void putBoolean(Object obj, long j, boolean z);
-
-        public abstract void putByte(long j, byte b);
-
-        public abstract void putByte(Object obj, long j, byte b);
-
-        public abstract void putDouble(Object obj, long j, double d);
-
-        public abstract void putFloat(Object obj, long j, float f);
-
-        public abstract void putInt(long j, int i);
-
-        public abstract void putLong(long j, long j2);
-
-        MemoryAccessor(Unsafe unsafe) {
+        MemoryAccessor(Object unsafe) {
             this.unsafe = unsafe;
         }
 
-        public final long objectFieldOffset(java.lang.reflect.Field field) {
-            return this.unsafe.objectFieldOffset(field);
+        public long objectFieldOffset(java.lang.reflect.Field field) {
+            return UnsafeCompat.objectFieldOffset(field);
         }
 
-        public final int arrayBaseOffset(Class<?> cls) {
-            return this.unsafe.arrayBaseOffset(cls);
+        public int arrayBaseOffset(Class<?> cls) {
+            return UnsafeCompat.arrayBaseOffset(cls);
         }
 
-        public final int arrayIndexScale(Class<?> cls) {
-            return this.unsafe.arrayIndexScale(cls);
+        public int arrayIndexScale(Class<?> cls) {
+            return UnsafeCompat.arrayIndexScale(cls);
         }
 
         public boolean supportsUnsafeArrayOperations() {
-            Unsafe unsafe = this.unsafe;
+            Object unsafe = this.unsafe;
             if (unsafe == null) {
                 return false;
             }
@@ -478,32 +428,152 @@ final class UnsafeUtil {
             }
         }
 
-        public final int getInt(Object obj, long j) {
-            return this.unsafe.getInt(obj, j);
+        public abstract Object getStaticObject(java.lang.reflect.Field field);
+
+        public int getInt(Object obj, long j) {
+            try {
+                return (int) this.unsafe.getClass().getMethod("getInt", Object.class, Long.TYPE).invoke(this.unsafe,
+                        obj, j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        public final void putInt(Object obj, long j, int i) {
-            this.unsafe.putInt(obj, j, i);
+        public void putInt(Object obj, long j, int i) {
+            try {
+                this.unsafe.getClass().getMethod("putInt", Object.class, Long.TYPE, Integer.TYPE).invoke(this.unsafe,
+                        obj, j, i);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        public final long getLong(Object obj, long j) {
-            return this.unsafe.getLong(obj, j);
+        public long getLong(Object obj, long j) {
+            try {
+                return (long) this.unsafe.getClass().getMethod("getLong", Object.class, Long.TYPE).invoke(this.unsafe,
+                        obj, j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        public final void putLong(Object obj, long j, long j2) {
-            this.unsafe.putLong(obj, j, j2);
+        public void putLong(Object obj, long j, long j2) {
+            try {
+                this.unsafe.getClass().getMethod("putLong", Object.class, Long.TYPE, Long.TYPE).invoke(this.unsafe, obj,
+                        j, j2);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        public final Object getObject(Object obj, long j) {
-            return this.unsafe.getObject(obj, j);
+        public Object getObject(Object obj, long j) {
+            try {
+                return this.unsafe.getClass().getMethod("getObject", Object.class, Long.TYPE).invoke(this.unsafe, obj,
+                        j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        public final void putObject(Object obj, long j, Object obj2) {
-            this.unsafe.putObject(obj, j, obj2);
+        public void putObject(Object obj, long j, Object obj2) {
+            try {
+                this.unsafe.getClass().getMethod("putObject", Object.class, Long.TYPE, Object.class).invoke(this.unsafe,
+                        obj, j, obj2);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
+
+        public abstract byte getByte(long j);
+
+        public abstract void putByte(long j, byte b);
+
+        public abstract int getInt(long j);
+
+        public abstract void putInt(long j, int i);
+
+        public abstract long getLong(long j);
+
+        public abstract void putLong(long j, long j2);
+
+        public byte getByte(Object obj, long j) {
+            try {
+                return (byte) this.unsafe.getClass().getMethod("getByte", Object.class, Long.TYPE).invoke(this.unsafe,
+                        obj, j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public void putByte(Object obj, long j, byte b) {
+            try {
+                this.unsafe.getClass().getMethod("putByte", Object.class, Long.TYPE, Byte.TYPE).invoke(this.unsafe, obj,
+                        j, b);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public boolean getBoolean(Object obj, long j) {
+            try {
+                return (boolean) this.unsafe.getClass().getMethod("getBoolean", Object.class, Long.TYPE)
+                        .invoke(this.unsafe, obj, j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public void putBoolean(Object obj, long j, boolean z) {
+            try {
+                this.unsafe.getClass().getMethod("putBoolean", Object.class, Long.TYPE, Boolean.TYPE)
+                        .invoke(this.unsafe, obj, j, z);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public float getFloat(Object obj, long j) {
+            try {
+                return (float) this.unsafe.getClass().getMethod("getFloat", Object.class, Long.TYPE).invoke(this.unsafe,
+                        obj, j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public void putFloat(Object obj, long j, float f) {
+            try {
+                this.unsafe.getClass().getMethod("putFloat", Object.class, Long.TYPE, Float.TYPE).invoke(this.unsafe,
+                        obj, j, f);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public double getDouble(Object obj, long j) {
+            try {
+                return (double) this.unsafe.getClass().getMethod("getDouble", Object.class, Long.TYPE)
+                        .invoke(this.unsafe, obj, j);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public void putDouble(Object obj, long j, double d) {
+            try {
+                this.unsafe.getClass().getMethod("putDouble", Object.class, Long.TYPE, Double.TYPE).invoke(this.unsafe,
+                        obj, j, d);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public abstract void copyMemory(long j, byte[] bArr, long j2, long j3);
+
+        public abstract void copyMemory(byte[] bArr, long j, long j2, long j3);
 
         public boolean supportsUnsafeByteBufferOperations() {
-            Unsafe unsafe = this.unsafe;
+            Object unsafe = this.unsafe;
             if (unsafe == null) {
                 return false;
             }
@@ -520,7 +590,7 @@ final class UnsafeUtil {
     }
 
     private static final class JvmMemoryAccessor extends MemoryAccessor {
-        JvmMemoryAccessor(Unsafe unsafe) {
+        JvmMemoryAccessor(Object unsafe) {
             super(unsafe);
         }
 
@@ -530,125 +600,66 @@ final class UnsafeUtil {
                 Object base = this.unsafe.getClass().getMethod("staticFieldBase", java.lang.reflect.Field.class)
                         .invoke(this.unsafe, field);
                 long offset = (long) this.unsafe.getClass()
-                        .getMethod("staticFieldOffset", java.lang.reflect.Field.class).invoke(this.unsafe, field);
+                        .getMethod("staticFieldOffset", java.lang.reflect.Field.class)
+                        .invoke(this.unsafe, field);
                 return getObject(base, offset);
             } catch (Exception e) {
                 return null;
             }
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public boolean supportsUnsafeArrayOperations() {
-            if (!super.supportsUnsafeArrayOperations()) {
-                return false;
-            }
+        @Override
+        public byte getByte(long address) {
             try {
-                Class<?> cls = this.unsafe.getClass();
-                cls.getMethod("getByte", Object.class, Long.TYPE);
-                cls.getMethod("putByte", Object.class, Long.TYPE, Byte.TYPE);
-                cls.getMethod("getBoolean", Object.class, Long.TYPE);
-                cls.getMethod("putBoolean", Object.class, Long.TYPE, Boolean.TYPE);
-                cls.getMethod("getFloat", Object.class, Long.TYPE);
-                cls.getMethod("putFloat", Object.class, Long.TYPE, Float.TYPE);
-                cls.getMethod("getDouble", Object.class, Long.TYPE);
-                cls.getMethod("putDouble", Object.class, Long.TYPE, Double.TYPE);
-                return true;
-            } catch (Throwable th) {
-                UnsafeUtil.logMissingMethod(th);
-                return false;
+                return (byte) this.unsafe.getClass().getMethod("getByte", Long.TYPE).invoke(this.unsafe, address);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public byte getByte(Object obj, long j) {
-            return this.unsafe.getByte(obj, j);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putByte(Object obj, long j, byte b) {
-            this.unsafe.putByte(obj, j, b);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public boolean getBoolean(Object obj, long j) {
-            return this.unsafe.getBoolean(obj, j);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putBoolean(Object obj, long j, boolean z) {
-            this.unsafe.putBoolean(obj, j, z);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public float getFloat(Object obj, long j) {
-            return this.unsafe.getFloat(obj, j);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putFloat(Object obj, long j, float f) {
-            this.unsafe.putFloat(obj, j, f);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public double getDouble(Object obj, long j) {
-            return this.unsafe.getDouble(obj, j);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putDouble(Object obj, long j, double d) {
-            this.unsafe.putDouble(obj, j, d);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public boolean supportsUnsafeByteBufferOperations() {
-            if (!super.supportsUnsafeByteBufferOperations()) {
-                return false;
-            }
+        @Override
+        public void putByte(long address, byte value) {
             try {
-                Class<?> cls = this.unsafe.getClass();
-                cls.getMethod("getByte", Long.TYPE);
-                cls.getMethod("putByte", Long.TYPE, Byte.TYPE);
-                cls.getMethod("getInt", Long.TYPE);
-                cls.getMethod("putInt", Long.TYPE, Integer.TYPE);
-                cls.getMethod("getLong", Long.TYPE);
-                cls.getMethod("putLong", Long.TYPE, Long.TYPE);
-                cls.getMethod("copyMemory", Long.TYPE, Long.TYPE, Long.TYPE);
-                cls.getMethod("copyMemory", Object.class, Long.TYPE, Object.class, Long.TYPE, Long.TYPE);
-                return true;
-            } catch (Throwable th) {
-                UnsafeUtil.logMissingMethod(th);
-                return false;
+                this.unsafe.getClass().getMethod("putByte", Long.TYPE, Byte.TYPE).invoke(this.unsafe, address, value);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public byte getByte(long j) {
-            return this.unsafe.getByte(j);
+        @Override
+        public int getInt(long address) {
+            try {
+                return (int) this.unsafe.getClass().getMethod("getInt", Long.TYPE).invoke(this.unsafe, address);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putByte(long j, byte b) {
-            this.unsafe.putByte(j, b);
+        @Override
+        public void putInt(long address, int value) {
+            try {
+                this.unsafe.getClass().getMethod("putInt", Long.TYPE, Integer.TYPE).invoke(this.unsafe, address, value);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public int getInt(long j) {
-            return this.unsafe.getInt(j);
+        @Override
+        public long getLong(long address) {
+            try {
+                return (long) this.unsafe.getClass().getMethod("getLong", Long.TYPE).invoke(this.unsafe, address);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putInt(long j, int i) {
-            this.unsafe.putInt(j, i);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public long getLong(long j) {
-            return this.unsafe.getLong(j);
-        }
-
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putLong(long j, long j2) {
-            this.unsafe.putLong(j, j2);
+        @Override
+        public void putLong(long address, long value) {
+            try {
+                this.unsafe.getClass().getMethod("putLong", Long.TYPE, Long.TYPE).invoke(this.unsafe, address, value);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
@@ -680,7 +691,7 @@ final class UnsafeUtil {
             return false;
         }
 
-        Android64MemoryAccessor(Unsafe unsafe) {
+        Android64MemoryAccessor(Object unsafe) {
             super(unsafe);
         }
 
@@ -743,60 +754,54 @@ final class UnsafeUtil {
             putLong(obj, j, Double.doubleToLongBits(d));
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public byte getByte(long j) {
+        @Override
+        public byte getByte(long address) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putByte(long j, byte b) {
+        @Override
+        public void putByte(long address, byte value) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public int getInt(long j) {
+        @Override
+        public int getInt(long address) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putInt(long j, int i) {
+        @Override
+        public void putInt(long address, int value) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public long getLong(long j) {
+        @Override
+        public long getLong(long address) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putLong(long j, long j2) {
+        @Override
+        public void putLong(long address, long value) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void copyMemory(long j, byte[] bArr, long j2, long j3) {
+        @Override
+        public void copyMemory(long srcAddress, byte[] target, long targetIndex, long length) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void copyMemory(byte[] bArr, long j, long j2, long j3) {
+        @Override
+        public void copyMemory(byte[] src, long srcIndex, long targetAddress, long length) {
             throw new UnsupportedOperationException();
         }
     }
 
     private static final class Android32MemoryAccessor extends MemoryAccessor {
-        private static final long SMALL_ADDRESS_MASK = -1;
-
-        private static int smallAddress(long j) {
-            return (int) (j & (-1));
-        }
-
         @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
         public boolean supportsUnsafeByteBufferOperations() {
             return false;
         }
 
-        Android32MemoryAccessor(Unsafe unsafe) {
+        Android32MemoryAccessor(Object unsafe) {
             super(unsafe);
         }
 
@@ -859,45 +864,307 @@ final class UnsafeUtil {
             putLong(obj, j, Double.doubleToLongBits(d));
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public byte getByte(long j) {
+        @Override
+        public byte getByte(long address) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putByte(long j, byte b) {
+        @Override
+        public void putByte(long address, byte value) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public int getInt(long j) {
+        @Override
+        public int getInt(long address) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putInt(long j, int i) {
+        @Override
+        public void putInt(long address, int value) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public long getLong(long j) {
+        @Override
+        public long getLong(long address) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void putLong(long j, long j2) {
+        @Override
+        public void putLong(long address, long value) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void copyMemory(long j, byte[] bArr, long j2, long j3) {
+        @Override
+        public void copyMemory(long srcAddress, byte[] target, long targetIndex, long length) {
             throw new UnsupportedOperationException();
         }
 
-        @Override // com.google.oplus.protobuf.UnsafeUtil.MemoryAccessor
-        public void copyMemory(byte[] bArr, long j, long j2, long j3) {
+        @Override
+        public void copyMemory(byte[] src, long srcIndex, long targetAddress, long length) {
             throw new UnsupportedOperationException();
         }
+    }
+
+    private static final class VarHandleMemoryAccessor extends MemoryAccessor {
+        private static final Map<Long, VarHandle> fieldVarHandles = new ConcurrentHashMap<>();
+
+        private static final VarHandle BYTE_ARRAY_VH = MethodHandles.arrayElementVarHandle(byte[].class);
+        private static final VarHandle INT_ARRAY_VH = MethodHandles.arrayElementVarHandle(int[].class);
+        private static final VarHandle LONG_ARRAY_VH = MethodHandles.arrayElementVarHandle(long[].class);
+        private static final VarHandle FLOAT_ARRAY_VH = MethodHandles.arrayElementVarHandle(float[].class);
+        private static final VarHandle DOUBLE_ARRAY_VH = MethodHandles.arrayElementVarHandle(double[].class);
+        private static final VarHandle BOOLEAN_ARRAY_VH = MethodHandles.arrayElementVarHandle(boolean[].class);
+        private static final VarHandle OBJECT_ARRAY_VH = MethodHandles.arrayElementVarHandle(Object[].class);
+
+        VarHandleMemoryAccessor(Object unsafe) {
+            super(unsafe);
+        }
+
+        @Override
+        public boolean supportsUnsafeArrayOperations() {
+            return true;
+        }
+
+        @Override
+        public boolean supportsUnsafeByteBufferOperations() {
+            return false;
+        }
+
+        private VarHandle getFieldVarHandle(Object obj, long offset, Class<?> type) {
+            VarHandle vh = fieldVarHandles.get(offset);
+            if (vh != null)
+                return vh;
+
+            try {
+                for (java.lang.reflect.Field f : obj.getClass().getDeclaredFields()) {
+                    if (UnsafeCompat.objectFieldOffset(f) == offset) {
+                        vh = MethodHandles.lookup().unreflectVarHandle(f);
+                        fieldVarHandles.put(offset, vh);
+                        return vh;
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+            throw new RuntimeException("Could not find VarHandle for offset " + offset + " in " + obj.getClass());
+        }
+
+        @Override
+        public byte getByte(Object obj, long offset) {
+            if (obj instanceof byte[])
+                return (byte) BYTE_ARRAY_VH.get(obj, (int) (offset - UnsafeUtil.BYTE_ARRAY_BASE_OFFSET));
+            return (byte) getFieldVarHandle(obj, offset, byte.class).get(obj);
+        }
+
+        @Override
+        public void putByte(Object obj, long offset, byte value) {
+            if (obj instanceof byte[])
+                BYTE_ARRAY_VH.set(obj, (int) (offset - UnsafeUtil.BYTE_ARRAY_BASE_OFFSET), value);
+            else
+                getFieldVarHandle(obj, offset, byte.class).set(obj, value);
+        }
+
+        @Override
+        public int getInt(Object obj, long offset) {
+            if (obj instanceof int[])
+                return (int) INT_ARRAY_VH.get(obj,
+                        (int) ((offset - UnsafeUtil.getIntArrayBaseOffset()) / UnsafeUtil.getIntArrayIndexScale()));
+            return (int) getFieldVarHandle(obj, offset, int.class).get(obj);
+        }
+
+        @Override
+        public void putInt(Object obj, long offset, int value) {
+            if (obj instanceof int[])
+                INT_ARRAY_VH.set(obj,
+                        (int) ((offset - UnsafeUtil.getIntArrayBaseOffset()) / UnsafeUtil.getIntArrayIndexScale()),
+                        value);
+            else
+                getFieldVarHandle(obj, offset, int.class).set(obj, value);
+        }
+
+        @Override
+        public long getLong(Object obj, long offset) {
+            if (obj instanceof long[])
+                return (long) LONG_ARRAY_VH.get(obj,
+                        (int) ((offset - UnsafeUtil.getLongArrayBaseOffset()) / UnsafeUtil.getLongArrayIndexScale()));
+            return (long) getFieldVarHandle(obj, offset, long.class).get(obj);
+        }
+
+        @Override
+        public void putLong(Object obj, long offset, long value) {
+            if (obj instanceof long[])
+                LONG_ARRAY_VH.set(obj,
+                        (int) ((offset - UnsafeUtil.getLongArrayBaseOffset()) / UnsafeUtil.getLongArrayIndexScale()),
+                        value);
+            else
+                getFieldVarHandle(obj, offset, long.class).set(obj, value);
+        }
+
+        @Override
+        public boolean getBoolean(Object obj, long offset) {
+            if (obj instanceof boolean[])
+                return (boolean) BOOLEAN_ARRAY_VH.get(obj, (int) ((offset - UnsafeUtil.getBooleanArrayBaseOffset())
+                        / UnsafeUtil.getBooleanArrayIndexScale()));
+            return (boolean) getFieldVarHandle(obj, offset, boolean.class).get(obj);
+        }
+
+        @Override
+        public void putBoolean(Object obj, long offset, boolean value) {
+            if (obj instanceof boolean[])
+                BOOLEAN_ARRAY_VH.set(obj, (int) ((offset - UnsafeUtil.getBooleanArrayBaseOffset())
+                        / UnsafeUtil.getBooleanArrayIndexScale()), value);
+            else
+                getFieldVarHandle(obj, offset, boolean.class).set(obj, value);
+        }
+
+        @Override
+        public float getFloat(Object obj, long offset) {
+            if (obj instanceof float[])
+                return (float) FLOAT_ARRAY_VH.get(obj,
+                        (int) ((offset - UnsafeUtil.getFloatArrayBaseOffset()) / UnsafeUtil.getFloatArrayIndexScale()));
+            return (float) getFieldVarHandle(obj, offset, float.class).get(obj);
+        }
+
+        @Override
+        public void putFloat(Object obj, long offset, float value) {
+            if (obj instanceof float[])
+                FLOAT_ARRAY_VH.set(obj,
+                        (int) ((offset - UnsafeUtil.getFloatArrayBaseOffset()) / UnsafeUtil.getFloatArrayIndexScale()),
+                        value);
+            else
+                getFieldVarHandle(obj, offset, float.class).set(obj, value);
+        }
+
+        @Override
+        public double getDouble(Object obj, long offset) {
+            if (obj instanceof double[])
+                return (double) DOUBLE_ARRAY_VH.get(obj, (int) ((offset - UnsafeUtil.getDoubleArrayBaseOffset())
+                        / UnsafeUtil.getDoubleArrayIndexScale()));
+            return (double) getFieldVarHandle(obj, offset, double.class).get(obj);
+        }
+
+        @Override
+        public void putDouble(Object obj, long offset, double value) {
+            if (obj instanceof double[])
+                DOUBLE_ARRAY_VH.set(obj, (int) ((offset - UnsafeUtil.getDoubleArrayBaseOffset())
+                        / UnsafeUtil.getDoubleArrayIndexScale()), value);
+            else
+                getFieldVarHandle(obj, offset, double.class).set(obj, value);
+        }
+
+        @Override
+        public Object getObject(Object obj, long offset) {
+            if (obj instanceof Object[])
+                return OBJECT_ARRAY_VH.get(obj, (int) ((offset - UnsafeUtil.getObjectArrayBaseOffset())
+                        / UnsafeUtil.getObjectArrayIndexScale()));
+            return getFieldVarHandle(obj, offset, Object.class).get(obj);
+        }
+
+        @Override
+        public void putObject(Object obj, long offset, Object value) {
+            if (obj instanceof Object[])
+                OBJECT_ARRAY_VH.set(obj, (int) ((offset - UnsafeUtil.getObjectArrayBaseOffset())
+                        / UnsafeUtil.getObjectArrayIndexScale()), value);
+            else
+                getFieldVarHandle(obj, offset, Object.class).set(obj, value);
+        }
+
+        @Override
+        public byte getByte(long address) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void putByte(long address, byte value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int getInt(long address) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void putInt(long address, int value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public long getLong(long address) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void putLong(long address, long value) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void copyMemory(long srcAddress, byte[] target, long targetIndex, long length) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void copyMemory(byte[] src, long srcIndex, long targetAddress, long length) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Object getStaticObject(java.lang.reflect.Field field) {
+            try {
+                return field.get(null);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
+
+    /* Helper methods for offset calculation in VarHandleMemoryAccessor */
+    private static long getIntArrayBaseOffset() {
+        return INT_ARRAY_BASE_OFFSET;
+    }
+
+    private static long getIntArrayIndexScale() {
+        return INT_ARRAY_INDEX_SCALE;
+    }
+
+    private static long getLongArrayBaseOffset() {
+        return LONG_ARRAY_BASE_OFFSET;
+    }
+
+    private static long getLongArrayIndexScale() {
+        return LONG_ARRAY_INDEX_SCALE;
+    }
+
+    private static long getBooleanArrayBaseOffset() {
+        return BOOLEAN_ARRAY_BASE_OFFSET;
+    }
+
+    private static long getBooleanArrayIndexScale() {
+        return BOOLEAN_ARRAY_INDEX_SCALE;
+    }
+
+    private static long getFloatArrayBaseOffset() {
+        return FLOAT_ARRAY_BASE_OFFSET;
+    }
+
+    private static long getFloatArrayIndexScale() {
+        return FLOAT_ARRAY_INDEX_SCALE;
+    }
+
+    private static long getDoubleArrayBaseOffset() {
+        return DOUBLE_ARRAY_BASE_OFFSET;
+    }
+
+    private static long getDoubleArrayIndexScale() {
+        return DOUBLE_ARRAY_INDEX_SCALE;
+    }
+
+    private static long getObjectArrayBaseOffset() {
+        return OBJECT_ARRAY_BASE_OFFSET;
+    }
+
+    private static long getObjectArrayIndexScale() {
+        return OBJECT_ARRAY_INDEX_SCALE;
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -945,8 +1212,7 @@ final class UnsafeUtil {
         putByteLittleEndian(obj, j, z ? (byte) 1 : (byte) 0);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    public static void logMissingMethod(Throwable th) {
+    static void logMissingMethod(Throwable th) {
         Logger.getLogger(UnsafeUtil.class.getName()).log(Level.WARNING,
                 "platform method missing - proto runtime falling back to safer methods: " + th);
     }
