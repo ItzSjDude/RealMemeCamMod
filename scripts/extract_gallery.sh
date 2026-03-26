@@ -35,19 +35,19 @@ fi
 
 # 2. Identify partitions in the archive
 echo "📦 Analyzing archive content..."
-FILES_LIST=$(unzip -l firmware.zip)
+# 7z works better for huge ZIPs
+FILES_LIST=$(7z l firmware.zip)
 echo "📜 Full file list for debug:"
 echo "$FILES_LIST"
 
 # Targeted partitions - added word boundaries or specific patterns
-# We want to match my_product.img but NOT vbmeta_my_product.img
 TARGET_LIST="my_product my_stock system system_ext odm product vendor my_engineering my_region"
 
 # 3. Handle super.img if present (Dynamic Partitions)
 SUPER_PATH=$(echo "$FILES_LIST" | grep -i "super.img" | awk '{print $NF}' | head -n 1)
 if [ -n "$SUPER_PATH" ]; then
     echo "🏗️ super.img detected. This firmware uses dynamic partitions."
-    unzip -j firmware.zip "$SUPER_PATH" -d .
+    7z x firmware.zip "$SUPER_PATH" -y -o.
     if [ -f "super.img" ]; then
         echo "✨ Unsparsing super.img..."
         simg2img super.img super.raw
@@ -76,7 +76,6 @@ for target in $TARGET_LIST; do
     echo "🔍 Looking for $target image..."
     
     # Identify local image (handles _a or _b suffixes from lpunpack)
-    # This matches target.img, target_a.img, target_b.img etc.
     LOCAL_IMG=$(ls | grep -iE "^${target}(_[ab])?\.img$" | head -n 1)
     
     # If not found locally, try to find in ZIP
@@ -84,7 +83,14 @@ for target in $TARGET_LIST; do
         IMG_PATH=$(echo "$FILES_LIST" | grep -iE "/${target}(_[ab])?\.img$| ${target}(_[ab])?\.img$" | awk '{print $NF}' | head -n 1)
         if [ -n "$IMG_PATH" ]; then
             echo "🎯 Extracting $target from ZIP ($IMG_PATH)..."
-            unzip -j firmware.zip "$IMG_PATH" -d .
+            7z x firmware.zip "$IMG_PATH" -y -o.
+            # 7z preserves path if not using -j, which unzip -j would flatten.
+            # But the loop expects $LOCAL_IMG in current dir.
+            # We move it manually to current dir (flatten)
+            ACTUAL_EXTRACTED=$(find . -name "$(basename "$IMG_PATH")")
+            if [ -n "$ACTUAL_EXTRACTED" ] && [ "$ACTUAL_EXTRACTED" != "./$(basename "$IMG_PATH")" ]; then
+                 mv "$ACTUAL_EXTRACTED" "./$(basename "$IMG_PATH")"
+            fi
             LOCAL_IMG=$(basename "$IMG_PATH")
         fi
     fi
