@@ -33,101 +33,68 @@ if [ ! -f "firmware.zip" ]; then
     exit 1
 fi
 
-# 2. Extract payload.bin or discrete images
-echo "📦 Searching for partitions in the archive..."
+# 2. Identify partitions in the archive
+echo "📦 Analyzing archive content..."
 FILES_LIST=$(unzip -l firmware.zip)
 
-PAYLOAD_PATH=$(echo "$FILES_LIST" | grep "payload.bin" | awk '{print $NF}' | head -n 1)
+# Targeted partitions
+TARGETED_IMAGES="(my_product|my_stock|system|system_ext|odm|product|vendor|my_engineering|my_region)"
 
-if [ -n "$PAYLOAD_PATH" ]; then
-    echo "✨ Found payload.bin at: $PAYLOAD_PATH. Extracting..."
-    unzip -j firmware.zip "$PAYLOAD_PATH"
-    rm firmware.zip # Save space
-    
-    # Step 3: Dump from payload.bin
-    echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
-    if [ -f "payload.bin" ]; then
-        payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
-        rm payload.bin # Save space
-        echo "📜 Files extracted by payload-dumper-go:"
-        ls -R extracted/
-    else
-        echo "❌ payload.bin extraction failed!"
-        exit 1
-    fi
-else
-    echo "⚠️ payload.bin NOT found. Checking for direct images..."
-    if echo "$FILES_LIST" | grep -qE "\.img"; then
-        echo "✅ Direct images found! Extracting all of them..."
-        mkdir -p extracted/dummy_dir
-        unzip -j firmware.zip "*.img" -d extracted/dummy_dir/
-        rm firmware.zip # Save space
-    else
-        echo "❌ No recognizable partitions found in firmware.zip!"
-        exit 1
-    fi
-fi
-
-# 4. Extract EROFS/EXT4 images one by one to find Gallery APK and Metadata
-echo "📂 Searching for Gallery APK and Metadata..."
+# 3. Process images one by one to save space
+echo "📂 Processing partitions one-by-one..."
 mkdir -p extracted_files
 FOUND=false
 FOUND_META=false
 touch ../extracted_metadata.env
 
-# Strict matching to avoid vbmeta/boot/recovery images
-TARGETED_IMAGES="^(my_product|my_stock|system|system_ext|odm|product|vendor|my_engineering|my_region)\.img$"
-for img in extracted/dummy_dir/*.img extracted/*/*.img; do
-    IMG_NAME=$(basename "$img")
-    if [ -f "$img" ] && echo "$IMG_NAME" | grep -iqE "$TARGETED_IMAGES"; then
-        echo "🧐 Processing targeted image: $img..."
-        
-        # Check if the image is sparse and convert to raw if needed
-        if simg2img "$img" "${img}.raw" > /dev/null 2>&1; then
+# Get list of .img files that match our target
+IMG_FILES=$(echo "$FILES_LIST" | grep -iE "\.img$" | awk '{print $NF}' | grep -iE "$TARGETED_IMAGES")
+
+for img_path in $IMG_FILES; do
+    IMG_NAME=$(basename "$img_path")
+    echo "🧐 Processing: $IMG_NAME"
+    
+    # 3.1 Extract only this image from ZIP
+    unzip -j firmware.zip "$img_path" -d .
+    
+    if [ -f "$IMG_NAME" ]; then
+        # 3.2 Unsparse if needed
+        if simg2img "$IMG_NAME" "${IMG_NAME}.raw" > /dev/null 2>&1; then
             echo "✨ Image is sparse. Unsparsed successfully."
-            RAW_IMG="${img}.raw"
+            RAW_IMG="${IMG_NAME}.raw"
+            rm "$IMG_NAME" # Delete sparse version
         else
-            RAW_IMG="$img"
+            RAW_IMG="$IMG_NAME"
         fi
 
         mkdir -p current_out
-        
-        # Try to extract with fsck.erofs
+        # 3.3 Extract content
         if fsck.erofs --extract="./current_out" "$RAW_IMG" > /dev/null 2>&1; then
             echo "✅ Extracted as EROFS."
-        # Fallback to 7z for EXT4/Raw
         elif 7z x "$RAW_IMG" -o"./current_out" -y > /dev/null 2>&1; then
             echo "✅ Extracted as EXT4/Raw (using 7z)."
         else
-            echo "⚠️ Failed to extract $img (might be empty or encrypted), skipping..."
+            echo "⚠️ Failed to extract $IMG_NAME, skipping..."
         fi
 
-        # Debug: Show contents if extracted
-        if [ -d "current_out" ] && [ "$(ls -A current_out)" ]; then
-            echo "📜 Top-level folders in $img:"
-            ls -F current_out/
-        fi
-
-        # 1. Search for Photos/Gallery APK (Case Insensitive)
+        # 3.4 Search for APK
         if [ "$FOUND" != true ]; then
-            # Search for anything that looks like a Photos or Gallery app
-            # Limiting depth to speed up and avoid loops
-            ACTUAL_APK=$(find ./current_out -maxdepth 6 -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
+            ACTUAL_APK=$(find ./current_out -maxdepth 7 -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
             if [ -n "$ACTUAL_APK" ]; then
-                echo "✨ Found APK: $ACTUAL_APK! Moving to repo..."
+                echo "🎯 Found APK: $ACTUAL_APK"
+                mkdir -p "../../$TARGET_DIR"
                 mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
                 FOUND=true
             fi
         fi
-        
-        # 2. Search for build.prop / Metadata
+
+        # 3.5 Search for Metadata
         if [ "$FOUND_META" != true ]; then
             ACTUAL_BPROP=$(find ./current_out -name "build.prop" | head -n 1)
             if [ -n "$ACTUAL_BPROP" ]; then
-                echo "📄 Extracting metadata from build.prop ($ACTUAL_BPROP)..."
-                DEVICE=$(grep -E "ro.product.model|ro.product.system.model|ro.product.product.model|ro.display.series" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                echo "📄 Extracting metadata from $ACTUAL_BPROP"
+                DEVICE=$(grep -E "ro.product.model|ro.product.system.model|ro.display.series" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
                 VERSION=$(grep -E "ro.build.display.id|ro.system.build.id" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                
                 if [ -n "$DEVICE" ]; then
                     echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
                     echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
@@ -136,20 +103,29 @@ for img in extracted/dummy_dir/*.img extracted/*/*.img; do
                 fi
             fi
         fi
-        
-        # Cleanup to save space
+
+        # 3.6 Cleanup before next image
         rm -rf current_out
-        rm -f "${img}.raw"
-        rm "$img"
+        rm -f "$RAW_IMG"
+    fi
+    
+    # If we found both, we could stop, but let's continue to be sure we get the "best" APK 
+    # (Actually Oplus stores it in one place, so stopping is fine to save time)
+    if [ "$FOUND" = true ] && [ "$FOUND_META" = true ]; then
+        echo "✅ Both APK and Metadata found. Finishing early..."
+        break
     fi
 done
+
+# Cleanup ZIP last
+rm -f firmware.zip
 
 cd ../
 # rm -rf $TEMP_DIR
 
 if [ "$FOUND" = true ]; then
-    echo "🎉 Gallery APK replaced successfully!"
+    echo "🎉 Gallery APK extraction complete!"
 else
-    echo "❌ Failed to find OplusPhotos.apk in the provided firmware."
+    echo "❌ Failed to find Photos/Gallery APK in the provided firmware."
     exit 1
 fi
