@@ -40,6 +40,12 @@ jobs:
           wget https://github.com/ssut/payload-dumper-go/releases/download/1.3.0/payload-dumper-go_1.3.0_linux_amd64.tar.gz
           tar -xvf payload-dumper-go_1.3.0_linux_amd64.tar.gz
           sudo mv payload-dumper-go /usr/local/bin/
+
+          # Install lpunpack (Prebuilt static)
+          wget https://github.com/whyshhnuv/lpunpack-lpmake-mirror/raw/main/lpunpack
+          sudo mv lpunpack /usr/local/bin/
+          sudo chmod +x /usr/local/bin/lpunpack
+          
           chmod +x scripts/extract_gallery.sh
 
       - name: Run Extraction Script
