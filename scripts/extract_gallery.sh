@@ -34,15 +34,27 @@ if [ ! -f "firmware.zip" ]; then
 fi
 
 # 2. Extract payload.bin
-echo "📦 Extracting payload.bin..."
-unzip -j firmware.zip payload.bin || echo "payload.bin not found in root, searching..."
+echo "📦 Searching for payload.bin in the archive..."
+PAYLOAD_PATH=$(unzip -l firmware.zip | grep "payload.bin" | awk '{print $NF}' | head -n 1)
+
+if [ -z "$PAYLOAD_PATH" ]; then
+    echo "❌ payload.bin NOT found anywhere in firmware.zip!"
+    # Handle .ozip or other formats potentially? 
+    # For now, just exit.
+    exit 1
+fi
+
+echo "✨ Found payload.bin at: $PAYLOAD_PATH. Extracting..."
+unzip -j firmware.zip "$PAYLOAD_PATH"
 
 # 3. Dump relevant partitions
-# We use payload-dumper-go to only dump partitions that usually contain apps
 echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
-# payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
-# (Assuming payload-dumper-go is in PATH)
-payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
+if [ -f "payload.bin" ]; then
+    payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
+else
+    echo "❌ payload.bin extraction failed!"
+    exit 1
+fi
 
 # 4. Extract EROFS/EXT4 images
 echo "📂 Searching for Gallery APK..."
