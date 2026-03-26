@@ -51,6 +51,8 @@ unzip -j firmware.zip "$PAYLOAD_PATH"
 echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
 if [ -f "payload.bin" ]; then
     payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
+    echo "📜 Files extracted by payload-dumper-go:"
+    ls -R extracted/
 else
     echo "❌ payload.bin extraction failed!"
     exit 1
