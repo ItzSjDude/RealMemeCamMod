@@ -23,7 +23,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y aria2 erofs-utils unzip python3-pip
+          sudo apt-get install -y aria2 erofs-utils unzip python3-pip simg2img p7zip-full
           pip3 install gdown
           # Install payload-dumper-go (v1.3.0)
           wget https://github.com/ssut/payload-dumper-go/releases/download/1.3.0/payload-dumper-go_1.3.0_linux_amd64.tar.gz

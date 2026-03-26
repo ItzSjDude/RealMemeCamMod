@@ -78,48 +78,59 @@ touch ../extracted_metadata.env
 for img in extracted/dummy_dir/*.img extracted/*/*.img; do
     if [ -f "$img" ]; then
         echo "🧐 Processing $img..."
+        
+        # Check if the image is sparse and convert to raw if needed
+        # simg2img will fail if it's already raw/eroffs, so we check first
+        # We try to use simg2img directly, it's safe if it fails on non-sparse
+        if simg2img "$img" "${img}.raw" > /dev/null 2>&1; then
+            echo "✨ Image is sparse. Unsparsed successfully."
+            RAW_IMG="${img}.raw"
+        else
+            RAW_IMG="$img"
+        fi
+
         mkdir -p current_out
         
-        # Try to extract the whole image
-        # Using 2>&1 to see why extraction might fail
-        if fsck.erofs --extract="./current_out" "$img" > /dev/null 2>&1; then
-            # 1. Search for Photos/Gallery APK (Case Insensitive)
-            if [ "$FOUND" != true ]; then
-                # Search for anything that looks like a Photos or Gallery app
-                ACTUAL_APK=$(find ./current_out -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
-                if [ -n "$ACTUAL_APK" ]; then
-                    echo "✨ Found APK: $ACTUAL_APK! Moving to repo..."
-                    mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
-                    FOUND=true
-                fi
-            fi
-            
-            # 2. Search for build.prop / Metadata
-            if [ "$FOUND_META" != true ]; then
-                ACTUAL_BPROP=$(find ./current_out -name "build.prop" | head -n 1)
-                if [ -n "$ACTUAL_BPROP" ]; then
-                    echo "📄 Extracting metadata from build.prop ($ACTUAL_BPROP)..."
-                    # Try multiple model prop names
-                    DEVICE=$(grep -E "ro.product.model|ro.product.system.model|ro.product.product.model|ro.display.series" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                    VERSION=$(grep -E "ro.build.display.id|ro.system.build.id" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                    
-                    if [ -n "$DEVICE" ]; then
-                        echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
-                        echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
-                        echo "✅ Metadata extracted: $DEVICE | $VERSION"
-                        FOUND_META=true
-                    fi
-                fi
-            fi
+        # Try to extract with fsck.erofs
+        if fsck.erofs --extract="./current_out" "$RAW_IMG" > /dev/null 2>&1; then
+            echo "✅ Extracted as EROFS."
+        # Fallback to 7z for EXT4
+        elif 7z x "$RAW_IMG" -o"./current_out" -y > /dev/null 2>&1; then
+            echo "✅ Extracted as EXT4 (using 7z)."
         else
-            # Maybe it's EXT4? 7z can sometimes handle it if it's a raw image or mountable
-            # But GH Actions has no loop mount. 7z/unzip won't work on ext4 images directly.
-            # We assume most modern Oplus are EROFS.
-            echo "⚠️ Failed to extract $img (might not be EROFS), skipping..."
+            echo "⚠️ Failed to extract $img (not EROFS/EXT4 or empty), skipping..."
+        fi
+
+        # 1. Search for Photos/Gallery APK (Case Insensitive)
+        if [ "$FOUND" != true ]; then
+            ACTUAL_APK=$(find ./current_out -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
+            if [ -n "$ACTUAL_APK" ]; then
+                echo "✨ Found APK: $ACTUAL_APK! Moving to repo..."
+                mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
+                FOUND=true
+            fi
         fi
         
-        # Cleanup to save space before next image
+        # 2. Search for build.prop / Metadata
+        if [ "$FOUND_META" != true ]; then
+            ACTUAL_BPROP=$(find ./current_out -name "build.prop" | head -n 1)
+            if [ -n "$ACTUAL_BPROP" ]; then
+                echo "📄 Extracting metadata from build.prop ($ACTUAL_BPROP)..."
+                DEVICE=$(grep -E "ro.product.model|ro.product.system.model|ro.product.product.model|ro.display.series" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                VERSION=$(grep -E "ro.build.display.id|ro.system.build.id" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                
+                if [ -n "$DEVICE" ]; then
+                    echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
+                    echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
+                    echo "✅ Metadata extracted: $DEVICE | $VERSION"
+                    FOUND_META=true
+                fi
+            fi
+        fi
+        
+        # Cleanup to save space
         rm -rf current_out
+        rm -f "${img}.raw"
         rm "$img"
     fi
 done
