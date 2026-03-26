@@ -1,0 +1,38 @@
+name: Extract Gallery APK from Firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      firmware_url:
+        description: 'Direct URL to Oplus/Realme/OnePlus Firmware (ZIP/OZIP)'
+        required: true
+        type: string
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y aria2 erofs-utils unzip
+          # Install payload-dumper-go
+          wget https://github.com/ssut/payload-dumper-go/releases/download/v1.2.2/payload-dumper-go_1.2.2_linux_amd64.tar.gz
+          tar -xvf payload-dumper-go_1.2.2_linux_amd64.tar.gz
+          sudo mv payload-dumper-go /usr/local/bin/
+          chmod +x scripts/extract_gallery.sh
+
+      - name: Run Extraction Script
+        run: |
+          ./scripts/extract_gallery.sh "${{ github.event.inputs.firmware_url }}"
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Github Action"
+          git config --global user.email "action@github.com"
+          git add apps/OplusPhotos/OplusPhotos.apk
+          git commit -m "feat(apps): update OplusPhotos.apk from remote firmware" || echo "No changes to commit"
+          git push origin 7pro
