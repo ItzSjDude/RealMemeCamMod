@@ -73,22 +73,22 @@ fi
 echo "📂 Searching for Gallery APK..."
 mkdir -p extracted_files
 
-for img in extracted/*/my_product.img extracted/*/system_ext.img extracted/*/my_stock.img extracted/*/system.img; do
+for img in extracted/dummy_dir/*.img extracted/*/*.img; do
     if [ -f "$img" ]; then
         echo "🧐 Checking $img..."
-        # Try to extract using extract.erofs (erofs-utils)
-        # Or mount if sudo is available (not in GH Actions easily without workaround)
-        # We use 'extract.erofs' or 'fsck.erofs' to list/extract
-        extract.erofs --ls --recursive "$img" | grep "OplusPhotos.apk" && {
-            echo "✅ Found OplusPhotos.apk in $img! Extracting..."
-            # Extract specific file
-            # For simplicity in this script, we'll try to find the path and extract it
-            APK_PATH=$(extract.erofs --ls --recursive "$img" | grep "OplusPhotos.apk" | awk '{print $NF}')
-            extract.erofs --extract="./apk_out" --file="$APK_PATH" "$img"
+        # Use dump.erofs to list files
+        dump.erofs --ls --recursive "$img" | grep "OplusPhotos.apk" && {
+            echo "✅ Found OplusPhotos.apk in "$img"! Extracting..."
+            # Extract the whole image to find the file (fsck.erofs --extract is reliable)
+            mkdir -p apk_out
+            fsck.erofs --extract="./apk_out" "$img"
             
-            if [ -f "./apk_out/OplusPhotos.apk" ]; then
+            # Find the actual extracted file path
+            ACTUAL_APK=$(find ./apk_out -name "OplusPhotos.apk" | head -n 1)
+            
+            if [ -f "$ACTUAL_APK" ]; then
                 echo "✨ Success! Moving APK to repo..."
-                mv "./apk_out/OplusPhotos.apk" "../../$TARGET_DIR/OplusPhotos.apk"
+                mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
                 FOUND=true
                 break
             fi
@@ -100,25 +100,28 @@ done
 echo "🔍 Extracting device/ROM metadata..."
 touch ../extracted_metadata.env
 for img in extracted/dummy_dir/*.img extracted/*/*.img; do
-    if [ -f "$img" ]; then
+    if [ -f "$img" ] && [ "$FOUND_META" != true ]; then
         # Try to find build.prop
-        BPROP_PATH=$(extract.erofs --ls --recursive "$img" | grep "build.prop" | head -n 1 | awk '{print $NF}')
-        if [ -n "$BPROP_PATH" ]; then
-            echo "📄 Extracting build.prop from $img..."
+        dump.erofs --ls --recursive "$img" | grep "build.prop" | head -n 1 && {
+            echo "📄 Extracting build.prop from "$img"..."
             mkdir -p meta_out
-            extract.erofs --extract="./meta_out" --file="$BPROP_PATH" "$img"
-            if [ -f "./meta_out/build.prop" ]; then
-                DEVICE=$(grep "ro.product.model=" ./meta_out/build.prop | head -n 1 | cut -d'=' -f2)
-                VERSION=$(grep "ro.build.display.id=" ./meta_out/build.prop | head -n 1 | cut -d'=' -f2)
+            fsck.erofs --extract="./meta_out" "$img"
+            
+            # Find the actual extracted build.prop
+            ACTUAL_BPROP=$(find ./meta_out -name "build.prop" | head -n 1)
+            
+            if [ -f "$ACTUAL_BPROP" ]; then
+                DEVICE=$(grep "ro.product.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                VERSION=$(grep "ro.build.display.id=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
                 # Fallback if first one is empty
-                [ -z "$DEVICE" ] && DEVICE=$(grep "ro.product.system.model=" ./meta_out/build.prop | head -n 1 | cut -d'=' -f2)
+                [ -z "$DEVICE" ] && DEVICE=$(grep "ro.product.system.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
                 
                 echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
                 echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
                 echo "✅ Metadata extracted: $DEVICE | $VERSION"
-                break
+                FOUND_META=true
             fi
-        fi
+        }
     fi
 done
 
