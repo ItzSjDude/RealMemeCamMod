@@ -75,15 +75,14 @@ FOUND=false
 FOUND_META=false
 touch ../extracted_metadata.env
 
-TARGETED_IMAGES="(my_product|my_stock|system|system_ext|odm|product|vendor)"
+# Strict matching to avoid vbmeta/boot/recovery images
+TARGETED_IMAGES="^(my_product|my_stock|system|system_ext|odm|product|vendor|my_engineering|my_region)\.img$"
 for img in extracted/dummy_dir/*.img extracted/*/*.img; do
     IMG_NAME=$(basename "$img")
     if [ -f "$img" ] && echo "$IMG_NAME" | grep -iqE "$TARGETED_IMAGES"; then
         echo "🧐 Processing targeted image: $img..."
         
         # Check if the image is sparse and convert to raw if needed
-        # simg2img will fail if it's already raw/eroffs, so we check first
-        # We try to use simg2img directly, it's safe if it fails on non-sparse
         if simg2img "$img" "${img}.raw" > /dev/null 2>&1; then
             echo "✨ Image is sparse. Unsparsed successfully."
             RAW_IMG="${img}.raw"
@@ -96,16 +95,24 @@ for img in extracted/dummy_dir/*.img extracted/*/*.img; do
         # Try to extract with fsck.erofs
         if fsck.erofs --extract="./current_out" "$RAW_IMG" > /dev/null 2>&1; then
             echo "✅ Extracted as EROFS."
-        # Fallback to 7z for EXT4
+        # Fallback to 7z for EXT4/Raw
         elif 7z x "$RAW_IMG" -o"./current_out" -y > /dev/null 2>&1; then
-            echo "✅ Extracted as EXT4 (using 7z)."
+            echo "✅ Extracted as EXT4/Raw (using 7z)."
         else
-            echo "⚠️ Failed to extract $img (not EROFS/EXT4 or empty), skipping..."
+            echo "⚠️ Failed to extract $img (might be empty or encrypted), skipping..."
+        fi
+
+        # Debug: Show contents if extracted
+        if [ -d "current_out" ] && [ "$(ls -A current_out)" ]; then
+            echo "📜 Top-level folders in $img:"
+            ls -F current_out/
         fi
 
         # 1. Search for Photos/Gallery APK (Case Insensitive)
         if [ "$FOUND" != true ]; then
-            ACTUAL_APK=$(find ./current_out -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
+            # Search for anything that looks like a Photos or Gallery app
+            # Limiting depth to speed up and avoid loops
+            ACTUAL_APK=$(find ./current_out -maxdepth 6 -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
             if [ -n "$ACTUAL_APK" ]; then
                 echo "✨ Found APK: $ACTUAL_APK! Moving to repo..."
                 mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
