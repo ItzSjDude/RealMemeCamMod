@@ -40,7 +40,8 @@ public interface ApsInterface {
 
     int abortCaptures();
 
-    int addFrameBuff(ApsCaptureParam apsCaptureParam, String[] strArr, String[] strArr2, ApsWatermarkParam apsWatermarkParam);
+    int addFrameBuff(ApsCaptureParam apsCaptureParam, String[] keys, String[] values,
+            ApsWatermarkParam apsWatermarkParam);
 
     int addPreviewFrameBuff(ApsPreviewParam apsPreviewParam, ApsWatermarkParam apsWatermarkParam);
 
@@ -70,7 +71,7 @@ public interface ApsInterface {
 
     Bitmap processBitmap(Bitmap bitmap, CaptureResult captureResult, ApsParameters apsParameters);
 
-    int processImages(String[] strArr, String[] strArr2, ApsWatermarkParam apsWatermarkParam);
+    int processImages(String[] keys, String[] values, ApsWatermarkParam apsWatermarkParam);
 
     int releaseBuffer(String str, HardwareBuffer hardwareBuffer);
 

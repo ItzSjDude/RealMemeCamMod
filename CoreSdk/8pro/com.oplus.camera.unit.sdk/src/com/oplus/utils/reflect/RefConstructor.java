@@ -10,51 +10,42 @@ public class RefConstructor<T> extends BaseRef<T> {
     private static final String TAG = "RefConstructor";
     private final Constructor<?> mConstructor;
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
-    }
-
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    public RefConstructor(Class<?> cls, Field field) {
+    public RefConstructor(Class<?> targetClass, Field field) {
         super(field);
-        this.mConstructor = load(cls, field);
+        this.mConstructor = load(targetClass, field);
     }
 
-    private Constructor<?> load(Class<?> cls, Field field) {
+    private Constructor<?> load(Class<?> targetClass, Field field) {
         Constructor<?> declaredConstructor;
         Constructor<?> constructor = null;
         try {
             if (field.isAnnotationPresent(MethodName.class)) {
-                declaredConstructor = cls.getDeclaredConstructor(((MethodName) field.getAnnotation(MethodName.class)).params());
+                declaredConstructor = targetClass
+                        .getDeclaredConstructor(((MethodName) field.getAnnotation(MethodName.class)).params());
             } else {
                 int i = 0;
                 if (field.isAnnotationPresent(MethodSignature.class)) {
-                    String[] strArrParams = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
-                    Class<?>[] clsArr = new Class[strArrParams.length];
-                    while (i < strArrParams.length) {
+                    String[] parameterTypes = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
+                    Class<?>[] parameterClasses = new Class[parameterTypes.length];
+                    while (i < parameterTypes.length) {
                         try {
-                            clsArr[i] = Class.forName(strArrParams[i]);
+                            parameterClasses[i] = Class.forName(parameterTypes[i]);
                             i++;
                         } catch (Exception e) {
                             Log.e(TAG, e.getMessage());
                         }
                     }
-                    declaredConstructor = cls.getDeclaredConstructor(clsArr);
+                    declaredConstructor = targetClass.getDeclaredConstructor(parameterClasses);
                 } else {
-                    declaredConstructor = cls.getDeclaredConstructor(new Class[0]);
+                    declaredConstructor = targetClass.getDeclaredConstructor(new Class[0]);
                 }
             }
             constructor = declaredConstructor;
             if (constructor != null && !constructor.isAccessible()) {
                 constructor.setAccessible(true);
             }
-        } catch (Exception e2) {
-            Log.e(TAG, e2.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
         }
         return constructor;
     }
@@ -65,20 +56,20 @@ public class RefConstructor<T> extends BaseRef<T> {
         } catch (InvocationTargetException e) {
             this.printCauseMessage(e);
             return null;
-        } catch (Exception e2) {
-            Log.e(TAG, e2.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
             return null;
         }
     }
 
-    public T newInstance(Object... objArr) {
+    public T newInstance(Object... args) {
         try {
-            return (T) this.mConstructor.newInstance(objArr);
+            return (T) this.mConstructor.newInstance(args);
         } catch (InvocationTargetException e) {
             this.printCauseMessage(e);
             return null;
-        } catch (Exception e2) {
-            Log.e(TAG, e2.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
             return null;
         }
     }

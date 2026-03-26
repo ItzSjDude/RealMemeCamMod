@@ -15,16 +15,16 @@ abstract class BaseRef<T> implements IBaseRef {
     private final T mDefaultValue = initDefaultValue();
 
     static {
-        HashMap<Class<?>, Object> map = new HashMap<>();
-        DEFAULT_TYPES = map;
-        map.put(Integer.class, 0);
-        map.put(Short.class, (short) 0);
-        map.put(Long.class, 0L);
-        map.put(Float.class, Float.valueOf(0.0f));
-        map.put(Double.class, Double.valueOf(0.0d));
-        map.put(Boolean.class, false);
-        map.put(Byte.class, (byte) 0);
-        map.put(Character.class, (char) 0);
+        HashMap<Class<?>, Object> defaultTypes = new HashMap<>();
+        DEFAULT_TYPES = defaultTypes;
+        defaultTypes.put(Integer.class, 0);
+        defaultTypes.put(Short.class, (short) 0);
+        defaultTypes.put(Long.class, 0L);
+        defaultTypes.put(Float.class, Float.valueOf(0.0f));
+        defaultTypes.put(Double.class, Double.valueOf(0.0d));
+        defaultTypes.put(Boolean.class, false);
+        defaultTypes.put(Byte.class, (byte) 0);
+        defaultTypes.put(Character.class, (char) 0);
     }
 
     BaseRef(Field field) {
@@ -38,17 +38,18 @@ abstract class BaseRef<T> implements IBaseRef {
     }
 
     @Override // com.oplus.utils.reflect.IBaseRef
-    public void bindStub(Object obj) {
-        this.mStub = obj;
+    public void bindStub(Object stub) {
+        this.mStub = stub;
     }
 
-    Object checkStub(Object obj) {
-        Class<?> cls;
-        if (obj == null) {
-            return obj;
+    Object checkStub(Object object) {
+        Class<?> componentClass;
+        if (object == null) {
+            return object;
         }
         Class<?> declaringClass = getDeclaringClass();
-        return (declaringClass == null || !(declaringClass == (cls = obj.getClass()) || declaringClass.isAssignableFrom(cls))) ? this.mStub : obj;
+        return (declaringClass == null || !(declaringClass == (componentClass = object.getClass())
+                || declaringClass.isAssignableFrom(componentClass))) ? this.mStub : object;
     }
 
     T initDefaultValue() {

@@ -68,7 +68,6 @@ import java.util.function.Consumer;
 import java.util.function.IntPredicate;
 import java.util.stream.Stream;
 
-/* JADX INFO: loaded from: classes.dex */
 public abstract class BaseMode implements ModeInterface {
     public static final int CHECK_MEMORY_ERR = 2;
     public static final int CHECK_NO_ERR = 0;
@@ -103,7 +102,6 @@ public abstract class BaseMode implements ModeInterface {
     private AlgoSwitchConfig.PreviewConfig mPreviewAlgoConfig = null;
     private LruCache<Long, CameraPreviewCallbackAdapter.PreviewResult> mPreviewResultCache = new LruCache<>(20);
 
-    /* JADX WARN: Removed duplicated region for block: B:10:0x0014 */
     /*
      * Code decompiled incorrectly, please refer to instructions dump.
      */
@@ -168,10 +166,14 @@ public abstract class BaseMode implements ModeInterface {
         return 0;
     }
 
-    protected abstract Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str,
-            String str2, String str3);
+    protected Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str,
+            String str2, String str3) {
+        return null;
+    }
 
-    protected abstract String getSurfaceUseCase(String str, boolean z);
+    protected String getSurfaceUseCase(String str, boolean z) {
+        return null;
+    }
 
     protected Long getVideoFrameReaderUsage(String str) {
         return null;
@@ -338,7 +340,6 @@ public abstract class BaseMode implements ModeInterface {
                         .booleanValue();
             }
         }
-        str.hashCode();
         z = false;
         switch (str) {
             case "before_take_picture":
@@ -1260,13 +1261,6 @@ public abstract class BaseMode implements ModeInterface {
         throw new RuntimeException("getUseCaseValues, " + str + "'s usecase_info are not configured!");
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:108:0x01f1 */
-    /*
-     * JADX WARN: Removed duplicated region for block: B:121:? A[RETURN, SYNTHETIC]
-     */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     */
     private SurfaceWrapper getSurfaceWrapper(SdkCameraDeviceConfig sdkCameraDeviceConfig, int i, String str,
             String str2, @NonNull Size size, Size size2, boolean z, String str3) {
         String surfaceUsageBySurfaceType;
@@ -1274,7 +1268,6 @@ public abstract class BaseMode implements ModeInterface {
         SurfaceWrapper surfaceWrapperCreateReaderSurface;
         surfaceUsageBySurfaceType = getSurfaceUsageBySurfaceType(str);
         surfaceFormatBySurfaceType = getSurfaceFormatBySurfaceType(str, str2, str3);
-        str.hashCode();
         switch (str) {
             case "reprocess_input":
                 return sSurfaceDecision.createReprocessSurface(i, surfaceUsageBySurfaceType, str2, size, size2,
@@ -1354,7 +1347,6 @@ public abstract class BaseMode implements ModeInterface {
     }
 
     public String getSurfaceUsageBySurfaceType(String str) {
-        str.hashCode();
         switch (str) {
             case "reprocess_input":
                 return "surface_key_reprocess";
@@ -1522,8 +1514,6 @@ public abstract class BaseMode implements ModeInterface {
                 || getModeName().equals(CameraConstant.ModeName.STAR_CAPTURE_MODE)) ? 32 : 37;
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:167:0x02bf */
-    /* JADX WARN: Removed duplicated region for block: B:178:0x02ec */
     /*
      * JADX WARN: Removed duplicated region for block: B:196:0x032a A[Catch: all ->
      * 0x04cf, TryCatch #0 {, blocks: (B:4:0x0009, B:6:0x0017, B:11:0x0027,
@@ -1544,7 +1534,7 @@ public abstract class BaseMode implements ModeInterface {
      * B:174:0x02dd, B:180:0x02f0, B:183:0x02fa, B:185:0x0306, B:187:0x0312,
      * B:243:0x046a, B:245:0x0474), top: B:255:0x0009 }]
      */
-    /* JADX WARN: Removed duplicated region for block: B:240:0x03c7 */
+
     /*
      * Code decompiled incorrectly, please refer to instructions dump.
      */

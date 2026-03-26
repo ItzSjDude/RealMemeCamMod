@@ -8,50 +8,30 @@ public class RefChar extends BaseField<Character> {
     private static final char DEFAULT_VALUE = ((Character) DEFAULT_TYPES.get(Character.class)).charValue();
     private static final String TAG = "RefChar";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefChar(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public char get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefChar(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public char get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public char getWithDefault(Object obj, char c) {
+    public char getWithDefault(Object object, char defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return c;
+            return defaultValue;
         }
     }
 
-    public char getWithException(Object obj) throws Exception {
-        return this.mField.getChar(checkStub(obj));
+    public char getWithException(Object object) throws Exception {
+        return this.mField.getChar(checkStub(object));
     }
 
-    public void set(Object obj, char c) {
+    public void set(Object object, char value) {
         try {
-            this.mField.setChar(checkStub(obj), c);
+            this.mField.setChar(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

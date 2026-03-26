@@ -9,7 +9,6 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper;
 import java.util.ArrayList;
 import java.util.List;
 
-/* JADX INFO: loaded from: classes.dex */
 public final class ZoomHelper {
     private static final int DECIMAL = 10;
     private static final String TAG = "ZoomHelper";
@@ -73,7 +72,8 @@ public final class ZoomHelper {
         return this.mZoomList;
     }
 
-    public List<Float> getZoomRatioList(boolean z, boolean z2, boolean z3, boolean z4, CameraDeviceInfoInterface cameraDeviceInfoInterface) {
+    public List<Float> getZoomRatioList(boolean z, boolean z2, boolean z3, boolean z4,
+            CameraDeviceInfoInterface cameraDeviceInfoInterface) {
         List<Float> zoomRatioList = getZoomRatioList(z, z2, z3);
         this.mZoomList = zoomRatioList;
         if (!zoomRatioList.isEmpty() && z4) {
@@ -84,11 +84,13 @@ public final class ZoomHelper {
             List<Float> listSubList = null;
             try {
                 List<Float> list = this.mZoomList;
-                listSubList = list.subList(list.indexOf(configFeatureZoomRange.get(0)), this.mZoomList.indexOf(configFeatureZoomRange.get(1)));
+                listSubList = list.subList(list.indexOf(configFeatureZoomRange.get(0)),
+                        this.mZoomList.indexOf(configFeatureZoomRange.get(1)));
                 listSubList.add(configFeatureZoomRange.get(1));
                 return listSubList;
             } catch (IndexOutOfBoundsException e) {
-                CameraUnitLog.e(TAG, "There is a problem with zoom_range in the configuration file , please check it!", e);
+                CameraUnitLog.e(TAG, "There is a problem with zoom_range in the configuration file , please check it!",
+                        e);
                 return listSubList;
             }
         }
@@ -128,18 +130,22 @@ public final class ZoomHelper {
     }
 
     private List<Float> getConfigFeatureZoomRange(CameraDeviceInfoInterface cameraDeviceInfoInterface) {
-        return (List) cameraDeviceInfoInterface.getPreviewParameterRange(PreviewParameter.KEY_FEATURE_RATIO_RANGE.getName());
+        return (List) cameraDeviceInfoInterface
+                .getPreviewParameterRange(PreviewParameter.KEY_FEATURE_RATIO_RANGE.getName());
     }
 
     private float getAvailableMaxDigitalZoom() {
-        return ((Float) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(this.mCameraType).get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)).floatValue();
+        return ((Float) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(this.mCameraType)
+                .get(CameraCharacteristics.SCALER_AVAILABLE_MAX_DIGITAL_ZOOM)).floatValue();
     }
 
     private float[] getSupportedZoomRange() {
-        return (float[]) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(this.mCameraType).get(CameraCharacteristicsWrapper.KEY_ZOOM_RANGE);
+        return (float[]) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(this.mCameraType)
+                .get(CameraCharacteristicsWrapper.KEY_ZOOM_RANGE);
     }
 
     private float[] getExpertZoomRange() {
-        return (float[]) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(this.mCameraType).get(CameraCharacteristicsWrapper.KEY_EXPERT_ZOOM_RANGE);
+        return (float[]) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(this.mCameraType)
+                .get(CameraCharacteristicsWrapper.KEY_EXPERT_ZOOM_RANGE);
     }
 }

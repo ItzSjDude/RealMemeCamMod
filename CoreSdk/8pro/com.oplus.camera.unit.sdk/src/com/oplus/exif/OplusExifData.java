@@ -155,6 +155,29 @@ class OplusExifData {
         return null;
     }
 
+    protected List<OplusExifTag> getAllTagsForIfd(int ifdId) {
+        OplusIfdData data = ifdDatas[ifdId];
+        if (data == null)
+            return null;
+        OplusExifTag[] tags = data.getAllTags();
+        if (tags == null)
+            return null;
+        return new ArrayList<>(Arrays.asList(tags));
+    }
+
+    protected List<OplusExifTag> getAllTagsForTagId(short tagId) {
+        List<OplusExifTag> result = new ArrayList<>();
+        for (OplusIfdData data : ifdDatas) {
+            if (data != null) {
+                OplusExifTag tag = data.getTag(tagId);
+                if (tag != null) {
+                    result.add(tag);
+                }
+            }
+        }
+        return result.isEmpty() ? null : result;
+    }
+
     protected List<OplusExifTag> getAllTags() {
         List<OplusExifTag> result = new ArrayList<>();
         for (OplusIfdData data : ifdDatas) {

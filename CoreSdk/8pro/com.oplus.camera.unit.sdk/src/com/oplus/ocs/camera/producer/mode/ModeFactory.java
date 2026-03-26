@@ -6,10 +6,9 @@ import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.HashMap;
 import java.util.Map;
 
-/* JADX INFO: loaded from: classes.dex */
 public class ModeFactory {
     private static final String TAG = "ModeFactory";
-    private static final Map<String, BaseMode> sModeContainer = new HashMap();
+    private static final Map<String, BaseMode> sModeContainer = new HashMap<>();
 
     public static synchronized ModeInterface getMode(@NonNull String str) {
         Map<String, BaseMode> map = sModeContainer;
@@ -33,7 +32,6 @@ public class ModeFactory {
         BaseMode stickerMode;
         CameraUnitLog.i(TAG, "createMode, name: " + str);
         CameraConfigHelper.blockFeatureParseIfNeeded();
-        str.hashCode();
         switch (str) {
             case "sticker_mode":
                 stickerMode = new StickerMode();

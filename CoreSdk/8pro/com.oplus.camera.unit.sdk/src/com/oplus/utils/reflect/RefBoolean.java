@@ -8,50 +8,30 @@ public class RefBoolean extends BaseField<Boolean> {
     private static final boolean DEFAULT_VALUE = ((Boolean) DEFAULT_TYPES.get(Boolean.class)).booleanValue();
     private static final String TAG = "RefBoolean";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefBoolean(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public boolean get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefBoolean(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public boolean get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public boolean getWithDefault(Object obj, boolean z) {
+    public boolean getWithDefault(Object object, boolean defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return z;
+            return defaultValue;
         }
     }
 
-    public boolean getWithException(Object obj) throws Exception {
-        return this.mField.getBoolean(checkStub(obj));
+    public boolean getWithException(Object object) throws Exception {
+        return this.mField.getBoolean(checkStub(object));
     }
 
-    public void set(Object obj, boolean z) {
+    public void set(Object object, boolean value) {
         try {
-            this.mField.setBoolean(checkStub(obj), z);
+            this.mField.setBoolean(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

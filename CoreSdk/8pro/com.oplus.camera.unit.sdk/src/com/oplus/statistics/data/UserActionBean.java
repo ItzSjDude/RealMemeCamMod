@@ -1,9 +1,9 @@
 package com.oplus.statistics.data;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import com.oplus.statistics.DataTypeConstants;
 
-/* JADX INFO: loaded from: classes.dex */
 public class UserActionBean extends TrackEvent {
     private static final String ACTION_AMOUNT = "actionAmount";
     private static final String ACTION_CODE = "actionCode";
@@ -12,49 +12,51 @@ public class UserActionBean extends TrackEvent {
     private int mCode;
     private String mDate;
 
-    @Override // com.oplus.statistics.data.TrackEvent
+    @Override
     public int getEventType() {
         return DataTypeConstants.USER_ACTION;
     }
 
-    public UserActionBean(Context context, int i, String str, int i2) {
+    public UserActionBean(@NonNull Context context, int code, String date, int amount) {
         super(context);
-        this.mCode = i;
-        this.mDate = str;
-        this.mAmount = i2;
-        addTrackInfo(ACTION_CODE, i);
-        addTrackInfo(ACTION_AMOUNT, this.mAmount);
-        addTrackInfo(ACTION_TIME, this.mDate);
+        this.mCode = code;
+        this.mDate = date;
+        this.mAmount = amount;
+        addTrackInfo(ACTION_CODE, code);
+        addTrackInfo(ACTION_AMOUNT, amount);
+        addTrackInfo(ACTION_TIME, date);
     }
 
     public int getActionCode() {
         return this.mCode;
     }
 
-    public void setActionCode(int i) {
-        this.mCode = i;
-        addTrackInfo(ACTION_CODE, i);
+    public void setActionCode(int code) {
+        this.mCode = code;
+        addTrackInfo(ACTION_CODE, code);
     }
 
     public String getActionDate() {
         return this.mDate;
     }
 
-    public void setActionDate(String str) {
-        this.mDate = str;
-        addTrackInfo(ACTION_TIME, str);
+    public void setActionDate(String date) {
+        this.mDate = date;
+        addTrackInfo(ACTION_TIME, date);
     }
 
     public int getActionAmount() {
         return this.mAmount;
     }
 
-    public void setActionAmount(int i) {
-        this.mAmount = i;
-        addTrackInfo(ACTION_AMOUNT, i);
+    public void setActionAmount(int amount) {
+        this.mAmount = amount;
+        addTrackInfo(ACTION_AMOUNT, amount);
     }
 
+    @Override
     public String toString() {
-        return "action code is: " + getActionCode() + "\naction amount is: " + getActionAmount() + "\naction date is: " + getActionDate() + "\n";
+        return "action code is: " + getActionCode() + "\naction amount is: " + getActionAmount() + "\naction date is: "
+                + getActionDate() + "\n";
     }
 }

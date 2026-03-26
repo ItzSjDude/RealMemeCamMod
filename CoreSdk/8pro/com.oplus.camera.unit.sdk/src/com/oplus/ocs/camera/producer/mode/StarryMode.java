@@ -20,7 +20,6 @@ import com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 
-/* JADX INFO: loaded from: classes.dex */
 public class StarryMode extends BaseMode {
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
               // com.oplus.ocs.camera.producer.mode.ModeInterface

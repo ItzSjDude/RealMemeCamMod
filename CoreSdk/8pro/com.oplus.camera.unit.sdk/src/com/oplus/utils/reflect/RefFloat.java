@@ -8,50 +8,30 @@ public class RefFloat extends BaseField<Float> {
     private static final float DEFAULT_VALUE = ((Float) DEFAULT_TYPES.get(Float.class)).floatValue();
     private static final String TAG = "RefFloat";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefFloat(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public float get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefFloat(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public float get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public float getWithDefault(Object obj, float f) {
+    public float getWithDefault(Object object, float defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return f;
+            return defaultValue;
         }
     }
 
-    public float getWithException(Object obj) throws Exception {
-        return this.mField.getFloat(checkStub(obj));
+    public float getWithException(Object object) throws Exception {
+        return this.mField.getFloat(checkStub(object));
     }
 
-    public void set(Object obj, float f) {
+    public void set(Object object, float value) {
         try {
-            this.mField.setFloat(checkStub(obj), f);
+            this.mField.setFloat(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

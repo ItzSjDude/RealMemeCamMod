@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/* JADX INFO: loaded from: classes.dex */
 class HighDefinitionMode extends BaseMode {
     private static final String AI_50M = "ai_50m";
     private static final int DEFAULT_HAL_MEMORY = 732;
@@ -71,7 +70,6 @@ class HighDefinitionMode extends BaseMode {
         pictureSurfaces = sdkCameraDeviceConfig.getPictureSurfaces();
         CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2
                 + ", cameraType: " + str3);
-        str.hashCode();
         switch (str) {
             case "raw_output":
                 if (pictureSurfaces.size() > 0) {
@@ -260,8 +258,7 @@ class HighDefinitionMode extends BaseMode {
 
     private void updateInSensorZoomTag(PreviewParameter.Builder builder, String str,
             CameraRequestTag cameraRequestTag) {
-        str.hashCode();
-        if (str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
+        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
             if (cameraRequestTag.mbBurstShot) {
                 return;
             }

@@ -11,74 +11,70 @@ import com.oplus.statistics.util.Supplier;
 import com.oplus.statistics.util.TimeInfoUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-/* JADX INFO: loaded from: classes.dex */
 public class PageVisitAgent {
     private static final int PAGE_VISIT_MAX_COUNT = 10;
     private static final int PAUSE = 1;
     private static final int RESUME = 0;
     private static final String TAG = "PageVisitAgent";
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onPause() called without context." */
     static /* synthetic */ String lambda$onPause$1() {
         return "onPause() called without context.";
     }
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "onPause() called without context." */
     static /* synthetic */ String lambda$onResume$3() {
-        return "onPause() called without context.";
+        return "onResume() called without context.";
     }
 
     public void onPause(Context context) {
         if (context != null) {
-            long jCurrentTimeMillis = System.currentTimeMillis();
+            long currentTimeMillis = System.currentTimeMillis();
             final String className = getClassName(context);
-            LogUtil.i(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda2
-                @Override // com.oplus.statistics.util.Supplier
-                public final Object get() {
+            LogUtil.i(TAG, new Supplier<String>() {
+                @Override
+                public String get() {
                     return PageVisitAgent.lambda$onPause$0(className);
                 }
             });
-            WorkThread.execute(new HandlePageVisitRunnable(context, className, jCurrentTimeMillis, 1));
+            WorkThread.execute(new HandlePageVisitRunnable(context, className, currentTimeMillis, PAUSE));
             return;
         }
-        LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda3
-            @Override // com.oplus.statistics.util.Supplier
-            public final Object get() {
+        LogUtil.e(TAG, new Supplier<String>() {
+            @Override
+            public String get() {
                 return PageVisitAgent.lambda$onPause$1();
             }
         });
     }
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onPause: "), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
-    static /* synthetic */ String lambda$onPause$0(String str) {
-        return "onPause: " + str;
+    static /* synthetic */ String lambda$onPause$0(String className) {
+        return "onPause: " + className;
     }
 
     public void onResume(Context context) {
         if (context != null) {
-            long jCurrentTimeMillis = System.currentTimeMillis();
+            long currentTimeMillis = System.currentTimeMillis();
             final String className = getClassName(context);
-            LogUtil.i(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda4
-                @Override // com.oplus.statistics.util.Supplier
-                public final Object get() {
+            LogUtil.i(TAG, new Supplier<String>() {
+                @Override
+                public String get() {
                     return PageVisitAgent.lambda$onResume$2(className);
                 }
             });
-            WorkThread.execute(new HandlePageVisitRunnable(context, className, jCurrentTimeMillis, 0));
+            WorkThread.execute(new HandlePageVisitRunnable(context, className, currentTimeMillis, RESUME));
             return;
         }
-        LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda5
-            @Override // com.oplus.statistics.util.Supplier
-            public final Object get() {
+        LogUtil.e(TAG, new Supplier<String>() {
+            @Override
+            public String get() {
                 return PageVisitAgent.lambda$onResume$3();
             }
         });
     }
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: STR_CONCAT ("onResume: "), (r2v0 java.lang.String) A[MD:():java.lang.String (c), SYNTHETIC] */
-    static /* synthetic */ String lambda$onResume$2(String str) {
-        return "onResume: " + str;
+    static /* synthetic */ String lambda$onResume$2(String className) {
+        return "onResume: " + className;
     }
 
     private static String getClassName(Context context) {
@@ -99,87 +95,73 @@ public class PageVisitAgent {
         PreferenceHandler.setPageVisitRoutes(context, "");
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    public static void recordPause(Context context, String str, long j) {
-        JSONArray jSONArray;
+    public static void recordPause(Context context, String className, long endTime) {
+        JSONArray routesJson;
         long activityStartTime = PreferenceHandler.getActivityStartTime(context);
-        int i = (int) ((j - activityStartTime) / 1000);
-        if (str.equals(PreferenceHandler.getCurrentActivity(context)) && i >= 0 && -1 != activityStartTime) {
+        int durationInSeconds = (int) ((endTime - activityStartTime) / 1000);
+        if (className.equals(PreferenceHandler.getCurrentActivity(context)) && durationInSeconds >= 0
+                && -1 != activityStartTime) {
             try {
                 String pageVisitRoutes = PreferenceHandler.getPageVisitRoutes(context);
-                int pageVisitDuration = PreferenceHandler.getPageVisitDuration(context);
+                int totalDuration = PreferenceHandler.getPageVisitDuration(context);
                 if (!TextUtils.isEmpty(pageVisitRoutes)) {
-                    jSONArray = new JSONArray(pageVisitRoutes);
-                    if (jSONArray.length() >= 10) {
+                    routesJson = new JSONArray(pageVisitRoutes);
+                    if (routesJson.length() >= PAGE_VISIT_MAX_COUNT) {
                         recordPageVisit(context);
-                        jSONArray = new JSONArray();
+                        routesJson = new JSONArray();
                     }
                 } else {
-                    jSONArray = new JSONArray();
+                    routesJson = new JSONArray();
                 }
-                JSONArray jSONArray2 = new JSONArray();
-                jSONArray2.put(str);
-                jSONArray2.put(i);
-                jSONArray.put(jSONArray2);
-                PreferenceHandler.setPageVisitDuration(context, pageVisitDuration + i);
-                PreferenceHandler.setPageVisitRoutes(context, jSONArray.toString());
-            } catch (JSONException e) {
-                LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda0
-                    @Override // com.oplus.statistics.util.Supplier
-                    public final Object get() {
-                        return e.toString();
-                    }
-                });
-            } catch (Exception e2) {
-                LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.PageVisitAgent$$ExternalSyntheticLambda1
-                    @Override // com.oplus.statistics.util.Supplier
-                    public final Object get() {
-                        return e2.toString();
-                    }
-                });
+                JSONArray entryJson = new JSONArray();
+                entryJson.put(className);
+                entryJson.put(durationInSeconds);
+                routesJson.put(entryJson);
+                PreferenceHandler.setPageVisitDuration(context, totalDuration + durationInSeconds);
+                PreferenceHandler.setPageVisitRoutes(context, routesJson.toString());
+            } catch (JSONException jsonException) {
+                LogUtil.e(TAG, () -> jsonException.toString());
+            } catch (Exception exception) {
+                LogUtil.e(TAG, () -> exception.toString());
                 PreferenceHandler.setPageVisitRoutes(context, "");
                 PreferenceHandler.setPageVisitDuration(context, 0);
             }
         }
-        PreferenceHandler.setActivityEndTime(context, j);
+        PreferenceHandler.setActivityEndTime(context, endTime);
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
-    public static void recordResume(Context context, String str, long j) {
+    public static void recordResume(Context context, String className, long startTime) {
         long activityEndTime = PreferenceHandler.getActivityEndTime(context);
         long activityStartTime = PreferenceHandler.getActivityStartTime(context);
         long sessionTimeout = ((long) PreferenceHandler.getSessionTimeout(context)) * 1000;
-        if (j - activityStartTime >= sessionTimeout && (-1 == activityEndTime || activityEndTime >= j || j - activityEndTime >= sessionTimeout)) {
+        if (startTime - activityStartTime >= sessionTimeout && (-1 == activityEndTime || activityEndTime >= startTime
+                || startTime - activityEndTime >= sessionTimeout)) {
             AppStartAgent.recordAppStart(context);
             recordPageVisit(context);
         }
-        PreferenceHandler.setActivityStartTime(context, j);
-        PreferenceHandler.setCurrentActivity(context, str);
+        PreferenceHandler.setActivityStartTime(context, startTime);
+        PreferenceHandler.setCurrentActivity(context, className);
     }
 
     private static final class HandlePageVisitRunnable implements Runnable {
-        private String mClassName;
-        private Context mContext;
-        private long mCurrentTimeMills;
-        private int mType;
+        private final String mClassName;
+        private final Context mContext;
+        private final long mCurrentTimeMillis;
+        private final int mType;
 
-        public HandlePageVisitRunnable(Context context, String str, long j, int i) {
+        public HandlePageVisitRunnable(Context context, String className, long currentTimeMillis, int type) {
             this.mContext = context;
-            this.mClassName = str;
-            this.mCurrentTimeMills = j;
-            this.mType = i;
+            this.mClassName = className;
+            this.mCurrentTimeMillis = currentTimeMillis;
+            this.mType = type;
         }
 
-        @Override // java.lang.Runnable
+        @Override
         public void run() {
-            int i = this.mType;
-            if (i == 0) {
-                PageVisitAgent.recordResume(this.mContext, this.mClassName, this.mCurrentTimeMills);
-            } else {
-                if (i != 1) {
-                    return;
-                }
-                PageVisitAgent.recordPause(this.mContext, this.mClassName, this.mCurrentTimeMills);
+            if (this.mType == RESUME) {
+                PageVisitAgent.recordResume(this.mContext, this.mClassName, this.mCurrentTimeMillis);
+            } else if (this.mType == PAUSE) {
+                PageVisitAgent.recordPause(this.mContext, this.mClassName, this.mCurrentTimeMillis);
             }
         }
     }

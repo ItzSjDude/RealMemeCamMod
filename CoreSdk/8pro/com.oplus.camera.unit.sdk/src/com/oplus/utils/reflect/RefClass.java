@@ -14,58 +14,61 @@ public final class RefClass {
     private static final String TAG = "RefClass";
 
     static {
-        Class[] clsArr = { RefObject.class, RefMethod.class, RefInt.class, RefLong.class, RefFloat.class,
+        Class<?>[] refClassArray = { RefObject.class, RefMethod.class, RefInt.class, RefLong.class, RefFloat.class,
                 RefDouble.class, RefBoolean.class, RefByte.class, RefChar.class, RefShort.class, RefConstructor.class };
-        REF_CLASSES = (Class<? extends IBaseRef>[]) clsArr;
+        REF_CLASSES = (Class<? extends IBaseRef>[]) refClassArray;
         try {
-            for (Class<? extends IBaseRef> cls : clsArr) {
-                REF_TYPES.put(cls, cls.getConstructor(Class.class, Field.class));
+            for (Class<?> refClass : refClassArray) {
+                REF_TYPES.put((Class<? extends IBaseRef>) refClass,
+                        ((Class<? extends IBaseRef>) refClass).getConstructor(Class.class, Field.class));
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(), e);
         }
     }
 
-    public static Class<?> load(Class<?> cls, String str) {
-        return load(cls, str, (Class<?>) null);
+    public static Class<?> load(Class<?> mappingClass, String className) {
+        return load(mappingClass, className, (Class<?>) null);
     }
 
-    public static Class<?> load(Class<?> cls, Class<?> cls2) {
-        return load(cls, cls2, (Class<?>) null);
+    public static Class<?> load(Class<?> mappingClass, Class<?> targetClass) {
+        return load(mappingClass, targetClass, (Class<?>) null);
     }
 
-    public static Class<?> load(Class<?> cls, String str, Class<?> cls2) {
-        Class<?> realClass = getRealClass(cls.getClassLoader(), str);
-        load(cls, realClass, cls2, (String) null);
+    public static Class<?> load(Class<?> mappingClass, String className, Class<?> altTargetClass) {
+        Class<?> realClass = getRealClass(mappingClass.getClassLoader(), className);
+        load(mappingClass, realClass, altTargetClass, (String) null);
         return realClass;
     }
 
-    public static Class<?> load(Class<?> cls, Class<?> cls2, Class<?> cls3) {
-        load(cls, cls2, cls3, (String) null);
-        return cls2;
+    public static Class<?> load(Class<?> mappingClass, Class<?> targetClass, Class<?> altTargetClass) {
+        load(mappingClass, targetClass, altTargetClass, (String) null);
+        return targetClass;
     }
 
-    public static RefConstructor<?> load(Class<?> cls, String str, Class<?> cls2, String str2) {
-        return load(cls, getRealClass(cls.getClassLoader(), str), cls2, str2);
+    public static RefConstructor<?> load(Class<?> mappingClass, String className, Class<?> altTargetClass,
+            String refName) {
+        return load(mappingClass, getRealClass(mappingClass.getClassLoader(), className), altTargetClass, refName);
     }
 
-    public static RefConstructor<?> load(Class<?> cls, Class<?> cls2, Class<?> cls3, String str) {
-        Object objNewInstance;
-        if (cls == null) {
+    public static RefConstructor<?> load(Class<?> mappingClass, Class<?> targetClass, Class<?> altTargetClass,
+            String refName) {
+        Object stubInstance;
+        if (mappingClass == null) {
             throw new IllegalArgumentException("mappingClass is null");
         }
-        if (cls3 != null) {
+        if (altTargetClass != null) {
             try {
-                objNewInstance = cls3.newInstance();
+                stubInstance = altTargetClass.newInstance();
             } catch (IllegalAccessException | InstantiationException e) {
-                Log.e(TAG, cls3 + ".newInstance", e);
-                objNewInstance = null;
+                Log.e(TAG, altTargetClass + ".newInstance", e);
+                stubInstance = null;
             }
         } else {
-            objNewInstance = null;
+            stubInstance = null;
         }
         RefConstructor<?> refConstructor = null;
-        for (Field field : cls.getDeclaredFields()) {
+        for (Field field : mappingClass.getDeclaredFields()) {
             if (Modifier.isStatic(field.getModifiers()) && !Modifier.isFinal(field.getModifiers())) {
                 try {
                     field.setAccessible(true);
@@ -74,47 +77,48 @@ public final class RefClass {
                     }
                     Constructor<? extends IBaseRef> constructor = REF_TYPES.get(field.getType());
                     if (constructor != null) {
-                        IBaseRef iBaseRefNewInstance = cls2 != null ? newInstance(cls2, field, constructor) : null;
-                        if ((iBaseRefNewInstance == null || iBaseRefNewInstance.isEmpty()) && cls2 != cls3) {
-                            iBaseRefNewInstance = newInstance(cls3, field, constructor);
+                        IBaseRef instance = targetClass != null ? newInstance(targetClass, field, constructor) : null;
+                        if ((instance == null || instance.isEmpty()) && targetClass != altTargetClass) {
+                            instance = newInstance(altTargetClass, field, constructor);
                         }
-                        if (iBaseRefNewInstance == null) {
-                            iBaseRefNewInstance = newInstance(null, field, constructor);
+                        if (instance == null) {
+                            instance = newInstance(null, field, constructor);
                         }
-                        if (iBaseRefNewInstance != null) {
-                            iBaseRefNewInstance.bindStub(objNewInstance);
+                        if (instance != null) {
+                            instance.bindStub(stubInstance);
                         }
-                        field.set(null, iBaseRefNewInstance);
-                        if (field.getName().equals(str) && field.getType().equals(RefConstructor.class)) {
-                            refConstructor = (RefConstructor) iBaseRefNewInstance;
+                        field.set(null, instance);
+                        if (field.getName().equals(refName) && field.getType().equals(RefConstructor.class)) {
+                            refConstructor = (RefConstructor) instance;
                         }
                     }
                 } catch (IllegalAccessException e2) {
-                    Log.e(TAG, cls.getName() + ".load", e2);
+                    Log.e(TAG, mappingClass.getName() + ".load", e2);
                 }
             }
         }
         return refConstructor;
     }
 
-    private static Class<?> getRealClass(ClassLoader classLoader, String str) {
-        if (str == null) {
+    private static Class<?> getRealClass(ClassLoader classLoader, String className) {
+        if (className == null) {
             return null;
         }
         try {
-            return Class.forName(str, false, classLoader);
+            return Class.forName(className, false, classLoader);
         } catch (ClassNotFoundException e) {
             Log.e(TAG, "Cannot find class : " + e.getMessage());
             return null;
         }
     }
 
-    private static IBaseRef newInstance(Class<?> cls, Field field, Constructor<? extends IBaseRef> constructor) {
+    private static IBaseRef newInstance(Class<?> targetClass, Field field,
+            Constructor<? extends IBaseRef> constructor) {
         try {
-            return constructor.newInstance(cls, field);
+            return constructor.newInstance(targetClass, field);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
-            if (cls != null) {
-                Log.e(TAG, "targetClass load : " + cls.getName(), e);
+            if (targetClass != null) {
+                Log.e(TAG, "targetClass load : " + targetClass.getName(), e);
                 return null;
             }
             Log.e(TAG, "targetClass load : null");

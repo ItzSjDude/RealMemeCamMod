@@ -20,7 +20,6 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
 
-/* JADX INFO: loaded from: classes.dex */
 public class SlowVideoMode extends VideoMode {
     private static final String TAG = "SlowVideoMode";
     private boolean mbIntelligentHighFrameSelected = false;
@@ -86,13 +85,10 @@ public class SlowVideoMode extends VideoMode {
         return "video_960fps".equals(str) ? 960 : 0;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.VideoMode,
-              // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    @Override
     public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
             @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        str.hashCode();
         if (str.equals(Parameter.ParameterStage.CONFIGURE)) {
             if (this.mConfigMap.get(str2) != null) {
                 builder.set(ConfigureParameter.KEY_MTK_SMVR_FEATURE_SMVR_MODES,

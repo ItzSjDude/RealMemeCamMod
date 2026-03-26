@@ -50,24 +50,24 @@ public class OTrackConfig {
         return this.mPackageName;
     }
 
-    public void setPackageName(String str) {
-        this.mPackageName = str;
+    public void setPackageName(String packageName) {
+        this.mPackageName = packageName;
     }
 
     public String getVersionName() {
         return this.mVersionName;
     }
 
-    public void setVersionName(String str) {
-        this.mVersionName = str;
+    public void setVersionName(String versionName) {
+        this.mVersionName = versionName;
     }
 
     public String getAppName() {
         return this.mAppName;
     }
 
-    public void setAppName(String str) {
-        this.mAppName = str;
+    public void setAppName(String appName) {
+        this.mAppName = appName;
     }
 
     public static class Builder {
@@ -81,23 +81,23 @@ public class OTrackConfig {
             return new OTrackConfig(this);
         }
 
-        public Builder setEnv(int i) {
-            this.env = i;
+        public Builder setEnv(int env) {
+            this.env = env;
             return this;
         }
 
-        public Builder setPackageName(String str) {
-            this.packageName = str;
+        public Builder setPackageName(String packageName) {
+            this.packageName = packageName;
             return this;
         }
 
-        public Builder setVersionName(String str) {
-            this.versionName = str;
+        public Builder setVersionName(String versionName) {
+            this.versionName = versionName;
             return this;
         }
 
-        public Builder setAppName(String str) {
-            this.appName = str;
+        public Builder setAppName(String appName) {
+            this.appName = appName;
             return this;
         }
 

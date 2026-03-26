@@ -1,20 +1,18 @@
 package com.oplus.exif;
 
-import com.oplus.ocs.camera.producer.feature.FeatureImpl;
-
 /* JADX INFO: loaded from: classes.dex */
 public class OplusRational {
     private final long mDenominator;
     private final long mNumerator;
 
-    public OplusRational(long j, long j2) {
-        this.mNumerator = j;
-        this.mDenominator = j2;
+    public OplusRational(long numerator, long denominator) {
+        this.mNumerator = numerator;
+        this.mDenominator = denominator;
     }
 
-    public OplusRational(OplusRational oplusRational) {
-        this.mNumerator = oplusRational.mNumerator;
-        this.mDenominator = oplusRational.mDenominator;
+    public OplusRational(OplusRational other) {
+        this.mNumerator = other.mNumerator;
+        this.mDenominator = other.mDenominator;
     }
 
     public long getNumerator() {
@@ -29,6 +27,10 @@ public class OplusRational {
         return this.mNumerator / this.mDenominator;
     }
 
+    public static boolean isSofMarker(short marker) {
+        return (marker < -64 || marker > -49 || marker == -60 || marker == -56 || marker == -52) ? false : true;
+    }
+
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -39,15 +41,16 @@ public class OplusRational {
         if (!(obj instanceof OplusRational)) {
             return false;
         }
-        OplusRational oplusRational = (OplusRational) obj;
-        return this.mNumerator == oplusRational.mNumerator && this.mDenominator == oplusRational.mDenominator;
+        OplusRational other = (OplusRational) obj;
+        return this.mNumerator == other.mNumerator && this.mDenominator == other.mDenominator;
     }
 
     public int hashCode() {
         return toString().hashCode();
     }
 
+    @Override
     public String toString() {
-        return this.mNumerator + FeatureImpl.DELIMITER + this.mDenominator;
+        return this.mNumerator + "/" + this.mDenominator;
     }
 }

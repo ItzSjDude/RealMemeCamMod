@@ -7,9 +7,9 @@ import java.lang.reflect.Field;
 abstract class BaseField<T> extends BaseRef<T> {
     final Field mField;
 
-    BaseField(Class<?> cls, Field field, String str) {
+    BaseField(Class<?> targetClass, Field field, String tag) {
         super(field);
-        this.mField = getField(cls, field, str);
+        this.mField = getField(targetClass, field, tag);
     }
 
     @Override // com.oplus.utils.reflect.IBaseRef
@@ -25,14 +25,14 @@ abstract class BaseField<T> extends BaseRef<T> {
         return this.mField.getDeclaringClass();
     }
 
-    private Field getField(Class<?> cls, Field field, String str) {
+    private Field getField(Class<?> targetClass, Field field, String tag) {
         Field declaredField = null;
         try {
-            declaredField = cls.getDeclaredField(field.getName());
+            declaredField = targetClass.getDeclaredField(field.getName());
             declaredField.setAccessible(true);
             return declaredField;
         } catch (Exception e) {
-            Log.e(str, e.getMessage());
+            Log.e(tag, e.getMessage());
             return declaredField;
         }
     }

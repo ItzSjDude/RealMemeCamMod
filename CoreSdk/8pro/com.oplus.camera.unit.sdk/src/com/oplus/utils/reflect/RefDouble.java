@@ -8,50 +8,30 @@ public class RefDouble extends BaseField<Double> {
     private static final double DEFAULT_VALUE = ((Double) DEFAULT_TYPES.get(Double.class)).doubleValue();
     private static final String TAG = "RefDouble";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefDouble(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public double get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefDouble(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public double get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public double getWithDefault(Object obj, double d) {
+    public double getWithDefault(Object object, double defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return d;
+            return defaultValue;
         }
     }
 
-    public double getWithException(Object obj) throws Exception {
-        return this.mField.getDouble(checkStub(obj));
+    public double getWithException(Object object) throws Exception {
+        return this.mField.getDouble(checkStub(object));
     }
 
-    public void set(Object obj, double d) {
+    public void set(Object object, double value) {
         try {
-            this.mField.setDouble(checkStub(obj), d);
+            this.mField.setDouble(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

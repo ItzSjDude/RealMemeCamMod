@@ -9,7 +9,6 @@ import com.oplus.ocs.camera.common.util.CameraConstant;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 
-/* JADX INFO: loaded from: classes.dex */
 public class StarVideoMode extends StarryMode {
     @Override // com.oplus.ocs.camera.producer.mode.StarryMode,
               // com.oplus.ocs.camera.producer.mode.BaseMode

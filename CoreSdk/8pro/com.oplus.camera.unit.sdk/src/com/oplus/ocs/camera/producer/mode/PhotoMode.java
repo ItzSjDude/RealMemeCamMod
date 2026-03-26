@@ -41,7 +41,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-/* JADX INFO: loaded from: classes.dex */
 public class PhotoMode extends BaseMode {
     private static final int ALL_AI_SCENE_DISABLE_VALUE = 0;
     private static final int ALL_AI_SCENE_ENABLE_VALUE = 67108863;
@@ -240,7 +239,7 @@ public class PhotoMode extends BaseMode {
     public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
             @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        str.hashCode();
+
         switch (str) {
             case "before_take_picture":
             case "start_recording":
@@ -453,11 +452,7 @@ public class PhotoMode extends BaseMode {
     /*
      * JADX WARN: Can't fix incorrect switch cases order, some code will duplicate
      */
-    /* JADX WARN: Removed duplicated region for block: B:157:0x02d3 */
-    /* JADX WARN: Removed duplicated region for block: B:187:0x0356 */
-    /* JADX WARN: Removed duplicated region for block: B:188:0x0362 */
-    /* JADX WARN: Removed duplicated region for block: B:4:0x0057 */
-    /* JADX WARN: Removed duplicated region for block: B:84:0x018d */
+
     @Override // com.oplus.ocs.camera.producer.mode.BaseMode
     /*
      * Code decompiled incorrectly, please refer to instructions dump.
@@ -475,7 +470,7 @@ public class PhotoMode extends BaseMode {
         pictureSurfaces = sdkCameraDeviceConfig.getPictureSurfaces();
         CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2
                 + ", cameraType: " + str3);
-        str.hashCode();
+
         switch (str) {
             case "reprocess_input":
             case "capture_raw":
@@ -488,7 +483,6 @@ public class PhotoMode extends BaseMode {
                 size2 = size;
                 if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_MTK_SAT_FUSION_SUPPORT, false))
                         .booleanValue() && "rear_sat".equals(str3)) {
-                    str2.hashCode();
                     switch (str2) {
                         case "rear_main":
                             Size size4 = ((Size[]) CameraConfigHelper
@@ -527,7 +521,6 @@ public class PhotoMode extends BaseMode {
             case "capture":
             case "reprocess_yuv":
                 if ("rear_sat".equals(str3)) {
-                    str2.hashCode();
                     switch (str2) {
                         case "rear_mono_1":
                             Size sizeGeMaxSize4 = geMaxSize(CameraConfigBase.KEY_MONO1_PICTURE_SIZE, width);
@@ -732,10 +725,10 @@ public class PhotoMode extends BaseMode {
         Size maxSizeByRatio = Util.getMaxSizeByRatio(sizeArr, d);
         if (maxSizeByRatio == null) {
             maxSizeByRatio = Util.getImpreciseMaxSizeByRatio(sizeArr, d);
-            CameraUnitLog.w(TAG, "getSatSize, can't find max size with ratio: " + d + ", use imprecise max size: "
+            CameraUnitLog.w(TAG, "geMaxSize, can't find max size with ratio: " + d + ", use imprecise max size: "
                     + maxSizeByRatio + " instead");
         }
-        CameraUnitLog.d(TAG, "getSatSize, keyName: " + key + ", ratio: " + d + ", finalSize: " + maxSizeByRatio);
+        CameraUnitLog.d(TAG, "geMaxSize, keyName: " + key + ", ratio: " + d + ", finalSize: " + maxSizeByRatio);
         return maxSizeByRatio;
     }
 

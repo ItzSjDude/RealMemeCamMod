@@ -22,7 +22,6 @@ import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.List;
 
-/* JADX INFO: loaded from: classes.dex */
 public class HighPixelMode extends PhotoMode {
     private static final String TAG = "HighPixelMode";
     private boolean mbRawSREnable = false;
@@ -66,7 +65,6 @@ public class HighPixelMode extends PhotoMode {
         pictureSurfaces = sdkCameraDeviceConfig.getPictureSurfaces();
         CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2
                 + ", cameraType: " + str3);
-        str.hashCode();
         switch (str) {
             case "preview":
                 return new Pair<>(size, size);

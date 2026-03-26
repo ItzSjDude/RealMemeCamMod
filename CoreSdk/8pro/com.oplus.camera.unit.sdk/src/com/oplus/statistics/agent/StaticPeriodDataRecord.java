@@ -6,12 +6,10 @@ import com.oplus.statistics.data.SettingKeyBean;
 import com.oplus.statistics.data.SettingKeyDataBean;
 import com.oplus.statistics.record.ProxyRecorder;
 import com.oplus.statistics.util.LogUtil;
-import com.oplus.statistics.util.Supplier;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* JADX INFO: loaded from: classes.dex */
 public class StaticPeriodDataRecord extends BaseAgent {
     private static final String TAG = "StaticPeriodDataRecord";
 
@@ -27,29 +25,25 @@ public class StaticPeriodDataRecord extends BaseAgent {
         ProxyRecorder.getInstance().addTrackEvent(context, settingKeyDataBean);
     }
 
-    public static JSONArray list2JsonObject(List<SettingKeyBean> list) {
-        JSONArray jSONArray = new JSONArray();
-        if (list != null && !list.isEmpty()) {
-            try {
-                for (SettingKeyBean settingKeyBean : list) {
-                    if (settingKeyBean != null) {
-                        JSONObject jSONObject = new JSONObject();
-                        jSONObject.put(SettingKeyBean.SETTING_KEY, settingKeyBean.getSettingKey());
-                        jSONObject.put(SettingKeyBean.HTTP_POST_KEY, settingKeyBean.getHttpPostKey());
-                        jSONObject.put(SettingKeyBean.METHOD_NAME, settingKeyBean.getMethodName());
-                        jSONObject.put(SettingKeyBean.DEFAULE_VALUE, settingKeyBean.getDefaultValue());
-                        jSONArray.put(jSONObject);
-                    }
-                }
-            } catch (Exception e) {
-                LogUtil.e(TAG, new Supplier() { // from class: com.oplus.statistics.agent.StaticPeriodDataRecord$$ExternalSyntheticLambda0
-                    @Override // com.oplus.statistics.util.Supplier
-                    public final Object get() {
-                        return e.toString();
-                    }
-                });
-            }
+    public static JSONArray listToJsonObject(List<SettingKeyBean> list) {
+        JSONArray jsonArray = new JSONArray();
+        if (list == null || list.isEmpty()) {
+            return jsonArray;
         }
-        return jSONArray;
+        try {
+            for (SettingKeyBean bean : list) {
+                if (bean != null) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put(SettingKeyBean.SETTING_KEY, bean.getSettingKey());
+                    jsonObject.put(SettingKeyBean.HTTP_POST_KEY, bean.getHttpPostKey());
+                    jsonObject.put(SettingKeyBean.METHOD_NAME, bean.getMethodName());
+                    jsonObject.put(SettingKeyBean.DEFAULT_VALUE, bean.getDefaultValue());
+                    jsonArray.put(jsonObject);
+                }
+            }
+        } catch (Exception e) {
+            LogUtil.e(TAG, () -> "listToJsonObject error: " + e.getMessage());
+        }
+        return jsonArray;
     }
 }

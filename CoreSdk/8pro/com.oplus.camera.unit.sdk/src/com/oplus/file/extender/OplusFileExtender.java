@@ -6,56 +6,56 @@ import com.common.Util;
 public class OplusFileExtender {
     private long mNativePtr;
 
-    private native void close(long j);
+    private native void close(long handle);
 
-    private native byte[] getBuffer(long j, String str);
+    private native byte[] getBuffer(long handle, String key);
 
-    private native String getTag(long j);
+    private native String getTag(long handle);
 
-    private native String getValue(long j, String str);
+    private native String getValue(long handle, String key);
 
-    private native long openFd(int i);
+    private native long openFd(int fd);
 
-    private native long openPath(String str);
+    private native long openPath(String path);
 
-    private native void setBuffer(long j, String str, byte[] bArr);
+    private native void setBuffer(long handle, String key, byte[] buffer);
 
-    private native void setTag(long j, String str);
+    private native void setTag(long handle, String tag);
 
-    private native void setValue(long j, String str, String str2);
+    private native void setValue(long handle, String key, String value);
 
-    public OplusFileExtender(String str) {
+    public OplusFileExtender(String path) {
         this.mNativePtr = 0L;
-        this.mNativePtr = openPath(str);
+        this.mNativePtr = openPath(path);
     }
 
-    public OplusFileExtender(int i) {
+    public OplusFileExtender(int fd) {
         this.mNativePtr = 0L;
-        this.mNativePtr = openFd(i);
+        this.mNativePtr = openFd(fd);
     }
 
-    public void setTag(String str) {
-        setTag(this.mNativePtr, str);
+    public void setTag(String tag) {
+        setTag(this.mNativePtr, tag);
     }
 
-    public void setExtensionData(String str, String str2) {
-        setValue(this.mNativePtr, str, str2);
+    public void setExtensionData(String key, String value) {
+        setValue(this.mNativePtr, key, value);
     }
 
-    public byte[] getExtensionDataByteArray(String str) {
-        return getBuffer(this.mNativePtr, str);
+    public byte[] getExtensionDataByteArray(String key) {
+        return getBuffer(this.mNativePtr, key);
     }
 
-    public String getExtensionDataString(String str) {
-        return getValue(this.mNativePtr, str);
+    public String getExtensionDataString(String key) {
+        return getValue(this.mNativePtr, key);
     }
 
     public String getTag() {
         return getTag(this.mNativePtr);
     }
 
-    public void setExtensionData(String str, byte[] bArr) {
-        setBuffer(this.mNativePtr, str, bArr);
+    public void setExtensionData(String key, byte[] buffer) {
+        setBuffer(this.mNativePtr, key, buffer);
     }
 
     public void close() {

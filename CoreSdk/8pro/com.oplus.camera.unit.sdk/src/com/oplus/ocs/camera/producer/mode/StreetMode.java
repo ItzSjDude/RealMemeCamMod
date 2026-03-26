@@ -15,27 +15,28 @@ import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 
-/* JADX INFO: loaded from: classes.dex */
 public class StreetMode extends PhotoMode {
     private static final int EDGE_FILTER_PARAM_LENGTH = 3;
     public static final int STREET_MAX_BURST_SHOT_NUM = 50;
     private static final String TAG = "StreetMode";
     private String mRawValue = "none";
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override
     protected String getModeName() {
         return CameraConstant.ModeName.STREET_MODE;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    @Override
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         super.onConfigure(cameraSessionEntity, sdkCameraDeviceConfig, str, apsRequestTag);
         apsRequestTag.mModeName = CameraConstant.ModeName.STREET_MODE;
         cameraSessionEntity.setTemplate(1);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder) {
+    @Override
+    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder) {
         CameraRequestTag cameraRequestTagCreateRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
         initEdgeFilterRequest(builder, cameraRequestTagCreateRequestTag);
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
@@ -45,8 +46,10 @@ public class StreetMode extends PhotoMode {
     }
 
     private void initEdgeFilterRequest(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag) {
-        if (builder.containCustomKey(PreviewParameter.KEY_EDGE_FILTER_ENABLE) && builder.get(PreviewParameter.KEY_EDGE_FILTER_ENABLE) != null) {
-            cameraRequestTag.mbEdgeFilterEnable = ((Boolean) builder.get(PreviewParameter.KEY_EDGE_FILTER_ENABLE)).booleanValue();
+        if (builder.containCustomKey(PreviewParameter.KEY_EDGE_FILTER_ENABLE)
+                && builder.get(PreviewParameter.KEY_EDGE_FILTER_ENABLE) != null) {
+            cameraRequestTag.mbEdgeFilterEnable = ((Boolean) builder.get(PreviewParameter.KEY_EDGE_FILTER_ENABLE))
+                    .booleanValue();
         } else {
             cameraRequestTag.mbEdgeFilterEnable = false;
         }
@@ -60,10 +63,10 @@ public class StreetMode extends PhotoMode {
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        str.hashCode();
         if (str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
             updateRawValue(builder, cameraRequestTag);
             updateMaxShotNum(cameraRequestTag, 50);
@@ -92,7 +95,8 @@ public class StreetMode extends PhotoMode {
         if (cameraRequestTag == null || !cameraRequestTag.mbBurstShot) {
             return;
         }
-        int iIntValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CSHOT_FIRST_REQUEST_NUM, 3)).intValue();
+        int iIntValue = ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_CSHOT_FIRST_REQUEST_NUM, 3))
+                .intValue();
         if (!CameraCharacteristicsHelper.isSupportCShot(cameraRequestTag.mCameraType)) {
             iIntValue = i;
         }
@@ -100,21 +104,24 @@ public class StreetMode extends PhotoMode {
         cameraRequestTag.mMaxBustShotNum = i;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey, PreviewParameter.Builder builder) {
+    @Override
+    public boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
+            PreviewParameter.Builder builder) {
         if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2) && "raw".equals(this.mRawValue)) {
             if (32 == surfaceKey.getFormat() && "surface_key_picture".equals(surfaceKey.getUsage())) {
                 return true;
             }
-            if (35 == surfaceKey.getFormat() && "surface_key_picture".equals(surfaceKey.getUsage()) && !"rear_sat".equals(str)) {
+            if (35 == surfaceKey.getFormat() && "surface_key_picture".equals(surfaceKey.getUsage())
+                    && !"rear_sat".equals(str)) {
                 return true;
             }
         }
         return super.needAddToTarget(str, str2, surfaceKey, builder);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override
     public String getSurfaceUseCase(String str, boolean z) {
-        return "rear_main".equals(str) ? CameraConstant.UseCase.STREET : "rear_sat".equals(str) ? CameraConstant.UseCase.SAT_STREET : super.getSurfaceUseCase(str, z);
+        return "rear_main".equals(str) ? CameraConstant.UseCase.STREET
+                : "rear_sat".equals(str) ? CameraConstant.UseCase.SAT_STREET : super.getSurfaceUseCase(str, z);
     }
 }

@@ -1,9 +1,9 @@
 package com.oplus.statistics.data;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import com.oplus.statistics.DataTypeConstants;
 
-/* JADX INFO: loaded from: classes.dex */
 public class ExceptionBean extends TrackEvent {
     private static final String EXCEPTION = "exception";
     private static final String EXCEPTION_COUNT = "count";
@@ -12,12 +12,12 @@ public class ExceptionBean extends TrackEvent {
     private long mEventTime;
     private String mException;
 
-    @Override // com.oplus.statistics.data.TrackEvent
+    @Override
     public int getEventType() {
         return DataTypeConstants.EXCEPTION;
     }
 
-    public ExceptionBean(Context context) {
+    public ExceptionBean(@NonNull Context context) {
         super(context);
     }
 
@@ -25,30 +25,31 @@ public class ExceptionBean extends TrackEvent {
         return this.mEventTime;
     }
 
-    public void setEventTime(long j) {
-        this.mEventTime = j;
-        addTrackInfo(EXCEPTION_TIME, j);
+    public void setEventTime(long eventTime) {
+        this.mEventTime = eventTime;
+        addTrackInfo(EXCEPTION_TIME, eventTime);
     }
 
     public String getException() {
         return this.mException;
     }
 
-    public void setException(String str) {
-        this.mException = str;
-        addTrackInfo(EXCEPTION, str);
+    public void setException(String exception) {
+        this.mException = exception;
+        addTrackInfo(EXCEPTION, exception);
     }
 
     public int getCount() {
         return this.mCount;
     }
 
-    public void setCount(int i) {
-        this.mCount = i;
-        addTrackInfo(EXCEPTION_TIME, i);
+    public void setCount(int count) {
+        this.mCount = count;
+        addTrackInfo(EXCEPTION_COUNT, count);
     }
 
+    @Override
     public String toString() {
-        return "exception is :" + getException() + "\ncount is :" + getCount() + "\ntime is :" + getEventTime() + "\n";
+        return "exception is: " + getException() + "\ncount is: " + getCount() + "\ntime is: " + getEventTime() + "\n";
     }
 }

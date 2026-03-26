@@ -1,34 +1,35 @@
 package com.oplus.statistics.data;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import com.oplus.statistics.DataTypeConstants;
 
-/* JADX INFO: loaded from: classes.dex */
 public class DebugBean extends TrackEvent {
     private static final String DEBUG = "debug";
-    private boolean mFlag;
+    private boolean mDebugFlag;
 
-    @Override // com.oplus.statistics.data.TrackEvent
+    @Override
     public int getEventType() {
         return DataTypeConstants.DEBUG_TYPE;
     }
 
-    public DebugBean(Context context, boolean z) {
+    public DebugBean(@NonNull Context context, boolean debugFlag) {
         super(context);
-        this.mFlag = z;
-        addTrackInfo(DEBUG, z);
+        this.mDebugFlag = debugFlag;
+        addTrackInfo(DEBUG, debugFlag);
     }
 
-    public boolean getFlag() {
-        return this.mFlag;
+    public boolean getDebugFlag() {
+        return this.mDebugFlag;
     }
 
-    public void setFlag(boolean z) {
-        this.mFlag = z;
-        addTrackInfo(DEBUG, z);
+    public void setDebugFlag(boolean debugFlag) {
+        this.mDebugFlag = debugFlag;
+        addTrackInfo(DEBUG, debugFlag);
     }
 
+    @Override
     public String toString() {
-        return "type is :" + getEventType() + "\nflag is :" + getFlag() + "\n";
+        return "type is: " + getEventType() + "\ndebugFlag is: " + getDebugFlag() + "\n";
     }
 }

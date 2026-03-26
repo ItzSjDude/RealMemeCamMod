@@ -8,7 +8,6 @@ import com.oplus.ocs.camera.common.util.ApsRequestTag;
 import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 
-/* JADX INFO: loaded from: classes.dex */
 class SuperTextMode extends PhotoMode {
     private static final int ENABLE = 1;
 

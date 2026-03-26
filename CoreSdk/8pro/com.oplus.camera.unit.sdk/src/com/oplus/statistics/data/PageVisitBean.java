@@ -1,23 +1,23 @@
 package com.oplus.statistics.data;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
 import com.oplus.statistics.DataTypeConstants;
 
-/* JADX INFO: loaded from: classes.dex */
 public class PageVisitBean extends TrackEvent {
-    private static final String PAGE_VISIT_ACTIVIES = "activities";
+    private static final String PAGE_VISIT_ACTIVITIES = "activities";
     private static final String PAGE_VISIT_DURATION = "duration";
     private static final String PAGE_VISIT_TIME = "time";
     private String mActivities;
     private long mDuration;
     private String mTime;
 
-    @Override // com.oplus.statistics.data.TrackEvent
+    @Override
     public int getEventType() {
         return DataTypeConstants.PAGE_VISIT;
     }
 
-    public PageVisitBean(Context context) {
+    public PageVisitBean(@NonNull Context context) {
         super(context);
     }
 
@@ -25,30 +25,32 @@ public class PageVisitBean extends TrackEvent {
         return this.mTime;
     }
 
-    public void setTime(String str) {
-        this.mTime = str;
-        addTrackInfo(PAGE_VISIT_TIME, str);
+    public void setTime(String time) {
+        this.mTime = time;
+        addTrackInfo(PAGE_VISIT_TIME, time);
     }
 
     public long getDuration() {
         return this.mDuration;
     }
 
-    public void setDuration(long j) {
-        this.mDuration = j;
-        addTrackInfo("duration", j);
+    public void setDuration(long duration) {
+        this.mDuration = duration;
+        addTrackInfo(PAGE_VISIT_DURATION, duration);
     }
 
     public String getActivities() {
         return this.mActivities;
     }
 
-    public void setActivities(String str) {
-        this.mActivities = str;
-        addTrackInfo(PAGE_VISIT_ACTIVIES, str);
+    public void setActivities(String activities) {
+        this.mActivities = activities;
+        addTrackInfo(PAGE_VISIT_ACTIVITIES, activities);
     }
 
+    @Override
     public String toString() {
-        return "time is :" + getTime() + "\nduration is :" + getDuration() + "\nactivities is :" + getActivities() + "\n";
+        return "time is: " + getTime() + "\nduration is: " + getDuration() + "\nactivities is: " + getActivities()
+                + "\n";
     }
 }

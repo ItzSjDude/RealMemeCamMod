@@ -23,36 +23,40 @@ public class OTrackContext {
     @NonNull
     private final Context mContext;
 
-    /* JADX DEBUG: Can't inline method, not implemented redirect type for insn: 0x0000: CONST_STR  "createDefaultConfig PackageManager.NameNotFoundException." */
+    /*
+     * JADX DEBUG: Can't inline method, not implemented redirect type for insn:
+     * 0x0000: CONST_STR "createDefaultConfig PackageManager.NameNotFoundException."
+     */
     static /* synthetic */ String lambda$createDefaultConfig$0() {
         return "createDefaultConfig PackageManager.NameNotFoundException.";
     }
 
-    private OTrackContext(String str, @NonNull Context context, @Nullable OTrackConfig oTrackConfig) {
-        OTrackConfig oTrackConfigCreateDefaultConfig;
-        this.mAppId = str;
+    private OTrackContext(String appId, @NonNull Context context, @Nullable OTrackConfig config) {
+        OTrackConfig finalConfig;
+        this.mAppId = appId;
         this.mContext = context;
-        if (oTrackConfig != null) {
-            oTrackConfigCreateDefaultConfig = createDefaultConfig(context, oTrackConfig);
+        if (config != null) {
+            finalConfig = createDefaultConfig(context, config);
         } else {
-            oTrackConfigCreateDefaultConfig = createDefaultConfig(context);
+            finalConfig = createDefaultConfig(context);
         }
-        this.mConfig = oTrackConfigCreateDefaultConfig;
+        this.mConfig = finalConfig;
     }
 
     @Nullable
-    public static synchronized OTrackContext get(String str) {
-        return sTrackContextMap.get(str);
+    public static synchronized OTrackContext get(String appId) {
+        return sTrackContextMap.get(appId);
     }
 
-    public static synchronized OTrackContext createIfNeed(String str, @NonNull Context context, @Nullable OTrackConfig oTrackConfig) {
-        OTrackContext oTrackContext;
-        oTrackContext = get(str);
-        if (oTrackContext == null) {
-            oTrackContext = new OTrackContext(str, context, oTrackConfig);
-            sTrackContextMap.put(str, oTrackContext);
+    public static synchronized OTrackContext createIfNeed(String appId, @NonNull Context context,
+            @Nullable OTrackConfig config) {
+        OTrackContext trackContext;
+        trackContext = get(appId);
+        if (trackContext == null) {
+            trackContext = new OTrackContext(appId, context, config);
+            sTrackContextMap.put(appId, trackContext);
         }
-        return oTrackContext;
+        return trackContext;
     }
 
     private OTrackConfig createDefaultConfig(Context context, OTrackConfig oTrackConfig) {
@@ -85,7 +89,9 @@ public class OTrackContext {
         if (packageInfo == null) {
             return OTrackConfig.DUMMY;
         }
-        return new OTrackConfig.Builder().setPackageName(packageInfo.packageName).setVersionName(packageInfo.versionName).setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString()).build();
+        return new OTrackConfig.Builder().setPackageName(packageInfo.packageName)
+                .setVersionName(packageInfo.versionName)
+                .setAppName(packageInfo.applicationInfo.loadLabel(packageManager).toString()).build();
     }
 
     @NonNull

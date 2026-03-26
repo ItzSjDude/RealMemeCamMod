@@ -20,23 +20,23 @@ class OrderedDataOutputStream extends FilterOutputStream {
         return this;
     }
 
-    public OrderedDataOutputStream writeShort(short s) throws IOException {
+    public OrderedDataOutputStream writeShort(short value) throws IOException {
         this.mByteBuffer.rewind();
-        this.mByteBuffer.putShort(s);
+        this.mByteBuffer.putShort(value);
         this.out.write(this.mByteBuffer.array(), 0, 2);
         return this;
     }
 
-    public OrderedDataOutputStream writeInt(int i) throws IOException {
+    public OrderedDataOutputStream writeInt(int value) throws IOException {
         this.mByteBuffer.rewind();
-        this.mByteBuffer.putInt(i);
+        this.mByteBuffer.putInt(value);
         this.out.write(this.mByteBuffer.array());
         return this;
     }
 
-    public OrderedDataOutputStream writeRational(OplusRational oplusRational) throws IOException {
-        writeInt((int) oplusRational.getNumerator());
-        writeInt((int) oplusRational.getDenominator());
+    public OrderedDataOutputStream writeRational(OplusRational rational) throws IOException {
+        writeInt((int) rational.getNumerator());
+        writeInt((int) rational.getDenominator());
         return this;
     }
 }

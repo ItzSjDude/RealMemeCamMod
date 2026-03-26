@@ -5,11 +5,10 @@ import com.oplus.statistics.data.AppStartBean;
 import com.oplus.statistics.record.ProxyRecorder;
 import com.oplus.statistics.util.TimeInfoUtil;
 
-/* JADX INFO: loaded from: classes.dex */
 public class SpecialAppStartAgent {
-    public static void onSpecialAppStart(Context context, int i) {
+    public static void onSpecialAppStart(Context context, int appId) {
         AppStartBean appStartBean = new AppStartBean(context, TimeInfoUtil.getFormatTime());
-        appStartBean.setAppId(String.valueOf(i));
+        appStartBean.setAppId(String.valueOf(appId));
         ProxyRecorder.getInstance().addTrackEvent(context, appStartBean);
     }
 }

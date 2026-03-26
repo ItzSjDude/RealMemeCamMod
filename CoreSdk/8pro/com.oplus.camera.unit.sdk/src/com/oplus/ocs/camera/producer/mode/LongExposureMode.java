@@ -21,7 +21,6 @@ import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import java.util.List;
 
-/* JADX INFO: loaded from: classes.dex */
 public class LongExposureMode extends BaseMode {
     private static final String TAG = "LongExposureMode";
 
@@ -67,7 +66,6 @@ public class LongExposureMode extends BaseMode {
         pictureSurfaces = sdkCameraDeviceConfig.getPictureSurfaces();
         CameraUnitLog.d(TAG, "getSurfaceSize, configuredSurfaceType: " + str + ", targetCameraType: " + str2
                 + ", cameraType: " + str3);
-        str.hashCode();
         switch (str) {
             case "reprocess_input":
             case "raw_output":
@@ -119,14 +117,7 @@ public class LongExposureMode extends BaseMode {
             @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         if (cameraRequestTag != null) {
-            str.hashCode();
-            if (!str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
-                if (str.equals(Parameter.ParameterStage.START_PREVIEW)) {
-                    builder.set(CaptureRequest.STATISTICS_LENS_SHADING_MAP_MODE, 1);
-                    return;
-                }
-                return;
-            }
+            if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
             if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
                 cameraRequestTag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
                 cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN))

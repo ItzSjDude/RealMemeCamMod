@@ -7,50 +7,30 @@ import java.lang.reflect.Field;
 public class RefObject<T> extends BaseField<T> {
     private static final String TAG = "RefObject";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefObject(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public T get(Object object) {
+        return getWithDefault(object, null);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefObject(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public T get(Object obj) {
-        return getWithDefault(obj, null);
-    }
-
-    public T getWithDefault(Object obj, T t) {
+    public T getWithDefault(Object object, T defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return t != null ? t : this.getDefaultValue();
+            return defaultValue != null ? defaultValue : this.getDefaultValue();
         }
     }
 
-    public T getWithException(Object obj) throws Exception {
-        return (T) this.mField.get(checkStub(obj));
+    public T getWithException(Object object) throws Exception {
+        return (T) this.mField.get(checkStub(object));
     }
 
-    public void set(Object obj, T t) {
+    public void set(Object object, T value) {
         try {
-            this.mField.set(checkStub(obj), t);
+            this.mField.set(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

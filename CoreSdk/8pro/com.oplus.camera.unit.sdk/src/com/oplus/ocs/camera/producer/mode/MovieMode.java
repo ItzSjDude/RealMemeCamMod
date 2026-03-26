@@ -33,7 +33,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/* JADX INFO: loaded from: classes.dex */
 public class MovieMode extends VideoMode {
     static final /* synthetic */ boolean $assertionsDisabled = false;
     private static final double RATIO_VALUE_7_3 = 2.3333333333333335d;

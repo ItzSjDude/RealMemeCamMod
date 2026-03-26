@@ -18,16 +18,17 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import java.util.Arrays;
 
-/* JADX INFO: loaded from: classes.dex */
 class FishEyeMode extends PhotoMode {
     private static final String TAG = "FishEyeMode";
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return CameraConstant.ModeName.FISH_EYE_MODE;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
         return CameraConstant.UseCase.FISH_EYE;
     }
@@ -35,13 +36,14 @@ class FishEyeMode extends PhotoMode {
     FishEyeMode() {
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         Size size;
         double width;
         size = this.mTagMap.get(str3).mPreviewSize;
         width = ((double) size.getWidth()) / ((double) size.getHeight());
-        str.hashCode();
         switch (str) {
             case "reprocess_input":
             case "raw_output":
@@ -74,19 +76,26 @@ class FishEyeMode extends PhotoMode {
         return maxSizeByRatio;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         apsRequestTag.mModeName = CameraConstant.ModeName.FISH_EYE_MODE;
         cameraSessionEntity.setTemplate(1);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode, com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode,
+              // com.oplus.ocs.camera.producer.mode.ModeInterface
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         if (cameraRequestTag != null) {
-            str.hashCode();
-            if ((str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE) || str.equals(Parameter.ParameterStage.START_PREVIEW)) && builder.containsKey(PreviewParameter.KEY_FISH_EYE_MODE)) {
-                cameraRequestTag.mbFishEyeEnable = ((Boolean) builder.get(PreviewParameter.KEY_FISH_EYE_MODE)).booleanValue();
+            if ((Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)
+                    || Parameter.ParameterStage.START_PREVIEW.equals(str))
+                    && builder.containsKey(PreviewParameter.KEY_FISH_EYE_MODE)) {
+                cameraRequestTag.mbFishEyeEnable = ((Boolean) builder.get(PreviewParameter.KEY_FISH_EYE_MODE))
+                        .booleanValue();
             }
         }
     }

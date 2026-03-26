@@ -8,50 +8,30 @@ public class RefByte extends BaseField<Byte> {
     private static final byte DEFAULT_VALUE = ((Byte) DEFAULT_TYPES.get(Byte.class)).byteValue();
     private static final String TAG = "RefByte";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefByte(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public byte get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefByte(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public byte get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public byte getWithDefault(Object obj, byte b) {
+    public byte getWithDefault(Object object, byte defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return b;
+            return defaultValue;
         }
     }
 
-    public byte getWithException(Object obj) throws Exception {
-        return this.mField.getByte(checkStub(obj));
+    public byte getWithException(Object object) throws Exception {
+        return this.mField.getByte(checkStub(object));
     }
 
-    public void set(Object obj, byte b) {
+    public void set(Object object, byte value) {
         try {
-            this.mField.setByte(checkStub(obj), b);
+            this.mField.setByte(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

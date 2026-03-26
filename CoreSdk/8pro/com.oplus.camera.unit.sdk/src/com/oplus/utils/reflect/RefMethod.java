@@ -10,168 +10,160 @@ public class RefMethod<T> extends BaseRef<T> {
     private static final String TAG = "RefMethod";
     private final Method mMethod;
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
-    }
-
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    public RefMethod(Class<?> cls, Field field) {
+    public RefMethod(Class<?> targetClass, Field field) {
         super(field);
-        this.mMethod = load(cls, field);
+        this.mMethod = load(targetClass, field);
     }
 
-    static Class<?> getProtoType(String str) {
-        if (str.equals("int")) {
+    static Class<?> getPrimitiveType(String typeName) {
+        if (typeName.equals("int")) {
             return Integer.TYPE;
         }
-        if (str.equals("long")) {
+        if (typeName.equals("long")) {
             return Long.TYPE;
         }
-        if (str.equals("boolean")) {
+        if (typeName.equals("boolean")) {
             return Boolean.TYPE;
         }
-        if (str.equals("byte")) {
+        if (typeName.equals("byte")) {
             return Byte.TYPE;
         }
-        if (str.equals("short")) {
+        if (typeName.equals("short")) {
             return Short.TYPE;
         }
-        if (str.equals("char")) {
+        if (typeName.equals("char")) {
             return Character.TYPE;
         }
-        if (str.equals("float")) {
+        if (typeName.equals("float")) {
             return Float.TYPE;
         }
-        if (str.equals("double")) {
+        if (typeName.equals("double")) {
             return Double.TYPE;
         }
-        if (str.equals("void")) {
+        if (typeName.equals("void")) {
             return Void.TYPE;
         }
         return null;
     }
 
-    private Method load(Class<?> cls, Field field) {
-        Class<?> cls2;
+    private Method load(Class<?> targetClass, Field field) {
+        Class<?> arraySetClass;
         Method method = null;
         try {
             if (field.isAnnotationPresent(MethodName.class)) {
-                Method method2 = getMethod(cls, field, ((MethodName) field.getAnnotation(MethodName.class)).params(),
+                Method method2 = getMethod(targetClass, field,
+                        ((MethodName) field.getAnnotation(MethodName.class)).params(),
                         ((MethodName) field.getAnnotation(MethodName.class)).name());
                 method2.setAccessible(true);
                 return method2;
             }
             int i = 0;
             if (field.isAnnotationPresent(MethodSignature.class)) {
-                String[] strArrParams = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
-                Class<?>[] clsArr = new Class[strArrParams.length];
-                Class<?>[] clsArr2 = new Class[strArrParams.length];
-                boolean z = false;
-                for (int i2 = 0; i2 < strArrParams.length; i2++) {
-                    Class<?> protoType = getProtoType(strArrParams[i2]);
-                    if (protoType == null) {
+                String[] parameterTypes = ((MethodSignature) field.getAnnotation(MethodSignature.class)).params();
+                Class<?>[] parameterClasses = new Class[parameterTypes.length];
+                Class<?>[] altParameterClasses = new Class[parameterTypes.length];
+                boolean hasArraySetPotential = false;
+                for (int i2 = 0; i2 < parameterTypes.length; i2++) {
+                    Class<?> primitiveType = getPrimitiveType(parameterTypes[i2]);
+                    if (primitiveType == null) {
                         try {
-                            protoType = Class.forName(strArrParams[i2]);
+                            primitiveType = Class.forName(parameterTypes[i2]);
                         } catch (ClassNotFoundException e) {
                             Log.e(TAG, e.getMessage());
                         }
                     }
-                    clsArr[i2] = protoType;
-                    if ("java.util.HashSet".equals(strArrParams[i2])) {
+                    parameterClasses[i2] = primitiveType;
+                    if ("java.util.HashSet".equals(parameterTypes[i2])) {
                         try {
-                            cls2 = Class.forName("android.util.ArraySet");
-                        } catch (ClassNotFoundException e2) {
-                            Log.e(TAG, e2.getMessage());
-                            cls2 = protoType;
+                            arraySetClass = Class.forName("android.util.ArraySet");
+                        } catch (ClassNotFoundException e) {
+                            Log.e(TAG, e.getMessage());
+                            arraySetClass = primitiveType;
                         }
-                        if (cls2 != null) {
-                            clsArr2[i2] = cls2;
+                        if (arraySetClass != null) {
+                            altParameterClasses[i2] = arraySetClass;
                         } else {
-                            clsArr2[i2] = protoType;
+                            altParameterClasses[i2] = primitiveType;
                         }
-                        z = true;
+                        hasArraySetPotential = true;
                     } else {
-                        clsArr2[i2] = protoType;
+                        altParameterClasses[i2] = primitiveType;
                     }
                 }
                 try {
-                    method = getMethod(cls, field, clsArr,
+                    method = getMethod(targetClass, field, parameterClasses,
                             ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
-                } catch (Exception e3) {
-                    Log.e(TAG, e3.getMessage());
-                    if (z) {
-                        method = getMethod(cls, field, clsArr2,
+                } catch (Exception e) {
+                    Log.e(TAG, e.getMessage());
+                    if (hasArraySetPotential) {
+                        method = getMethod(targetClass, field, altParameterClasses,
                                 ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
                     }
                 }
-                Class<?>[] clsArr3 = new Class[strArrParams.length];
-                while (i < strArrParams.length) {
-                    Class<?> protoType2 = getProtoType(strArrParams[i]);
-                    if (protoType2 == null) {
+                Class<?>[] finalParameterClasses = new Class[parameterTypes.length];
+                while (i < parameterTypes.length) {
+                    Class<?> finalPrimitiveType = getPrimitiveType(parameterTypes[i]);
+                    if (finalPrimitiveType == null) {
                         try {
-                            protoType2 = Class.forName(strArrParams[i]);
-                        } catch (ClassNotFoundException e4) {
-                            Log.e(TAG, e4.getMessage());
+                            finalPrimitiveType = Class.forName(parameterTypes[i]);
+                        } catch (ClassNotFoundException e) {
+                            Log.e(TAG, e.getMessage());
                         }
                     }
-                    clsArr3[i] = protoType2;
+                    finalParameterClasses[i] = finalPrimitiveType;
                     i++;
                 }
-                Method method3 = getMethod(cls, field, clsArr3,
+                Method finalMethod = getMethod(targetClass, field, finalParameterClasses,
                         ((MethodSignature) field.getAnnotation(MethodSignature.class)).name());
-                method3.setAccessible(true);
-                return method3;
+                finalMethod.setAccessible(true);
+                return finalMethod;
             }
-            Method[] declaredMethods = cls.getDeclaredMethods();
+            Method[] declaredMethods = targetClass.getDeclaredMethods();
             int length = declaredMethods.length;
             while (i < length) {
-                Method method4 = declaredMethods[i];
-                if (method4.getName().equals(field.getName())) {
+                Method declaredMethod = declaredMethods[i];
+                if (declaredMethod.getName().equals(field.getName())) {
                     try {
-                        method4.setAccessible(true);
-                        return method4;
-                    } catch (Exception e5) {
-                        Log.e(TAG, e5.getMessage());
-                        return method4;
+                        declaredMethod.setAccessible(true);
+                        return declaredMethod;
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                        return declaredMethod;
                     }
                 }
                 i++;
             }
             return null;
-        } catch (Exception e6) {
-            Log.e(TAG, e6.getMessage());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
             return method;
         }
     }
 
-    private Method getMethod(Class<?> cls, Field field, Class<?>[] clsArr, String str) throws NoSuchMethodException {
-        if (!str.isEmpty()) {
-            return cls.getDeclaredMethod(str, clsArr);
+    private Method getMethod(Class<?> targetClass, Field field, Class<?>[] parameterClasses, String methodName)
+            throws NoSuchMethodException {
+        if (!methodName.isEmpty()) {
+            return targetClass.getDeclaredMethod(methodName, parameterClasses);
         }
-        return cls.getDeclaredMethod(field.getName(), clsArr);
+        return targetClass.getDeclaredMethod(field.getName(), parameterClasses);
     }
 
-    public T call(Object obj, Object... objArr) {
-        return callWithDefault(obj, null, objArr);
+    public T call(Object receiver, Object... args) {
+        return callWithDefault(receiver, null, args);
     }
 
-    public T callWithDefault(Object obj, T t, Object... objArr) {
+    public T callWithDefault(Object receiver, T defaultValue, Object... args) {
         try {
-            return callWithException(obj, objArr);
+            return callWithException(receiver, args);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return t != null ? t : this.getDefaultValue();
+            return defaultValue != null ? defaultValue : this.getDefaultValue();
         }
     }
 
-    public T callWithException(Object obj, Object... objArr) throws Exception {
+    public T callWithException(Object receiver, Object... args) throws Exception {
         try {
-            return (T) this.mMethod.invoke(checkStub(obj), objArr);
+            return (T) this.mMethod.invoke(checkStub(receiver), args);
         } catch (InvocationTargetException e) {
             Throwable cause = e.getCause();
             if (cause instanceof Exception) {

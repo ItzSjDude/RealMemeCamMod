@@ -17,7 +17,6 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 
-/* JADX INFO: loaded from: classes.dex */
 public class StickerMode extends VideoMode {
     private static final String TAG = "StickerMode";
 

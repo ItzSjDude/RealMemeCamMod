@@ -31,7 +31,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/* JADX INFO: loaded from: classes.dex */
 public class ProfessionalMode extends BaseMode {
     private static final int EDGE_FILTER_PARAM_LENGTH = 2;
     private static final int SLOW_SHUTTER_ANIMATION_TIME = 1000000000;
@@ -59,7 +58,7 @@ public class ProfessionalMode extends BaseMode {
         if (apsRequestTag == null) {
             return null;
         }
-        str.hashCode();
+
         switch (str) {
             case "preview":
                 sizeByFormat = apsRequestTag.mPreviewSize;
@@ -130,7 +129,7 @@ public class ProfessionalMode extends BaseMode {
             updateFocusPeakingFeature(builder, str2, cameraRequestTag);
             updateRawValue(builder, cameraRequestTag);
         }
-        str.hashCode();
+
         if (str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
             if ("none".equals(this.mRawValue)) {
                 return;

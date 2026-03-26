@@ -7,7 +7,6 @@ import com.oplus.statistics.DataTypeConstants;
 import com.oplus.statistics.util.CastUtil;
 import java.util.Map;
 
-/* JADX INFO: loaded from: classes.dex */
 public class CommonBean extends TrackEvent {
     protected static final String APP_ID = "appId";
     protected static final String EVENT_ID = "eventID";
@@ -18,7 +17,7 @@ public class CommonBean extends TrackEvent {
     protected String mLogMap;
     private String mLogTag;
 
-    @Override // com.oplus.statistics.data.TrackEvent
+    @Override
     public int getEventType() {
         return DataTypeConstants.COMMON;
     }
@@ -31,23 +30,23 @@ public class CommonBean extends TrackEvent {
         this.mAppId = 0;
     }
 
-    public CommonBean(@NonNull Context context, String str, String str2) {
+    public CommonBean(@NonNull Context context, String logTag, String eventId) {
         super(context);
         this.mLogMap = "";
         this.mAppId = 0;
-        this.mLogTag = str;
-        this.mEventId = str2;
-        addTrackInfo(LOG_TAG, str);
+        this.mLogTag = logTag;
+        this.mEventId = eventId;
+        addTrackInfo(LOG_TAG, logTag);
         addTrackInfo(EVENT_ID, this.mEventId);
     }
 
-    public CommonBean(@NonNull Context context, String str, String str2, String str3) {
+    public CommonBean(@NonNull Context context, String appId, String logTag, String eventId) {
         super(context);
         this.mLogMap = "";
         this.mAppId = 0;
-        this.mLogTag = str2;
-        this.mEventId = str3;
-        setAppId(str);
+        this.mLogTag = logTag;
+        this.mEventId = eventId;
+        setAppId(appId);
         addTrackInfo(LOG_TAG, this.mLogTag);
         addTrackInfo(EVENT_ID, this.mEventId);
     }
@@ -56,45 +55,48 @@ public class CommonBean extends TrackEvent {
         return this.mEventId;
     }
 
-    public void setEventID(String str) {
-        this.mEventId = str;
-        addTrackInfo(EVENT_ID, str);
+    public void setEventID(String eventId) {
+        this.mEventId = eventId;
+        addTrackInfo(EVENT_ID, eventId);
     }
 
     public String getLogTag() {
         return this.mLogTag;
     }
 
-    public void setLogTag(String str) {
-        this.mLogTag = str;
-        addTrackInfo(LOG_TAG, str);
+    public void setLogTag(String logTag) {
+        this.mLogTag = logTag;
+        addTrackInfo(LOG_TAG, logTag);
     }
 
     public String getLogMap() {
         return this.mLogMap;
     }
 
-    public void setLogMap(Map<String, String> map) {
-        String string = CastUtil.map2JsonObject(map).toString();
-        this.mLogMap = string;
-        addTrackInfo(LOG_MAP, string);
+    public void setLogMap(Map<String, String> logMap) {
+        String logMapJson = CastUtil.map2JsonObject(logMap).toString();
+        this.mLogMap = logMapJson;
+        addTrackInfo(LOG_MAP, logMapJson);
     }
 
-    public void setLogMap(String str) {
-        this.mLogMap = str;
-        addTrackInfo(LOG_MAP, str);
+    public void setLogMap(String logMapJson) {
+        this.mLogMap = logMapJson;
+        addTrackInfo(LOG_MAP, logMapJson);
     }
 
     public int getAppID() {
         return this.mAppId;
     }
 
-    public void setAppId(int i) {
-        this.mAppId = i;
-        addTrackInfo(APP_ID, i);
+    public void setAppId(int appId) {
+        this.mAppId = appId;
+        addTrackInfo(APP_ID, appId);
     }
 
+    @Override
     public String toString() {
-        return " type is :" + getEventType() + CameraConstant.JSON_CONNECTOR_COMMA + " tag is :" + getLogTag() + CameraConstant.JSON_CONNECTOR_COMMA + " eventID is :" + getEventID() + CameraConstant.JSON_CONNECTOR_COMMA + " map is :" + getLogMap();
+        return " type is :" + getEventType() + CameraConstant.JSON_CONNECTOR_COMMA + " tag is :" + getLogTag()
+                + CameraConstant.JSON_CONNECTOR_COMMA + " eventID is :" + getEventID()
+                + CameraConstant.JSON_CONNECTOR_COMMA + " map is :" + getLogMap();
     }
 }

@@ -11,7 +11,6 @@ import com.oplus.ocs.camera.common.util.CameraRequestTag;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import java.util.Map;
 
-/* JADX INFO: loaded from: classes.dex */
 public class MicroscopeVideoMode extends VideoMode {
     private static final String TAG = "MicroscopeVideoMode";
 

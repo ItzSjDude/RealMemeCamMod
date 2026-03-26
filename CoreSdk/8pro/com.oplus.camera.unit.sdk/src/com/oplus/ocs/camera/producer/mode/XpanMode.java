@@ -13,30 +13,33 @@ import com.oplus.ocs.camera.common.util.CameraUnitLog;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 
-/* JADX INFO: loaded from: classes.dex */
 public class XpanMode extends PhotoMode {
     private static final String TAG = "XpanMode";
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected String getModeName() {
         return CameraConstant.ModeName.XPAN_MODE;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     public String getSurfaceUseCase(String str, boolean z) {
         return "simple_photo_case";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
     protected boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
         synchronized (this.mPreviewResultLock) {
-            return ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT)).intValue() > 0;
+            return ((Integer) this.mPreviewResult.get(ApsDecisionParameter.KEY_PREVIEW_MULTI_FRAME_COUNT))
+                    .intValue() > 0;
         }
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2, String str3) {
-        str.hashCode();
+    @Override
+    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
+            String str3) {
         if (str.equals("capture_yuv") || str.equals("capture")) {
             if ("rear_main".equals(str2)) {
                 Size size = (Size) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_XPAN_MAIN_PICTURE_SIZE, null);
@@ -45,7 +48,8 @@ public class XpanMode extends PhotoMode {
                     return new Pair<>(size, size);
                 }
             } else if ("rear_wide".equals(str2)) {
-                Size size2 = (Size) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_XPAN_WIDE_PICTURE_SIZE, null);
+                Size size2 = (Size) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_XPAN_WIDE_PICTURE_SIZE,
+                        null);
                 CameraUnitLog.d(TAG, "getSurfaceSize() - rearWideSize: " + size2);
                 if (size2 != null) {
                     return new Pair<>(size2, size2);
@@ -55,8 +59,10 @@ public class XpanMode extends PhotoMode {
         return super.getSurfaceSize(sdkCameraDeviceConfig, str, str2, str3);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode, com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, @NonNull ApsRequestTag apsRequestTag) {
+    @Override // com.oplus.ocs.camera.producer.mode.PhotoMode,
+              // com.oplus.ocs.camera.producer.mode.BaseMode
+    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
+            String str, @NonNull ApsRequestTag apsRequestTag) {
         cameraSessionEntity.setTemplate(1);
         apsRequestTag.mModeName = CameraConstant.ModeName.XPAN_MODE;
     }

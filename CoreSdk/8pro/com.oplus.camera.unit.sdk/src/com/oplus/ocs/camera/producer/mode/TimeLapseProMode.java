@@ -29,7 +29,6 @@ import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
 import java.util.List;
 import java.util.Map;
 
-/* JADX INFO: loaded from: classes.dex */
 public class TimeLapseProMode extends BaseMode {
     private static final int DISABLE = 0;
     private static final int ENABLE = 1;
@@ -50,7 +49,7 @@ public class TimeLapseProMode extends BaseMode {
         size = this.mTagMap.get(str3).mPreviewSize;
         width = ((double) size.getWidth()) / ((double) size.getHeight());
         surfaceWrapper = sdkCameraDeviceConfig.getPictureSurfaces().get(0);
-        str.hashCode();
+
         switch (str) {
             case "reprocess_input":
             case "raw_output":
@@ -63,7 +62,6 @@ public class TimeLapseProMode extends BaseMode {
             case "capture":
             case "reprocess_yuv":
                 if ("rear_sat".equals(str3)) {
-                    str2.hashCode();
                     switch (str2) {
                         case "rear_sat":
                             Size maxSize = Util.getMaxSize(
@@ -158,7 +156,7 @@ public class TimeLapseProMode extends BaseMode {
     public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
             @Nullable CameraRequestTag cameraRequestTag) {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        str.hashCode();
+
         if (!str.equals(Parameter.ParameterStage.BEFORE_TAKE_PICTURE)) {
             if (str.equals(Parameter.ParameterStage.START_PREVIEW)) {
                 checkColorTemperature(builder);

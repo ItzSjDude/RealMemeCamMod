@@ -5,13 +5,13 @@ import java.util.Map;
 
 /* JADX INFO: loaded from: classes.dex */
 class OplusIfdData {
-    private static final int[] sIfds = {0, 1, 2, 3, 4};
+    private static final int[] sIfds = { 0, 1, 2, 3, 4 };
     private final int mIfdId;
     private final Map<Short, OplusExifTag> mExifTags = new HashMap();
     private int mOffsetToNextIfd = 0;
 
-    OplusIfdData(int i) {
-        this.mIfdId = i;
+    OplusIfdData(int ifdId) {
+        this.mIfdId = ifdId;
     }
 
     protected static int[] getIfds() {
@@ -26,35 +26,36 @@ class OplusIfdData {
         return this.mIfdId;
     }
 
-    protected OplusExifTag getTag(short s) {
-        return this.mExifTags.get(Short.valueOf(s));
+    protected OplusExifTag getTag(short tagId) {
+        return this.mExifTags.get(Short.valueOf(tagId));
     }
 
-    protected OplusExifTag setTag(OplusExifTag oplusExifTag) {
-        oplusExifTag.setIfd(this.mIfdId);
-        return this.mExifTags.put(Short.valueOf(oplusExifTag.getTagId()), oplusExifTag);
+    protected OplusExifTag setTag(OplusExifTag tag) {
+        tag.setIfd(this.mIfdId);
+        return this.mExifTags.put(Short.valueOf(tag.getTagId()), tag);
     }
 
-    protected boolean checkCollision(short s) {
-        return this.mExifTags.get(Short.valueOf(s)) != null;
+    protected boolean checkCollision(short tagId) {
+        return this.mExifTags.containsKey(Short.valueOf(tagId));
     }
 
-    protected void removeTag(short s) {
-        this.mExifTags.remove(Short.valueOf(s));
+    protected void removeTag(short tagId) {
+        this.mExifTags.remove(Short.valueOf(tagId));
     }
 
     protected int getTagCount() {
         return this.mExifTags.size();
     }
 
-    protected void setOffsetToNextIfd(int i) {
-        this.mOffsetToNextIfd = i;
+    protected void setOffsetToNextIfd(int offset) {
+        this.mOffsetToNextIfd = offset;
     }
 
     protected int getOffsetToNextIfd() {
         return this.mOffsetToNextIfd;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -63,7 +64,8 @@ class OplusIfdData {
             OplusIfdData oplusIfdData = (OplusIfdData) obj;
             if (oplusIfdData.getId() == this.mIfdId && oplusIfdData.getTagCount() == getTagCount()) {
                 for (OplusExifTag oplusExifTag : oplusIfdData.getAllTags()) {
-                    if (!OplusExifInterface.isOffsetTag(oplusExifTag.getTagId()) && !oplusExifTag.equals(this.mExifTags.get(Short.valueOf(oplusExifTag.getTagId())))) {
+                    if (!OplusExifInterface.isOffsetTag(oplusExifTag.getTagId())
+                            && !oplusExifTag.equals(this.mExifTags.get(Short.valueOf(oplusExifTag.getTagId())))) {
                         return false;
                     }
                 }

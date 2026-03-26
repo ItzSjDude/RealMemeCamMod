@@ -1,5 +1,6 @@
 package com.oplus.ocs.camera.producer.mode;
 
+import android.graphics.Bitmap;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CaptureRequest;
 import android.media.MediaRecorder;
@@ -10,10 +11,13 @@ import android.util.Pair;
 import android.util.Range;
 import android.util.Size;
 import android.view.Surface;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.oplus.exif.OplusExifTag;
 import com.oplus.ocs.camera.appinterface.CameraDeviceInfoInterface;
+import com.oplus.ocs.camera.appinterface.CameraPictureCallbackAdapter;
 import com.oplus.ocs.camera.appinterface.CameraPreviewCallbackAdapter;
 import com.oplus.ocs.camera.common.parameter.ConfigureParameter;
 import com.oplus.ocs.camera.common.parameter.Parameter;
@@ -40,6 +44,7 @@ import com.oplus.ocs.camera.producer.info.CameraCharacteristicsHelper;
 import com.oplus.ocs.camera.producer.info.CameraCharacteristicsWrapper;
 import com.oplus.ocs.camera.producer.info.CameraConfigHelper;
 import com.oplus.ocs.camera.producer.info.CameraDeviceInfoImpl;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,41 +55,46 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/* JADX INFO: loaded from: classes.dex */
+/**
+ * Camera mode for video recording.
+ */
 public class VideoMode extends BaseMode {
+    private static final String TAG = "VideoMode";
     private static final String EXPLORER_BOKEH = "explorer_bokeh";
     private static final int FPS_LOW = 20;
     private static final int INDEX_SIX = 6;
     private static final int INDEX_THREE = 3;
     private static final int STREAMING_FEATURE_DEFAULT_STAGGER_2EXP = 1;
-    private static final String TAG = "VideoMode";
-    private static final int VIDEO_4K_FRAME_HEIGHT = 2160;
+
     private static final int VIDEO_4K_FRAME_WIDTH = 3840;
-    private static final int VIDEO_8K_FRAME_HEIGHT = 4320;
+    private static final int VIDEO_4K_FRAME_HEIGHT = 2160;
     private static final int VIDEO_8K_FRAME_WIDTH = 7680;
+    private static final int VIDEO_8K_FRAME_HEIGHT = 4320;
+
+    private static final int VIDEO_BOKEH_AI_DEPTH_WIDTH = 640;
     private static final int VIDEO_BOKEH_AI_DEPTH_HEIGHT = 480;
     private static final int VIDEO_BOKEH_AI_DEPTH_STREAM_NUMBER = 2;
-    private static final int VIDEO_BOKEH_AI_DEPTH_WIDTH = 640;
+
     private static final String VIDEO_RESOLUTION = "resolution";
     private static final String VIDEO_RESOLUTION_8K = "8k";
+
     protected int mCurrentFps = 30;
     private Size mTargetVideoSize = null;
     private Range<Integer> mConfigFpsRange = null;
     private CameraPreviewCallbackAdapter.PreviewResult mDefaultPreviewResult = null;
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override
     protected String getModeName() {
         return "video_mode";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
+    @Override
     protected boolean isCaptureModeType() {
         return false;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public boolean isSupportVideoSnapShot(String str) {
+    @Override
+    public boolean isSupportVideoSnapShot(String cameraType) {
         return true;
     }
 
@@ -92,839 +102,811 @@ public class VideoMode extends BaseMode {
         return true;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.common.surface.SurfaceControlInterface
-    public LinkedList<SurfaceWrapper> buildStreamSurface(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str) {
-        LinkedList<SurfaceWrapper> linkedListBuildStreamSurface = super.buildStreamSurface(sdkCameraDeviceConfig, str);
-        if (linkedListBuildStreamSurface == null) {
+    @Override
+    public LinkedList<SurfaceWrapper> buildStreamSurface(SdkCameraDeviceConfig deviceConfig, String cameraType) {
+        LinkedList<SurfaceWrapper> surfaces = super.buildStreamSurface(deviceConfig, cameraType);
+        if (surfaces == null) {
             return null;
         }
-        SurfaceWrapper videoSurface = sdkCameraDeviceConfig.getVideoSurface();
-        if (needPrepareVideoSurface() && (videoSurface == null || videoSurface.getSurface() == null)) {
-            if (videoSurface != null) {
-                this.mTargetVideoSize = videoSurface.getAppSurfaceSize();
-            } else {
-                CameraUnitLog.w(TAG, "get video surface wrapper failed, so use preview surface size to record.");
-                this.mTargetVideoSize = sdkCameraDeviceConfig.getDefaultPreviewSurface().getAppSurfaceSize();
-            }
-            Surface videoSurface2 = SurfacePool.getInstance().getVideoSurface();
-            if (videoSurface2 != null) {
-                prepareVideoSurface(sdkCameraDeviceConfig, this.mTargetVideoSize, videoSurface2);
+
+        Parameter configParam = deviceConfig.getConfigureParameter();
+        boolean isUltraHighRes = (Boolean) configParam.get(ConfigureParameter.KEY_ULTRA_HIGH_RESOLUTION_ENABLE);
+
+        if ("video".equals(getSurfaceUseCase(cameraType, isUltraHighRes))) {
+            Size videoSize = (Size) configParam.get(ConfigureParameter.KEY_VIDEO_SIZE);
+            if (videoSize != null) {
+                SurfaceKey surfaceKey = new SurfaceKey(SurfaceKey.VIDEO, cameraType);
+                Surface videoSurface = SurfacePool.getSurface(surfaceKey);
+                if (videoSurface != null) {
+                    surfaces.add(new SurfaceWrapper(videoSurface, videoSize, surfaceKey));
+                }
             }
         }
-        return linkedListBuildStreamSurface;
+        return surfaces;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public boolean useOplusCameraCase(String str) {
+    @Override
+    public int isAllowedToTakePicture(CameraPictureCallbackAdapter callbackAdapter, Handler handler,
+            CameraRequestTag requestTag) {
+        return super.isAllowedToTakePicture(callbackAdapter, handler, requestTag);
+    }
+
+    @Override
+    public boolean needStartPreview(CameraPreviewCallbackAdapter.PreviewResult previewResult) {
+        if (previewResult == null) {
+            return true;
+        }
+        this.mDefaultPreviewResult = previewResult;
+        return super.needStartPreview(previewResult);
+    }
+
+    @Override
+    public boolean useOplusCameraCase(String cameraType) {
         if (Util.isSystemCamera()) {
             return true;
         }
-        Parameter configureParameter = getConfigureParameter(str);
-        if (configureParameter == null) {
+        Parameter configParam = getConfigureParameter(cameraType);
+        if (configParam == null) {
             return false;
         }
-        if (configureParameter.containCustomKey(ConfigureParameter.VIDEO_STABILIZATION_MODE)
-                || configureParameter.containCustomKey(ConfigureParameter.AI_NIGHT_VIDEO_MODE)) {
+        if (configParam.containCustomKey(ConfigureParameter.VIDEO_STABILIZATION_MODE)
+                || configParam.containCustomKey(ConfigureParameter.AI_NIGHT_VIDEO_MODE)) {
             return true;
         }
-        if (configureParameter.containCustomKey(ConfigureParameter.VIDEO_3HDR_MODE)
-                && !"off".equals(configureParameter.get(ConfigureParameter.VIDEO_3HDR_MODE))) {
+        if (configParam.containCustomKey(ConfigureParameter.VIDEO_3HDR_MODE)
+                && !"off".equals(configParam.get(ConfigureParameter.VIDEO_3HDR_MODE))) {
             return true;
         }
-        if (configureParameter.containCustomKey(ConfigureParameter.VIDEO_DYNAMIC_FPS)
-                && 60 == ((Integer) ((Range) configureParameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS)).getUpper())
-                        .intValue()) {
+        if (configParam.containCustomKey(ConfigureParameter.VIDEO_DYNAMIC_FPS)) {
+            Range<Integer> range = (Range) configParam.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
+            if (range != null && 60 == range.getUpper()) {
+                return true;
+            }
+        }
+        if ((configParam.containCustomKey(ConfigureParameter.VIDEO_FPS)
+                && "video_60fps".equals(configParam.get(ConfigureParameter.VIDEO_FPS))) || isExplorerOpen(cameraType)) {
             return true;
         }
-        if ((configureParameter.containCustomKey(ConfigureParameter.VIDEO_FPS)
-                && "video_60fps".equals(configureParameter.get(ConfigureParameter.VIDEO_FPS))) || isExplorerOpen(str)) {
-            return true;
-        }
-        return super.useOplusCameraCase(str);
+        return super.useOplusCameraCase(cameraType);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void onConfigure(CameraSessionEntity cameraSessionEntity, SdkCameraDeviceConfig sdkCameraDeviceConfig,
-            String str, ApsRequestTag apsRequestTag) {
-        Map<String, Map<String, String>> map;
-        Map<String, String> map2;
-        String str2;
-        Map<String, String> map3;
-        String str3;
-        Map<String, String> map4;
-        String str4;
-        cameraSessionEntity.setTemplate(3);
-        Parameter configureParameter = getConfigureParameter(str);
-        apsRequestTag.mbPreviewProcessByAps = isPreviewProcessByAps(configureParameter, str);
-        apsRequestTag.mbVideoBlurOpen = "on".equals(configureParameter.get(ConfigureParameter.KEY_VIDEO_BLUR));
-        apsRequestTag.mbAiFollowEnable = isAIFollowEnable(str);
-        if (!useOplusCameraCase(str)) {
-            cameraSessionEntity.setTemplate(1);
-            cameraSessionEntity.setOperationMode(String.valueOf(0));
-            this.mTagMap.get(str).mModeName = "basic_preview_mode";
-            StatisticsManager.getInstance()
-                    .setVideoSize(sdkCameraDeviceConfig.getDefaultPreviewSurface().getAppSurfaceSize());
+    @Override
+    protected void onConfigure(CameraSessionEntity sessionEntity, SdkCameraDeviceConfig deviceConfig, String cameraType,
+            @NonNull ApsRequestTag apsRequestTag) {
+        sessionEntity.setTemplate(3);
+        Parameter configParam = getConfigureParameter(cameraType);
+
+        apsRequestTag.mbPreviewProcessByAps = isPreviewProcessByAps(configParam, cameraType);
+        apsRequestTag.mbVideoBlurOpen = "on".equals(configParam.get(ConfigureParameter.KEY_VIDEO_BLUR));
+        apsRequestTag.mbAiFollowEnable = isAIFollowEnable(cameraType);
+
+        this.mTargetVideoSize = (Size) configParam.get(ConfigureParameter.KEY_VIDEO_SIZE);
+        Range<Integer> fpsRange = (Range) configParam.get(ConfigureParameter.KEY_VIDEO_FPS);
+        if (fpsRange != null) {
+            this.mConfigFpsRange = fpsRange;
+        }
+        if (apsRequestTag != null) {
+            apsRequestTag.mVideoSize = this.mTargetVideoSize;
+        }
+
+        if (!useOplusCameraCase(cameraType)) {
+            sessionEntity.setTemplate(1);
+            sessionEntity.setOperationMode(String.valueOf(0));
+            if (this.mTagMap.get(cameraType) != null) {
+                this.mTagMap.get(cameraType).mModeName = "basic_preview_mode";
+            }
+            StatisticsManager.getInstance().setVideoSize(deviceConfig.getDefaultPreviewSurface().getAppSurfaceSize());
         } else {
-            apsRequestTag.mbVideoWaterMarkEnable = "on".equals(
-                    sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE));
-            if (isRearSuperEisOpen(str)) {
+            apsRequestTag.mbVideoWaterMarkEnable = "on"
+                    .equals(configParam.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE));
+            if (isRearSuperEisOpen(cameraType)) {
                 Map<String, String> mapSingletonMap = Collections
                         .singletonMap(ConfigureParameter.VIDEO_STABILIZATION_MODE.getName(), "super_stabilization");
-                sdkCameraDeviceConfig.updateHalPreviewSize(
-                        getCameraDeviceInfo(str).getPreviewMappingSizesFromConfig(str, mapSingletonMap));
-                sdkCameraDeviceConfig.updateHalVideoSize(
-                        getCameraDeviceInfo(str).getVideoMappingSizesFromConfig(str, mapSingletonMap));
+                deviceConfig.updateHalPreviewSize(
+                        getCameraDeviceInfo(cameraType).getPreviewMappingSizesFromConfig(cameraType, mapSingletonMap));
+                deviceConfig.updateHalVideoSize(
+                        getCameraDeviceInfo(cameraType).getVideoMappingSizesFromConfig(cameraType, mapSingletonMap));
             }
-            SurfaceWrapper videoSurface = sdkCameraDeviceConfig.getVideoSurface();
+            SurfaceWrapper videoSurface = deviceConfig.getVideoSurface();
             if (videoSurface != null) {
                 StatisticsManager.getInstance().setVideoSize(videoSurface.getAppSurfaceSize());
             }
             StatisticsManager.getInstance().setFeature(ConfigureParameter.VIDEO_STABILIZATION_MODE,
-                    (String) configureParameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE));
+                    (String) configParam.get(ConfigureParameter.VIDEO_STABILIZATION_MODE));
             StatisticsManager.getInstance().setFeature(ConfigureParameter.VIDEO_3HDR_MODE,
-                    (String) configureParameter.get(ConfigureParameter.VIDEO_3HDR_MODE));
+                    (String) configParam.get(ConfigureParameter.VIDEO_3HDR_MODE));
         }
-        if (is8k30fps(str) && (map4 = CameraConfigHelper.getFeatureOperationMode()
-                .get(sdkCameraDeviceConfig.getModeName()).get(VIDEO_RESOLUTION)) != null
-                && (str4 = map4.get(VIDEO_RESOLUTION_8K)) != null) {
-            cameraSessionEntity.setOperationMode(str4);
-            CameraUnitLog.d(TAG, "onConfigure, set 8K operation mode:" + str4);
+
+        // 8K Handling
+        if (is8k30fps(cameraType)) {
+            Map<String, String> opModes = CameraConfigHelper.getFeatureOperationMode().get(deviceConfig.getModeName())
+                    .get(VIDEO_RESOLUTION);
+            if (opModes != null) {
+                String opMode8k = opModes.get(VIDEO_RESOLUTION_8K);
+                if (opMode8k != null) {
+                    sessionEntity.setOperationMode(opMode8k);
+                    CameraUnitLog.d(TAG, "onConfigure, set 8K operation mode:" + opMode8k);
+                }
+            }
         }
-        if (isExplorerVideoBokehOpen(configureParameter, str) && (map3 = CameraConfigHelper.getFeatureOperationMode()
-                .get(sdkCameraDeviceConfig.getModeName()).get(EXPLORER_BOKEH)) != null
-                && (str3 = map3.get("on")) != null) {
-            cameraSessionEntity.setOperationMode(str3);
-            CameraUnitLog.d(TAG, "onConfigure, set explorer bokeh operation mode: " + str3);
+
+        // Explorer Bokeh
+        if (isExplorerVideoBokehOpen(configParam, cameraType)) {
+            Map<String, String> opModes = CameraConfigHelper.getFeatureOperationMode().get(deviceConfig.getModeName())
+                    .get(EXPLORER_BOKEH);
+            if (opModes != null) {
+                String opModeBokeh = opModes.get("on");
+                if (opModeBokeh != null) {
+                    sessionEntity.setOperationMode(opModeBokeh);
+                    CameraUnitLog.d(TAG, "onConfigure, set explorer bokeh operation mode: " + opModeBokeh);
+                }
+            }
         }
-        if (isAIFollowEnable(str)
-                && (map = CameraConfigHelper.getFeatureOperationMode().get(sdkCameraDeviceConfig.getModeName())) != null
-                && (map2 = map.get(CameraConstant.AI_FOLLOW)) != null && (str2 = map2.get("on")) != null) {
-            cameraSessionEntity.setOperationMode(str2);
-            CameraUnitLog.d(TAG, "onConfigure, set AI Follow operation mode:" + str2);
+
+        // AI Follow
+        if (isAIFollowEnable(cameraType)) {
+            Map<String, String> opModes = CameraConfigHelper.getFeatureOperationMode().get(deviceConfig.getModeName())
+                    .get(CameraConstant.AI_FOLLOW);
+            if (opModes != null) {
+                String opModeFollow = opModes.get("on");
+                if (opModeFollow != null) {
+                    sessionEntity.setOperationMode(opModeFollow);
+                }
+            }
         }
-        if (!Util.isSystemCamera()
-                && configureParameter.containCustomKey(ConfigureParameter.PREVIEW_FACE_BEAUTY_LEVEL)) {
-            apsRequestTag.mPreviewFaceBeautyLevel = ((Integer) configureParameter
-                    .get(ConfigureParameter.PREVIEW_FACE_BEAUTY_LEVEL)).intValue();
+
+        if (!Util.isSystemCamera() && configParam.containCustomKey(ConfigureParameter.PREVIEW_FACE_BEAUTY_LEVEL)) {
+            apsRequestTag.mPreviewFaceBeautyLevel = (Integer) configParam
+                    .get(ConfigureParameter.PREVIEW_FACE_BEAUTY_LEVEL);
         }
-        apsRequestTag.mbVideo10BitsEnable = isVideo10BitOpen(str);
-        apsRequestTag.mbPhoto10BitsEnable = "on"
-                .equals(sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.PHOTO_10BIT_ENABLE));
+
+        apsRequestTag.mbVideo10BitsEnable = isVideo10BitOpen(cameraType);
+        apsRequestTag.mbPhoto10BitsEnable = "on".equals(configParam.get(ConfigureParameter.PHOTO_10BIT_ENABLE));
+
+        super.onConfigure(sessionEntity, deviceConfig, cameraType, apsRequestTag);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
-            @Nullable CameraRequestTag cameraRequestTag) {
-        Parameter configureParameter;
-        super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
-        configureParameter = getConfigureParameter(str2);
-        str.hashCode();
-        switch (str) {
+    @Override
+    public void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String stage, String cameraType,
+            @Nullable CameraRequestTag requestTag) {
+        super.updateStageParameterBuilder(builder, stage, cameraType, requestTag);
+
+        Parameter configParam = getConfigureParameter(cameraType);
+
+        switch (stage) {
             case "before_take_picture":
-                updateCaptureRequestTag(builder, cameraRequestTag);
+                updateCaptureRequestTag(builder, requestTag);
                 break;
             case "configure":
-                if (!Util.isSystemCamera()) {
-                    thirdPartyApp(configureParameter, builder, str2);
+                if (!Util.isSystemCamera() && configParam != null) {
+                    thirdPartyApp(configParam, builder, cameraType);
                 }
-                if (configureParameter.containCustomKey(ConfigureParameter.AI_NIGHT_VIDEO_MODE)) {
-                    Integer num = (Integer) configureParameter.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
-                    String str3 = (String) configureParameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
-                    boolean z = "super_stabilization".equals(str3) || "super_stabilization_front".equals(str3);
-                    boolean zBooleanValue = ((Boolean) CameraConfigHelper
-                            .getConfigValue(CameraConfigBase.KEY_THIRD_PARY_HVXSHDR_SUPPORT, true)).booleanValue();
-                    if (zBooleanValue) {
-                        String str4 = (String) CameraConfigHelper
+                if (configParam != null && configParam.containCustomKey(ConfigureParameter.AI_NIGHT_VIDEO_MODE)) {
+                    Integer nightMode = (Integer) configParam.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
+                    String stabMode = (String) configParam.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
+                    boolean isSuperStab = "super_stabilization".equals(stabMode)
+                            || "super_stabilization_front".equals(stabMode);
+
+                    boolean hvxSupport = (Boolean) CameraConfigHelper
+                            .getConfigValue(CameraConfigBase.KEY_THIRD_PARY_HVXSHDR_SUPPORT, true);
+                    if (hvxSupport) {
+                        String pkgWhiteList = (String) CameraConfigHelper
                                 .getConfigValue(CameraConfigBase.KEY_THIRD_PARY_NOTNEEDPACKAGES_HVXSHDR_SUPPORT, "");
-                        if (!TextUtils.isEmpty(str4) && str4.contains(ContextHolder.getContext().getPackageName())) {
-                            zBooleanValue = false;
+                        if (!TextUtils.isEmpty(pkgWhiteList)
+                                && pkgWhiteList.contains(ContextHolder.getContext().getPackageName())) {
+                            hvxSupport = false;
                         }
-                        CameraUnitLog.d(TAG, "updateStageParameterBuilder, NotNeedThirdHVXSPackage: " + str4
-                                + " isThirdHVXSSupported: " + zBooleanValue);
                     }
-                    if ((("rear_main".equals(str2) && ((Boolean) CameraConfigHelper
-                            .getConfigValue(CameraConfigBase.KEY_REAR_HVXSHDR_SUPPORT, false)).booleanValue())
-                            || ("front_main".equals(str2) && ((Boolean) CameraConfigHelper
-                                    .getConfigValue(CameraConfigBase.KEY_FRONT_HVXSHDR_SUPPORT, false)).booleanValue()))
-                            && (Util.isSystemCamera() || zBooleanValue)) {
-                        builder.set(ConfigureParameter.KEY_HVXSHDR_ENABLE, Byte.valueOf((byte) num.intValue()));
+
+                    if ((((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_REAR_HVXSHDR_SUPPORT, false))
+                            && "rear_main".equals(cameraType))
+                            || (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FRONT_HVXSHDR_SUPPORT,
+                                    false)) && "front_main".equals(cameraType))) {
+                        if (Util.isSystemCamera() || hvxSupport) {
+                            builder.set(ConfigureParameter.KEY_HVXSHDR_ENABLE, (byte) nightMode.intValue());
+                        }
                     }
-                    if (1 != num.intValue() || (!z && ("front_main".equals(str2) || "front_wide".equals(str2)))) {
-                        builder.set((Parameter.Key<Integer>) ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
+
+                    if (nightMode == 1 && (isSuperStab
+                            || (!"front_main".equals(cameraType) && !"front_wide".equals(cameraType)))) {
+                        builder.set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 1);
                     } else {
-                        builder.set((Parameter.Key<Integer>) ConfigureParameter.AI_NIGHT_VIDEO_MODE, 1);
+                        builder.set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
                     }
                 } else {
-                    builder.set((Parameter.Key<Integer>) ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
+                    builder.set(ConfigureParameter.AI_NIGHT_VIDEO_MODE, 0);
                 }
+
                 builder.set(ConfigureParameter.KEY_TUNING_DATA_ENABLE, new byte[] { 0 });
+
                 if (PlatformUtil.isQualcommPlatform()) {
-                    builder.set((Parameter.Key<Integer>) ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 0);
-                } else if (!"front_main".equals(str2) || ((Boolean) CameraConfigHelper
-                        .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_FRONT_EIS_RECORD, false)).booleanValue()) {
-                    builder.set((Parameter.Key<Integer>) ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 1);
+                    builder.set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 0);
+                } else if (!"front_main".equals(cameraType) || (Boolean) CameraConfigHelper
+                        .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_FRONT_EIS_RECORD, false)) {
+                    builder.set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, 1);
                 }
-                StatisticsManager statisticsManager = StatisticsManager.getInstance();
-                Range<Integer> range = this.mConfigFpsRange;
-                statisticsManager.setVideoFps(range != null ? ((Integer) range.getUpper()).intValue() : 30);
-                if (((Boolean) CameraConfigHelper
-                        .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_SUPER_EIS_PROCESS_ONLY_WIDE, false))
-                        .booleanValue()) {
-                    if (!configureParameter.containCustomKey(ConfigureParameter.VIDEO_STABILIZATION_MODE)) {
-                        builder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE, 0);
-                    } else if (!"super_stabilization"
-                            .equals((String) configureParameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))) {
-                        builder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE, 0);
+
+                if (this.mConfigFpsRange != null) {
+                    StatisticsManager.getInstance().setVideoFps(this.mConfigFpsRange.getUpper());
+                } else {
+                    StatisticsManager.getInstance().setVideoFps(30);
+                }
+
+                if ((Boolean) CameraConfigHelper
+                        .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_SUPER_EIS_PROCESS_ONLY_WIDE, false)) {
+                    if (configParam != null && "super_stabilization"
+                            .equals(configParam.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))) {
+                        builder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE, 1);
                     } else {
-                        builder.set((CaptureRequest.Key<Integer>) CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE, 1);
+                        builder.set(CaptureRequest.CONTROL_VIDEO_STABILIZATION_MODE, 0);
                     }
-                    break;
                 }
                 break;
             case "start_recording":
-                setVideoWaterMarkParams(builder, str2, cameraRequestTag);
-                setVideoRecordingState(builder, str2, 1);
+                setVideoWaterMarkParams(builder, cameraType, requestTag);
+                setVideoRecordingState(builder, cameraType, 1);
                 break;
             case "stop_recording":
-                setVideoRecordingState(builder, str2, 0);
+                setVideoRecordingState(builder, cameraType, 0);
                 break;
             case "start_preview":
                 if ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_ENABLE_FRONT_CAMERA_SCALE))
                         && builder.containCustomKey(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)
-                        && ((Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)).booleanValue()) {
+                        && (Boolean) builder.get(PreviewParameter.KEY_ZOOM_SCALE_ENABLE)) {
                     builder.set(PreviewParameter.KEY_ZOOM_SCALE, (Float) builder.get(PreviewParameter.KEY_ZOOM_RATIO));
                 }
-                CameraDeviceInfoInterface cameraDeviceInfo = getCameraDeviceInfo(str2);
+                CameraDeviceInfoInterface deviceInfo = getCameraDeviceInfo(cameraType);
                 if (!builder.containsKey(PreviewParameter.KEY_FOCUS_MODE)
-                        && cameraDeviceInfo.isSupportPreviewParameter(PreviewParameter.KEY_FOCUS_MODE.getName())) {
-                    builder.set((Parameter.Key<Integer>) PreviewParameter.KEY_FOCUS_MODE, 2);
+                        && deviceInfo.isSupportPreviewParameter(PreviewParameter.KEY_FOCUS_MODE.getName())) {
+                    builder.set(PreviewParameter.KEY_FOCUS_MODE, 2);
                 }
-                if (cameraRequestTag != null) {
+                if (requestTag != null) {
                     if (builder.containCustomKey(PreviewParameter.KEY_TILT_SHIFT_ENABLE)) {
-                        cameraRequestTag.mbTiltShiftOpen = ((Boolean) builder
-                                .get(PreviewParameter.KEY_TILT_SHIFT_ENABLE)).booleanValue();
+                        requestTag.mbTiltShiftOpen = (Boolean) builder.get(PreviewParameter.KEY_TILT_SHIFT_ENABLE);
                     }
-                    cameraRequestTag.mbVideoBlurOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_BLUR_ENABLE));
-                    cameraRequestTag.mbVideoNeonOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_NEON_ENABLE));
+                    requestTag.mbVideoBlurOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_BLUR_ENABLE));
+                    requestTag.mbVideoNeonOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_NEON_ENABLE));
                 }
                 if (this.mConfigFpsRange != null) {
-                    builder.set((CaptureRequest.Key<Range<Integer>>) CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE,
-                            this.mConfigFpsRange);
+                    builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, this.mConfigFpsRange);
                 }
-                if (builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE)
-                        && builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_VALUE)) {
-                    cameraRequestTag.mMakeupType = (String) builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE);
-                    cameraRequestTag.mMakeupValue = ((Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE))
-                            .intValue();
+                if (builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE)) {
+                    requestTag.mMakeupType = (String) builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE);
+                    requestTag.mMakeupValue = (Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE);
                 }
                 if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
-                    cameraRequestTag.mbVideoAicolorEnable = "on"
+                    requestTag.mbVideoAicolorEnable = "on"
                             .equals(builder.get(PreviewParameter.KEY_VIDEO_RETENTION_OPEN));
                 }
-                if (!Util.isSystemCamera() && builder.get(CameraConstant.KEY_FACE_BEAUTY_LEVEL) != null) {
-                    cameraRequestTag.mPreviewFaceBeautyLevel = ((int[]) builder
-                            .get(CameraConstant.KEY_FACE_BEAUTY_LEVEL))[0];
-                    break;
+                if (!Util.isSystemCamera()) {
+                    int[] beautyLevels = (int[]) builder.get(CameraConstant.KEY_FACE_BEAUTY_LEVEL);
+                    if (beautyLevels != null && beautyLevels.length > 0) {
+                        requestTag.mPreviewFaceBeautyLevel = beautyLevels[0];
+                    }
                 }
                 break;
         }
-    }
 
-    private void updateDynamicFps(PreviewParameter.Builder builder, String str, Parameter parameter) {
-        Range<Integer> range = (Range<Integer>) parameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
-        if (range != null) {
-            builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, range);
-        }
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected CameraDeviceInfoInterface createCameraDeviceInfo(String str) {
-        CameraDeviceInfoImpl cameraDeviceInfoImpl = (CameraDeviceInfoImpl) super.createCameraDeviceInfo(str);
-        CameraUnitLog.d(TAG, "createCameraDeviceInfo, cameraType: " + str);
-        if (TextUtils.equals(str, "rear_main") || TextUtils.equals(str, "rear_wide")
-                || TextUtils.equals(str, "rear_sat")) {
-            cameraDeviceInfoImpl.setConfigureParameterRangeMap(cameraDeviceInfoImpl.getConfigureParameterRangeMap());
-        }
-        Boolean bool = (Boolean) CameraConfigHelper
-                .getConfigValue(CameraConfigBase.KEY_THIRD_PARTY_FRONT_AINIGHTVIDEO_DISABLE, false);
-        if (!Util.isSystemCamera() && "front_main".equals(str) && bool != null && bool.booleanValue()) {
-            cameraDeviceInfoImpl.getConfigureParameterRangeMap()
-                    .remove(ConfigureParameter.AI_NIGHT_VIDEO_MODE.getName());
-        }
-        cameraDeviceInfoImpl.getPreviewParameterRangeMap().put(PreviewParameter.KEY_ZOOM_RATIO.getName(),
-                new ZoomHelper(str).getZoomRatioList(false, "rear_sat".equals(str), false));
-        return cameraDeviceInfoImpl;
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected void updateAllParameterRanges(CameraDeviceInfoImpl cameraDeviceInfoImpl, String str) {
-        super.updateAllParameterRanges(cameraDeviceInfoImpl, str);
-        ArrayList arrayList = new ArrayList();
-        Range<Integer>[] rangeArr = (Range<Integer>[]) cameraDeviceInfoImpl
-                .get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES);
-        if (rangeArr != null && "video_mode".equals(getModeName())) {
-            arrayList.addAll(Arrays.asList(rangeArr));
-        }
-        List list = (List) cameraDeviceInfoImpl.getConfigureParameterRange(ConfigureParameter.VIDEO_FPS.getName());
-        if (list != null) {
-            Iterator it = list.iterator();
-            while (it.hasNext()) {
-                String str0 = (String) it.next();
-                int i = Integer.parseInt(str0.substring(6, str0.length() - 3));
-                Range<Integer> range = new Range<>(Integer.valueOf(i), Integer.valueOf(i));
-                if (!arrayList.contains(range)) {
-                    arrayList.add(range);
-                }
+        if (PreviewParameter.STAGE_PREVIEW_ON.equals(stage)) {
+            Range<Integer> fpsRange = (Range) builder.get(PreviewParameter.KEY_VIDEO_FPS);
+            if (fpsRange != null) {
+                this.mConfigFpsRange = fpsRange;
             }
         }
-        cameraDeviceInfoImpl.getConfigureParameterRangeMap().put(ConfigureParameter.VIDEO_DYNAMIC_FPS.getName(),
-                arrayList);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected boolean checkPreviewResult(CameraRequestTag cameraRequestTag) {
-        ApsRequestTag apsRequestTag = this.mTagMap.get(cameraRequestTag.mCameraType);
-        if (apsRequestTag == null || apsRequestTag.mbPreviewProcessByAps) {
-            return super.checkPreviewResult(cameraRequestTag);
-        }
-        return true;
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
-            PreviewParameter.Builder builder) {
-        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2)) {
-            ApsRequestTag apsRequestTag = this.mTagMap.get(str);
-            if (apsRequestTag != null && !apsRequestTag.mbPreviewProcessByAps) {
-                this.mPreviewResult = getDefaultPreviewResult();
-            }
-            if (is10BitOpen(str)) {
-                apsRequestTag.mbPhoto10BitsEnable = true;
-            }
-        }
-        CameraRequestTag cameraRequestTagCreateRequestTag = super.createRequestTag(str, obj, handler, str2, builder);
-        Parameter configureParameter = getConfigureParameter(str);
-        String str3 = (String) getConfigureParameter(str).get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
-        CameraUnitLog.v(TAG, "createRequestTag, value: " + str3);
-        cameraRequestTagCreateRequestTag.mbSuperEisOn = TextUtils.equals("super_stabilization", str3);
-        cameraRequestTagCreateRequestTag.mbVideoCapture = true;
-        cameraRequestTagCreateRequestTag.mbAntibandingEnable = "on"
-                .equals(configureParameter.get(ConfigureParameter.ANTI_BANDING_ENABLE));
-        cameraRequestTagCreateRequestTag.mbVideoWaterMarkEnable = "on"
-                .equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE));
-        cameraRequestTagCreateRequestTag.mbNormalVideoHFR = "video_120fps"
-                .equals(configureParameter.get(ConfigureParameter.VIDEO_FPS));
-        cameraRequestTagCreateRequestTag.mbRearMirrorEnable = builder
-                .get(PreviewParameter.KEY_REAR_MIRROR_ENABLE) != null
-                && ((Boolean) builder.get(PreviewParameter.KEY_REAR_MIRROR_ENABLE)).booleanValue();
-        cameraRequestTagCreateRequestTag.mbPictureVisualizationEnable = builder
-                .get(PreviewParameter.KEY_PICTURE_VISUALIZATION_ENABLE) != null
-                && "on".equals(builder.get(PreviewParameter.KEY_PICTURE_VISUALIZATION_ENABLE));
-        if (isExplorerVideoBokehOpen(configureParameter, str)) {
-            cameraRequestTagCreateRequestTag.mApsRequestTag.mPreviewStreamNumber = 2;
-            cameraRequestTagCreateRequestTag.mApsRequestTag.mCaptureStreamNumber = 2;
-        }
-        if (CameraCharacteristicsHelper.isFrontCamera(cameraRequestTagCreateRequestTag.mCameraId)
-                || cameraRequestTagCreateRequestTag.mbRearMirrorEnable) {
-            cameraRequestTagCreateRequestTag.mbMirrorEnable = "on"
-                    .equals(configureParameter.get(ConfigureParameter.MIRROR_ENABLE));
-        }
-        return cameraRequestTagCreateRequestTag;
-    }
-
-    private boolean isExplorerVideoBokehOpen(Parameter parameter, String str) {
-        return ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_BLUR_V3_SUPPORT, false))
-                .booleanValue() && "on".equals(parameter.get(ConfigureParameter.KEY_VIDEO_BLUR))
-                && "rear_main".equals(str);
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void unInit() {
-        super.unInit();
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected String getFeatureName(String str) {
-        String str2 = (String) getConfigureParameter(str).get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
-        CameraUnitLog.i(TAG, "getFeatureName, cameraType: " + str + ", stabilizationValue: " + str2);
-        if ("super_stabilization".equals(str2)) {
-            return "super_stabilization";
-        }
-        if (isExplorerVideoBokehOpen(getConfigureParameter(str), str)) {
-            return CameraConstant.EXPLORER_VIDEO_BOKEH;
-        }
-        Integer num = (Integer) getConfigureParameter(str).get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
-        CameraUnitLog.i(TAG, "getFeatureName, cameraType: " + str + ", aiNightValue: " + num);
-        if (num != null && 1 == num.intValue()) {
-            StatisticsManager.getInstance().setAiEnhance(true);
-            return String.valueOf(num);
-        }
-        StatisticsManager.getInstance().setAiEnhance(false);
-        if (CameraConstant.NightVideo.ULTRA_NIGHT_VIDEO
-                .equals((String) getConfigureParameter(str).get(ConfigureParameter.VIDEO_NIGHT_MODE))) {
-            return CameraConstant.NightVideo.ULTRA_NIGHT_VIDEO;
-        }
-        if ("on".equals(getConfigureParameter(str).get(ConfigureParameter.KEY_APS_VIDEO_RETENTION))) {
-            return CameraConstant.ARC_VIDEO_RETENTION;
-        }
-        if ("on".equals((String) getConfigureParameter(str).get(ConfigureParameter.AI_FOLLOW_ENABLE))) {
-            return CameraConstant.AI_FOLLOW;
-        }
-        return null;
-    }
-
-    protected static void prepareVideoSurface(SdkCameraDeviceConfig sdkCameraDeviceConfig, Size size, Surface surface) {
-        CameraUnitLog.d(TAG, "prepareVideo, size: " + size);
-        MediaRecorder mediaRecorder = new MediaRecorder();
-        mediaRecorder.setInputSurface(surface);
-        mediaRecorder.setVideoSource(2);
-        mediaRecorder.setOutputFormat(2);
-        mediaRecorder.setVideoSize(size.getWidth(), size.getHeight());
-        Parameter configureParameter = sdkCameraDeviceConfig.getConfigureParameter();
-        if ("H265".equals(configureParameter.get(ConfigureParameter.VIDEO_ENCODER))) {
-            mediaRecorder.setVideoEncoder(5);
-            if ("on".equals(configureParameter.get(ConfigureParameter.VIDEO_10BIT_ENABLE))) {
-                mediaRecorder.setVideoEncodingProfileLevel(2, OplusExifTag.EXIF_TAG_AI_ID_PHOTO);
-            }
-        } else {
-            mediaRecorder.setVideoEncoder(2);
-            mediaRecorder.setVideoEncodingProfileLevel(8, OplusExifTag.EXIF_TAG_NIGHT_SCENE);
-        }
-        if (configureParameter.get(ConfigureParameter.VIDEO_BITRATE) != null) {
-            mediaRecorder.setVideoEncodingBitRate(
-                    ((Integer) configureParameter.get(ConfigureParameter.VIDEO_BITRATE)).intValue());
-        }
-        try {
-            try {
-                File fileCreateTempFile = File.createTempFile("VideoSurface", "TempMediaRecorder");
-                mediaRecorder.setOutputFile(fileCreateTempFile.getAbsolutePath());
-                mediaRecorder.prepare();
-                fileCreateTempFile.delete();
-            } catch (IOException e) {
-                CameraUnitLog.e(TAG, "prepareVideoSurface", e);
-            }
-            mediaRecorder.reset();
-            mediaRecorder.release();
-            CameraUnitLog.d(TAG, "prepareVideo X");
-        } catch (Throwable th) {
-            mediaRecorder.reset();
-            mediaRecorder.release();
-            throw th;
+    @Override
+    protected void updatePreviewRequest(CaptureRequest.Builder builder, CameraRequestTag requestTag, String stage,
+            String cameraType) {
+        super.updatePreviewRequest(builder, requestTag, stage, cameraType);
+        if (this.mConfigFpsRange != null) {
+            builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, this.mConfigFpsRange);
         }
     }
 
-    private static void setVideoRecordingState(PreviewParameter.Builder builder, String str, int i) {
-        if (PlatformUtil.isQualcommPlatform()) {
-            builder.set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, Integer.valueOf(i));
-            builder.set(PreviewParameter.KEY_VIDEO_EIS_RECORD_STATE, Integer.valueOf(i));
-        } else {
-            if ("front_main".equals(str)) {
-                return;
-            }
-            builder.set(PreviewParameter.KEY_VIDEO_EIS_RECORD_STATE, Integer.valueOf(i));
+    @Override
+    protected void updateRepeatingRequest(CaptureRequest.Builder builder, CameraRequestTag requestTag, String stage,
+            String cameraType) {
+        super.updateRepeatingRequest(builder, requestTag, stage, cameraType);
+        if (this.mTargetVideoSize != null && this.mTargetVideoSize.getWidth() >= VIDEO_4K_FRAME_WIDTH) {
+            builder.set(CaptureRequest.CONTROL_MODE, 1);
         }
     }
 
-    private void updateCaptureRequestTag(PreviewParameter.Builder builder, CameraRequestTag cameraRequestTag) {
-        Bundle bundle;
-        Integer num = (Integer) builder.get(CaptureRequest.JPEG_ORIENTATION);
-        cameraRequestTag.mPicOrientation = num != null ? num.intValue() : 90;
-        if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
-            cameraRequestTag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
-            cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN)).booleanValue();
-            cameraRequestTag.mbFilterVignette = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE))
-                    .booleanValue();
-            cameraRequestTag.mbVideoRetentionOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_RETENTION_OPEN));
-        }
-        if (builder.containCustomKey(PreviewParameter.KEY_FACE_BEAUTY_ENABLE)) {
-            cameraRequestTag.mbFaceBeautyOpen = "on".equals(builder.get(PreviewParameter.KEY_FACE_BEAUTY_ENABLE));
-            cameraRequestTag.mFaceBeautyVersion = (String) builder.get(PreviewParameter.KEY_FACE_BEAUTY_VERSION);
-            cameraRequestTag.mFaceBeautyParam = (int[]) builder.get(PreviewParameter.KEY_FACE_BEAUTY_PARAM);
-            cameraRequestTag.mFaceData = (int[]) builder.get(PreviewParameter.KEY_FACE_DATA);
-        }
-        if (builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE)) {
-            cameraRequestTag.mMakeupType = (String) builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE);
-            cameraRequestTag.mMakeupValue = ((Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE)).intValue();
-        }
-        if (builder.containCustomKey(PreviewParameter.KEY_FACE_DERED_EYE_ENABLE)) {
-            cameraRequestTag.mbDeRedEye = "on".equals(builder.get(PreviewParameter.KEY_FACE_DERED_EYE_ENABLE));
-        }
-        if ("on".equals(builder.get(PreviewParameter.KEY_VIDEO_BLUR_ENABLE))) {
-            cameraRequestTag.mbVideoBlurOpen = true;
-            cameraRequestTag.mVideoBlurParams = (String) builder.get(PreviewParameter.KEY_VIDEO_BLUR_PARAMS);
-            Bundle bundle2 = (Bundle) builder.get(PreviewParameter.KEY_VIDEO_EFFECT_PARAM);
-            if (bundle2 != null) {
-                cameraRequestTag.mBlurIndex = bundle2.getInt("blur_level", 0);
-                cameraRequestTag.mOrientation = bundle2.getInt("orientation", 0);
-                cameraRequestTag.mBlurShow = bundle2.getFloat("blur_show", 0.0f);
-            }
-        } else if ("on".equals(builder.get(PreviewParameter.KEY_VIDEO_NEON_ENABLE))) {
-            cameraRequestTag.mbVideoNeonOpen = true;
-            cameraRequestTag.mVideoFusionEffect = ((Integer) builder.get(PreviewParameter.KEY_VIDEO_FUSION_EFFECT))
-                    .intValue();
-            cameraRequestTag.mVideoNeonParams = (String) builder.get(PreviewParameter.KEY_VIDEO_NEON_PARAMS);
-            Bundle bundle3 = (Bundle) builder.get(PreviewParameter.KEY_VIDEO_EFFECT_PARAM);
-            if (bundle3 != null) {
-                cameraRequestTag.mOrientation = bundle3.getInt("orientation", 0);
-            }
-        } else if ("on".equals(builder.get(PreviewParameter.KEY_VIDEO_RETENTION_OPEN))
-                && (bundle = (Bundle) builder.get(PreviewParameter.KEY_VIDEO_EFFECT_PARAM)) != null) {
-            cameraRequestTag.mbVideoRetentionEffectProcessed = bundle.getBoolean("retention_process", false);
-            cameraRequestTag.mOrientation = bundle.getInt("orientation", 0);
-        }
-        cameraRequestTag.mbPhotoWaterMarkEnable = cameraRequestTag.mbVideoWaterMarkEnable;
-        if (builder.get(PreviewParameter.KEY_WATERMARK_PARAM) == null || !cameraRequestTag.mbPhotoWaterMarkEnable) {
-            return;
-        }
-        fillWatermarkParam(cameraRequestTag, (Bundle) builder.get(PreviewParameter.KEY_WATERMARK_PARAM));
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig sdkCameraDeviceConfig, String str, String str2,
-            String str3) {
-        if (CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_VIDEO_AI_DEPTH.equals(str)) {
-            Size size = new Size(VIDEO_BOKEH_AI_DEPTH_WIDTH, 480);
+    @Override
+    protected Pair<Size, Size> getSurfaceSize(SdkCameraDeviceConfig deviceConfig, String surfaceType, String cameraType,
+            String modeName) {
+        if (CameraConstant.SessionSurfaceType.JSON_KEY_STREAM_VIDEO_AI_DEPTH.equals(surfaceType)) {
+            Size size = new Size(VIDEO_BOKEH_AI_DEPTH_WIDTH, VIDEO_BOKEH_AI_DEPTH_HEIGHT);
             return new Pair<>(size, size);
         }
-        SurfaceWrapper videoSurface = sdkCameraDeviceConfig.getVideoSurface();
-        return new Pair<>(videoSurface.getAppSurfaceSize(), videoSurface.getHalSurfaceSize());
+
+        if ("recording".equals(surfaceType) || "video".equals(surfaceType)) {
+            SurfaceWrapper videoSurface = deviceConfig.getVideoSurface();
+            if (videoSurface != null) {
+                return new Pair<>(videoSurface.getAppSurfaceSize(), videoSurface.getHalSurfaceSize());
+            }
+            return new Pair<>(new Size(1920, 1080), new Size(1920, 1080));
+        }
+        return super.getSurfaceSize(deviceConfig, surfaceType, cameraType, modeName);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public String getSurfaceUseCase(String str, boolean z) {
-        Parameter configureParameter = getConfigureParameter(str);
-        String str2 = (String) configureParameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
-        boolean zEquals = TextUtils.equals("super_stabilization", str2);
-        if (!isVideoSnapShotByAps(str) || isForceSnapShotByAps(str) || isSuperEisSnapShotByHal(zEquals)) {
-            return "on".equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))
+    @Override
+    protected String getSurfaceUseCase(String cameraType, boolean isUltraHighRes) {
+        Parameter configParam = getConfigureParameter(cameraType);
+        if (configParam == null)
+            return super.getSurfaceUseCase(cameraType, isUltraHighRes);
+
+        String stabMode = (String) configParam.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
+        boolean isSuperStab = TextUtils.equals("super_stabilization", stabMode);
+
+        if (!isVideoSnapShotByAps(cameraType) || isForceSnapShotByAps(cameraType)
+                || isSuperEisSnapShotByHal(isSuperStab)) {
+            return "on".equals(configParam.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))
                     ? "video_frame_snapshot_case"
                     : "video_recorder_snapshot_case";
         }
-        if (isExplorerVideoBokehOpen(configureParameter, str)) {
+
+        if (isExplorerVideoBokehOpen(configParam, cameraType)) {
             return CameraConstant.UseCase.VIDEO_BLUR_AI_DEPTH;
         }
-        if ("on".equals(configureParameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))) {
-            return (((Boolean) CameraConfigHelper
-                    .getConfigValue(CameraConfigBase.KEY_SUPPORT_DEFAULT_VIDEO_FRAME_RECORD, false)).booleanValue()
-                    && "video_mode".equals(getModeName()) && z) ? "recorder_video_case"
-                            : CameraConstant.UseCase.WATERMARK_VIDEO;
+
+        if ("on".equals(configParam.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))) {
+            boolean supportsDefaultFrame = (Boolean) CameraConfigHelper
+                    .getConfigValue(CameraConfigBase.KEY_SUPPORT_DEFAULT_VIDEO_FRAME_RECORD, false);
+            return (supportsDefaultFrame && "video_mode".equals(getModeName()) && isUltraHighRes)
+                    ? "recorder_video_case"
+                    : CameraConstant.UseCase.WATERMARK_VIDEO;
         }
-        CameraUnitLog.d(TAG, "selectUseCase, value: " + str2);
-        return (zEquals
-                && ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_APS_SUPPORT_VIDEO_SUPER_EIS, true))
-                        .booleanValue())
-                                ? "eis_pro_case"
-                                : "on".equals(configureParameter.get(ConfigureParameter.AI_FOLLOW_ENABLE))
-                                        ? CameraConstant.UseCase.AI_FOLLOW_CASE
-                                        : "recorder_video_case";
+
+        if (isSuperStab && (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_APS_SUPPORT_VIDEO_SUPER_EIS,
+                true)) {
+            return "eis_pro_case";
+        }
+
+        if ("on".equals(configParam.get(ConfigureParameter.AI_FOLLOW_ENABLE))) {
+            return CameraConstant.UseCase.AI_FOLLOW_CASE;
+        }
+
+        return "recorder_video_case";
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
-            PreviewParameter.Builder builder) {
-        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str2) && !isVideoSnapShotByAps(str)
-                && "surface_key_recording".equals(surfaceKey.getUsage())) {
-            return true;
-        }
-        if (Parameter.ParameterStage.START_PREVIEW.equals(str2)
-                && CameraSessionEntity.SurfaceUsage.AI_DEPTH.equals(surfaceKey.getUsage())) {
-            return true;
-        }
-        return super.needAddToTarget(str, str2, surfaceKey, builder);
-    }
+    @Override
+    public void updateStageParameter(@NonNull Parameter parameter, String stage, String cameraType,
+            @Nullable CameraRequestTag requestTag) {
+        super.updateStageParameter(parameter, stage, cameraType, requestTag);
 
-    private void thirdPartyApp(Parameter parameter, PreviewParameter.Builder builder, String str) {
-        Range<Integer> range;
-        if (!"super_stabilization".equals((String) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))
-                || (range = (Range<Integer>) CameraConfigHelper
-                        .getConfigValue(CameraConfigBase.KEY_THIRD_PARTY_SUPER_STABILIZATION_FPS, null)) == null) {
-            return;
-        }
-        CameraUnitLog.d(TAG, "thirdPartyApp, override super_stabilization fps range to: " + range);
-        this.mConfigFpsRange = range;
-        builder.set((CaptureRequest.Key<Range<Integer>>) CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, range);
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public void updateFpsRange(Parameter parameter, PreviewParameter.Builder builder, String str) {
-        Range<Integer> range;
-        if (checkSetStreamFpsRange(builder, str)) {
-            return;
-        }
-        if (60 == ((Range<Integer>) parameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS)).getUpper().intValue()) {
-            range = new Range<>(60, 60);
-        } else {
-            range = this.mConfigFpsRange;
-        }
-        builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, range);
-    }
-
-    public boolean updateFpsRangeByVideoType(Parameter parameter, PreviewParameter.Builder builder, String str) {
-        if (checkSetStreamFpsRange(builder, str)) {
-            return true;
-        }
-        if (((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_DYNAMIC_FPS_RANGE, true))
-                .booleanValue() && parameter != null
-                && parameter.containCustomKey(ConfigureParameter.VIDEO_DYNAMIC_FPS)) {
-            Range range = (Range) parameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
-            this.mConfigFpsRange = new Range<>(Integer.valueOf(((Integer) range.getLower()).intValue()),
-                    Integer.valueOf(((Integer) range.getUpper()).intValue()));
-            CameraUnitLog.d(TAG,
-                    "updateFpsRangeByVideoType, set fps range by VIDEO_DYNAMIC_FPS, value: " + this.mConfigFpsRange);
-        } else {
-            updateCurrentFps(str);
-            this.mConfigFpsRange = new Range<>(Integer.valueOf(this.mCurrentFps), Integer.valueOf(this.mCurrentFps));
-        }
-        if (PlatformUtil.isMtkPlatform()) {
-            Integer num = (Integer) parameter.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
-            boolean zIsFrontCamera = CameraCharacteristicsHelper
-                    .isFrontCamera(CameraCharacteristicsHelper.getCameraIdType(str).getCameraId());
-            boolean zEquals = "super_stabilization_front"
-                    .equals((String) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE));
-            if ((num != null && 1 == num.intValue())
-                    || ("1".equals(CameraConfigHelper.getConfigValue(DefaultUtill.KEY_FRONT_AE_FPS_RANGE_SUPPORT))
-                            && zIsFrontCamera && !zEquals && "video_mode".equals(getModeName()))) {
-                CameraUnitLog.d(TAG,
-                        "updateFpsRangeByVideoType, aiNightVideoMode is on or use custom fps range, will set fps range 20 ~30");
-                this.mConfigFpsRange = new Range<>(20, 30);
-            }
-        }
-        CameraUnitLog.d(TAG,
-                "updateFpsRangeByVideoType, set CONTROL_AE_TARGET_FPS_RANGE fps range to: " + this.mConfigFpsRange);
-        builder.set((CaptureRequest.Key<Range<Integer>>) CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE,
-                this.mConfigFpsRange);
-        return false;
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
-            @Nullable CameraRequestTag cameraRequestTag) {
-        super.updateStageParameter(parameter, str, str2, cameraRequestTag);
-        if (Parameter.ParameterStage.START_RECORDING.equals(str) && isEndOfStreamNeeded(parameter, str2)) {
+        if (Parameter.ParameterStage.START_RECORDING.equals(stage) && isEndOfStreamNeeded(parameter, cameraType)) {
             parameter.set(PreviewParameter.KEY_END_OF_STREAM, new byte[] { 0 });
         }
-        if (Parameter.ParameterStage.STOP_RECORDING.equals(str) && isEndOfStreamNeeded(parameter, str2)) {
+        if (Parameter.ParameterStage.STOP_RECORDING.equals(stage) && isEndOfStreamNeeded(parameter, cameraType)) {
             parameter.set(PreviewParameter.KEY_END_OF_STREAM, new byte[] { 1 });
         }
-        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str) && isVideo10BitOpen(str2)) {
-            cameraRequestTag.mbPhoto10BitsEnable = true;
+
+        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(stage) && isVideo10BitOpen(cameraType)
+                && requestTag != null) {
+            requestTag.mbPhoto10BitsEnable = true;
+        }
+
+        if (PreviewParameter.STAGE_PREVIEW_ON.equals(stage)) {
+            Range<Integer> fpsRange = (Range) parameter.get(PreviewParameter.KEY_VIDEO_FPS);
+            if (fpsRange != null) {
+                this.mConfigFpsRange = fpsRange;
+            }
         }
     }
 
-    protected boolean isEndOfStreamNeeded(Parameter parameter, String str) {
-        Range<Integer> range;
-        Boolean bool = (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SUPPORT_END_VIDEO_EIS_STREAM,
-                true);
-        Boolean bool2 = (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SAT_SUPPORT_PRE_VERSION,
-                false);
-        String str2 = (String) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
-        String str3 = (String) parameter.get(ConfigureParameter.VIDEO_FPS);
-        if ("super_stabilization".equals(str2) && !bool.booleanValue()) {
-            return false;
-        }
-        if ((bool2.booleanValue() && !"super_stabilization".equals(str2)
-                && (VIDEO_4K_FRAME_WIDTH == this.mTargetVideoSize.getWidth() || "video_60fps".equals(str3)
-                        || ((range = this.mConfigFpsRange) != null && 60 == ((Integer) range.getUpper()).intValue())))
-                || !PlatformUtil.isQualcommPlatform()) {
-            return false;
-        }
-        byte[] bArr = (byte[]) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str)
-                .get(CameraCharacteristicsWrapper.KEY_EIS_END_OF_STREAM);
-        CameraUnitLog.d(TAG, "isEndOfStreamNeeded, endOfStreamValue: " + Arrays.toString(bArr));
-        return bArr != null && bArr.length > 0;
-    }
-
-    private boolean isForceSnapShotByAps(String str) {
-        SdkCameraDeviceConfig sdkCameraDeviceConfig = this.mConfigMap.get(str);
-        if (sdkCameraDeviceConfig == null || sdkCameraDeviceConfig.getVideoSurface() == null) {
-            return false;
-        }
-        Size appSurfaceSize = sdkCameraDeviceConfig.getVideoSurface().getAppSurfaceSize();
-        String str2 = (String) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS);
-        if (VIDEO_8K_FRAME_WIDTH == appSurfaceSize.getWidth() && VIDEO_8K_FRAME_HEIGHT == appSurfaceSize.getHeight()) {
-            return true;
-        }
-        return ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FORCE_4k_VIDEO_SNAPSHOT_BY_APS, false))
-                .booleanValue() && VIDEO_4K_FRAME_WIDTH == appSurfaceSize.getWidth()
-                && VIDEO_4K_FRAME_HEIGHT == appSurfaceSize.getHeight() && !"video_120fps".equals(str2);
-    }
-
-    private boolean isVideoSnapShotByHal(String str) {
-        return 2 == AlgoSwitchConfig.getApsVersion() || is4kOr8k(str) || isVideo10BitOpen(str);
-    }
-
-    private boolean isSuperEisSnapShotByHal(boolean z) {
-        return z && ((Boolean) CameraConfigHelper
-                .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_SUPER_EIS_PROCESS_ONLY_WIDE, false)).booleanValue();
-    }
-
-    protected boolean is4K(String str) {
-        Size appSurfaceSize = this.mConfigMap.get(str).getVideoSurface().getAppSurfaceSize();
-        return VIDEO_4K_FRAME_WIDTH == appSurfaceSize.getWidth() && VIDEO_4K_FRAME_HEIGHT == appSurfaceSize.getHeight();
-    }
-
-    protected boolean is4kOr8k(String str) {
-        SdkCameraDeviceConfig sdkCameraDeviceConfig = this.mConfigMap.get(str);
-        Size appSurfaceSize = sdkCameraDeviceConfig.getVideoSurface().getAppSurfaceSize();
-        return (VIDEO_4K_FRAME_WIDTH == appSurfaceSize.getWidth() && VIDEO_4K_FRAME_HEIGHT == appSurfaceSize.getHeight()
-                && !"video_120fps".equals(
-                        (String) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS)))
-                || (VIDEO_8K_FRAME_WIDTH == appSurfaceSize.getWidth()
-                        && VIDEO_8K_FRAME_HEIGHT == appSurfaceSize.getHeight());
-    }
-
-    protected boolean is8k30fps(String str) {
-        SdkCameraDeviceConfig sdkCameraDeviceConfig = this.mConfigMap.get(str);
-        if (sdkCameraDeviceConfig == null || sdkCameraDeviceConfig.getVideoSurface() == null) {
-            return false;
-        }
-        Size appSurfaceSize = sdkCameraDeviceConfig.getVideoSurface().getAppSurfaceSize();
-        return VIDEO_8K_FRAME_WIDTH == appSurfaceSize.getWidth() && VIDEO_8K_FRAME_HEIGHT == appSurfaceSize.getHeight()
-                && "video_30fps".equals(
-                        (String) sdkCameraDeviceConfig.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS));
-    }
-
-    protected boolean isVideo10BitOpen(String str) {
-        return "on".equals(getConfigureParameter(str).get(ConfigureParameter.VIDEO_10BIT_ENABLE));
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode,
-              // com.oplus.ocs.camera.producer.mode.ModeInterface
-    public boolean isVideoSnapShotByAps(String str) {
-        return !isVideoSnapShotByHal(str) || isForceSnapShotByAps(str);
-    }
-
-    private boolean isRearSuperEisOpen(String str) {
-        return !CameraCharacteristicsHelper
-                .isFrontCamera(CameraCharacteristicsHelper.getCameraIdType(str).getCameraId())
-                && TextUtils.equals("super_stabilization",
-                        (String) getConfigureParameter(str).get(ConfigureParameter.VIDEO_STABILIZATION_MODE));
-    }
-
-    private boolean isSuperEisByAps(String str) {
-        return isRearSuperEisOpen(str)
-                && ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_APS_SUPPORT_VIDEO_SUPER_EIS, true))
-                        .booleanValue();
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected int getImageReaderMaxImages(String str) {
-        return isSuperEisByAps(str) ? 40 : 20;
-    }
-
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected Long getVideoFrameReaderUsage(String str) {
-        if (isSuperEisByAps(str)) {
+    @Override
+    protected Long getVideoFrameReaderUsage(String cameraType) {
+        if (isSuperEisByAps(cameraType)) {
             return 131L;
+        }
+        if (this.mTargetVideoSize != null && this.mTargetVideoSize.getWidth() >= VIDEO_4K_FRAME_WIDTH) {
+            return 1L;
         }
         return 128L;
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    public int getSurfaceFormatBySurfaceType(String str, String str2, String str3) {
-        if (("preview".equals(str) || "video_recorder".equals(str) || "video".equals(str)) && isVideo10BitOpen(str3)) {
-            return 34;
+    @Override
+    public void unInit() {
+        super.unInit();
+        this.mTargetVideoSize = null;
+        this.mConfigFpsRange = null;
+    }
+
+    @Override
+    protected CameraDeviceInfoInterface createCameraDeviceInfo(String cameraType) {
+        CameraDeviceInfoImpl deviceInfo = (CameraDeviceInfoImpl) super.createCameraDeviceInfo(cameraType);
+        if (TextUtils.equals(cameraType, "rear_main") || TextUtils.equals(cameraType, "rear_wide")
+                || TextUtils.equals(cameraType, "rear_sat")) {
+            deviceInfo.setConfigureParameterRangeMap(deviceInfo.getConfigureParameterRangeMap());
         }
-        if ("capture".equals(str)) {
-            if (isVideo10BitOpen(str3)) {
-                return ((Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_PHOTO_10BIT_FORMAT, 34))
-                        .intValue();
+
+        if (!Util.isSystemCamera() && "front_main".equals(cameraType) && (Boolean) CameraConfigHelper
+                .getConfigValue(CameraConfigBase.KEY_THIRD_PARTY_FRONT_AINIGHTVIDEO_DISABLE, false)) {
+            deviceInfo.getConfigureParameterRangeMap().remove(ConfigureParameter.AI_NIGHT_VIDEO_MODE.getName());
+        }
+
+        deviceInfo.getPreviewParameterRangeMap().put(PreviewParameter.KEY_ZOOM_RATIO.getName(),
+                new ZoomHelper(cameraType).getZoomRatioList(false, "rear_sat".equals(cameraType), false));
+        return deviceInfo;
+    }
+
+    @Override
+    protected void updateAllParameterRanges(CameraDeviceInfoImpl deviceInfo, String cameraType) {
+        super.updateAllParameterRanges(deviceInfo, cameraType);
+        ArrayList<Range<Integer>> fpsRanges = new ArrayList<>();
+        Range<Integer>[] availableRanges = (Range[]) deviceInfo
+                .get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES);
+        if (availableRanges != null) {
+            fpsRanges.addAll(Arrays.asList(availableRanges));
+        }
+
+        List<String> videoFpsList = (List) deviceInfo
+                .getConfigureParameterRange(ConfigureParameter.VIDEO_FPS.getName());
+        if (videoFpsList != null) {
+            for (String fpsStr : videoFpsList) {
+                int fps = Integer.parseInt(fpsStr.substring(6, fpsStr.length() - 3));
+                Range<Integer> range = new Range<>(fps, fps);
+                if (!fpsRanges.contains(range)) {
+                    fpsRanges.add(range);
+                }
             }
-            return 35;
         }
-        return super.getSurfaceFormatBySurfaceType(str, str2, str3);
+        deviceInfo.getConfigureParameterRangeMap().put(ConfigureParameter.VIDEO_DYNAMIC_FPS.getName(), fpsRanges);
     }
 
-    @Override // com.oplus.ocs.camera.producer.mode.BaseMode
-    protected boolean isExplorerOpen(String str) {
-        Parameter configureParameter = getConfigureParameter(str);
-        if (!configureParameter.containCustomKey(ConfigureParameter.AI_NIGHT_VIDEO_MODE)
-                || 1 != ((Integer) configureParameter.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE)).intValue()) {
+    @Override
+    protected boolean checkPreviewResult(CameraRequestTag requestTag) {
+        ApsRequestTag apsTag = this.mTagMap.get(requestTag.mCameraType);
+        if (apsTag == null || apsTag.mbPreviewProcessByAps) {
+            return super.checkPreviewResult(requestTag);
+        }
+        return true;
+    }
+
+    @Override
+    public CameraRequestTag createRequestTag(String cameraType, Object obj, Handler handler, String stage,
+            PreviewParameter.Builder builder) {
+        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(stage)) {
+            ApsRequestTag apsTag = this.mTagMap.get(cameraType);
+            if (apsTag != null && !apsTag.mbPreviewProcessByAps) {
+                this.mPreviewResult = getDefaultPreviewResult();
+            }
+            if (is10BitOpen(cameraType) && apsTag != null) {
+                apsTag.mbPhoto10BitsEnable = true;
+            }
+        }
+
+        CameraRequestTag tag = super.createRequestTag(cameraType, obj, handler, stage, builder);
+        Parameter configParam = getConfigureParameter(cameraType);
+        String stabMode = (String) configParam.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
+
+        tag.mbSuperEisOn = TextUtils.equals("super_stabilization", stabMode);
+        tag.mbVideoCapture = true;
+        tag.mbAntibandingEnable = "on".equals(configParam.get(ConfigureParameter.ANTI_BANDING_ENABLE));
+        tag.mbVideoWaterMarkEnable = "on".equals(configParam.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE));
+        tag.mbNormalVideoHFR = "video_120fps".equals(configParam.get(ConfigureParameter.VIDEO_FPS));
+
+        Boolean rearMirror = (Boolean) builder.get(PreviewParameter.KEY_REAR_MIRROR_ENABLE);
+        tag.mbRearMirrorEnable = rearMirror != null && rearMirror;
+
+        Object visualization = builder.get(PreviewParameter.KEY_PICTURE_VISUALIZATION_ENABLE);
+        tag.mbPictureVisualizationEnable = visualization != null && "on".equals(visualization);
+
+        if (isExplorerVideoBokehOpen(configParam, cameraType)) {
+            tag.mApsRequestTag.mPreviewStreamNumber = 2;
+            tag.mApsRequestTag.mCaptureStreamNumber = 2;
+        }
+
+        if (CameraCharacteristicsHelper.isFrontCamera(tag.mCameraId) || tag.mbRearMirrorEnable) {
+            tag.mbMirrorEnable = "on".equals(configParam.get(ConfigureParameter.MIRROR_ENABLE));
+        }
+
+        return tag;
+    }
+
+    @Override
+    protected String getFeatureName(String cameraType) {
+        Parameter configParam = getConfigureParameter(cameraType);
+        String stabMode = (String) configParam.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
+
+        if ("super_stabilization".equals(stabMode)) {
+            return "super_stabilization";
+        }
+        if (isExplorerVideoBokehOpen(configParam, cameraType)) {
+            return CameraConstant.EXPLORER_VIDEO_BOKEH;
+        }
+
+        Integer nightMode = (Integer) configParam.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
+        if (nightMode != null && nightMode == 1) {
+            StatisticsManager.getInstance().setAiEnhance(true);
+            return String.valueOf(nightMode);
+        }
+
+        StatisticsManager.getInstance().setAiEnhance(false);
+        if (CameraConstant.NightVideo.ULTRA_NIGHT_VIDEO.equals(configParam.get(ConfigureParameter.VIDEO_NIGHT_MODE))) {
+            return CameraConstant.NightVideo.ULTRA_NIGHT_VIDEO;
+        }
+        if ("on".equals(configParam.get(ConfigureParameter.KEY_APS_VIDEO_RETENTION))) {
+            return CameraConstant.ARC_VIDEO_RETENTION;
+        }
+        if ("on".equals(configParam.get(ConfigureParameter.AI_FOLLOW_ENABLE))) {
+            return CameraConstant.AI_FOLLOW;
+        }
+
+        return null;
+    }
+
+    @Override
+    public int getSurfaceFormatBySurfaceType(String surfaceType, String cameraType, String modeName) {
+        if (("preview".equals(surfaceType) || "video_recorder".equals(surfaceType) || "video".equals(surfaceType))
+                && isVideo10BitOpen(cameraType)) {
+            return 34; // 10-bit format
+        }
+        if ("capture".equals(surfaceType)) {
+            if (isVideo10BitOpen(cameraType)) {
+                return (Integer) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_PHOTO_10BIT_FORMAT, 34);
+            }
+            return 35; // YUV_420_888
+        }
+        return super.getSurfaceFormatBySurfaceType(surfaceType, cameraType, modeName);
+    }
+
+    @Override
+    protected boolean isExplorerOpen(String cameraType) {
+        Parameter configParam = getConfigureParameter(cameraType);
+        if (configParam == null)
             return false;
-        }
-        Integer num = (Integer) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(str)
+
+        Integer nightMode = (Integer) configParam.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
+        if (nightMode == null || nightMode != 1)
+            return false;
+
+        Integer hdrType = (Integer) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(cameraType)
                 .get(CameraCharacteristicsWrapper.KEY_STREAMING_HDR_TYPE);
-        if (num == null || 1 != num.intValue()) {
-            return true;
+        if (hdrType != null && hdrType == 1) {
+            return false; // Bypass explore for 2EXP stagger
         }
-        CameraUnitLog.v(TAG, "isExplorerOpen, aiVideo bypass explore when STREAMING_FEATURE_DEFAULT_STAGGER_2EXP. ");
-        return false;
+        return true;
     }
 
-    protected void updateCurrentFps(String str) {
-        Parameter configureParameter = getConfigureParameter(str);
-        if (configureParameter == null || !configureParameter.containCustomKey(ConfigureParameter.VIDEO_FPS)) {
-            return;
+    private void updateCaptureRequestTag(PreviewParameter.Builder builder, CameraRequestTag tag) {
+        Integer orientation = (Integer) builder.get(CaptureRequest.JPEG_ORIENTATION);
+        tag.mPicOrientation = orientation != null ? orientation : 90;
+
+        if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
+            tag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
+            tag.mbFilterOpen = (Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN);
+            tag.mbFilterVignette = (Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE);
+            tag.mbVideoRetentionOpen = "on".equals(builder.get(PreviewParameter.KEY_VIDEO_RETENTION_OPEN));
         }
-        String str2 = (String) configureParameter.get(ConfigureParameter.VIDEO_FPS);
-        str2.hashCode();
-        switch (str2) {
-            case "video_120fps":
-                this.mCurrentFps = 120;
-                break;
-            case "video_240fps":
-                this.mCurrentFps = 240;
-                break;
-            case "video_480fps":
-                this.mCurrentFps = 480;
-                break;
-            case "video_960fps":
-                this.mCurrentFps = 960;
-                break;
-            case "video_30fps":
-                this.mCurrentFps = 30;
-                break;
-            case "video_60fps":
-                this.mCurrentFps = 60;
-                break;
+
+        if (builder.containCustomKey(PreviewParameter.KEY_FACE_BEAUTY_ENABLE)) {
+            tag.mbFaceBeautyOpen = "on".equals(builder.get(PreviewParameter.KEY_FACE_BEAUTY_ENABLE));
+            tag.mFaceBeautyVersion = (String) builder.get(PreviewParameter.KEY_FACE_BEAUTY_VERSION);
+            tag.mFaceBeautyParam = (int[]) builder.get(PreviewParameter.KEY_FACE_BEAUTY_PARAM);
+            tag.mFaceData = (int[]) builder.get(PreviewParameter.KEY_FACE_DATA);
+        }
+
+        if (builder.containCustomKey(PreviewParameter.KEY_FACE_MAKEUP_TYPE)) {
+            tag.mMakeupType = (String) builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE);
+            tag.mMakeupValue = (Integer) builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE);
+        }
+
+        if (builder.containCustomKey(PreviewParameter.KEY_FACE_DERED_EYE_ENABLE)) {
+            tag.mbDeRedEye = "on".equals(builder.get(PreviewParameter.KEY_FACE_DERED_EYE_ENABLE));
+        }
+
+        if ("on".equals(builder.get(PreviewParameter.KEY_VIDEO_BLUR_ENABLE))) {
+            tag.mbVideoBlurOpen = true;
+            tag.mVideoBlurParams = (String) builder.get(PreviewParameter.KEY_VIDEO_BLUR_PARAMS);
+            Bundle effectParams = (Bundle) builder.get(PreviewParameter.KEY_VIDEO_EFFECT_PARAM);
+            if (effectParams != null) {
+                tag.mBlurIndex = effectParams.getInt("blur_level", 0);
+                tag.mOrientation = effectParams.getInt("orientation", 0);
+                tag.mBlurShow = effectParams.getFloat("blur_show", 0.0f);
+            }
+        } else if ("on".equals(builder.get(PreviewParameter.KEY_VIDEO_NEON_ENABLE))) {
+            tag.mbVideoNeonOpen = true;
+            tag.mVideoFusionEffect = (Integer) builder.get(PreviewParameter.KEY_VIDEO_FUSION_EFFECT);
+            tag.mVideoNeonParams = (String) builder.get(PreviewParameter.KEY_VIDEO_NEON_PARAMS);
+            Bundle effectParams = (Bundle) builder.get(PreviewParameter.KEY_VIDEO_EFFECT_PARAM);
+            if (effectParams != null) {
+                tag.mOrientation = effectParams.getInt("orientation", 0);
+            }
+        } else if ("on".equals(builder.get(PreviewParameter.KEY_VIDEO_RETENTION_OPEN))) {
+            Bundle effectParams = (Bundle) builder.get(PreviewParameter.KEY_VIDEO_EFFECT_PARAM);
+            if (effectParams != null) {
+                tag.mbVideoRetentionEffectProcessed = effectParams.getBoolean("retention_process", false);
+                tag.mOrientation = effectParams.getInt("orientation", 0);
+            }
+        }
+
+        tag.mbPhotoWaterMarkEnable = tag.mbVideoWaterMarkEnable;
+        Bundle wmParams = (Bundle) builder.get(PreviewParameter.KEY_WATERMARK_PARAM);
+        if (wmParams != null && tag.mbPhotoWaterMarkEnable) {
+            fillWatermarkParam(tag, wmParams);
+        }
+    }
+
+    private boolean isExplorerVideoBokehOpen(Parameter parameter, String cameraType) {
+        return (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_BLUR_V3_SUPPORT, false)
+                && "on".equals(parameter.get(ConfigureParameter.KEY_VIDEO_BLUR))
+                && "rear_main".equals(cameraType);
+    }
+
+    private boolean isEndOfStreamNeeded(Parameter parameter, String cameraType) {
+        Boolean supportEnd = (Boolean) CameraConfigHelper
+                .getConfigValue(CameraConfigBase.KEY_SUPPORT_END_VIDEO_EIS_STREAM, true);
+        Boolean satSupport = (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_SAT_SUPPORT_PRE_VERSION,
+                false);
+
+        String stabMode = (String) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
+        if ("super_stabilization".equals(stabMode) && !supportEnd)
+            return false;
+
+        if (satSupport && !"super_stabilization".equals(stabMode)) {
+            if (this.mTargetVideoSize != null && this.mTargetVideoSize.getWidth() == VIDEO_4K_FRAME_WIDTH)
+                return false;
+            String fpsStr = (String) parameter.get(ConfigureParameter.VIDEO_FPS);
+            if ("video_60fps".equals(fpsStr))
+                return false;
+        }
+
+        if (!PlatformUtil.isQualcommPlatform())
+            return false;
+
+        byte[] eisEnd = (byte[]) CameraCharacteristicsHelper.getCameraCharacteristicsWrapper(cameraType)
+                .get(CameraCharacteristicsWrapper.KEY_EIS_END_OF_STREAM);
+        return eisEnd != null && eisEnd.length > 0;
+    }
+
+    private boolean isForceSnapShotByAps(String cameraType) {
+        SdkCameraDeviceConfig config = this.mConfigMap.get(cameraType);
+        if (config == null || config.getVideoSurface() == null)
+            return false;
+
+        Size videoSize = config.getVideoSurface().getAppSurfaceSize();
+        if (videoSize.getWidth() == VIDEO_8K_FRAME_WIDTH)
+            return true;
+
+        return (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_FORCE_4k_VIDEO_SNAPSHOT_BY_APS, false)
+                && videoSize.getWidth() == VIDEO_4K_FRAME_WIDTH
+                && !"video_120fps".equals(config.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS));
+    }
+
+    private boolean isVideoSnapShotByHal(String cameraType) {
+        return AlgoSwitchConfig.getApsVersion() == 2 || is4kOr8k(cameraType) || isVideo10BitOpen(cameraType);
+    }
+
+    private boolean isSuperEisSnapShotByHal(boolean isSuperStab) {
+        return isSuperStab && (Boolean) CameraConfigHelper
+                .getConfigValue(CameraConfigBase.KEY_SUPPORT_VIDEO_SUPER_EIS_PROCESS_ONLY_WIDE, false);
+    }
+
+    protected boolean is4kOr8k(String cameraType) {
+        SdkCameraDeviceConfig config = this.mConfigMap.get(cameraType);
+        if (config == null || config.getVideoSurface() == null)
+            return false;
+        Size size = config.getVideoSurface().getAppSurfaceSize();
+        if (size.getWidth() == VIDEO_8K_FRAME_WIDTH)
+            return true;
+        return size.getWidth() == VIDEO_4K_FRAME_WIDTH
+                && !"video_120fps".equals(config.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS));
+    }
+
+    protected boolean is8k30fps(String cameraType) {
+        SdkCameraDeviceConfig config = this.mConfigMap.get(cameraType);
+        if (config == null || config.getVideoSurface() == null)
+            return false;
+        Size size = config.getVideoSurface().getAppSurfaceSize();
+        return size.getWidth() == VIDEO_8K_FRAME_WIDTH
+                && "video_30fps".equals(config.getConfigureParameter().get(ConfigureParameter.VIDEO_FPS));
+    }
+
+    protected boolean isVideo10BitOpen(String cameraType) {
+        Parameter config = getConfigureParameter(cameraType);
+        return config != null && "on".equals(config.get(ConfigureParameter.VIDEO_10BIT_ENABLE));
+    }
+
+    @Override
+    public boolean isVideoSnapShotByAps(String cameraType) {
+        return !isVideoSnapShotByHal(cameraType) || isForceSnapShotByAps(cameraType);
+    }
+
+    private boolean isRearSuperEisOpen(String cameraType) {
+        if (CameraCharacteristicsHelper
+                .isFrontCamera(CameraCharacteristicsHelper.getCameraIdType(cameraType).getCameraId()))
+            return false;
+        Parameter config = getConfigureParameter(cameraType);
+        return config != null && TextUtils.equals("super_stabilization",
+                (String) config.get(ConfigureParameter.VIDEO_STABILIZATION_MODE));
+    }
+
+    private boolean isSuperEisByAps(String cameraType) {
+        return isRearSuperEisOpen(cameraType)
+                && (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_APS_SUPPORT_VIDEO_SUPER_EIS, true);
+    }
+
+    @Override
+    protected int getImageReaderMaxImages(String cameraType) {
+        return isSuperEisByAps(cameraType) ? 40 : 20;
+    }
+
+    protected static void prepareVideoSurface(SdkCameraDeviceConfig deviceConfig, Size size, Surface surface) {
+        MediaRecorder recorder = new MediaRecorder();
+        try {
+            recorder.setInputSurface(surface);
+            recorder.setVideoSource(2);
+            recorder.setOutputFormat(2);
+            recorder.setVideoSize(size.getWidth(), size.getHeight());
+
+            Parameter config = deviceConfig.getConfigureParameter();
+            if ("H265".equals(config.get(ConfigureParameter.VIDEO_ENCODER))) {
+                recorder.setVideoEncoder(5);
+                if ("on".equals(config.get(ConfigureParameter.VIDEO_10BIT_ENABLE))) {
+                    recorder.setVideoEncodingProfileLevel(2, 4096);
+                }
+            } else {
+                recorder.setVideoEncoder(2);
+            }
+
+            Integer bitrate = (Integer) config.get(ConfigureParameter.VIDEO_BITRATE);
+            if (bitrate != null)
+                recorder.setVideoEncodingBitRate(bitrate);
+
+            File temp = File.createTempFile("VideoSurface", "tmp");
+            recorder.setOutputFile(temp.getAbsolutePath());
+            recorder.prepare();
+            temp.delete();
+        } catch (Exception e) {
+            CameraUnitLog.e(TAG, "prepareVideoSurface failed", e);
+        } finally {
+            recorder.release();
+        }
+    }
+
+    private static void setVideoRecordingState(PreviewParameter.Builder builder, String cameraType, int state) {
+        if (PlatformUtil.isQualcommPlatform()) {
+            builder.set(ConfigureParameter.KEY_VIDEO_EIS_RECORD_STATE, state);
+            builder.set(PreviewParameter.KEY_VIDEO_EIS_RECORD_STATE, state);
+        } else if (!"front_main".equals(cameraType)) {
+            builder.set(PreviewParameter.KEY_VIDEO_EIS_RECORD_STATE, state);
+        }
+    }
+
+    private void thirdPartyApp(Parameter config, PreviewParameter.Builder builder, String cameraType) {
+        if ("super_stabilization".equals(config.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))) {
+            Range<Integer> fps = (Range) CameraConfigHelper
+                    .getConfigValue(CameraConfigBase.KEY_THIRD_PARTY_SUPER_STABILIZATION_FPS, null);
+            if (fps != null) {
+                this.mConfigFpsRange = fps;
+                builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, fps);
+            }
         }
     }
 
     private CameraPreviewCallbackAdapter.PreviewResult getDefaultPreviewResult() {
         if (this.mDefaultPreviewResult == null) {
-            ApsAdapterDecision.DecisionResult decisionResult = new ApsAdapterDecision.DecisionResult();
-            decisionResult.mApsAlgoFlag = new String[] { ApsParameters.ALGO_NAME_NONE };
-            decisionResult.mCaptureETList = new long[] { 0 };
-            decisionResult.mCaptureEVList = new int[] { 0 };
-            decisionResult.mSensorMask = new int[] { 0, 0, 0 };
             this.mDefaultPreviewResult = new CameraPreviewCallbackAdapter.PreviewResult.Builder()
                     .setApsDecisionResult(new ApsAdapterDecision.DecisionResult()).build();
         }
         return this.mDefaultPreviewResult;
     }
 
-    protected boolean isPreviewProcessByAps(Parameter parameter, String str) {
-        if (!Util.isSystemCamera()
-                || ((Boolean) CameraConfigHelper
-                        .getConfigValue(CameraConfigBase.KEY_HIGH_FPS_VIDEO_PREVIEW_PROCESS_BY_APS, true))
-                        .booleanValue()
-                || parameter == null || TextUtils.equals("on",
-                        (CharSequence) parameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE))) {
+    protected boolean isPreviewProcessByAps(Parameter parameter, String cameraType) {
+        if (!Util.isSystemCamera())
             return true;
+        if ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_HIGH_FPS_VIDEO_PREVIEW_PROCESS_BY_APS,
+                true))
+            return true;
+        if (parameter != null && "on".equals(parameter.get(ConfigureParameter.KEY_WATERMARK_VIDEO_ENABLE)))
+            return true;
+        if (parameter != null
+                && "super_stabilization".equals(parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))) {
+            return (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_STABILIZATION_BY_APS, true);
         }
-        if (TextUtils.equals("super_stabilization",
-                (CharSequence) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))) {
-            return ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_STABILIZATION_BY_APS, true))
-                    .booleanValue();
-        }
-        if (TextUtils.equals("super_stabilization_front",
-                (CharSequence) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE))) {
-            return ((Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_STABILIZATION_FRONT_BY_APS,
-                    true)).booleanValue();
-        }
-        String str2 = (String) parameter.get(ConfigureParameter.VIDEO_FPS);
-        return (TextUtils.equals("video_60fps", str2) || TextUtils.equals("video_120fps", str2)
-                || (!is4K(str) && !((Boolean) CameraConfigHelper
-                        .getConfigValue(CameraConfigBase.KEY_LOW_FPS_VIDEO_PREVIEW_PROCESS_BY_APS, true))
-                        .booleanValue())) ? false : true;
-    }
-
-    private boolean isAIFollowEnable(String str) {
-        return "on".equals(getConfigureParameter(str).get(ConfigureParameter.AI_FOLLOW_ENABLE));
+        return true;
     }
 }

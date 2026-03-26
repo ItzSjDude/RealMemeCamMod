@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Surface;
+
 import com.oplus.ocs.camera.consumer.apsAdapter.APSClient;
 import com.oplus.ocs.camera.consumer.apsAdapter.ApsAdapterLog;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
@@ -24,20 +25,23 @@ import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsPreviewParam;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsResult;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsUtils;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsWatermarkParam;
-import com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface;
+
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/* JADX INFO: loaded from: classes.dex */
+/**
+ * Implementation of ApsInterface for cases where APS is not used.
+ */
 public class NoneApsImpl implements ApsInterface {
-    public static final int CAPTURE_PROC_DELAY = 20;
-    public static final int MSG_APS_CAPTURE = 0;
-    public static final int MSG_APS_PREVIEW = 1;
     private static final String TAG = "NoneApsImpl";
+    private static final int MSG_APS_CAPTURE = 0;
+    private static final int MSG_APS_PREVIEW = 1;
+    private static final long CAPTURE_PROC_DELAY_MS = 20L;
+
     private ApsInterface.ApsListener mApsListener;
     private final Object mCaptureQueueLock = new Object();
     private ProcessHandler mProcessHandler = null;
-    private Queue<CaptureFrame> mCaptureFrameQueue = new LinkedBlockingQueue();
+    private final Queue<CaptureFrame> mCaptureFrameQueue = new LinkedBlockingQueue<>();
 
     public static final class CaptureFrame {
         public ApsInterface.ApsListener mApsListener;
@@ -50,119 +54,125 @@ public class NoneApsImpl implements ApsInterface {
     public static final class PreviewFrame {
         public ApsInterface.ApsListener mApsListener;
         public long mTimeStamp = -1;
-        public Surface mSurface = null;
-        public Image mImage = null;
-        public CaptureResult mMetadata = null;
+        public android.view.Surface mSurface = null;
+        public android.media.Image mImage = null;
+        public android.hardware.camera2.CaptureResult mMetadata = null;
         public String mPipeline = "";
         public String mCaptureMode = null;
         public int mCameraId = 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
+    public NoneApsImpl(ApsInterface.ApsListener apsListener) {
+        this.mApsListener = apsListener;
+    }
+
+    @Override
     public int abortCaptures() {
         return -1;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public void attachPreviewSurface(int i, Surface surface, int i2) {
+    @Override
+    public void attachPreviewSurface(int cameraId, Surface surface, int surfaceType) {
+        // No-op for NoneApsImpl
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int beforeCapture(ApsParameters apsParameters) {
+    @Override
+    public int beforeCapture(ApsParameters parameters) {
         return -1;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public void detachPreviewSurface(int i) {
+    @Override
+    public void detachPreviewSurface(int cameraId) {
+        // No-op for NoneApsImpl
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
+    @Override
     public void flushImage() {
+        // No-op for NoneApsImpl
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int forceStop(int i) {
+    @Override
+    public int forceStop(int mode) {
         return 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public void initAlgo(ApsInitParameter apsInitParameter) {
+    @Override
+    public void initAlgo(ApsInitParameter parameter) {
+        // No-op for NoneApsImpl
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
+    @Override
     public boolean isApsPreviewInit() {
         return true;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public Bitmap processBitmap(Bitmap bitmap, CaptureResult captureResult, ApsParameters apsParameters) {
+    @Override
+    public Bitmap processBitmap(Bitmap bitmap, CaptureResult captureResult, ApsParameters parameters) {
         return bitmap;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int releaseBuffer(String str, HardwareBuffer hardwareBuffer) {
+    @Override
+    public int releaseBuffer(String handle, HardwareBuffer buffer) {
         return 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public Rect[] roiTranslate(Rect[] rectArr) {
+    @Override
+    public Rect[] roiTranslate(Rect[] rects) {
         return null;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int setEnableAPSAlgoNode(String str, boolean z) {
+    @Override
+    public int setEnableAPSAlgoNode(String nodeName, boolean enabled) {
         return 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int setEnableAPSPipeline(String str, boolean z) {
+    @Override
+    public int setEnableAPSPipeline(String pipelineName, boolean enabled) {
         return 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public void setRequestMetadata(ApsCaptureRequestParam apsCaptureRequestParam) {
+    @Override
+    public void setRequestMetadata(ApsCaptureRequestParam requestParam) {
+        // No-op for NoneApsImpl
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int startCapture(ApsParameters apsParameters) {
+    @Override
+    public int startCapture(ApsParameters parameters) {
         return -1;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public void unInitAlgo(int i) {
+    @Override
+    public void unInitAlgo(int cameraId) {
+        // No-op for NoneApsImpl
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public void updateThumbnailMap(ApsResult apsResult) {
+    @Override
+    public void updateThumbnailMap(ApsResult result) {
+        // No-op for NoneApsImpl
     }
 
-    public NoneApsImpl(ApsInterface.ApsListener apsListener) {
-        this.mApsListener = null;
-        this.mApsListener = apsListener;
-    }
-
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public boolean connect(int i) {
+    @Override
+    public boolean connect(int mode) {
         ApsAdapterLog.v(TAG, "connect");
         if (this.mProcessHandler != null) {
             return true;
         }
+
         HandlerThread handlerThread = new HandlerThread("NoneApsImpl Process Thread");
         handlerThread.start();
         this.mProcessHandler = new ProcessHandler(handlerThread.getLooper());
         return true;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
+    @Override
     public void disconnect() {
-        ProcessHandler processHandler = this.mProcessHandler;
-        if (processHandler != null) {
-            processHandler.getLooper().quitSafely();
+        if (this.mProcessHandler != null) {
+            this.mProcessHandler.getLooper().quitSafely();
             this.mProcessHandler = null;
         }
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
+    @Override
     public int clear() {
         synchronized (this.mCaptureQueueLock) {
             this.mCaptureFrameQueue.clear();
@@ -170,136 +180,168 @@ public class NoneApsImpl implements ApsInterface {
         return 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int addFrameBuff(ApsCaptureParam apsCaptureParam, String[] strArr, String[] strArr2, ApsWatermarkParam apsWatermarkParam) {
-        ApsAdapterLog.d(TAG, "addFrameBuff, frameIdx: " + apsCaptureParam.getFrameNumber());
-        Image image = apsCaptureParam.getImageBuffer().getImage();
-        if (apsCaptureParam.getPhysicMeta() == null) {
+    @Override
+    public int addFrameBuff(ApsCaptureParam captureParam, String[] keys, String[] values,
+            ApsWatermarkParam watermarkParam) {
+        ApsAdapterLog.d(TAG, "addFrameBuff, frameIdx: " + captureParam.getFrameNumber());
+
+        Image image = captureParam.getImageBuffer().getImage();
+        if (captureParam.getPhysicMeta() == null) {
             return 0;
         }
+
         CaptureFrame captureFrame = new CaptureFrame();
         captureFrame.mApsListener = this.mApsListener;
         captureFrame.mWidth = image.getWidth();
         captureFrame.mHeight = image.getHeight();
-        captureFrame.mData = ApsUtils.convertNV21DataToJpeg(ApsUtils.getYuvDataWithoutPadding(image, 17, null), image.getWidth(), image.getHeight());
+
+        // Convert YUV to JPEG for capture frames in NoneApsImpl
+        byte[] yuvData = ApsUtils.getYuvDataWithoutPadding(image, 17, null);
+        captureFrame.mData = ApsUtils.convertNV21DataToJpeg(yuvData, image.getWidth(), image.getHeight());
+
         synchronized (this.mCaptureQueueLock) {
             this.mCaptureFrameQueue.add(captureFrame);
         }
         return 0;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int processImages(String[] strArr, String[] strArr2, ApsWatermarkParam apsWatermarkParam) {
+    @Override
+    public int processImages(String[] keys, String[] values, ApsWatermarkParam watermarkParam) {
         ApsAdapterLog.d(TAG, "processImages");
         synchronized (this.mCaptureQueueLock) {
             if (this.mCaptureFrameQueue.isEmpty()) {
                 return -1;
             }
-            CaptureFrame captureFramePoll = this.mCaptureFrameQueue.poll();
-            int i = 0;
-            while (true) {
-                if (i < strArr.length) {
-                    if (captureFramePoll != null && strArr[i].equals(ApsParameters.KEY_PROCESS_IMAGE_IDENTITY)) {
-                        captureFramePoll.mTimeStamp = Long.decode(strArr[i + 1]).longValue();
+
+            CaptureFrame nextFrame = this.mCaptureFrameQueue.poll();
+            if (nextFrame != null && keys != null) {
+                for (int i = 0; i < keys.length; i += 2) {
+                    if (ApsParameters.KEY_PROCESS_IMAGE_IDENTITY.equals(keys[i])) {
+                        nextFrame.mTimeStamp = Long.decode(keys[i + 1]).longValue();
                         break;
                     }
-                    i += 2;
-                } else {
-                    break;
                 }
             }
-            this.mProcessHandler.sendMessageDelayed(this.mProcessHandler.obtainMessage(0, captureFramePoll), 20L);
+
+            if (this.mProcessHandler != null) {
+                this.mProcessHandler.sendMessageDelayed(
+                        this.mProcessHandler.obtainMessage(MSG_APS_CAPTURE, nextFrame), CAPTURE_PROC_DELAY_MS);
+            }
             return 0;
         }
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
+    @Override
     public APSClient.APSRuntimeInfo getRuntimeInfo() {
         return new APSClient.APSRuntimeInfo();
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public ApsAdapterDecision.DecisionResult previewDecision(ApsPreviewDecisionParam apsPreviewDecisionParam) {
+    @Override
+    public ApsAdapterDecision.DecisionResult previewDecision(ApsPreviewDecisionParam decisionParam) {
         ApsAdapterDecision.DecisionResult decisionResult = new ApsAdapterDecision.DecisionResult();
-        decisionResult.mCameraId = apsPreviewDecisionParam.getCameraId();
-        decisionResult.mCaptureMode = apsPreviewDecisionParam.getCaptureMode();
+        decisionResult.mCameraId = decisionParam.getCameraId();
+        decisionResult.mCaptureMode = decisionParam.getCaptureMode();
         decisionResult.mRequestFormat = 256;
-        decisionResult.mCameraId = apsPreviewDecisionParam.getCameraId();
         return decisionResult;
     }
 
-    @Override // com.oplus.ocs.camera.consumer.apsAdapter.algorithm.ApsInterface
-    public int addPreviewFrameBuff(ApsPreviewParam apsPreviewParam, ApsWatermarkParam apsWatermarkParam) {
-        int[] role = apsPreviewParam.getRole();
-        ApsResult.ImageBuffer[] imageBufferArray = apsPreviewParam.getImageBufferArray();
+    @Override
+    public int addPreviewFrameBuff(ApsPreviewParam previewParam, ApsWatermarkParam watermarkParam) {
+        int[] roles = previewParam.getRole();
+        ApsResult.ImageBuffer[] imgBuffers = previewParam.getImageBufferArray();
+
         PreviewFrame previewFrame = new PreviewFrame();
         previewFrame.mApsListener = this.mApsListener;
-        previewFrame.mTimeStamp = apsPreviewParam.getTimeStamp();
-        previewFrame.mMetadata = apsPreviewParam.getMetaObj();
-        previewFrame.mCaptureMode = apsPreviewParam.getCaptureMode();
-        String str = (String) apsPreviewParam.getMetaObj().get(CaptureResult.LOGICAL_MULTI_CAMERA_ACTIVE_PHYSICAL_ID);
-        if (!TextUtils.isEmpty(str)) {
-            previewFrame.mCameraId = Integer.parseInt(str) == 1 ? 1 : 0;
+        previewFrame.mTimeStamp = previewParam.getTimeStamp();
+        previewFrame.mMetadata = previewParam.getMetaObj();
+        previewFrame.mCaptureMode = previewParam.getCaptureMode();
+
+        String activeCamId = (String) previewParam.getMetaObj()
+                .get(CaptureResult.LOGICAL_MULTI_CAMERA_ACTIVE_PHYSICAL_ID);
+        if (!TextUtils.isEmpty(activeCamId)) {
+            previewFrame.mCameraId = activeCamId.equals("1") ? 1 : 0;
         } else {
             ApsAdapterLog.w(TAG, "addPreviewFrameBuff, camera id is null");
         }
-        for (int i = 0; i < imageBufferArray.length; i++) {
-            int i2 = role[i];
-            if (i2 == 0 || 1 == i2) {
-                previewFrame.mImage = imageBufferArray[i].getImage();
+
+        for (int i = 0; i < imgBuffers.length; i++) {
+            int role = roles[i];
+            if (role == 0 || role == 1) {
+                previewFrame.mImage = imgBuffers[i].getImage();
             } else {
-                imageBufferArray[i].close();
+                imgBuffers[i].close();
             }
         }
-        String[] processParamters = apsPreviewParam.getProcessParamters();
-        int i3 = 0;
-        while (true) {
-            if (i3 >= processParamters.length) {
-                break;
+
+        String[] procParams = previewParam.getProcessParamters();
+        if (procParams != null) {
+            for (int i = 0; i < procParams.length; i += 2) {
+                if (ApsParameters.KEY_PIPELINE.equals(procParams[i])) {
+                    previewFrame.mPipeline = procParams[i + 1];
+                    break;
+                }
             }
-            if (processParamters[i3].equals(ApsParameters.KEY_PIPELINE)) {
-                previewFrame.mPipeline = processParamters[i3 + 1];
-                break;
-            }
-            i3 += 2;
         }
-        this.mProcessHandler.sendMessage(this.mProcessHandler.obtainMessage(1, previewFrame));
+
+        if (this.mProcessHandler != null) {
+            this.mProcessHandler.sendMessage(this.mProcessHandler.obtainMessage(MSG_APS_PREVIEW, previewFrame));
+        }
         return 0;
     }
 
-    public static class ProcessHandler extends Handler {
+    private static class ProcessHandler extends Handler {
         public ProcessHandler(Looper looper) {
             super(looper);
         }
 
-        @Override // android.os.Handler
+        @Override
         public void handleMessage(Message message) {
-            int i = message.what;
-            if (i == 0) {
-                CaptureFrame captureFrame = (CaptureFrame) message.obj;
-                ApsResult apsResult = new ApsResult();
-                apsResult.mIdentity = captureFrame.mTimeStamp;
-                apsResult.mWidth = captureFrame.mWidth;
-                apsResult.mHeight = captureFrame.mHeight;
-                apsResult.mCopyBuffer = captureFrame.mData;
-                apsResult.mBufferType = 256;
-                captureFrame.mApsListener.onCaptureReceived(apsResult);
-                return;
+            switch (message.what) {
+                case MSG_APS_CAPTURE:
+                    handleCaptureMessage((CaptureFrame) message.obj);
+                    break;
+                case MSG_APS_PREVIEW:
+                    handlePreviewMessage((PreviewFrame) message.obj);
+                    break;
             }
-            if (i != 1) {
-                return;
+        }
+
+        private void handleCaptureMessage(CaptureFrame frame) {
+            ApsResult result = new ApsResult();
+            result.mIdentity = frame.mTimeStamp;
+            result.mWidth = frame.mWidth;
+            result.mHeight = frame.mHeight;
+            result.mCopyBuffer = frame.mData;
+            result.mBufferType = 256;
+
+            if (frame.mApsListener != null) {
+                frame.mApsListener.onCaptureReceived(result);
             }
-            PreviewFrame previewFrame = (PreviewFrame) message.obj;
-            ApsResult apsResult2 = new ApsResult(previewFrame.mImage);
-            apsResult2.mIdentity = previewFrame.mTimeStamp;
-            apsResult2.mMetadata = (TotalCaptureResult) previewFrame.mMetadata;
-            apsResult2.mPipelineName = previewFrame.mPipeline;
-            apsResult2.mDecisionResult = new ApsAdapterDecision.DecisionResult();
-            apsResult2.mDecisionResult.mCameraId = previewFrame.mCameraId;
-            apsResult2.mDecisionResult.mCaptureMode = previewFrame.mCaptureMode;
-            apsResult2.mWidth = previewFrame.mImage.getWidth();
-            apsResult2.mHeight = previewFrame.mImage.getHeight();
-            previewFrame.mApsListener.onPreviewReceived(apsResult2);
+        }
+
+        private void handlePreviewMessage(PreviewFrame frame) {
+            ApsResult result = new ApsResult(frame.mImage);
+            result.mIdentity = frame.mTimeStamp;
+
+            if (frame.mMetadata instanceof android.hardware.camera2.TotalCaptureResult) {
+                result.mMetadata = (android.hardware.camera2.TotalCaptureResult) frame.mMetadata;
+            } else {
+                ApsAdapterLog.w(TAG, "handlePreviewMessage, metadata is not TotalCaptureResult");
+            }
+
+            result.mPipelineName = frame.mPipeline;
+            result.mDecisionResult = new ApsAdapterDecision.DecisionResult();
+            result.mDecisionResult.mCameraId = frame.mCameraId;
+            result.mDecisionResult.mCaptureMode = frame.mCaptureMode;
+
+            if (frame.mImage != null) {
+                result.mWidth = frame.mImage.getWidth();
+                result.mHeight = frame.mImage.getHeight();
+            }
+
+            if (frame.mApsListener != null) {
+                frame.mApsListener.onPreviewReceived(result);
+            }
         }
     }
 }

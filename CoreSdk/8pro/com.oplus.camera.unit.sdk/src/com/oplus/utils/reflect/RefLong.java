@@ -8,50 +8,30 @@ public class RefLong extends BaseField<Long> {
     private static final long DEFAULT_VALUE = ((Long) DEFAULT_TYPES.get(Long.class)).longValue();
     private static final String TAG = "RefLong";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefLong(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public long get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefLong(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public long get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public long getWithDefault(Object obj, long j) {
+    public long getWithDefault(Object object, long defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return j;
+            return defaultValue;
         }
     }
 
-    public long getWithException(Object obj) throws Exception {
-        return this.mField.getLong(checkStub(obj));
+    public long getWithException(Object object) throws Exception {
+        return this.mField.getLong(checkStub(object));
     }
 
-    public void set(Object obj, long j) {
+    public void set(Object object, long value) {
         try {
-            this.mField.setLong(checkStub(obj), j);
+            this.mField.setLong(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

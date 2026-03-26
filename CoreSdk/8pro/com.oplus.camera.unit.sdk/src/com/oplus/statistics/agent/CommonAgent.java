@@ -4,7 +4,6 @@ import android.content.Context;
 import com.oplus.statistics.data.CommonBean;
 import com.oplus.statistics.record.ProxyRecorder;
 
-/* JADX INFO: loaded from: classes.dex */
 public class CommonAgent extends BaseAgent {
     public static void recordCommon(Context context, CommonBean commonBean) {
         ProxyRecorder.getInstance().addTrackEvent(context, commonBean);

@@ -1,7 +1,9 @@
 package com.oplus.statistics;
 
-/* JADX INFO: loaded from: classes.dex */
-public class DataTypeConstants {
+public final class DataTypeConstants {
+    private DataTypeConstants() {
+    }
+
     public static final int APP_LOG = 1002;
     public static final int APP_START = 1000;
     public static final int COMMON = 1006;

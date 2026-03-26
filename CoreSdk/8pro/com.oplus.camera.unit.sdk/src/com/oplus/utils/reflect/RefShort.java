@@ -8,50 +8,30 @@ public class RefShort extends BaseField<Short> {
     private static final short DEFAULT_VALUE = ((Short) DEFAULT_TYPES.get(Short.class)).shortValue();
     private static final String TAG = "RefShort";
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ void bindStub(Object obj) {
-        super.bindStub(obj);
+    public RefShort(Class<?> targetClass, Field field) {
+        super(targetClass, field, TAG);
     }
 
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ Class getDeclaringClass() {
-        return super.getDeclaringClass();
+    public short get(Object object) {
+        return getWithDefault(object, DEFAULT_VALUE);
     }
 
-    @Override // com.oplus.utils.reflect.BaseRef, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ String getName() {
-        return super.getName();
-    }
-
-    @Override // com.oplus.utils.reflect.BaseField, com.oplus.utils.reflect.IBaseRef
-    public /* bridge */ /* synthetic */ boolean isEmpty() {
-        return super.isEmpty();
-    }
-
-    public RefShort(Class<?> cls, Field field) {
-        super(cls, field, TAG);
-    }
-
-    public short get(Object obj) {
-        return getWithDefault(obj, DEFAULT_VALUE);
-    }
-
-    public short getWithDefault(Object obj, short s) {
+    public short getWithDefault(Object object, short defaultValue) {
         try {
-            return getWithException(obj);
+            return getWithException(object);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
-            return s;
+            return defaultValue;
         }
     }
 
-    public short getWithException(Object obj) throws Exception {
-        return this.mField.getShort(checkStub(obj));
+    public short getWithException(Object object) throws Exception {
+        return this.mField.getShort(checkStub(object));
     }
 
-    public void set(Object obj, short s) {
+    public void set(Object object, short value) {
         try {
-            this.mField.setShort(checkStub(obj), s);
+            this.mField.setShort(checkStub(object), value);
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

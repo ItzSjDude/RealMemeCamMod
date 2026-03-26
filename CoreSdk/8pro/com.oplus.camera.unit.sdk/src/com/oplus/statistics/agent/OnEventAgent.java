@@ -13,204 +13,211 @@ import com.oplus.statistics.util.TimeInfoUtil;
 import java.util.Map;
 import org.json.JSONObject;
 
-/* JADX INFO: loaded from: classes.dex */
 public class OnEventAgent {
     private static final String TAG = "OnEventAgent";
 
-    public static void onEvent(Context context, String str, String str2, int i, long j) {
-        recordEvent(context, str, str2, i, TimeInfoUtil.getFormatTime(), j);
+    public static void onEvent(Context context, String eventID, String eventTag, int eventCount, long duration) {
+        recordEvent(context, eventID, eventTag, eventCount, TimeInfoUtil.getFormatTime(), duration);
     }
 
-    public static void onEventStart(Context context, String str, String str2) {
-        PreferenceHandler.setEventStart(context, str, str2, TimeInfoUtil.getCurrentTime());
+    public static void onEventStart(Context context, String eventID, String eventTag) {
+        PreferenceHandler.setEventStart(context, eventID, eventTag, TimeInfoUtil.getCurrentTime());
     }
 
-    public static void onEventEnd(Context context, String str, String str2) {
-        recordEventEnd(context, str, str2, TimeInfoUtil.getCurrentTime());
+    public static void onEventEnd(Context context, String eventID, String eventTag) {
+        recordEventEnd(context, eventID, eventTag, TimeInfoUtil.getCurrentTime());
     }
 
-    public static void onKVEvent(Context context, String str, Map<String, String> map, long j) {
-        recordKVEvent(context, str, map, TimeInfoUtil.getFormatTime(), j);
+    public static void onKVEvent(Context context, String eventID, Map<String, String> logMap, long duration) {
+        recordKVEvent(context, eventID, logMap, TimeInfoUtil.getFormatTime(), duration);
     }
 
-    public static void onDynamicEvent(Context context, int i, int i2, Map<String, String> map,
-            Map<String, String> map2) {
-        recordDynamicEvent(context, i, i2, TimeInfoUtil.getFormatTime(), map, map2);
+    public static void onDynamicEvent(Context context, int uploadMode, int statId, Map<String, String> eventMap,
+            Map<String, String> logMap) {
+        recordDynamicEvent(context, uploadMode, statId, TimeInfoUtil.getFormatTime(), eventMap, logMap);
     }
 
-    public static void onStaticEvent(Context context, int i, int i2, String str, String str2, String str3,
-            Map<String, String> map) {
-        recordStaticLog(context, i, i2, TimeInfoUtil.getFormatTime(), str, str2, str3, map);
+    public static void onStaticEvent(Context context, int uploadMode, int statId, String setId, String setValue,
+            String remark, Map<String, String> logMap) {
+        recordStaticLog(context, uploadMode, statId, TimeInfoUtil.getFormatTime(), setId, setValue, remark, logMap);
     }
 
-    public static void onKVEventStart(Context context, String str, Map<String, String> map, String str2) {
+    public static void onKVEventStart(Context context, String eventID, Map<String, String> logMap, String eventTag) {
         long currentTime = TimeInfoUtil.getCurrentTime();
-        PreferenceHandler.setKVEventStart(str,
-                getKVEventObject(str, map, TimeInfoUtil.getFormatTime(currentTime), currentTime).toString(), str2);
+        PreferenceHandler.setKVEventStart(eventID,
+                getKVEventObject(eventID, logMap, TimeInfoUtil.getFormatTime(currentTime), currentTime).toString(),
+                eventTag);
     }
 
-    public static void onKVEventEnd(Context context, String str, String str2) {
-        recordKVEventEnd(context, str, str2, TimeInfoUtil.getCurrentTime());
+    public static void onKVEventEnd(Context context, String eventID, String eventTag) {
+        recordKVEventEnd(context, eventID, eventTag, TimeInfoUtil.getCurrentTime());
     }
 
-    public static void recordEvent(Context context, String str, String str2, int i, String str3, long j) {
-        recordAppLog(context, "event", getEventObject(str, str2, i, str3, j));
+    public static void recordEvent(Context context, String eventID, String eventTag, int eventCount, String eventTime,
+            long duration) {
+        recordAppLog(context, "event", getEventObject(eventID, eventTag, eventCount, eventTime, duration));
     }
 
-    public static void recordEventEnd(Context context, String str, String str2, long j) {
+    public static void recordEventEnd(Context context, String eventID, String eventTag, long endTime) {
         try {
-            long eventStart = PreferenceHandler.getEventStart(context, str, str2);
+            long eventStart = PreferenceHandler.getEventStart(context, eventID, eventTag);
             String formatTime = TimeInfoUtil.getFormatTime(eventStart);
-            long j2 = j - eventStart;
-            if (j2 <= TimeInfoUtil.MILLISECOND_OF_A_WEEK && j2 >= 0) {
-                recordAppLog(context, "event", getEventObject(str, str2, 1, formatTime, j2));
-                PreferenceHandler.setEventStart(context, str, str2, 0L);
+            long duration = endTime - eventStart;
+            if (duration <= TimeInfoUtil.MILLISECOND_OF_A_WEEK && duration >= 0) {
+                recordAppLog(context, "event", getEventObject(eventID, eventTag, 1, formatTime, duration));
+                PreferenceHandler.setEventStart(context, eventID, eventTag, 0L);
                 return;
             }
-            PreferenceHandler.setEventStart(context, str, str2, 0L);
+            PreferenceHandler.setEventStart(context, eventID, eventTag, 0L);
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
     }
 
-    public static void recordKVEvent(Context context, String str, Map<String, String> map, String str2, long j) {
-        recordAppLog(context, "ekv", getKVEventObject(str, map, str2, j));
+    public static void recordKVEvent(Context context, String eventID, Map<String, String> logMap, String eventTime,
+            long duration) {
+        recordAppLog(context, "ekv", getKVEventObject(eventID, logMap, eventTime, duration));
     }
 
-    public static void recordKVEventEnd(Context context, String str, String str2, long j) {
+    public static void recordKVEventEnd(Context context, String eventID, String eventTag, long endTime) {
         try {
-            String kVEventStart = PreferenceHandler.getKVEventStart(context, str, str2);
+            String kVEventStart = PreferenceHandler.getKVEventStart(context, eventID, eventTag);
             if (TextUtils.isEmpty(kVEventStart)) {
                 return;
             }
-            JSONObject jSONObject = new JSONObject(kVEventStart);
-            long j2 = j - jSONObject.getLong(StatisticConstant.KEY_DURATION);
-            if (j2 > TimeInfoUtil.MILLISECOND_OF_A_WEEK || j2 < 0) {
-                PreferenceHandler.setKVEventStart(str, "", str2);
+            JSONObject eventJson = new JSONObject(kVEventStart);
+            long duration = endTime - eventJson.getLong(StatisticConstant.KEY_DURATION);
+            if (duration > TimeInfoUtil.MILLISECOND_OF_A_WEEK || duration < 0) {
+                PreferenceHandler.setKVEventStart(eventID, "", eventTag);
                 return;
             }
-            jSONObject.put(StatisticConstant.KEY_DURATION, j2);
-            recordAppLog(context, "ekv", jSONObject);
-            PreferenceHandler.setKVEventStart(str, "", str2);
+            eventJson.put(StatisticConstant.KEY_DURATION, duration);
+            recordAppLog(context, "ekv", eventJson);
+            PreferenceHandler.setKVEventStart(eventID, "", eventTag);
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
     }
 
-    private static void recordAppLog(Context context, String str, JSONObject jSONObject) {
-        ProxyRecorder.getInstance().addTrackEvent(context, new AppLogBean(context, str, jSONObject.toString()));
+    private static void recordAppLog(Context context, String logTag, JSONObject eventJson) {
+        ProxyRecorder.getInstance().addTrackEvent(context, new AppLogBean(context, logTag, eventJson.toString()));
     }
 
-    public static void recordDynamicEvent(Context context, int i, int i2, String str, Map<String, String> map,
-            Map<String, String> map2) {
-        recordDynamicEventLog(context, i, getDynamicEventObject(i2, str, map, map2));
+    public static void recordDynamicEvent(Context context, int uploadMode, int statId, String clientTime,
+            Map<String, String> eventMap, Map<String, String> logMap) {
+        recordDynamicEventLog(context, uploadMode, getDynamicEventObject(statId, clientTime, eventMap, logMap));
     }
 
-    public static void recordStaticLog(Context context, int i, int i2, String str, String str2, String str3,
-            String str4, Map<String, String> map) {
-        recordStaticLog(context, i, getStaticLogObject(i2, str, str2, str3, str4, map));
+    public static void recordStaticLog(Context context, int uploadMode, int statId, String clientTime, String setId,
+            String setValue, String remark, Map<String, String> logMap) {
+        recordStaticEventLog(context, uploadMode,
+                getStaticLogObject(statId, clientTime, setId, setValue, remark, logMap));
     }
 
-    private static void recordDynamicEventLog(Context context, int i, JSONObject jSONObject) {
-        ProxyRecorder.getInstance().addTrackEvent(context, new DynamicEventBean(context, i, jSONObject.toString()));
+    private static void recordDynamicEventLog(Context context, int uploadMode, JSONObject eventJson) {
+        ProxyRecorder.getInstance().addTrackEvent(context,
+                new DynamicEventBean(context, uploadMode, eventJson.toString()));
     }
 
-    private static void recordStaticLog(Context context, int i, JSONObject jSONObject) {
-        ProxyRecorder.getInstance().addTrackEvent(context, new StaticEventBean(context, i, jSONObject.toString()));
+    private static void recordStaticEventLog(Context context, int uploadMode, JSONObject eventJson) {
+        ProxyRecorder.getInstance().addTrackEvent(context,
+                new StaticEventBean(context, uploadMode, eventJson.toString()));
     }
 
-    public static JSONObject getEventObject(String str, String str2, int i, String str3, long j) {
-        JSONObject jSONObject = new JSONObject();
+    public static JSONObject getEventObject(String eventID, String eventTag, int eventCount, String eventTime,
+            long duration) {
+        JSONObject eventJson = new JSONObject();
         try {
-            jSONObject.put("eventID", str);
-            jSONObject.put("eventCount", i);
-            jSONObject.put("eventTime", str3);
-            if (!TextUtils.isEmpty(str2)) {
-                jSONObject.put("eventTag", str2);
+            eventJson.put("eventID", eventID);
+            eventJson.put("eventCount", eventCount);
+            eventJson.put("eventTime", eventTime);
+            if (!TextUtils.isEmpty(eventTag)) {
+                eventJson.put("eventTag", eventTag);
             }
-            if (j != 0) {
-                jSONObject.put(StatisticConstant.KEY_DURATION, j);
+            if (duration != 0) {
+                eventJson.put(StatisticConstant.KEY_DURATION, duration);
             }
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
-        return jSONObject;
+        return eventJson;
     }
 
-    public static JSONObject getKVEventObject(String str, Map<String, String> map, String str2, long j) {
-        JSONObject jSONObject = new JSONObject();
+    public static JSONObject getKVEventObject(String eventID, Map<String, String> logMap, String eventTime,
+            long duration) {
+        JSONObject eventJson = new JSONObject();
         try {
-            jSONObject.put("eventID", str);
-            jSONObject.put("eventTime", str2);
-            if (j > 0) {
-                jSONObject.put(StatisticConstant.KEY_DURATION, j);
+            eventJson.put("eventID", eventID);
+            eventJson.put("eventTime", eventTime);
+            if (duration > 0) {
+                eventJson.put(StatisticConstant.KEY_DURATION, duration);
             }
-            if (map != null && map.size() > 0) {
-                for (String str3 : map.keySet()) {
-                    jSONObject.put(str3, map.get(str3));
+            if (logMap != null && logMap.size() > 0) {
+                for (String key : logMap.keySet()) {
+                    eventJson.put(key, logMap.get(key));
                 }
             }
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
-        return jSONObject;
+        return eventJson;
     }
 
-    public static JSONObject getDynamicEventObject(int i, String str, Map<String, String> map,
-            Map<String, String> map2) {
-        JSONObject jSONObject = new JSONObject();
+    public static JSONObject getDynamicEventObject(int statId, String clientTime, Map<String, String> eventMap,
+            Map<String, String> logMap) {
+        JSONObject eventJson = new JSONObject();
         try {
-            jSONObject.put("statID", i);
-            jSONObject.put("clientTime", str);
-            getDynamicInfo(jSONObject, map);
-            getKVEventInfo(jSONObject, map2);
+            eventJson.put("statID", statId);
+            eventJson.put("clientTime", clientTime);
+            getDynamicInfo(eventJson, eventMap);
+            getKVEventInfo(eventJson, logMap);
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
-        return jSONObject;
+        return eventJson;
     }
 
-    public static JSONObject getStaticLogObject(int i, String str, String str2, String str3, String str4,
-            Map<String, String> map) {
-        JSONObject jSONObject = new JSONObject();
+    public static JSONObject getStaticLogObject(int statId, String clientTime, String setId, String setValue,
+            String remark, Map<String, String> logMap) {
+        JSONObject eventJson = new JSONObject();
         try {
-            jSONObject.put("statID", i);
-            jSONObject.put("clientTime", str);
-            jSONObject.put("setID", str2);
-            jSONObject.put("setValue", str3);
-            if (!TextUtils.isEmpty(str4)) {
-                jSONObject.put("remark", str4);
+            eventJson.put("statID", statId);
+            eventJson.put("clientTime", clientTime);
+            eventJson.put("setID", setId);
+            eventJson.put("setValue", setValue);
+            if (!TextUtils.isEmpty(remark)) {
+                eventJson.put("remark", remark);
             }
-            getKVEventInfo(jSONObject, map);
+            getKVEventInfo(eventJson, logMap);
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
-        return jSONObject;
+        return eventJson;
     }
 
-    private static void getKVEventInfo(JSONObject jSONObject, Map<String, String> map) {
-        if (map == null || map.size() == 0) {
+    private static void getKVEventInfo(JSONObject eventJson, Map<String, String> logMap) {
+        if (logMap == null || logMap.size() == 0) {
             return;
         }
-        JSONObject jSONObject2 = new JSONObject();
+        JSONObject innerJson = new JSONObject();
         try {
-            for (String str : map.keySet()) {
-                jSONObject2.put(str, map.get(str));
+            for (String key : logMap.keySet()) {
+                innerJson.put(key, logMap.get(key));
             }
-            String strReplaceAll = jSONObject2.toString().replaceAll("\"", "");
-            jSONObject.put("eventInfo", strReplaceAll.substring(1, strReplaceAll.length() - 1));
+            String infoStr = innerJson.toString().replaceAll("\"", "");
+            eventJson.put("eventInfo", infoStr.substring(1, infoStr.length() - 1));
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());
         }
     }
 
-    private static void getDynamicInfo(JSONObject jSONObject, Map<String, String> map) {
-        if (map == null || map.size() == 0) {
+    private static void getDynamicInfo(JSONObject eventJson, Map<String, String> eventMap) {
+        if (eventMap == null || eventMap.size() == 0) {
             return;
         }
         try {
-            for (String str : map.keySet()) {
-                jSONObject.put(str, map.get(str));
+            for (String key : eventMap.keySet()) {
+                eventJson.put(key, eventMap.get(key));
             }
         } catch (Exception e) {
             LogUtil.e(TAG, () -> e.toString());

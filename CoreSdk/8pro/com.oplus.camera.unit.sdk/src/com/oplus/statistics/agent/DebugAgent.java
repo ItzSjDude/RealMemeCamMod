@@ -4,9 +4,8 @@ import android.content.Context;
 import com.oplus.statistics.data.DebugBean;
 import com.oplus.statistics.record.ProxyRecorder;
 
-/* JADX INFO: loaded from: classes.dex */
 public class DebugAgent {
-    public static void setDebug(Context context, boolean z) {
-        ProxyRecorder.getInstance().addTrackEvent(context, new DebugBean(context, z));
+    public static void setDebug(Context context, boolean isDebug) {
+        ProxyRecorder.getInstance().addTrackEvent(context, new DebugBean(context, isDebug));
     }
 }

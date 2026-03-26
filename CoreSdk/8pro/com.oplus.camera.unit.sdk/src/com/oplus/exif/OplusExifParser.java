@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 /* JADX INFO: loaded from: classes.dex */
@@ -48,7 +50,7 @@ class OplusExifParser {
     private OplusExifTag mTag;
     private int mTiffStartPosition;
     private final OplusCountedDataInputStream mTiffStream;
-    private static final Charset US_ASCII = Charset.forName("US-ASCII");
+    private static final Charset US_ASCII = StandardCharsets.US_ASCII;
     private static final short TAG_EXIF_IFD = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_EXIF_IFD);
     private static final short TAG_GPS_IFD = OplusExifInterface.getTrueTagKey(OplusExifInterface.TAG_GPS_IFD);
     private static final short TAG_INTEROPERABILITY_IFD = OplusExifInterface
@@ -66,43 +68,51 @@ class OplusExifParser {
     private int mOffsetToApp1EndFromSOF = 0;
     private final TreeMap<Integer, Object> mCorrespondingEvent = new TreeMap<>();
 
-    private boolean isIfdRequested(int i) {
-        return i != 0
-                ? i != 1 ? i != 2 ? i != 3 ? i == 4 && (this.mOptions & 8) != 0 : (this.mOptions & 16) != 0
-                        : (this.mOptions & 4) != 0 : (this.mOptions & 2) != 0
-                : (this.mOptions & 1) != 0;
+    private boolean isIfdRequested(int ifdType) {
+        switch (ifdType) {
+            case 0:
+                return (this.mOptions & 1) != 0;
+            case 1:
+                return (this.mOptions & 2) != 0;
+            case 2:
+                return (this.mOptions & 4) != 0;
+            case 3:
+                return (this.mOptions & 16) != 0;
+            case 4:
+                return (this.mOptions & 8) != 0;
+            default:
+                return false;
+        }
     }
 
     private boolean isThumbnailRequested() {
         return (this.mOptions & 32) != 0;
     }
 
-    private OplusExifParser(InputStream inputStream, int i, OplusExifInterface oplusExifInterface)
+    private OplusExifParser(InputStream inputStream, int options, OplusExifInterface oplusExifInterface)
             throws OplusExifInvalidFormatException, IOException {
         this.mContainExifData = false;
-        if (inputStream == null) {
-            throw new IOException("Null argument inputStream to ExifParser");
-        }
+        Objects.requireNonNull(inputStream, "InputStream cannot be null");
         this.mInterface = oplusExifInterface;
         this.mContainExifData = seekTiffData(inputStream);
         OplusCountedDataInputStream oplusCountedDataInputStream = new OplusCountedDataInputStream(inputStream);
         this.mTiffStream = oplusCountedDataInputStream;
-        this.mOptions = i;
+        this.mOptions = options;
         if (this.mContainExifData) {
             parseTiffHeader();
             long unsignedInt = oplusCountedDataInputStream.readUnsignedInt();
             if (unsignedInt > 2147483647L) {
                 throw new OplusExifInvalidFormatException("Invalid offset " + unsignedInt);
             }
-            int i2 = (int) unsignedInt;
-            this.mIfd0Position = i2;
+            int ifd0Position = (int) unsignedInt;
+            this.mIfd0Position = ifd0Position;
             this.mIfdType = 0;
             if (isIfdRequested(0) || needToParseOffsetsInCurrentIfd()) {
                 registerIfd(0, unsignedInt);
                 if (unsignedInt != 8) {
-                    byte[] bArr = new byte[i2 - 8];
-                    this.mDataAboveIfd0 = bArr;
-                    read(bArr);
+                    byte[] dataAboveIfd0 = new byte[ifd0Position - 8];
+                    this.mDataAboveIfd0 = dataAboveIfd0;
+                    read(dataAboveIfd0);
                 }
             }
         }
@@ -123,8 +133,8 @@ class OplusExifParser {
             return 5;
         }
         int readByteCount = this.mTiffStream.getReadByteCount();
-        int i = this.mIfdStartOffset + 2 + (this.mNumOfTagInIfd * 12);
-        if (readByteCount < i) {
+        int ifdEndOffset = this.mIfdStartOffset + 2 + (this.mNumOfTagInIfd * 12);
+        if (readByteCount < ifdEndOffset) {
             OplusExifTag tag = readTag();
             this.mTag = tag;
             if (tag == null) {
@@ -135,19 +145,19 @@ class OplusExifParser {
             }
             return 1;
         }
-        if (readByteCount == i) {
+        if (readByteCount == ifdEndOffset) {
             if (this.mIfdType == 0) {
                 long unsignedLong = readUnsignedLong();
                 if ((isIfdRequested(1) || isThumbnailRequested()) && unsignedLong != 0) {
                     registerIfd(1, unsignedLong);
                 }
             } else {
-                int iIntValue = this.mCorrespondingEvent.size() > 0
+                int linkSize = this.mCorrespondingEvent.size() > 0
                         ? this.mCorrespondingEvent.firstEntry().getKey().intValue()
                                 - this.mTiffStream.getReadByteCount()
                         : 4;
-                if (iIntValue < 4) {
-                    Log.w(TAG, "Invalid size of link to next IFD: " + iIntValue);
+                if (linkSize < 4) {
+                    Log.w(TAG, "Invalid size of link to next IFD: " + linkSize);
                 } else {
                     long unsignedLong2 = readUnsignedLong();
                     if (unsignedLong2 != 0) {
@@ -165,9 +175,9 @@ class OplusExifParser {
                     IfdEvent ifdEvent = (IfdEvent) value;
                     this.mIfdType = ifdEvent.ifd;
                     this.mNumOfTagInIfd = this.mTiffStream.readUnsignedShort();
-                    int iIntValue2 = entryPollFirstEntry.getKey().intValue();
-                    this.mIfdStartOffset = iIntValue2;
-                    if ((this.mNumOfTagInIfd * 12) + iIntValue2 + 2 > this.mApp1End) {
+                    int ifdOffset = entryPollFirstEntry.getKey().intValue();
+                    this.mIfdStartOffset = ifdOffset;
+                    if ((this.mNumOfTagInIfd * 12) + ifdOffset + 2 > this.mApp1End) {
                         Log.w(TAG, "Invalid size of IFD " + this.mIfdType);
                         return 5;
                     }
@@ -202,13 +212,13 @@ class OplusExifParser {
     }
 
     protected void skipRemainingTagsInCurrentIfd() throws OplusExifInvalidFormatException, IOException {
-        int i = this.mIfdStartOffset + 2 + (this.mNumOfTagInIfd * 12);
+        int ifdEndOffset = this.mIfdStartOffset + 2 + (this.mNumOfTagInIfd * 12);
         int readByteCount = this.mTiffStream.getReadByteCount();
-        if (readByteCount > i) {
+        if (readByteCount > ifdEndOffset) {
             return;
         }
         if (this.mNeedToParseOffsetsInCurrentIfd) {
-            while (readByteCount < i) {
+            while (readByteCount < ifdEndOffset) {
                 OplusExifTag tag = readTag();
                 this.mTag = tag;
                 readByteCount += 12;
@@ -217,7 +227,7 @@ class OplusExifParser {
                 }
             }
         } else {
-            skipTo(i);
+            skipTo(ifdEndOffset);
         }
         long unsignedLong = readUnsignedLong();
         if (this.mIfdType == 0) {
@@ -284,10 +294,10 @@ class OplusExifParser {
         }
     }
 
-    protected void registerForTagValue(OplusExifTag oplusExifTag) {
-        if (oplusExifTag.getOffset() >= this.mTiffStream.getReadByteCount()) {
-            this.mCorrespondingEvent.put(Integer.valueOf(oplusExifTag.getOffset()),
-                    new ExifTagEvent(oplusExifTag, true));
+    protected void registerForTagValue(OplusExifTag tag) {
+        if (tag.getOffset() >= this.mTiffStream.getReadByteCount()) {
+            this.mCorrespondingEvent.put(Integer.valueOf(tag.getOffset()),
+                    new ExifTagEvent(tag, true));
         }
     }
 
@@ -304,36 +314,37 @@ class OplusExifParser {
     }
 
     private OplusExifTag readTag() throws OplusExifInvalidFormatException, IOException {
-        short s = this.mTiffStream.readShort();
-        short s2 = this.mTiffStream.readShort();
-        long unsignedInt = this.mTiffStream.readUnsignedInt();
-        if (unsignedInt > 2147483647L) {
+        short tagId = this.mTiffStream.readShort();
+        short dataType = this.mTiffStream.readShort();
+        long componentCountLong = this.mTiffStream.readUnsignedInt();
+        if (componentCountLong > 2147483647L) {
             throw new OplusExifInvalidFormatException("Number of component is larger then Integer.MAX_VALUE");
         }
-        if (!OplusExifTag.isValidType(s2)) {
-            Log.w(TAG, String.format("Tag %04x: Invalid data type %d", Short.valueOf(s), Short.valueOf(s2)));
+        if (!OplusExifTag.isValidType(dataType)) {
+            Log.w(TAG, String.format("Tag %04x: Invalid data type %d", Short.valueOf(tagId), Short.valueOf(dataType)));
             this.mTiffStream.skip(4L);
             return null;
         }
-        int i = (int) unsignedInt;
-        OplusExifTag oplusExifTag = new OplusExifTag(s, s2, i, this.mIfdType, i != 0);
+        int componentCount = (int) componentCountLong;
+        OplusExifTag oplusExifTag = new OplusExifTag(tagId, dataType, componentCount, this.mIfdType,
+                componentCount != 0);
         if (oplusExifTag.getDataSize() > 4) {
-            long unsignedInt2 = this.mTiffStream.readUnsignedInt();
-            if (unsignedInt2 > 2147483647L) {
+            long valueOffsetLong = this.mTiffStream.readUnsignedInt();
+            if (valueOffsetLong > 2147483647L) {
                 throw new OplusExifInvalidFormatException("offset is larger then Integer.MAX_VALUE");
             }
-            if (unsignedInt2 < this.mIfd0Position && s2 == 7) {
-                byte[] bArr = new byte[i];
-                System.arraycopy(this.mDataAboveIfd0, ((int) unsignedInt2) - 8, bArr, 0, i);
-                oplusExifTag.setValue(bArr);
+            if (valueOffsetLong < this.mIfd0Position && dataType == 7) {
+                byte[] val = new byte[componentCount];
+                System.arraycopy(this.mDataAboveIfd0, ((int) valueOffsetLong) - 8, val, 0, componentCount);
+                oplusExifTag.setValue(val);
             } else {
-                oplusExifTag.setOffset((int) unsignedInt2);
+                oplusExifTag.setOffset((int) valueOffsetLong);
             }
         } else {
-            boolean zHasDefinedCount = oplusExifTag.hasDefinedCount();
+            boolean originalHasDefinedCount = oplusExifTag.hasDefinedCount();
             oplusExifTag.setHasDefinedCount(false);
             readFullTagValue(oplusExifTag);
-            oplusExifTag.setHasDefinedCount(zHasDefinedCount);
+            oplusExifTag.setHasDefinedCount(originalHasDefinedCount);
             this.mTiffStream.skip(4 - oplusExifTag.getDataSize());
             oplusExifTag.setOffset(this.mTiffStream.getReadByteCount() - 4);
         }
@@ -385,8 +396,8 @@ class OplusExifParser {
         if (tagId == TAG_STRIP_OFFSETS && checkAllowed(ifd, OplusExifInterface.TAG_STRIP_OFFSETS)) {
             if (isThumbnailRequested()) {
                 if (oplusExifTag.hasValue()) {
-                    for (int i = 0; i < oplusExifTag.getComponentCount(); i++) {
-                        registerUncompressedStrip(i, oplusExifTag.getValueAt(i));
+                    for (int index = 0; index < oplusExifTag.getComponentCount(); index++) {
+                        registerUncompressedStrip(index, oplusExifTag.getValueAt(index));
                     }
                     return;
                 }
@@ -412,11 +423,11 @@ class OplusExifParser {
 
     protected void readFullTagValue(OplusExifTag oplusExifTag) throws IOException {
         try {
-            short dataType = oplusExifTag.getDataType();
-            if (dataType == 2 || dataType == 7 || dataType == 1) {
-                int componentCount = oplusExifTag.getComponentCount();
+            short tagDataType = oplusExifTag.getDataType();
+            if (tagDataType == 2 || tagDataType == 7 || tagDataType == 1) {
+                int tagComponentCount = oplusExifTag.getComponentCount();
                 if (this.mCorrespondingEvent.size() > 0 && this.mCorrespondingEvent.firstEntry().getKey()
-                        .intValue() < this.mTiffStream.getReadByteCount() + componentCount) {
+                        .intValue() < this.mTiffStream.getReadByteCount() + tagComponentCount) {
                     Object value = this.mCorrespondingEvent.firstEntry().getValue();
                     if (value instanceof ImageEvent) {
                         Log.w(TAG, "Thumbnail overlaps value for tag: \n" + oplusExifTag.toString());
@@ -429,69 +440,69 @@ class OplusExifParser {
                             Log.w(TAG, "Tag value for tag: \n" + ((ExifTagEvent) value).tag.toString()
                                     + " overlaps value for tag: \n" + oplusExifTag.toString());
                         }
-                        int iIntValue = this.mCorrespondingEvent.firstEntry().getKey().intValue()
+                        int remainingSize = this.mCorrespondingEvent.firstEntry().getKey().intValue()
                                 - this.mTiffStream.getReadByteCount();
                         Log.w(TAG, "Invalid size of tag: \n" + oplusExifTag.toString() + " setting count to: "
-                                + iIntValue);
-                        oplusExifTag.forceSetComponentCount(iIntValue);
+                                + remainingSize);
+                        oplusExifTag.forceSetComponentCount(remainingSize);
                     }
                 }
             }
-            int i = 0;
+            int index = 0;
             switch (oplusExifTag.getDataType()) {
                 case 1:
                 case 7:
-                    byte[] bArr = new byte[oplusExifTag.getComponentCount()];
-                    read(bArr);
-                    oplusExifTag.setValue(bArr);
+                    byte[] rawData = new byte[oplusExifTag.getComponentCount()];
+                    read(rawData);
+                    oplusExifTag.setValue(rawData);
                     break;
                 case 2:
                     oplusExifTag.setValue(readString(oplusExifTag.getComponentCount()));
                     break;
                 case 3:
                     int componentCount2 = oplusExifTag.getComponentCount();
-                    int[] iArr = new int[componentCount2];
-                    while (i < componentCount2) {
-                        iArr[i] = readUnsignedShort();
-                        i++;
+                    int[] unsignedShorts = new int[componentCount2];
+                    while (index < componentCount2) {
+                        unsignedShorts[index] = readUnsignedShort();
+                        index++;
                     }
-                    oplusExifTag.setValue(iArr);
+                    oplusExifTag.setValue(unsignedShorts);
                     break;
                 case 4:
                     int componentCount3 = oplusExifTag.getComponentCount();
-                    long[] jArr = new long[componentCount3];
-                    while (i < componentCount3) {
-                        jArr[i] = readUnsignedLong();
-                        i++;
+                    long[] unsignedLongs = new long[componentCount3];
+                    while (index < componentCount3) {
+                        unsignedLongs[index] = readUnsignedLong();
+                        index++;
                     }
-                    oplusExifTag.setValue(jArr);
+                    oplusExifTag.setValue(unsignedLongs);
                     break;
                 case 5:
                     int componentCount4 = oplusExifTag.getComponentCount();
-                    OplusRational[] oplusRationalArr = new OplusRational[componentCount4];
-                    while (i < componentCount4) {
-                        oplusRationalArr[i] = readUnsignedRational();
-                        i++;
+                    OplusRational[] unsignedRationals = new OplusRational[componentCount4];
+                    while (index < componentCount4) {
+                        unsignedRationals[index] = readUnsignedRational();
+                        index++;
                     }
-                    oplusExifTag.setValue(oplusRationalArr);
+                    oplusExifTag.setValue(unsignedRationals);
                     break;
                 case 9:
                     int componentCount5 = oplusExifTag.getComponentCount();
-                    int[] iArr2 = new int[componentCount5];
-                    while (i < componentCount5) {
-                        iArr2[i] = readLong();
-                        i++;
+                    int[] signedLongs = new int[componentCount5];
+                    while (index < componentCount5) {
+                        signedLongs[index] = readLong();
+                        index++;
                     }
-                    oplusExifTag.setValue(iArr2);
+                    oplusExifTag.setValue(signedLongs);
                     break;
                 case 10:
                     int componentCount6 = oplusExifTag.getComponentCount();
-                    OplusRational[] oplusRationalArr2 = new OplusRational[componentCount6];
-                    while (i < componentCount6) {
-                        oplusRationalArr2[i] = readRational();
-                        i++;
+                    OplusRational[] signedRationals = new OplusRational[componentCount6];
+                    while (index < componentCount6) {
+                        signedRationals[index] = readRational();
+                        index++;
                     }
-                    oplusExifTag.setValue(oplusRationalArr2);
+                    oplusExifTag.setValue(signedRationals);
                     break;
             }
         } catch (Throwable th) {
@@ -514,28 +525,28 @@ class OplusExifParser {
     }
 
     private boolean seekTiffData(InputStream inputStream) throws OplusExifInvalidFormatException, IOException {
-        OplusCountedDataInputStream oplusCountedDataInputStream = new OplusCountedDataInputStream(inputStream);
-        if (oplusCountedDataInputStream.readShort() != -40) {
+        OplusCountedDataInputStream segmentStream = new OplusCountedDataInputStream(inputStream);
+        if (segmentStream.readShort() != -40) {
             throw new OplusExifInvalidFormatException("Invalid JPEG format");
         }
-        for (short s = oplusCountedDataInputStream.readShort(); s != -39
-                && !OplusJpegHeader.isSofMarker(s); s = oplusCountedDataInputStream.readShort()) {
-            int unsignedShort = oplusCountedDataInputStream.readUnsignedShort();
-            if (s == -31 && unsignedShort >= 8) {
-                int i = oplusCountedDataInputStream.readInt();
-                short s2 = oplusCountedDataInputStream.readShort();
-                unsignedShort -= 6;
-                if (i == EXIF_HEADER && s2 == 0) {
-                    int readByteCount = oplusCountedDataInputStream.getReadByteCount();
-                    this.mTiffStartPosition = readByteCount;
-                    this.mApp1End = unsignedShort;
-                    this.mOffsetToApp1EndFromSOF = readByteCount + unsignedShort;
+        for (short marker = segmentStream.readShort(); marker != -39
+                && !OplusJpegHeader.isSofMarker(marker); marker = segmentStream.readShort()) {
+            int segmentLength = segmentStream.readUnsignedShort();
+            if (marker == -31 && segmentLength >= 8) {
+                int header = segmentStream.readInt();
+                short tail = segmentStream.readShort();
+                segmentLength -= 6;
+                if (header == EXIF_HEADER && tail == 0) {
+                    int tiffStartPosition = segmentStream.getReadByteCount();
+                    this.mTiffStartPosition = tiffStartPosition;
+                    this.mApp1End = segmentLength;
+                    this.mOffsetToApp1EndFromSOF = tiffStartPosition + segmentLength;
                     return true;
                 }
             }
-            if (unsignedShort >= 2) {
-                long j = unsignedShort - 2;
-                if (j == oplusCountedDataInputStream.skip(j)) {
+            if (segmentLength >= 2) {
+                long skipLength = segmentLength - 2;
+                if (skipLength == segmentStream.skip(skipLength)) {
                 }
             }
             Log.w(TAG, "Invalid JPEG format.");
@@ -551,20 +562,20 @@ class OplusExifParser {
         return this.mTiffStartPosition;
     }
 
-    protected int read(byte[] bArr, int i, int i2) throws IOException {
-        return this.mTiffStream.read(bArr, i, i2);
+    protected int read(byte[] buffer, int offset, int length) throws IOException {
+        return this.mTiffStream.read(buffer, offset, length);
     }
 
-    protected int read(byte[] bArr) throws IOException {
-        return this.mTiffStream.read(bArr);
+    protected int read(byte[] buffer) throws IOException {
+        return this.mTiffStream.read(buffer);
     }
 
-    protected String readString(int i) throws IOException {
-        return readString(i, US_ASCII);
+    protected String readString(int length) throws IOException {
+        return readString(length, US_ASCII);
     }
 
-    protected String readString(int i, Charset charset) throws IOException {
-        return i > 0 ? this.mTiffStream.readString(i, charset) : "";
+    protected String readString(int length, Charset charset) throws IOException {
+        return length > 0 ? this.mTiffStream.readString(length, charset) : "";
     }
 
     protected int readUnsignedShort() throws IOException {
@@ -576,7 +587,9 @@ class OplusExifParser {
     }
 
     protected OplusRational readUnsignedRational() throws IOException {
-        return new OplusRational(readUnsignedLong(), readUnsignedLong());
+        long numerator = readUnsignedLong();
+        long denominator = readUnsignedLong();
+        return new OplusRational(numerator, denominator);
     }
 
     protected int readLong() throws IOException {
@@ -584,21 +597,23 @@ class OplusExifParser {
     }
 
     protected OplusRational readRational() throws IOException {
-        return new OplusRational(readLong(), readLong());
+        long numerator = (long) readLong();
+        long denominator = (long) readLong();
+        return new OplusRational(numerator, denominator);
     }
 
     private static class ImageEvent {
         int stripIndex;
         int type;
 
-        ImageEvent(int i) {
+        ImageEvent(int type) {
             this.stripIndex = 0;
-            this.type = i;
+            this.type = type;
         }
 
-        ImageEvent(int i, int i2) {
-            this.type = i;
-            this.stripIndex = i2;
+        ImageEvent(int type, int stripIndex) {
+            this.type = type;
+            this.stripIndex = stripIndex;
         }
     }
 
@@ -606,9 +621,9 @@ class OplusExifParser {
         int ifd;
         boolean isRequested;
 
-        IfdEvent(int i, boolean z) {
-            this.ifd = i;
-            this.isRequested = z;
+        IfdEvent(int ifd, boolean isRequested) {
+            this.ifd = ifd;
+            this.isRequested = isRequested;
         }
     }
 
@@ -616,9 +631,9 @@ class OplusExifParser {
         boolean isRequested;
         OplusExifTag tag;
 
-        ExifTagEvent(OplusExifTag oplusExifTag, boolean z) {
-            this.tag = oplusExifTag;
-            this.isRequested = z;
+        ExifTagEvent(OplusExifTag tag, boolean isRequested) {
+            this.tag = tag;
+            this.isRequested = isRequested;
         }
     }
 

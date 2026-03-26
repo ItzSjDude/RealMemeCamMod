@@ -15,11 +15,11 @@ import com.oplus.ocs.camera.common.util.SensorManagerInterface;
 import com.oplus.ocs.camera.consumer.apsAdapter.adapter.ApsAdapterDecision;
 import com.oplus.ocs.camera.producer.device.CameraSessionEntity;
 
-/* JADX INFO: loaded from: classes.dex */
 public interface ModeInterface extends SurfaceControlInterface, SensorManagerInterface {
     CameraSessionEntity configure(@NonNull SdkCameraDeviceConfig sdkCameraDeviceConfig, String str);
 
-    CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2, PreviewParameter.Builder builder);
+    CameraRequestTag createRequestTag(String str, Object obj, Handler handler, String str2,
+            PreviewParameter.Builder builder);
 
     int delayCloseForCapturTime();
 
@@ -27,7 +27,8 @@ public interface ModeInterface extends SurfaceControlInterface, SensorManagerInt
 
     void initialize();
 
-    int isAllowedToTakePicture(CameraPictureCallbackAdapter cameraPictureCallbackAdapter, Handler handler, CameraRequestTag cameraRequestTag);
+    int isAllowedToTakePicture(CameraPictureCallbackAdapter cameraPictureCallbackAdapter, Handler handler,
+            CameraRequestTag cameraRequestTag);
 
     boolean isNeedAPSProcess();
 
@@ -37,7 +38,8 @@ public interface ModeInterface extends SurfaceControlInterface, SensorManagerInt
 
     boolean isVideoSnapShotByAps(String str);
 
-    boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag, ApsAdapterDecision.DecisionResult decisionResult);
+    boolean needMatchPreviewTimestamp(int i, String str, CameraRequestTag cameraRequestTag,
+            ApsAdapterDecision.DecisionResult decisionResult);
 
     boolean needStartPreview(CameraPreviewCallbackAdapter.PreviewResult previewResult);
 
@@ -45,7 +47,9 @@ public interface ModeInterface extends SurfaceControlInterface, SensorManagerInt
 
     void unInit();
 
-    void updateStageParameter(@NonNull Parameter parameter, String str, String str2, @Nullable CameraRequestTag cameraRequestTag);
+    void updateStageParameter(@NonNull Parameter parameter, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag);
 
-    void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2, @Nullable CameraRequestTag cameraRequestTag);
+    void updateStageParameterBuilder(@NonNull PreviewParameter.Builder builder, String str, String str2,
+            @Nullable CameraRequestTag cameraRequestTag);
 }

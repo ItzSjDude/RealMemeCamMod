@@ -4,7 +4,6 @@ import android.content.Context;
 import com.oplus.statistics.data.ExceptionBean;
 import com.oplus.statistics.record.ProxyRecorder;
 
-/* JADX INFO: loaded from: classes.dex */
 public class ExceptionAgent {
     public static void recordException(Context context, ExceptionBean exceptionBean) {
         ProxyRecorder.getInstance().addTrackEvent(context, exceptionBean);
