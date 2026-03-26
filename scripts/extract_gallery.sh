@@ -36,9 +36,12 @@ fi
 # 2. Identify partitions in the archive
 echo "📦 Analyzing archive content..."
 FILES_LIST=$(unzip -l firmware.zip)
+echo "📜 Full file list for debug:"
+echo "$FILES_LIST"
 
-# Targeted partitions
-TARGETED_IMAGES="(my_product|my_stock|system|system_ext|odm|product|vendor|my_engineering|my_region)"
+# Targeted partitions - added word boundaries or specific patterns
+# We want to match my_product.img but NOT vbmeta_my_product.img
+TARGET_LIST="my_product my_stock system system_ext odm product vendor my_engineering my_region"
 
 # 3. Process images one by one to save space
 echo "📂 Processing partitions one-by-one..."
@@ -47,43 +50,41 @@ FOUND=false
 FOUND_META=false
 touch ../extracted_metadata.env
 
-# Get list of .img files that match our target
-IMG_FILES=$(echo "$FILES_LIST" | grep -iE "\.img$" | awk '{print $NF}' | grep -iE "$TARGETED_IMAGES")
-
-for img_path in $IMG_FILES; do
-    IMG_NAME=$(basename "$img_path")
-    echo "🧐 Processing: $IMG_NAME"
+# New discovery logic: check each target word specifically
+for target in $TARGET_LIST; do
+    echo "🔍 Looking for $target image..."
+    # Find path that contains the target word followed by .img, but not preceded by vbmeta
+    # This specifically looks for lines ending with the target.img
+    IMG_PATH=$(echo "$FILES_LIST" | grep -iE "/${target}\.img$| ${target}\.img$" | awk '{print $NF}' | head -n 1)
     
-    # Check for space (debug)
-    df -h .
-    
-    # 3.1 Unsparse directly from ZIP if possible, else extract and unsparse
-    # Note: simg2img doesn't always support stdin, so we use a temporary file but delete it ASAP
-    unzip -j firmware.zip "$img_path" -d .
-    
-    if [ -f "$IMG_NAME" ]; then
-        # 3.2 Unsparse
-        if simg2img "$IMG_NAME" "${IMG_NAME}.raw" > /dev/null 2>&1; then
-            echo "✨ Image is sparse. Unsparsed successfully."
-            RAW_IMG="${IMG_NAME}.raw"
-            rm -f "$IMG_NAME" # Delete sparse version IMMEDIATELY
-        else
-            echo "ℹ️ Image is already raw/non-sparse."
-            RAW_IMG="$IMG_NAME"
-        fi
-
-        mkdir -p current_out
-        # 3.3 Extract content
-        if fsck.erofs --extract="./current_out" "$RAW_IMG" > /dev/null 2>&1; then
-            echo "✅ Extracted as EROFS."
-        elif 7z x "$RAW_IMG" -o"./current_out" -y > /dev/null 2>&1; then
-            echo "✅ Extracted as EXT4/Raw (using 7z)."
-        else
-            echo "⚠️ Failed to extract $IMG_NAME, skipping..."
-        fi
+    if [ -n "$IMG_PATH" ]; then
+        IMG_NAME=$(basename "$IMG_PATH")
+        echo "🎯 Found $target image at: $IMG_PATH"
         
-        # Delete RAW_IMG IMMEDIATELY after extraction to save space for search
-        rm -f "$RAW_IMG"
+        # 3.1 Extract only this image from ZIP
+        unzip -j firmware.zip "$IMG_PATH" -d .
+        
+        if [ -f "$IMG_NAME" ]; then
+            # 3.2 Unsparse
+            if simg2img "$IMG_NAME" "${IMG_NAME}.raw" > /dev/null 2>&1; then
+                echo "✨ Image is sparse. Unsparsed successfully."
+                RAW_IMG="${IMG_NAME}.raw"
+                rm -f "$IMG_NAME"
+            else
+                RAW_IMG="$IMG_NAME"
+            fi
+
+            mkdir -p current_out
+            # 3.3 Extract content
+            if fsck.erofs --extract="./current_out" "$RAW_IMG" > /dev/null 2>&1; then
+                echo "✅ Extracted as EROFS."
+            elif 7z x "$RAW_IMG" -o"./current_out" -y > /dev/null 2>&1; then
+                echo "✅ Extracted as EXT4/Raw (using 7z)."
+            else
+                echo "⚠️ Failed to extract $IMG_NAME, skipping..."
+            fi
+            
+            rm -f "$RAW_IMG"
 
         # 3.4 Search for APK
         if [ "$FOUND" != true ]; then
