@@ -15,10 +15,23 @@ echo "🚀 Starting Gallery extraction from: $URL"
 mkdir -p $TEMP_DIR
 cd $TEMP_DIR
 
-# 1. Download Firmware (limit to first few GBs if possible or just download)
-# Using aria2 for faster download
+# 1. Download Firmware
 echo "📥 Downloading firmware..."
-aria2c -s 16 -x 16 "$URL" -o firmware.zip
+
+if [[ "$URL" == *"drive.google.com"* ]]; then
+    echo "🤖 Google Drive link detected. Using gdown..."
+    # gdown handles the confirmation tokens for large files
+    gdown --fuzzy "$URL" -O firmware.zip
+else
+    echo "🌍 Direct/Cloud link detected. Using aria2c..."
+    aria2c -s 16 -x 16 "$URL" -o firmware.zip
+fi
+
+# Check if download succeeded
+if [ ! -f "firmware.zip" ]; then
+    echo "❌ Download failed!"
+    exit 1
+fi
 
 # 2. Extract payload.bin
 echo "📦 Extracting payload.bin..."

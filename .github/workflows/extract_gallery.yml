@@ -4,8 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       firmware_url:
-        description: 'Direct URL to Oplus/Realme/OnePlus Firmware (ZIP/OZIP)'
+        description: 'Direct URL / GDrive URL to Oplus/Realme/OnePlus Firmware'
         required: true
+        type: string
+      commit_message:
+        description: 'Custom Commit Message'
+        required: false
+        default: 'feat(apps): update OplusPhotos.apk from remote firmware'
         type: string
 
 jobs:
@@ -18,7 +23,8 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y aria2 erofs-utils unzip
+          sudo apt-get install -y aria2 erofs-utils unzip python3-pip
+          pip3 install gdown
           # Install payload-dumper-go
           wget https://github.com/ssut/payload-dumper-go/releases/download/v1.2.2/payload-dumper-go_1.2.2_linux_amd64.tar.gz
           tar -xvf payload-dumper-go_1.2.2_linux_amd64.tar.gz
@@ -34,5 +40,5 @@ jobs:
           git config --global user.name "Github Action"
           git config --global user.email "action@github.com"
           git add apps/OplusPhotos/OplusPhotos.apk
-          git commit -m "feat(apps): update OplusPhotos.apk from remote firmware" || echo "No changes to commit"
+          git commit -m "${{ github.event.inputs.commit_message }}" || echo "No changes to commit"
           git push origin 7pro
