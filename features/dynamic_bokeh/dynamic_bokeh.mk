@@ -2,6 +2,7 @@
 ifeq ($(ENABLE_DynamicBokeh),true)
 
 PRODUCT_COPY_FILES += \
+    vendor/realmeme_cam_mod/features/dynamic_bokeh/system/odm/etc/camera/dualcal_golden.bin:$(TARGET_COPY_OUT_ODM)/etc/camera/dualcal_golden.bin \
     vendor/realmeme_cam_mod/features/dynamic_bokeh/system/odm/etc/camera/anc/videolut_background.png:$(TARGET_COPY_OUT_ODM)/etc/camera/anc/videolut_background.png \
     vendor/realmeme_cam_mod/features/dynamic_bokeh/system/odm/etc/camera/anc/video_retention_model_post:$(TARGET_COPY_OUT_ODM)/etc/camera/anc/video_retention_model_post \
     vendor/realmeme_cam_mod/features/dynamic_bokeh/system/odm/etc/camera/anc/videolut_portrait.png:$(TARGET_COPY_OUT_ODM)/etc/camera/anc/videolut_portrait.png \
