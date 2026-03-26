@@ -33,19 +33,30 @@ if [ ! -f "firmware.zip" ]; then
     exit 1
 fi
 
-# 2. Extract payload.bin
-echo "📦 Searching for payload.bin in the archive..."
-PAYLOAD_PATH=$(unzip -l firmware.zip | grep "payload.bin" | awk '{print $NF}' | head -n 1)
+# 2. Extract payload.bin or discrete images
+echo "📦 Searching for partitions in the archive..."
+FILES_LIST=$(unzip -l firmware.zip)
 
-if [ -z "$PAYLOAD_PATH" ]; then
-    echo "❌ payload.bin NOT found anywhere in firmware.zip!"
-    # Handle .ozip or other formats potentially? 
-    # For now, just exit.
-    exit 1
+PAYLOAD_PATH=$(echo "$FILES_LIST" | grep "payload.bin" | awk '{print $NF}' | head -n 1)
+
+if [ -n "$PAYLOAD_PATH" ]; then
+    echo "✨ Found payload.bin at: $PAYLOAD_PATH. Extracting..."
+    unzip -j firmware.zip "$PAYLOAD_PATH"
+else
+    echo "⚠️ payload.bin NOT found. Listing all files for debug:"
+    echo "$FILES_LIST"
+    
+    echo "🔍 Checking for direct partition images (.img)..."
+    # Check if system.img or my_product.img exist
+    if echo "$FILES_LIST" | grep -qE "my_product.img|system_ext.img|system.img"; then
+        echo "✅ Direct images found! Extracting them..."
+        mkdir -p extracted/dummy_dir # Match payload-dumper-go structure
+        unzip -j firmware.zip "*my_product.img" "*system_ext.img" "*system.img" -d extracted/dummy_dir/
+    else
+        echo "❌ No recognizable partitions found in firmware.zip!"
+        exit 1
+    fi
 fi
-
-echo "✨ Found payload.bin at: $PAYLOAD_PATH. Extracting..."
-unzip -j firmware.zip "$PAYLOAD_PATH"
 
 # 3. Dump relevant partitions
 echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
