@@ -75,9 +75,11 @@ FOUND=false
 FOUND_META=false
 touch ../extracted_metadata.env
 
+TARGETED_IMAGES="(my_product|my_stock|system|system_ext|odm|product|vendor)"
 for img in extracted/dummy_dir/*.img extracted/*/*.img; do
-    if [ -f "$img" ]; then
-        echo "🧐 Processing $img..."
+    IMG_NAME=$(basename "$img")
+    if [ -f "$img" ] && echo "$IMG_NAME" | grep -iqE "$TARGETED_IMAGES"; then
+        echo "🧐 Processing targeted image: $img..."
         
         # Check if the image is sparse and convert to raw if needed
         # simg2img will fail if it's already raw/eroffs, so we check first
