@@ -57,6 +57,8 @@ if [ -n "$SUPER_PATH" ]; then
         lpunpack super.raw extracted_partitions/
         rm super.raw
         # Add extracted partitions to search list
+        echo "📜 Partitions extracted from super.img:"
+        ls extracted_partitions/
         mv extracted_partitions/*.img .
         rm -rf extracted_partitions
     fi
@@ -72,17 +74,20 @@ touch ../extracted_metadata.env
 # New discovery logic: check each target word specifically
 for target in $TARGET_LIST; do
     echo "🔍 Looking for $target image..."
-    # Check if it was in the ZIP OR if we just extracted it from super.img
-    IMG_PATH=$(echo "$FILES_LIST" | grep -iE "/${target}\.img$| ${target}\.img$" | awk '{print $NF}' | head -n 1)
     
-    # If not in ZIP, it might be in current dir (from super.img)
-    if [ ! -f "$target.img" ] && [ -n "$IMG_PATH" ]; then
-        echo "🎯 Extracting $target from ZIP..."
-        unzip -j firmware.zip "$IMG_PATH" -d .
+    # Identify local image (handles _a or _b suffixes from lpunpack)
+    # This matches target.img, target_a.img, target_b.img etc.
+    LOCAL_IMG=$(ls | grep -iE "^${target}(_[ab])?\.img$" | head -n 1)
+    
+    # If not found locally, try to find in ZIP
+    if [ -z "$LOCAL_IMG" ]; then
+        IMG_PATH=$(echo "$FILES_LIST" | grep -iE "/${target}(_[ab])?\.img$| ${target}(_[ab])?\.img$" | awk '{print $NF}' | head -n 1)
+        if [ -n "$IMG_PATH" ]; then
+            echo "🎯 Extracting $target from ZIP ($IMG_PATH)..."
+            unzip -j firmware.zip "$IMG_PATH" -d .
+            LOCAL_IMG=$(basename "$IMG_PATH")
+        fi
     fi
-    
-    # Local file exists? (either from ZIP or super.img)
-    LOCAL_IMG=$(ls | grep -iE "^${target}\.img$" | head -n 1)
 
     if [ -f "$LOCAL_IMG" ]; then
         echo "🎯 Processing $target image: $LOCAL_IMG"
