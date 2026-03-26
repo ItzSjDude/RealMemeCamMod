@@ -54,16 +54,21 @@ for img_path in $IMG_FILES; do
     IMG_NAME=$(basename "$img_path")
     echo "🧐 Processing: $IMG_NAME"
     
-    # 3.1 Extract only this image from ZIP
+    # Check for space (debug)
+    df -h .
+    
+    # 3.1 Unsparse directly from ZIP if possible, else extract and unsparse
+    # Note: simg2img doesn't always support stdin, so we use a temporary file but delete it ASAP
     unzip -j firmware.zip "$img_path" -d .
     
     if [ -f "$IMG_NAME" ]; then
-        # 3.2 Unsparse if needed
+        # 3.2 Unsparse
         if simg2img "$IMG_NAME" "${IMG_NAME}.raw" > /dev/null 2>&1; then
             echo "✨ Image is sparse. Unsparsed successfully."
             RAW_IMG="${IMG_NAME}.raw"
-            rm "$IMG_NAME" # Delete sparse version
+            rm -f "$IMG_NAME" # Delete sparse version IMMEDIATELY
         else
+            echo "ℹ️ Image is already raw/non-sparse."
             RAW_IMG="$IMG_NAME"
         fi
 
@@ -76,6 +81,9 @@ for img_path in $IMG_FILES; do
         else
             echo "⚠️ Failed to extract $IMG_NAME, skipping..."
         fi
+        
+        # Delete RAW_IMG IMMEDIATELY after extraction to save space for search
+        rm -f "$RAW_IMG"
 
         # 3.4 Search for APK
         if [ "$FOUND" != true ]; then
