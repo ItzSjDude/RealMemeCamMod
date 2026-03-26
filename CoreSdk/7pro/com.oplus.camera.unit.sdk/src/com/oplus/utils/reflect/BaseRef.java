@@ -5,13 +5,14 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+
 /* loaded from: classes.dex */
 abstract class BaseRef<T> implements IBaseRef {
     static final HashMap<Class<?>, Object> DEFAULT_TYPES = new HashMap<>();
     private final String mName;
     private final Type mType;
     private Object mStub = null;
-    private final T mDefaultValue = initDefaultValue();
+    private final T mDefaultValue;
 
     static {
         DEFAULT_TYPES.put(Integer.class, 0);
@@ -24,10 +25,10 @@ abstract class BaseRef<T> implements IBaseRef {
         DEFAULT_TYPES.put(Character.class, (char) 0);
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     public BaseRef(Field field) {
         this.mName = field.getName();
         this.mType = getGenericType(field);
+        this.mDefaultValue = initDefaultValue();
     }
 
     @Override // com.oplus.utils.reflect.IBaseRef
@@ -47,7 +48,9 @@ abstract class BaseRef<T> implements IBaseRef {
             return obj;
         }
         Class<?> declaringClass = getDeclaringClass();
-        return (declaringClass == null || !(declaringClass == (cls = obj.getClass()) || declaringClass.isAssignableFrom(cls))) ? this.mStub : obj;
+        return (declaringClass == null
+                || !(declaringClass == (cls = obj.getClass()) || declaringClass.isAssignableFrom(cls))) ? this.mStub
+                        : obj;
     }
 
     T initDefaultValue() {

@@ -6,11 +6,20 @@ java_import {
     name: "com.oplus.camera.unit.sdk",
     jars: ["com.oplus.camera.unit.sdk.jar"],
     product_specific: true,
+    installable: true,
 }
 
 java_import {
     name: "com.oplus.camera.unit.sdk.adapter",
     jars: ["com.oplus.camera.unit.sdk.adapter.jar"],
+    product_specific: true,
+    installable: true,
+}
+
+prebuilt_etc {
+    name: "com.oplus.camera.unit.sdk.xml",
+    src: "com.oplus.camera.unit.sdk.xml",
+    sub_dir: "permissions",
     product_specific: true,
 }
 

@@ -123,7 +123,7 @@ public final class CameraConfigure {
         Throwable th;
         IOException e;
         try {
-            fileInputStream = new FileInputStream("/odm/etc/camera/config/camera_unit_feature_config.protobuf");
+            fileInputStream = new FileInputStream(ProtobufConfigureHelper.FEATURE_CONFIG_PATH_VERSION_1);
             try {
                 try {
                     byte[] bArr = new byte[fileInputStream.available()];
@@ -204,10 +204,10 @@ public final class CameraConfigure {
         FileInputStream rusStream = null;
         FileInputStream activeStream = null;
         try {
-            odmStream = new FileInputStream("/odm/etc/camera/config/oplus_camera_feature_config");
+            odmStream = new FileInputStream(ProtobufConfigureHelper.FEATURE_CONFIG_PATH_VERSION_2);
             if (context != null) {
                 String rusPath = context.getFilesDir().getAbsolutePath()
-                        + "/odm/etc/camera/config/oplus_camera_feature_config";
+                        + ProtobufConfigureHelper.FEATURE_CONFIG_PATH_VERSION_2;
                 if (Util.isFileExist(rusPath)) {
                     rusStream = new FileInputStream(rusPath);
                 }

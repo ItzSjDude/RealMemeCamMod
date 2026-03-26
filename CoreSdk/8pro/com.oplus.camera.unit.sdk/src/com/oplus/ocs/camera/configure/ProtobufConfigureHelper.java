@@ -6,11 +6,22 @@ import java.lang.annotation.RetentionPolicy;
 
 /* JADX INFO: loaded from: classes.dex */
 public class ProtobufConfigureHelper {
-    protected static final String FEATURE_CONFIG_PATH_VERSION_1 = "/odm/etc/camera/config/camera_unit_feature_config.protobuf";
-    protected static final String FEATURE_CONFIG_PATH_VERSION_2 = "/odm/etc/camera/config/oplus_camera_feature_config";
+    private static final String[] CONFIG_PARTITIONS = { "/odm", "/my_product", "/vendor", "/product", "/system" };
+    protected static final String FEATURE_CONFIG_PATH_VERSION_1 = findConfigPath("camera_unit_feature_config.protobuf");
+    protected static final String FEATURE_CONFIG_PATH_VERSION_2 = findConfigPath("oplus_camera_feature_config");
     private static final String TAG = "ConfigureHelper";
     private static final boolean sFeatureConfigureFileExist = featureConfigureFileExist();
     private static final int sParseVersion = getParseVersion();
+
+    private static String findConfigPath(String fileName) {
+        for (String partition : CONFIG_PARTITIONS) {
+            String path = partition + "/etc/camera/config/" + fileName;
+            if (Util.isFileExist(path)) {
+                return path;
+            }
+        }
+        return "/odm/etc/camera/config/" + fileName; // Default fallback
+    }
 
     @Retention(RetentionPolicy.SOURCE)
     public @interface FileTag {
@@ -32,10 +43,11 @@ public class ProtobufConfigureHelper {
     }
 
     private static boolean featureConfigureFileExist() {
-        return Util.isFileExist(FEATURE_CONFIG_PATH_VERSION_1) || Util.isFileExist(FEATURE_CONFIG_PATH_VERSION_2);
+        return (FEATURE_CONFIG_PATH_VERSION_1 != null && Util.isFileExist(FEATURE_CONFIG_PATH_VERSION_1))
+                || (FEATURE_CONFIG_PATH_VERSION_2 != null && Util.isFileExist(FEATURE_CONFIG_PATH_VERSION_2));
     }
 
     private static int getParseVersion() {
-        return Util.isFileExist(FEATURE_CONFIG_PATH_VERSION_2) ? 2 : 1;
+        return (FEATURE_CONFIG_PATH_VERSION_2 != null && Util.isFileExist(FEATURE_CONFIG_PATH_VERSION_2)) ? 2 : 1;
     }
 }
