@@ -42,6 +42,17 @@ PAYLOAD_PATH=$(echo "$FILES_LIST" | grep "payload.bin" | awk '{print $NF}' | hea
 if [ -n "$PAYLOAD_PATH" ]; then
     echo "✨ Found payload.bin at: $PAYLOAD_PATH. Extracting..."
     unzip -j firmware.zip "$PAYLOAD_PATH"
+    
+    # Step 3: Dump from payload.bin
+    echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
+    if [ -f "payload.bin" ]; then
+        payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
+        echo "📜 Files extracted by payload-dumper-go:"
+        ls -R extracted/
+    else
+        echo "❌ payload.bin extraction failed!"
+        exit 1
+    fi
 else
     echo "⚠️ payload.bin NOT found. Listing all files for debug:"
     echo "$FILES_LIST"
@@ -56,17 +67,6 @@ else
         echo "❌ No recognizable partitions found in firmware.zip!"
         exit 1
     fi
-fi
-
-# 3. Dump relevant partitions
-echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
-if [ -f "payload.bin" ]; then
-    payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
-    echo "📜 Files extracted by payload-dumper-go:"
-    ls -R extracted/
-else
-    echo "❌ payload.bin extraction failed!"
-    exit 1
 fi
 
 # 4. Extract EROFS/EXT4 images
@@ -93,6 +93,32 @@ for img in extracted/*/my_product.img extracted/*/system_ext.img extracted/*/my_
                 break
             fi
         }
+    fi
+done
+
+# 5. Extract Device/ROM Metadata
+echo "🔍 Extracting device/ROM metadata..."
+touch ../extracted_metadata.env
+for img in extracted/dummy_dir/*.img extracted/*/*.img; do
+    if [ -f "$img" ]; then
+        # Try to find build.prop
+        BPROP_PATH=$(extract.erofs --ls --recursive "$img" | grep "build.prop" | head -n 1 | awk '{print $NF}')
+        if [ -n "$BPROP_PATH" ]; then
+            echo "📄 Extracting build.prop from $img..."
+            mkdir -p meta_out
+            extract.erofs --extract="./meta_out" --file="$BPROP_PATH" "$img"
+            if [ -f "./meta_out/build.prop" ]; then
+                DEVICE=$(grep "ro.product.model=" ./meta_out/build.prop | head -n 1 | cut -d'=' -f2)
+                VERSION=$(grep "ro.build.display.id=" ./meta_out/build.prop | head -n 1 | cut -d'=' -f2)
+                # Fallback if first one is empty
+                [ -z "$DEVICE" ] && DEVICE=$(grep "ro.product.system.model=" ./meta_out/build.prop | head -n 1 | cut -d'=' -f2)
+                
+                echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
+                echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
+                echo "✅ Metadata extracted: $DEVICE | $VERSION"
+                break
+            fi
+        fi
     fi
 done
 

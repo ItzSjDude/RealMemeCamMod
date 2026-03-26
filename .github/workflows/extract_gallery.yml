@@ -40,5 +40,17 @@ jobs:
           git config --global user.name "Github Action"
           git config --global user.email "action@github.com"
           git add apps/OplusPhotos/OplusPhotos.apk
-          git commit -m "${{ github.event.inputs.commit_message }}" || echo "No changes to commit"
+          
+          # Load metadata if exists
+          if [ -f "extracted_metadata.env" ]; then
+            source extracted_metadata.env
+          fi
+          
+          MSG="${{ github.event.inputs.commit_message }}"
+          # If device info found, override message for better clarity
+          if [ -n "$DEVICE" ] && [ "${{ github.event.inputs.commit_message }}" == "feat(apps): update OplusPhotos.apk from remote firmware" ]; then
+            MSG="feat(gallery): update OplusPhotos.apk from $DEVICE (ROM: $VERSION)"
+          fi
+          
+          git commit -m "$MSG" || echo "No changes to commit"
           git push origin 7pro
