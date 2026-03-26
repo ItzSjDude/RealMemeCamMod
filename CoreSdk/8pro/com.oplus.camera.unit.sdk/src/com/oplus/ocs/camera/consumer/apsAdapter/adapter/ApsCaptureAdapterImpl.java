@@ -461,337 +461,392 @@ class ApsCaptureAdapterImpl {
         return this.mApsInterface.addPreviewFrameBuff(apsPreviewParam, null);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:217:0x0653 */
-    /*
-     * JADX WARN: Removed duplicated region for block: B:221:0x0666 A[Catch: all ->
-     * 0x068a, TryCatch #6 {, blocks: (B:218:0x0655, B:219:0x065e, B:221:0x0666,
-     * B:223:0x066f, B:224:0x0672), top: B:245:0x0655 }]
-     */
-    /*
-     * Code decompiled incorrectly, please refer to instructions dump.
-     */
-    protected void addFrameAndProcessImage(long j) {
+    protected void addFrameAndProcessImage(long timestamp) {
         ImageCategory imageCategory;
-        boolean z;
-        boolean z2 = false;
-        boolean z3;
-        List<ImageCategory.ImageItemInfo> list;
-        ImageCategory.ImageItemInfo imageItemInfo;
-        int iMax;
-        boolean z4;
-        int iIntValue;
-        CameraMetadata cameraMetadata;
-        CameraMetadata cameraMetadata2;
-        List<ImageCategory.ImageItemInfo> list2;
-        HashMap map;
-        int i;
-        boolean z5;
-        boolean z6;
-        boolean z7;
-        Map<Integer, List<ImageCategory.TuningItemInfo>> map2;
-        List<ImageCategory.TuningItemInfo> list3;
+        boolean isProcessed;
+        boolean isFrameAdded = false;
+        boolean isNeedProcessImage;
+        List<ImageCategory.ImageItemInfo> imageItemList;
+        ImageCategory.ImageItemInfo imageItem;
+        int maxBurstShotNum;
+        boolean shouldEndBurst;
+        int imageRole;
+        CameraMetadata logicMetadata;
+        CameraMetadata physicalMetadata;
+        List<ImageCategory.ImageItemInfo> tempImageList;
+        HashMap tuningItemStatusMap;
+        int itemIndex;
+        boolean isHdrMixedFrameRaw;
+        boolean isImageProcessed;
+        boolean isImageProcessedReturn;
+        Map<Integer, List<ImageCategory.TuningItemInfo>> tuningItemListsMap;
+        List<ImageCategory.TuningItemInfo> tuningItemList;
         ApsAdapterInterface.ImageProcessListener imageProcessListener;
+
         synchronized (this.mImageQueueLock) {
-            imageCategory = this.mImageProcessMap.get(Long.valueOf(j));
+            imageCategory = this.mImageProcessMap.get(Long.valueOf(timestamp));
         }
-        int i2 = 1;
-        ApsAdapterLog.v(TAG, "addFrameAndProcessImage, timestamp: " + j + ", imageCategory: " + imageCategory, true);
+
+        ApsAdapterLog.v(TAG, "addFrameAndProcessImage, timestamp: " + timestamp + ", imageCategory: " + imageCategory,
+                true);
+
         if (imageCategory == null || !imageCategory.isValid()) {
-            z = false;
+            isProcessed = false;
         } else {
-            List<ImageCategory.ImageItemInfo> list4 = imageCategory.mImageItemList;
+            List<ImageCategory.ImageItemInfo> currentImageList = imageCategory.mImageItemList;
             ImageCategory.MetaItemInfo metaItemInfo = imageCategory.mMetaItem;
-            Map<Integer, List<ImageCategory.TuningItemInfo>> map3 = imageCategory.mTuningItemLists;
-            HashMap map4 = new HashMap();
-            Iterator<Integer> it = map3.keySet().iterator();
-            while (it.hasNext()) {
-                map4.put(it.next(), 0);
+            Map<Integer, List<ImageCategory.TuningItemInfo>> currentTuningItemListsMap = imageCategory.mTuningItemLists;
+            HashMap currentTuningItemStatusMap = new HashMap();
+
+            for (Integer type : currentTuningItemListsMap.keySet()) {
+                currentTuningItemStatusMap.put(type, 0);
             }
+
             synchronized (this.mImageQueueLock) {
-                if (1 < list4.size() && "surface_key_picture_dol".equals(list4.get(0).mImageBuffer.getSurfaceUsage())) {
-                    Collections.swap(list4, 0, 1);
+                if (1 < currentImageList.size()
+                        && "surface_key_picture_dol".equals(currentImageList.get(0).mImageBuffer.getSurfaceUsage())) {
+                    Collections.swap(currentImageList, 0, 1);
                 }
-                int i3 = 0;
-                int i4 = 0;
-                z3 = false;
+
+                itemIndex = 0;
+                int lastImageFormat = 0;
+                isNeedProcessImage = false;
+
                 while (true) {
-                    int i5 = i4;
-                    if (i3 >= list4.size()) {
+                    int prevImageFormat = lastImageFormat;
+
+                    if (itemIndex >= currentImageList.size()) {
                         break;
                     }
-                    ImageCategory.ImageItemInfo imageItemInfo2 = list4.get(i3);
-                    if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
-                            && ((Integer) imageItemInfo2.get(ApsParameters.KEY_REC_BURST_NUMBER)).intValue() == i2
+
+                    ImageCategory.ImageItemInfo currentItem = currentImageList.get(itemIndex);
+
+                    if (((Boolean) currentItem.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                            && ((Integer) currentItem.get(ApsParameters.KEY_REC_BURST_NUMBER)).intValue() == 1
                             && (imageProcessListener = this.mImageProcessListener) != null) {
                         imageProcessListener.onBurstShotStart(
-                                ((Long) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID)).longValue());
+                                ((Long) currentItem.get(ApsParameters.KEY_BURST_SHOT_FLAG_ID)).longValue());
                     }
-                    if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
-                            && !((Boolean) imageItemInfo2.get(ApsParameters.KEY_VALID_BURST_SHOT_IMAGE))
-                                    .booleanValue()) {
-                        countBurstShot(imageItemInfo2, metaItemInfo);
-                        list2 = list4;
-                        map = map4;
-                        i = i3;
-                        i4 = i5;
-                        z6 = false;
+
+                    if (((Boolean) currentItem.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                            && !((Boolean) currentItem.get(ApsParameters.KEY_VALID_BURST_SHOT_IMAGE)).booleanValue()) {
+                        countBurstShot(currentItem, metaItemInfo);
+                        tempImageList = currentImageList;
+                        tuningItemStatusMap = currentTuningItemStatusMap;
+                        lastImageFormat = prevImageFormat;
+                        isImageProcessed = false;
                     } else {
-                        if (((Boolean) imageItemInfo2.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()) {
-                            iIntValue = ((Integer) metaItemInfo.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
+                        if (((Boolean) currentItem.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()) {
+                            imageRole = ((Integer) metaItemInfo.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
                         } else {
-                            iIntValue = ((Integer) imageItemInfo2.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
+                            imageRole = ((Integer) currentItem.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
                         }
-                        long jLongValue = ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue();
-                        ApsResult.ImageBuffer imageBuffer = imageItemInfo2.mImageBuffer;
-                        int format = imageItemInfo2.mImageBuffer.getFormat();
-                        ArrayMap arrayMap = (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP);
-                        CameraMetadata cameraMetadata3 = (arrayMap == null || !arrayMap
+
+                        long frameNumber = ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue();
+                        ApsResult.ImageBuffer imageBuffer = currentItem.mImageBuffer;
+                        int format = currentItem.mImageBuffer.getFormat();
+                        ArrayMap metaMap = (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP);
+
+                        CameraMetadata cameraMetadataLogic = (metaMap == null || !metaMap
                                 .containsKey(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID))))
                                         ? null
-                                        : (CameraMetadata) arrayMap.get(
+                                        : (CameraMetadata) metaMap.get(
                                                 String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)));
-                        CameraMetadata cameraMetadata4 = (arrayMap == null
-                                || !arrayMap.containsKey(Integer.toString(iIntValue))) ? null
-                                        : (CameraMetadata) arrayMap.get(Integer.toString(iIntValue));
-                        int[] iArr = (int[]) metaItemInfo.get(ApsParameters.KEY_INPUT_SIZE);
-                        boolean zBooleanValue = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA))
+
+                        CameraMetadata cameraMetadataRole = (metaMap == null
+                                || !metaMap.containsKey(Integer.toString(imageRole)))
+                                        ? null
+                                        : (CameraMetadata) metaMap.get(Integer.toString(imageRole));
+
+                        int[] inputSize = (int[]) metaItemInfo.get(ApsParameters.KEY_INPUT_SIZE);
+                        boolean isReprocessMeta = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA))
                                 .booleanValue();
-                        int iIntValue2 = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_HOLD_IMAGES)).intValue();
-                        int iIntValue3 = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE))
+                        int maxHoldImages = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_HOLD_IMAGES)).intValue();
+                        int preferAddFrameType = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE))
                                 .intValue();
-                        boolean zBooleanValue2 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT))
+                        boolean isVideoSnapshot = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT))
                                 .booleanValue();
-                        int iIntValue4 = ((Integer) metaItemInfo.get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO))
-                                .intValue();
-                        String str = (String) metaItemInfo.get(ApsParameters.KEY_10BITS_ENABLE);
-                        String str2 = (String) metaItemInfo.get(ApsParameters.KEY_INPUT_EVLIST);
+                        int specificApsProcessAlgo = ((Integer) metaItemInfo
+                                .get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO)).intValue();
+                        String bits10Enable = (String) metaItemInfo.get(ApsParameters.KEY_10BITS_ENABLE);
+                        String inputEvList = (String) metaItemInfo.get(ApsParameters.KEY_INPUT_EVLIST);
+
                         if (metaItemInfo.mImageBuffer != null) {
-                            cameraMetadata = null;
-                            cameraMetadata2 = null;
+                            logicMetadata = null;
+                            physicalMetadata = null;
                         } else {
-                            cameraMetadata = cameraMetadata3;
-                            cameraMetadata2 = cameraMetadata4;
+                            logicMetadata = cameraMetadataLogic;
+                            physicalMetadata = cameraMetadataRole;
                         }
-                        String[] strArr = (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE);
-                        ApsWatermarkParam apsWatermarkParam = (ApsWatermarkParam) metaItemInfo
+
+                        String[] algoTypeArr = (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE);
+                        ApsWatermarkParam watermarkParam = (ApsWatermarkParam) metaItemInfo
                                 .get(ApsParameters.KEY_APS_WATERMARK_PARAM);
-                        ApsParameters apsParameters = new ApsParameters();
-                        list2 = list4;
-                        ApsAdapterInterface.ImageProcessListener imageProcessListener2 = this.mImageProcessListener;
-                        map = map4;
-                        i = i3;
-                        if (imageProcessListener2 != null) {
-                            apsParameters.setAll(imageProcessListener2.fillApsParameters(imageCategory, 1, false));
+                        ApsParameters apsParams = new ApsParameters();
+                        tempImageList = currentImageList;
+                        ApsAdapterInterface.ImageProcessListener listener = this.mImageProcessListener;
+                        tuningItemStatusMap = currentTuningItemStatusMap;
+
+                        if (listener != null) {
+                            apsParams.setAll(listener.fillApsParameters(imageCategory, 1, false));
                         }
+
                         if (((Boolean) metaItemInfo.get(ApsParameters.KEY_REQUEST_MIXED_FORMAT)).booleanValue()
                                 && (37 == format || 32 == format)) {
                             ApsAdapterLog.d(TAG, "addFrameAndProcessImage, is hdr mixed frame raw buffer");
-                            z5 = true;
+                            isHdrMixedFrameRaw = true;
                         } else {
-                            z5 = false;
+                            isHdrMixedFrameRaw = false;
                         }
-                        int iAddFrameBuff = this.mApsInterface.addFrameBuff(
-                                new ApsCaptureParam(jLongValue, imageBuffer, iIntValue, cameraMetadata, cameraMetadata2,
-                                        metaItemInfo.mImageBuffer, iArr, null, zBooleanValue, iIntValue2, iIntValue3,
-                                        zBooleanValue2, false, iIntValue4, str, str2, z5),
-                                apsParameters.getParameters(), strArr, apsWatermarkParam);
-                        ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add yuv frame buff ret: " + iAddFrameBuff
-                                + ", timestamp: " + j + ", role: " + iIntValue);
-                        if (1 == iAddFrameBuff) {
+
+                        int addFrameRet = this.mApsInterface.addFrameBuff(
+                                new ApsCaptureParam(frameNumber, imageBuffer, imageRole, logicMetadata,
+                                        physicalMetadata,
+                                        metaItemInfo.mImageBuffer, inputSize, null, isReprocessMeta, maxHoldImages,
+                                        preferAddFrameType,
+                                        isVideoSnapshot, false, specificApsProcessAlgo, bits10Enable, inputEvList,
+                                        isHdrMixedFrameRaw),
+                                apsParams.getParameters(), algoTypeArr, watermarkParam);
+
+                        ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add yuv frame buff ret: " + addFrameRet
+                                + ", timestamp: " + timestamp + ", role: " + imageRole);
+
+                        if (1 == addFrameRet) {
                             ApsUtils.detachImage(imageBuffer.getImageReader(), imageBuffer.getImage());
-                        } else if (2 == iAddFrameBuff) {
+                        } else if (2 == addFrameRet) {
                             imageBuffer.addRef();
                         }
-                        i4 = format;
-                        z6 = true;
+
+                        lastImageFormat = format;
+                        isImageProcessed = true;
                     }
-                    if (!z6 || (list3 = map3.get(Integer.valueOf(i4))) == null || list3.isEmpty()) {
-                        z7 = z6;
-                        map4 = map;
-                        map2 = map3;
+
+                    if (!isImageProcessed || (tuningItemList = currentTuningItemListsMap
+                            .get(Integer.valueOf(lastImageFormat))) == null || tuningItemList.isEmpty()) {
+                        isImageProcessedReturn = isImageProcessed;
+                        tuningItemListsMap = currentTuningItemListsMap;
                     } else {
-                        HashMap map5 = map;
-                        int iIntValue5 = ((Integer) map5.get(Integer.valueOf(i4))).intValue();
-                        if (iIntValue5 < list3.size()) {
-                            ImageCategory.TuningItemInfo tuningItemInfo = list3.get(iIntValue5);
-                            int iIntValue6 = ((Integer) tuningItemInfo.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
-                            long jLongValue2 = ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER)).longValue();
-                            ApsResult.ImageBuffer imageBuffer2 = tuningItemInfo.mTuningBuffer;
-                            ArrayMap arrayMap2 = (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP);
-                            CameraMetadata cameraMetadata5 = (arrayMap2 == null || !arrayMap2
+                        int tuningItemIndex = ((Integer) tuningItemStatusMap.get(Integer.valueOf(lastImageFormat)))
+                                .intValue();
+
+                        if (tuningItemIndex < tuningItemList.size()) {
+                            ImageCategory.TuningItemInfo tuningItem = tuningItemList.get(tuningItemIndex);
+                            int tuningImageRole = ((Integer) tuningItem.get(ApsParameters.KEY_IMAGE_ROLE)).intValue();
+                            long tuningFrameNumber = ((Long) metaItemInfo.get(ApsParameters.KEY_FRAME_NUMBER))
+                                    .longValue();
+                            ApsResult.ImageBuffer tuningBuffer = tuningItem.mTuningBuffer;
+                            ArrayMap tuningMetaMap = (ArrayMap) metaItemInfo.get(ApsParameters.KEY_META_MAP);
+
+                            CameraMetadata tuningLogicMetadata = (tuningMetaMap == null || !tuningMetaMap
                                     .containsKey(String.valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID))))
                                             ? null
-                                            : (CameraMetadata) arrayMap2.get(String
+                                            : (CameraMetadata) tuningMetaMap.get(String
                                                     .valueOf(metaItemInfo.get(ApsParameters.KEY_LOGIC_CAMERA_ID)));
-                            boolean zBooleanValue3 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA))
-                                    .booleanValue();
-                            int iIntValue7 = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_HOLD_IMAGES)).intValue();
-                            int iIntValue8 = ((Integer) metaItemInfo.get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE))
+
+                            boolean isReprocessMetaTuning = ((Boolean) metaItemInfo
+                                    .get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue();
+                            int maxHoldImagesTuning = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_HOLD_IMAGES))
                                     .intValue();
-                            boolean zBooleanValue4 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_VIDEO_SNAPSHOT))
-                                    .booleanValue();
-                            int iIntValue9 = ((Integer) metaItemInfo.get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO))
-                                    .intValue();
-                            String str3 = (String) metaItemInfo.get(ApsParameters.KEY_10BITS_ENABLE);
-                            String str4 = (String) metaItemInfo.get(ApsParameters.KEY_INPUT_EVLIST);
-                            boolean zBooleanValue5 = ((Boolean) tuningItemInfo
+                            int preferAddFrameTypeTuning = ((Integer) metaItemInfo
+                                    .get(ApsParameters.KEY_PREFER_ADD_FRAME_TYPE)).intValue();
+                            boolean isVideoSnapshotTuning = ((Boolean) metaItemInfo
+                                    .get(ApsParameters.KEY_VIDEO_SNAPSHOT)).booleanValue();
+                            int specificApsProcessAlgoTuning = ((Integer) metaItemInfo
+                                    .get(ApsParameters.KEY_SPECIFIC_APS_PROCESS_ALGO)).intValue();
+                            String bits10EnableTuning = (String) metaItemInfo.get(ApsParameters.KEY_10BITS_ENABLE);
+                            String inputEvListTuning = (String) metaItemInfo.get(ApsParameters.KEY_INPUT_EVLIST);
+                            boolean isRawSyncProcess = ((Boolean) tuningItem
                                     .get(ApsParameters.KEY_RAW_SYNC_PROCESS_FLAG)).booleanValue();
-                            String[] strArr2 = zBooleanValue5
+
+                            String[] cropSizeArr = isRawSyncProcess
                                     ? new String[] { (String) metaItemInfo.get(ApsParameters.KEY_CROP_WIDTH),
                                             (String) metaItemInfo.get(ApsParameters.KEY_CROP_HEIGHT) }
                                     : null;
-                            String[] strArr3 = (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE);
-                            ApsWatermarkParam apsWatermarkParam2 = (ApsWatermarkParam) metaItemInfo
+                            String[] algoTypeArrTuning = (String[]) metaItemInfo
+                                    .get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE);
+                            ApsWatermarkParam watermarkParamTuning = (ApsWatermarkParam) metaItemInfo
                                     .get(ApsParameters.KEY_APS_WATERMARK_PARAM);
-                            ApsParameters apsParameters2 = new ApsParameters();
-                            map2 = map3;
-                            ApsAdapterInterface.ImageProcessListener imageProcessListener3 = this.mImageProcessListener;
-                            z7 = z6;
-                            if (imageProcessListener3 != null) {
-                                apsParameters2.setAll(imageProcessListener3.fillApsParameters(imageCategory, 1, false));
+                            ApsParameters apsParamsTuning = new ApsParameters();
+                            tuningItemListsMap = currentTuningItemListsMap;
+                            ApsAdapterInterface.ImageProcessListener listenerTuning = this.mImageProcessListener;
+                            isImageProcessedReturn = isImageProcessed;
+
+                            if (listenerTuning != null) {
+                                apsParamsTuning.setAll(listenerTuning.fillApsParameters(imageCategory, 1, false));
                             }
-                            int iAddFrameBuff2 = this.mApsInterface.addFrameBuff(
-                                    new ApsCaptureParam(jLongValue2, imageBuffer2, iIntValue6, cameraMetadata5, null,
-                                            metaItemInfo.mImageBuffer, null, strArr2, zBooleanValue3, iIntValue7,
-                                            iIntValue8, zBooleanValue4, zBooleanValue5, iIntValue9, str3, str4, false),
-                                    apsParameters2.getParameters(), strArr3, apsWatermarkParam2);
-                            ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add tuning frame buff ret: " + iAddFrameBuff2
-                                    + ", timestamp: " + j + ", role: " + iIntValue6);
-                            if (1 == iAddFrameBuff2) {
-                                ApsUtils.detachImage(imageBuffer2.getImageReader(), imageBuffer2.getImage());
-                            } else if (2 == iAddFrameBuff2) {
-                                imageBuffer2.addRef();
+
+                            int addTuningRet = this.mApsInterface.addFrameBuff(
+                                    new ApsCaptureParam(tuningFrameNumber, tuningBuffer, tuningImageRole,
+                                            tuningLogicMetadata,
+                                            null, metaItemInfo.mImageBuffer, null, cropSizeArr, isReprocessMetaTuning,
+                                            maxHoldImagesTuning,
+                                            preferAddFrameTypeTuning, isVideoSnapshotTuning, isRawSyncProcess,
+                                            specificApsProcessAlgoTuning,
+                                            bits10EnableTuning, inputEvListTuning, false),
+                                    apsParamsTuning.getParameters(), algoTypeArrTuning, watermarkParamTuning);
+
+                            ApsAdapterLog.v(TAG, "addFrameAndProcessImage, add tuning frame buff ret: " + addTuningRet
+                                    + ", timestamp: " + timestamp + ", role: " + tuningImageRole);
+
+                            if (1 == addTuningRet) {
+                                ApsUtils.detachImage(tuningBuffer.getImageReader(), tuningBuffer.getImage());
+                            } else if (2 == addTuningRet) {
+                                tuningBuffer.addRef();
                             }
-                            Integer numValueOf = Integer.valueOf(i4);
-                            Integer numValueOf2 = Integer.valueOf(iIntValue5 + 1);
-                            map4 = map5;
-                            map4.put(numValueOf, numValueOf2);
+
+                            tuningItemStatusMap.put(Integer.valueOf(lastImageFormat),
+                                    Integer.valueOf(tuningItemIndex + 1));
                         } else {
-                            map2 = map3;
-                            map4 = map5;
-                            z7 = z6;
+                            tuningItemListsMap = currentTuningItemListsMap;
+                            isImageProcessedReturn = isImageProcessed;
                         }
                     }
-                    i3 = i + 1;
-                    list4 = list2;
-                    map3 = map2;
-                    z3 = z7;
-                    i2 = 1;
+
+                    itemIndex++;
+                    currentImageList = tempImageList;
+                    currentTuningItemListsMap = tuningItemListsMap;
+                    isNeedProcessImage = isImageProcessedReturn;
                 }
-                list = list4;
+                imageItemList = currentImageList;
             }
-            String str5 = TAG;
-            ApsAdapterLog.v(str5,
-                    "addFrameAndProcessImage, isNeedProcessImage: " + z3 + ", imageCategory: " + imageCategory, true);
+
+            ApsAdapterLog.v(TAG, "addFrameAndProcessImage, isNeedProcessImage: " + isNeedProcessImage
+                    + ", imageCategory: " + imageCategory, true);
+
             synchronized (this.mImageQueueLock) {
-                imageItemInfo = imageCategory.mImageItemList.get(0);
+                imageItem = imageCategory.mImageItemList.get(0);
             }
-            boolean z8 = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue()
-                    && ((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() == 32;
-            if (z8) {
+
+            boolean isReprocessRaw = ((Boolean) metaItemInfo.get(ApsParameters.KEY_REPROCESS_META_DATA)).booleanValue()
+                    && ((Integer) imageItem.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() == 32;
+
+            if (isReprocessRaw) {
                 synchronized (this.mRawImageCategoryLock) {
-                    ImageCategory imageCategory2 = this.mRawImageCategory;
-                    if (imageCategory2 != null) {
-                        imageCategory2.releaseImageItemList();
+                    ImageCategory rawImageCategoryCached = this.mRawImageCategory;
+                    if (rawImageCategoryCached != null) {
+                        rawImageCategoryCached.releaseImageItemList();
                     }
                     this.mRawImageCategory = imageCategory;
                 }
             }
+
             synchronized (this.mAddFrameLock) {
                 this.mAddFrameMetadataList.add(metaItemInfo);
             }
+
             if (((ApsCameraRequestTag) metaItemInfo.get(ApsParameters.KEY_CAMERA_REQUEST_TAG)).mbQcom) {
-                iMax = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_BURST_SHOT_NUMBER)).intValue();
+                maxBurstShotNum = ((Integer) metaItemInfo.get(ApsParameters.KEY_MAX_BURST_SHOT_NUMBER)).intValue();
             } else {
-                iMax = Math.max(((Integer) metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)).intValue(),
+                maxBurstShotNum = Math.max(
+                        ((Integer) metaItemInfo.get(ApsParameters.KEY_CSHOT_REQUEST_NUMER)).intValue(),
                         this.mBurstShotRequestNum);
             }
-            this.mBurstShotRequestNum = iMax;
-            ApsAdapterLog.d(str5, "addFrameAndProcessImage, mBurstShotRequestNum: " + this.mBurstShotRequestNum);
+
+            this.mBurstShotRequestNum = maxBurstShotNum;
+            ApsAdapterLog.d(TAG, "addFrameAndProcessImage, mBurstShotRequestNum: " + this.mBurstShotRequestNum);
+
             if (this.mImageProcessListener == null
-                    || !((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
-                    || ((Integer) imageItemInfo.get(ApsParameters.KEY_REC_BURST_NUMBER))
+                    || !((Boolean) imageItem.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                    || ((Integer) imageItem.get(ApsParameters.KEY_REC_BURST_NUMBER))
                             .intValue() < this.mBurstShotRequestNum) {
-                z4 = false;
+                shouldEndBurst = false;
             } else {
-                z4 = false;
+                shouldEndBurst = false;
                 this.mBurstShotRequestNum = 0;
-                this.mImageProcessListener.afterAddFrame(imageItemInfo, metaItemInfo);
+                this.mImageProcessListener.afterAddFrame(imageItem, metaItemInfo);
             }
-            z = z4;
-            if (countAddFrame(((Long) metaItemInfo.get(ApsParameters.KEY_MERGE_IDENTITY)).longValue(), list.size(),
-                    ((Integer) metaItemInfo.get(ApsParameters.KEY_MERGE_NUMBER)).intValue(), false, imageItemInfo)
-                    && z3) {
-                ApsAdapterLog.d(str5, "addFrameAndProcessImage, enter");
-                ApsAdapterLog.d(str5, "addFrameAndProcessImage, KEY_RAW_SR_ENABLE: "
-                        + ((String) imageItemInfo.get(ApsParameters.KEY_RAW_SR_ENABLE)));
-                boolean z9 = (((Integer) imageItemInfo.get(ApsParameters.KEY_IMAGE_FORMAT)).intValue() != 32
-                        || "1".equals(imageItemInfo.get(ApsParameters.KEY_RAW_SR_ENABLE))
-                        || this.mRawImageCategory == null) ? true : z;
+
+            isProcessed = shouldEndBurst;
+
+            if (countAddFrame(((Long) metaItemInfo.get(ApsParameters.KEY_MERGE_IDENTITY)).longValue(),
+                    imageItemList.size(),
+                    ((Integer) metaItemInfo.get(ApsParameters.KEY_MERGE_NUMBER)).intValue(), false, imageItem)
+                    && isNeedProcessImage) {
+                ApsAdapterLog.d(TAG, "addFrameAndProcessImage, enter");
+                ApsAdapterLog.d(TAG, "addFrameAndProcessImage, KEY_RAW_SR_ENABLE: "
+                        + ((String) imageItem.get(ApsParameters.KEY_RAW_SR_ENABLE)));
+
+                boolean isSendAfterAddFrame = (((Integer) imageItem.get(ApsParameters.KEY_IMAGE_FORMAT))
+                        .intValue() != 32
+                        || "1".equals(imageItem.get(ApsParameters.KEY_RAW_SR_ENABLE))
+                        || this.mRawImageCategory == null) ? true : isProcessed;
+
                 if (this.mImageProcessListener != null
-                        && !((Boolean) imageItemInfo.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
-                        && ("1".equals(metaItemInfo.get(ApsParameters.KEY_SUPER_RAW_ENABLE)) || z9)) {
-                    this.mImageProcessListener.afterAddFrame(imageItemInfo, metaItemInfo);
-                    ApsAdapterLog.d(str5, "addFrameAndProcessImage, after afterAddFrame");
+                        && !((Boolean) imageItem.get(ApsParameters.KEY_BURST_SHOT)).booleanValue()
+                        && ("1".equals(metaItemInfo.get(ApsParameters.KEY_SUPER_RAW_ENABLE)) || isSendAfterAddFrame)) {
+                    this.mImageProcessListener.afterAddFrame(imageItem, metaItemInfo);
+                    ApsAdapterLog.d(TAG, "addFrameAndProcessImage, after afterAddFrame");
                 }
-                ApsParameters apsParameters3 = new ApsParameters();
+
+                ApsParameters processParams = new ApsParameters();
+
                 if (this.mImageProcessListener != null) {
-                    ApsAdapterLog.d(str5, "addFrameAndProcessImage, before fillApsParameters");
-                    apsParameters3.setAll(this.mImageProcessListener.fillApsParameters(imageCategory, 1, true));
-                    ApsAdapterLog.d(str5, "addFrameAndProcessImage, after fillApsParameters");
+                    ApsAdapterLog.d(TAG, "addFrameAndProcessImage, before fillApsParameters");
+                    processParams.setAll(this.mImageProcessListener.fillApsParameters(imageCategory, 1, true));
+                    ApsAdapterLog.d(TAG, "addFrameAndProcessImage, after fillApsParameters");
                 }
-                if (!z8) {
-                    ApsAdapterLog.d(str5, "addFrameAndProcessImage, lock");
+
+                if (!isReprocessRaw) {
+                    ApsAdapterLog.d(TAG, "addFrameAndProcessImage, lock");
                     synchronized (this.mImageQueueLock) {
                         imageCategory.releaseImageItemList();
-                        imageItemInfo.mImageBuffer = null;
-                        this.mImageProcessMap.remove(Long.valueOf(j));
+                        imageItem.mImageBuffer = null;
+                        this.mImageProcessMap.remove(Long.valueOf(timestamp));
                     }
-                    z = true;
+                    isProcessed = true;
                 }
-                int iProcessImages = this.mApsInterface.processImages(apsParameters3.getParameters(),
+
+                int processImagesRet = this.mApsInterface.processImages(processParams.getParameters(),
                         (String[]) metaItemInfo.get(ApsParameters.KEY_APS_PROCESS_ALGO_TYPE),
                         (ApsWatermarkParam) metaItemInfo.get(ApsParameters.KEY_APS_WATERMARK_PARAM));
-                ApsAdapterLog.d(str5, "addFrameAndProcessImage, processImages result: " + iProcessImages, true);
+
+                ApsAdapterLog.d(TAG, "addFrameAndProcessImage, processImages result: " + processImagesRet, true);
+
                 synchronized (this.mAddFrameLock) {
                     this.mAddFrameMetadataList.clear();
                 }
+
                 if (this.mImageProcessListener != null) {
-                    metaItemInfo.setParameter(ApsParameters.KEY_END_OF_CAPTURE, Boolean.valueOf(z9));
-                    this.mImageProcessListener.afterProcessImage(iProcessImages, imageItemInfo, metaItemInfo);
+                    metaItemInfo.setParameter(ApsParameters.KEY_END_OF_CAPTURE, Boolean.valueOf(isSendAfterAddFrame));
+                    this.mImageProcessListener.afterProcessImage(processImagesRet, imageItem, metaItemInfo);
                 }
             } else {
-                ApsAdapterLog.w(str5, "addFrameAndProcessImage, countAddFrame return false");
-                if (!z3) {
+                ApsAdapterLog.w(TAG, "addFrameAndProcessImage, countAddFrame return false");
+
+                if (!isNeedProcessImage) {
                     synchronized (this.mAddFrameLock) {
                         this.mAddFrameMetadataList.clear();
                     }
                 }
-                if (!z8) {
+
+                if (!isReprocessRaw) {
                     synchronized (this.mImageQueueLock) {
                         imageCategory.releaseImageItemList();
-                        this.mImageProcessMap.remove(Long.valueOf(j));
+                        this.mImageProcessMap.remove(Long.valueOf(timestamp));
                     }
-                    z2 = true;
+                    isFrameAdded = true;
                 }
+
                 synchronized (this.mImageQueueLock) {
-                    if (!z2) {
-                        this.mImageProcessMap.remove(Long.valueOf(j));
+                    if (!isFrameAdded) {
+                        this.mImageProcessMap.remove(Long.valueOf(timestamp));
                         if (this.mImageProcessMap.isEmpty()) {
                             this.mAddFrameConditionVariable.open();
-                            ApsAdapterInterface.ImageProcessListener imageProcessListener4 = this.mImageProcessListener;
-                            if (imageProcessListener4 != null) {
-                                imageProcessListener4.onProcessQueueEmpty();
+                            ApsAdapterInterface.ImageProcessListener listenerQueue = this.mImageProcessListener;
+                            if (listenerQueue != null) {
+                                listenerQueue.onProcessQueueEmpty();
                             }
                         }
-                    } else if (this.mImageProcessMap.isEmpty()) {
                     }
                 }
-                ApsAdapterLog.v(TAG, "addFrameAndProcessImage X, haveRelease: " + z2);
+
+                ApsAdapterLog.v(TAG, "addFrameAndProcessImage X, haveRelease: " + isFrameAdded);
                 return;
             }
         }
-        z2 = z;
+
+        isFrameAdded = isProcessed;
+
         synchronized (this.mImageQueueLock) {
         }
     }
