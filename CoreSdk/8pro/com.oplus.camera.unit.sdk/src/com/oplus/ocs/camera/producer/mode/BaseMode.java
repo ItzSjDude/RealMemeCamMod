@@ -106,8 +106,8 @@ public abstract class BaseMode implements ModeInterface {
      * Code decompiled incorrectly, please refer to instructions dump.
      */
     private int calculateMemorySize(int i, int i2, int i3) {
-        float f;
-        float f2;
+        float f = 0.0f;
+        float f2 = 0.0f;
         if (i == 32) {
             f = i3;
             f2 = 2.0f;
@@ -446,7 +446,6 @@ public abstract class BaseMode implements ModeInterface {
                 builder.set(PreviewParameter.KEY_APS_FEATURE_TYPE, new int[] { this.mApsDecisionFeatureType });
                 synchronized (this.mBracketLock) {
                     builder.set(PreviewParameter.KEY_BRACKET_MODE, new int[] { this.mApsBracketMode });
-                    break;
                 }
                 builder.set(PreviewParameter.KEY_AIS_STATE, new int[] { this.mAisState });
                 builder.set(PreviewParameter.KEY_MOVING_OBJECT, new int[] { this.mAsdMovingObject });
@@ -456,7 +455,7 @@ public abstract class BaseMode implements ModeInterface {
                     z = true;
                 }
                 cameraRequestTag.mbSuperTextOpen = z;
-                return;
+                break;
             default:
                 return;
         }
@@ -1306,9 +1305,7 @@ public abstract class BaseMode implements ModeInterface {
                         str2, size, size2, surfaceFormatBySurfaceType, getPreviewImageReaderMaxImages(), null,
                         previewReaderUsage);
                 previewSurface = surfaceWrapperCreateReaderSurface;
-                if (previewSurface != null) {
-                }
-                break;
+                return previewSurface;
             case "video":
                 if (sdkCameraDeviceConfig.getVideoSurface() == null
                         || sdkCameraDeviceConfig.getVideoSurface().getSurface() == null) {
@@ -1540,19 +1537,23 @@ public abstract class BaseMode implements ModeInterface {
      */
     protected boolean needAddToTarget(String str, String str2, @NonNull SurfaceKey surfaceKey,
             PreviewParameter.Builder builder) {
-        boolean z;
-        boolean z2;
-        boolean z3;
-        boolean z4;
+        boolean z = false;
+        boolean z2 = false;
+        boolean z3 = false;
+        boolean z4 = false;
+        boolean z6 = false;
+        boolean z7 = false;
+        boolean z8 = false;
+        boolean z9 = false;
+        boolean z10 = false;
         CameraPreviewCallbackAdapter.PreviewResult previewResult;
         boolean z5;
-        boolean z6;
         CameraPreviewCallbackAdapter.PreviewResult previewResult2;
         int i;
         CameraPreviewCallbackAdapter.PreviewResult previewResult3;
         synchronized (this.mPreviewResultLock) {
             z = false;
-            boolean z7 = "surface_key_preview".equals(surfaceKey.getUsage())
+            z7 = "surface_key_preview".equals(surfaceKey.getUsage())
                     || "surface_key_preview_frame".equals(surfaceKey.getUsage());
             boolean zEquals = "on".equals(builder.get(PreviewParameter.KEY_BURST_SHOT_ENABLE));
             CameraPreviewCallbackAdapter.PreviewResult previewResult4 = this.mPreviewResult;
@@ -1563,7 +1564,7 @@ public abstract class BaseMode implements ModeInterface {
                             && 36 != ((Integer) this.mPreviewResult
                                     .get(ApsDecisionParameter.KEY_PREVIEW_REQUEST_FORMAT)).intValue())) ? false : true;
             CameraPreviewCallbackAdapter.PreviewResult previewResult5 = this.mPreviewResult;
-            boolean z8 = (previewResult5 == null
+            z8 = (previewResult5 == null
                     || !((Boolean) previewResult5.get(ApsDecisionParameter.KEY_PREVIEW_REQUEST_MIXED_FORMAT))
                             .booleanValue()
                     || zEquals) ? false : true;
@@ -1588,7 +1589,7 @@ public abstract class BaseMode implements ModeInterface {
                         }
                     } else if ("surface_key_picture".equals(surfaceKey.getUsage())
                             || "surface_key_picture_mfnr".equals(surfaceKey.getUsage())) {
-                        boolean z9 = getRawFormat(str) == 37;
+                        z9 = getRawFormat(str) == 37;
                         int[] captureFormatList = getCaptureFormatList(surfaceKey.getCameraType());
                         if (captureFormatList == null || captureFormatList.length <= 0 || zEquals) {
                             z4 = false;
@@ -1630,7 +1631,7 @@ public abstract class BaseMode implements ModeInterface {
                             previewResult = this.mPreviewResult;
                             if (previewResult != null) {
                                 int[] iArr = (int[]) previewResult.get(ApsDecisionParameter.KEY_PREVIEW_SENSOR_MASK);
-                                boolean z10 = PlatformUtil.isQualcommPlatform() || !z2
+                                z10 = PlatformUtil.isQualcommPlatform() || !z2
                                         || (2 == iIntValue && 37 == surfaceKey.getFormat());
                                 if ("rear_sat".equals(str) && iArr != null && z10 && iArr.length >= 3
                                         && ((Util.getNightStateDecision(this.mPreviewResult) <= 0 || zEquals)

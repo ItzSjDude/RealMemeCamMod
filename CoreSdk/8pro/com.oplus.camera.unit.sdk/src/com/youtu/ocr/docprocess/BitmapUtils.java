@@ -52,8 +52,10 @@ public class BitmapUtils {
         int size = getSize(i);
         int width = bitmap.getWidth();
         float f = width > size ? size / width : 1.0f;
-        Bitmap bitmapCreateBitmap = Bitmap.createBitmap((int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f), Bitmap.Config.ARGB_8888);
-        new Canvas(bitmapCreateBitmap).drawBitmap(bitmap, (Rect) null, new Rect(0, 0, (int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f)), (Paint) null);
+        Bitmap bitmapCreateBitmap = Bitmap.createBitmap((int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f),
+                Bitmap.Config.ARGB_8888);
+        new Canvas(bitmapCreateBitmap).drawBitmap(bitmap, (Rect) null,
+                new Rect(0, 0, (int) (bitmap.getWidth() * f), (int) (bitmap.getHeight() * f)), (Paint) null);
         return bitmapCreateBitmap;
     }
 
@@ -129,12 +131,12 @@ public class BitmapUtils {
         return Bitmap.createScaledBitmap(bitmap, i, i2, true);
     }
 
-    /* JADX WARN: Removed duplicated region for block: B:11:0x0049  */
+    /* JADX WARN: Removed duplicated region for block: B:11:0x0049 */
     /*
-        Code decompiled incorrectly, please refer to instructions dump.
-    */
+     * Code decompiled incorrectly, please refer to instructions dump.
+     */
     public static Bitmap getImageFromPath(String str, float f, float f2) {
-        int i;
+        int i = 1;
         try {
             BitmapFactory.Options options = new BitmapFactory.Options();
             int i2 = 1;
@@ -228,7 +230,8 @@ public class BitmapUtils {
         YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         yuvImage.compressToJpeg(new Rect(0, 0, i, i2), 100, byteArrayOutputStream);
-        Bitmap bitmapDecodeByteArray = BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size());
+        Bitmap bitmapDecodeByteArray = BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0,
+                byteArrayOutputStream.size());
         try {
             byteArrayOutputStream.flush();
             byteArrayOutputStream.close();
@@ -339,6 +342,6 @@ public class BitmapUtils {
     }
 
     public static void updateResources(Context context, String str) {
-        MediaScannerConnection.scanFile(context, new String[]{str}, null, null);
+        MediaScannerConnection.scanFile(context, new String[] { str }, null, null);
     }
 }

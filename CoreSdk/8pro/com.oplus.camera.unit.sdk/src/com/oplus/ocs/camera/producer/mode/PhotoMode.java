@@ -311,15 +311,9 @@ public class PhotoMode extends BaseMode {
                             if (-1 != iIntValue) {
                                 builder.set(PreviewParameter.KEY_SENSOR_MODE, new int[] { iIntValue });
                             }
-                        }
-                        break;
-                    }
-                    synchronized (this.mPreviewResultLock) {
-                        if (this.mPreviewResult != null) {
                             builder.set(PreviewParameter.KEY_MOVING_OBJECT, new int[] { ((Integer) this.mPreviewResult
                                     .get(ApsDecisionParameter.KEY_PREVIEW_ASD_MOVING_OBJECT)).intValue() });
                         }
-                        break;
                     }
                     if (builder.get(PreviewParameter.KEY_FACE_MAKEUP_TYPE) != null
                             && builder.get(PreviewParameter.KEY_FACE_MAKEUP_VALUE) != null) {
@@ -330,9 +324,8 @@ public class PhotoMode extends BaseMode {
                     if (getModeName().equals("photo_mode")) {
                         cameraRequestTag.mb3DLutEnable = ((Boolean) CameraConfigHelper
                                 .getConfigValue(CameraConfigBase.KEY_3D_LUT_SUPPORT, false)).booleanValue();
-                        return;
                     }
-                    return;
+                    break;
                 }
                 return;
             default:

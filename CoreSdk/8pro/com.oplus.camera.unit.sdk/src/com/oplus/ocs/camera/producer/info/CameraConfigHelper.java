@@ -1,6 +1,7 @@
 package com.oplus.ocs.camera.producer.info;
 
 import android.content.Context;
+import android.hardware.camera2.CameraAccessException;
 import android.os.ConditionVariable;
 import android.text.TextUtils;
 import android.util.Pair;
@@ -128,8 +129,8 @@ public final class CameraConfigHelper {
              * Code decompiled incorrectly, please refer to instructions dump.
              */
             public void run() {
-                long jCurrentTimeMillis;
-                JsonParser jsonParser;
+                long jCurrentTimeMillis = 0;
+                JsonParser jsonParser = new JsonParser();
                 try {
                     try {
                         CameraUnitLog.i(CameraConfigHelper.TAG, "initialize config");

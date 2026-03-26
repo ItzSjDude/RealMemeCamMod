@@ -631,7 +631,7 @@ public class ConsumerImpl
     /* JADX INFO: Access modifiers changed from: private */
     public void onPreviewImageArrived(CameraRequestTag cameraRequestTag, @NonNull ImageReader imageReader,
             SurfaceKey surfaceKey) {
-        Image imageAcquireNextImage;
+        Image imageAcquireNextImage = null;
         String cameraType = surfaceKey.getCameraType();
         try {
             imageAcquireNextImage = imageReader.acquireNextImage();
@@ -748,7 +748,6 @@ public class ConsumerImpl
                     CameraUnitLog.v(TAG, "onPreviewMetaImageArrived  image close, may wrong path!");
                 }
             } catch (IllegalArgumentException | IllegalStateException e) {
-                e = e;
                 image = imageAcquireNextImage;
                 CameraUnitLog.e(TAG, "onPreviewMetaImageArrived", e);
                 if (image != null) {
@@ -860,8 +859,12 @@ public class ConsumerImpl
     public void onReprocess(Image image, TotalCaptureResult totalCaptureResult, Rect rect,
             CameraRequestTag cameraRequestTag) {
         if ("super_raw".equals(cameraRequestTag.mRawValue)) {
-            this.mPictureAdapter.onImageReceived(
-                    Util.buildRawImage(cameraRequestTag, image, totalCaptureResult, this.mCaptureDate));
+            try {
+                this.mPictureAdapter.onImageReceived(
+                        Util.buildRawImage(cameraRequestTag, image, totalCaptureResult, this.mCaptureDate));
+            } catch (Exception e) {
+                CameraUnitLog.e(TAG, "onReprocess, buildRawImage error", e);
+            }
         } else if (isNeedApsProcessor()) {
             this.mProducerInterface.onReprocess(image, totalCaptureResult, rect, cameraRequestTag);
         }
@@ -1238,7 +1241,6 @@ public class ConsumerImpl
                             i = 2;
                             break;
                         }
-                        break;
                     case "rear_second_portrait":
                         if ("rear_wide".equals(surfaceKey.getCameraType())) {
                             i = 3;
@@ -1256,7 +1258,6 @@ public class ConsumerImpl
                             i = 0;
                             break;
                         }
-                        break;
                     case "rear_portrait_mono_1":
                         if (CameraConstant.CameraType.REAR_MONO_CAMERA_1.equals(surfaceKey.getCameraType())) {
                             i = 2;
@@ -1426,8 +1427,12 @@ public class ConsumerImpl
         if (image == null || (captureResult = this.mRawCaptureResult) == null) {
             return;
         }
-        this.mPictureAdapter
-                .onImageReceived(Util.buildRawImage(cameraRequestTag, image, captureResult, this.mCaptureDate));
+        try {
+            this.mPictureAdapter
+                    .onImageReceived(Util.buildRawImage(cameraRequestTag, image, captureResult, this.mCaptureDate));
+        } catch (Exception e) {
+            CameraUnitLog.e(TAG, "processRawImage, buildRawImage error", e);
+        }
         Image image2 = this.mRawImage;
         if (image2 != null) {
             image2.close();

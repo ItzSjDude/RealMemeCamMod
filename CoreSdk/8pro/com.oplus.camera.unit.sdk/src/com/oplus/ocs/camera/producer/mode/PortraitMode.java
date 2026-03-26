@@ -379,7 +379,7 @@ public class PortraitMode extends BaseMode {
             blurLevels.add(i);
         }
         rangeMap.put(PreviewParameter.KEY_BLUR_LEVEL_RANGE.getName(), blurLevels);
-        deviceInfo.setPreviewParameterRangeMap(rangeMap);
+        deviceInfo.setPreviewParameterRangeMap((Map) rangeMap);
         deviceInfo.setSupportPictureSizeList(getPictureSizes(cameraId, 0));
 
         if ("rear_portrait".equals(cameraId)) {

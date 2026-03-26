@@ -1072,14 +1072,8 @@ class Camera2Impl implements Camera2Interface {
         try {
             CaptureRequestProxy.Builder builder2 = new CaptureRequestProxy.Builder(
                     this.mCameraDevice.createCaptureRequest(4));
-            try {
-                builder2.setTag(this.mTakePictureRequestTag);
-                return builder2;
-            } catch (CameraAccessException e) {
-                builder = builder2;
-                CameraUnitLog.e(TAG, "createVideoSnapshotBuilder, e: " + e.getMessage());
-                return builder;
-            }
+            builder2.setTag(this.mTakePictureRequestTag);
+            return builder2;
         } catch (CameraAccessException e2) {
             CameraUnitLog.e(TAG, "createVideoSnapshotBuilder, e2: " + e2.getMessage());
         }
@@ -1517,23 +1511,23 @@ class Camera2Impl implements Camera2Interface {
         boolean z;
         boolean z2;
         boolean z3;
-        int i2;
-        ArrayList arrayList;
-        String str;
-        boolean z4;
-        Boolean bool;
-        int i3;
-        boolean z5;
-        int i4;
-        int i5;
-        int i6;
-        int i7;
-        int i8;
-        int i9;
-        int i10;
-        int i11;
-        int i12;
-        int ispTuningMode;
+        int i2 = 0;
+        ArrayList arrayList = null;
+        String str = "none";
+        boolean z4 = false;
+        Boolean bool = null;
+        int i3 = 0;
+        boolean z5 = false;
+        int i4 = 0;
+        int i5 = 0;
+        int i6 = 0;
+        int i7 = 0;
+        int i8 = 0;
+        int i9 = 0;
+        int i10 = 0;
+        int i11 = 0;
+        int i12 = 0;
+        int ispTuningMode = -1;
         boolean z6;
         boolean zBooleanValue;
         CameraUnitLog.e(TAG, "takePicture start, mbBurstShot: " + cameraRequestTag.mbBurstShot + ", mRequestNum: "
@@ -2328,51 +2322,44 @@ class Camera2Impl implements Camera2Interface {
         try {
             if (image != null) {
                 try {
-                    try {
-                        ImageWriter imageWriter2 = this.mImageWriter;
-                        if (imageWriter2 != null) {
-                            imageWriter2.close();
-                            this.mImageWriter = null;
-                        }
-                        CameraCaptureSession cameraCaptureSession = this.mCaptureSession;
-                        if (cameraCaptureSession == null || !cameraCaptureSession.isReprocessable()
-                                || this.mCaptureSession.getInputSurface() == null) {
-                            image.close();
-                        } else {
-                            this.mImageWriter = ImageWriter.newInstance(this.mCaptureSession.getInputSurface(), 20);
-                            if ((cameraRequestTag.mbTimeLapsePro && cameraRequestTag.mbStarVideoEnable)
-                                    || cameraRequestTag.mbStarVideoVerifyFrame) {
-                                for (int i = 0; i < image.getPlanes().length; i++) {
-                                    ByteBuffer buffer = image.getPlanes()[i].getBuffer();
-                                    CameraUnitLog.v(TAG, "reprocessImage, plane index: " + i + ", buffer: " + buffer
-                                            + ", mark:" + buffer.mark());
-                                }
-                                ByteBuffer buffer2 = image.getPlanes()[0].getBuffer();
-                                buffer2.position(0);
-                                buffer2.putInt(cameraRequestTag.mFrameFlag);
-                                buffer2.position(0);
-                            }
-                            this.mImageWriter.queueInputImage(image);
-                        }
-                    } catch (IllegalArgumentException e2) {
-                        e = e2;
-                        captureRequest = null;
-                        CameraUnitLog.e(TAG, "reprocessImage, IllegalArgumentException, error: ", e);
-                        cameraPictureCallbackAdapter = this.mCameraPictureCallbackAdapter;
-                        if (cameraPictureCallbackAdapter != null && captureRequest != null) {
-                            cameraPictureCallbackAdapter.onCaptureFailed(captureRequest,
-                                    (CameraPictureCallbackAdapter.PictureResult) null);
-                        }
-                        imageWriter = this.mImageWriter;
-                        if (imageWriter != null) {
-                        }
-                        CameraUnitLog.traceEndSection("CameraUnitCamera2ImplReprocessImage");
+                    ImageWriter imageWriter2 = this.mImageWriter;
+                    if (imageWriter2 != null) {
+                        imageWriter2.close();
+                        this.mImageWriter = null;
                     }
-                } catch (CameraAccessException | IllegalStateException e3) {
-                    CameraUnitLog.e(TAG, "reprocessImage error.", e3);
+                    CameraCaptureSession cameraCaptureSession = this.mCaptureSession;
+                    if (cameraCaptureSession == null || !cameraCaptureSession.isReprocessable()
+                            || this.mCaptureSession.getInputSurface() == null) {
+                        image.close();
+                    } else {
+                        this.mImageWriter = ImageWriter.newInstance(this.mCaptureSession.getInputSurface(), 20);
+                        if ((cameraRequestTag.mbTimeLapsePro && cameraRequestTag.mbStarVideoEnable)
+                                || cameraRequestTag.mbStarVideoVerifyFrame) {
+                            for (int i = 0; i < image.getPlanes().length; i++) {
+                                ByteBuffer buffer = image.getPlanes()[i].getBuffer();
+                                CameraUnitLog.v(TAG, "reprocessImage, plane index: " + i + ", buffer: " + buffer
+                                        + ", mark:" + buffer.mark());
+                            }
+                            ByteBuffer buffer2 = image.getPlanes()[0].getBuffer();
+                            buffer2.position(0);
+                            buffer2.putInt(cameraRequestTag.mFrameFlag);
+                            buffer2.position(0);
+                        }
+                        this.mImageWriter.queueInputImage(image);
+                    }
+                } catch (IllegalArgumentException e2) {
+                    e = e2;
+                    captureRequest = null;
+                    CameraUnitLog.e(TAG, "reprocessImage, IllegalArgumentException, error: ", e);
+                    cameraPictureCallbackAdapter = this.mCameraPictureCallbackAdapter;
+                    if (cameraPictureCallbackAdapter != null && captureRequest != null) {
+                        cameraPictureCallbackAdapter.onCaptureFailed(captureRequest,
+                                (CameraPictureCallbackAdapter.PictureResult) null);
+                    }
                     imageWriter = this.mImageWriter;
                     if (imageWriter != null) {
                     }
+                    CameraUnitLog.traceEndSection("CameraUnitCamera2ImplReprocessImage");
                 }
             }
             CameraUnitLog.d(TAG, "reprocessImage, tag.mRequestNum: " + cameraRequestTag.mRequestNum
@@ -2424,12 +2411,15 @@ class Camera2Impl implements Camera2Interface {
                 imageWriter.close();
             }
             CameraUnitLog.traceEndSection("CameraUnitCamera2ImplReprocessImage");
-        } catch (Throwable th) {
+        } catch (Exception th) {
             ImageWriter imageWriter3 = this.mImageWriter;
-            if (imageWriter3 != null) {
-                imageWriter3.close();
+            try {
+                if (imageWriter3 != null) {
+                    imageWriter3.close();
+                }
+            } catch (Exception e5) {
+                CameraUnitLog.e(TAG, "close imageWriter error.", e5);
             }
-            throw th;
         }
     }
 
@@ -2871,12 +2861,12 @@ class Camera2Impl implements Camera2Interface {
      * Code decompiled incorrectly, please refer to instructions dump.
      */
     public boolean startPreview(CameraRequestTag cameraRequestTag, Parameter parameter, Handler handler) {
-        String str;
-        String str2;
-        boolean zLinkSurfaceToConsumer;
-        boolean z;
-        boolean z2;
-        Long l;
+        String str = "CameraUnitCamera2ImplStartPreview";
+        String str2 = null;
+        boolean zLinkSurfaceToConsumer = false;
+        boolean z = false;
+        boolean z2 = false;
+        Long l = null;
         CameraUnitLog.e(TAG,
                 "startPreview, parameter: " + parameter + ", tag: " + cameraRequestTag + ", mbFirstMetaArrived: "
                         + this.mbFirstMetaArrived + ", tag hashCode: " + cameraRequestTag.hashCode());
@@ -3050,13 +3040,7 @@ class Camera2Impl implements Camera2Interface {
             if (!this.mbFirstMetaArrived && !arrayList3.isEmpty()) {
                 this.mRepeatingVariable.close();
                 z = false;
-                try {
-                    this.mFirstRequestHash = ((CaptureRequest) arrayList3.get(0)).hashCode();
-                } catch (CameraAccessException | IllegalStateException e2) {
-                    CameraUnitLog.e(TAG, "startPreview", e2);
-                    this.mRepeatingVariable.open();
-                    z2 = z;
-                }
+                this.mFirstRequestHash = ((CaptureRequest) arrayList3.get(0)).hashCode();
             }
             if (SdkConfig.META_DUMP) {
                 Util.dumpCaptureRequest(captureRequestBuild, "preview");

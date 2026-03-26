@@ -289,7 +289,7 @@ public class NoneApsImpl implements ApsInterface {
         return 0;
     }
 
-    private static class ProcessHandler extends Handler {
+    public static class ProcessHandler extends Handler {
         public ProcessHandler(Looper looper) {
             super(looper);
         }

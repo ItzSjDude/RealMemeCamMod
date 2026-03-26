@@ -16,7 +16,7 @@ public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandl
     private Context mContext;
     private Thread.UncaughtExceptionHandler mHandler = Thread.getDefaultUncaughtExceptionHandler();
 
-    static /* synthetic */ String lambda$uncaughtException$0() {
+    static /* synthetic */ String showErrorToast() {
         return "StatisticsExceptionHandler: get the uncaughtException.";
     }
 
@@ -33,7 +33,7 @@ public class StatisticsExceptionHandler implements Thread.UncaughtExceptionHandl
 
     @Override // java.lang.Thread.UncaughtExceptionHandler
     public void uncaughtException(Thread thread, Throwable throwable) {
-        LogUtil.d(TAG, () -> StatisticsExceptionHandler.lambda$uncaughtException$0());
+        LogUtil.d(TAG, () -> StatisticsExceptionHandler.showErrorToast());
         String stackTrace = getStackTrace(throwable);
         long currentTimeMillis = System.currentTimeMillis();
         if (!TextUtils.isEmpty(stackTrace)) {

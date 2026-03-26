@@ -113,17 +113,8 @@ public final class CameraCharacteristicsHelper {
             try {
                 cameraCharacteristicsWrapper = new CameraCharacteristicsWrapper(
                         cameraManager.getCameraCharacteristics(str));
-                try {
-                    if ("1".equals(str)) {
-                        cameraCharacteristicsWrapper2 = cameraCharacteristicsWrapper;
-                    }
-                } catch (CameraAccessException e) {
-                    CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e);
-                } catch (IllegalArgumentException e2) {
-                    if ("0".equals(str)) {
-                        throw e2;
-                    }
-                    CameraUnitLog.e(TAG, "initialize, get CameraCharacteristics failed for camera: " + str, e2);
+                if ("1".equals(str)) {
+                    cameraCharacteristicsWrapper2 = cameraCharacteristicsWrapper;
                 }
             } catch (CameraAccessException e3) {
                 CameraUnitLog.e(TAG, "initialize fail", e3);

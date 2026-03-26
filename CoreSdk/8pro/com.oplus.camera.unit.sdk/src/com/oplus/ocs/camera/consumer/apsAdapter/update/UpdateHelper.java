@@ -48,7 +48,7 @@ public class UpdateHelper {
      * Code decompiled incorrectly, please refer to instructions dump.
      */
     public static String getValidConfigData(Context context, String str) {
-        FileInputStream fileInputStream;
+        FileInputStream fileInputStream = null;
         String rusUpdatePath = getRusUpdatePath(context, str);
         FileInputStream fileInputStream2 = null;
         Throwable th = null;
@@ -68,7 +68,8 @@ public class UpdateHelper {
             }
             try {
                 fileInputStream2 = new FileInputStream(str);
-            } finally {
+            } catch (Exception e) {
+                ApsAdapterLog.e(TAG, "getValidConfigData, ota e: " + e.getMessage());
             }
         }
         try {

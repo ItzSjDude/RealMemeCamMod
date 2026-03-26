@@ -4795,7 +4795,6 @@ final class MessageSchema<T> implements Schema<T> {
      */
     int parseProto2Message(T t, byte[] bArr, int i, int i2, int i3, ArrayDecoders.Registers registers)
             throws IOException {
-        Object unsafe = null;
         int i4 = 0;
         MessageSchema<T> messageSchema = null;
         int i5 = 0;
@@ -4854,7 +4853,6 @@ final class MessageSchema<T> implements Schema<T> {
                     i9 = i6;
                     i10 = i22;
                     i11 = i24;
-                    unsafe = unsafe2;
                     i4 = i19;
                     i12 = 0;
                 } else {
@@ -4898,7 +4896,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -4924,7 +4921,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -4953,7 +4949,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -4980,7 +4975,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5008,7 +5002,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5037,7 +5030,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5065,7 +5057,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5098,7 +5089,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5132,7 +5122,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5158,7 +5147,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5198,7 +5186,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5224,7 +5211,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5251,7 +5237,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5282,7 +5267,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i8 = i25;
                                     i10 = i34;
                                     i12 = i13;
-                                    unsafe = unsafe2;
                                     i9 = i14;
                                     i4 = i3;
                                 }
@@ -5294,7 +5278,6 @@ final class MessageSchema<T> implements Schema<T> {
                                 i8 = i25;
                                 i10 = i34;
                                 i12 = i13;
-                                unsafe = unsafe2;
                                 i9 = i14;
                                 i4 = i3;
                                 break;
@@ -5309,7 +5292,6 @@ final class MessageSchema<T> implements Schema<T> {
                             i11 = i24;
                             if (iType <= 49) {
                                 int i37 = i25;
-                                unsafe = unsafe2;
                                 i17 = i30;
                                 iDecodeUnknownField = parseRepeatedField(t, bArr, i25, i2, i30, i7, i27, i12, i29,
                                         iType, jOffset, registers);
@@ -5325,7 +5307,6 @@ final class MessageSchema<T> implements Schema<T> {
                                     i20 = i12;
                                     i22 = i10;
                                     i24 = i11;
-                                    unsafe2 = unsafe;
                                 } else {
                                     i4 = i3;
                                     i8 = iDecodeUnknownField;
@@ -5333,7 +5314,6 @@ final class MessageSchema<T> implements Schema<T> {
                                 }
                             } else {
                                 i16 = i25;
-                                unsafe = unsafe2;
                                 i17 = i30;
                                 if (iType != 50) {
                                     iDecodeUnknownField = parseOneofField(t, bArr, i16, i2, i17, i7, i27, i29, iType,
@@ -5350,7 +5330,6 @@ final class MessageSchema<T> implements Schema<T> {
                                         i20 = i12;
                                         i22 = i10;
                                         i24 = i11;
-                                        unsafe2 = unsafe;
                                     } else {
                                         i4 = i3;
                                         i8 = iDecodeUnknownField;
@@ -5370,7 +5349,6 @@ final class MessageSchema<T> implements Schema<T> {
                                         i20 = i12;
                                         i22 = i10;
                                         i24 = i11;
-                                        unsafe2 = unsafe;
                                     } else {
                                         i4 = i3;
                                         i8 = iDecodeUnknownField;
@@ -5379,8 +5357,7 @@ final class MessageSchema<T> implements Schema<T> {
                                 }
                             }
                         } else if (i27 == 2) {
-                            Internal.ProtobufList<?> protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList<?>) unsafe2
-                                    .getObject(t9, jOffset);
+                            Internal.ProtobufList<?> protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList<?>) UnsafeUtil.getObject(t9, jOffset);
                             if (!protobufListMutableCopyWithCapacity2.isModifiable()) {
                                 int size = protobufListMutableCopyWithCapacity2.size();
                                 protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2
@@ -5404,7 +5381,6 @@ final class MessageSchema<T> implements Schema<T> {
                             i10 = i22;
                             i11 = i24;
                             i16 = i25;
-                            unsafe = unsafe2;
                             i17 = i30;
                         }
                         i4 = i3;
@@ -5430,7 +5406,6 @@ final class MessageSchema<T> implements Schema<T> {
                     i20 = i12;
                     i22 = i10;
                     i24 = i11;
-                    unsafe2 = unsafe;
                     i19 = i4;
                 } else {
                     i5 = 1048575;
@@ -5441,7 +5416,6 @@ final class MessageSchema<T> implements Schema<T> {
                     i24 = i11;
                 }
             } else {
-                unsafe = unsafe2;
                 i4 = i19;
                 messageSchema = messageSchema2;
                 i5 = 1048575;
@@ -5521,17 +5495,14 @@ final class MessageSchema<T> implements Schema<T> {
         int iPositionForFieldNumber = 0;
         int i4 = 0;
         int i5 = 0;
-        Object unsafe = null;
         int i6 = 0;
         int i7 = 0;
         int i8 = 0;
-        Object unsafe2 = null;
         int i9 = 0;
         int i10 = 0;
         int i11 = 0;
         int iDecodeVarint64 = 0;
         int i12 = 0;
-        Object unsafe3 = null;
         MessageSchema<T> messageSchema = this;
         T t2 = t;
         byte[] bArr2 = bArr;
@@ -5565,13 +5536,11 @@ final class MessageSchema<T> implements Schema<T> {
             if (i22 == i14) {
                 i4 = iDecodeVarint32;
                 i5 = i20;
-                unsafe = unsafe4;
                 i6 = i14;
                 i7 = 0;
             } else {
                 int i23 = messageSchema.buffer[i22 + 1];
                 int iType = type(i23);
-                Object unsafe5 = unsafe4;
                 long jOffset = offset(i23);
                 if (iType <= 17) {
                     int i24 = messageSchema.buffer[i22 + 2];
@@ -5580,18 +5549,14 @@ final class MessageSchema<T> implements Schema<T> {
                     if (i26 != i18) {
                         if (i18 != 1048575) {
                             long j = i18;
-                            unsafe3 = unsafe5;
-                            unsafe3.putInt(t2, j, i17);
+                            UnsafeUtil.putInt(t2, j, i17);
                         } else {
-                            unsafe3 = unsafe5;
                         }
                         if (i26 != 1048575) {
-                            i17 = unsafe3.getInt(t2, i26);
+                            i17 = UnsafeUtil.getInt(t2, i26);
                         }
-                        unsafe2 = unsafe3;
                         i18 = i26;
                     } else {
-                        unsafe2 = unsafe5;
                     }
                     switch (iType) {
                         case 0:
@@ -5599,14 +5564,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 1) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 UnsafeUtil.putDouble(t2, jOffset, ArrayDecoders.decodeDouble(bArr2, iDecodeVarint32));
                                 iDecodeUnknownField = iDecodeVarint32 + 8;
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5618,14 +5581,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 5) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 UnsafeUtil.putFloat(t2, jOffset, ArrayDecoders.decodeFloat(bArr2, iDecodeVarint32));
                                 iDecodeUnknownField = iDecodeVarint32 + 4;
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5638,14 +5599,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 0) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 iDecodeVarint64 = ArrayDecoders.decodeVarint64(bArr2, iDecodeVarint32, registers2);
                                 UnsafeUtil.putLong(t, jOffset, registers2.long1);
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 iDecodeUnknownField = iDecodeVarint64;
                                 i15 = i5;
@@ -5659,14 +5618,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 0) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 iDecodeUnknownField = ArrayDecoders.decodeVarint32(bArr2, iDecodeVarint32, registers2);
                                 UnsafeUtil.putInt(t2, jOffset, registers2.int1);
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5679,14 +5636,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 1) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 UnsafeUtil.putLong(t, jOffset, ArrayDecoders.decodeFixed64(bArr2, iDecodeVarint32));
                                 iDecodeUnknownField = iDecodeVarint32 + 8;
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5700,14 +5655,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 5) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 UnsafeUtil.putInt(t2, jOffset, ArrayDecoders.decodeFixed32(bArr2, iDecodeVarint32));
                                 iDecodeUnknownField = iDecodeVarint32 + 4;
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i15 = i5;
                                 i14 = -1;
                                 int i27 = i8;
@@ -5721,14 +5674,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 0) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 iDecodeUnknownField = ArrayDecoders.decodeVarint64(bArr2, iDecodeVarint32, registers2);
                                 UnsafeUtil.putBoolean(t2, jOffset, registers2.long1 != 0);
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i15 = i5;
                                 i14 = -1;
                                 int i272 = i8;
@@ -5742,7 +5693,6 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 2) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
@@ -5755,7 +5705,6 @@ final class MessageSchema<T> implements Schema<T> {
                                 }
                                 UnsafeUtil.putObject(t2, jOffset, registers2.object1);
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i15 = i5;
                                 i14 = -1;
                                 int i2722 = i8;
@@ -5768,7 +5717,6 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 2) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
@@ -5784,7 +5732,6 @@ final class MessageSchema<T> implements Schema<T> {
                                             Internal.mergeMessage(object, registers2.object1));
                                 }
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i15 = i5;
                                 i14 = -1;
                                 int i27222 = i8;
@@ -5797,14 +5744,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 2) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 iDecodeUnknownField = ArrayDecoders.decodeBytes(bArr2, iDecodeVarint32, registers2);
                                 UnsafeUtil.putObject(t2, jOffset, registers2.object1);
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5816,14 +5761,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 0) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 iDecodeUnknownField = ArrayDecoders.decodeVarint32(bArr2, iDecodeVarint32, registers2);
                                 UnsafeUtil.putInt(t2, jOffset, registers2.int1);
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5835,14 +5778,12 @@ final class MessageSchema<T> implements Schema<T> {
                             i5 = i20;
                             if (i21 != 0) {
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
                                 iDecodeUnknownField = ArrayDecoders.decodeVarint32(bArr2, iDecodeVarint32, registers2);
                                 UnsafeUtil.putInt(t2, jOffset, CodedInputStream.decodeZigZag32(registers2.int1));
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 i15 = i5;
                                 i14 = -1;
@@ -5854,7 +5795,6 @@ final class MessageSchema<T> implements Schema<T> {
                                 i8 = i22;
                                 i5 = i20;
                                 i4 = iDecodeVarint32;
-                                unsafe = unsafe2;
                                 i7 = i8;
                                 i6 = -1;
                             } else {
@@ -5863,7 +5803,6 @@ final class MessageSchema<T> implements Schema<T> {
                                 i5 = i20;
                                 UnsafeUtil.putLong(t, jOffset, CodedInputStream.decodeZigZag64(registers2.long1));
                                 i17 |= i25;
-                                unsafe4 = unsafe2;
                                 i16 = i8;
                                 iDecodeUnknownField = iDecodeVarint64;
                                 i15 = i5;
@@ -5875,7 +5814,6 @@ final class MessageSchema<T> implements Schema<T> {
                             i8 = i22;
                             i5 = i20;
                             i4 = iDecodeVarint32;
-                            unsafe = unsafe2;
                             i7 = i8;
                             i6 = -1;
                             break;
@@ -5883,13 +5821,11 @@ final class MessageSchema<T> implements Schema<T> {
                 } else {
                     i5 = i20;
                     i8 = i22;
-                    unsafe2 = unsafe5;
                     if (iType != 27) {
                         if (iType <= 49) {
                             int i28 = iDecodeVarint32;
                             i10 = i17;
                             i11 = i18;
-                            unsafe = unsafe2;
                             i6 = -1;
                             i7 = i8;
                             iDecodeUnknownField = parseRepeatedField(t, bArr, iDecodeVarint32, i2, i3, i5, i21, i8, i23,
@@ -5898,7 +5834,6 @@ final class MessageSchema<T> implements Schema<T> {
                             i9 = iDecodeVarint32;
                             i10 = i17;
                             i11 = i18;
-                            unsafe = unsafe2;
                             i7 = i8;
                             i6 = -1;
                             if (iType != 50) {
@@ -5908,10 +5843,8 @@ final class MessageSchema<T> implements Schema<T> {
                                 iDecodeUnknownField = parseMapField(t, bArr, i9, i2, i7, jOffset, registers);
                             }
                         }
-                        unsafe4 = unsafe;
                     } else if (i21 == 2) {
-                        Internal.ProtobufList protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList) unsafe2
-                                .getObject(t2, jOffset);
+                        Internal.ProtobufList protobufListMutableCopyWithCapacity2 = (Internal.ProtobufList) UnsafeUtil.getObject(t2, jOffset);
                         if (!protobufListMutableCopyWithCapacity2.isModifiable()) {
                             int size = protobufListMutableCopyWithCapacity2.size();
                             protobufListMutableCopyWithCapacity2 = protobufListMutableCopyWithCapacity2
@@ -5921,7 +5854,6 @@ final class MessageSchema<T> implements Schema<T> {
                         iDecodeUnknownField = ArrayDecoders.decodeMessageList(messageSchema.getMessageFieldSchema(i8),
                                 i3, bArr, iDecodeVarint32, i2, protobufListMutableCopyWithCapacity2, registers);
                         i17 = i17;
-                        unsafe4 = unsafe2;
                         i16 = i8;
                         i15 = i5;
                         i14 = -1;
@@ -5930,7 +5862,6 @@ final class MessageSchema<T> implements Schema<T> {
                         i9 = iDecodeVarint32;
                         i10 = i17;
                         i11 = i18;
-                        unsafe = unsafe2;
                         i7 = i8;
                         i6 = -1;
                     }
@@ -5949,12 +5880,10 @@ final class MessageSchema<T> implements Schema<T> {
             i14 = i6;
             i15 = i5;
             i16 = i7;
-            unsafe4 = unsafe;
         }
         int i29 = i17;
-        Object unsafe6 = unsafe4;
         if (i18 != 1048575) {
-            unsafe6.putInt(t, i18, i29);
+            UnsafeUtil.putInt(t, i18, i29);
         }
         if (iDecodeUnknownField == i2) {
             return iDecodeUnknownField;

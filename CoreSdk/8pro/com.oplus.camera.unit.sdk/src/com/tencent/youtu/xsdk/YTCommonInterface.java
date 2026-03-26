@@ -105,7 +105,7 @@ public class YTCommonInterface {
     */
     public static int initAuthOnlineWithCache(Context context, String str, String str2, String str3, String str4, boolean z) {
         int iInitAuthByFilePath;
-        boolean z2;
+        boolean z2 = false;
         int iInitAuthByString;
         int deviceInfo;
         File file = new File(str2);

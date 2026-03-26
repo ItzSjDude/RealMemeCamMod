@@ -305,30 +305,24 @@ public class ApsAdapterImpl implements ApsAdapterInterface, ApsInterface.ApsList
                 ApsPreviewAdapterImpl apsPreviewAdapterImpl = this.mPreviewImpl;
                 if (apsPreviewAdapterImpl != null) {
                     apsPreviewAdapterImpl.onPreviewReceived(apsResult);
-                    break;
                 } else {
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mPreviewImpl is null.");
-                    break;
                 }
                 break;
             case "pipeline_video":
                 ApsVideoAdapterImpl apsVideoAdapterImpl = this.mVideoImpl;
                 if (apsVideoAdapterImpl != null) {
                     apsVideoAdapterImpl.onPreviewReceived(apsResult);
-                    break;
                 } else {
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mVideoImpl is null.");
-                    break;
                 }
                 break;
             case "pipeline_capture":
                 ApsCaptureAdapterImpl apsCaptureAdapterImpl = this.mCaptureImpl;
                 if (apsCaptureAdapterImpl != null) {
                     apsCaptureAdapterImpl.onRawReceived(apsResult);
-                    break;
                 } else {
                     ApsAdapterLog.e(TAG, "onPreviewReceived, but mCaptureImpl is null.");
-                    break;
                 }
                 break;
             default:

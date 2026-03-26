@@ -594,7 +594,7 @@ public class ApsProcessor implements ApsProcessorContract.IProcessor, ApsAdapter
      */
     private void setPreviewMetaCommonParameters(CaptureRequest captureRequest, CaptureResult captureResult,
             ImageCategory.ItemInfoType itemInfoType, Long l, ImageCategory.MetaItemInfo metaItemInfo) {
-        boolean z;
+        boolean z = false;
         CameraRequestTag cameraRequestTag;
         if (this.mApsRequestTag == null) {
             CameraUnitLog.e(TAG, "setPreviewMetaCommonParameters, mApsRequestTag is null.");
@@ -1457,22 +1457,22 @@ public class ApsProcessor implements ApsProcessorContract.IProcessor, ApsAdapter
      * Code decompiled incorrectly, please refer to instructions dump.
      */
     public void addPictureMeta(CameraRequestTag cameraRequestTag, ApsCaptureResult apsCaptureResult, boolean z) {
-        Boolean bool;
-        boolean z2;
-        boolean zEquals;
+        Boolean bool = Boolean.FALSE;
+        boolean z2 = false;
+        boolean zEquals = false;
         ImageCategory.MetaItemInfo metaItemInfo;
-        boolean z3;
-        boolean z4;
-        int i;
-        String objArr;
-        String objArr2;
-        Boolean bool2;
-        CharSequence charSequence;
+        boolean z3 = false;
+        boolean z4 = false;
+        int i = 1;
+        String objArr = "";
+        String objArr2 = "";
+        Boolean bool2 = Boolean.FALSE;
+        CharSequence charSequence = "";
         CameraRequestTag previewRequestTag;
-        boolean z5;
+        boolean z5 = false;
         String[] algoFromApp;
         String[] strArrJoinAppAndHalAlgoFlag;
-        Boolean bool3;
+        Boolean bool3 = Boolean.FALSE;
         int i2;
         Integer num;
         Boolean bool4;
@@ -2696,7 +2696,7 @@ public class ApsProcessor implements ApsProcessorContract.IProcessor, ApsAdapter
             boolean z, boolean z2) {
         HardwareBuffer hardwareBuffer;
         int format;
-        int i;
+        int i = 0;
         int i2;
         if (image == null || itemInfoType == null || apsRequestTag == null) {
             CameraUnitLog.e(TAG, "generateImageInfo, params error, image: " + image + ", tag: " + apsRequestTag

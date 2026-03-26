@@ -97,8 +97,8 @@ public class Value<P> {
      * Code decompiled incorrectly, please refer to instructions dump.
      */
     public boolean isTargetValue(Object obj) {
-        boolean z;
-        boolean z2;
+        boolean z = false;
+        boolean z2 = false;
         if (obj == null) {
             return false;
         }
@@ -116,30 +116,26 @@ public class Value<P> {
                 boolean z3 = this.mbIncludeLeftBoundary;
                 int iCompare = Float.compare(fFloatValue3, fFloatValue);
                 z2 = !z3 ? iCompare <= 0 : iCompare < 0;
-                if (!this.mbIncludeRightBoundary ? Float.compare(fFloatValue3, fFloatValue2) >= 0
-                        : Float.compare(fFloatValue3, fFloatValue2) > 0) {
-                }
+                z = !this.mbIncludeRightBoundary ? Float.compare(fFloatValue3, fFloatValue2) >= 0
+                        : Float.compare(fFloatValue3, fFloatValue2) > 0;
             } else if (obj instanceof Long) {
                 long jLongValue = ((Long) this.mValue.get(0)).longValue();
                 long jLongValue2 = ((Long) this.mValue.get(1)).longValue();
                 long jLongValue3 = ((Long) obj).longValue();
                 z2 = !this.mbIncludeLeftBoundary ? jLongValue3 <= jLongValue : jLongValue3 < jLongValue;
-                if (!this.mbIncludeRightBoundary ? jLongValue3 >= jLongValue2 : jLongValue3 > jLongValue2) {
-                }
+                z = !this.mbIncludeRightBoundary ? jLongValue3 >= jLongValue2 : jLongValue3 > jLongValue2;
             } else if (obj instanceof Byte) {
                 byte bByteValue = ((Byte) this.mValue.get(0)).byteValue();
                 byte bByteValue2 = ((Byte) this.mValue.get(1)).byteValue();
                 byte bByteValue3 = ((Byte) obj).byteValue();
                 z2 = !this.mbIncludeLeftBoundary ? bByteValue3 <= bByteValue : bByteValue3 < bByteValue;
-                if (!this.mbIncludeRightBoundary ? bByteValue3 >= bByteValue2 : bByteValue3 > bByteValue2) {
-                }
+                z = !this.mbIncludeRightBoundary ? bByteValue3 >= bByteValue2 : bByteValue3 > bByteValue2;
             } else if (obj instanceof Short) {
                 short sShortValue = ((Short) this.mValue.get(0)).shortValue();
                 short sShortValue2 = ((Short) this.mValue.get(1)).shortValue();
                 short sShortValue3 = ((Short) obj).shortValue();
                 z2 = !this.mbIncludeLeftBoundary ? sShortValue3 <= sShortValue : sShortValue3 < sShortValue;
-                if (!this.mbIncludeRightBoundary ? sShortValue3 >= sShortValue2 : sShortValue3 > sShortValue2) {
-                }
+                z = !this.mbIncludeRightBoundary ? sShortValue3 >= sShortValue2 : sShortValue3 > sShortValue2;
             } else {
                 z = false;
                 z2 = false;

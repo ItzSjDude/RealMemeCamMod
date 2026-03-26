@@ -104,22 +104,14 @@ public class VideoMode extends BaseMode {
 
     @Override
     public LinkedList<SurfaceWrapper> buildStreamSurface(SdkCameraDeviceConfig deviceConfig, String cameraType) {
-        LinkedList<SurfaceWrapper> surfaces = super.buildStreamSurface(deviceConfig, cameraType);
-        if (surfaces == null) {
-            return null;
-        }
-
+        LinkedList<SurfaceWrapper> surfaces = new LinkedList<>();
         Parameter configParam = deviceConfig.getConfigureParameter();
-        boolean isUltraHighRes = (Boolean) configParam.get(ConfigureParameter.KEY_ULTRA_HIGH_RESOLUTION_ENABLE);
+        boolean isUltraHighRes = "on".equals(configParam.get(ConfigureParameter.HIGH_PICTURE_SIZE_ENABLE));
 
         if ("video".equals(getSurfaceUseCase(cameraType, isUltraHighRes))) {
-            Size videoSize = (Size) configParam.get(ConfigureParameter.KEY_VIDEO_SIZE);
-            if (videoSize != null) {
-                SurfaceKey surfaceKey = new SurfaceKey(SurfaceKey.VIDEO, cameraType);
-                Surface videoSurface = SurfacePool.getSurface(surfaceKey);
-                if (videoSurface != null) {
-                    surfaces.add(new SurfaceWrapper(videoSurface, videoSize, surfaceKey));
-                }
+            SurfaceWrapper videoWrapper = deviceConfig.getVideoSurface();
+            if (videoWrapper != null) {
+                surfaces.add(videoWrapper);
             }
         }
         return surfaces;
@@ -179,14 +171,17 @@ public class VideoMode extends BaseMode {
         apsRequestTag.mbPreviewProcessByAps = isPreviewProcessByAps(configParam, cameraType);
         apsRequestTag.mbVideoBlurOpen = "on".equals(configParam.get(ConfigureParameter.KEY_VIDEO_BLUR));
         apsRequestTag.mbAiFollowEnable = isAIFollowEnable(cameraType);
+        SurfaceWrapper videoSurface = deviceConfig.getVideoSurface();
 
-        this.mTargetVideoSize = (Size) configParam.get(ConfigureParameter.KEY_VIDEO_SIZE);
-        Range<Integer> fpsRange = (Range) configParam.get(ConfigureParameter.KEY_VIDEO_FPS);
+        if (videoSurface != null) {
+            this.mTargetVideoSize = videoSurface.getAppSurfaceSize();
+        } else {
+            this.mTargetVideoSize = deviceConfig.getDefaultPreviewSurface().getAppSurfaceSize();
+        }
+
+        Range<Integer> fpsRange = (Range) configParam.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
         if (fpsRange != null) {
             this.mConfigFpsRange = fpsRange;
-        }
-        if (apsRequestTag != null) {
-            apsRequestTag.mVideoSize = this.mTargetVideoSize;
         }
 
         if (!useOplusCameraCase(cameraType)) {
@@ -207,7 +202,6 @@ public class VideoMode extends BaseMode {
                 deviceConfig.updateHalVideoSize(
                         getCameraDeviceInfo(cameraType).getVideoMappingSizesFromConfig(cameraType, mapSingletonMap));
             }
-            SurfaceWrapper videoSurface = deviceConfig.getVideoSurface();
             if (videoSurface != null) {
                 StatisticsManager.getInstance().setVideoSize(videoSurface.getAppSurfaceSize());
             }
@@ -263,7 +257,6 @@ public class VideoMode extends BaseMode {
         apsRequestTag.mbVideo10BitsEnable = isVideo10BitOpen(cameraType);
         apsRequestTag.mbPhoto10BitsEnable = "on".equals(configParam.get(ConfigureParameter.PHOTO_10BIT_ENABLE));
 
-        super.onConfigure(sessionEntity, deviceConfig, cameraType, apsRequestTag);
     }
 
     @Override
@@ -387,29 +380,11 @@ public class VideoMode extends BaseMode {
                 break;
         }
 
-        if (PreviewParameter.STAGE_PREVIEW_ON.equals(stage)) {
-            Range<Integer> fpsRange = (Range) builder.get(PreviewParameter.KEY_VIDEO_FPS);
+        if ("start_preview".equals(stage)) {
+            Range<Integer> fpsRange = (Range) builder.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
             if (fpsRange != null) {
                 this.mConfigFpsRange = fpsRange;
             }
-        }
-    }
-
-    @Override
-    protected void updatePreviewRequest(CaptureRequest.Builder builder, CameraRequestTag requestTag, String stage,
-            String cameraType) {
-        super.updatePreviewRequest(builder, requestTag, stage, cameraType);
-        if (this.mConfigFpsRange != null) {
-            builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, this.mConfigFpsRange);
-        }
-    }
-
-    @Override
-    protected void updateRepeatingRequest(CaptureRequest.Builder builder, CameraRequestTag requestTag, String stage,
-            String cameraType) {
-        super.updateRepeatingRequest(builder, requestTag, stage, cameraType);
-        if (this.mTargetVideoSize != null && this.mTargetVideoSize.getWidth() >= VIDEO_4K_FRAME_WIDTH) {
-            builder.set(CaptureRequest.CONTROL_MODE, 1);
         }
     }
 
@@ -476,20 +451,20 @@ public class VideoMode extends BaseMode {
             @Nullable CameraRequestTag requestTag) {
         super.updateStageParameter(parameter, stage, cameraType, requestTag);
 
-        if (Parameter.ParameterStage.START_RECORDING.equals(stage) && isEndOfStreamNeeded(parameter, cameraType)) {
+        if ("start_recording".equals(stage) && isEndOfStreamNeeded(parameter, cameraType)) {
             parameter.set(PreviewParameter.KEY_END_OF_STREAM, new byte[] { 0 });
         }
-        if (Parameter.ParameterStage.STOP_RECORDING.equals(stage) && isEndOfStreamNeeded(parameter, cameraType)) {
+        if ("stop_recording".equals(stage) && isEndOfStreamNeeded(parameter, cameraType)) {
             parameter.set(PreviewParameter.KEY_END_OF_STREAM, new byte[] { 1 });
         }
 
-        if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(stage) && isVideo10BitOpen(cameraType)
+        if ("before_take_picture".equals(stage) && isVideo10BitOpen(cameraType)
                 && requestTag != null) {
             requestTag.mbPhoto10BitsEnable = true;
         }
 
-        if (PreviewParameter.STAGE_PREVIEW_ON.equals(stage)) {
-            Range<Integer> fpsRange = (Range) parameter.get(PreviewParameter.KEY_VIDEO_FPS);
+        if ("start_preview".equals(stage)) {
+            Range<Integer> fpsRange = (Range) parameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
             if (fpsRange != null) {
                 this.mConfigFpsRange = fpsRange;
             }
@@ -512,6 +487,29 @@ public class VideoMode extends BaseMode {
         super.unInit();
         this.mTargetVideoSize = null;
         this.mConfigFpsRange = null;
+    }
+
+    public boolean updateFpsRangeByVideoType(Parameter parameter, PreviewParameter.Builder builder, String str) {
+        Range<Integer> fpsRange = (Range) parameter.get(ConfigureParameter.VIDEO_DYNAMIC_FPS);
+        if (fpsRange != null) {
+            this.mConfigFpsRange = new Range<>(fpsRange.getLower(), fpsRange.getUpper());
+        }
+
+        String stabMode = (String) parameter.get(ConfigureParameter.VIDEO_STABILIZATION_MODE);
+        boolean isFrontSuperStab = "super_stabilization_front".equals(stabMode);
+
+        Integer aiNightMode = (Integer) parameter.get(ConfigureParameter.AI_NIGHT_VIDEO_MODE);
+        if (aiNightMode != null && aiNightMode == 1) {
+            this.mConfigFpsRange = new Range<>(20, 30);
+            CameraUnitLog.d(TAG, "updateFpsRangeByVideoType, aiNightVideoMode is on, set fps range to 20~30");
+        }
+
+        if (this.mConfigFpsRange != null) {
+            CameraUnitLog.d(TAG,
+                    "updateFpsRangeByVideoType, set CONTROL_AE_TARGET_FPS_RANGE to: " + this.mConfigFpsRange);
+            builder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, this.mConfigFpsRange);
+        }
+        return false;
     }
 
     @Override
@@ -908,5 +906,37 @@ public class VideoMode extends BaseMode {
             return (Boolean) CameraConfigHelper.getConfigValue(CameraConfigBase.KEY_VIDEO_STABILIZATION_BY_APS, true);
         }
         return true;
+    }
+
+    private boolean isAIFollowEnable(String cameraType) {
+        Parameter parameter = getConfigureParameter(cameraType);
+        if (parameter == null)
+            return false;
+        return "on".equals(parameter.get(ConfigureParameter.AI_FOLLOW_ENABLE));
+    }
+
+    protected void updateCurrentFps(String fpsStr) {
+        if (fpsStr == null)
+            return;
+        switch (fpsStr) {
+            case "video_120fps":
+                this.mCurrentFps = 120;
+                break;
+            case "video_240fps":
+                this.mCurrentFps = 240;
+                break;
+            case "video_480fps":
+                this.mCurrentFps = 480;
+                break;
+            case "video_960fps":
+                this.mCurrentFps = 960;
+                break;
+            case "video_60fps":
+                this.mCurrentFps = 60;
+                break;
+            default:
+                this.mCurrentFps = 30;
+                break;
+        }
     }
 }

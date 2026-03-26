@@ -51,7 +51,11 @@ public final class CameraConfigure {
             conditionVariable2.open();
             return;
         }
-        parseFromProtobuf(ContextHolder.getContext());
+        try {
+            parseFromProtobuf(ContextHolder.getContext());
+        } catch (Exception e) {
+            CameraUnitLog.e(TAG, "initialize error!", e);
+        }
     }
 
     public static synchronized void initialize(Context context) {
@@ -68,7 +72,11 @@ public final class CameraConfigure {
             conditionVariable2.open();
             return;
         }
-        parseFromProtobuf(context);
+        try {
+            parseFromProtobuf(context);
+        } catch (Exception e) {
+            CameraUnitLog.e(TAG, "initialize error!", e);
+        }
     }
 
     private static void generateVendorTagMap(byte[] bArr) {
@@ -160,7 +168,10 @@ public final class CameraConfigure {
             if (fileInputStream != null) {
             }
             FEATURE_CONFIG_CONDITION.open();
-            throw th;
+            if (th instanceof Exception) {
+                throw (Exception) th;
+            }
+            throw new Exception(th);
         }
         FEATURE_CONFIG_CONDITION.open();
     }
