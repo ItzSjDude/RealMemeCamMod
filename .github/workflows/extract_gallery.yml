@@ -42,7 +42,7 @@ jobs:
           sudo mv payload-dumper-go /usr/local/bin/
 
           # Install lpunpack (Prebuilt static)
-          wget https://github.com/whyshhnuv/lpunpack-lpmake-mirror/raw/main/lpunpack
+          wget https://raw.githubusercontent.com/whyshhnuv/lpunpack-lpmake-mirror/Linux-debian/binary/lpunpack
           sudo mv lpunpack /usr/local/bin/
           sudo chmod +x /usr/local/bin/lpunpack
           
