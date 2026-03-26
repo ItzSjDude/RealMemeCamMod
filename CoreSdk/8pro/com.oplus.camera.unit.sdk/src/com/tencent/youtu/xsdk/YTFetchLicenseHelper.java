@@ -73,242 +73,82 @@ public class YTFetchLicenseHelper {
         }
 
         /* JADX DEBUG: Don't trust debug lines info. Repeating lines: [120=9, 122=9] */
-        @Override // java.lang.Runnable
+        @Override
         public void run() {
-            HttpsURLConnection httpsURLConnection;
-            StringBuilder sb;
+            HttpsURLConnection httpsURLConnection = null;
+            StringBuilder sb = new StringBuilder();
             BufferedReader bufferedReader = null;
-            Exception e = null;
-            Throwable th = null;
             try {
-                try {
-                    long jCurrentTimeMillis = System.currentTimeMillis() / 1000;
-                    String str = this.val$appid + "-" + jCurrentTimeMillis;
-                    Mac mac = Mac.getInstance("HmacSHA256");
-                    mac.init(new SecretKeySpec(this.val$secret_key.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-                    String strEncodeToString = Base64.encodeToString(mac.doFinal(str.getBytes(StandardCharsets.UTF_8)),
-                            2);
-                    JSONObject jSONObject = new JSONObject();
-                    jSONObject.put("app_id", this.val$appid);
-                    jSONObject.put("auth_string", strEncodeToString);
-                    jSONObject.put("machine_type", this.val$var7);
-                    jSONObject.put("machine_id", this.val$var6);
-                    jSONObject.put("machine_info", this.val$var8);
-                    jSONObject.put(ApsParameters.KEY_PACKAGE_NAME, this.val$var9);
-                    jSONObject.put("time_stamp", jCurrentTimeMillis);
-                    String string = jSONObject.toString();
-                    httpsURLConnection = (HttpsURLConnection) new URL(this.val$url_str).openConnection();
-                    try {
-                        httpsURLConnection.setRequestMethod("POST");
-                        httpsURLConnection.setDoInput(true);
-                        httpsURLConnection.setDoOutput(true);
-                        httpsURLConnection.setUseCaches(false);
-                        httpsURLConnection.setInstanceFollowRedirects(false);
-                        httpsURLConnection.setRequestProperty("Content-type", "application/json");
-                        httpsURLConnection.setConnectTimeout(5000);
-                        httpsURLConnection.setReadTimeout(5000);
-                        httpsURLConnection.connect();
-                        DataOutputStream dataOutputStream = new DataOutputStream(httpsURLConnection.getOutputStream());
-                        dataOutputStream.write(string.getBytes(StandardCharsets.UTF_8));
-                        dataOutputStream.flush();
-                        dataOutputStream.close();
-                        this.result.http_status = httpsURLConnection.getResponseCode();
-                    } catch (MalformedURLException eInternal1) {
-                        e = eInternal1;
-                    } catch (ProtocolException eInternal2) {
-                        e = eInternal2;
-                    } catch (SocketTimeoutException eInternal3) {
-                        e = eInternal3;
-                    } catch (IOException eInternal4) {
-                        e = eInternal4;
-                    } catch (InvalidKeyException eInternal5) {
-                        e = eInternal5;
-                    } catch (NoSuchAlgorithmException eInternal6) {
-                        e = eInternal6;
-                    } catch (JSONException eInternal7) {
-                        e = eInternal7;
-                    }
-                } catch (Throwable t) {
-                    th = t;
-                }
-            } catch (MalformedURLException e8) {
-                e = e8;
-                httpsURLConnection = null;
-            } catch (ProtocolException e9) {
-                e = e9;
-                httpsURLConnection = null;
-            } catch (SocketTimeoutException e10) {
-                e = e10;
-                httpsURLConnection = null;
-            } catch (IOException e11) {
-                e = e11;
-                httpsURLConnection = null;
-            } catch (InvalidKeyException e12) {
-                e = e12;
-                httpsURLConnection = null;
-            } catch (NoSuchAlgorithmException e13) {
-                e = e13;
-                httpsURLConnection = null;
-            } catch (JSONException e14) {
-                e = e14;
-                httpsURLConnection = null;
-            } catch (Throwable th2) {
-                th = th2;
-                httpsURLConnection = null;
-            }
-            if (this.result.http_status == 200) {
-                BufferedReader bufferedReader2 = new BufferedReader(
-                        new InputStreamReader(httpsURLConnection.getInputStream(), StandardCharsets.UTF_8));
-                try {
-                    sb = new StringBuilder();
-                } catch (MalformedURLException e15) {
-                    e = e15;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e16) {
-                            e16.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (ProtocolException e17) {
-                    e = e17;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e18) {
-                            e18.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (SocketTimeoutException e19) {
-                    e = e19;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e20) {
-                            e20.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (IOException e21) {
-                    e = e21;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e22) {
-                            e22.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (InvalidKeyException e23) {
-                    e = e23;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e24) {
-                            e24.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (NoSuchAlgorithmException e25) {
-                    e = e25;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e26) {
-                            e26.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (JSONException e27) {
-                    e = e27;
-                    bufferedReader = bufferedReader2;
-                    e.printStackTrace();
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e28) {
-                            e28.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        return;
-                    }
-                } catch (Throwable th3) {
-                    th = th3;
-                    bufferedReader = bufferedReader2;
-                    if (bufferedReader != null) {
-                        try {
-                            bufferedReader.close();
-                        } catch (IOException e29) {
-                            e29.printStackTrace();
-                        }
-                    }
-                    if (httpsURLConnection == null) {
-                        throw new RuntimeException(th);
-                    }
-                    httpsURLConnection.disconnect();
-                    throw new RuntimeException(th);
-                }
-                while (true) {
-                    String line = bufferedReader2.readLine();
-                    if (line == null) {
-                        break;
-                    } else {
+                long jCurrentTimeMillis = System.currentTimeMillis() / 1000;
+                String str = this.val$appid + "-" + jCurrentTimeMillis;
+                Mac mac = Mac.getInstance("HmacSHA256");
+                mac.init(new SecretKeySpec(this.val$secret_key.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
+                String strEncodeToString = Base64.encodeToString(mac.doFinal(str.getBytes(StandardCharsets.UTF_8)), 2);
+
+                JSONObject jSONObject = new JSONObject();
+                jSONObject.put("app_id", this.val$appid);
+                jSONObject.put("auth_string", strEncodeToString);
+                jSONObject.put("machine_type", this.val$var7);
+                jSONObject.put("machine_id", this.val$var6);
+                jSONObject.put("machine_info", this.val$var8);
+                jSONObject.put(ApsParameters.KEY_PACKAGE_NAME, this.val$var9);
+                jSONObject.put("time_stamp", jCurrentTimeMillis);
+
+                String string = jSONObject.toString();
+                httpsURLConnection = (HttpsURLConnection) new URL(this.val$url_str).openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoInput(true);
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setUseCaches(false);
+                httpsURLConnection.setInstanceFollowRedirects(false);
+                httpsURLConnection.setRequestProperty("Content-type", "application/json");
+                httpsURLConnection.setConnectTimeout(5000);
+                httpsURLConnection.setReadTimeout(5000);
+                httpsURLConnection.connect();
+
+                DataOutputStream dataOutputStream = new DataOutputStream(httpsURLConnection.getOutputStream());
+                dataOutputStream.write(string.getBytes(StandardCharsets.UTF_8));
+                dataOutputStream.flush();
+                dataOutputStream.close();
+
+                this.result.http_status = httpsURLConnection.getResponseCode();
+
+                if (this.result.http_status == 200) {
+                    bufferedReader = new BufferedReader(
+                            new InputStreamReader(httpsURLConnection.getInputStream(), StandardCharsets.UTF_8));
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
                         sb.append(line);
                     }
-                    httpsURLConnection.disconnect();
+
+                    JSONObject jSONObject2 = new JSONObject(sb.toString());
+                    if (jSONObject2.has("error_code")) {
+                        this.result.error_code = jSONObject2.optInt("error_code");
+                        this.result.error_msg = jSONObject2.optString("error_msg");
+                        if (this.result.error_code == 0) {
+                            this.result.license = jSONObject2.optString("license");
+                            this.result.bind_type = jSONObject2.optString("bind_type");
+                            this.result.auth_type = jSONObject2.optString("auth_type");
+                        }
+                    }
+                } else {
+                    Log.e(YTFetchLicenseHelper.TAG, "connection status: " + this.result.http_status);
                 }
-                JSONObject jSONObject2 = new JSONObject(sb.toString());
-                if (jSONObject2.has("error_code")) {
-                    this.result.error_code = jSONObject2.optInt("error_code");
-                    this.result.error_msg = jSONObject2.optString("error_msg");
-                    if (this.result.error_code == 0) {
-                        this.result.license = jSONObject2.optString("license");
-                        this.result.bind_type = jSONObject2.optString("bind_type");
-                        this.result.auth_type = jSONObject2.optString("auth_type");
+            } catch (Exception e) {
+                Log.e(YTFetchLicenseHelper.TAG, "Error fetching license: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                if (bufferedReader != null) {
+                    try {
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
-                bufferedReader = bufferedReader2;
-            } else {
-                Log.e(YTFetchLicenseHelper.TAG, "connection status: " + this.result.http_status);
-            }
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e30) {
-                    e30.printStackTrace();
+                if (httpsURLConnection != null) {
+                    httpsURLConnection.disconnect();
                 }
             }
-            if (httpsURLConnection == null) {
-                return;
-            }
-            httpsURLConnection.disconnect();
         }
     }
 
