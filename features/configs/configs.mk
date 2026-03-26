@@ -16,6 +16,5 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += $(foreach f,$(shell find vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/config -type f),$(f):$(subst vendor/realmeme_cam_mod/features/configs/system/odm/,$(TARGET_COPY_OUT_ODM)/,$(f)))
 PRODUCT_COPY_FILES += $(foreach f,$(shell find vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/model -type f),$(f):$(subst vendor/realmeme_cam_mod/features/configs/system/odm/,$(TARGET_COPY_OUT_ODM)/,$(f)))
 PRODUCT_COPY_FILES += $(foreach f,$(shell find vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/gesture -type f),$(f):$(subst vendor/realmeme_cam_mod/features/configs/system/odm/,$(TARGET_COPY_OUT_ODM)/,$(f)))
- \
 
 endif
