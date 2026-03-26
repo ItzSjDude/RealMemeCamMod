@@ -1,0 +1,27 @@
+cc_prebuilt_library_shared {
+    name: "libAPSClient-jni.qti",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/libAPSClient-jni.qti.so"] },
+        lib32: { srcs: ["libs/lib/libAPSClient-jni.qti.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libAPSClient-cmd-jni.qti",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/libAPSClient-cmd-jni.qti.so"] },
+        lib32: { srcs: ["libs/lib/libAPSClient-cmd-jni.qti.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+}

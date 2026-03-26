@@ -36,5 +36,6 @@ ENABLE_DoubleExposure      := true
 -include vendor/realmeme_cam_mod/features/traffic_mode/traffic_mode.mk
 -include vendor/realmeme_cam_mod/features/water_mode/water_mode.mk
 -include vendor/realmeme_cam_mod/features/xdoc/xdoc.mk
+-include vendor/realmeme_cam_mod/CoreAps/core_aps.mk
 -include vendor/realmeme_cam_mod/CoreAlgo/core_algo.mk
 -include vendor/realmeme_cam_mod/CoreSdk/core_sdk.mk
