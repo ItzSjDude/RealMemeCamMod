@@ -118,16 +118,18 @@ public class LongExposureMode extends BaseMode {
         super.updateStageParameterBuilder(builder, str, str2, cameraRequestTag);
         if (cameraRequestTag != null) {
             if (Parameter.ParameterStage.BEFORE_TAKE_PICTURE.equals(str)) {
-            if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
-                cameraRequestTag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
-                cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN))
-                        .booleanValue();
-                cameraRequestTag.mbFilterVignette = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_WITHVIGNETTE))
-                        .booleanValue();
-            }
-            if (cameraRequestTag.getRequestMode() == CameraRequestTag.RequestMode.CAPTURE_REPROCESS) {
-                cameraRequestTag.mbLongExposureCaptureEnable = false;
-                cameraRequestTag.mRequestFormat = 35;
+                if (builder.containCustomKey(PreviewParameter.KEY_FILTER_TYPE)) {
+                    cameraRequestTag.mFilterType = (String) builder.get(PreviewParameter.KEY_FILTER_TYPE);
+                    cameraRequestTag.mbFilterOpen = ((Boolean) builder.get(PreviewParameter.KEY_FILTER_OPEN))
+                            .booleanValue();
+                    cameraRequestTag.mbFilterVignette = ((Boolean) builder
+                            .get(PreviewParameter.KEY_FILTER_WITHVIGNETTE))
+                            .booleanValue();
+                }
+                if (cameraRequestTag.getRequestMode() == CameraRequestTag.RequestMode.CAPTURE_REPROCESS) {
+                    cameraRequestTag.mbLongExposureCaptureEnable = false;
+                    cameraRequestTag.mRequestFormat = 35;
+                }
             }
         }
     }
