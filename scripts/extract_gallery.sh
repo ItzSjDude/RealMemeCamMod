@@ -42,11 +42,13 @@ PAYLOAD_PATH=$(echo "$FILES_LIST" | grep "payload.bin" | awk '{print $NF}' | hea
 if [ -n "$PAYLOAD_PATH" ]; then
     echo "✨ Found payload.bin at: $PAYLOAD_PATH. Extracting..."
     unzip -j firmware.zip "$PAYLOAD_PATH"
+    rm firmware.zip # Save space
     
     # Step 3: Dump from payload.bin
     echo "🔍 Dumping partitions (my_product, system_ext, my_stock, system)..."
     if [ -f "payload.bin" ]; then
         payload-dumper-go -p my_product,system_ext,my_stock,system payload.bin
+        rm payload.bin # Save space
         echo "📜 Files extracted by payload-dumper-go:"
         ls -R extracted/
     else
@@ -54,74 +56,64 @@ if [ -n "$PAYLOAD_PATH" ]; then
         exit 1
     fi
 else
-    echo "⚠️ payload.bin NOT found. Listing all files for debug:"
-    echo "$FILES_LIST"
-    
-    echo "🔍 Checking for direct partition images (.img)..."
-    # Check if system.img or my_product.img exist
+    echo "⚠️ payload.bin NOT found. Checking for direct images..."
     if echo "$FILES_LIST" | grep -qE "my_product.img|system_ext.img|system.img"; then
         echo "✅ Direct images found! Extracting them..."
-        mkdir -p extracted/dummy_dir # Match payload-dumper-go structure
-        unzip -j firmware.zip "*my_product.img" "*system_ext.img" "*system.img" -d extracted/dummy_dir/
+        mkdir -p extracted/dummy_dir
+        unzip -j firmware.zip "*my_product.img" "*system_ext.img" "*system.img" "*my_stock.img" -d extracted/dummy_dir/
+        rm firmware.zip # Save space
     else
         echo "❌ No recognizable partitions found in firmware.zip!"
         exit 1
     fi
 fi
 
-# 4. Extract EROFS/EXT4 images
-echo "📂 Searching for Gallery APK..."
+# 4. Extract EROFS/EXT4 images one by one to find Gallery APK and Metadata
+echo "📂 Searching for Gallery APK and Metadata..."
 mkdir -p extracted_files
+FOUND=false
+FOUND_META=false
+touch ../extracted_metadata.env
 
 for img in extracted/dummy_dir/*.img extracted/*/*.img; do
     if [ -f "$img" ]; then
-        echo "🧐 Checking $img..."
-        # Use dump.erofs to list files
-        dump.erofs --ls --recursive "$img" | grep "OplusPhotos.apk" && {
-            echo "✅ Found OplusPhotos.apk in "$img"! Extracting..."
-            # Extract the whole image to find the file (fsck.erofs --extract is reliable)
-            mkdir -p apk_out
-            fsck.erofs --extract="./apk_out" "$img"
-            
-            # Find the actual extracted file path
-            ACTUAL_APK=$(find ./apk_out -name "OplusPhotos.apk" | head -n 1)
-            
-            if [ -f "$ACTUAL_APK" ]; then
-                echo "✨ Success! Moving APK to repo..."
-                mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
-                FOUND=true
-                break
+        echo "🧐 Processing $img..."
+        mkdir -p current_out
+        
+        # Try to extract the whole image
+        if fsck.erofs --extract="./current_out" "$img" > /dev/null 2>&1; then
+            # 1. Search for OplusPhotos.apk
+            if [ "$FOUND" != true ]; then
+                ACTUAL_APK=$(find ./current_out -name "OplusPhotos.apk" | head -n 1)
+                if [ -n "$ACTUAL_APK" ]; then
+                    echo "✨ Found OplusPhotos.apk! Moving to repo..."
+                    mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
+                    FOUND=true
+                fi
             fi
-        }
-    fi
-done
-
-# 5. Extract Device/ROM Metadata
-echo "🔍 Extracting device/ROM metadata..."
-touch ../extracted_metadata.env
-for img in extracted/dummy_dir/*.img extracted/*/*.img; do
-    if [ -f "$img" ] && [ "$FOUND_META" != true ]; then
-        # Try to find build.prop
-        dump.erofs --ls --recursive "$img" | grep "build.prop" | head -n 1 && {
-            echo "📄 Extracting build.prop from "$img"..."
-            mkdir -p meta_out
-            fsck.erofs --extract="./meta_out" "$img"
             
-            # Find the actual extracted build.prop
-            ACTUAL_BPROP=$(find ./meta_out -name "build.prop" | head -n 1)
-            
-            if [ -f "$ACTUAL_BPROP" ]; then
-                DEVICE=$(grep "ro.product.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                VERSION=$(grep "ro.build.display.id=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                # Fallback if first one is empty
-                [ -z "$DEVICE" ] && DEVICE=$(grep "ro.product.system.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                
-                echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
-                echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
-                echo "✅ Metadata extracted: $DEVICE | $VERSION"
-                FOUND_META=true
+            # 2. Search for build.prop / Metadata
+            if [ "$FOUND_META" != true ]; then
+                ACTUAL_BPROP=$(find ./current_out -name "build.prop" | head -n 1)
+                if [ -n "$ACTUAL_BPROP" ]; then
+                    echo "📄 Extracting metadata from build.prop..."
+                    DEVICE=$(grep "ro.product.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                    VERSION=$(grep "ro.build.display.id=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                    [ -z "$DEVICE" ] && DEVICE=$(grep "ro.product.system.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                    
+                    echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
+                    echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
+                    echo "✅ Metadata extracted: $DEVICE | $VERSION"
+                    FOUND_META=true
+                fi
             fi
-        }
+        else
+            echo "⚠️ Failed to extract $img (maybe not EROFS), skipping..."
+        fi
+        
+        # Cleanup to save space before next image
+        rm -rf current_out
+        rm "$img"
     fi
 done
 
