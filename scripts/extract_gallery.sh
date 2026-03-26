@@ -57,10 +57,10 @@ if [ -n "$PAYLOAD_PATH" ]; then
     fi
 else
     echo "⚠️ payload.bin NOT found. Checking for direct images..."
-    if echo "$FILES_LIST" | grep -qE "my_product.img|system_ext.img|system.img"; then
-        echo "✅ Direct images found! Extracting them..."
+    if echo "$FILES_LIST" | grep -qE "\.img"; then
+        echo "✅ Direct images found! Extracting all of them..."
         mkdir -p extracted/dummy_dir
-        unzip -j firmware.zip "*my_product.img" "*system_ext.img" "*system.img" "*my_stock.img" -d extracted/dummy_dir/
+        unzip -j firmware.zip "*.img" -d extracted/dummy_dir/
         rm firmware.zip # Save space
     else
         echo "❌ No recognizable partitions found in firmware.zip!"
@@ -81,12 +81,14 @@ for img in extracted/dummy_dir/*.img extracted/*/*.img; do
         mkdir -p current_out
         
         # Try to extract the whole image
+        # Using 2>&1 to see why extraction might fail
         if fsck.erofs --extract="./current_out" "$img" > /dev/null 2>&1; then
-            # 1. Search for OplusPhotos.apk
+            # 1. Search for Photos/Gallery APK (Case Insensitive)
             if [ "$FOUND" != true ]; then
-                ACTUAL_APK=$(find ./current_out -name "OplusPhotos.apk" | head -n 1)
+                # Search for anything that looks like a Photos or Gallery app
+                ACTUAL_APK=$(find ./current_out -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
                 if [ -n "$ACTUAL_APK" ]; then
-                    echo "✨ Found OplusPhotos.apk! Moving to repo..."
+                    echo "✨ Found APK: $ACTUAL_APK! Moving to repo..."
                     mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
                     FOUND=true
                 fi
@@ -96,19 +98,24 @@ for img in extracted/dummy_dir/*.img extracted/*/*.img; do
             if [ "$FOUND_META" != true ]; then
                 ACTUAL_BPROP=$(find ./current_out -name "build.prop" | head -n 1)
                 if [ -n "$ACTUAL_BPROP" ]; then
-                    echo "📄 Extracting metadata from build.prop..."
-                    DEVICE=$(grep "ro.product.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                    VERSION=$(grep "ro.build.display.id=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                    [ -z "$DEVICE" ] && DEVICE=$(grep "ro.product.system.model=" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                    echo "📄 Extracting metadata from build.prop ($ACTUAL_BPROP)..."
+                    # Try multiple model prop names
+                    DEVICE=$(grep -E "ro.product.model|ro.product.system.model|ro.product.product.model|ro.display.series" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
+                    VERSION=$(grep -E "ro.build.display.id|ro.system.build.id" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
                     
-                    echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
-                    echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
-                    echo "✅ Metadata extracted: $DEVICE | $VERSION"
-                    FOUND_META=true
+                    if [ -n "$DEVICE" ]; then
+                        echo "DEVICE=\"$DEVICE\"" >> ../../extracted_metadata.env
+                        echo "VERSION=\"$VERSION\"" >> ../../extracted_metadata.env
+                        echo "✅ Metadata extracted: $DEVICE | $VERSION"
+                        FOUND_META=true
+                    fi
                 fi
             fi
         else
-            echo "⚠️ Failed to extract $img (maybe not EROFS), skipping..."
+            # Maybe it's EXT4? 7z can sometimes handle it if it's a raw image or mountable
+            # But GH Actions has no loop mount. 7z/unzip won't work on ext4 images directly.
+            # We assume most modern Oplus are EROFS.
+            echo "⚠️ Failed to extract $img (might not be EROFS), skipping..."
         fi
         
         # Cleanup to save space before next image
