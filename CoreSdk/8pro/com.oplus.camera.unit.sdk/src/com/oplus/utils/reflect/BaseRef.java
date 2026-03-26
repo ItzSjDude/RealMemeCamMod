@@ -12,7 +12,7 @@ abstract class BaseRef<T> implements IBaseRef {
     private final String mName;
     private final Type mType;
     private Object mStub = null;
-    private final T mDefaultValue = initDefaultValue();
+    private final T mDefaultValue;
 
     static {
         HashMap<Class<?>, Object> defaultTypes = new HashMap<>();
@@ -30,6 +30,7 @@ abstract class BaseRef<T> implements IBaseRef {
     BaseRef(Field field) {
         this.mName = field.getName();
         this.mType = getGenericType(field);
+        this.mDefaultValue = initDefaultValue();
     }
 
     @Override // com.oplus.utils.reflect.IBaseRef
