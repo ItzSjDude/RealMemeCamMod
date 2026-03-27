@@ -15,6 +15,11 @@ PRODUCT_BOOT_JARS += \
 PRODUCT_SOONG_NAMESPACES += \
     vendor/realmeme_cam_mod
 
+# Soong Config for oplus-framework
+PRODUCT_SOONG_CONFIG_NAMESPACES += oplus_feature
+PRODUCT_SOONG_CONFIG_oplus_feature += coloros_16_photos
+PRODUCT_SOONG_CONFIG_oplus_feature_coloros_16_photos := $(ENABLE_COLOROS_16_PHOTOS)
+
 
 
 # --- Auto-Generated PRODUCT_PACKAGES list ---

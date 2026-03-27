@@ -17,6 +17,7 @@ ENABLE_TrafficMode         := true
 ENABLE_WaterMode           := true
 ENABLE_XDoc                := true
 ENABLE_DoubleExposure      := true
+ENABLE_COLOROS_16_PHOTOS   := true
 # ==========================================
 
 # --- Feature Makefiles ---

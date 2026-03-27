@@ -1,5 +1,14 @@
 // Auto-generated Android.bp for Realmeme Camera Mod
 
+soong_config_module_type {
+    name: "oplus_framework_java_library",
+    module_type: "java_library",
+    config_namespace: "oplus_feature",
+    bool_variables: ["coloros_16_photos"],
+    properties: ["srcs"],
+}
+
+
 cc_prebuilt_library_shared {
     name: "libarcsoft_hdr_denoise_api",
     owner: "oplus",
@@ -927,13 +936,18 @@ android_app_import {
 }
 
 // --- Oplus Framework Java Library ---
-java_library {
+oplus_framework_java_library {
     name: "oplus-framework",
     srcs: [
         "oplus-frameworks/opcore-fwk/src/**/*.aidl",
         "oplus-frameworks/opcore-fwk/src/**/*.java",
         "oplus-frameworks/op-support-wrapper/src/**/*.java",
     ],
+    soong_config_variables: {
+        coloros_16_photos: {
+            srcs: ["oplus-frameworks/op-cos16-fwk/src/**/*.java"],
+        },
+    },
     aidl: {
         local_include_dirs: ["oplus-frameworks/opcore-fwk/src"],
     },

@@ -4,3 +4,5 @@ libNativeWinBuffExchange.so
 liboplusheifwriter.so
 libAlgoProcess.so
 libAlgoInterface.so
+libAPSClient-jni.so
+libAPSClient-cmd-jni.so
