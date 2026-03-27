@@ -93,6 +93,9 @@ cc_prebuilt_library_shared {
         "libEGL",
         "libqdMetaData",
         "liblog",
+        "libapsexif",
+        "libapsjpeg",
+        "libormshalclient",
     ],
 }
 
@@ -224,37 +227,37 @@ cc_prebuilt_library_shared {
 }
 
 
-//cc_prebuilt_library_shared {
-    //name: "libAlgoInterface",
-    //owner: "oplus",
-    //strip: { none: true },
-    //multilib: {
-        //lib64: { srcs: ["odm/lib64/libAlgoInterface.so"] },
-        //lib32: { srcs: ["odm/lib/libAlgoInterface.so"] },
-    //},
-    //compile_multilib: "both",
-    //check_elf_files: false,
-    //prefer: true,
-    //device_specific: true,
-    //shared_libs: [
-        //"libutils",
-        //"libcutils",
-        //"vendor.qti.hardware.camera.postproc@1.0",
-        //"libc++",
-        //"libAlgoProcess",
-        //"libm",
-        //"libion",
-        //"libmpbase",
-        //"libEGL",
-        //"libc",
-        //"libdl",
-        //"libqdMetaData",
-        //"libGLESv3",
-        //"libhidlbase",
-        //"libnativewindow",
-        //"liblog",
-    //],
-//}
+cc_prebuilt_library_shared {
+    name: "libAlgoInterface",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libAlgoInterface.so"] },
+        lib32: { srcs: ["odm/lib/libAlgoInterface.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libutils",
+        "libcutils",
+        "vendor.qti.hardware.camera.postproc@1.0",
+        "libc++",
+        "libAlgoProcess",
+        "libm",
+        "libion",
+        "libmpbase",
+        "libEGL",
+        "libc",
+        "libdl",
+        "libqdMetaData",
+        "libGLESv3",
+        "libhidlbase",
+        "libnativewindow",
+        "liblog",
+    ],
+}
 
 
 cc_prebuilt_library_shared {
@@ -1028,5 +1031,48 @@ android_app_import {
         enabled: false,
     },
     product_specific: true,
+}
+
+
+cc_prebuilt_library_shared {
+    name: "libapsexif",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libapsexif.so"] },
+        lib32: { srcs: ["odm/lib/libapsexif.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libapsjpeg",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libapsjpeg.so"] },
+        lib32: { srcs: ["odm/lib/libapsjpeg.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libormshalclient",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["odm/lib64/libormshalclient.so"] },
+        lib32: { srcs: ["odm/lib/libormshalclient.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
 }
 
