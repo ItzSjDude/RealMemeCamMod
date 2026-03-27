@@ -131,9 +131,9 @@ for target in $TARGET_LIST; do
             ACTUAL_APK=$(find ./current_out -maxdepth 7 -iname "OppoGallery2.apk" -o -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
             if [ -n "$ACTUAL_APK" ]; then
                 echo "🎯 Found APK: $ACTUAL_APK"
-                mkdir -p "../../$TARGET_DIR"
+                mkdir -p "../$TARGET_DIR"
                 # Renaming to OplusPhotos.apk as per request
-                mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
+                mv "$ACTUAL_APK" "../$TARGET_DIR/OplusPhotos.apk"
                 FOUND=true
             fi
         fi

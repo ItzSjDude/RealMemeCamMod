@@ -13,6 +13,9 @@ on:
         default: 'feat(apps): update OplusPhotos.apk from remote firmware'
         type: string
 
+permissions:
+  contents: write
+
 jobs:
   extract:
     runs-on: ubuntu-latest
