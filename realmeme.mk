@@ -1,5 +1,6 @@
 -include vendor/realmeme_cam_mod/featureflags.mk
 -include vendor/realmeme_cam_mod/CoreAps/core_aps.mk
+-include vendor/realmeme_cam_mod/features/configs/configs.mk
 
 
 
