@@ -40,8 +40,8 @@ FILES_LIST=$(7z l firmware.zip)
 echo "📜 Full file list for debug:"
 echo "$FILES_LIST"
 
-# Targeted partitions - added word boundaries or specific patterns
-TARGET_LIST="my_product my_stock system system_ext odm product vendor my_engineering my_region"
+# Targeted partitions - user specifically requested my_manifest and my_stock
+TARGET_LIST="my_manifest my_stock"
 
 # 3. Handle super.img if present (Dynamic Partitions)
 SUPER_PATH=$(echo "$FILES_LIST" | grep -i "super.img" | awk '{print $NF}' | head -n 1)
@@ -84,9 +84,6 @@ for target in $TARGET_LIST; do
         if [ -n "$IMG_PATH" ]; then
             echo "🎯 Extracting $target from ZIP ($IMG_PATH)..."
             7z x firmware.zip "$IMG_PATH" -y -o.
-            # 7z preserves path if not using -j, which unzip -j would flatten.
-            # But the loop expects $LOCAL_IMG in current dir.
-            # We move it manually to current dir (flatten)
             ACTUAL_EXTRACTED=$(find . -name "$(basename "$IMG_PATH")")
             if [ -n "$ACTUAL_EXTRACTED" ] && [ "$ACTUAL_EXTRACTED" != "./$(basename "$IMG_PATH")" ]; then
                  mv "$ACTUAL_EXTRACTED" "./$(basename "$IMG_PATH")"
@@ -121,26 +118,35 @@ for target in $TARGET_LIST; do
 
         # 4.3 Search for APK
         if [ "$FOUND" != true ]; then
-            ACTUAL_APK=$(find ./current_out -maxdepth 7 -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
+            # Specifically targeting OppoGallery2.apk as per user request
+            ACTUAL_APK=$(find ./current_out -maxdepth 7 -iname "OppoGallery2.apk" -o -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
             if [ -n "$ACTUAL_APK" ]; then
                 echo "🎯 Found APK: $ACTUAL_APK"
                 mkdir -p "../../$TARGET_DIR"
+                # Renaming to OplusPhotos.apk as per request
                 mv "$ACTUAL_APK" "../../$TARGET_DIR/OplusPhotos.apk"
                 FOUND=true
             fi
         fi
 
-        # 4.4 Search for Metadata
+        # 4.4 Search for Metadata (Specifically from my_manifest/build.prop)
         if [ "$FOUND_META" != true ]; then
             ACTUAL_BPROP=$(find ./current_out -name "build.prop" | head -n 1)
             if [ -n "$ACTUAL_BPROP" ]; then
                 echo "📄 Extracting metadata from $ACTUAL_BPROP"
-                DEVICE=$(grep -E "ro.product.model|ro.product.system.model|ro.display.series" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                VERSION=$(grep -E "ro.build.display.id|ro.system.build.id" "$ACTUAL_BPROP" | head -n 1 | cut -d'=' -f2)
-                if [ -n "$DEVICE" ]; then
-                    echo "DEVICE=\"$DEVICE\"" >> ../extracted_metadata.env
-                    echo "VERSION=\"$VERSION\"" >> ../extracted_metadata.env
-                    echo "✅ Metadata extracted: $DEVICE | $VERSION"
+                MARKET_NAME=$(grep "ro.vendor.oplus.market.enname=" "$ACTUAL_BPROP" | cut -d'=' -f2)
+                MODEL=$(grep "ro.product.model=" "$ACTUAL_BPROP" | cut -d'=' -f2)
+                ANDROID_VER=$(grep "ro.build.version.release=" "$ACTUAL_BPROP" | cut -d'=' -f2)
+                BUILD_DATE=$(grep "ro.vendor.build.date=" "$ACTUAL_BPROP" | cut -d'=' -f2)
+                OTA_VER=$(grep "ro.build.version.ota=" "$ACTUAL_BPROP" | cut -d'=' -f2)
+
+                if [ -n "$MARKET_NAME" ] || [ -n "$MODEL" ]; then
+                    echo "MARKET_NAME=\"$MARKET_NAME\"" >> ../extracted_metadata.env
+                    echo "MODEL=\"$MODEL\"" >> ../extracted_metadata.env
+                    echo "ANDROID_VER=\"$ANDROID_VER\"" >> ../extracted_metadata.env
+                    echo "BUILD_DATE=\"$BUILD_DATE\"" >> ../extracted_metadata.env
+                    echo "OTA_VER=\"$OTA_VER\"" >> ../extracted_metadata.env
+                    echo "✅ Metadata extracted: $MARKET_NAME | $MODEL | Android $ANDROID_VER"
                     FOUND_META=true
                 fi
             fi
