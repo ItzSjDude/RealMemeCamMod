@@ -49,8 +49,8 @@ FILES_LIST=$(7z l firmware.zip)
 echo "📜 Full file list for debug:"
 echo "$FILES_LIST"
 
-# Targeted partitions - user specifically requested my_manifest and my_stock
-TARGET_LIST="my_manifest my_stock"
+# Targeted partitions - search common Oplus/Realme custom partitions
+TARGET_LIST="my_manifest my_stock my_bigball my_product my_heytap"
 
 # 3. Handle super.img if present (Dynamic Partitions)
 SUPER_PATH=$(echo "$FILES_LIST" | grep -i "super.img" | awk '{print $NF}' | head -n 1)
@@ -127,14 +127,27 @@ for target in $TARGET_LIST; do
 
         # 4.3 Search for APK
         if [ "$FOUND" != true ]; then
-            # Specifically targeting OppoGallery2.apk as per user request
-            ACTUAL_APK=$(find ./current_out -maxdepth 7 -iname "OppoGallery2.apk" -o -iname "*Photo*.apk" -o -iname "*Gallery*.apk" | head -n 1)
+            echo "🔍 Searching for gallery APK in $target..."
+            # Prioritize OppoGallery2.apk specifically, then broader patterns
+            # We look for the largest APK that matches our pattern to avoid stubs/placeholders
+            ACTUAL_APK=$(find ./current_out -type f \( -iname "OppoGallery2.apk" -o -iname "OplusGallery.apk" -o -iname "Gallery2.apk" \) -exec ls -S {} + | head -n 1)
+            
+            # Fallback to broader search if specific hits didn't work
+            if [ -z "$ACTUAL_APK" ]; then
+                ACTUAL_APK=$(find ./current_out -type f \( -iname "*Photo*.apk" -o -iname "*Gallery*.apk" \) -exec ls -S {} + | head -n 1)
+            fi
+
             if [ -n "$ACTUAL_APK" ]; then
-                echo "🎯 Found APK: $ACTUAL_APK"
-                mkdir -p "../$TARGET_DIR"
-                # Renaming to OplusPhotos.apk as per request
-                mv "$ACTUAL_APK" "../$TARGET_DIR/OplusPhotos.apk"
-                FOUND=true
+                APK_SIZE=$(stat -c%s "$ACTUAL_APK")
+                # Ignore APKs smaller than 50MB as they are likely stubs for AI-enabled ROMs
+                if [ "$APK_SIZE" -gt 52428800 ]; then 
+                    echo "🎯 Found valid APK: $ACTUAL_APK ($(du -h "$ACTUAL_APK" | cut -f1))"
+                    mkdir -p "../$TARGET_DIR"
+                    mv "$ACTUAL_APK" "../$TARGET_DIR/OplusPhotos.apk"
+                    FOUND=true
+                else
+                    echo "⚠️ Found $ACTUAL_APK but it seems too small ($((APK_SIZE/1024/1024)) MB), continuing search..."
+                fi
             fi
         fi
 
