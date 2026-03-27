@@ -424,8 +424,9 @@ public class ApsUtils {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             try {
                 YuvImage yuvImage = new YuvImage(bArr, 17, i, i2, null);
-                        
-                yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), JPEG_QUALITY_NORMAL, byteArrayOutputStream);
+
+                yuvImage.compressToJpeg(new Rect(0, 0, yuvImage.getWidth(), yuvImage.getHeight()), JPEG_QUALITY_NORMAL,
+                        byteArrayOutputStream);
                 byte[] byteArray = byteArrayOutputStream.toByteArray();
                 byteArrayOutputStream.close();
                 return byteArray;
@@ -495,12 +496,13 @@ public class ApsUtils {
         try {
             System.loadLibrary(str);
         } catch (Throwable unused) {
-            ApsAdapterLog.d(TAG, "sdkLoadLibrary, do not find lib in /product/lib64/");
-            if (sIsQcomPlatform) {
-                System.loadLibrary(str + PLATFORM_SUFFIX_QCOM);
-                return;
+            ApsAdapterLog.d(TAG,
+                    "sdkLoadLibrary, do not find lib in /product/lib64/, trying original libName again with fallback log");
+            try {
+                System.loadLibrary(str);
+            } catch (Throwable e) {
+                ApsAdapterLog.e(TAG, "sdkLoadLibrary failed, e: " + e.getMessage());
             }
-            System.loadLibrary(str + PLATFORM_SUFFIX_MTK);
         }
     }
 
