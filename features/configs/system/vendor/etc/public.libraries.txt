@@ -20,6 +20,8 @@ libapsexif.so
 libapsjpeg.so
 libormshalclient.so
 libmpbase.so
+libAPSClient-jni.so
+libAPSClient-cmd-jni.so
 libancbase_rt_bokeh.so
 libAncHumBokeh.so
 libsnpe_loader.so
