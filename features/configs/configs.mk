@@ -12,14 +12,7 @@ PRODUCT_COPY_FILES += \
     vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/oplus_camera_aps_config:$(TARGET_COPY_OUT_ODM)/etc/camera/config/oplus_camera_aps_config \
     vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/Oplus_QC_LTM_Commercial_SM8250_2020_01_15.pfm:$(TARGET_COPY_OUT_ODM)/etc/camera/Oplus_QC_LTM_Commercial_SM8250_2020_01_15.pfm \
     vendor/realmeme_cam_mod/features/configs/system/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib/libHeifEncoderWrapper.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libHeifEncoderWrapper.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib64/libHeifEncoderWrapper.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libHeifEncoderWrapper.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib/libNativeWinBuffExchange.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libNativeWinBuffExchange.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib64/libNativeWinBuffExchange.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libNativeWinBuffExchange.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib/liboplusheifwriter.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/liboplusheifwriter.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib64/liboplusheifwriter.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/liboplusheifwriter.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib/libHeifWinBufExchg-jni.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib/libHeifWinBufExchg-jni.so \
-    vendor/realmeme_cam_mod/CoreAps/8pro/libs/lib64/libHeifWinBufExchg-jni.so:$(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/libHeifWinBufExchg-jni.so \
+    vendor/realmeme_cam_mod/features/configs/system/vendor/etc/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt \
     vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/oplus_camera_algo_switch_config:$(TARGET_COPY_OUT_ODM)/etc/camera/config/oplus_camera_algo_switch_config \
     vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/config/gc02m1_20711:$(TARGET_COPY_OUT_ODM)/etc/camera/config/gc02m1_20711 \
     vendor/realmeme_cam_mod/features/configs/system/odm/etc/camera/config/gc02m1b_20711:$(TARGET_COPY_OUT_ODM)/etc/camera/config/gc02m1b_20711 \

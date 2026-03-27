@@ -1,27 +1,83 @@
 cc_prebuilt_library_shared {
-    name: "libAPSClient-jni.qti",
+    name: "libAPSClient-jni",
     owner: "oplus",
     strip: { none: true },
     multilib: {
-        lib64: { srcs: ["libs/lib64/libAPSClient-jni.qti.so"] },
-        lib32: { srcs: ["libs/lib/libAPSClient-jni.qti.so"] },
+        lib64: { srcs: ["libs/lib64/libAPSClient-jni.so"] },
+        lib32: { srcs: ["libs/lib/libAPSClient-jni.so"] },
     },
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    system_ext_specific: true,
+    product_specific: true,
 }
 
 cc_prebuilt_library_shared {
-    name: "libAPSClient-cmd-jni.qti",
+    name: "libAPSClient-cmd-jni",
     owner: "oplus",
     strip: { none: true },
     multilib: {
-        lib64: { srcs: ["libs/lib64/libAPSClient-cmd-jni.qti.so"] },
-        lib32: { srcs: ["libs/lib/libAPSClient-cmd-jni.qti.so"] },
+        lib64: { srcs: ["libs/lib64/libAPSClient-cmd-jni.so"] },
+        lib32: { srcs: ["libs/lib/libAPSClient-cmd-jni.so"] },
     },
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    system_ext_specific: true,
+    product_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libHeifEncoderWrapper",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/libHeifEncoderWrapper.so"] },
+        lib32: { srcs: ["libs/lib/libHeifEncoderWrapper.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    product_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libHeifWinBufExchg-jni",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/libHeifWinBufExchg-jni.so"] },
+        lib32: { srcs: ["libs/lib/libHeifWinBufExchg-jni.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    product_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libNativeWinBuffExchange",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/libNativeWinBuffExchange.so"] },
+        lib32: { srcs: ["libs/lib/libNativeWinBuffExchange.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    product_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "liboplusheifwriter",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/liboplusheifwriter.so"] },
+        lib32: { srcs: ["libs/lib/liboplusheifwriter.so"] },
+    },
+    compile_multilib: "both",
+    check_elf_files: false,
+    prefer: true,
+    product_specific: true,
 }
