@@ -1,0 +1,6 @@
+libHeifEncoderWrapper.so
+libHeifWinBufExchg-jni.so
+libNativeWinBuffExchange.so
+liboplusheifwriter.so
+libAlgoProcess.so
+libAlgoInterface.so

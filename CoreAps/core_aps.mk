@@ -6,5 +6,6 @@ PRODUCT_PACKAGES += \
     libHeifEncoderWrapper \
     libHeifWinBufExchg-jni \
     libNativeWinBuffExchange \
-    liboplusheifwriter
+    liboplusheifwriter \
+    public.libraries-oplus.txt
 endif
