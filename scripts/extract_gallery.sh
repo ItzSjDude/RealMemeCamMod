@@ -19,12 +19,21 @@ cd $TEMP_DIR
 echo "📥 Downloading firmware..."
 
 if [[ "$URL" == *"drive.google.com"* ]]; then
-    echo "🤖 Google Drive link detected. Using gdown..."
-    # gdown handles the confirmation tokens for large files
-    gdown --fuzzy "$URL" -O firmware.zip
+    echo "🤖 Google Drive link detected. Attempting high-speed download with aria2c..."
+    # Extract file ID and use a direct link trick
+    FILE_ID=$(echo "$URL" | sed -E 's/.*id=([^&/]+).*/\1/; s/.*\/d\/([^&/]+).*/\1/')
+    DIRECT_URL="https://docs.google.com/uc?export=download&id=$FILE_ID"
+    # Get confirmation token for large files
+    CONFIRM=$(curl -sL "$DIRECT_URL" | grep -o 'confirm=[^&" ]*' | head -n 1)
+    if [ -n "$CONFIRM" ]; then
+        FINAL_URL="${DIRECT_URL}&${CONFIRM}"
+    else
+        FINAL_URL="$DIRECT_URL"
+    fi
+    aria2c -s 16 -x 16 -k 1M --file-allocation=none --console-log-level=error "$FINAL_URL" -o firmware.zip
 else
-    echo "🌍 Direct/Cloud link detected. Using aria2c..."
-    aria2c -s 16 -x 16 "$URL" -o firmware.zip
+    echo "🌍 Direct link detected. Using aria2c with optimized flags..."
+    aria2c -s 16 -x 16 -k 1M --file-allocation=none --console-log-level=error "$URL" -o firmware.zip
 fi
 
 # Check if download succeeded
