@@ -11,6 +11,15 @@ libnpu.so
 libhta_hexagon_runtime.so
 unnhal-acc-hta.so
 libAlgoProcess.so
+libAlgoInterface.so
+libHeifEncoderWrapper.so
+libHeifWinBufExchg-jni.so
+libNativeWinBuffExchange.so
+liboplusheifwriter.so
+libapsexif.so
+libapsjpeg.so
+libormshalclient.so
+libmpbase.so
 libancbase_rt_bokeh.so
 libAncHumBokeh.so
 libsnpe_loader.so

@@ -37,7 +37,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    system_ext_specific: true,
+    device_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -51,7 +51,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    system_ext_specific: true,
+    device_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -65,7 +65,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    system_ext_specific: true,
+    device_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -79,12 +79,5 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    system_ext_specific: true,
-}
-
-prebuilt_etc {
-    name: "public.libraries-oplus.txt",
-    src: "public.libraries-oplus.txt",
-    sub_dir: "etc",
-    system_ext_specific: true,
+    device_specific: true,
 }
