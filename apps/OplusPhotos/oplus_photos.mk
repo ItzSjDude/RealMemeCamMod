@@ -9,5 +9,6 @@ PRODUCT_PACKAGES += \
     libaiunit_framework_jni \
     libdmabufheap_oplus \
     libtensorflowlite \
-    libopencv_java4
+    libopencv_java4 \
+    OpenCapabilityService
 endif

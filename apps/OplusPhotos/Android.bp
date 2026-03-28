@@ -108,3 +108,15 @@ cc_prebuilt_library_shared {
     system_ext_specific: true,
     relative_install_path: "app/AIUnit/lib/arm64",
 }
+
+android_app_import {
+    name: "OpenCapabilityService",
+    apk: "addons/OpenCapabilityService/OpenCapabilityService.apk",
+    prefer: true,
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    privileged: true,
+    system_ext_specific: true,
+}
