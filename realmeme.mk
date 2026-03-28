@@ -79,6 +79,7 @@ PRODUCT_PACKAGES += \
     oplus_camera_config \
     camera_unit_config \
     oplus_camera_aps_config \
+    libVDBlurless \
     vendor.oplus.hardware.orms.ormsHalService@1.0-service
     
 

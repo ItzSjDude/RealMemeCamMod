@@ -122,3 +122,22 @@ cc_prebuilt_library_shared {
     prefer: true,
     device_specific: true,
 }
+
+cc_prebuilt_library_shared {
+    name: "libVDBlurless",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["libs/lib64/libVDBlurless.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    device_specific: true,
+    shared_libs: [
+        "libm",
+        "libc",
+        "libdl",
+        "liblog",
+    ],
+}
