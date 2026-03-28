@@ -4,8 +4,9 @@
 # This script removes conflicting Oplus classes from the base ROM framework
 # to allow our advanced shims in oplus-framework.jar to take precedence.
 
-# Root of AOSP source (assuming this repo is in vendor/realmeme_cam_mod)
-AOSP_ROOT="../../.."
+# Use absolute detection for AOSP root based on script location
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+AOSP_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 echo "[*] Searching for conflicting OplusTypeCastingHelper in frameworks/base..."
 
