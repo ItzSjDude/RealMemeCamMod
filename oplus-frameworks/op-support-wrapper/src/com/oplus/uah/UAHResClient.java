@@ -17,6 +17,10 @@ public class UAHResClient {
         return sInstance;
     }
 
+    public static UAHResClient get(Class clz) {
+        return getInstance();
+    }
+
     public void setUahConfig(int i, int i2, String str) {
         Log.d(TAG, "setUahConfig: type=" + i + ", value=" + i2 + ", pkg=" + str);
     }
