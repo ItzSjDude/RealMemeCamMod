@@ -31,7 +31,6 @@ PRODUCT_PACKAGES += \
     oplus-framework \
     RomUpdateProviderShim \
     OplusCamera \
-    OplusPhotos \
     libarcsoft_hdr_denoise_api \
     libarcsoft_dualcam_refocus_uw \
     libstfaceunlockocl \
@@ -81,5 +80,8 @@ PRODUCT_PACKAGES += \
     oplus_camera_aps_config \
     libVDBlurless \
     vendor.oplus.hardware.orms.ormsHalService@1.0-service
+
+# --- Oplus Photos & AI Addons ---
+-include vendor/realmeme_cam_mod/apps/OplusPhotos/oplus_photos.mk
     
 

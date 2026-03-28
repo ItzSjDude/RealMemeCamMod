@@ -959,20 +959,3 @@ oplus_framework_java_library {
 
 
 
-
-
-
-android_app_import {
-    name: "OplusPhotos",
-    apk: "apps/OplusPhotos/OplusPhotos.apk",
-    prefer: true,
-    certificate: "platform",
-    dex_preopt: {
-        enabled: false,
-    },
-    system_ext_specific: true,
-}
-
-
-
-

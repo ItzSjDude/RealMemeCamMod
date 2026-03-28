@@ -1,0 +1,110 @@
+// --- Oplus Photos & AI Addons (ColorOS 16 / 15T) ---
+
+android_app_import {
+    name: "OplusPhotos",
+    apk: "OplusPhotos.apk",
+    prefer: true,
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    system_ext_specific: true,
+}
+
+// --- AI Addons ---
+
+android_app_import {
+    name: "AIUnit",
+    apk: "addons/AIUnit/AIUnit.apk",
+    prefer: true,
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    privileged: true,
+    system_ext_specific: true,
+}
+
+android_app_import {
+    name: "AIMemory",
+    apk: "addons/AIMemory/AIMemory.apk",
+    prefer: true,
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    system_ext_specific: true,
+}
+
+// --- Native Libraries ---
+
+cc_prebuilt_library_shared {
+    name: "libaiunit_framework",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["addons/AIUnit/lib/arm64/libaiunit_framework.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+    relative_install_path: "app/AIUnit/lib/arm64",
+}
+
+cc_prebuilt_library_shared {
+    name: "libaiunit_framework_jni",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["addons/AIUnit/lib/arm64/libaiunit_framework_jni.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+    relative_install_path: "app/AIUnit/lib/arm64",
+}
+
+cc_prebuilt_library_shared {
+    name: "libdmabufheap_oplus",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["addons/AIUnit/lib/arm64/libdmabufheap.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+    relative_install_path: "app/AIUnit/lib/arm64",
+    stem: "libdmabufheap",
+}
+
+cc_prebuilt_library_shared {
+    name: "libtensorflowlite",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["addons/AIMemory/lib/arm64/libtensorflowlite.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+    relative_install_path: "app/AIMemory/lib/arm64",
+}
+
+cc_prebuilt_library_shared {
+    name: "libopencv_java4",
+    owner: "oplus",
+    strip: { none: true },
+    multilib: {
+        lib64: { srcs: ["addons/AIUnit/lib/arm64/libopencv_java4.so"] },
+    },
+    compile_multilib: "64",
+    check_elf_files: false,
+    prefer: true,
+    system_ext_specific: true,
+    relative_install_path: "app/AIUnit/lib/arm64",
+}
