@@ -55,16 +55,21 @@ public final class RomUpdateProvider extends ContentProvider {
         String filterName = extractFilterName(selection, selectionArgs);
         Log.i(TAG, "query filterName=" + filterName + " uri=" + uri);
 
-        if (!FILTER_APS.equals(filterName)) {
+        if (!FILTER_APS.equals(filterName) && !"APS_PARAMETER".equals(filterName)) {
             return emptyCursor(projection);
         }
 
         try {
             String apsText = Files.readString(new File(ODM_CONFIG).toPath(), StandardCharsets.UTF_8);
-            String md5 = md5Hex(apsText);
+
+            // The camera app expects a JSON object of type ApsUpdateParam, not the raw
+            // array.
+            // We use the .camera/oplus_camera_aps_config path as the destination.
+            String jsonPayload = buildApsUpdateParamJson(".camera/oplus_camera_aps_config", apsText);
+            String md5 = md5Hex(jsonPayload);
 
             MatrixCursor cursor = new MatrixCursor(resolveColumns(projection));
-            addRow(cursor, apsText, filterName, VERSION_APS, md5);
+            addRow(cursor, jsonPayload, filterName, VERSION_APS, md5);
             return cursor;
         } catch (Exception e) {
             Log.e(TAG, "failed to serve APS payload", e);
