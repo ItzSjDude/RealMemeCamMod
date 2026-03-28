@@ -9,14 +9,13 @@ import android.text.TextUtils;
 
 public class OplusBuild {
 
-    private static boolean isGalleryOrCamera() {
+    private static boolean isGallery() {
         String pkg = ActivityThread.currentPackageName();
-        return "com.coloros.gallery3d".equals(pkg) ||
-                "com.oplus.gallery".equals(pkg) ||
-                "com.oplus.camera".equals(pkg);
+        return pkg != null && (pkg.equals("com.coloros.gallery3d") || pkg.equals("com.oplus.gallery"));
     }
 
-    public static final String MARKET = isGalleryOrCamera() ? "PLZ110" : "realme 8 Pro";
+    // HARDCODED START
+    public static final String MARKET = isGallery() ? "PLZ110" : "realme 8 Pro";
     public static final int UNKNOWN = 0;
 
     public static final int OplusOS_11_3 = 22;
@@ -25,12 +24,12 @@ public class OplusBuild {
     public static final int OplusOS_13_1 = 27;
     public static final int OplusOS_14_0 = 30;
     public static final int OplusOS_15_0 = 34;
+    public static final int OplusOS_16_0 = 37;
 
     public static int getOplusOSVERSION() {
-        if (isGalleryOrCamera())
-            return 37;
-        return 26;
+        return isGallery() ? 37 : 26;
     }
+    // HARDCODED END
 
     public static String getDeviceName() {
         return null;
@@ -86,8 +85,8 @@ public class OplusBuild {
     }
 
     public static class VERSION {
-        public static final String RELEASE = isGalleryOrCamera() ? "V16.0" : "V13.0.0";
-        public static final int SDK_VERSION = isGalleryOrCamera() ? 37 : 26;
+        public static final String RELEASE = isGallery() ? "V16.0" : "V13.0.0";
+        public static final int SDK_VERSION = isGallery() ? 37 : 26;
         public static final int SDK_SUB_VERSION = 1;
     }
 }
