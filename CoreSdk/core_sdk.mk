@@ -6,4 +6,6 @@ PRODUCT_SOONG_NAMESPACES += vendor/realmeme_cam_mod/CoreSdk/7pro
 endif
 
 # Common module packaging for both
-PRODUCT_PACKAGES += com.oplus.camera.unit.sdk
+PRODUCT_PACKAGES += \
+    com.oplus.camera.unit.sdk \
+    com.oplus.camera.unit.sdk.xml
