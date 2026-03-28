@@ -875,7 +875,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    device_specific: true,
+    soc_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -889,7 +889,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "both",
     check_elf_files: false,
     prefer: true,
-    device_specific: true,
+    soc_specific: true,
 }
 // --- Hexagon ADSP Prebuilts ---
 cc_prebuilt_library_shared {
@@ -902,7 +902,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "32",
     check_elf_files: false,
     prefer: true,
-    device_specific: true,
+    soc_specific: true,
 }
 
 cc_prebuilt_library_shared {
@@ -915,7 +915,7 @@ cc_prebuilt_library_shared {
     compile_multilib: "32",
     check_elf_files: false,
     prefer: true,
-    device_specific: true,
+    soc_specific: true,
 }
 // --- Stub Modules for Bootclasspath ---
 
@@ -932,7 +932,7 @@ android_app_import {
         enabled: false,
     },
     privileged: true,
-    device_specific: true,
+    system_ext_specific: true,
 }
 
 // --- Oplus Framework Java Library ---
@@ -970,7 +970,7 @@ android_app_import {
     dex_preopt: {
         enabled: false,
     },
-    product_specific: true,
+    system_ext_specific: true,
 }
 
 
