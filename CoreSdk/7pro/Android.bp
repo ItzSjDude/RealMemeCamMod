@@ -8,5 +8,12 @@ java_library {
     installable: true,
     libs: ["framework", "oplus-framework"],
     static_libs: ["androidx.annotation_annotation"],
-    product_specific: true,
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "com.oplus.camera.unit.sdk.xml",
+    src: "com.oplus.camera.unit.sdk.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
 }
