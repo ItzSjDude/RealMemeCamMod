@@ -10,22 +10,34 @@ AOSP_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 echo "[*] Searching for conflicting OplusTypeCastingHelper in frameworks/base..."
 
-# Path to the conflicting file in base AOSP/ROM source
-TARGET_FILE="$AOSP_ROOT/frameworks/base/core/java/com/oplus/util/OplusTypeCastingHelper.java"
+# --- List of files to clean up in frameworks/base ---
+CONF_BASE="$AOSP_ROOT/frameworks/base/core/java/android/content/res/OplusBaseConfiguration.java"
+EXTRA_CONF="$AOSP_ROOT/frameworks/base/core/java/oplus/content/res/OplusExtraConfiguration.java"
+BUILD_BASE="$AOSP_ROOT/frameworks/base/core/java/com/oplus/os/OplusBuild.java"
+BUILD_CONF="$AOSP_ROOT/frameworks/base/core/java/com/oplus/os/OplusBuild$1.java" # Inner classes sometimes exist
 
+# Cleanup OplusTypeCastingHelper (Confirmed Conflict)
 if [ -f "$TARGET_FILE" ]; then
     echo "[!] Found duplicate class at $TARGET_FILE"
-    echo "[*] Removing it to avoid build conflicts..."
     rm -v "$TARGET_FILE"
-    echo "[+] Conflict resolved. Now oplus-framework.jar will provide the Advanced version."
-else
-    echo "[-] OplusTypeCastingHelper not found in frameworks/base. No action needed."
 fi
 
-# You can add more cleanup here if other classes conflict (e.g., OplusBuild)
-# TARGET_BUILD="$AOSP_ROOT/frameworks/base/core/java/com/oplus/os/OplusBuild.java"
-# if [ -f "$TARGET_BUILD" ]; then
-#     rm -v "$TARGET_BUILD"
-# fi
+# Cleanup OplusBaseConfiguration
+if [ -f "$CONF_BASE" ]; then
+    echo "[!] Found duplicate class at $CONF_BASE"
+    rm -v "$CONF_BASE"
+fi
+
+# Cleanup OplusExtraConfiguration
+if [ -f "$EXTRA_CONF" ]; then
+    echo "[!] Found duplicate class at $EXTRA_CONF"
+    rm -v "$EXTRA_CONF"
+fi
+
+# Cleanup OplusBuild (Optional, but safe if we are providing it)
+if [ -f "$BUILD_BASE" ]; then
+    echo "[!] Found duplicate class at $BUILD_BASE"
+    rm -v "$BUILD_BASE"
+fi
 
 echo "[+] Framework patching complete."
