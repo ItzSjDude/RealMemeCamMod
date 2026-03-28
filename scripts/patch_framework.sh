@@ -4,8 +4,8 @@
 # This script removes conflicting Oplus classes from the base ROM framework
 # to allow our advanced shims in oplus-framework.jar to take precedence.
 
-# Use absolute detection for AOSP root based on script location
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Use universal detection for AOSP root based on script location
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 AOSP_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 echo "[*] Searching for conflicting OplusTypeCastingHelper in frameworks/base..."

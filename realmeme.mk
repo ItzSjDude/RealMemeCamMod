@@ -3,7 +3,7 @@
 -include vendor/realmeme_cam_mod/features/configs/configs.mk
 
 # Run the framework patching script to resolve class duplication automatically
-$(shell sh vendor/realmeme_cam_mod/scripts/patch_framework.sh > /dev/null)
+$(shell bash vendor/realmeme_cam_mod/scripts/patch_framework.sh > /dev/null)
 
 
 
