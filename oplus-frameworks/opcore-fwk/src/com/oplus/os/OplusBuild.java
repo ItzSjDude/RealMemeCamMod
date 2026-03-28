@@ -1,5 +1,6 @@
 package com.oplus.os;
 
+import android.app.ActivityThread;
 import android.content.Context;
 import android.os.Build;
 import android.os.SystemProperties;
@@ -8,8 +9,14 @@ import android.text.TextUtils;
 
 public class OplusBuild {
 
-    // HARDCODED START
-    public static final String MARKET = "PLZ110";
+    private static boolean isGalleryOrCamera() {
+        String pkg = ActivityThread.currentPackageName();
+        return "com.coloros.gallery3d".equals(pkg) ||
+                "com.oplus.gallery".equals(pkg) ||
+                "com.oplus.camera".equals(pkg);
+    }
+
+    public static final String MARKET = isGalleryOrCamera() ? "PLZ110" : "realme 8 Pro";
     public static final int UNKNOWN = 0;
 
     public static final int OplusOS_11_3 = 22;
@@ -20,9 +27,10 @@ public class OplusBuild {
     public static final int OplusOS_15_0 = 34;
 
     public static int getOplusOSVERSION() {
-        return 37;
+        if (isGalleryOrCamera())
+            return 37;
+        return 26;
     }
-    // HARDCODED END
 
     public static String getDeviceName() {
         return null;
@@ -78,8 +86,8 @@ public class OplusBuild {
     }
 
     public static class VERSION {
-        public static final String RELEASE = "V16.0";
-        public static final int SDK_VERSION = 37;
+        public static final String RELEASE = isGalleryOrCamera() ? "V16.0" : "V13.0.0";
+        public static final int SDK_VERSION = isGalleryOrCamera() ? 37 : 26;
         public static final int SDK_SUB_VERSION = 1;
     }
 }
