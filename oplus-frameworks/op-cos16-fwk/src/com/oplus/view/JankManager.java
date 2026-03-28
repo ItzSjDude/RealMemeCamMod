@@ -2,11 +2,13 @@ package com.oplus.view;
 
 import android.content.Context;
 import android.os.Trace;
-import android.util.Log;
 
 public class JankManager implements IJankManager {
-    private static final String TAG = "JankManager";
+
     private static volatile JankManager sInstance = null;
+
+    private JankManager() {
+    }
 
     public static JankManager getInstance() {
         if (sInstance == null) {
@@ -19,36 +21,13 @@ public class JankManager implements IJankManager {
         return sInstance;
     }
 
-    private JankManager() {
-        Log.d(TAG, "JankManager initialized");
-    }
-
     @Override
     public void gfxSceneBegin(Context context, int scene, String sceneDes, long policy) {
-        // AOSP compatible implementation using standard Trace
-        try {
-            Trace.beginSection("OplusJank_" + sceneDes + "_" + scene);
-            Log.d(TAG, "gfxSceneBegin: scene=" + scene + ", desc=" + sceneDes + ", policy=" + policy);
-        } catch (Exception e) {
-            Log.e(TAG, "Error in gfxSceneBegin", e);
-        }
+        Trace.asyncTraceBegin(Trace.TRACE_TAG_VIEW, "gfxScene_" + sceneDes, scene);
     }
 
     @Override
     public void gfxSceneEnd(Context context, int scene) {
-        // AOSP compatible implementation using standard Trace
-        try {
-            Trace.endSection();
-            Log.d(TAG, "gfxSceneEnd: scene=" + scene);
-        } catch (Exception e) {
-            Log.e(TAG, "Error in gfxSceneEnd", e);
-        }
-    }
-
-    @Override
-    public void gfxSceneBegin(Context context, IJankManager.SceneInfo sceneInfo) {
-        if (sceneInfo != null) {
-            gfxSceneBegin(context, sceneInfo.getScene(), sceneInfo.getSceneDescription(), sceneInfo.getScenePolicy());
-        }
+        Trace.asyncTraceEnd(Trace.TRACE_TAG_VIEW, "gfxScene_End", scene);
     }
 }
