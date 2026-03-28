@@ -15,7 +15,7 @@ public class OplusBuild {
     }
 
     // HARDCODED START
-    public static final String MARKET = isGallery() ? "PLZ110" : "realme 8 Pro";
+    public static final String MARKET = isGallery() ? "PLZ110" : "RMX3081";
     public static final int UNKNOWN = 0;
 
     public static final int OplusOS_11_3 = 22;
