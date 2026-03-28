@@ -1,7 +1,5 @@
 package com.oplus.wrapper.os;
 
-import android.os.Trace;
-
 public class Trace {
     public static void traceBegin(long j, String str) {
         android.os.Trace.beginSection(str);
