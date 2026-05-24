@@ -16,100 +16,118 @@ else
   aria2c -x 16 -s 16 "$FIRMWARE_URL" -o firmware.zip
 fi
 
+# Unpack if it's a ZIP
 if [ -f firmware.zip ]; then
+  echo "Unzipping firmware.zip..."
   unzip -o firmware.zip
+  rm -f firmware.zip   # optional, to save space
 fi
 
-# Locate payload.bin
-if [ ! -f payload.bin ]; then
-  PAYLOAD_PATH=$(find . -name "payload.bin" -type f | head -n 1)
-  if [ -n "$PAYLOAD_PATH" ]; then
-    mv "$PAYLOAD_PATH" payload.bin
-  else
-    echo "ERROR: Cannot find payload.bin"
-    exit 1
-  fi
-fi
+# ----- Locate system image (payload.bin or raw img) -----
+PAYLOAD_FILE=""
+SYSTEM_IMG=""
+SUPER_IMG=""
 
-echo "=== Dumping payload.bin ==="
-mkdir -p payload_output
-payload-dumper-go -o payload_output payload.bin
-
-echo "=== Extracting system image ==="
-SUPER_IMG=$(find payload_output -name "super.img" | head -n 1)
-if [ -z "$SUPER_IMG" ]; then
-  SYSTEM_IMG=$(find payload_output -name "system.img" | head -n 1)
-  if [ -z "$SYSTEM_IMG" ]; then
-    echo "No super.img or system.img found"
-    exit 1
-  fi
-  mkdir -p system_mount
-  sudo mount -t erofs -o ro "$SYSTEM_IMG" system_mount || sudo mount -t ext4 -o ro "$SYSTEM_IMG" system_mount
-  source_dir="system_mount"
+# 1. Look for payload.bin
+if [ -f payload.bin ]; then
+  PAYLOAD_FILE="payload.bin"
 else
-  mkdir -p super_extracted
-  lpunpack "$SUPER_IMG" super_extracted
-  SYSTEM_EXT=$(find super_extracted -name "system.img" | head -n 1)
-  if [ -z "$SYSTEM_EXT" ]; then
-    echo "No system.img inside super"
-    exit 1
-  fi
-  mkdir -p system_mount
-  sudo mount -t erofs -o ro "$SYSTEM_EXT" system_mount || sudo mount -t ext4 -o ro "$SYSTEM_EXT" system_mount
-  source_dir="system_mount"
+  PAYLOAD_FILE=$(find . -type f -name "payload.bin" -size +100M | head -n 1)
 fi
 
-# Create output folder
+if [ -n "$PAYLOAD_FILE" ]; then
+  echo "Found payload.bin at: $PAYLOAD_FILE"
+  mkdir -p payload_output
+  payload-dumper-go -o payload_output "$PAYLOAD_FILE"
+  SUPER_IMG=$(find payload_output -name "super.img" | head -n 1)
+  SYSTEM_IMG=$(find payload_output -name "system.img" | head -n 1)
+fi
+
+# 2. If no payload.bin, look for system.img directly (Fastboot ROM style)
+if [ -z "$SYSTEM_IMG" ]; then
+  SYSTEM_IMG=$(find . -type f -name "system.img" -size +100M | head -n 1)
+  if [ -n "$SYSTEM_IMG" ]; then
+    echo "Found raw system.img at: $SYSTEM_IMG"
+  fi
+fi
+
+# 3. If still nothing, look for super.img (contains system inside)
+if [ -z "$SYSTEM_IMG" ] && [ -z "$SUPER_IMG" ]; then
+  SUPER_IMG=$(find . -type f -name "super.img" -size +100M | head -n 1)
+  if [ -n "$SUPER_IMG" ]; then
+    echo "Found super.img at: $SUPER_IMG – extracting system.img..."
+    mkdir -p super_extracted
+    lpunpack "$SUPER_IMG" super_extracted
+    SYSTEM_IMG=$(find super_extracted -name "system.img" | head -n 1)
+  fi
+fi
+
+# 4. Fallback: maybe system.img inside a subfolder like OOS_FILES_HERE (already found by find above)
+if [ -z "$SYSTEM_IMG" ]; then
+  echo "ERROR: No system.img or payload.bin found. Check extracted files:"
+  ls -la
+  exit 1
+fi
+
+echo "=== Mounting system.img: $SYSTEM_IMG ==="
+mkdir -p system_mount
+sudo mount -t erofs -o ro "$SYSTEM_IMG" system_mount 2>/dev/null || sudo mount -t ext4 -o ro "$SYSTEM_IMG" system_mount
+
+# ----- Extract COUI framework -----
 mkdir -p cos_extras
 
-echo "=== Searching for COUI AppCompat ==="
-COUI_APK=$(find "$source_dir" -path "*/app/COUIAppCompat/COUIAppCompat.apk" -type f | head -n 1)
+echo "Searching for COUI AppCompat..."
+COUI_APK=$(find system_mount -path "*/app/COUIAppCompat/COUIAppCompat.apk" -type f | head -n 1)
 if [ -n "$COUI_APK" ]; then
   cp "$COUI_APK" cos_extras/COUIAppCompat.apk
-  echo "✅ Saved to cos_extras/COUIAppCompat.apk"
+  echo "✅ Saved cos_extras/COUIAppCompat.apk"
 else
-  echo "⚠️ COUIAppCompat.apk not found. Falling back to framework JARs..."
+  echo "⚠️ COUIAppCompat.apk not found – looking for framework JARs"
 fi
 
-OPLUS_JAR=$(find "$source_dir" -path "*/framework/oplus-framework.jar" -type f | head -n 1)
+OPLUS_JAR=$(find system_mount -path "*/framework/oplus-framework.jar" -type f | head -n 1)
 if [ -n "$OPLUS_JAR" ]; then
   cp "$OPLUS_JAR" cos_extras/oplus-framework.jar
-  echo "✅ Saved to cos_extras/oplus-framework.jar"
+  echo "✅ Saved cos_extras/oplus-framework.jar"
 fi
 
-FRAMEWORK_JAR=$(find "$source_dir" -path "*/framework/framework.jar" -type f | head -n 1)
+FRAMEWORK_JAR=$(find system_mount -path "*/framework/framework.jar" -type f | head -n 1)
 if [ -n "$FRAMEWORK_JAR" ]; then
   cp "$FRAMEWORK_JAR" cos_extras/framework.jar
-  echo "✅ Saved to cos_extras/framework.jar"
+  echo "✅ Saved cos_extras/framework.jar"
 fi
 
-# Optional: verify class presence
+# Verify class (optional)
 if command -v javap &> /dev/null && [ -f cos_extras/oplus-framework.jar ]; then
-  echo "=== Verifying class in oplus-framework.jar ==="
+  echo "=== Verifying target class ==="
   mkdir -p jar_check
   unzip -q cos_extras/oplus-framework.jar -d jar_check
   if find jar_check -name "*.class" | xargs grep -l "com.coui.appcompat.segmentbutton.COUISegmentButtonLayout" 2>/dev/null; then
-    echo "✅ Target class found in oplus-framework.jar"
+    echo "✅ Class found in oplus-framework.jar"
   elif find jar_check -name "*.class" | xargs grep -l "com.oplus.graphics.OplusPathAdapter" 2>/dev/null; then
-    echo "✅ OplusPathAdapter found – dependency resolved"
+    echo "✅ OplusPathAdapter found (dependency resolved)"
+  else
+    echo "⚠️ Target class not found – may be in COUIAppCompat.apk's dex"
   fi
   rm -rf jar_check
 fi
 
 # Extract metadata
-MARKET_NAME=$(find "$source_dir" -name "build.prop" -exec grep -oP 'ro.product.marketname=\K.*' {} \; 2>/dev/null | head -n1)
-MODEL=$(find "$source_dir" -name "build.prop" -exec grep -oP 'ro.product.model=\K.*' {} \; 2>/dev/null | head -n1)
-ANDROID_VER=$(find "$source_dir" -name "build.prop" -exec grep -oP 'ro.build.version.release=\K.*' {} \; 2>/dev/null | head -n1)
-
-cat > extracted_metadata.env <<EOF
+BUILD_PROP=$(find system_mount -name "build.prop" | head -n 1)
+if [ -n "$BUILD_PROP" ]; then
+  MARKET_NAME=$(grep -oP 'ro.product.marketname=\K.*' "$BUILD_PROP" | head -n1)
+  MODEL=$(grep -oP 'ro.product.model=\K.*' "$BUILD_PROP" | head -n1)
+  ANDROID_VER=$(grep -oP 'ro.build.version.release=\K.*' "$BUILD_PROP" | head -n1)
+  cat > extracted_metadata.env <<EOF
 MARKET_NAME="$MARKET_NAME"
 MODEL="$MODEL"
 ANDROID_VER="$ANDROID_VER"
 EOF
+fi
 
 # Cleanup
-sudo umount "$source_dir" 2>/dev/null || true
+sudo umount system_mount 2>/dev/null || true
 rm -rf payload_output super_extracted system_mount
 
-echo "=== Extraction complete. Files are in 'cos_extras/' ==="
+echo "=== Extraction complete. Files in cos_extras/ ==="
 ls -lh cos_extras/
