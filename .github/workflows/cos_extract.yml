@@ -67,4 +67,4 @@ jobs:
           fi
           
           git commit -m "$MSG" || echo "No changes to commit"
-          git push origin main  # adjust branch if needed
+          git push origin 7pro  # adjust branch if needed
